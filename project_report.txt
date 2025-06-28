@@ -1,0 +1,409 @@
+# MuhasebPro Project Report
+
+## 1. Project File Structure
+```
+.
+├── README.md
+├── analysis_options.yaml
+├── pubspec.lock
+├── pubspec.yaml
+├── .idx
+│   └── dev.nix
+├── android
+│   ├── build.gradle.kts
+│   ├── gradle.properties
+│   ├── settings.gradle.kts
+│   └── app
+│       ├── build.gradle.kts
+│       └── src
+│           └── main
+│               ├── AndroidManifest.xml
+│               ├── java
+│               │   └── io
+│               │       └── flutter
+│               │           └── plugins
+│               │               └── GeneratedPluginRegistrant.java
+│               ├── kotlin
+│               │   └── com
+│               │       └── example
+│               │           └── myapp
+│               │               └── MainActivity.kt
+│               └── res
+│                   ├── drawable
+│                   │   └── launch_background.xml
+│                   ├── drawable-v21
+│                   │   └── launch_background.xml
+│                   ├── mipmap-hdpi
+│                   │   └── ic_launcher.png
+│                   ├── mipmap-mdpi
+│                   │   └── ic_launcher.png
+│                   ├── mipmap-xhdpi
+│                   │   └── ic_launcher.png
+│                   ├── mipmap-xxhdpi
+│                   │   └── ic_launcher.png
+│                   ├── mipmap-xxxhdpi
+│                   │   └── ic_launcher.png
+│                   ├── values
+│                   │   └── styles.xml
+│                   └── values-night
+│                       └── styles.xml
+├── .vscode
+│   └── settings.json
+├── test
+│   └── widget_test.dart
+├── lib
+│   ├── main.dart
+│   ├── app
+│   │   └── app.dart
+│   └── core
+│       └── theme
+│           └── app_theme.dart
+├── web
+│   ├── favicon.png
+│   ├── index.html
+│   └── manifest.json
+│       └── icons
+│           ├── Icon-192.png
+│           ├── Icon-512.png
+│           ├── Icon-maskable-192.png
+│           └── Icon-maskable-512.png
+├── windows
+│   ├── CMakeLists.txt
+│   ├── flutter
+│   │   ├── CMakeLists.txt
+│   │   ├── generated_plugin_registrant.cc
+│   │   ├── generated_plugin_registrant.h
+│   │   └── generated_plugins.cmake
+│   └── runner
+│       ├── CMakeLists.txt
+│       ├── Runner.rc
+│       ├── flutter_window.cpp
+│       ├── flutter_window.h
+│       ├── main.cpp
+│       ├── resource.h
+│       ├── runner.exe.manifest
+│       ├── utils.cpp
+│       ├── utils.h
+│       ├── win32_window.cpp
+│       └── win32_window.h
+├── android
+│   └── gradle
+│       └── wrapper
+│           ├── gradle-wrapper.jar
+│           └── gradle-wrapper.properties
+├── ios
+│   ├── Flutter
+│   │   ├── AppFrameworkInfo.plist
+│   │   ├── Debug.xcconfig
+│   │   └── Release.xcconfig
+│   ├── Runner
+│   │   ├── AppDelegate.swift
+│   │   ├── Info.plist
+│   │   ├── Runner-Bridging-Header.h
+│   │   ├── Base.lproj
+│   │   │   ├── LaunchScreen.storyboard
+│   │   │   └── Main.storyboard
+│   │   └── Assets.xcassets
+│   │       ├── AppIcon.appiconset
+│   │       │   ├── Contents.json
+│   │       │   ├── Icon-App-1024x1024@1x.png
+│   │       │   ├── Icon-App-20x20@1x.png
+│   │       │   ├── Icon-App-20x20@2x.png
+│   │       │   ├── Icon-App-20x20@3x.png
+│   │       │   ├── Icon-App-29x29@1x.png
+│   │       │   ├── Icon-App-29x29@2x.png
+│   │       │   ├── Icon-App-29x29@3x.png
+│   │       │   ├── Icon-App-40x40@1x.png
+│   │       │   ├── Icon-App-40x40@2x.png
+│   │       │   ├── Icon-App-40x40@3x.png
+│   │       │   ├── Icon-App-60x60@2x.png
+│   │       │   ├── Icon-App-60x60@3x.png
+│   │       │   ├── Icon-App-76x76@1x.png
+│   │       │   ├── Icon-App-76x76@2x.png
+│   │       │   └── Icon-App-83.5x83.5@2x.png
+│   │       └── LaunchImage.imageset
+│   │           ├── Contents.json
+│   │           ├── LaunchImage.png
+│   │           ├── LaunchImage@2x.png
+│   │           ├── LaunchImage@3x.png
+│   │           └── README.md
+│   ├── Runner.xcodeproj
+│   │   ├── project.pbxproj
+│   │   └── project.xcworkspace
+│   │       ├── contents.xcworkspacedata
+│   │       └── xcshareddata
+│   │           ├── IDEWorkspaceChecks.plist
+│   │           └── WorkspaceSettings.xcsettings
+│   ├── Runner.xcworkspace
+│   │   ├── contents.xcworkspacedata
+│   │   └── xcshareddata
+│   │       ├── IDEWorkspaceChecks.plist
+│   │       └── WorkspaceSettings.xcsettings
+│   └── RunnerTests
+│       └── RunnerTests.swift
+└── android
+    └── app
+        └── src
+            └── main
+                ├── res
+                │   ├── values
+                │   │   └── styles.xml
+                │   └── values-night
+                │       └── styles.xml
+                └── java
+                    └── io
+                        └── flutter
+                            └── plugins
+                                └── GeneratedPluginRegistrant.java
+```
+## 2. Contents of `pubspec.yaml`
+```
+yaml
+name: muhaseb_pro
+description: "MuhasebPro"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0-278.1.beta
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.\
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management & DI
+  flutter_riverpod: ^2.5.1
+
+  # Routing
+  go_router: ^14.0.2
+
+  # Database
+  drift: ^2.18.0
+  sqlite3_flutter_libs: ^0.5.22
+  path_provider: ^2.1.3
+  path: ^1.9.0
+
+  # Utility
+  equatable: ^2.0.5
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^5.0.0
+
+  # Code Generators
+  build_runner: ^2.4.9
+  drift_dev: ^2.18.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
+```
+## 3. Contents of `lib/main.dart`
+```
+dart
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/app/app.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
+}
+```
+## 4. Contents of `android/app/src/main/AndroidManifest.xml`
+```
+xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mk.muhasebpro">
+    <application
+        android:label="MuhasebPro"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:taskAffinity=""
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- Don't delete the meta-data below.
+             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+    <!-- Required to query activities that can process text, see:
+         https://developer.android.com/training/package-visibility and
+         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.PROCESS_TEXT"/>
+            <data android:mimeType="text/plain"/>
+        </intent>
+    </queries>
+</manifest>
+```
+## 5. Contents of `ios/Runner/Info.plist`
+```
+xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key><string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key><string>MuhasebPro</string>
+	<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key><string>com.mk.muhasebpro</string>
+	<key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+	<key>CFBundleName</key><string>MuhasebPro</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
+</plist>
+```
+## 6. Output of `flutter doctor`
+```
+Doctor summary (to see all details, run flutter doctor -v):
+[✓] Flutter (Channel beta, 3.32.0-0.2.pre, on IDX GNU/Linux 6.6.87+, locale en_US.UTF-8)
+[!] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    ! Some Android licenses not accepted. To resolve this, run: flutter doctor --android-licenses
+[✗] Chrome - develop for the web (Cannot find Chrome executable at google-chrome)
+    ! Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
+[✗] Linux toolchain - develop for Linux desktop
+    ✗ clang++ is required for Linux development.
+      It is likely available from your distribution (e.g.: apt install clang), or can be downloaded from https://releases.llvm.org/\
+    ✗ CMake is required for Linux development.
+      It is likely available from your distribution (e.g.: apt install cmake), or can be downloaded from https://cmake.org/download/\
+    ✗ ninja is required for Linux development.
+      It is likely available from your distribution (e.g.: apt install ninja-build), or can be downloaded from https://github.com/ninja-build/ninja/releases
+    ✗ pkg-config is required for Linux development.
+      It is likely available from your distribution (e.g.: apt install pkg-config), or can be downloaded from https://www.freedesktop.org/wiki/Software/pkg-config/
+[!] Android Studio (not installed)
+[✓] Connected device (3 available)
+[✓] Network resources
+
+! Doctor found issues in 4 categories.
+```
+## 7. Output of `flutter analyze`
