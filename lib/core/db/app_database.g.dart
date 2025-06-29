@@ -8,10 +8,10 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $UsersTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+    'user_id',
     aliasedName,
     false,
     hasAutoIncrement: true,
@@ -44,23 +44,23 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
-  static const VerificationMeta _fullNameEnMeta = const VerificationMeta(
-    'fullNameEn',
-  );
-  @override
-  late final GeneratedColumn<String> fullNameEn = GeneratedColumn<String>(
-    'full_name_en',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-  );
   static const VerificationMeta _fullNameArMeta = const VerificationMeta(
     'fullNameAr',
   );
   @override
   late final GeneratedColumn<String> fullNameAr = GeneratedColumn<String>(
     'full_name_ar',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _fullNameEnMeta = const VerificationMeta(
+    'fullNameEn',
+  );
+  @override
+  late final GeneratedColumn<String> fullNameEn = GeneratedColumn<String>(
+    'full_name_en',
     aliasedName,
     false,
     type: DriftSqlType.string,
@@ -75,25 +75,54 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     type: DriftSqlType.string,
     requiredDuringInsert: false,
   );
-  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  static const VerificationMeta _assignedBranchIdMeta = const VerificationMeta(
+    'assignedBranchId',
+  );
   @override
-  late final GeneratedColumn<String> status = GeneratedColumn<String>(
-    'status',
+  late final GeneratedColumn<int> assignedBranchId = GeneratedColumn<int>(
+    'assigned_branch_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _employeeIdMeta = const VerificationMeta(
+    'employeeId',
+  );
+  @override
+  late final GeneratedColumn<int> employeeId = GeneratedColumn<int>(
+    'employee_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
     aliasedName,
     false,
-    type: DriftSqlType.string,
+    type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultValue: const Constant('Active'),
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
   );
   @override
   List<GeneratedColumn> get $columns => [
-    id,
+    userId,
     username,
     passwordHash,
-    fullNameEn,
     fullNameAr,
+    fullNameEn,
     email,
-    status,
+    assignedBranchId,
+    employeeId,
+    isActive,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -107,8 +136,11 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('user_id')) {
+      context.handle(
+        _userIdMeta,
+        userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta),
+      );
     }
     if (data.containsKey('username')) {
       context.handle(
@@ -129,17 +161,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     } else if (isInserting) {
       context.missing(_passwordHashMeta);
     }
-    if (data.containsKey('full_name_en')) {
-      context.handle(
-        _fullNameEnMeta,
-        fullNameEn.isAcceptableOrUnknown(
-          data['full_name_en']!,
-          _fullNameEnMeta,
-        ),
-      );
-    } else if (isInserting) {
-      context.missing(_fullNameEnMeta);
-    }
     if (data.containsKey('full_name_ar')) {
       context.handle(
         _fullNameArMeta,
@@ -151,30 +172,56 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     } else if (isInserting) {
       context.missing(_fullNameArMeta);
     }
+    if (data.containsKey('full_name_en')) {
+      context.handle(
+        _fullNameEnMeta,
+        fullNameEn.isAcceptableOrUnknown(
+          data['full_name_en']!,
+          _fullNameEnMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_fullNameEnMeta);
+    }
     if (data.containsKey('email')) {
       context.handle(
         _emailMeta,
         email.isAcceptableOrUnknown(data['email']!, _emailMeta),
       );
     }
-    if (data.containsKey('status')) {
+    if (data.containsKey('assigned_branch_id')) {
       context.handle(
-        _statusMeta,
-        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+        _assignedBranchIdMeta,
+        assignedBranchId.isAcceptableOrUnknown(
+          data['assigned_branch_id']!,
+          _assignedBranchIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('employee_id')) {
+      context.handle(
+        _employeeIdMeta,
+        employeeId.isAcceptableOrUnknown(data['employee_id']!, _employeeIdMeta),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
       );
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {userId};
   @override
   User map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return User(
-      id: attachedDatabase.typeMapping.read(
+      userId: attachedDatabase.typeMapping.read(
         DriftSqlType.int,
-        data['${effectivePrefix}id'],
+        data['${effectivePrefix}user_id'],
       )!,
       username: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
@@ -184,21 +231,29 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
         DriftSqlType.string,
         data['${effectivePrefix}password_hash'],
       )!,
-      fullNameEn: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}full_name_en'],
-      )!,
       fullNameAr: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}full_name_ar'],
+      )!,
+      fullNameEn: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}full_name_en'],
       )!,
       email: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}email'],
       ),
-      status: attachedDatabase.typeMapping.read(
-        DriftSqlType.string,
-        data['${effectivePrefix}status'],
+      assignedBranchId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}assigned_branch_id'],
+      ),
+      employeeId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}employee_id'],
+      ),
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
       )!,
     );
   }
@@ -210,48 +265,64 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
 }
 
 class User extends DataClass implements Insertable<User> {
-  final int id;
+  final int userId;
   final String username;
   final String passwordHash;
-  final String fullNameEn;
   final String fullNameAr;
+  final String fullNameEn;
   final String? email;
-  final String status;
+  final int? assignedBranchId;
+  final int? employeeId;
+  final bool isActive;
   const User({
-    required this.id,
+    required this.userId,
     required this.username,
     required this.passwordHash,
-    required this.fullNameEn,
     required this.fullNameAr,
+    required this.fullNameEn,
     this.email,
-    required this.status,
+    this.assignedBranchId,
+    this.employeeId,
+    required this.isActive,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<int>(userId);
     map['username'] = Variable<String>(username);
     map['password_hash'] = Variable<String>(passwordHash);
-    map['full_name_en'] = Variable<String>(fullNameEn);
     map['full_name_ar'] = Variable<String>(fullNameAr);
+    map['full_name_en'] = Variable<String>(fullNameEn);
     if (!nullToAbsent || email != null) {
       map['email'] = Variable<String>(email);
     }
-    map['status'] = Variable<String>(status);
+    if (!nullToAbsent || assignedBranchId != null) {
+      map['assigned_branch_id'] = Variable<int>(assignedBranchId);
+    }
+    if (!nullToAbsent || employeeId != null) {
+      map['employee_id'] = Variable<int>(employeeId);
+    }
+    map['is_active'] = Variable<bool>(isActive);
     return map;
   }
 
   UsersCompanion toCompanion(bool nullToAbsent) {
     return UsersCompanion(
-      id: Value(id),
+      userId: Value(userId),
       username: Value(username),
       passwordHash: Value(passwordHash),
-      fullNameEn: Value(fullNameEn),
       fullNameAr: Value(fullNameAr),
+      fullNameEn: Value(fullNameEn),
       email: email == null && nullToAbsent
           ? const Value.absent()
           : Value(email),
-      status: Value(status),
+      assignedBranchId: assignedBranchId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(assignedBranchId),
+      employeeId: employeeId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(employeeId),
+      isActive: Value(isActive),
     );
   }
 
@@ -261,175 +332,211 @@ class User extends DataClass implements Insertable<User> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return User(
-      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<int>(json['userId']),
       username: serializer.fromJson<String>(json['username']),
       passwordHash: serializer.fromJson<String>(json['passwordHash']),
-      fullNameEn: serializer.fromJson<String>(json['fullNameEn']),
       fullNameAr: serializer.fromJson<String>(json['fullNameAr']),
+      fullNameEn: serializer.fromJson<String>(json['fullNameEn']),
       email: serializer.fromJson<String?>(json['email']),
-      status: serializer.fromJson<String>(json['status']),
+      assignedBranchId: serializer.fromJson<int?>(json['assignedBranchId']),
+      employeeId: serializer.fromJson<int?>(json['employeeId']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'userId': serializer.toJson<int>(userId),
       'username': serializer.toJson<String>(username),
       'passwordHash': serializer.toJson<String>(passwordHash),
-      'fullNameEn': serializer.toJson<String>(fullNameEn),
       'fullNameAr': serializer.toJson<String>(fullNameAr),
+      'fullNameEn': serializer.toJson<String>(fullNameEn),
       'email': serializer.toJson<String?>(email),
-      'status': serializer.toJson<String>(status),
+      'assignedBranchId': serializer.toJson<int?>(assignedBranchId),
+      'employeeId': serializer.toJson<int?>(employeeId),
+      'isActive': serializer.toJson<bool>(isActive),
     };
   }
 
   User copyWith({
-    int? id,
+    int? userId,
     String? username,
     String? passwordHash,
-    String? fullNameEn,
     String? fullNameAr,
+    String? fullNameEn,
     Value<String?> email = const Value.absent(),
-    String? status,
+    Value<int?> assignedBranchId = const Value.absent(),
+    Value<int?> employeeId = const Value.absent(),
+    bool? isActive,
   }) => User(
-    id: id ?? this.id,
+    userId: userId ?? this.userId,
     username: username ?? this.username,
     passwordHash: passwordHash ?? this.passwordHash,
-    fullNameEn: fullNameEn ?? this.fullNameEn,
     fullNameAr: fullNameAr ?? this.fullNameAr,
+    fullNameEn: fullNameEn ?? this.fullNameEn,
     email: email.present ? email.value : this.email,
-    status: status ?? this.status,
+    assignedBranchId: assignedBranchId.present
+        ? assignedBranchId.value
+        : this.assignedBranchId,
+    employeeId: employeeId.present ? employeeId.value : this.employeeId,
+    isActive: isActive ?? this.isActive,
   );
   User copyWithCompanion(UsersCompanion data) {
     return User(
-      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
       username: data.username.present ? data.username.value : this.username,
       passwordHash: data.passwordHash.present
           ? data.passwordHash.value
           : this.passwordHash,
-      fullNameEn: data.fullNameEn.present
-          ? data.fullNameEn.value
-          : this.fullNameEn,
       fullNameAr: data.fullNameAr.present
           ? data.fullNameAr.value
           : this.fullNameAr,
+      fullNameEn: data.fullNameEn.present
+          ? data.fullNameEn.value
+          : this.fullNameEn,
       email: data.email.present ? data.email.value : this.email,
-      status: data.status.present ? data.status.value : this.status,
+      assignedBranchId: data.assignedBranchId.present
+          ? data.assignedBranchId.value
+          : this.assignedBranchId,
+      employeeId: data.employeeId.present
+          ? data.employeeId.value
+          : this.employeeId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
 
   @override
   String toString() {
     return (StringBuffer('User(')
-          ..write('id: $id, ')
+          ..write('userId: $userId, ')
           ..write('username: $username, ')
           ..write('passwordHash: $passwordHash, ')
-          ..write('fullNameEn: $fullNameEn, ')
           ..write('fullNameAr: $fullNameAr, ')
+          ..write('fullNameEn: $fullNameEn, ')
           ..write('email: $email, ')
-          ..write('status: $status')
+          ..write('assignedBranchId: $assignedBranchId, ')
+          ..write('employeeId: $employeeId, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-    id,
+    userId,
     username,
     passwordHash,
-    fullNameEn,
     fullNameAr,
+    fullNameEn,
     email,
-    status,
+    assignedBranchId,
+    employeeId,
+    isActive,
   );
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is User &&
-          other.id == this.id &&
+          other.userId == this.userId &&
           other.username == this.username &&
           other.passwordHash == this.passwordHash &&
-          other.fullNameEn == this.fullNameEn &&
           other.fullNameAr == this.fullNameAr &&
+          other.fullNameEn == this.fullNameEn &&
           other.email == this.email &&
-          other.status == this.status);
+          other.assignedBranchId == this.assignedBranchId &&
+          other.employeeId == this.employeeId &&
+          other.isActive == this.isActive);
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
-  final Value<int> id;
+  final Value<int> userId;
   final Value<String> username;
   final Value<String> passwordHash;
-  final Value<String> fullNameEn;
   final Value<String> fullNameAr;
+  final Value<String> fullNameEn;
   final Value<String?> email;
-  final Value<String> status;
+  final Value<int?> assignedBranchId;
+  final Value<int?> employeeId;
+  final Value<bool> isActive;
   const UsersCompanion({
-    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
     this.username = const Value.absent(),
     this.passwordHash = const Value.absent(),
-    this.fullNameEn = const Value.absent(),
     this.fullNameAr = const Value.absent(),
+    this.fullNameEn = const Value.absent(),
     this.email = const Value.absent(),
-    this.status = const Value.absent(),
+    this.assignedBranchId = const Value.absent(),
+    this.employeeId = const Value.absent(),
+    this.isActive = const Value.absent(),
   });
   UsersCompanion.insert({
-    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
     required String username,
     required String passwordHash,
-    required String fullNameEn,
     required String fullNameAr,
+    required String fullNameEn,
     this.email = const Value.absent(),
-    this.status = const Value.absent(),
+    this.assignedBranchId = const Value.absent(),
+    this.employeeId = const Value.absent(),
+    this.isActive = const Value.absent(),
   }) : username = Value(username),
        passwordHash = Value(passwordHash),
-       fullNameEn = Value(fullNameEn),
-       fullNameAr = Value(fullNameAr);
+       fullNameAr = Value(fullNameAr),
+       fullNameEn = Value(fullNameEn);
   static Insertable<User> custom({
-    Expression<int>? id,
+    Expression<int>? userId,
     Expression<String>? username,
     Expression<String>? passwordHash,
-    Expression<String>? fullNameEn,
     Expression<String>? fullNameAr,
+    Expression<String>? fullNameEn,
     Expression<String>? email,
-    Expression<String>? status,
+    Expression<int>? assignedBranchId,
+    Expression<int>? employeeId,
+    Expression<bool>? isActive,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
       if (username != null) 'username': username,
       if (passwordHash != null) 'password_hash': passwordHash,
-      if (fullNameEn != null) 'full_name_en': fullNameEn,
       if (fullNameAr != null) 'full_name_ar': fullNameAr,
+      if (fullNameEn != null) 'full_name_en': fullNameEn,
       if (email != null) 'email': email,
-      if (status != null) 'status': status,
+      if (assignedBranchId != null) 'assigned_branch_id': assignedBranchId,
+      if (employeeId != null) 'employee_id': employeeId,
+      if (isActive != null) 'is_active': isActive,
     });
   }
 
   UsersCompanion copyWith({
-    Value<int>? id,
+    Value<int>? userId,
     Value<String>? username,
     Value<String>? passwordHash,
-    Value<String>? fullNameEn,
     Value<String>? fullNameAr,
+    Value<String>? fullNameEn,
     Value<String?>? email,
-    Value<String>? status,
+    Value<int?>? assignedBranchId,
+    Value<int?>? employeeId,
+    Value<bool>? isActive,
   }) {
     return UsersCompanion(
-      id: id ?? this.id,
+      userId: userId ?? this.userId,
       username: username ?? this.username,
       passwordHash: passwordHash ?? this.passwordHash,
-      fullNameEn: fullNameEn ?? this.fullNameEn,
       fullNameAr: fullNameAr ?? this.fullNameAr,
+      fullNameEn: fullNameEn ?? this.fullNameEn,
       email: email ?? this.email,
-      status: status ?? this.status,
+      assignedBranchId: assignedBranchId ?? this.assignedBranchId,
+      employeeId: employeeId ?? this.employeeId,
+      isActive: isActive ?? this.isActive,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
     }
     if (username.present) {
       map['username'] = Variable<String>(username.value);
@@ -437,17 +544,23 @@ class UsersCompanion extends UpdateCompanion<User> {
     if (passwordHash.present) {
       map['password_hash'] = Variable<String>(passwordHash.value);
     }
-    if (fullNameEn.present) {
-      map['full_name_en'] = Variable<String>(fullNameEn.value);
-    }
     if (fullNameAr.present) {
       map['full_name_ar'] = Variable<String>(fullNameAr.value);
+    }
+    if (fullNameEn.present) {
+      map['full_name_en'] = Variable<String>(fullNameEn.value);
     }
     if (email.present) {
       map['email'] = Variable<String>(email.value);
     }
-    if (status.present) {
-      map['status'] = Variable<String>(status.value);
+    if (assignedBranchId.present) {
+      map['assigned_branch_id'] = Variable<int>(assignedBranchId.value);
+    }
+    if (employeeId.present) {
+      map['employee_id'] = Variable<int>(employeeId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
     }
     return map;
   }
@@ -455,13 +568,15 @@ class UsersCompanion extends UpdateCompanion<User> {
   @override
   String toString() {
     return (StringBuffer('UsersCompanion(')
-          ..write('id: $id, ')
+          ..write('userId: $userId, ')
           ..write('username: $username, ')
           ..write('passwordHash: $passwordHash, ')
-          ..write('fullNameEn: $fullNameEn, ')
           ..write('fullNameAr: $fullNameAr, ')
+          ..write('fullNameEn: $fullNameEn, ')
           ..write('email: $email, ')
-          ..write('status: $status')
+          ..write('assignedBranchId: $assignedBranchId, ')
+          ..write('employeeId: $employeeId, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
@@ -480,23 +595,27 @@ abstract class _$AppDatabase extends GeneratedDatabase {
 
 typedef $$UsersTableCreateCompanionBuilder =
     UsersCompanion Function({
-      Value<int> id,
+      Value<int> userId,
       required String username,
       required String passwordHash,
-      required String fullNameEn,
       required String fullNameAr,
+      required String fullNameEn,
       Value<String?> email,
-      Value<String> status,
+      Value<int?> assignedBranchId,
+      Value<int?> employeeId,
+      Value<bool> isActive,
     });
 typedef $$UsersTableUpdateCompanionBuilder =
     UsersCompanion Function({
-      Value<int> id,
+      Value<int> userId,
       Value<String> username,
       Value<String> passwordHash,
-      Value<String> fullNameEn,
       Value<String> fullNameAr,
+      Value<String> fullNameEn,
       Value<String?> email,
-      Value<String> status,
+      Value<int?> assignedBranchId,
+      Value<int?> employeeId,
+      Value<bool> isActive,
     });
 
 class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
@@ -507,8 +626,8 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
-    column: $table.id,
+  ColumnFilters<int> get userId => $composableBuilder(
+    column: $table.userId,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -522,13 +641,13 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get fullNameEn => $composableBuilder(
-    column: $table.fullNameEn,
+  ColumnFilters<String> get fullNameAr => $composableBuilder(
+    column: $table.fullNameAr,
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get fullNameAr => $composableBuilder(
-    column: $table.fullNameAr,
+  ColumnFilters<String> get fullNameEn => $composableBuilder(
+    column: $table.fullNameEn,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -537,8 +656,18 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
     builder: (column) => ColumnFilters(column),
   );
 
-  ColumnFilters<String> get status => $composableBuilder(
-    column: $table.status,
+  ColumnFilters<int> get assignedBranchId => $composableBuilder(
+    column: $table.assignedBranchId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get employeeId => $composableBuilder(
+    column: $table.employeeId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -552,8 +681,8 @@ class $$UsersTableOrderingComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
-    column: $table.id,
+  ColumnOrderings<int> get userId => $composableBuilder(
+    column: $table.userId,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -567,13 +696,13 @@ class $$UsersTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get fullNameEn => $composableBuilder(
-    column: $table.fullNameEn,
+  ColumnOrderings<String> get fullNameAr => $composableBuilder(
+    column: $table.fullNameAr,
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get fullNameAr => $composableBuilder(
-    column: $table.fullNameAr,
+  ColumnOrderings<String> get fullNameEn => $composableBuilder(
+    column: $table.fullNameEn,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -582,8 +711,18 @@ class $$UsersTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
-  ColumnOrderings<String> get status => $composableBuilder(
-    column: $table.status,
+  ColumnOrderings<int> get assignedBranchId => $composableBuilder(
+    column: $table.assignedBranchId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get employeeId => $composableBuilder(
+    column: $table.employeeId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
     builder: (column) => ColumnOrderings(column),
   );
 }
@@ -597,8 +736,8 @@ class $$UsersTableAnnotationComposer
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
 
   GeneratedColumn<String> get username =>
       $composableBuilder(column: $table.username, builder: (column) => column);
@@ -608,21 +747,31 @@ class $$UsersTableAnnotationComposer
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get fullNameEn => $composableBuilder(
-    column: $table.fullNameEn,
+  GeneratedColumn<String> get fullNameAr => $composableBuilder(
+    column: $table.fullNameAr,
     builder: (column) => column,
   );
 
-  GeneratedColumn<String> get fullNameAr => $composableBuilder(
-    column: $table.fullNameAr,
+  GeneratedColumn<String> get fullNameEn => $composableBuilder(
+    column: $table.fullNameEn,
     builder: (column) => column,
   );
 
   GeneratedColumn<String> get email =>
       $composableBuilder(column: $table.email, builder: (column) => column);
 
-  GeneratedColumn<String> get status =>
-      $composableBuilder(column: $table.status, builder: (column) => column);
+  GeneratedColumn<int> get assignedBranchId => $composableBuilder(
+    column: $table.assignedBranchId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get employeeId => $composableBuilder(
+    column: $table.employeeId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
 }
 
 class $$UsersTableTableManager
@@ -653,39 +802,47 @@ class $$UsersTableTableManager
               $$UsersTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
+                Value<int> userId = const Value.absent(),
                 Value<String> username = const Value.absent(),
                 Value<String> passwordHash = const Value.absent(),
-                Value<String> fullNameEn = const Value.absent(),
                 Value<String> fullNameAr = const Value.absent(),
+                Value<String> fullNameEn = const Value.absent(),
                 Value<String?> email = const Value.absent(),
-                Value<String> status = const Value.absent(),
+                Value<int?> assignedBranchId = const Value.absent(),
+                Value<int?> employeeId = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
               }) => UsersCompanion(
-                id: id,
+                userId: userId,
                 username: username,
                 passwordHash: passwordHash,
-                fullNameEn: fullNameEn,
                 fullNameAr: fullNameAr,
+                fullNameEn: fullNameEn,
                 email: email,
-                status: status,
+                assignedBranchId: assignedBranchId,
+                employeeId: employeeId,
+                isActive: isActive,
               ),
           createCompanionCallback:
               ({
-                Value<int> id = const Value.absent(),
+                Value<int> userId = const Value.absent(),
                 required String username,
                 required String passwordHash,
-                required String fullNameEn,
                 required String fullNameAr,
+                required String fullNameEn,
                 Value<String?> email = const Value.absent(),
-                Value<String> status = const Value.absent(),
+                Value<int?> assignedBranchId = const Value.absent(),
+                Value<int?> employeeId = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
               }) => UsersCompanion.insert(
-                id: id,
+                userId: userId,
                 username: username,
                 passwordHash: passwordHash,
-                fullNameEn: fullNameEn,
                 fullNameAr: fullNameAr,
+                fullNameEn: fullNameEn,
                 email: email,
-                status: status,
+                assignedBranchId: assignedBranchId,
+                employeeId: employeeId,
+                isActive: isActive,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

@@ -1,3 +1,17 @@
 {
-  "appTitle": "MuhasebPro"
+    "@@locale": "en",
+    "muhasebPro": "MuhasebPro",
+    "login": "Login",
+    "username": "Username",
+    "usernameHint": "Enter your username",
+    "usernameRequired": "Username is required",
+    "password": "Password",
+    "passwordHint": "Enter your password",
+    "passwordRequired": "Password is required",
+    "loginFailed": "Login Failed",
+    "invalidCredentials": "Invalid username or password.",
+    "anErrorOccurred": "An unexpected error occurred. Please try again.",
+    "dashboard": "Dashboard",
+    "welcome": "Welcome",
+    "logout": "Logout"
 }

@@ -1,0 +1,17 @@
+{
+    "@@locale": "ar",
+    "muhasebPro": "محاسب برو",
+    "login": "تسجيل الدخول",
+    "username": "اسم المستخدم",
+    "usernameHint": "أدخل اسم المستخدم الخاص بك",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "password": "كلمة المرور",
+    "passwordHint": "أدخل كلمة المرور الخاصة بك",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "loginFailed": "فشل تسجيل الدخول",
+    "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة.",
+    "anErrorOccurred": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.",
+    "dashboard": "لوحة التحكم",
+    "welcome": "أهلاً بك",
+    "logout": "تسجيل الخروج"
+}

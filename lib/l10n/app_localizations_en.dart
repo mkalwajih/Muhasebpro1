@@ -9,5 +9,44 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'MuhasebPro';
+  String get muhasebPro => 'MuhasebPro';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get usernameHint => 'Enter your username';
+
+  @override
+  String get usernameRequired => 'Username is required';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get passwordHint => 'Enter your password';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get loginFailed => 'Login Failed';
+
+  @override
+  String get invalidCredentials => 'Invalid username or password.';
+
+  @override
+  String get anErrorOccurred => 'An unexpected error occurred. Please try again.';
+
+  @override
+  String get dashboard => 'Dashboard';
+
+  @override
+  String get welcome => 'Welcome';
+
+  @override
+  String get logout => 'Logout';
 }
