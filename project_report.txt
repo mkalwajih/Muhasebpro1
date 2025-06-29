@@ -49,15 +49,44 @@
 │                       └── styles.xml
 ├── .vscode
 │   └── settings.json
+├── devtools_options.yaml
+├── project_report.txt
 ├── test
 │   └── widget_test.dart
 ├── lib
 │   ├── main.dart
 │   ├── app
 │   │   └── app.dart
+│   ├── core
+│   │   ├── config
+│   │   │   └── app_router.dart
+│   │   ├── db
+│   │   │   ├── app_database.dart
+│   │   │   └── app_database.g.dart
+│   │   └── di
+│   │       └── database_provider.dart
 │   └── core
 │       └── theme
 │           └── app_theme.dart
+│   ├── features
+│   │   ├── authentication
+│   │   │   ├── data
+│   │   │   │   ├── datasources
+│   │   │   │   └── repositories
+│   │   │   ├── domain
+│   │   │   │   ├── entities
+│   │   │   │   ├── repositories
+│   │   │   │   └── usecases
+│   │   │   └── presentation
+│   │   │       ├── providers
+│   │   │       └── screens
+│   │   │           └── login_screen.dart
+│   │   └── dashboard
+│   │       └── presentation
+│   │           └── screens
+│   │               └── dashboard_screen.dart
+│   └── l10n
+│       └── app_en.arb
 ├── web
 │   ├── favicon.png
 │   ├── index.html
@@ -133,6 +162,10 @@
 │   │       ├── contents.xcworkspacedata
 │   │       └── xcshareddata
 │   │           ├── IDEWorkspaceChecks.plist
+│       │       └── WorkspaceSettings.xcsettings
+│       └── xcshareddata\
+│           └── xcschemes\
+│               └── Runner.xcscheme\
 │   │           └── WorkspaceSettings.xcsettings
 │   ├── Runner.xcworkspace
 │   │   ├── contents.xcworkspacedata
@@ -141,20 +174,10 @@
 │   │       └── WorkspaceSettings.xcsettings
 │   └── RunnerTests
 │       └── RunnerTests.swift
-└── android
-    └── app
-        └── src
-            └── main
-                ├── res
-                │   ├── values
-                │   │   └── styles.xml
-                │   └── values-night
-                │       └── styles.xml
-                └── java
-                    └── io
-                        └── flutter
-                            └── plugins
-                                └── GeneratedPluginRegistrant.java
+└── windows/
+    └── runner/
+        └── resources/
+            └── app_icon.ico
 ```
 ## 2. Contents of `pubspec.yaml`
 ```

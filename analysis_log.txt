@@ -1,0 +1,6 @@
+Analyzing myapp...                                              
+
+  error • Target of URI doesn't exist: 'package:flutter_gen/gen_l10n/app_localizations.dart' • lib/app/app.dart:5:8 • uri_does_not_exist
+  error • Undefined name 'AppLocalizations' • lib/app/app.dart:24:31 • undefined_identifier
+  error • Undefined name 'AppLocalizations' • lib/app/app.dart:25:25 • undefined_identifier
+
