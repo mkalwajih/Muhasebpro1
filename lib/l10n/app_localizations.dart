@@ -178,6 +178,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @systemSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'System Setup'**
+  String get systemSetup;
+
+  /// No description provided for @generalLedger.
+  ///
+  /// In en, this message translates to:
+  /// **'General Ledger'**
+  String get generalLedger;
+
+  /// No description provided for @inventory.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Management'**
+  String get inventory;
+
+  /// No description provided for @vendors.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendors & Purchases'**
+  String get vendors;
+
+  /// No description provided for @customers.
+  ///
+  /// In en, this message translates to:
+  /// **'Customers & Sales'**
+  String get customers;
+
+  /// No description provided for @reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports & Analytics'**
+  String get reports;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming Soon'**
+  String get comingSoon;
+
+  /// No description provided for @featureUnderDevelopment.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is currently under development.'**
+  String get featureUnderDevelopment;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

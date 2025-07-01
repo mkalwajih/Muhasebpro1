@@ -49,4 +49,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get systemSetup => 'System Setup';
+
+  @override
+  String get generalLedger => 'General Ledger';
+
+  @override
+  String get inventory => 'Inventory Management';
+
+  @override
+  String get vendors => 'Vendors & Purchases';
+
+  @override
+  String get customers => 'Customers & Sales';
+
+  @override
+  String get reports => 'Reports & Analytics';
+
+  @override
+  String get comingSoon => 'Coming Soon';
+
+  @override
+  String get featureUnderDevelopment => 'This feature is currently under development.';
 }

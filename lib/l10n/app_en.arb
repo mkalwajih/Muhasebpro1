@@ -13,5 +13,13 @@
     "anErrorOccurred": "An unexpected error occurred. Please try again.",
     "dashboard": "Dashboard",
     "welcome": "Welcome",
-    "logout": "Logout"
+    "logout": "Logout",
+    "systemSetup": "System Setup",
+    "generalLedger": "General Ledger",
+    "inventory": "Inventory Management",
+    "vendors": "Vendors & Purchases",
+    "customers": "Customers & Sales",
+    "reports": "Reports & Analytics",
+    "comingSoon": "Coming Soon",
+    "featureUnderDevelopment": "This feature is currently under development."
 }

@@ -1,7 +1,7 @@
 Analyzing myapp...                                              
 
-  error • Undefined name 'goRouterProvider' • lib/app/app.dart:11:83 • undefined_identifier
-  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/authentication/data/datasources/auth_tables.dart' • lib/core/db/app_database.dart:7:8 • uri_does_not_exist
-  error • The named parameter 'fullNameAr' is required, but there's no corresponding argument • lib/features/authentication/data/repositories/auth_repository_impl.dart:37:26 • missing_required_argument
-  error • The named parameter 'isActive' is required, but there's no corresponding argument • lib/features/authentication/data/repositories/auth_repository_impl.dart:37:26 • missing_required_argument
+   info • The imported package 'sqlite3_wasm' isn't a dependency of the importing package • lib/core/db/connection/web.dart:3:8 • depend_on_referenced_packages
+  error • Target of URI doesn't exist: 'package:sqlite3_wasm/sqlite3_wasm.dart' • lib/core/db/connection/web.dart:3:8 • uri_does_not_exist
+   info • Use 'const' with the constructor to improve performance • lib/features/authentication/data/repositories/auth_repository_impl.dart:63:25 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/main.dart:20:14 • prefer_const_constructors
 

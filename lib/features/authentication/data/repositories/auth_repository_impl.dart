@@ -60,10 +60,12 @@ class AuthRepositoryImpl implements AuthRepository {
     final userCount = await _localDataSource.countUsers();
     if (userCount == 0) {
       // Seed the default 'admin' user
-      final adminUser = UsersCompanion(
-        username: const Value('admin'),
-        passwordHash: const Value('admin'), // Will be hashed by datasource
-        isActive: const Value(true),
+      const adminUser = UsersCompanion(
+        username: Value('admin'),
+        passwordHash: Value('admin'), // Will be hashed by datasource
+        fullNameAr: Value('المدير العام'),
+        fullNameEn: Value('System Administrator'),
+        isActive: Value(true),
       );
       await _localDataSource.insertUser(adminUser);
     }

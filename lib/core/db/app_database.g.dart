@@ -3,13 +3,12 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
-class $UsersTable extends Users with TableInfo<$UsersTable, User> {
+class Users extends Table with TableInfo<Users, User> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UsersTable(this.attachedDatabase, [this._alias]);
+  Users(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
-  @override
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
     'user_id',
     aliasedName,
@@ -17,100 +16,94 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
     hasAutoIncrement: true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'PRIMARY KEY AUTOINCREMENT',
-    ),
+    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
   );
   static const VerificationMeta _usernameMeta = const VerificationMeta(
     'username',
   );
-  @override
   late final GeneratedColumn<String> username = GeneratedColumn<String>(
     'username',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+    $customConstraints: 'NOT NULL UNIQUE',
   );
   static const VerificationMeta _passwordHashMeta = const VerificationMeta(
     'passwordHash',
   );
-  @override
   late final GeneratedColumn<String> passwordHash = GeneratedColumn<String>(
     'password_hash',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
   );
   static const VerificationMeta _fullNameArMeta = const VerificationMeta(
     'fullNameAr',
   );
-  @override
   late final GeneratedColumn<String> fullNameAr = GeneratedColumn<String>(
     'full_name_ar',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
   );
   static const VerificationMeta _fullNameEnMeta = const VerificationMeta(
     'fullNameEn',
   );
-  @override
   late final GeneratedColumn<String> fullNameEn = GeneratedColumn<String>(
     'full_name_en',
     aliasedName,
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
   );
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
-  @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
     'email',
     aliasedName,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
+    $customConstraints: '',
   );
   static const VerificationMeta _assignedBranchIdMeta = const VerificationMeta(
     'assignedBranchId',
   );
-  @override
   late final GeneratedColumn<int> assignedBranchId = GeneratedColumn<int>(
     'assigned_branch_id',
     aliasedName,
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
+    $customConstraints: '',
   );
   static const VerificationMeta _employeeIdMeta = const VerificationMeta(
     'employeeId',
   );
-  @override
   late final GeneratedColumn<int> employeeId = GeneratedColumn<int>(
     'employee_id',
     aliasedName,
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
+    $customConstraints: '',
   );
   static const VerificationMeta _isActiveMeta = const VerificationMeta(
     'isActive',
   );
-  @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
     'is_active',
     aliasedName,
     false,
     type: DriftSqlType.bool,
     requiredDuringInsert: false,
-    defaultConstraints: GeneratedColumn.constraintIsAlways(
-      'CHECK ("is_active" IN (0, 1))',
-    ),
-    defaultValue: const Constant(true),
+    $customConstraints: 'NOT NULL DEFAULT TRUE',
+    defaultValue: const CustomExpression('TRUE'),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -259,9 +252,12 @@ class $UsersTable extends Users with TableInfo<$UsersTable, User> {
   }
 
   @override
-  $UsersTable createAlias(String alias) {
-    return $UsersTable(attachedDatabase, alias);
+  Users createAlias(String alias) {
+    return Users(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class User extends DataClass implements Insertable<User> {
@@ -271,7 +267,11 @@ class User extends DataClass implements Insertable<User> {
   final String fullNameAr;
   final String fullNameEn;
   final String? email;
+
+  /// In a real app, this would be a foreign key to a 'branches' table
   final int? assignedBranchId;
+
+  /// Link to an 'employees' table later
   final int? employeeId;
   final bool isActive;
   const User({
@@ -332,30 +332,30 @@ class User extends DataClass implements Insertable<User> {
   }) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return User(
-      userId: serializer.fromJson<int>(json['userId']),
+      userId: serializer.fromJson<int>(json['user_id']),
       username: serializer.fromJson<String>(json['username']),
-      passwordHash: serializer.fromJson<String>(json['passwordHash']),
-      fullNameAr: serializer.fromJson<String>(json['fullNameAr']),
-      fullNameEn: serializer.fromJson<String>(json['fullNameEn']),
+      passwordHash: serializer.fromJson<String>(json['password_hash']),
+      fullNameAr: serializer.fromJson<String>(json['full_name_ar']),
+      fullNameEn: serializer.fromJson<String>(json['full_name_en']),
       email: serializer.fromJson<String?>(json['email']),
-      assignedBranchId: serializer.fromJson<int?>(json['assignedBranchId']),
-      employeeId: serializer.fromJson<int?>(json['employeeId']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
+      assignedBranchId: serializer.fromJson<int?>(json['assigned_branch_id']),
+      employeeId: serializer.fromJson<int?>(json['employee_id']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'userId': serializer.toJson<int>(userId),
+      'user_id': serializer.toJson<int>(userId),
       'username': serializer.toJson<String>(username),
-      'passwordHash': serializer.toJson<String>(passwordHash),
-      'fullNameAr': serializer.toJson<String>(fullNameAr),
-      'fullNameEn': serializer.toJson<String>(fullNameEn),
+      'password_hash': serializer.toJson<String>(passwordHash),
+      'full_name_ar': serializer.toJson<String>(fullNameAr),
+      'full_name_en': serializer.toJson<String>(fullNameEn),
       'email': serializer.toJson<String?>(email),
-      'assignedBranchId': serializer.toJson<int?>(assignedBranchId),
-      'employeeId': serializer.toJson<int?>(employeeId),
-      'isActive': serializer.toJson<bool>(isActive),
+      'assigned_branch_id': serializer.toJson<int?>(assignedBranchId),
+      'employee_id': serializer.toJson<int?>(employeeId),
+      'is_active': serializer.toJson<bool>(isActive),
     };
   }
 
@@ -585,7 +585,7 @@ class UsersCompanion extends UpdateCompanion<User> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
-  late final $UsersTable users = $UsersTable(this);
+  late final Users users = Users(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -593,7 +593,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [users];
 }
 
-typedef $$UsersTableCreateCompanionBuilder =
+typedef $UsersCreateCompanionBuilder =
     UsersCompanion Function({
       Value<int> userId,
       required String username,
@@ -605,7 +605,7 @@ typedef $$UsersTableCreateCompanionBuilder =
       Value<int?> employeeId,
       Value<bool> isActive,
     });
-typedef $$UsersTableUpdateCompanionBuilder =
+typedef $UsersUpdateCompanionBuilder =
     UsersCompanion Function({
       Value<int> userId,
       Value<String> username,
@@ -618,8 +618,8 @@ typedef $$UsersTableUpdateCompanionBuilder =
       Value<bool> isActive,
     });
 
-class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableFilterComposer({
+class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
+  $UsersFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -672,9 +672,8 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
   );
 }
 
-class $$UsersTableOrderingComposer
-    extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableOrderingComposer({
+class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
+  $UsersOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -727,9 +726,8 @@ class $$UsersTableOrderingComposer
   );
 }
 
-class $$UsersTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableAnnotationComposer({
+class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
+  $UsersAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -774,32 +772,32 @@ class $$UsersTableAnnotationComposer
       $composableBuilder(column: $table.isActive, builder: (column) => column);
 }
 
-class $$UsersTableTableManager
+class $UsersTableManager
     extends
         RootTableManager<
           _$AppDatabase,
-          $UsersTable,
+          Users,
           User,
-          $$UsersTableFilterComposer,
-          $$UsersTableOrderingComposer,
-          $$UsersTableAnnotationComposer,
-          $$UsersTableCreateCompanionBuilder,
-          $$UsersTableUpdateCompanionBuilder,
-          (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
+          $UsersFilterComposer,
+          $UsersOrderingComposer,
+          $UsersAnnotationComposer,
+          $UsersCreateCompanionBuilder,
+          $UsersUpdateCompanionBuilder,
+          (User, BaseReferences<_$AppDatabase, Users, User>),
           User,
           PrefetchHooks Function()
         > {
-  $$UsersTableTableManager(_$AppDatabase db, $UsersTable table)
+  $UsersTableManager(_$AppDatabase db, Users table)
     : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$UsersTableFilterComposer($db: db, $table: table),
+              $UsersFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$UsersTableOrderingComposer($db: db, $table: table),
+              $UsersOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$UsersTableAnnotationComposer($db: db, $table: table),
+              $UsersAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> userId = const Value.absent(),
@@ -852,17 +850,17 @@ class $$UsersTableTableManager
       );
 }
 
-typedef $$UsersTableProcessedTableManager =
+typedef $UsersProcessedTableManager =
     ProcessedTableManager<
       _$AppDatabase,
-      $UsersTable,
+      Users,
       User,
-      $$UsersTableFilterComposer,
-      $$UsersTableOrderingComposer,
-      $$UsersTableAnnotationComposer,
-      $$UsersTableCreateCompanionBuilder,
-      $$UsersTableUpdateCompanionBuilder,
-      (User, BaseReferences<_$AppDatabase, $UsersTable, User>),
+      $UsersFilterComposer,
+      $UsersOrderingComposer,
+      $UsersAnnotationComposer,
+      $UsersCreateCompanionBuilder,
+      $UsersUpdateCompanionBuilder,
+      (User, BaseReferences<_$AppDatabase, Users, User>),
       User,
       PrefetchHooks Function()
     >;
@@ -870,6 +868,5 @@ typedef $$UsersTableProcessedTableManager =
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
-  $$UsersTableTableManager get users =>
-      $$UsersTableTableManager(_db, _db.users);
+  $UsersTableManager get users => $UsersTableManager(_db, _db.users);
 }

@@ -13,5 +13,13 @@
     "anErrorOccurred": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.",
     "dashboard": "لوحة التحكم",
     "welcome": "أهلاً بك",
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "systemSetup": "إعدادات النظام",
+    "generalLedger": "الحسابات العامة",
+    "inventory": "إدارة المخزون",
+    "vendors": "الموردون والمشتريات",
+    "customers": "العملاء والمبيعات",
+    "reports": "التقارير والتحليلات",
+    "comingSoon": "قريباً",
+    "featureUnderDevelopment": "هذه الميزة قيد التطوير حالياً."
 }
