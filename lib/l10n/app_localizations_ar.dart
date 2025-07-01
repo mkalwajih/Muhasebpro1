@@ -51,26 +51,68 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logout => 'تسجيل الخروج';
 
   @override
-  String get systemSetup => 'System Setup';
+  String get systemSetup => 'إعدادات النظام';
 
   @override
-  String get generalLedger => 'General Ledger';
+  String get generalLedger => 'الحسابات العامة';
 
   @override
-  String get inventory => 'Inventory Management';
+  String get inventory => 'إدارة المخزون';
 
   @override
-  String get vendors => 'Vendors & Purchases';
+  String get vendors => 'الموردون والمشتريات';
 
   @override
-  String get customers => 'Customers & Sales';
+  String get customers => 'العملاء والمبيعات';
 
   @override
-  String get reports => 'Reports & Analytics';
+  String get reports => 'التقارير والتحليلات';
 
   @override
-  String get comingSoon => 'Coming Soon';
+  String get comingSoon => 'قريباً';
 
   @override
-  String get featureUnderDevelopment => 'This feature is currently under development.';
+  String get featureUnderDevelopment => 'هذه الميزة قيد التطوير حالياً.';
+
+  @override
+  String get companyInfo => 'بيانات الشركة';
+
+  @override
+  String get companyNameAr => 'اسم الشركة (عربي)';
+
+  @override
+  String get companyNameEn => 'اسم الشركة (انجليزي)';
+
+  @override
+  String get addressAr => 'العنوان (عربي)';
+
+  @override
+  String get addressEn => 'العنوان (انجليزي)';
+
+  @override
+  String get phone => 'الهاتف';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get website => 'الموقع الإلكتروني';
+
+  @override
+  String get taxNumber => 'الرقم الضريبي';
+
+  @override
+  String get commercialRegNo => 'رقم السجل التجاري';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get saving => 'جاري الحفظ...';
+
+  @override
+  String get saveSuccess => 'تم حفظ البيانات بنجاح.';
+
+  @override
+  String get saveFailed => 'فشل حفظ البيانات.';
 }

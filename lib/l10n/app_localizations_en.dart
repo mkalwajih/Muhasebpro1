@@ -73,4 +73,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get featureUnderDevelopment => 'This feature is currently under development.';
+
+  @override
+  String get companyInfo => 'Company Information';
+
+  @override
+  String get companyNameAr => 'Company Name (Arabic)';
+
+  @override
+  String get companyNameEn => 'Company Name (English)';
+
+  @override
+  String get addressAr => 'Address (Arabic)';
+
+  @override
+  String get addressEn => 'Address (English)';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get website => 'Website';
+
+  @override
+  String get taxNumber => 'Tax Number';
+
+  @override
+  String get commercialRegNo => 'Commercial Reg. No.';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get saving => 'Saving...';
+
+  @override
+  String get saveSuccess => 'Information saved successfully.';
+
+  @override
+  String get saveFailed => 'Failed to save information.';
 }

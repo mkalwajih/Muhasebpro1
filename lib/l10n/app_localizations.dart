@@ -226,6 +226,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This feature is currently under development.'**
   String get featureUnderDevelopment;
+
+  /// No description provided for @companyInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Information'**
+  String get companyInfo;
+
+  /// No description provided for @companyNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Name (Arabic)'**
+  String get companyNameAr;
+
+  /// No description provided for @companyNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Name (English)'**
+  String get companyNameEn;
+
+  /// No description provided for @addressAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Address (Arabic)'**
+  String get addressAr;
+
+  /// No description provided for @addressEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Address (English)'**
+  String get addressEn;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @website.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get website;
+
+  /// No description provided for @taxNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Number'**
+  String get taxNumber;
+
+  /// No description provided for @commercialRegNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Commercial Reg. No.'**
+  String get commercialRegNo;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @saving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving...'**
+  String get saving;
+
+  /// No description provided for @saveSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Information saved successfully.'**
+  String get saveSuccess;
+
+  /// No description provided for @saveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save information.'**
+  String get saveFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

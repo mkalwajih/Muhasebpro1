@@ -40,7 +40,7 @@ class DashboardScreen extends ConsumerWidget {
         itemCount: dashboardItems.length,
         itemBuilder: (context, index) {
           final item = dashboardItems[index];
-          return DashboardCard(item: item);
+ return DashboardCard(item: item, l10n: l10n);
         },
       ),
     );
@@ -50,10 +50,12 @@ class DashboardScreen extends ConsumerWidget {
 class DashboardCard extends StatelessWidget {
   const DashboardCard({
     super.key,
+ required this.l10n,
     required this.item,
   });
 
   final DashboardItem item;
+  final AppLocalizations l10n; // FIX: Receive the l10n object.
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,7 @@ class DashboardCard extends StatelessWidget {
               Icon(item.icon, size: 32, color: theme.colorScheme.primary),
               const SizedBox(height: 12),
               Text(
-                item.title,
+ item.getTitle(l10n),
                 style: theme.textTheme.titleMedium,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

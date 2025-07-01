@@ -1,0 +1,14 @@
+-- Defines tables for the System Setup module
+
+CREATE TABLE company_info (
+    id INT NOT NULL PRIMARY KEY DEFAULT 1,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    address_ar TEXT,
+    address_en TEXT,
+    phone TEXT,
+    email TEXT,
+    website TEXT,
+    tax_number TEXT,
+    commercial_reg_no TEXT
+);

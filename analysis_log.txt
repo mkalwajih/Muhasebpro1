@@ -1,7 +1,6 @@
 Analyzing myapp...                                              
 
-   info • The imported package 'sqlite3_wasm' isn't a dependency of the importing package • lib/core/db/connection/web.dart:3:8 • depend_on_referenced_packages
-  error • Target of URI doesn't exist: 'package:sqlite3_wasm/sqlite3_wasm.dart' • lib/core/db/connection/web.dart:3:8 • uri_does_not_exist
-   info • Use 'const' with the constructor to improve performance • lib/features/authentication/data/repositories/auth_repository_impl.dart:63:25 • prefer_const_constructors
-   info • Use 'const' with the constructor to improve performance • lib/main.dart:20:14 • prefer_const_constructors
+  error • The getter 'context' isn't defined for the type 'ProviderRef<List<DashboardItem>>' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:12:40 • undefined_getter
+  error • Undefined name 'context' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:46:52 • undefined_identifier
 
+2 issues found. (ran in 1.3s)
