@@ -5,7 +5,9 @@ import 'package:muhaseb_pro/core/widgets/placeholder_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_screen.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_setup_menu_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -23,29 +25,24 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: 'system_setup',
-            // FIX: Replace placeholder with the actual screen
-            builder: (context, state) => const CompanyInfoScreen(),
+            builder: (context, state) => const SystemSetupMenuScreen(),
+            routes: [
+              GoRoute(
+                path: 'company_info',
+                builder: (context, state) => const CompanyInfoScreen(),
+              ),
+              GoRoute(
+                path: 'coa',
+                builder: (context, state) => const CoaScreen(),
+              ),
+            ]
           ),
-          GoRoute(
-            path: 'general_ledger',
-            builder: (context, state) => const PlaceholderScreen(title: 'General Ledger'),
-          ),
-          GoRoute(
-            path: 'inventory',
-            builder: (context, state) => const PlaceholderScreen(title: 'Inventory'),
-          ),
-          GoRoute(
-            path: 'vendors',
-            builder: (context, state) => const PlaceholderScreen(title: 'Vendors'),
-          ),
-          GoRoute(
-            path: 'customers',
-            builder: (context, state) => const PlaceholderScreen(title: 'Customers'),
-          ),
-          GoRoute(
-            path: 'reports',
-            builder: (context, state) => const PlaceholderScreen(title: 'Reports'),
-          ),
+          // ... other main module routes remain placeholders
+          GoRoute(path: 'general_ledger', builder: (context, state) => const PlaceholderScreen(title: 'General Ledger')),
+          GoRoute(path: 'inventory', builder: (context, state) => const PlaceholderScreen(title: 'Inventory')),
+          GoRoute(path: 'vendors', builder: (context, state) => const PlaceholderScreen(title: 'Vendors')),
+          GoRoute(path: 'customers', builder: (context, state) => const PlaceholderScreen(title: 'Customers')),
+          GoRoute(path: 'reports', builder: (context, state) => const PlaceholderScreen(title: 'Reports')),
         ],
       ),
     ],

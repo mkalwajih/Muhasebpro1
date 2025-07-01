@@ -115,4 +115,43 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get saveFailed => 'فشل حفظ البيانات.';
+
+  @override
+  String get chartOfAccounts => 'دليل الحسابات';
+
+  @override
+  String get accountCode => 'رمز الحساب';
+
+  @override
+  String get accountName => 'اسم الحساب';
+
+  @override
+  String get accountNameAr => 'اسم الحساب (عربي)';
+
+  @override
+  String get accountNameEn => 'اسم الحساب (انجليزي)';
+
+  @override
+  String get parentAccount => 'الحساب الرئيسي';
+
+  @override
+  String get accountType => 'نوع الحساب';
+
+  @override
+  String get header => 'رئيسي';
+
+  @override
+  String get transactional => 'فرعي';
+
+  @override
+  String get addNewAccount => 'إضافة حساب جديد';
+
+  @override
+  String get editAccount => 'تعديل الحساب';
+
+  @override
+  String get noParent => 'بدون حساب رئيسي (جذر)';
+
+  @override
+  String get selectParent => 'اختر الحساب الرئيسي';
 }

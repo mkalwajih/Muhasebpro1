@@ -21,19 +21,32 @@
     "customers": "Customers & Sales",
     "reports": "Reports & Analytics",
     "comingSoon": "Coming Soon",
-    "featureUnderDevelopment": "This feature is currently under development."
-    ,"companyInfo": "Company Information"
-    ,"companyNameAr": "Company Name (Arabic)"
-    ,"companyNameEn": "Company Name (English)"
-    ,"addressAr": "Address (Arabic)"
-    ,"addressEn": "Address (English)"
-    ,"phone": "Phone"
-    ,"email": "Email"
-    ,"website": "Website"
-    ,"taxNumber": "Tax Number"
-    ,"commercialRegNo": "Commercial Reg. No."
-    ,"save": "Save"
-    ,"saving": "Saving..."
-    ,"saveSuccess": "Information saved successfully."
-    ,"saveFailed": "Failed to save information."
+    "featureUnderDevelopment": "This feature is currently under development.",
+    "companyInfo": "Company Information",
+    "companyNameAr": "Company Name (Arabic)",
+    "companyNameEn": "Company Name (English)",
+    "addressAr": "Address (Arabic)",
+    "addressEn": "Address (English)",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website",
+    "taxNumber": "Tax Number",
+    "commercialRegNo": "Commercial Reg. No.",
+    "save": "Save",
+    "saving": "Saving...",
+    "saveSuccess": "Information saved successfully.",
+    "saveFailed": "Failed to save information.",
+    "chartOfAccounts": "Chart of Accounts",
+    "accountCode": "Account Code",
+    "accountName": "Account Name",
+    "accountNameAr": "Account Name (Arabic)",
+    "accountNameEn": "Account Name (English)",
+    "parentAccount": "Parent Account",
+    "accountType": "Account Type",
+    "header": "Header",
+    "transactional": "Transactional",
+    "addNewAccount": "Add New Account",
+    "editAccount": "Edit Account",
+    "noParent": "No Parent (Root)",
+    "selectParent": "Select Parent Account"
 }

@@ -115,4 +115,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveFailed => 'Failed to save information.';
+
+  @override
+  String get chartOfAccounts => 'Chart of Accounts';
+
+  @override
+  String get accountCode => 'Account Code';
+
+  @override
+  String get accountName => 'Account Name';
+
+  @override
+  String get accountNameAr => 'Account Name (Arabic)';
+
+  @override
+  String get accountNameEn => 'Account Name (English)';
+
+  @override
+  String get parentAccount => 'Parent Account';
+
+  @override
+  String get accountType => 'Account Type';
+
+  @override
+  String get header => 'Header';
+
+  @override
+  String get transactional => 'Transactional';
+
+  @override
+  String get addNewAccount => 'Add New Account';
+
+  @override
+  String get editAccount => 'Edit Account';
+
+  @override
+  String get noParent => 'No Parent (Root)';
+
+  @override
+  String get selectParent => 'Select Parent Account';
 }

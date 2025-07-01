@@ -12,3 +12,15 @@ CREATE TABLE company_info (
     tax_number TEXT,
     commercial_reg_no TEXT
 );
+
+CREATE TABLE accounts (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    parent_id INT,
+    account_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    level INT NOT NULL,
+    type TEXT NOT NULL, -- e.g., 'Header', 'Transactional'
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    FOREIGN KEY (parent_id) REFERENCES accounts(id)
+);

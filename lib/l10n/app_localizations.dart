@@ -310,6 +310,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to save information.'**
   String get saveFailed;
+
+  /// No description provided for @chartOfAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Chart of Accounts'**
+  String get chartOfAccounts;
+
+  /// No description provided for @accountCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Code'**
+  String get accountCode;
+
+  /// No description provided for @accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name'**
+  String get accountName;
+
+  /// No description provided for @accountNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name (Arabic)'**
+  String get accountNameAr;
+
+  /// No description provided for @accountNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name (English)'**
+  String get accountNameEn;
+
+  /// No description provided for @parentAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Account'**
+  String get parentAccount;
+
+  /// No description provided for @accountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Type'**
+  String get accountType;
+
+  /// No description provided for @header.
+  ///
+  /// In en, this message translates to:
+  /// **'Header'**
+  String get header;
+
+  /// No description provided for @transactional.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactional'**
+  String get transactional;
+
+  /// No description provided for @addNewAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Account'**
+  String get addNewAccount;
+
+  /// No description provided for @editAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Account'**
+  String get editAccount;
+
+  /// No description provided for @noParent.
+  ///
+  /// In en, this message translates to:
+  /// **'No Parent (Root)'**
+  String get noParent;
+
+  /// No description provided for @selectParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Parent Account'**
+  String get selectParent;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

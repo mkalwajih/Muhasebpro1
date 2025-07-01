@@ -1,15 +1,14 @@
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
-
 import 'package:flutter/foundation.dart';
 
 QueryExecutor connect() {
-  // This is the implementation for the web using WASM
   return DatabaseConnection.delayed(Future(() async {
     final result = await WasmDatabase.open(
-      databaseName: 'muhasebpro-db', // Your database name
-      sqlite3Uri: Uri.parse('sqlite3.wasm'), // Path to the wasm file
-      driftWorkerUri: Uri.parse('drift_worker.js'),
+      databaseName: 'muhasebpro-db', 
+      // The fix is to provide root-relative paths to the files
+      sqlite3Uri: Uri.parse('/sqlite3.wasm'), 
+      driftWorkerUri: Uri.parse('/drift_worker.js'),
     );
 
     if (result.missingFeatures.isNotEmpty) {

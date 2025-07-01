@@ -21,19 +21,32 @@
     "customers": "العملاء والمبيعات",
     "reports": "التقارير والتحليلات",
     "comingSoon": "قريباً",
-    "featureUnderDevelopment": "هذه الميزة قيد التطوير حالياً."
-    ,"companyInfo": "بيانات الشركة"
-    ,"companyNameAr": "اسم الشركة (عربي)"
-    ,"companyNameEn": "اسم الشركة (انجليزي)"
-    ,"addressAr": "العنوان (عربي)"
-    ,"addressEn": "العنوان (انجليزي)"
-    ,"phone": "الهاتف"
-    ,"email": "البريد الإلكتروني"
-    ,"website": "الموقع الإلكتروني"
-    ,"taxNumber": "الرقم الضريبي"
-    ,"commercialRegNo": "رقم السجل التجاري"
-    ,"save": "حفظ"
-    ,"saving": "جاري الحفظ..."
-    ,"saveSuccess": "تم حفظ البيانات بنجاح."
-    ,"saveFailed": "فشل حفظ البيانات."
+    "featureUnderDevelopment": "هذه الميزة قيد التطوير حالياً.",
+    "companyInfo": "بيانات الشركة",
+    "companyNameAr": "اسم الشركة (عربي)",
+    "companyNameEn": "اسم الشركة (انجليزي)",
+    "addressAr": "العنوان (عربي)",
+    "addressEn": "العنوان (انجليزي)",
+    "phone": "الهاتف",
+    "email": "البريد الإلكتروني",
+    "website": "الموقع الإلكتروني",
+    "taxNumber": "الرقم الضريبي",
+    "commercialRegNo": "رقم السجل التجاري",
+    "save": "حفظ",
+    "saving": "جاري الحفظ...",
+    "saveSuccess": "تم حفظ البيانات بنجاح.",
+    "saveFailed": "فشل حفظ البيانات.",
+    "chartOfAccounts": "دليل الحسابات",
+    "accountCode": "رمز الحساب",
+    "accountName": "اسم الحساب",
+    "accountNameAr": "اسم الحساب (عربي)",
+    "accountNameEn": "اسم الحساب (انجليزي)",
+    "parentAccount": "الحساب الرئيسي",
+    "accountType": "نوع الحساب",
+    "header": "رئيسي",
+    "transactional": "فرعي",
+    "addNewAccount": "إضافة حساب جديد",
+    "editAccount": "تعديل الحساب",
+    "noParent": "بدون حساب رئيسي (جذر)",
+    "selectParent": "اختر الحساب الرئيسي"
 }
