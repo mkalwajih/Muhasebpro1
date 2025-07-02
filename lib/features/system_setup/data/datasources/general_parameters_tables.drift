@@ -1,0 +1,22 @@
+-- Defines the table for system-wide configuration
+
+CREATE TABLE system_config (
+    id INT NOT NULL PRIMARY KEY DEFAULT 1,
+    language TEXT NOT NULL DEFAULT 'en',
+    date_format TEXT NOT NULL DEFAULT 'DD/MM/YYYY',
+    calendar_type TEXT NOT NULL DEFAULT 'Gregorian',
+    account_number_type TEXT NOT NULL DEFAULT 'Numeric',
+    account_number_length INT NOT NULL DEFAULT 8,
+    cost_center_policy TEXT NOT NULL DEFAULT 'Optional',
+    project_policy TEXT NOT NULL DEFAULT 'Optional',
+    password_min_length INT NOT NULL DEFAULT 8,
+    auto_lock_timeout INT NOT NULL DEFAULT 15,
+    use_vat BOOLEAN NOT NULL DEFAULT FALSE,
+    use_tds BOOLEAN NOT NULL DEFAULT FALSE,
+    use_e_invoice BOOLEAN NOT NULL DEFAULT FALSE,
+    price_includes_tax BOOLEAN NOT NULL DEFAULT FALSE,
+    backup_frequency TEXT NOT NULL DEFAULT 'Weekly',
+    cloud_backup BOOLEAN NOT NULL DEFAULT FALSE,
+    ui_theme TEXT NOT NULL DEFAULT 'Light',
+    font_size TEXT NOT NULL DEFAULT 'Medium'
+);

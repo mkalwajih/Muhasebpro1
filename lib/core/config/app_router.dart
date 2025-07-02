@@ -5,8 +5,11 @@ import 'package:muhaseb_pro/core/widgets/placeholder_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_screen.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_management_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_permissions_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_setup_menu_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_management_screen.dart';
 
@@ -36,9 +39,20 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   path: 'coa',
                   builder: (context, state) => const CoaScreen(),
                 ),
-                GoRoute( // Add this new route
+                GoRoute(
                   path: 'user_management',
                   builder: (context, state) => const UserManagementScreen(),
+                ),
+                GoRoute(
+                  path: 'role_management',
+                  builder: (context, state) => const RoleManagementScreen(),
+                ),
+                GoRoute(
+                  path: 'role_permissions',
+                  builder: (context, state) {
+                    final role = state.extra as RoleEntity;
+                    return RolePermissionsScreen(role: role);
+                  }
                 ),
               ]),
           GoRoute(path: 'general_ledger', builder: (context, state) => const PlaceholderScreen(title: 'General Ledger')),
@@ -61,7 +75,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         return '/dashboard';
       }
 
-  return null;
-},
-);
+      return null;
+    },
+  );
 });

@@ -448,6 +448,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Passwords do not match'**
   String get passwordMismatch;
+
+  /// No description provided for @roleManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Management'**
+  String get roleManagement;
+
+  /// No description provided for @addNewRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Role'**
+  String get addNewRole;
+
+  /// No description provided for @editRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Role'**
+  String get editRole;
+
+  /// No description provided for @roleNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Name (Arabic)'**
+  String get roleNameAr;
+
+  /// No description provided for @roleNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Name (English)'**
+  String get roleNameEn;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @generalParameters.
+  ///
+  /// In en, this message translates to:
+  /// **'General Parameters'**
+  String get generalParameters;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @dateFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Format'**
+  String get dateFormat;
+
+  /// No description provided for @calendarType.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar Type'**
+  String get calendarType;
+
+  /// No description provided for @accountNumberType.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number Type'**
+  String get accountNumberType;
+
+  /// No description provided for @accountNumberLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Number Length'**
+  String get accountNumberLength;
+
+  /// No description provided for @costCenterPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost Center Policy'**
+  String get costCenterPolicy;
+
+  /// No description provided for @projectPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'Project Policy'**
+  String get projectPolicy;
+
+  /// No description provided for @passwordMinLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Password Min Length'**
+  String get passwordMinLength;
+
+  /// No description provided for @autoLockTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Lock Timeout (Minutes)'**
+  String get autoLockTimeout;
+
+  /// No description provided for @useVAT.
+  ///
+  /// In en, this message translates to:
+  /// **'Use VAT'**
+  String get useVAT;
+
+  /// No description provided for @useTDS.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Tax Deduction at Source'**
+  String get useTDS;
+
+  /// No description provided for @useEInvoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Electronic Invoice'**
+  String get useEInvoice;
+
+  /// No description provided for @priceIncludesTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Price Includes Sales Tax'**
+  String get priceIncludesTax;
+
+  /// No description provided for @backupFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Frequency'**
+  String get backupFrequency;
+
+  /// No description provided for @cloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Backup'**
+  String get cloudBackup;
+
+  /// No description provided for @uiTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'UI Theme'**
+  String get uiTheme;
+
+  /// No description provided for @fontSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Font Size'**
+  String get fontSize;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @gregorian.
+  ///
+  /// In en, this message translates to:
+  /// **'Gregorian'**
+  String get gregorian;
+
+  /// No description provided for @hijri.
+  ///
+  /// In en, this message translates to:
+  /// **'Hijri'**
+  String get hijri;
+
+  /// No description provided for @both.
+  ///
+  /// In en, this message translates to:
+  /// **'Both'**
+  String get both;
+
+  /// No description provided for @numeric.
+  ///
+  /// In en, this message translates to:
+  /// **'Numeric'**
+  String get numeric;
+
+  /// No description provided for @alphanumeric.
+  ///
+  /// In en, this message translates to:
+  /// **'Alphanumeric'**
+  String get alphanumeric;
+
+  /// No description provided for @notUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Used'**
+  String get notUsed;
+
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get optional;
+
+  /// No description provided for @mandatory.
+  ///
+  /// In en, this message translates to:
+  /// **'Mandatory'**
+  String get mandatory;
+
+  /// No description provided for @daily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get daily;
+
+  /// No description provided for @weekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get weekly;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get light;
+
+  /// No description provided for @dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get dark;
+
+  /// No description provided for @small.
+  ///
+  /// In en, this message translates to:
+  /// **'Small'**
+  String get small;
+
+  /// No description provided for @medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// No description provided for @large.
+  ///
+  /// In en, this message translates to:
+  /// **'Large'**
+  String get large;
+
+  /// No description provided for @resetToDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset to Defaults'**
+  String get resetToDefaults;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -11,6 +11,7 @@ class UserManagementScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final usersAsync = ref.watch(userManagementProvider);
     final l10n = AppLocalizations.of(context)!;
+    final locale = l10n.localeName;
 
     return Scaffold(
       appBar: AppBar(
@@ -22,19 +23,42 @@ class UserManagementScreen extends ConsumerWidget {
             itemCount: users.length,
             itemBuilder: (context, index) {
               final user = users[index];
-              return ListTile(
-                title: Text(user.username),
-                subtitle: Text(user.fullNameEn),
-                trailing: Chip(
-                  label: Text(user.isActive ? l10n.userIsActive : l10n.userIsInactive),
-                  backgroundColor: user.isActive ? Colors.green.shade100 : Colors.red.shade100,
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: ListTile(
+                  title: Text(user.username),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(locale == 'ar' ? user.fullNameAr : user.fullNameEn),
+                      if (user.roles.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Wrap(
+                            spacing: 4.0,
+                            runSpacing: 4.0,
+                            children: user.roles
+                                .map((role) => Chip(
+                                      label: Text(locale == 'ar' ? role.nameAr : role.nameEn),
+                                      padding: EdgeInsets.zero,
+                                      visualDensity: VisualDensity.compact,
+                                    ))
+                                .toList(),
+                          ),
+                        ),
+                    ],
+                  ),
+                  trailing: Chip(
+                    label: Text(user.isActive ? l10n.userIsActive : l10n.userIsInactive),
+                    backgroundColor: user.isActive ? Colors.green.shade100 : Colors.red.shade100,
+                  ),
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (_) => AddEditUserDialog(userToEdit: user),
+                    );
+                  },
                 ),
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (_) => AddEditUserDialog(userToEdit: user),
-                  );
-                },
               );
             },
           );

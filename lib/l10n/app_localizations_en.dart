@@ -184,4 +184,133 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordMismatch => 'Passwords do not match';
+
+  @override
+  String get roleManagement => 'Role Management';
+
+  @override
+  String get addNewRole => 'Add New Role';
+
+  @override
+  String get editRole => 'Edit Role';
+
+  @override
+  String get roleNameAr => 'Role Name (Arabic)';
+
+  @override
+  String get roleNameEn => 'Role Name (English)';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get generalParameters => 'General Parameters';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get dateFormat => 'Date Format';
+
+  @override
+  String get calendarType => 'Calendar Type';
+
+  @override
+  String get accountNumberType => 'Account Number Type';
+
+  @override
+  String get accountNumberLength => 'Account Number Length';
+
+  @override
+  String get costCenterPolicy => 'Cost Center Policy';
+
+  @override
+  String get projectPolicy => 'Project Policy';
+
+  @override
+  String get passwordMinLength => 'Password Min Length';
+
+  @override
+  String get autoLockTimeout => 'Auto-Lock Timeout (Minutes)';
+
+  @override
+  String get useVAT => 'Use VAT';
+
+  @override
+  String get useTDS => 'Use Tax Deduction at Source';
+
+  @override
+  String get useEInvoice => 'Use Electronic Invoice';
+
+  @override
+  String get priceIncludesTax => 'Price Includes Sales Tax';
+
+  @override
+  String get backupFrequency => 'Backup Frequency';
+
+  @override
+  String get cloudBackup => 'Cloud Backup';
+
+  @override
+  String get uiTheme => 'UI Theme';
+
+  @override
+  String get fontSize => 'Font Size';
+
+  @override
+  String get arabic => 'Arabic';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get gregorian => 'Gregorian';
+
+  @override
+  String get hijri => 'Hijri';
+
+  @override
+  String get both => 'Both';
+
+  @override
+  String get numeric => 'Numeric';
+
+  @override
+  String get alphanumeric => 'Alphanumeric';
+
+  @override
+  String get notUsed => 'Not Used';
+
+  @override
+  String get optional => 'Optional';
+
+  @override
+  String get mandatory => 'Mandatory';
+
+  @override
+  String get daily => 'Daily';
+
+  @override
+  String get weekly => 'Weekly';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
+
+  @override
+  String get small => 'Small';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get large => 'Large';
+
+  @override
+  String get resetToDefaults => 'Reset to Defaults';
 }

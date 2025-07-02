@@ -184,4 +184,133 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordMismatch => 'كلمات المرور غير متطابقة';
+
+  @override
+  String get roleManagement => 'إدارة الأدوار';
+
+  @override
+  String get addNewRole => 'إضافة دور جديد';
+
+  @override
+  String get editRole => 'تعديل الدور';
+
+  @override
+  String get roleNameAr => 'اسم الدور (عربي)';
+
+  @override
+  String get roleNameEn => 'اسم الدور (انجليزي)';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get generalParameters => 'الإعدادات العامة';
+
+  @override
+  String get language => 'اللغة';
+
+  @override
+  String get dateFormat => 'تنسيق التاريخ';
+
+  @override
+  String get calendarType => 'نوع التقويم';
+
+  @override
+  String get accountNumberType => 'نوع رقم الحساب';
+
+  @override
+  String get accountNumberLength => 'طول رقم الحساب';
+
+  @override
+  String get costCenterPolicy => 'سياسة مراكز التكلفة';
+
+  @override
+  String get projectPolicy => 'سياسة المشاريع';
+
+  @override
+  String get passwordMinLength => 'الحد الأدنى لطول كلمة المرور';
+
+  @override
+  String get autoLockTimeout => 'مهلة القفل التلقائي (دقائق)';
+
+  @override
+  String get useVAT => 'استخدام ضريبة القيمة المضافة';
+
+  @override
+  String get useTDS => 'استخدام خصم الضريبة عند المصدر';
+
+  @override
+  String get useEInvoice => 'استخدام الفاتورة الإلكترونية';
+
+  @override
+  String get priceIncludesTax => 'السعر يشمل ضريبة المبيعات';
+
+  @override
+  String get backupFrequency => 'تكرار النسخ الاحتياطي';
+
+  @override
+  String get cloudBackup => 'النسخ الاحتياطي السحابي';
+
+  @override
+  String get uiTheme => 'السمة';
+
+  @override
+  String get fontSize => 'حجم الخط';
+
+  @override
+  String get arabic => 'العربية';
+
+  @override
+  String get english => 'الإنجليزية';
+
+  @override
+  String get gregorian => 'ميلادي';
+
+  @override
+  String get hijri => 'هجري';
+
+  @override
+  String get both => 'كلاهما';
+
+  @override
+  String get numeric => 'رقمي';
+
+  @override
+  String get alphanumeric => 'أبجدي رقمي';
+
+  @override
+  String get notUsed => 'غير مستخدم';
+
+  @override
+  String get optional => 'اختياري';
+
+  @override
+  String get mandatory => 'إلزامي';
+
+  @override
+  String get daily => 'يومي';
+
+  @override
+  String get weekly => 'أسبوعي';
+
+  @override
+  String get monthly => 'شهري';
+
+  @override
+  String get light => 'فاتح';
+
+  @override
+  String get dark => 'داكن';
+
+  @override
+  String get small => 'صغير';
+
+  @override
+  String get medium => 'متوسط';
+
+  @override
+  String get large => 'كبير';
+
+  @override
+  String get resetToDefaults => 'إعادة تعيين إلى الافتراضيات';
 }

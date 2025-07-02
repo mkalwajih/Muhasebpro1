@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/providers/role_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/user_management_providers.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 
@@ -21,6 +23,9 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
   late TextEditingController _passwordController;
   late TextEditingController _confirmPasswordController;
   bool _isActive = true;
+  
+  // State for selected roles
+  Set<int> _selectedRoleIds = {};
 
   @override
   void initState() {
@@ -32,6 +37,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
     _passwordController = TextEditingController();
     _confirmPasswordController = TextEditingController();
     _isActive = user?.isActive ?? true;
+    _selectedRoleIds = user?.roles.map((r) => r.id).toSet() ?? {};
   }
 
   @override
@@ -44,15 +50,19 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
     super.dispose();
   }
 
-  void _onSave() {
+  void _onSave(List<RoleEntity> allRoles) {
     if (_formKey.currentState!.validate()) {
       final notifier = ref.read(userManagementProvider.notifier);
+      
+      final selectedRoles = allRoles.where((role) => _selectedRoleIds.contains(role.id)).toList();
+
       final user = UserEntity(
         userId: widget.userToEdit?.userId ?? 0,
         username: _usernameController.text,
         fullNameAr: _nameArController.text,
         fullNameEn: _nameEnController.text,
         isActive: _isActive,
+        roles: selectedRoles, // Assign the selected roles
       );
 
       final password = _passwordController.text;
@@ -70,71 +80,58 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final isEditing = widget.userToEdit != null;
+    final rolesAsync = ref.watch(roleManagementProvider);
 
     return AlertDialog(
       title: Text(isEditing ? l10n.editUser : l10n.addNewUser),
-      content: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(labelText: l10n.username),
-                validator: (v) => v!.isEmpty ? l10n.usernameRequired : null,
-              ),
-              TextFormField(
-                controller: _nameEnController,
-                decoration: InputDecoration(labelText: l10n.fullNameEn),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
-              ),
-              TextFormField(
-                controller: _nameArController,
-                decoration: InputDecoration(labelText: l10n.fullNameAr),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
-              ),
-              TextFormField(
-                controller: _passwordController,
-                decoration: InputDecoration(labelText: l10n.password, hintText: isEditing ? 'Leave blank to keep unchanged' : null),
-                obscureText: true,
-                validator: (v) {
-                  if (!isEditing && (v == null || v.isEmpty)) {
-                    return l10n.passwordRequired;
-                  }
-                  if (v != null && v.isNotEmpty && v.length < 6) {
-                    return 'Password must be at least 6 characters';
-                  }
-                  if (v != _confirmPasswordController.text) {
-                     return l10n.passwordMismatch;
-                  }
+      content: rolesAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, st) => Text('Error loading roles: $err'),
+        data: (allRoles) => Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(controller: _usernameController, decoration: InputDecoration(labelText: l10n.username), validator: (v) => v!.isEmpty ? l10n.usernameRequired : null),
+                TextFormField(controller: _nameEnController, decoration: InputDecoration(labelText: l10n.fullNameEn), validator: (v) => v!.isEmpty ? 'Required' : null),
+                TextFormField(controller: _nameArController, decoration: InputDecoration(labelText: l10n.fullNameAr), validator: (v) => v!.isEmpty ? 'Required' : null),
+                TextFormField(controller: _passwordController, decoration: InputDecoration(labelText: l10n.password, hintText: isEditing ? 'Leave blank to keep unchanged' : null), obscureText: true, validator: (v) {
+                  if (!isEditing && (v == null || v.isEmpty)) return l10n.passwordRequired;
+                  if (v != null && v.isNotEmpty && v.length < 6) return 'Password must be at least 6 characters';
+                  if (v != _confirmPasswordController.text) return l10n.passwordMismatch;
                   return null;
-                },
-              ),
-              TextFormField(
-                controller: _confirmPasswordController,
-                decoration: InputDecoration(labelText: l10n.confirmPassword),
-                obscureText: true,
-                 validator: (v) {
-                  if (v != _passwordController.text) {
-                     return l10n.passwordMismatch;
-                  }
+                }),
+                TextFormField(controller: _confirmPasswordController, decoration: InputDecoration(labelText: l10n.confirmPassword), obscureText: true, validator: (v) {
+                  if (v != _passwordController.text) return l10n.passwordMismatch;
                   return null;
-                },
-              ),
-              SwitchListTile(
-                title: Text(l10n.status),
-                subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive),
-                value: _isActive,
-                onChanged: (val) => setState(() => _isActive = val),
-              ),
-            ],
+                }),
+                SwitchListTile(title: Text(l10n.status), subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive), value: _isActive, onChanged: (val) => setState(() => _isActive = val)),
+                const Divider(),
+                Text(l10n.roleManagement, style: Theme.of(context).textTheme.titleMedium),
+                ...allRoles.map((role) {
+                  return CheckboxListTile(
+                    title: Text(l10n.localeName == 'ar' ? role.nameAr : role.nameEn),
+                    value: _selectedRoleIds.contains(role.id),
+                    onChanged: (bool? selected) {
+                      setState(() {
+                        if (selected == true) {
+                          _selectedRoleIds.add(role.id);
+                        } else {
+                          _selectedRoleIds.remove(role.id);
+                        }
+                      });
+                    },
+                  );
+                }).toList(),
+              ],
+            ),
           ),
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
-        ElevatedButton(onPressed: _onSave, child: Text(l10n.save)),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text('Cancel')),
+        ElevatedButton(onPressed: () => rolesAsync.whenData((roles) => _onSave(roles)), child: Text(l10n.save)),
       ],
     );
   }

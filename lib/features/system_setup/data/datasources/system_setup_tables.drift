@@ -1,4 +1,6 @@
 -- Defines tables for the System Setup module
+import 'package:muhaseb_pro/features/authentication/data/datasources/auth_tables.drift';
+
 
 CREATE TABLE company_info (
     id INT NOT NULL PRIMARY KEY DEFAULT 1,
@@ -20,7 +22,30 @@ CREATE TABLE accounts (
     name_ar TEXT NOT NULL,
     name_en TEXT NOT NULL,
     level INT NOT NULL,
-    type TEXT NOT NULL, -- e.g., 'Header', 'Transactional'
+    type TEXT NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (parent_id) REFERENCES accounts(id)
+);
+
+CREATE TABLE roles (
+    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    description TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE user_roles (
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
+
+CREATE TABLE role_permissions (
+    role_id INT NOT NULL,
+    permission_key TEXT NOT NULL,
+    PRIMARY KEY (role_id, permission_key),
+    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
