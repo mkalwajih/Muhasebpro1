@@ -48,5 +48,15 @@
     "addNewAccount": "Add New Account",
     "editAccount": "Edit Account",
     "noParent": "No Parent (Root)",
-    "selectParent": "Select Parent Account"
+    "selectParent": "Select Parent Account",
+    "userManagement": "User Management",
+    "addNewUser": "Add New User",
+    "editUser": "Edit User",
+    "fullNameAr": "Full Name (Arabic)",
+    "fullNameEn": "Full Name (English)",
+    "userIsActive": "Active",
+    "userIsInactive": "Inactive",
+    "status": "Status",
+    "confirmPassword": "Confirm Password",
+    "passwordMismatch": "Passwords do not match"
 }

@@ -8,6 +8,7 @@ import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_sc
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_setup_menu_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_management_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -24,20 +25,22 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const DashboardScreen(),
         routes: [
           GoRoute(
-            path: 'system_setup',
-            builder: (context, state) => const SystemSetupMenuScreen(),
-            routes: [
-              GoRoute(
-                path: 'company_info',
-                builder: (context, state) => const CompanyInfoScreen(),
-              ),
-              GoRoute(
-                path: 'coa',
-                builder: (context, state) => const CoaScreen(),
-              ),
-            ]
-          ),
-          // ... other main module routes remain placeholders
+              path: 'system_setup',
+              builder: (context, state) => const SystemSetupMenuScreen(),
+              routes: [
+                GoRoute(
+                  path: 'company_info',
+                  builder: (context, state) => const CompanyInfoScreen(),
+                ),
+                GoRoute(
+                  path: 'coa',
+                  builder: (context, state) => const CoaScreen(),
+                ),
+                GoRoute( // Add this new route
+                  path: 'user_management',
+                  builder: (context, state) => const UserManagementScreen(),
+                ),
+              ]),
           GoRoute(path: 'general_ledger', builder: (context, state) => const PlaceholderScreen(title: 'General Ledger')),
           GoRoute(path: 'inventory', builder: (context, state) => const PlaceholderScreen(title: 'Inventory')),
           GoRoute(path: 'vendors', builder: (context, state) => const PlaceholderScreen(title: 'Vendors')),
@@ -58,7 +61,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         return '/dashboard';
       }
 
-      return null;
-    },
-  );
+  return null;
+},
+);
 });

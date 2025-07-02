@@ -154,4 +154,34 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectParent => 'اختر الحساب الرئيسي';
+
+  @override
+  String get userManagement => 'إدارة المستخدمين';
+
+  @override
+  String get addNewUser => 'إضافة مستخدم جديد';
+
+  @override
+  String get editUser => 'تعديل المستخدم';
+
+  @override
+  String get fullNameAr => 'الاسم الكامل (عربي)';
+
+  @override
+  String get fullNameEn => 'الاسم الكامل (انجليزي)';
+
+  @override
+  String get userIsActive => 'نشط';
+
+  @override
+  String get userIsInactive => 'غير نشط';
+
+  @override
+  String get status => 'الحالة';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get passwordMismatch => 'كلمات المرور غير متطابقة';
 }

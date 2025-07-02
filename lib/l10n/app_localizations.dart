@@ -388,6 +388,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select Parent Account'**
   String get selectParent;
+
+  /// No description provided for @userManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'User Management'**
+  String get userManagement;
+
+  /// No description provided for @addNewUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New User'**
+  String get addNewUser;
+
+  /// No description provided for @editUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit User'**
+  String get editUser;
+
+  /// No description provided for @fullNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (Arabic)'**
+  String get fullNameAr;
+
+  /// No description provided for @fullNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Full Name (English)'**
+  String get fullNameEn;
+
+  /// No description provided for @userIsActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get userIsActive;
+
+  /// No description provided for @userIsInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get userIsInactive;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPassword;
+
+  /// No description provided for @passwordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordMismatch;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

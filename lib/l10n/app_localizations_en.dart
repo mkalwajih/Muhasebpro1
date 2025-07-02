@@ -154,4 +154,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectParent => 'Select Parent Account';
+
+  @override
+  String get userManagement => 'User Management';
+
+  @override
+  String get addNewUser => 'Add New User';
+
+  @override
+  String get editUser => 'Edit User';
+
+  @override
+  String get fullNameAr => 'Full Name (Arabic)';
+
+  @override
+  String get fullNameEn => 'Full Name (English)';
+
+  @override
+  String get userIsActive => 'Active';
+
+  @override
+  String get userIsInactive => 'Inactive';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get passwordMismatch => 'Passwords do not match';
 }

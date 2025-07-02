@@ -48,5 +48,15 @@
     "addNewAccount": "إضافة حساب جديد",
     "editAccount": "تعديل الحساب",
     "noParent": "بدون حساب رئيسي (جذر)",
-    "selectParent": "اختر الحساب الرئيسي"
+    "selectParent": "اختر الحساب الرئيسي",
+    "userManagement": "إدارة المستخدمين",
+    "addNewUser": "إضافة مستخدم جديد",
+    "editUser": "تعديل المستخدم",
+    "fullNameAr": "الاسم الكامل (عربي)",
+    "fullNameEn": "الاسم الكامل (انجليزي)",
+    "userIsActive": "نشط",
+    "userIsInactive": "غير نشط",
+    "status": "الحالة",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "passwordMismatch": "كلمات المرور غير متطابقة"
 }

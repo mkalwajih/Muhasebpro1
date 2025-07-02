@@ -25,6 +25,11 @@ class SystemSetupMenuScreen extends StatelessWidget {
             title: Text(l10n.chartOfAccounts),
             onTap: () => context.go('/dashboard/system_setup/coa'),
           ),
+          ListTile(
+            leading: const Icon(Iconsax.user_edit), // Add this new list tile
+            title: Text(l10n.userManagement),
+            onTap: () => context.go('/dashboard/system_setup/user_management'),
+          ),
         ],
       ),
     );

@@ -1,6 +1,0 @@
-Analyzing myapp...                                              
-
-  error • The getter 'context' isn't defined for the type 'ProviderRef<List<DashboardItem>>' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:12:40 • undefined_getter
-  error • Undefined name 'context' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:46:52 • undefined_identifier
-
-2 issues found. (ran in 1.3s)
