@@ -1,40 +1,53 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
 
-// Represents the core information of a company
-
+// Represents the core information of a company, aligned with the database schema.
 class CompanyInfoEntity extends Equatable {
+  final int id;
+  final String companyCode;
   final String nameAr;
   final String nameEn;
-  final String? addressAr;
-  final String? addressEn;
-  final String? phone;
-  final String? email;
-  final String? website;
+  final String? countryId;
   final String? taxNumber;
   final String? commercialRegNo;
+  final String? address;
+  final String? phone;
+  final String? email;
+  final Uint8List? logo;
+  final bool isMainCompany;
+  final String? remarks;
 
   const CompanyInfoEntity({
+    required this.id,
+    required this.companyCode,
     required this.nameAr,
     required this.nameEn,
-    this.addressAr,
-    this.addressEn,
-    this.phone,
-    this.email,
-    this.website,
+    this.countryId,
     this.taxNumber,
     this.commercialRegNo,
+    this.address,
+    this.phone,
+    this.email,
+    this.logo,
+    required this.isMainCompany,
+    this.remarks,
   });
 
   @override
   List<Object?> get props => [
+        id,
+        companyCode,
         nameAr,
         nameEn,
-        addressAr,
-        addressEn,
+        countryId,
+        taxNumber,
+        commercialRegNo,
+        address,
         phone,
         email,
-        website,
-        taxNumber,
-        commercialRegNo
+        logo,
+        isMainCompany,
+        remarks,
       ];
 }

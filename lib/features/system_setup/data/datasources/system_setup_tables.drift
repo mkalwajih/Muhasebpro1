@@ -1,51 +1,73 @@
--- Defines tables for the System Setup module
-import 'package:muhaseb_pro/features/authentication/data/datasources/auth_tables.drift';
-
+-- lib/features/system_setup/data/datasources/system_setup_tables.drift
 
 CREATE TABLE company_info (
-    id INT NOT NULL PRIMARY KEY DEFAULT 1,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL,
-    address_ar TEXT,
-    address_en TEXT,
-    phone TEXT,
-    email TEXT,
-    website TEXT,
-    tax_number TEXT,
-    commercial_reg_no TEXT
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  company_code TEXT NOT NULL,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  country_id TEXT,
+  tax_number TEXT,
+  commercial_reg_no TEXT,
+  address TEXT,
+  phone TEXT,
+  email TEXT,
+  logo BLOB,
+  is_main_company BOOLEAN NOT NULL,
+  remarks TEXT
+);
+
+CREATE TABLE branches (
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  company_id INT NOT NULL REFERENCES company_info(id),
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL
+);
+
+CREATE TABLE financial_periods (
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  start_date TIMESTAMP NOT NULL,
+  end_date TIMESTAMP NOT NULL,
+  is_closed BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE accounts (
-    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-    parent_id INT,
-    account_code TEXT NOT NULL UNIQUE,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL,
-    level INT NOT NULL,
-    type TEXT NOT NULL,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    FOREIGN KEY (parent_id) REFERENCES accounts(id)
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  parent_id INT REFERENCES accounts(id),
+  account_code TEXT NOT NULL,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  level INT NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  nature TEXT NOT NULL,
+  report_type TEXT NOT NULL,
+  cash_flow_type TEXT,
+  detail_account_type TEXT
 );
 
 CREATE TABLE roles (
-    id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL,
-    description TEXT,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  description TEXT,
+  is_active BOOLEAN NOT NULL
 );
 
 CREATE TABLE user_roles (
-    user_id INT NOT NULL,
-    role_id INT NOT NULL,
-    PRIMARY KEY (user_id, role_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+  user_id INT NOT NULL REFERENCES users(id),
+  role_id INT NOT NULL REFERENCES roles(id),
+  PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE role_permissions (
-    role_id INT NOT NULL,
-    permission_key TEXT NOT NULL,
-    PRIMARY KEY (role_id, permission_key),
-    FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+  role_id INT NOT NULL REFERENCES roles(id),
+  permission TEXT NOT NULL,
+  PRIMARY KEY (role_id, permission)
+);
+
+CREATE TABLE audit_log (
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  user_id INT NOT NULL REFERENCES users(id),
+  timestamp TIMESTAMP NOT NULL,
+  action TEXT NOT NULL,
+  details TEXT
 );

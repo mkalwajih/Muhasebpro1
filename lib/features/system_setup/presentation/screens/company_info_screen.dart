@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
@@ -15,54 +17,68 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
+  // Controllers for the new entity structure
+  late final TextEditingController _companyCodeController;
   late final TextEditingController _nameArController;
   late final TextEditingController _nameEnController;
-  late final TextEditingController _addressArController;
-  late final TextEditingController _addressEnController;
+  late final TextEditingController _addressController;
   late final TextEditingController _phoneController;
   late final TextEditingController _emailController;
-  late final TextEditingController _websiteController;
   late final TextEditingController _taxController;
   late final TextEditingController _regController;
+  late final TextEditingController _remarksController;
+  bool _isMainCompany = false;
+  // Placeholder for logo and country
+  Uint8List? _logo;
+  String? _countryId;
+  int _companyId = 1; // Defaulting to 1 for now as per old logic
 
   @override
   void initState() {
     super.initState();
+    _companyCodeController = TextEditingController();
     _nameArController = TextEditingController();
     _nameEnController = TextEditingController();
-    _addressArController = TextEditingController();
-    _addressEnController = TextEditingController();
+    _addressController = TextEditingController();
     _phoneController = TextEditingController();
     _emailController = TextEditingController();
-    _websiteController = TextEditingController();
     _taxController = TextEditingController();
     _regController = TextEditingController();
+    _remarksController = TextEditingController();
   }
 
   @override
   void dispose() {
+    _companyCodeController.dispose();
     _nameArController.dispose();
     _nameEnController.dispose();
-    _addressArController.dispose();
-    _addressEnController.dispose();
+    _addressController.dispose();
     _phoneController.dispose();
     _emailController.dispose();
-    _websiteController.dispose();
     _taxController.dispose();
     _regController.dispose();
+    _remarksController.dispose();
     super.dispose();
   }
 
   void _updateControllers(CompanyInfoEntity? info) {
-      _nameArController.text = info?.nameAr ?? '';
-      _nameEnController.text = info?.nameEn ?? '';
-      _addressArController.text = info?.addressAr ?? '';
-      _addressEnController.text = info?.addressEn ?? '';
-      _phoneController.text = info?.phone ?? '';
-      _emailController.text = info?.email ?? '';
-      _websiteController.text = info?.website ?? '';
-      _taxController.text = info?.taxNumber ?? '';
-      _regController.text = info?.commercialRegNo ?? '';
+    if (info != null) {
+      _companyId = info.id;
+      _companyCodeController.text = info.companyCode;
+      _nameArController.text = info.nameAr;
+      _nameEnController.text = info.nameEn;
+      _addressController.text = info.address ?? '';
+      _phoneController.text = info.phone ?? '';
+      _emailController.text = info.email ?? '';
+      _taxController.text = info.taxNumber ?? '';
+      _regController.text = info.commercialRegNo ?? '';
+      _remarksController.text = info.remarks ?? '';
+      setState(() {
+        _isMainCompany = info.isMainCompany;
+        _logo = info.logo;
+        _countryId = info.countryId;
+      });
+    }
   }
 
   Future<void> _onSave() async {
@@ -71,15 +87,19 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
       final l10n = AppLocalizations.of(context)!;
       try {
         final newInfo = CompanyInfoEntity(
+          id: _companyId,
+          companyCode: _companyCodeController.text,
           nameAr: _nameArController.text,
           nameEn: _nameEnController.text,
-          addressAr: _addressArController.text,
-          addressEn: _addressEnController.text,
+          address: _addressController.text,
           phone: _phoneController.text,
           email: _emailController.text,
-          website: _websiteController.text,
           taxNumber: _taxController.text,
           commercialRegNo: _regController.text,
+          remarks: _remarksController.text,
+          isMainCompany: _isMainCompany,
+          logo: _logo,
+          countryId: _countryId,
         );
         await ref.read(companyInfoProvider.notifier).saveCompanyInfo(newInfo);
         if (mounted) {
@@ -90,11 +110,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(l10n.saveFailed), backgroundColor: Theme.of(context).colorScheme.error),
+            SnackBar(content: Text('${l10n.saveFailed}: ${e.toString()}'), backgroundColor: Theme.of(context).colorScheme.error),
           );
         }
       } finally {
-        if(mounted) setState(() => _isLoading = false);
+        if (mounted) setState(() => _isLoading = false);
       }
     }
   }
@@ -120,6 +140,13 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
           child: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
+              // TODO: Add logo picker widget
+              TextFormField(
+                controller: _companyCodeController,
+                decoration: InputDecoration(labelText: 'Company Code'), // Add to l10n
+                validator: (val) => val!.isEmpty ? 'Required' : null,
+              ),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.companyNameAr),
@@ -131,15 +158,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 decoration: InputDecoration(labelText: l10n.companyNameEn),
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
-              const SizedBox(height: 16),
+               const SizedBox(height: 16),
+              // TODO: Add country dropdown
               TextFormField(
-                controller: _addressArController,
-                decoration: InputDecoration(labelText: l10n.addressAr),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _addressEnController,
-                decoration: InputDecoration(labelText: l10n.addressEn),
+                controller: _addressController,
+                decoration: InputDecoration(labelText: 'Address'), // Add to l10n
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -153,11 +176,6 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _websiteController,
-                decoration: InputDecoration(labelText: l10n.website),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
                 controller: _taxController,
                 decoration: InputDecoration(labelText: l10n.taxNumber),
               ),
@@ -166,15 +184,28 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 controller: _regController,
                 decoration: InputDecoration(labelText: l10n.commercialRegNo),
               ),
+              const SizedBox(height: 16),
+               TextFormField(
+                controller: _remarksController,
+                decoration: InputDecoration(labelText: 'Remarks'), // Add to l10n
+              ),
+              const SizedBox(height: 16),
+              CheckboxListTile(
+                title: Text('Is Main Company'), // Add to l10n
+                value: _isMainCompany,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _isMainCompany = value ?? false;
+                  });
+                },
+              ),
               const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: _isLoading ? null : _onSave,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: _isLoading
-                    ? const CircularProgressIndicator()
-                    : Text(l10n.save),
+                child: _isLoading ? const CircularProgressIndicator() : Text(l10n.save),
               ),
             ],
           ),

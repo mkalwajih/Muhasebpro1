@@ -1,16 +1,11 @@
--- This file defines the database tables related to authentication.
--- It adheres to the FRD for Module 1.
+-- lib/features/authentication/data/datasources/auth_tables.drift
 
 CREATE TABLE users (
-    user_id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-    username TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
-    full_name_ar TEXT NOT NULL,
-    full_name_en TEXT NOT NULL,
-    email TEXT,
-    -- In a real app, this would be a foreign key to a 'branches' table
-    assigned_branch_id INT,
-    -- Link to an 'employees' table later
-    employee_id INT,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
+  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  full_name_ar TEXT NOT NULL,
+  full_name_en TEXT NOT NULL,
+  email TEXT,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE
 );

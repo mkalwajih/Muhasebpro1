@@ -8,10 +8,13 @@ import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_sc
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/geographical_data_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_management_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_permissions_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_setup_menu_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_management_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/general_parameters_screen.dart';
+
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -53,6 +56,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     final role = state.extra as RoleEntity;
                     return RolePermissionsScreen(role: role);
                   }
+                ),
+                GoRoute(
+                  path: 'geographical_data',
+                  builder: (context, state) => const GeographicalDataScreen(),
+                ),
+                 GoRoute(
+                  path: 'general_parameters',
+                  builder: (context, state) => const GeneralParametersScreen(),
                 ),
               ]),
           GoRoute(path: 'general_ledger', builder: (context, state) => const PlaceholderScreen(title: 'General Ledger')),

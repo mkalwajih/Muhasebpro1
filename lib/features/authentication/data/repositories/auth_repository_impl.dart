@@ -35,10 +35,10 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       final userEntity = UserEntity(
-        userId: user.userId,
+        userId: user.id,
         username: user.username,
         fullNameEn: user.fullNameEn,
- fullNameAr: user.fullNameAr,
+        fullNameAr: user.fullNameAr,
         isActive: user.isActive,
       );
       

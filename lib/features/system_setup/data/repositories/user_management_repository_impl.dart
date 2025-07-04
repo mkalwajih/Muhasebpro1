@@ -24,27 +24,27 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
     // 3. Map users to UserEntity, including their assigned roles
     return usersList.map((user) {
       final assignedRoleIds = userRolesList
-          .where((ur) => ur.userId == user.userId)
-          .map((ur) => ur.roleId);
+          .where((ur) => ur.user_id == user.id)
+          .map((ur) => ur.role_id);
       
       final assignedRoles = assignedRoleIds
           .map((roleId) => rolesMap[roleId])
           .where((role) => role != null)
           .map((role) => RoleEntity(
                 id: role!.id,
-                nameAr: role.nameAr,
-                nameEn: role.nameEn,
-                isActive: role.isActive,
+                nameAr: role.name_ar,
+                nameEn: role.name_en,
+                isActive: role.is_active,
                 description: role.description
               ))
           .toList();
 
       return UserEntity(
-        userId: user.userId,
+        userId: user.id,
         username: user.username,
-        fullNameAr: user.fullNameAr,
-        fullNameEn: user.fullNameEn,
-        isActive: user.isActive,
+        fullNameAr: user.full_name_ar,
+        fullNameEn: user.full_name_en,
+        isActive: user.is_active,
         roles: assignedRoles,
       );
     }).toList();
@@ -55,28 +55,28 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
     await database.transaction(() async {
       // 1. Update the user details
        final userCompanion = db.UsersCompanion(
-        userId: Value(user.userId),
+        id: Value(user.userId),
         username: Value(user.username),
-        fullNameAr: Value(user.fullNameAr),
-        fullNameEn: Value(user.fullNameEn),
-        isActive: Value(user.isActive),
-        passwordHash: newPassword != null ? Value(newPassword) : const Value.absent(),
+        full_name_ar: Value(user.fullNameAr),
+        full_name_en: Value(user.fullNameEn),
+        is_active: Value(user.isActive),
+        password_hash: newPassword != null ? Value(newPassword) : const Value.absent(),
       );
 
       if (newPassword != null) {
         final localAuth = authLocalDataSource as AuthLocalDataSourceImpl;
         final hashedCompanion = localAuth.hashPasswordForUpdate(userCompanion);
-        await (database.update(database.users)..where((u) => u.userId.equals(user.userId))).write(hashedCompanion);
+        await (database.update(database.users)..where((u) => u.id.equals(user.userId))).write(hashedCompanion);
       } else {
-        await (database.update(database.users)..where((u) => u.userId.equals(user.userId))).write(userCompanion);
+        await (database.update(database.users)..where((u) => u.id.equals(user.userId))).write(userCompanion);
       }
 
       // 2. Delete all existing roles for this user
-      await (database.delete(database.userRoles)..where((ur) => ur.userId.equals(user.userId))).go();
+      await (database.delete(database.userRoles)..where((ur) => ur.user_id.equals(user.userId))).go();
 
       // 3. Insert the new roles
       final rolesToInsert = user.roles.map((role) =>
-          db.UserRolesCompanion.insert(userId: user.userId, roleId: role.id));
+          db.UserRolesCompanion.insert(user_id: user.userId, role_id: role.id));
       
       if (rolesToInsert.isNotEmpty) {
         await database.batch((batch) {
@@ -92,16 +92,16 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       // 1. Add the new user
       final companion = db.UsersCompanion.insert(
         username: user.username,
-        passwordHash: password,
-        fullNameAr: user.fullNameAr,
-        fullNameEn: user.fullNameEn,
-        isActive: Value(user.isActive),
+        password_hash: password,
+        full_name_ar: user.fullNameAr,
+        full_name_en: user.fullNameEn,
+        is_active: Value(user.isActive),
       );
       final newUserId = await authLocalDataSource.insertUser(companion);
       
       // 2. Insert their roles
       final rolesToInsert = user.roles.map((role) =>
-          db.UserRolesCompanion.insert(userId: newUserId, roleId: role.id));
+          db.UserRolesCompanion.insert(user_id: newUserId, role_id: role.id));
 
       if(rolesToInsert.isNotEmpty){
         await database.batch((batch) {

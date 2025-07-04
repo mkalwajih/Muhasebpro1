@@ -78,16 +78,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get companyInfo => 'بيانات الشركة';
 
   @override
+  String get companyCode => 'رمز الشركة';
+
+  @override
   String get companyNameAr => 'اسم الشركة (عربي)';
 
   @override
   String get companyNameEn => 'اسم الشركة (انجليزي)';
 
   @override
-  String get addressAr => 'العنوان (عربي)';
+  String get country => 'الدولة';
 
   @override
-  String get addressEn => 'العنوان (انجليزي)';
+  String get address => 'العنوان';
 
   @override
   String get phone => 'الهاتف';
@@ -103,6 +106,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commercialRegNo => 'رقم السجل التجاري';
+
+  @override
+  String get remarks => 'ملاحظات';
+
+  @override
+  String get isMainCompany => 'هل هي الشركة الرئيسية';
 
   @override
   String get save => 'حفظ';
@@ -156,6 +165,69 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectParent => 'اختر الحساب الرئيسي';
 
   @override
+  String get active => 'فعال';
+
+  @override
+  String get nature => 'طبيعة الحساب';
+
+  @override
+  String get debit => 'مدين';
+
+  @override
+  String get credit => 'دائن';
+
+  @override
+  String get reportType => 'نوع التقرير';
+
+  @override
+  String get balanceSheet => 'ميزانية عمومية';
+
+  @override
+  String get incomeStatement => 'قائمة الدخل';
+
+  @override
+  String get detailAccountType => 'نوع الحساب التفصيلي';
+
+  @override
+  String get cashFlowType => 'نوع التدفق النقدي';
+
+  @override
+  String get general => 'عام';
+
+  @override
+  String get cash => 'صندوق';
+
+  @override
+  String get bank => 'بنك';
+
+  @override
+  String get customer => 'عميل';
+
+  @override
+  String get vendor => 'مورد';
+
+  @override
+  String get employee => 'موظف';
+
+  @override
+  String get otherDebit => 'ذمم مدينة أخرى';
+
+  @override
+  String get otherCredit => 'ذمم دائنة أخرى';
+
+  @override
+  String get none => 'بدون';
+
+  @override
+  String get operating => 'تشغيلي';
+
+  @override
+  String get investing => 'استثماري';
+
+  @override
+  String get financing => 'تمويلي';
+
+  @override
   String get userManagement => 'إدارة المستخدمين';
 
   @override
@@ -202,6 +274,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get description => 'الوصف';
+
+  @override
+  String get cancel => 'إلغاء';
 
   @override
   String get generalParameters => 'الإعدادات العامة';
@@ -313,4 +388,86 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get resetToDefaults => 'إعادة تعيين إلى الافتراضيات';
+
+  @override
+  String get requiredField => 'هذا الحقل مطلوب';
+
+  @override
+  String invalidLengthRange(Object min, Object max) {
+    return 'يجب أن تكون القيمة بين $min و $max حرفًا';
+  }
+
+  @override
+  String invalidRange(Object min, Object max) {
+    return 'يجب أن تكون القيمة بين $min و $max';
+  }
+
+  @override
+  String get resetSuccess => 'تمت إعادة تعيين الإعدادات الافتراضية بنجاح.';
+
+  @override
+  String get resetFailed => 'فشل إعادة تعيين الإعدادات الافتراضية.';
+
+  @override
+  String get geographicalData => 'البيانات الجغرافية';
+
+  @override
+  String get zones => 'المناطق';
+
+  @override
+  String get countries => 'الدول';
+
+  @override
+  String get governorates => 'المحافظات';
+
+  @override
+  String get cities => 'المدن';
+
+  @override
+  String get regions => 'الأحياء';
+
+  @override
+  String get addNew => 'إضافة جديد';
+
+  @override
+  String get addNewZone => 'إضافة منطقة جديدة';
+
+  @override
+  String get editZone => 'تعديل المنطقة';
+
+  @override
+  String get zoneCode => 'رمز المنطقة';
+
+  @override
+  String get zoneNameAr => 'اسم المنطقة (عربي)';
+
+  @override
+  String get zoneNameEn => 'اسم المنطقة (انجليزي)';
+
+  @override
+  String get selectZonePrompt => 'اختر منطقة لعرض دولها.';
+
+  @override
+  String get addNewCountry => 'إضافة دولة جديدة';
+
+  @override
+  String get editCountry => 'تعديل الدولة';
+
+  @override
+  String get countryCode => 'رمز الدولة';
+
+  @override
+  String get countryNameAr => 'اسم الدولة (عربي)';
+
+  @override
+  String get countryNameEn => 'اسم الدولة (انجليزي)';
+
+  @override
+  String get nationalityAr => 'الجنسية (عربي)';
+
+  @override
+  String get nationalityEn => 'الجنسية (انجليزي)';
+
+  @override
+  String get selectCountryPrompt => 'اختر دولة لعرض محافظاتها.';
 }

@@ -78,16 +78,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get companyInfo => 'Company Information';
 
   @override
+  String get companyCode => 'Company Code';
+
+  @override
   String get companyNameAr => 'Company Name (Arabic)';
 
   @override
   String get companyNameEn => 'Company Name (English)';
 
   @override
-  String get addressAr => 'Address (Arabic)';
+  String get country => 'Country';
 
   @override
-  String get addressEn => 'Address (English)';
+  String get address => 'Address';
 
   @override
   String get phone => 'Phone';
@@ -103,6 +106,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commercialRegNo => 'Commercial Reg. No.';
+
+  @override
+  String get remarks => 'Remarks';
+
+  @override
+  String get isMainCompany => 'Is Main Company';
 
   @override
   String get save => 'Save';
@@ -156,6 +165,69 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectParent => 'Select Parent Account';
 
   @override
+  String get active => 'Active';
+
+  @override
+  String get nature => 'Nature';
+
+  @override
+  String get debit => 'Debit';
+
+  @override
+  String get credit => 'Credit';
+
+  @override
+  String get reportType => 'Report Type';
+
+  @override
+  String get balanceSheet => 'Balance Sheet';
+
+  @override
+  String get incomeStatement => 'Income Statement';
+
+  @override
+  String get detailAccountType => 'Detail Account Type';
+
+  @override
+  String get cashFlowType => 'Cash Flow Type';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get cash => 'Cash';
+
+  @override
+  String get bank => 'Bank';
+
+  @override
+  String get customer => 'Customer';
+
+  @override
+  String get vendor => 'Vendor';
+
+  @override
+  String get employee => 'Employee';
+
+  @override
+  String get otherDebit => 'Other Debit';
+
+  @override
+  String get otherCredit => 'Other Credit';
+
+  @override
+  String get none => 'None';
+
+  @override
+  String get operating => 'Operating';
+
+  @override
+  String get investing => 'Investing';
+
+  @override
+  String get financing => 'Financing';
+
+  @override
   String get userManagement => 'User Management';
 
   @override
@@ -202,6 +274,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get description => 'Description';
+
+  @override
+  String get cancel => 'Cancel';
 
   @override
   String get generalParameters => 'General Parameters';
@@ -313,4 +388,86 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetToDefaults => 'Reset to Defaults';
+
+  @override
+  String get requiredField => 'This field is required';
+
+  @override
+  String invalidLengthRange(Object min, Object max) {
+    return 'Value must be between $min and $max characters';
+  }
+
+  @override
+  String invalidRange(Object min, Object max) {
+    return 'Value must be between $min and $max';
+  }
+
+  @override
+  String get resetSuccess => 'Defaults have been reset successfully.';
+
+  @override
+  String get resetFailed => 'Failed to reset defaults.';
+
+  @override
+  String get geographicalData => 'Geographical Data';
+
+  @override
+  String get zones => 'Zones';
+
+  @override
+  String get countries => 'Countries';
+
+  @override
+  String get governorates => 'Governorates';
+
+  @override
+  String get cities => 'Cities';
+
+  @override
+  String get regions => 'Regions';
+
+  @override
+  String get addNew => 'Add New';
+
+  @override
+  String get addNewZone => 'Add New Zone';
+
+  @override
+  String get editZone => 'Edit Zone';
+
+  @override
+  String get zoneCode => 'Zone Code';
+
+  @override
+  String get zoneNameAr => 'Zone Name (Arabic)';
+
+  @override
+  String get zoneNameEn => 'Zone Name (English)';
+
+  @override
+  String get selectZonePrompt => 'Select a zone to view its countries.';
+
+  @override
+  String get addNewCountry => 'Add New Country';
+
+  @override
+  String get editCountry => 'Edit Country';
+
+  @override
+  String get countryCode => 'Country Code';
+
+  @override
+  String get countryNameAr => 'Country Name (Arabic)';
+
+  @override
+  String get countryNameEn => 'Country Name (English)';
+
+  @override
+  String get nationalityAr => 'Nationality (Arabic)';
+
+  @override
+  String get nationalityEn => 'Nationality (English)';
+
+  @override
+  String get selectCountryPrompt => 'Select a country to view its governorates.';
 }

@@ -45,7 +45,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<int> countUsers() async {
-    final countExp = _database.users.userId.count();
+    final countExp = _database.users.id.count();
     final query = _database.selectOnly(_database.users)..addColumns([countExp]);
     final result = await query.getSingle();
     return result.read(countExp) ?? 0;

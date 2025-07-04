@@ -15,16 +15,16 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
 
     return rolesList.map((role) {
       final assignedPermissionKeys = permissionsList
-          .where((p) => p.roleId == role.id)
-          .map((p) => AppPermission.values.byName(p.permissionKey)) // Fix: Convert String to AppPermission
+          .where((p) => p.role_id == role.id)
+          .map((p) => AppPermission.values.byName(p.permission)) // Fix: Convert String to AppPermission
           .toList();
 
       return RoleEntity(
         id: role.id,
-        nameAr: role.nameAr,
-        nameEn: role.nameEn,
+        nameAr: role.name_ar,
+        nameEn: role.name_en,
         description: role.description,
-        isActive: role.isActive,
+        isActive: role.is_active,
         permissions: assignedPermissionKeys,
       );
     }).toList();
@@ -34,10 +34,10 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
   Future<void> addRole(RoleEntity role) {
     // Adding a role doesn't assign permissions initially.
     final companion = db.RolesCompanion.insert(
-      nameAr: role.nameAr,
-      nameEn: role.nameEn,
+      name_ar: role.nameAr,
+      name_en: role.nameEn,
       description: Value(role.description),
-      isActive: Value(role.isActive),
+      is_active: Value(role.isActive),
     );
     return database.into(database.roles).insert(companion);
   }
@@ -47,10 +47,10 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
     // This method only updates the role's own details, not its permissions.
     final companion = db.RolesCompanion(
       id: Value(role.id),
-      nameAr: Value(role.nameAr),
-      nameEn: Value(role.nameEn),
+      name_ar: Value(role.nameAr),
+      name_en: Value(role.nameEn),
       description: Value(role.description),
-      isActive: Value(role.isActive),
+      is_active: Value(role.isActive),
     );
     return (database.update(database.roles)..where((r) => r.id.equals(role.id)))
         .write(companion);
@@ -60,11 +60,11 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
   Future<void> updatePermissionsForRole(int roleId, List<AppPermission> permissions) async {
     await database.transaction(() async {
       // 1. Delete all existing permissions for this role
-      await (database.delete(database.rolePermissions)..where((p) => p.roleId.equals(roleId))).go();
+      await (database.delete(database.rolePermissions)..where((p) => p.role_id.equals(roleId))).go();
 
       // 2. Insert the new permissions
       final permissionsToInsert = permissions.map((p) =>
-          db.RolePermissionsCompanion.insert(roleId: roleId, permissionKey: p.name)); // Fix: Convert AppPermission to String
+          db.RolePermissionsCompanion.insert(role_id: roleId, permission: p.name)); // Fix: Convert AppPermission to String
       
       if (permissionsToInsert.isNotEmpty) {
         await database.batch((batch) {

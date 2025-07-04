@@ -1,4 +1,5 @@
 import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:drift/drift.dart' hide Column; // Import hide Column to prevent conflict with Flutter's Column
 
 abstract class CompanyInfoLocalDataSource {
   Future<CompanyInfoData?> getCompanyInfo();
@@ -11,7 +12,8 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
 
   @override
   Future<CompanyInfoData?> getCompanyInfo() {
-    return (db.select(db.companyInfo)..where((tbl) => tbl.id.equals(1))).getSingleOrNull();
+    // Retrieve the company marked as the main company
+    return (db.select(db.companyInfo)..where((tbl) => tbl.isMainCompany.equals(true))).getSingleOrNull();
   }
 
   @override

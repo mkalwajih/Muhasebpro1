@@ -233,6 +233,12 @@ abstract class AppLocalizations {
   /// **'Company Information'**
   String get companyInfo;
 
+  /// No description provided for @companyCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Code'**
+  String get companyCode;
+
   /// No description provided for @companyNameAr.
   ///
   /// In en, this message translates to:
@@ -245,17 +251,17 @@ abstract class AppLocalizations {
   /// **'Company Name (English)'**
   String get companyNameEn;
 
-  /// No description provided for @addressAr.
+  /// No description provided for @country.
   ///
   /// In en, this message translates to:
-  /// **'Address (Arabic)'**
-  String get addressAr;
+  /// **'Country'**
+  String get country;
 
-  /// No description provided for @addressEn.
+  /// No description provided for @address.
   ///
   /// In en, this message translates to:
-  /// **'Address (English)'**
-  String get addressEn;
+  /// **'Address'**
+  String get address;
 
   /// No description provided for @phone.
   ///
@@ -286,6 +292,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Commercial Reg. No.'**
   String get commercialRegNo;
+
+  /// No description provided for @remarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Remarks'**
+  String get remarks;
+
+  /// No description provided for @isMainCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Main Company'**
+  String get isMainCompany;
 
   /// No description provided for @save.
   ///
@@ -389,6 +407,132 @@ abstract class AppLocalizations {
   /// **'Select Parent Account'**
   String get selectParent;
 
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @nature.
+  ///
+  /// In en, this message translates to:
+  /// **'Nature'**
+  String get nature;
+
+  /// No description provided for @debit.
+  ///
+  /// In en, this message translates to:
+  /// **'Debit'**
+  String get debit;
+
+  /// No description provided for @credit.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit'**
+  String get credit;
+
+  /// No description provided for @reportType.
+  ///
+  /// In en, this message translates to:
+  /// **'Report Type'**
+  String get reportType;
+
+  /// No description provided for @balanceSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Sheet'**
+  String get balanceSheet;
+
+  /// No description provided for @incomeStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Income Statement'**
+  String get incomeStatement;
+
+  /// No description provided for @detailAccountType.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail Account Type'**
+  String get detailAccountType;
+
+  /// No description provided for @cashFlowType.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Flow Type'**
+  String get cashFlowType;
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get cash;
+
+  /// No description provided for @bank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get bank;
+
+  /// No description provided for @customer.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get customer;
+
+  /// No description provided for @vendor.
+  ///
+  /// In en, this message translates to:
+  /// **'Vendor'**
+  String get vendor;
+
+  /// No description provided for @employee.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee'**
+  String get employee;
+
+  /// No description provided for @otherDebit.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Debit'**
+  String get otherDebit;
+
+  /// No description provided for @otherCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Credit'**
+  String get otherCredit;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
+
+  /// No description provided for @operating.
+  ///
+  /// In en, this message translates to:
+  /// **'Operating'**
+  String get operating;
+
+  /// No description provided for @investing.
+  ///
+  /// In en, this message translates to:
+  /// **'Investing'**
+  String get investing;
+
+  /// No description provided for @financing.
+  ///
+  /// In en, this message translates to:
+  /// **'Financing'**
+  String get financing;
+
   /// No description provided for @userManagement.
   ///
   /// In en, this message translates to:
@@ -484,6 +628,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Description'**
   String get description;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
 
   /// No description provided for @generalParameters.
   ///
@@ -706,6 +856,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset to Defaults'**
   String get resetToDefaults;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get requiredField;
+
+  /// No description provided for @invalidLengthRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Value must be between {min} and {max} characters'**
+  String invalidLengthRange(Object min, Object max);
+
+  /// No description provided for @invalidRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Value must be between {min} and {max}'**
+  String invalidRange(Object min, Object max);
+
+  /// No description provided for @resetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Defaults have been reset successfully.'**
+  String get resetSuccess;
+
+  /// No description provided for @resetFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset defaults.'**
+  String get resetFailed;
+
+  /// No description provided for @geographicalData.
+  ///
+  /// In en, this message translates to:
+  /// **'Geographical Data'**
+  String get geographicalData;
+
+  /// No description provided for @zones.
+  ///
+  /// In en, this message translates to:
+  /// **'Zones'**
+  String get zones;
+
+  /// No description provided for @countries.
+  ///
+  /// In en, this message translates to:
+  /// **'Countries'**
+  String get countries;
+
+  /// No description provided for @governorates.
+  ///
+  /// In en, this message translates to:
+  /// **'Governorates'**
+  String get governorates;
+
+  /// No description provided for @cities.
+  ///
+  /// In en, this message translates to:
+  /// **'Cities'**
+  String get cities;
+
+  /// No description provided for @regions.
+  ///
+  /// In en, this message translates to:
+  /// **'Regions'**
+  String get regions;
+
+  /// No description provided for @addNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New'**
+  String get addNew;
+
+  /// No description provided for @addNewZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Zone'**
+  String get addNewZone;
+
+  /// No description provided for @editZone.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Zone'**
+  String get editZone;
+
+  /// No description provided for @zoneCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Zone Code'**
+  String get zoneCode;
+
+  /// No description provided for @zoneNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Zone Name (Arabic)'**
+  String get zoneNameAr;
+
+  /// No description provided for @zoneNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Zone Name (English)'**
+  String get zoneNameEn;
+
+  /// No description provided for @selectZonePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a zone to view its countries.'**
+  String get selectZonePrompt;
+
+  /// No description provided for @addNewCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Country'**
+  String get addNewCountry;
+
+  /// No description provided for @editCountry.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Country'**
+  String get editCountry;
+
+  /// No description provided for @countryCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Country Code'**
+  String get countryCode;
+
+  /// No description provided for @countryNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Country Name (Arabic)'**
+  String get countryNameAr;
+
+  /// No description provided for @countryNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Country Name (English)'**
+  String get countryNameEn;
+
+  /// No description provided for @nationalityAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality (Arabic)'**
+  String get nationalityAr;
+
+  /// No description provided for @nationalityEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality (English)'**
+  String get nationalityEn;
+
+  /// No description provided for @selectCountryPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a country to view its governorates.'**
+  String get selectCountryPrompt;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

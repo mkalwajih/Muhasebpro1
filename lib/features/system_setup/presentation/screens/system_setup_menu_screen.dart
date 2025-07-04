@@ -15,10 +15,20 @@ class SystemSetupMenuScreen extends StatelessWidget {
       ),
       body: ListView(
         children: [
+           ListTile(
+            leading: const Icon(Iconsax.setting),
+            title: Text(l10n.generalParameters),
+            onTap: () => context.go('/dashboard/system_setup/general_parameters'),
+          ),
           ListTile(
             leading: const Icon(Iconsax.building),
             title: Text(l10n.companyInfo),
             onTap: () => context.go('/dashboard/system_setup/company_info'),
+          ),
+          ListTile(
+            leading: const Icon(Iconsax.global),
+            title: Text(l10n.geographicalData),
+            onTap: () => context.go('/dashboard/system_setup/geographical_data'),
           ),
           ListTile(
             leading: const Icon(Iconsax.diagram),
@@ -31,7 +41,7 @@ class SystemSetupMenuScreen extends StatelessWidget {
             onTap: () => context.go('/dashboard/system_setup/user_management'),
           ),
           ListTile(
-            leading: const Icon(Iconsax.security_user), // Add this new list tile
+            leading: const Icon(Iconsax.security_user),
             title: Text(l10n.roleManagement),
             onTap: () => context.go('/dashboard/system_setup/role_management'),
           ),
