@@ -41,7 +41,7 @@ class AccountingParamsView extends StatelessWidget {
             if (v == null || v.isEmpty) return l10n.requiredField;
             final length = int.tryParse(v);
             if (length == null || length < 3 || length > 20) {
-              return l10n.invalidLengthRange(min: 3, max: 20); // Localize
+              return l10n.invalidLengthRange(3, 20); // Fixed: positional arguments
             }
             return null;
           },

@@ -143,7 +143,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               // TODO: Add logo picker widget
               TextFormField(
                 controller: _companyCodeController,
-                decoration: InputDecoration(labelText: 'Company Code'), // Add to l10n
+                decoration: const InputDecoration(labelText: 'Company Code'), // Add to l10n
                 validator: (val) => val!.isEmpty ? 'Required' : null,
               ),
               const SizedBox(height: 16),
@@ -162,7 +162,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               // TODO: Add country dropdown
               TextFormField(
                 controller: _addressController,
-                decoration: InputDecoration(labelText: 'Address'), // Add to l10n
+                decoration: const InputDecoration(labelText: 'Address'), // Add to l10n
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -187,11 +187,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               const SizedBox(height: 16),
                TextFormField(
                 controller: _remarksController,
-                decoration: InputDecoration(labelText: 'Remarks'), // Add to l10n
+                decoration: const InputDecoration(labelText: 'Remarks'), // Add to l10n
               ),
               const SizedBox(height: 16),
               CheckboxListTile(
-                title: Text('Is Main Company'), // Add to l10n
+                title: const Text('Is Main Company'), // Add to l10n
                 value: _isMainCompany,
                 onChanged: (bool? value) {
                   setState(() {

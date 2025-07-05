@@ -158,9 +158,9 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               DropdownButtonFormField<String>(
                 value: _nature,
                 onChanged: (val) => setState(() => _nature = val!),
-                items: [
-                  DropdownMenuItem(value: 'Debit', child: Text(l10n.debit)),
-                  DropdownMenuItem(value: 'Credit', child: Text(l10n.credit)),
+                items: const [
+                  DropdownMenuItem(value: 'Debit', child: Text('Debit')),
+                  DropdownMenuItem(value: 'Credit', child: Text('Credit')),
                 ],
                 decoration: InputDecoration(labelText: l10n.nature),
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
@@ -168,9 +168,9 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               DropdownButtonFormField<String>(
                 value: _reportType,
                 onChanged: (val) => setState(() => _reportType = val!),
-                items: [
-                  DropdownMenuItem(value: 'Balance Sheet', child: Text(l10n.balanceSheet)),
-                  DropdownMenuItem(value: 'Income Statement', child: Text(l10n.incomeStatement)),
+                items: const [
+                  DropdownMenuItem(value: 'Balance Sheet', child: Text('Balance Sheet')),
+                  DropdownMenuItem(value: 'Income Statement', child: Text('Income Statement')),
                 ],
                 decoration: InputDecoration(labelText: l10n.reportType),
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
@@ -178,15 +178,15 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               DropdownButtonFormField<String>(
                 value: _detailAccountType,
                 onChanged: (val) => setState(() => _detailAccountType = val!),
-                items: [
-                  DropdownMenuItem(value: 'General', child: Text(l10n.general)),
-                  DropdownMenuItem(value: 'Cash', child: Text(l10n.cash)),
-                  DropdownMenuItem(value: 'Bank', child: Text(l10n.bank)),
-                  DropdownMenuItem(value: 'Customer', child: Text(l10n.customer)),
-                  DropdownMenuItem(value: 'Vendor', child: Text(l10n.vendor)),
-                  DropdownMenuItem(value: 'Employee', child: Text(l10n.employee)),
-                  DropdownMenuItem(value: 'OtherDebit', child: Text(l10n.otherDebit)),
-                  DropdownMenuItem(value: 'OtherCredit', child: Text(l10n.otherCredit)),
+                items: const [
+                  DropdownMenuItem(value: 'General', child: Text('General')),
+                  DropdownMenuItem(value: 'Cash', child: Text('Cash')),
+                  DropdownMenuItem(value: 'Bank', child: Text('Bank')),
+                  DropdownMenuItem(value: 'Customer', child: Text('Customer')),
+                  DropdownMenuItem(value: 'Vendor', child: Text('Vendor')),
+                  DropdownMenuItem(value: 'Employee', child: Text('Employee')),
+                  DropdownMenuItem(value: 'OtherDebit', child: Text('Other Debit')),
+                  DropdownMenuItem(value: 'OtherCredit', child: Text('Other Credit')),
                 ],
                 decoration: InputDecoration(labelText: l10n.detailAccountType),
                  validator: (v) => v == null || v.isEmpty ? l10n.requiredField : null,
@@ -194,11 +194,11 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               DropdownButtonFormField<String?>(
                 value: _cashFlowType,
                 onChanged: (val) => setState(() => _cashFlowType = val),
-                items: [
-                   DropdownMenuItem(value: null, child: Text(l10n.none)),
-                  DropdownMenuItem(value: 'Operating', child: Text(l10n.operating)),
-                  DropdownMenuItem(value: 'Investing', child: Text(l10n.investing)),
-                  DropdownMenuItem(value: 'Financing', child: Text(l10n.financing)),
+                items: const [
+                   DropdownMenuItem(value: null, child: Text('None')),
+                  DropdownMenuItem(value: 'Operating', child: Text('Operating')),
+                  DropdownMenuItem(value: 'Investing', child: Text('Investing')),
+                  DropdownMenuItem(value: 'Financing', child: Text('Financing')),
                 ],
                 decoration: InputDecoration(labelText: l10n.cashFlowType),
               ),
@@ -212,7 +212,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')), // Added const
         ElevatedButton(onPressed: _onSave, child: Text(l10n.save)),
       ],
     );
@@ -226,7 +226,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
     
     // Find the parent account in the fetched list and recursively check
     final parent = ref.read(coaProvider).value?.firstWhere(
-      (acc) => acc.id == possibleDescendant.parentId, orElse: () => AccountEntity(id: -1, accountCode: '', nameAr: '', nameEn: '', level: 0, isActive: false, nature: '', reportType: '', detailAccountType: '')); 
+      (acc) => acc.id == possibleDescendant.parentId, orElse: () => const AccountEntity(id: -1, accountCode: '', nameAr: '', nameEn: '', level: 0, isActive: false, nature: '', reportType: '', detailAccountType: '')); 
     if(parent == null || parent.id == -1) return false;
     return _isDescendant(parent, ancestor);
   }

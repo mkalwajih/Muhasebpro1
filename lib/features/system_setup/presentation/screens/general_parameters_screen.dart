@@ -90,10 +90,12 @@ class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScree
                 await ref
                     .read(generalParametersProvider.notifier)
                     .saveGeneralParameters(_params);
+                if (!context.mounted) return; // Add this line
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(l10n.saveSuccess)),
                 );
               } catch (e) {
+                if (!context.mounted) return; // Add this line
                 String errorMessage = l10n.saveFailed;
                 if (e.toString().contains('Cannot change account number settings')) {
                   errorMessage = l10n.cannotChangeAccountSettings;

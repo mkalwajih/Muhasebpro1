@@ -23,6 +23,7 @@
     "comingSoon": "Coming Soon",
     "featureUnderDevelopment": "This feature is currently under development.",
     "companyInfo": "Company Information",
+    "branches": "Branches",
     "companyCode": "Company Code",
     "companyNameAr": "Company Name (Arabic)",
     "companyNameEn": "Company Name (English)",
@@ -214,5 +215,18 @@
     "security": "Security",
     "ui": "UI",
     "backup": "Backup",
-    "cannotChangeAccountSettings": "Cannot change account number settings when accounts exist."
+    "cannotChangeAccountSettings": "Cannot change account number settings when accounts exist.",
+
+    "branchCode": "Branch Code",
+    "branchNameAr": "Branch Name (Arabic)",
+    "branchNameEn": "Branch Name (English)",
+    "branchGroup": "Branch Group",
+    "defaultWarehouse": "Default Warehouse",
+    "branchStatus": "Branch Status",
+    "logo": "Logo",
+    "addNewBranch": "Add New Branch",
+    "editBranch": "Edit Branch",
+    "deleteBranch": "Delete Branch",
+    "deleteBranchConfirm": "Are you sure you want to delete this branch?",
+    "delete": "Delete"
 }

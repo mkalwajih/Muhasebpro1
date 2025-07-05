@@ -25,7 +25,7 @@ class SecurityParamsView extends StatelessWidget {
             if (v == null || v.isEmpty) return l10n.requiredField;
             final length = int.tryParse(v);
             if (length == null || length < 6 || length > 32) {
-              return l10n.invalidLengthRange(min: 6, max: 32);
+              return l10n.invalidLengthRange(6, 32); // Fixed: positional arguments
             }
             return null;
           },
@@ -41,7 +41,7 @@ class SecurityParamsView extends StatelessWidget {
             if (v == null || v.isEmpty) return l10n.requiredField;
             final timeout = int.tryParse(v);
             if (timeout == null || timeout < 1 || timeout > 60) {
-              return l10n.invalidRange(min: 1, max: 60);
+              return l10n.invalidRange(1, 60); // Fixed: positional arguments
             }
             return null;
           },

@@ -1,0 +1,27 @@
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../../../core/errors/failures.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../entities/branch_entity.dart';
+import '../repositories/branches_repository.dart';
+
+class UpdateBranch implements UseCase<Unit, UpdateBranchParams> {
+  final BranchesRepository repository;
+
+  UpdateBranch(this.repository);
+
+  @override
+  Future<Either<Failure, Unit>> call(UpdateBranchParams params) async {
+    return await repository.updateBranch(params.branch);
+  }
+}
+
+class UpdateBranchParams extends Equatable {
+  final BranchEntity branch;
+
+  const UpdateBranchParams({required this.branch});
+
+  @override
+  List<Object> get props => [branch];
+}

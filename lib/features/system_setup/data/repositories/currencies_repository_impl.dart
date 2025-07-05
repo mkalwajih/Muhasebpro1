@@ -1,3 +1,4 @@
+import 'package:drift/drift.dart' as drift;
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/currencies_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
@@ -79,29 +80,29 @@ class CurrenciesRepositoryImpl implements CurrenciesRepository {
 
   CurrenciesCompanion _toCompanion(CurrencyEntity currency) {
     return CurrenciesCompanion(
-      currencyCode: Value(currency.currencyCode),
-      nameAr: Value(currency.nameAr),
-      nameEn: Value(currency.nameEn),
-      fractionNameAr: Value(currency.fractionNameAr),
-      fractionNameEn: Value(currency.fractionNameEn),
-      exchangeRate: Value(currency.exchangeRate),
-      isBaseCurrency: Value(currency.isBaseCurrency),
-      decimalPlaces: Value(currency.decimalPlaces),
-      minRateLimit: Value(currency.minRateLimit),
-      maxRateLimit: Value(currency.maxRateLimit),
-      isActive: Value(currency.isActive),
+      currencyCode: drift.Value(currency.currencyCode),
+      nameAr: drift.Value(currency.nameAr),
+      nameEn: drift.Value(currency.nameEn),
+      fractionNameAr: drift.Value(currency.fractionNameAr),
+      fractionNameEn: drift.Value(currency.fractionNameEn),
+      exchangeRate: drift.Value(currency.exchangeRate),
+      isBaseCurrency: drift.Value(currency.isBaseCurrency),
+      decimalPlaces: drift.Value(currency.decimalPlaces),
+      minRateLimit: drift.Value(currency.minRateLimit),
+      maxRateLimit: drift.Value(currency.maxRateLimit),
+      isActive: drift.Value(currency.isActive),
     );
   }
 
   CurrencyDenominationsCompanion _toDenominationCompanion(
       CurrencyDenominationEntity denomination) {
     return CurrencyDenominationsCompanion(
-      id: denomination.id == 0 ? const Value.absent() : Value(denomination.id),
-      currencyCode: Value(denomination.currencyCode),
-      denominationValue: Value(denomination.denominationValue),
-      denominationNameAr: Value(denomination.denominationNameAr),
-      denominationNameEn: Value(denomination.denominationNameEn),
-      denominationType: Value(denomination.denominationType),
+      id: denomination.id == 0 ? const drift.Value.absent() : drift.Value(denomination.id),
+      currencyCode: drift.Value(denomination.currencyCode),
+      denominationValue: drift.Value(denomination.denominationValue),
+      denominationNameAr: drift.Value(denomination.denominationNameAr),
+      denominationNameEn: drift.Value(denomination.denominationNameEn),
+      denominationType: drift.Value(denomination.denominationType),
     );
   }
 }

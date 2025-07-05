@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/currencies_providers.dart';
 
 class CurrenciesScreen extends ConsumerWidget {

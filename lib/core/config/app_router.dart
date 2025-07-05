@@ -6,6 +6,7 @@ import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_screen.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/branches_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/currencies_screen.dart';
@@ -38,6 +39,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 GoRoute(
                   path: 'company_info',
                   builder: (context, state) => const CompanyInfoScreen(),
+                ),
+                GoRoute(
+                  path: 'branches',
+                  builder: (context, state) => const BranchesScreen(),
                 ),
                 GoRoute(
                   path: 'coa',

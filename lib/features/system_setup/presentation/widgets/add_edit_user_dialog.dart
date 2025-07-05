@@ -123,14 +123,14 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                       });
                     },
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text('Cancel')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
         ElevatedButton(onPressed: () => rolesAsync.whenData((roles) => _onSave(roles)), child: Text(l10n.save)),
       ],
     );

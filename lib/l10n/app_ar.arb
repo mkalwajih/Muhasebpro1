@@ -23,6 +23,7 @@
     "comingSoon": "قريباً",
     "featureUnderDevelopment": "هذه الميزة قيد التطوير حالياً.",
     "companyInfo": "بيانات الشركة",
+    "branches": "الفروع",
     "companyCode": "رمز الشركة",
     "companyNameAr": "اسم الشركة (عربي)",
     "companyNameEn": "اسم الشركة (انجليزي)",
@@ -214,5 +215,18 @@
     "security": "الأمان",
     "ui": "واجهة المستخدم",
     "backup": "النسخ الاحتياطي",
-    "cannotChangeAccountSettings": "لا يمكن تغيير إعدادات رقم الحساب عند وجود حسابات."
+    "cannotChangeAccountSettings": "لا يمكن تغيير إعدادات رقم الحساب عند وجود حسابات.",
+    
+    "branchCode": "رمز الفرع",
+    "branchNameAr": "اسم الفرع (عربي)",
+    "branchNameEn": "اسم الفرع (انجليزي)",
+    "branchGroup": "مجموعة الفروع",
+    "defaultWarehouse": "المستودع الافتراضي",
+    "branchStatus": "حالة الفرع",
+    "logo": "الشعار",
+    "addNewBranch": "إضافة فرع جديد",
+    "editBranch": "تعديل الفرع",
+    "deleteBranch": "حذف الفرع",
+    "deleteBranchConfirm": "هل أنت متأكد من رغبتك في حذف هذا الفرع؟",
+    "delete": "حذف"
 }

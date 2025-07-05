@@ -1,36 +1,36 @@
-import 'package:muhaseb_pro/core/db/app_database.dart' as db;
+import 'package:muhaseb_pro/core/db/app_database.dart' as app_db;
 
 abstract class TaxLocalDataSource {
-  Future<List<db.TaxBracket>> getTaxBrackets();
-  Future<void> addTaxBracket(db.TaxBracketsCompanion taxBracket);
-  Future<void> updateTaxBracket(db.TaxBracketsCompanion taxBracket);
+  Future<List<app_db.TaxBracket>> getTaxBrackets();
+  Future<void> addTaxBracket(app_db.TaxBracketsCompanion taxBracket);
+  Future<void> updateTaxBracket(app_db.TaxBracketsCompanion taxBracket);
   Future<int> deleteTaxBracket(String bracketCode);
 
-  Future<List<db.TaxType>> getTaxTypes();
-  Future<void> addTaxType(db.TaxTypesCompanion taxType);
-  Future<void> updateTaxType(db.TaxTypesCompanion taxType);
+  Future<List<app_db.TaxType>> getTaxTypes();
+  Future<void> addTaxType(app_db.TaxTypesCompanion taxType);
+  Future<void> updateTaxType(app_db.TaxTypesCompanion taxType);
   Future<int> deleteTaxType(String typeCode);
 
-  Future<List<db.TaxCalcMethod>> getTaxCalcMethods();
-  Future<void> addTaxCalcMethod(db.TaxCalcMethodsCompanion taxCalcMethod);
-  Future<void> updateTaxCalcMethod(db.TaxCalcMethodsCompanion taxCalcMethod);
+  Future<List<app_db.TaxCalcMethod>> getTaxCalcMethods();
+  Future<void> addTaxCalcMethod(app_db.TaxCalcMethodsCompanion taxCalcMethod);
+  Future<void> updateTaxCalcMethod(app_db.TaxCalcMethodsCompanion taxCalcMethod);
   Future<int> deleteTaxCalcMethod(String methodCode);
 }
 
 class TaxLocalDataSourceImpl implements TaxLocalDataSource {
-  final db.AppDatabase db;
+  final app_db.AppDatabase db;
 
   TaxLocalDataSourceImpl(this.db);
 
   @override
-  Future<List<db.TaxBracket>> getTaxBrackets() => db.select(db.taxBrackets).get();
+  Future<List<app_db.TaxBracket>> getTaxBrackets() => db.select(db.taxBrackets).get();
 
   @override
-  Future<void> addTaxBracket(db.TaxBracketsCompanion taxBracket) =>
+  Future<void> addTaxBracket(app_db.TaxBracketsCompanion taxBracket) =>
       db.into(db.taxBrackets).insert(taxBracket);
 
   @override
-  Future<void> updateTaxBracket(db.TaxBracketsCompanion taxBracket) =>
+  Future<void> updateTaxBracket(app_db.TaxBracketsCompanion taxBracket) =>
       (db.update(db.taxBrackets)
             ..where((tbl) => tbl.bracketCode.equals(taxBracket.bracketCode.value)))
           .write(taxBracket);
@@ -40,14 +40,14 @@ class TaxLocalDataSourceImpl implements TaxLocalDataSource {
       (db.delete(db.taxBrackets)..where((tbl) => tbl.bracketCode.equals(bracketCode))).go();
 
   @override
-  Future<List<db.TaxType>> getTaxTypes() => db.select(db.taxTypes).get();
+  Future<List<app_db.TaxType>> getTaxTypes() => db.select(db.taxTypes).get();
 
   @override
-  Future<void> addTaxType(db.TaxTypesCompanion taxType) =>
+  Future<void> addTaxType(app_db.TaxTypesCompanion taxType) =>
       db.into(db.taxTypes).insert(taxType);
 
   @override
-  Future<void> updateTaxType(db.TaxTypesCompanion taxType) =>
+  Future<void> updateTaxType(app_db.TaxTypesCompanion taxType) =>
       (db.update(db.taxTypes)
             ..where((tbl) => tbl.typeCode.equals(taxType.typeCode.value)))
           .write(taxType);
@@ -57,15 +57,15 @@ class TaxLocalDataSourceImpl implements TaxLocalDataSource {
       (db.delete(db.taxTypes)..where((tbl) => tbl.typeCode.equals(typeCode))).go();
 
   @override
-  Future<List<db.TaxCalcMethod>> getTaxCalcMethods() =>
+  Future<List<app_db.TaxCalcMethod>> getTaxCalcMethods() =>
       db.select(db.taxCalcMethods).get();
 
   @override
-  Future<void> addTaxCalcMethod(db.TaxCalcMethodsCompanion taxCalcMethod) =>
+  Future<void> addTaxCalcMethod(app_db.TaxCalcMethodsCompanion taxCalcMethod) =>
       db.into(db.taxCalcMethods).insert(taxCalcMethod);
 
   @override
-  Future<void> updateTaxCalcMethod(db.TaxCalcMethodsCompanion taxCalcMethod) =>
+  Future<void> updateTaxCalcMethod(app_db.TaxCalcMethodsCompanion taxCalcMethod) =>
       (db.update(db.taxCalcMethods)
             ..where((tbl) => tbl.methodCode.equals(taxCalcMethod.methodCode.value)))
           .write(taxCalcMethod);
