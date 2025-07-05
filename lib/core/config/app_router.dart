@@ -8,6 +8,7 @@ import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_sc
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/currencies_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/geographical_data_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_management_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_permissions_screen.dart';
@@ -64,6 +65,10 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                  GoRoute(
                   path: 'general_parameters',
                   builder: (context, state) => const GeneralParametersScreen(),
+                ),
+                GoRoute(
+                  path: 'currencies',
+                  builder: (context, state) => const CurrenciesScreen(),
                 ),
               ]),
           GoRoute(path: 'general_ledger', builder: (context, state) => const PlaceholderScreen(title: 'General Ledger')),

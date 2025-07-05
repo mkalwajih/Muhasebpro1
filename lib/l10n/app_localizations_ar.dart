@@ -470,4 +470,145 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectCountryPrompt => 'اختر دولة لعرض محافظاتها.';
+
+  @override
+  String get currencies => 'العملات';
+
+  @override
+  String get addNewCurrency => 'إضافة عملة جديدة';
+
+  @override
+  String get editCurrency => 'تعديل العملة';
+
+  @override
+  String get currencyCode => 'رمز العملة';
+
+  @override
+  String get currencyNameAr => 'اسم العملة (عربي)';
+
+  @override
+  String get currencyNameEn => 'اسم العملة (انجليزي)';
+
+  @override
+  String get fractionNameAr => 'اسم الجزء (عربي)';
+
+  @override
+  String get fractionNameEn => 'اسم الجزء (انجليزي)';
+
+  @override
+  String get exchangeRate => 'سعر الصرف';
+
+  @override
+  String get isBaseCurrency => 'العملة الأساسية';
+
+  @override
+  String get decimalPlaces => 'عدد الخانات العشرية';
+
+  @override
+  String get minRateLimit => 'أدنى سعر صرف';
+
+  @override
+  String get maxRateLimit => 'أعلى سعر صرف';
+
+  @override
+  String get denominations => 'فئات العملة';
+
+  @override
+  String get denominationValue => 'القيمة';
+
+  @override
+  String get denominationNameAr => 'الاسم (عربي)';
+
+  @override
+  String get denominationNameEn => 'الاسم (انجليزي)';
+
+  @override
+  String get denominationType => 'النوع';
+
+  @override
+  String get banknote => 'ورقة نقدية';
+
+  @override
+  String get coin => 'عملة معدنية';
+
+  @override
+  String get taxSettings => 'إعدادات الضرائب';
+
+  @override
+  String get taxBrackets => 'شرائح الضرائب';
+
+  @override
+  String get taxTypes => 'أنواع الضرائب';
+
+  @override
+  String get taxCalculationMethods => 'طرق حساب الضريبة';
+
+  @override
+  String get addNewTaxBracket => 'إضافة شريحة ضريبية جديدة';
+
+  @override
+  String get editTaxBracket => 'تعديل الشريحة الضريبية';
+
+  @override
+  String get bracketCode => 'رمز الشريحة';
+
+  @override
+  String get taxRate => 'معدل الضريبة (%)';
+
+  @override
+  String get isDefault => 'هل هي الافتراضية';
+
+  @override
+  String get addNewTaxType => 'إضافة نوع ضريبة جديد';
+
+  @override
+  String get editTaxType => 'تعديل نوع الضريبة';
+
+  @override
+  String get typeCode => 'رمز النوع';
+
+  @override
+  String get calcMethod => 'طريقة الحساب';
+
+  @override
+  String get salesAccount => 'حساب المبيعات';
+
+  @override
+  String get purchasesAccount => 'حساب المشتريات';
+
+  @override
+  String get addNewTaxCalcMethod => 'إضافة طريقة حساب جديدة';
+
+  @override
+  String get editTaxCalcMethod => 'تعديل طريقة الحساب';
+
+  @override
+  String get methodCode => 'رمز الطريقة';
+
+  @override
+  String get category => 'الفئة';
+
+  @override
+  String get taxable => 'خاضع للضريبة';
+
+  @override
+  String get exempted => 'معفى';
+
+  @override
+  String get zeroTax => 'ضريبة صفرية';
+
+  @override
+  String get accounting => 'المحاسبة';
+
+  @override
+  String get security => 'الأمان';
+
+  @override
+  String get ui => 'واجهة المستخدم';
+
+  @override
+  String get backup => 'النسخ الاحتياطي';
+
+  @override
+  String get cannotChangeAccountSettings => 'لا يمكن تغيير إعدادات رقم الحساب عند وجود حسابات.';
 }

@@ -1,4 +1,3 @@
-import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 
 // Abstract class defining the contract for the local data source

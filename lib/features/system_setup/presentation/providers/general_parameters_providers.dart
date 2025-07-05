@@ -3,17 +3,16 @@ import 'package:muhaseb_pro/features/system_setup/data/datasources/general_param
 import 'package:muhaseb_pro/features/system_setup/data/repositories/general_parameters_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/general_parameters_repository.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart'; // Assuming AppDatabase is exposed here
 import 'package:muhaseb_pro/core/di/database_provider.dart';
 
 // Provider for the local data source
 final generalParametersLocalDataSourceProvider = Provider<GeneralParametersLocalDataSource>(
-  (ref) => GeneralParametersLocalDataSourceImpl(ref.read(appDatabaseProvider)),
+  (ref) => GeneralParametersLocalDataSourceImpl(ref.read(databaseProvider)),
 );
 
 // Provider for the repository
 final generalParametersRepositoryProvider = Provider<GeneralParametersRepository>(
-  (ref) => GeneralParametersRepositoryImpl(ref.read(generalParametersLocalDataSourceProvider)),
+  (ref) => GeneralParametersRepositoryImpl(ref.read(generalParametersLocalDataSourceProvider), ref.read(databaseProvider)),
 );
 
 // StateNotifierProvider for managing GeneralParametersEntity

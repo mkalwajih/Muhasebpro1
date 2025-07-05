@@ -12,7 +12,19 @@ class CoaRepositoryImpl implements CoaRepository {
   Future<List<AccountEntity>> getChartOfAccounts() async {
     final allAccounts = await database.select(database.accounts).get();
     
-    final accountMap = {for (var acc in allAccounts) acc.id: AccountEntity.fromDb(acc)};
+    final accountMap = {for (var acc in allAccounts) acc.id: AccountEntity(
+      id: acc.id,
+      parentId: acc.parentId,
+      accountCode: acc.accountCode,
+      nameAr: acc.nameAr,
+      nameEn: acc.nameEn,
+      level: acc.level,
+      isActive: acc.isActive,
+      nature: acc.nature,
+      reportType: acc.reportType,
+      cashFlowType: acc.cashFlowType ?? '',
+      detailAccountType: acc.detailAccountType ?? '',
+    )};
     
     final topLevelAccounts = <AccountEntity>[];
 
@@ -57,7 +69,7 @@ class CoaRepositoryImpl implements CoaRepository {
     );
   }
 
-  @override
+  
   Future<void> deleteAccount(int accountId) async {
      final children = await (database.select(database.accounts)..where((a) => a.parentId.equals(accountId))).get();
      if(children.isNotEmpty){

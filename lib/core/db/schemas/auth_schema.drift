@@ -1,4 +1,4 @@
--- lib/features/authentication/data/datasources/auth_tables.drift
+-- lib/core/db/schemas/auth_schema.drift
 
 CREATE TABLE users (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,

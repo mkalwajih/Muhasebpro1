@@ -1,7 +1,5 @@
-import 'package:equatable/equatable.dart';
-
 enum LanguageOption { arabic, english }
-enum DateFormatOption { ddMMyyyy, mmddyyyy, yyyyMMdd }
+enum DateFormatOption { ddMMyyyy, mmDDyyyy, yyyyMMdd }
 enum CalendarTypeOption { gregorian, hijri, both }
 enum AccountNumberTypeOption { numeric, alphanumeric }
 enum PolicyOption { notUsed, optional, mandatory }
@@ -9,7 +7,7 @@ enum BackupFrequencyOption { daily, weekly, monthly }
 enum UIThemeOption { light, dark }
 enum FontSizeOption { small, medium, large }
 
-class GeneralParametersEntity extends Equatable {
+class GeneralParametersEntity {
   final LanguageOption language;
   final DateFormatOption dateFormat;
   final CalendarTypeOption calendarType;
@@ -28,7 +26,7 @@ class GeneralParametersEntity extends Equatable {
   final UIThemeOption uiTheme;
   final FontSizeOption fontSize;
 
-  const GeneralParametersEntity({
+  GeneralParametersEntity({
     required this.language,
     required this.dateFormat,
     required this.calendarType,
@@ -48,13 +46,12 @@ class GeneralParametersEntity extends Equatable {
     required this.fontSize,
   });
 
-  // Default values constructor
-  factory GeneralParametersEntity.defaults() => const GeneralParametersEntity(
-        language: LanguageOption.english,
+  factory GeneralParametersEntity.defaults() => GeneralParametersEntity(
+        language: LanguageOption.arabic,
         dateFormat: DateFormatOption.ddMMyyyy,
         calendarType: CalendarTypeOption.gregorian,
         accountNumberType: AccountNumberTypeOption.numeric,
-        accountNumberLength: 8,
+        accountNumberLength: 10,
         costCenterPolicy: PolicyOption.optional,
         projectPolicy: PolicyOption.optional,
         passwordMinLength: 8,
@@ -69,24 +66,43 @@ class GeneralParametersEntity extends Equatable {
         fontSize: FontSizeOption.medium,
       );
 
-  @override
-  List<Object?> get props => [
-        language,
-        dateFormat,
-        calendarType,
-        accountNumberType,
-        accountNumberLength,
-        costCenterPolicy,
-        projectPolicy,
-        passwordMinLength,
-        autoLockTimeout,
-        useVAT,
-        useTDS,
-        useEInvoice,
-        priceIncludesTax,
-        backupFrequency,
-        cloudBackup,
-        uiTheme,
-        fontSize,
-      ];
+  GeneralParametersEntity copyWith({
+    LanguageOption? language,
+    DateFormatOption? dateFormat,
+    CalendarTypeOption? calendarType,
+    AccountNumberTypeOption? accountNumberType,
+    int? accountNumberLength,
+    PolicyOption? costCenterPolicy,
+    PolicyOption? projectPolicy,
+    int? passwordMinLength,
+    int? autoLockTimeout,
+    bool? useVAT,
+    bool? useTDS,
+    bool? useEInvoice,
+    bool? priceIncludesTax,
+    BackupFrequencyOption? backupFrequency,
+    bool? cloudBackup,
+    UIThemeOption? uiTheme,
+    FontSizeOption? fontSize,
+  }) {
+    return GeneralParametersEntity(
+      language: language ?? this.language,
+      dateFormat: dateFormat ?? this.dateFormat,
+      calendarType: calendarType ?? this.calendarType,
+      accountNumberType: accountNumberType ?? this.accountNumberType,
+      accountNumberLength: accountNumberLength ?? this.accountNumberLength,
+      costCenterPolicy: costCenterPolicy ?? this.costCenterPolicy,
+      projectPolicy: projectPolicy ?? this.projectPolicy,
+      passwordMinLength: passwordMinLength ?? this.passwordMinLength,
+      autoLockTimeout: autoLockTimeout ?? this.autoLockTimeout,
+      useVAT: useVAT ?? this.useVAT,
+      useTDS: useTDS ?? this.useTDS,
+      useEInvoice: useEInvoice ?? this.useEInvoice,
+      priceIncludesTax: priceIncludesTax ?? this.priceIncludesTax,
+      backupFrequency: backupFrequency ?? this.backupFrequency,
+      cloudBackup: cloudBackup ?? this.cloudBackup,
+      uiTheme: uiTheme ?? this.uiTheme,
+      fontSize: fontSize ?? this.fontSize,
+    );
+  }
 }

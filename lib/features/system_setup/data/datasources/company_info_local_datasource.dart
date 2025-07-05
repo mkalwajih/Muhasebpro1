@@ -1,5 +1,4 @@
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:drift/drift.dart' hide Column; // Import hide Column to prevent conflict with Flutter's Column
 
 abstract class CompanyInfoLocalDataSource {
   Future<CompanyInfoData?> getCompanyInfo();

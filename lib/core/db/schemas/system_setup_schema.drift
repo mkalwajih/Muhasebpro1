@@ -1,4 +1,6 @@
--- lib/features/system_setup/data/datasources/system_setup_tables.drift
+-- lib/core/db/schemas/system_setup_schema.drift
+
+IMPORT 'auth_schema.drift';
 
 CREATE TABLE company_info (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -68,6 +70,6 @@ CREATE TABLE audit_log (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
   user_id INT NOT NULL REFERENCES users(id),
   timestamp TIMESTAMP NOT NULL,
-  action TEXT NOT NULL,
+  event_action TEXT NOT NULL,
   details TEXT
 );

@@ -1,0 +1,8 @@
+-- lib/core/db/schema.drift
+
+IMPORT 'schemas/auth_schema.drift';
+IMPORT 'schemas/system_setup_schema.drift';
+IMPORT 'schemas/general_parameters_schema.drift';
+IMPORT 'schemas/geographical_data_schema.drift';
+IMPORT 'schemas/currencies_schema.drift';
+IMPORT 'schemas/tax_schema.drift';

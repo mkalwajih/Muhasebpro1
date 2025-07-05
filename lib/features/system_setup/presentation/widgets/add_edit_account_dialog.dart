@@ -144,7 +144,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                       ...flatList.where((acc) =>
                           (widget.accountToEdit == null ||
                               (acc.id != widget.accountToEdit!.id &&
-                                  !_isDescendant(acc, widget.accountToEdit!)))).map((acc) => DropdownMenuItem<int?>(
+                                  !_isDescendant(acc, widget.accountToEdit)))).map((acc) => DropdownMenuItem<int?>(
                         value: acc.id,
                         child: Text('${'--' * acc.level} ${acc.getLocalizedName(l10n.localeName)}'),
                       )),
@@ -219,13 +219,15 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
   }
 
   // Helper to prevent an account from being its own parent or a descendant's parent
-  bool _isDescendant(AccountEntity possibleDescendant, AccountEntity ancestor) {
+  bool _isDescendant(AccountEntity possibleDescendant, AccountEntity? ancestor) {
+    if (ancestor == null) return false;
     if (possibleDescendant.parentId == null) return false;
     if (possibleDescendant.parentId == ancestor.id) return true;
     
     // Find the parent account in the fetched list and recursively check
     final parent = ref.read(coaProvider).value?.firstWhere(
       (acc) => acc.id == possibleDescendant.parentId, orElse: () => AccountEntity(id: -1, accountCode: '', nameAr: '', nameEn: '', level: 0, isActive: false, nature: '', reportType: '', detailAccountType: '')); 
+    if(parent == null || parent.id == -1) return false;
     return _isDescendant(parent, ancestor);
   }
 }

@@ -1012,6 +1012,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a country to view its governorates.'**
   String get selectCountryPrompt;
+
+  /// No description provided for @currencies.
+  ///
+  /// In en, this message translates to:
+  /// **'Currencies'**
+  String get currencies;
+
+  /// No description provided for @addNewCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Currency'**
+  String get addNewCurrency;
+
+  /// No description provided for @editCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Currency'**
+  String get editCurrency;
+
+  /// No description provided for @currencyCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Code'**
+  String get currencyCode;
+
+  /// No description provided for @currencyNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Name (Arabic)'**
+  String get currencyNameAr;
+
+  /// No description provided for @currencyNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency Name (English)'**
+  String get currencyNameEn;
+
+  /// No description provided for @fractionNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Fraction Name (Arabic)'**
+  String get fractionNameAr;
+
+  /// No description provided for @fractionNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Fraction Name (English)'**
+  String get fractionNameEn;
+
+  /// No description provided for @exchangeRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange Rate'**
+  String get exchangeRate;
+
+  /// No description provided for @isBaseCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Currency'**
+  String get isBaseCurrency;
+
+  /// No description provided for @decimalPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Decimal Places'**
+  String get decimalPlaces;
+
+  /// No description provided for @minRateLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Min Exchange Rate'**
+  String get minRateLimit;
+
+  /// No description provided for @maxRateLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Exchange Rate'**
+  String get maxRateLimit;
+
+  /// No description provided for @denominations.
+  ///
+  /// In en, this message translates to:
+  /// **'Denominations'**
+  String get denominations;
+
+  /// No description provided for @denominationValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get denominationValue;
+
+  /// No description provided for @denominationNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Arabic)'**
+  String get denominationNameAr;
+
+  /// No description provided for @denominationNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (English)'**
+  String get denominationNameEn;
+
+  /// No description provided for @denominationType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get denominationType;
+
+  /// No description provided for @banknote.
+  ///
+  /// In en, this message translates to:
+  /// **'Banknote'**
+  String get banknote;
+
+  /// No description provided for @coin.
+  ///
+  /// In en, this message translates to:
+  /// **'Coin'**
+  String get coin;
+
+  /// No description provided for @taxSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Settings'**
+  String get taxSettings;
+
+  /// No description provided for @taxBrackets.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Brackets'**
+  String get taxBrackets;
+
+  /// No description provided for @taxTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Types'**
+  String get taxTypes;
+
+  /// No description provided for @taxCalculationMethods.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation Methods'**
+  String get taxCalculationMethods;
+
+  /// No description provided for @addNewTaxBracket.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Tax Bracket'**
+  String get addNewTaxBracket;
+
+  /// No description provided for @editTaxBracket.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tax Bracket'**
+  String get editTaxBracket;
+
+  /// No description provided for @bracketCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Bracket Code'**
+  String get bracketCode;
+
+  /// No description provided for @taxRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax Rate (%)'**
+  String get taxRate;
+
+  /// No description provided for @isDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Default'**
+  String get isDefault;
+
+  /// No description provided for @addNewTaxType.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Tax Type'**
+  String get addNewTaxType;
+
+  /// No description provided for @editTaxType.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tax Type'**
+  String get editTaxType;
+
+  /// No description provided for @typeCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Type Code'**
+  String get typeCode;
+
+  /// No description provided for @calcMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation Method'**
+  String get calcMethod;
+
+  /// No description provided for @salesAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Sales Account'**
+  String get salesAccount;
+
+  /// No description provided for @purchasesAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchases Account'**
+  String get purchasesAccount;
+
+  /// No description provided for @addNewTaxCalcMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Calc Method'**
+  String get addNewTaxCalcMethod;
+
+  /// No description provided for @editTaxCalcMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Calc Method'**
+  String get editTaxCalcMethod;
+
+  /// No description provided for @methodCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Method Code'**
+  String get methodCode;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @taxable.
+  ///
+  /// In en, this message translates to:
+  /// **'Taxable'**
+  String get taxable;
+
+  /// No description provided for @exempted.
+  ///
+  /// In en, this message translates to:
+  /// **'Exempted'**
+  String get exempted;
+
+  /// No description provided for @zeroTax.
+  ///
+  /// In en, this message translates to:
+  /// **'Zero Tax'**
+  String get zeroTax;
+
+  /// No description provided for @accounting.
+  ///
+  /// In en, this message translates to:
+  /// **'Accounting'**
+  String get accounting;
+
+  /// No description provided for @security.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get security;
+
+  /// No description provided for @ui.
+  ///
+  /// In en, this message translates to:
+  /// **'UI'**
+  String get ui;
+
+  /// No description provided for @backup.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup'**
+  String get backup;
+
+  /// No description provided for @cannotChangeAccountSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot change account number settings when accounts exist.'**
+  String get cannotChangeAccountSettings;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -17,17 +17,17 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
     // Map from the Drift-generated CompanyInfoData to our CompanyInfoEntity
     return CompanyInfoEntity(
       id: data.id,
-      companyCode: data.company_code,
-      nameAr: data.name_ar,
-      nameEn: data.name_en,
-      countryId: data.country_id,
-      taxNumber: data.tax_number,
-      commercialRegNo: data.commercial_reg_no,
+      companyCode: data.companyCode,
+      nameAr: data.nameAr,
+      nameEn: data.nameEn,
+      countryId: data.countryId,
+      taxNumber: data.taxNumber,
+      commercialRegNo: data.commercialRegNo,
       address: data.address,
       phone: data.phone,
       email: data.email,
       logo: data.logo,
-      isMainCompany: data.is_main_company,
+      isMainCompany: data.isMainCompany,
       remarks: data.remarks,
     );
   }
@@ -37,17 +37,17 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
     // Map from our CompanyInfoEntity to the Drift-generated CompanyInfoCompanion
     final companion = CompanyInfoCompanion(
       id: Value(info.id),
-      company_code: Value(info.companyCode),
-      name_ar: Value(info.nameAr),
-      name_en: Value(info.nameEn),
-      country_id: Value(info.countryId),
-      tax_number: Value(info.taxNumber),
-      commercial_reg_no: Value(info.commercialRegNo),
+      companyCode: Value(info.companyCode),
+      nameAr: Value(info.nameAr),
+      nameEn: Value(info.nameEn),
+      countryId: Value(info.countryId),
+      taxNumber: Value(info.taxNumber),
+      commercialRegNo: Value(info.commercialRegNo),
       address: Value(info.address),
       phone: Value(info.phone),
       email: Value(info.email),
       logo: Value(info.logo),
-      is_main_company: Value(info.isMainCompany),
+      isMainCompany: Value(info.isMainCompany),
       remarks: Value(info.remarks),
     );
     return localDataSource.upsertCompanyInfo(companion);

@@ -1,5 +1,4 @@
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
 
 abstract class GeneralParametersLocalDataSource {
   Future<SystemConfigData?> getGeneralParameters();

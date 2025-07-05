@@ -3,384 +3,64 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
-class $UsersTable extends Users with TableInfo<$UsersTable, User> {
+class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UsersTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _usernameMeta =
-      const VerificationMeta('username');
-  @override
-  late final GeneratedColumn<String> username = GeneratedColumn<String>(
-      'username', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 6, maxTextLength: 32),
+  TaxBrackets(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _bracketCodeMeta =
+      const VerificationMeta('bracketCode');
+  late final GeneratedColumn<String> bracketCode = GeneratedColumn<String>(
+      'bracket_code', aliasedName, false,
       type: DriftSqlType.string,
-      requiredDuringInsert: true);
-  static const VerificationMeta _passwordMeta =
-      const VerificationMeta('password');
-  @override
-  late final GeneratedColumn<String> password = GeneratedColumn<String>(
-      'password', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
-  @override
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, username, password, email, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'users';
-  @override
-  VerificationContext validateIntegrity(Insertable<User> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('username')) {
-      context.handle(_usernameMeta,
-          username.isAcceptableOrUnknown(data['username']!, _usernameMeta));
-    } else if (isInserting) {
-      context.missing(_usernameMeta);
-    }
-    if (data.containsKey('password')) {
-      context.handle(_passwordMeta,
-          password.isAcceptableOrUnknown(data['password']!, _passwordMeta));
-    } else if (isInserting) {
-      context.missing(_passwordMeta);
-    }
-    if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  User map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return User(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      username: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}username'])!,
-      password: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}password'])!,
-      email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email']),
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $UsersTable createAlias(String alias) {
-    return $UsersTable(attachedDatabase, alias);
-  }
-}
-
-class User extends DataClass implements Insertable<User> {
-  final int id;
-  final String username;
-  final String password;
-  final String? email;
-  final bool isActive;
-  const User(
-      {required this.id,
-      required this.username,
-      required this.password,
-      this.email,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['username'] = Variable<String>(username);
-    map['password'] = Variable<String>(password);
-    if (!nullToAbsent || email != null) {
-      map['email'] = Variable<String>(email);
-    }
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  UsersCompanion toCompanion(bool nullToAbsent) {
-    return UsersCompanion(
-      id: Value(id),
-      username: Value(username),
-      password: Value(password),
-      email:
-          email == null && nullToAbsent ? const Value.absent() : Value(email),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory User.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return User(
-      id: serializer.fromJson<int>(json['id']),
-      username: serializer.fromJson<String>(json['username']),
-      password: serializer.fromJson<String>(json['password']),
-      email: serializer.fromJson<String?>(json['email']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'username': serializer.toJson<String>(username),
-      'password': serializer.toJson<String>(password),
-      'email': serializer.toJson<String?>(email),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  User copyWith(
-          {int? id,
-          String? username,
-          String? password,
-          Value<String?> email = const Value.absent(),
-          bool? isActive}) =>
-      User(
-        id: id ?? this.id,
-        username: username ?? this.username,
-        password: password ?? this.password,
-        email: email.present ? email.value : this.email,
-        isActive: isActive ?? this.isActive,
-      );
-  User copyWithCompanion(UsersCompanion data) {
-    return User(
-      id: data.id.present ? data.id.value : this.id,
-      username: data.username.present ? data.username.value : this.username,
-      password: data.password.present ? data.password.value : this.password,
-      email: data.email.present ? data.email.value : this.email,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('User(')
-          ..write('id: $id, ')
-          ..write('username: $username, ')
-          ..write('password: $password, ')
-          ..write('email: $email, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, username, password, email, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is User &&
-          other.id == this.id &&
-          other.username == this.username &&
-          other.password == this.password &&
-          other.email == this.email &&
-          other.isActive == this.isActive);
-}
-
-class UsersCompanion extends UpdateCompanion<User> {
-  final Value<int> id;
-  final Value<String> username;
-  final Value<String> password;
-  final Value<String?> email;
-  final Value<bool> isActive;
-  const UsersCompanion({
-    this.id = const Value.absent(),
-    this.username = const Value.absent(),
-    this.password = const Value.absent(),
-    this.email = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  UsersCompanion.insert({
-    this.id = const Value.absent(),
-    required String username,
-    required String password,
-    this.email = const Value.absent(),
-    this.isActive = const Value.absent(),
-  })  : username = Value(username),
-        password = Value(password);
-  static Insertable<User> custom({
-    Expression<int>? id,
-    Expression<String>? username,
-    Expression<String>? password,
-    Expression<String>? email,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (username != null) 'username': username,
-      if (password != null) 'password': password,
-      if (email != null) 'email': email,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  UsersCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? username,
-      Value<String>? password,
-      Value<String?>? email,
-      Value<bool>? isActive}) {
-    return UsersCompanion(
-      id: id ?? this.id,
-      username: username ?? this.username,
-      password: password ?? this.password,
-      email: email ?? this.email,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (username.present) {
-      map['username'] = Variable<String>(username.value);
-    }
-    if (password.present) {
-      map['password'] = Variable<String>(password.value);
-    }
-    if (email.present) {
-      map['email'] = Variable<String>(email.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('UsersCompanion(')
-          ..write('id: $id, ')
-          ..write('username: $username, ')
-          ..write('password: $password, ')
-          ..write('email: $email, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $CompanyInfoTable extends CompanyInfo
-    with TableInfo<$CompanyInfoTable, CompanyInfoData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $CompanyInfoTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
   late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
       'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _addressMeta =
-      const VerificationMeta('address');
-  @override
-  late final GeneratedColumn<String> address = GeneratedColumn<String>(
-      'address', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
-  @override
-  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
-      'phone', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
-  @override
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _websiteMeta =
-      const VerificationMeta('website');
-  @override
-  late final GeneratedColumn<String> website = GeneratedColumn<String>(
-      'website', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _logoMeta = const VerificationMeta('logo');
-  @override
-  late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
-      'logo', aliasedName, true,
-      type: DriftSqlType.blob, requiredDuringInsert: false);
-  static const VerificationMeta _isMainCompanyMeta =
-      const VerificationMeta('isMainCompany');
-  @override
-  late final GeneratedColumn<bool> isMainCompany = GeneratedColumn<bool>(
-      'is_main_company', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _taxRateMeta =
+      const VerificationMeta('taxRate');
+  late final GeneratedColumn<double> taxRate = GeneratedColumn<double>(
+      'tax_rate', aliasedName, false,
+      type: DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isDefaultMeta =
+      const VerificationMeta('isDefault');
+  late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
+      'is_default', aliasedName, false,
       type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_main_company" IN (0, 1))'),
-      defaultValue: const Constant(false));
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<GeneratedColumn> get $columns =>
-      [id, nameAr, nameEn, address, phone, email, website, logo, isMainCompany];
+      [bracketCode, nameAr, nameEn, taxRate, isDefault];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'company_info';
+  static const String $name = 'tax_brackets';
   @override
-  VerificationContext validateIntegrity(Insertable<CompanyInfoData> instance,
+  VerificationContext validateIntegrity(Insertable<TaxBracket> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('bracket_code')) {
+      context.handle(
+          _bracketCodeMeta,
+          bracketCode.isAcceptableOrUnknown(
+              data['bracket_code']!, _bracketCodeMeta));
+    } else if (isInserting) {
+      context.missing(_bracketCodeMeta);
     }
     if (data.containsKey('name_ar')) {
       context.handle(_nameArMeta,
@@ -394,6 +74,4672 @@ class $CompanyInfoTable extends CompanyInfo
     } else if (isInserting) {
       context.missing(_nameEnMeta);
     }
+    if (data.containsKey('tax_rate')) {
+      context.handle(_taxRateMeta,
+          taxRate.isAcceptableOrUnknown(data['tax_rate']!, _taxRateMeta));
+    } else if (isInserting) {
+      context.missing(_taxRateMeta);
+    }
+    if (data.containsKey('is_default')) {
+      context.handle(_isDefaultMeta,
+          isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta));
+    } else if (isInserting) {
+      context.missing(_isDefaultMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {bracketCode};
+  @override
+  TaxBracket map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaxBracket(
+      bracketCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}bracket_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      taxRate: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}tax_rate'])!,
+      isDefault: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_default'])!,
+    );
+  }
+
+  @override
+  TaxBrackets createAlias(String alias) {
+    return TaxBrackets(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class TaxBracket extends DataClass implements Insertable<TaxBracket> {
+  final String bracketCode;
+  final String nameAr;
+  final String nameEn;
+  final double taxRate;
+  final bool isDefault;
+  const TaxBracket(
+      {required this.bracketCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.taxRate,
+      required this.isDefault});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['bracket_code'] = Variable<String>(bracketCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['tax_rate'] = Variable<double>(taxRate);
+    map['is_default'] = Variable<bool>(isDefault);
+    return map;
+  }
+
+  TaxBracketsCompanion toCompanion(bool nullToAbsent) {
+    return TaxBracketsCompanion(
+      bracketCode: Value(bracketCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      taxRate: Value(taxRate),
+      isDefault: Value(isDefault),
+    );
+  }
+
+  factory TaxBracket.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaxBracket(
+      bracketCode: serializer.fromJson<String>(json['bracket_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      taxRate: serializer.fromJson<double>(json['tax_rate']),
+      isDefault: serializer.fromJson<bool>(json['is_default']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'bracket_code': serializer.toJson<String>(bracketCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'tax_rate': serializer.toJson<double>(taxRate),
+      'is_default': serializer.toJson<bool>(isDefault),
+    };
+  }
+
+  TaxBracket copyWith(
+          {String? bracketCode,
+          String? nameAr,
+          String? nameEn,
+          double? taxRate,
+          bool? isDefault}) =>
+      TaxBracket(
+        bracketCode: bracketCode ?? this.bracketCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        taxRate: taxRate ?? this.taxRate,
+        isDefault: isDefault ?? this.isDefault,
+      );
+  TaxBracket copyWithCompanion(TaxBracketsCompanion data) {
+    return TaxBracket(
+      bracketCode:
+          data.bracketCode.present ? data.bracketCode.value : this.bracketCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      taxRate: data.taxRate.present ? data.taxRate.value : this.taxRate,
+      isDefault: data.isDefault.present ? data.isDefault.value : this.isDefault,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxBracket(')
+          ..write('bracketCode: $bracketCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('taxRate: $taxRate, ')
+          ..write('isDefault: $isDefault')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(bracketCode, nameAr, nameEn, taxRate, isDefault);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaxBracket &&
+          other.bracketCode == this.bracketCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.taxRate == this.taxRate &&
+          other.isDefault == this.isDefault);
+}
+
+class TaxBracketsCompanion extends UpdateCompanion<TaxBracket> {
+  final Value<String> bracketCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<double> taxRate;
+  final Value<bool> isDefault;
+  final Value<int> rowid;
+  const TaxBracketsCompanion({
+    this.bracketCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.taxRate = const Value.absent(),
+    this.isDefault = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaxBracketsCompanion.insert({
+    required String bracketCode,
+    required String nameAr,
+    required String nameEn,
+    required double taxRate,
+    required bool isDefault,
+    this.rowid = const Value.absent(),
+  })  : bracketCode = Value(bracketCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        taxRate = Value(taxRate),
+        isDefault = Value(isDefault);
+  static Insertable<TaxBracket> custom({
+    Expression<String>? bracketCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<double>? taxRate,
+    Expression<bool>? isDefault,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (bracketCode != null) 'bracket_code': bracketCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (taxRate != null) 'tax_rate': taxRate,
+      if (isDefault != null) 'is_default': isDefault,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaxBracketsCompanion copyWith(
+      {Value<String>? bracketCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<double>? taxRate,
+      Value<bool>? isDefault,
+      Value<int>? rowid}) {
+    return TaxBracketsCompanion(
+      bracketCode: bracketCode ?? this.bracketCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      taxRate: taxRate ?? this.taxRate,
+      isDefault: isDefault ?? this.isDefault,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (bracketCode.present) {
+      map['bracket_code'] = Variable<String>(bracketCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (taxRate.present) {
+      map['tax_rate'] = Variable<double>(taxRate.value);
+    }
+    if (isDefault.present) {
+      map['is_default'] = Variable<bool>(isDefault.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxBracketsCompanion(')
+          ..write('bracketCode: $bracketCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('taxRate: $taxRate, ')
+          ..write('isDefault: $isDefault, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class TaxTypes extends Table with TableInfo<TaxTypes, TaxType> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  TaxTypes(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _typeCodeMeta =
+      const VerificationMeta('typeCode');
+  late final GeneratedColumn<String> typeCode = GeneratedColumn<String>(
+      'type_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _calcMethodMeta =
+      const VerificationMeta('calcMethod');
+  late final GeneratedColumn<String> calcMethod = GeneratedColumn<String>(
+      'calc_method', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _salesAccountIdMeta =
+      const VerificationMeta('salesAccountId');
+  late final GeneratedColumn<String> salesAccountId = GeneratedColumn<String>(
+      'sales_account_id', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _purchasesAccountIdMeta =
+      const VerificationMeta('purchasesAccountId');
+  late final GeneratedColumn<String> purchasesAccountId =
+      GeneratedColumn<String>('purchases_account_id', aliasedName, true,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          $customConstraints: '');
+  @override
+  List<GeneratedColumn> get $columns => [
+        typeCode,
+        nameAr,
+        nameEn,
+        calcMethod,
+        salesAccountId,
+        purchasesAccountId
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tax_types';
+  @override
+  VerificationContext validateIntegrity(Insertable<TaxType> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('type_code')) {
+      context.handle(_typeCodeMeta,
+          typeCode.isAcceptableOrUnknown(data['type_code']!, _typeCodeMeta));
+    } else if (isInserting) {
+      context.missing(_typeCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('calc_method')) {
+      context.handle(
+          _calcMethodMeta,
+          calcMethod.isAcceptableOrUnknown(
+              data['calc_method']!, _calcMethodMeta));
+    } else if (isInserting) {
+      context.missing(_calcMethodMeta);
+    }
+    if (data.containsKey('sales_account_id')) {
+      context.handle(
+          _salesAccountIdMeta,
+          salesAccountId.isAcceptableOrUnknown(
+              data['sales_account_id']!, _salesAccountIdMeta));
+    }
+    if (data.containsKey('purchases_account_id')) {
+      context.handle(
+          _purchasesAccountIdMeta,
+          purchasesAccountId.isAcceptableOrUnknown(
+              data['purchases_account_id']!, _purchasesAccountIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {typeCode};
+  @override
+  TaxType map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaxType(
+      typeCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      calcMethod: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}calc_method'])!,
+      salesAccountId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}sales_account_id']),
+      purchasesAccountId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}purchases_account_id']),
+    );
+  }
+
+  @override
+  TaxTypes createAlias(String alias) {
+    return TaxTypes(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class TaxType extends DataClass implements Insertable<TaxType> {
+  final String typeCode;
+  final String nameAr;
+  final String nameEn;
+  final String calcMethod;
+  final String? salesAccountId;
+  final String? purchasesAccountId;
+  const TaxType(
+      {required this.typeCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.calcMethod,
+      this.salesAccountId,
+      this.purchasesAccountId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['type_code'] = Variable<String>(typeCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['calc_method'] = Variable<String>(calcMethod);
+    if (!nullToAbsent || salesAccountId != null) {
+      map['sales_account_id'] = Variable<String>(salesAccountId);
+    }
+    if (!nullToAbsent || purchasesAccountId != null) {
+      map['purchases_account_id'] = Variable<String>(purchasesAccountId);
+    }
+    return map;
+  }
+
+  TaxTypesCompanion toCompanion(bool nullToAbsent) {
+    return TaxTypesCompanion(
+      typeCode: Value(typeCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      calcMethod: Value(calcMethod),
+      salesAccountId: salesAccountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(salesAccountId),
+      purchasesAccountId: purchasesAccountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(purchasesAccountId),
+    );
+  }
+
+  factory TaxType.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaxType(
+      typeCode: serializer.fromJson<String>(json['type_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      calcMethod: serializer.fromJson<String>(json['calc_method']),
+      salesAccountId: serializer.fromJson<String?>(json['sales_account_id']),
+      purchasesAccountId:
+          serializer.fromJson<String?>(json['purchases_account_id']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'type_code': serializer.toJson<String>(typeCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'calc_method': serializer.toJson<String>(calcMethod),
+      'sales_account_id': serializer.toJson<String?>(salesAccountId),
+      'purchases_account_id': serializer.toJson<String?>(purchasesAccountId),
+    };
+  }
+
+  TaxType copyWith(
+          {String? typeCode,
+          String? nameAr,
+          String? nameEn,
+          String? calcMethod,
+          Value<String?> salesAccountId = const Value.absent(),
+          Value<String?> purchasesAccountId = const Value.absent()}) =>
+      TaxType(
+        typeCode: typeCode ?? this.typeCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        calcMethod: calcMethod ?? this.calcMethod,
+        salesAccountId:
+            salesAccountId.present ? salesAccountId.value : this.salesAccountId,
+        purchasesAccountId: purchasesAccountId.present
+            ? purchasesAccountId.value
+            : this.purchasesAccountId,
+      );
+  TaxType copyWithCompanion(TaxTypesCompanion data) {
+    return TaxType(
+      typeCode: data.typeCode.present ? data.typeCode.value : this.typeCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      calcMethod:
+          data.calcMethod.present ? data.calcMethod.value : this.calcMethod,
+      salesAccountId: data.salesAccountId.present
+          ? data.salesAccountId.value
+          : this.salesAccountId,
+      purchasesAccountId: data.purchasesAccountId.present
+          ? data.purchasesAccountId.value
+          : this.purchasesAccountId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxType(')
+          ..write('typeCode: $typeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('calcMethod: $calcMethod, ')
+          ..write('salesAccountId: $salesAccountId, ')
+          ..write('purchasesAccountId: $purchasesAccountId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      typeCode, nameAr, nameEn, calcMethod, salesAccountId, purchasesAccountId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaxType &&
+          other.typeCode == this.typeCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.calcMethod == this.calcMethod &&
+          other.salesAccountId == this.salesAccountId &&
+          other.purchasesAccountId == this.purchasesAccountId);
+}
+
+class TaxTypesCompanion extends UpdateCompanion<TaxType> {
+  final Value<String> typeCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> calcMethod;
+  final Value<String?> salesAccountId;
+  final Value<String?> purchasesAccountId;
+  final Value<int> rowid;
+  const TaxTypesCompanion({
+    this.typeCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.calcMethod = const Value.absent(),
+    this.salesAccountId = const Value.absent(),
+    this.purchasesAccountId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaxTypesCompanion.insert({
+    required String typeCode,
+    required String nameAr,
+    required String nameEn,
+    required String calcMethod,
+    this.salesAccountId = const Value.absent(),
+    this.purchasesAccountId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : typeCode = Value(typeCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        calcMethod = Value(calcMethod);
+  static Insertable<TaxType> custom({
+    Expression<String>? typeCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? calcMethod,
+    Expression<String>? salesAccountId,
+    Expression<String>? purchasesAccountId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (typeCode != null) 'type_code': typeCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (calcMethod != null) 'calc_method': calcMethod,
+      if (salesAccountId != null) 'sales_account_id': salesAccountId,
+      if (purchasesAccountId != null)
+        'purchases_account_id': purchasesAccountId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaxTypesCompanion copyWith(
+      {Value<String>? typeCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? calcMethod,
+      Value<String?>? salesAccountId,
+      Value<String?>? purchasesAccountId,
+      Value<int>? rowid}) {
+    return TaxTypesCompanion(
+      typeCode: typeCode ?? this.typeCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      calcMethod: calcMethod ?? this.calcMethod,
+      salesAccountId: salesAccountId ?? this.salesAccountId,
+      purchasesAccountId: purchasesAccountId ?? this.purchasesAccountId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (typeCode.present) {
+      map['type_code'] = Variable<String>(typeCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (calcMethod.present) {
+      map['calc_method'] = Variable<String>(calcMethod.value);
+    }
+    if (salesAccountId.present) {
+      map['sales_account_id'] = Variable<String>(salesAccountId.value);
+    }
+    if (purchasesAccountId.present) {
+      map['purchases_account_id'] = Variable<String>(purchasesAccountId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxTypesCompanion(')
+          ..write('typeCode: $typeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('calcMethod: $calcMethod, ')
+          ..write('salesAccountId: $salesAccountId, ')
+          ..write('purchasesAccountId: $purchasesAccountId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class TaxCalcMethods extends Table
+    with TableInfo<TaxCalcMethods, TaxCalcMethod> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  TaxCalcMethods(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _methodCodeMeta =
+      const VerificationMeta('methodCode');
+  late final GeneratedColumn<String> methodCode = GeneratedColumn<String>(
+      'method_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns => [methodCode, nameAr, nameEn, category];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tax_calc_methods';
+  @override
+  VerificationContext validateIntegrity(Insertable<TaxCalcMethod> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('method_code')) {
+      context.handle(
+          _methodCodeMeta,
+          methodCode.isAcceptableOrUnknown(
+              data['method_code']!, _methodCodeMeta));
+    } else if (isInserting) {
+      context.missing(_methodCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {methodCode};
+  @override
+  TaxCalcMethod map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaxCalcMethod(
+      methodCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}method_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+    );
+  }
+
+  @override
+  TaxCalcMethods createAlias(String alias) {
+    return TaxCalcMethods(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class TaxCalcMethod extends DataClass implements Insertable<TaxCalcMethod> {
+  final String methodCode;
+  final String nameAr;
+  final String nameEn;
+  final String category;
+  const TaxCalcMethod(
+      {required this.methodCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.category});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['method_code'] = Variable<String>(methodCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['category'] = Variable<String>(category);
+    return map;
+  }
+
+  TaxCalcMethodsCompanion toCompanion(bool nullToAbsent) {
+    return TaxCalcMethodsCompanion(
+      methodCode: Value(methodCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      category: Value(category),
+    );
+  }
+
+  factory TaxCalcMethod.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaxCalcMethod(
+      methodCode: serializer.fromJson<String>(json['method_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      category: serializer.fromJson<String>(json['category']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'method_code': serializer.toJson<String>(methodCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'category': serializer.toJson<String>(category),
+    };
+  }
+
+  TaxCalcMethod copyWith(
+          {String? methodCode,
+          String? nameAr,
+          String? nameEn,
+          String? category}) =>
+      TaxCalcMethod(
+        methodCode: methodCode ?? this.methodCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        category: category ?? this.category,
+      );
+  TaxCalcMethod copyWithCompanion(TaxCalcMethodsCompanion data) {
+    return TaxCalcMethod(
+      methodCode:
+          data.methodCode.present ? data.methodCode.value : this.methodCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      category: data.category.present ? data.category.value : this.category,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxCalcMethod(')
+          ..write('methodCode: $methodCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('category: $category')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(methodCode, nameAr, nameEn, category);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaxCalcMethod &&
+          other.methodCode == this.methodCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.category == this.category);
+}
+
+class TaxCalcMethodsCompanion extends UpdateCompanion<TaxCalcMethod> {
+  final Value<String> methodCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> category;
+  final Value<int> rowid;
+  const TaxCalcMethodsCompanion({
+    this.methodCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.category = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaxCalcMethodsCompanion.insert({
+    required String methodCode,
+    required String nameAr,
+    required String nameEn,
+    required String category,
+    this.rowid = const Value.absent(),
+  })  : methodCode = Value(methodCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        category = Value(category);
+  static Insertable<TaxCalcMethod> custom({
+    Expression<String>? methodCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? category,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (methodCode != null) 'method_code': methodCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (category != null) 'category': category,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaxCalcMethodsCompanion copyWith(
+      {Value<String>? methodCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? category,
+      Value<int>? rowid}) {
+    return TaxCalcMethodsCompanion(
+      methodCode: methodCode ?? this.methodCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      category: category ?? this.category,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (methodCode.present) {
+      map['method_code'] = Variable<String>(methodCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxCalcMethodsCompanion(')
+          ..write('methodCode: $methodCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('category: $category, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Currencies extends Table with TableInfo<Currencies, Currency> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Currencies(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _currencyCodeMeta =
+      const VerificationMeta('currencyCode');
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+      'currency_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _fractionNameArMeta =
+      const VerificationMeta('fractionNameAr');
+  late final GeneratedColumn<String> fractionNameAr = GeneratedColumn<String>(
+      'fraction_name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _fractionNameEnMeta =
+      const VerificationMeta('fractionNameEn');
+  late final GeneratedColumn<String> fractionNameEn = GeneratedColumn<String>(
+      'fraction_name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _exchangeRateMeta =
+      const VerificationMeta('exchangeRate');
+  late final GeneratedColumn<double> exchangeRate = GeneratedColumn<double>(
+      'exchange_rate', aliasedName, false,
+      type: DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isBaseCurrencyMeta =
+      const VerificationMeta('isBaseCurrency');
+  late final GeneratedColumn<bool> isBaseCurrency = GeneratedColumn<bool>(
+      'is_base_currency', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _decimalPlacesMeta =
+      const VerificationMeta('decimalPlaces');
+  late final GeneratedColumn<int> decimalPlaces = GeneratedColumn<int>(
+      'decimal_places', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _minRateLimitMeta =
+      const VerificationMeta('minRateLimit');
+  late final GeneratedColumn<double> minRateLimit = GeneratedColumn<double>(
+      'min_rate_limit', aliasedName, true,
+      type: DriftSqlType.double,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _maxRateLimitMeta =
+      const VerificationMeta('maxRateLimit');
+  late final GeneratedColumn<double> maxRateLimit = GeneratedColumn<double>(
+      'max_rate_limit', aliasedName, true,
+      type: DriftSqlType.double,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        currencyCode,
+        nameAr,
+        nameEn,
+        fractionNameAr,
+        fractionNameEn,
+        exchangeRate,
+        isBaseCurrency,
+        decimalPlaces,
+        minRateLimit,
+        maxRateLimit,
+        isActive
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'currencies';
+  @override
+  VerificationContext validateIntegrity(Insertable<Currency> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('currency_code')) {
+      context.handle(
+          _currencyCodeMeta,
+          currencyCode.isAcceptableOrUnknown(
+              data['currency_code']!, _currencyCodeMeta));
+    } else if (isInserting) {
+      context.missing(_currencyCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('fraction_name_ar')) {
+      context.handle(
+          _fractionNameArMeta,
+          fractionNameAr.isAcceptableOrUnknown(
+              data['fraction_name_ar']!, _fractionNameArMeta));
+    } else if (isInserting) {
+      context.missing(_fractionNameArMeta);
+    }
+    if (data.containsKey('fraction_name_en')) {
+      context.handle(
+          _fractionNameEnMeta,
+          fractionNameEn.isAcceptableOrUnknown(
+              data['fraction_name_en']!, _fractionNameEnMeta));
+    } else if (isInserting) {
+      context.missing(_fractionNameEnMeta);
+    }
+    if (data.containsKey('exchange_rate')) {
+      context.handle(
+          _exchangeRateMeta,
+          exchangeRate.isAcceptableOrUnknown(
+              data['exchange_rate']!, _exchangeRateMeta));
+    } else if (isInserting) {
+      context.missing(_exchangeRateMeta);
+    }
+    if (data.containsKey('is_base_currency')) {
+      context.handle(
+          _isBaseCurrencyMeta,
+          isBaseCurrency.isAcceptableOrUnknown(
+              data['is_base_currency']!, _isBaseCurrencyMeta));
+    } else if (isInserting) {
+      context.missing(_isBaseCurrencyMeta);
+    }
+    if (data.containsKey('decimal_places')) {
+      context.handle(
+          _decimalPlacesMeta,
+          decimalPlaces.isAcceptableOrUnknown(
+              data['decimal_places']!, _decimalPlacesMeta));
+    } else if (isInserting) {
+      context.missing(_decimalPlacesMeta);
+    }
+    if (data.containsKey('min_rate_limit')) {
+      context.handle(
+          _minRateLimitMeta,
+          minRateLimit.isAcceptableOrUnknown(
+              data['min_rate_limit']!, _minRateLimitMeta));
+    }
+    if (data.containsKey('max_rate_limit')) {
+      context.handle(
+          _maxRateLimitMeta,
+          maxRateLimit.isAcceptableOrUnknown(
+              data['max_rate_limit']!, _maxRateLimitMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {currencyCode};
+  @override
+  Currency map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Currency(
+      currencyCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}currency_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      fractionNameAr: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}fraction_name_ar'])!,
+      fractionNameEn: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}fraction_name_en'])!,
+      exchangeRate: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}exchange_rate'])!,
+      isBaseCurrency: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_base_currency'])!,
+      decimalPlaces: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}decimal_places'])!,
+      minRateLimit: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}min_rate_limit']),
+      maxRateLimit: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}max_rate_limit']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Currencies createAlias(String alias) {
+    return Currencies(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Currency extends DataClass implements Insertable<Currency> {
+  final String currencyCode;
+  final String nameAr;
+  final String nameEn;
+  final String fractionNameAr;
+  final String fractionNameEn;
+  final double exchangeRate;
+  final bool isBaseCurrency;
+  final int decimalPlaces;
+  final double? minRateLimit;
+  final double? maxRateLimit;
+  final bool isActive;
+  const Currency(
+      {required this.currencyCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.fractionNameAr,
+      required this.fractionNameEn,
+      required this.exchangeRate,
+      required this.isBaseCurrency,
+      required this.decimalPlaces,
+      this.minRateLimit,
+      this.maxRateLimit,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['currency_code'] = Variable<String>(currencyCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['fraction_name_ar'] = Variable<String>(fractionNameAr);
+    map['fraction_name_en'] = Variable<String>(fractionNameEn);
+    map['exchange_rate'] = Variable<double>(exchangeRate);
+    map['is_base_currency'] = Variable<bool>(isBaseCurrency);
+    map['decimal_places'] = Variable<int>(decimalPlaces);
+    if (!nullToAbsent || minRateLimit != null) {
+      map['min_rate_limit'] = Variable<double>(minRateLimit);
+    }
+    if (!nullToAbsent || maxRateLimit != null) {
+      map['max_rate_limit'] = Variable<double>(maxRateLimit);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  CurrenciesCompanion toCompanion(bool nullToAbsent) {
+    return CurrenciesCompanion(
+      currencyCode: Value(currencyCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      fractionNameAr: Value(fractionNameAr),
+      fractionNameEn: Value(fractionNameEn),
+      exchangeRate: Value(exchangeRate),
+      isBaseCurrency: Value(isBaseCurrency),
+      decimalPlaces: Value(decimalPlaces),
+      minRateLimit: minRateLimit == null && nullToAbsent
+          ? const Value.absent()
+          : Value(minRateLimit),
+      maxRateLimit: maxRateLimit == null && nullToAbsent
+          ? const Value.absent()
+          : Value(maxRateLimit),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Currency.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Currency(
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      fractionNameAr: serializer.fromJson<String>(json['fraction_name_ar']),
+      fractionNameEn: serializer.fromJson<String>(json['fraction_name_en']),
+      exchangeRate: serializer.fromJson<double>(json['exchange_rate']),
+      isBaseCurrency: serializer.fromJson<bool>(json['is_base_currency']),
+      decimalPlaces: serializer.fromJson<int>(json['decimal_places']),
+      minRateLimit: serializer.fromJson<double?>(json['min_rate_limit']),
+      maxRateLimit: serializer.fromJson<double?>(json['max_rate_limit']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'fraction_name_ar': serializer.toJson<String>(fractionNameAr),
+      'fraction_name_en': serializer.toJson<String>(fractionNameEn),
+      'exchange_rate': serializer.toJson<double>(exchangeRate),
+      'is_base_currency': serializer.toJson<bool>(isBaseCurrency),
+      'decimal_places': serializer.toJson<int>(decimalPlaces),
+      'min_rate_limit': serializer.toJson<double?>(minRateLimit),
+      'max_rate_limit': serializer.toJson<double?>(maxRateLimit),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Currency copyWith(
+          {String? currencyCode,
+          String? nameAr,
+          String? nameEn,
+          String? fractionNameAr,
+          String? fractionNameEn,
+          double? exchangeRate,
+          bool? isBaseCurrency,
+          int? decimalPlaces,
+          Value<double?> minRateLimit = const Value.absent(),
+          Value<double?> maxRateLimit = const Value.absent(),
+          bool? isActive}) =>
+      Currency(
+        currencyCode: currencyCode ?? this.currencyCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        fractionNameAr: fractionNameAr ?? this.fractionNameAr,
+        fractionNameEn: fractionNameEn ?? this.fractionNameEn,
+        exchangeRate: exchangeRate ?? this.exchangeRate,
+        isBaseCurrency: isBaseCurrency ?? this.isBaseCurrency,
+        decimalPlaces: decimalPlaces ?? this.decimalPlaces,
+        minRateLimit:
+            minRateLimit.present ? minRateLimit.value : this.minRateLimit,
+        maxRateLimit:
+            maxRateLimit.present ? maxRateLimit.value : this.maxRateLimit,
+        isActive: isActive ?? this.isActive,
+      );
+  Currency copyWithCompanion(CurrenciesCompanion data) {
+    return Currency(
+      currencyCode: data.currencyCode.present
+          ? data.currencyCode.value
+          : this.currencyCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      fractionNameAr: data.fractionNameAr.present
+          ? data.fractionNameAr.value
+          : this.fractionNameAr,
+      fractionNameEn: data.fractionNameEn.present
+          ? data.fractionNameEn.value
+          : this.fractionNameEn,
+      exchangeRate: data.exchangeRate.present
+          ? data.exchangeRate.value
+          : this.exchangeRate,
+      isBaseCurrency: data.isBaseCurrency.present
+          ? data.isBaseCurrency.value
+          : this.isBaseCurrency,
+      decimalPlaces: data.decimalPlaces.present
+          ? data.decimalPlaces.value
+          : this.decimalPlaces,
+      minRateLimit: data.minRateLimit.present
+          ? data.minRateLimit.value
+          : this.minRateLimit,
+      maxRateLimit: data.maxRateLimit.present
+          ? data.maxRateLimit.value
+          : this.maxRateLimit,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Currency(')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('fractionNameAr: $fractionNameAr, ')
+          ..write('fractionNameEn: $fractionNameEn, ')
+          ..write('exchangeRate: $exchangeRate, ')
+          ..write('isBaseCurrency: $isBaseCurrency, ')
+          ..write('decimalPlaces: $decimalPlaces, ')
+          ..write('minRateLimit: $minRateLimit, ')
+          ..write('maxRateLimit: $maxRateLimit, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      currencyCode,
+      nameAr,
+      nameEn,
+      fractionNameAr,
+      fractionNameEn,
+      exchangeRate,
+      isBaseCurrency,
+      decimalPlaces,
+      minRateLimit,
+      maxRateLimit,
+      isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Currency &&
+          other.currencyCode == this.currencyCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.fractionNameAr == this.fractionNameAr &&
+          other.fractionNameEn == this.fractionNameEn &&
+          other.exchangeRate == this.exchangeRate &&
+          other.isBaseCurrency == this.isBaseCurrency &&
+          other.decimalPlaces == this.decimalPlaces &&
+          other.minRateLimit == this.minRateLimit &&
+          other.maxRateLimit == this.maxRateLimit &&
+          other.isActive == this.isActive);
+}
+
+class CurrenciesCompanion extends UpdateCompanion<Currency> {
+  final Value<String> currencyCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> fractionNameAr;
+  final Value<String> fractionNameEn;
+  final Value<double> exchangeRate;
+  final Value<bool> isBaseCurrency;
+  final Value<int> decimalPlaces;
+  final Value<double?> minRateLimit;
+  final Value<double?> maxRateLimit;
+  final Value<bool> isActive;
+  final Value<int> rowid;
+  const CurrenciesCompanion({
+    this.currencyCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.fractionNameAr = const Value.absent(),
+    this.fractionNameEn = const Value.absent(),
+    this.exchangeRate = const Value.absent(),
+    this.isBaseCurrency = const Value.absent(),
+    this.decimalPlaces = const Value.absent(),
+    this.minRateLimit = const Value.absent(),
+    this.maxRateLimit = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CurrenciesCompanion.insert({
+    required String currencyCode,
+    required String nameAr,
+    required String nameEn,
+    required String fractionNameAr,
+    required String fractionNameEn,
+    required double exchangeRate,
+    required bool isBaseCurrency,
+    required int decimalPlaces,
+    this.minRateLimit = const Value.absent(),
+    this.maxRateLimit = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : currencyCode = Value(currencyCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        fractionNameAr = Value(fractionNameAr),
+        fractionNameEn = Value(fractionNameEn),
+        exchangeRate = Value(exchangeRate),
+        isBaseCurrency = Value(isBaseCurrency),
+        decimalPlaces = Value(decimalPlaces);
+  static Insertable<Currency> custom({
+    Expression<String>? currencyCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? fractionNameAr,
+    Expression<String>? fractionNameEn,
+    Expression<double>? exchangeRate,
+    Expression<bool>? isBaseCurrency,
+    Expression<int>? decimalPlaces,
+    Expression<double>? minRateLimit,
+    Expression<double>? maxRateLimit,
+    Expression<bool>? isActive,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (currencyCode != null) 'currency_code': currencyCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (fractionNameAr != null) 'fraction_name_ar': fractionNameAr,
+      if (fractionNameEn != null) 'fraction_name_en': fractionNameEn,
+      if (exchangeRate != null) 'exchange_rate': exchangeRate,
+      if (isBaseCurrency != null) 'is_base_currency': isBaseCurrency,
+      if (decimalPlaces != null) 'decimal_places': decimalPlaces,
+      if (minRateLimit != null) 'min_rate_limit': minRateLimit,
+      if (maxRateLimit != null) 'max_rate_limit': maxRateLimit,
+      if (isActive != null) 'is_active': isActive,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CurrenciesCompanion copyWith(
+      {Value<String>? currencyCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? fractionNameAr,
+      Value<String>? fractionNameEn,
+      Value<double>? exchangeRate,
+      Value<bool>? isBaseCurrency,
+      Value<int>? decimalPlaces,
+      Value<double?>? minRateLimit,
+      Value<double?>? maxRateLimit,
+      Value<bool>? isActive,
+      Value<int>? rowid}) {
+    return CurrenciesCompanion(
+      currencyCode: currencyCode ?? this.currencyCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      fractionNameAr: fractionNameAr ?? this.fractionNameAr,
+      fractionNameEn: fractionNameEn ?? this.fractionNameEn,
+      exchangeRate: exchangeRate ?? this.exchangeRate,
+      isBaseCurrency: isBaseCurrency ?? this.isBaseCurrency,
+      decimalPlaces: decimalPlaces ?? this.decimalPlaces,
+      minRateLimit: minRateLimit ?? this.minRateLimit,
+      maxRateLimit: maxRateLimit ?? this.maxRateLimit,
+      isActive: isActive ?? this.isActive,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (currencyCode.present) {
+      map['currency_code'] = Variable<String>(currencyCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (fractionNameAr.present) {
+      map['fraction_name_ar'] = Variable<String>(fractionNameAr.value);
+    }
+    if (fractionNameEn.present) {
+      map['fraction_name_en'] = Variable<String>(fractionNameEn.value);
+    }
+    if (exchangeRate.present) {
+      map['exchange_rate'] = Variable<double>(exchangeRate.value);
+    }
+    if (isBaseCurrency.present) {
+      map['is_base_currency'] = Variable<bool>(isBaseCurrency.value);
+    }
+    if (decimalPlaces.present) {
+      map['decimal_places'] = Variable<int>(decimalPlaces.value);
+    }
+    if (minRateLimit.present) {
+      map['min_rate_limit'] = Variable<double>(minRateLimit.value);
+    }
+    if (maxRateLimit.present) {
+      map['max_rate_limit'] = Variable<double>(maxRateLimit.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurrenciesCompanion(')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('fractionNameAr: $fractionNameAr, ')
+          ..write('fractionNameEn: $fractionNameEn, ')
+          ..write('exchangeRate: $exchangeRate, ')
+          ..write('isBaseCurrency: $isBaseCurrency, ')
+          ..write('decimalPlaces: $decimalPlaces, ')
+          ..write('minRateLimit: $minRateLimit, ')
+          ..write('maxRateLimit: $maxRateLimit, ')
+          ..write('isActive: $isActive, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class CurrencyDenominations extends Table
+    with TableInfo<CurrencyDenominations, CurrencyDenomination> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  CurrencyDenominations(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _currencyCodeMeta =
+      const VerificationMeta('currencyCode');
+  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
+      'currency_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES currencies(currency_code)');
+  static const VerificationMeta _denominationValueMeta =
+      const VerificationMeta('denominationValue');
+  late final GeneratedColumn<double> denominationValue =
+      GeneratedColumn<double>('denomination_value', aliasedName, false,
+          type: DriftSqlType.double,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
+  static const VerificationMeta _denominationNameArMeta =
+      const VerificationMeta('denominationNameAr');
+  late final GeneratedColumn<String> denominationNameAr =
+      GeneratedColumn<String>('denomination_name_ar', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
+  static const VerificationMeta _denominationNameEnMeta =
+      const VerificationMeta('denominationNameEn');
+  late final GeneratedColumn<String> denominationNameEn =
+      GeneratedColumn<String>('denomination_name_en', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
+  static const VerificationMeta _denominationTypeMeta =
+      const VerificationMeta('denominationType');
+  late final GeneratedColumn<String> denominationType = GeneratedColumn<String>(
+      'denomination_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        currencyCode,
+        denominationValue,
+        denominationNameAr,
+        denominationNameEn,
+        denominationType
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'currency_denominations';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<CurrencyDenomination> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('currency_code')) {
+      context.handle(
+          _currencyCodeMeta,
+          currencyCode.isAcceptableOrUnknown(
+              data['currency_code']!, _currencyCodeMeta));
+    } else if (isInserting) {
+      context.missing(_currencyCodeMeta);
+    }
+    if (data.containsKey('denomination_value')) {
+      context.handle(
+          _denominationValueMeta,
+          denominationValue.isAcceptableOrUnknown(
+              data['denomination_value']!, _denominationValueMeta));
+    } else if (isInserting) {
+      context.missing(_denominationValueMeta);
+    }
+    if (data.containsKey('denomination_name_ar')) {
+      context.handle(
+          _denominationNameArMeta,
+          denominationNameAr.isAcceptableOrUnknown(
+              data['denomination_name_ar']!, _denominationNameArMeta));
+    } else if (isInserting) {
+      context.missing(_denominationNameArMeta);
+    }
+    if (data.containsKey('denomination_name_en')) {
+      context.handle(
+          _denominationNameEnMeta,
+          denominationNameEn.isAcceptableOrUnknown(
+              data['denomination_name_en']!, _denominationNameEnMeta));
+    } else if (isInserting) {
+      context.missing(_denominationNameEnMeta);
+    }
+    if (data.containsKey('denomination_type')) {
+      context.handle(
+          _denominationTypeMeta,
+          denominationType.isAcceptableOrUnknown(
+              data['denomination_type']!, _denominationTypeMeta));
+    } else if (isInserting) {
+      context.missing(_denominationTypeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CurrencyDenomination map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CurrencyDenomination(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      currencyCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}currency_code'])!,
+      denominationValue: attachedDatabase.typeMapping.read(
+          DriftSqlType.double, data['${effectivePrefix}denomination_value'])!,
+      denominationNameAr: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}denomination_name_ar'])!,
+      denominationNameEn: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}denomination_name_en'])!,
+      denominationType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}denomination_type'])!,
+    );
+  }
+
+  @override
+  CurrencyDenominations createAlias(String alias) {
+    return CurrencyDenominations(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class CurrencyDenomination extends DataClass
+    implements Insertable<CurrencyDenomination> {
+  final int id;
+  final String currencyCode;
+  final double denominationValue;
+  final String denominationNameAr;
+  final String denominationNameEn;
+  final String denominationType;
+  const CurrencyDenomination(
+      {required this.id,
+      required this.currencyCode,
+      required this.denominationValue,
+      required this.denominationNameAr,
+      required this.denominationNameEn,
+      required this.denominationType});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['currency_code'] = Variable<String>(currencyCode);
+    map['denomination_value'] = Variable<double>(denominationValue);
+    map['denomination_name_ar'] = Variable<String>(denominationNameAr);
+    map['denomination_name_en'] = Variable<String>(denominationNameEn);
+    map['denomination_type'] = Variable<String>(denominationType);
+    return map;
+  }
+
+  CurrencyDenominationsCompanion toCompanion(bool nullToAbsent) {
+    return CurrencyDenominationsCompanion(
+      id: Value(id),
+      currencyCode: Value(currencyCode),
+      denominationValue: Value(denominationValue),
+      denominationNameAr: Value(denominationNameAr),
+      denominationNameEn: Value(denominationNameEn),
+      denominationType: Value(denominationType),
+    );
+  }
+
+  factory CurrencyDenomination.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CurrencyDenomination(
+      id: serializer.fromJson<int>(json['id']),
+      currencyCode: serializer.fromJson<String>(json['currency_code']),
+      denominationValue:
+          serializer.fromJson<double>(json['denomination_value']),
+      denominationNameAr:
+          serializer.fromJson<String>(json['denomination_name_ar']),
+      denominationNameEn:
+          serializer.fromJson<String>(json['denomination_name_en']),
+      denominationType: serializer.fromJson<String>(json['denomination_type']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'currency_code': serializer.toJson<String>(currencyCode),
+      'denomination_value': serializer.toJson<double>(denominationValue),
+      'denomination_name_ar': serializer.toJson<String>(denominationNameAr),
+      'denomination_name_en': serializer.toJson<String>(denominationNameEn),
+      'denomination_type': serializer.toJson<String>(denominationType),
+    };
+  }
+
+  CurrencyDenomination copyWith(
+          {int? id,
+          String? currencyCode,
+          double? denominationValue,
+          String? denominationNameAr,
+          String? denominationNameEn,
+          String? denominationType}) =>
+      CurrencyDenomination(
+        id: id ?? this.id,
+        currencyCode: currencyCode ?? this.currencyCode,
+        denominationValue: denominationValue ?? this.denominationValue,
+        denominationNameAr: denominationNameAr ?? this.denominationNameAr,
+        denominationNameEn: denominationNameEn ?? this.denominationNameEn,
+        denominationType: denominationType ?? this.denominationType,
+      );
+  CurrencyDenomination copyWithCompanion(CurrencyDenominationsCompanion data) {
+    return CurrencyDenomination(
+      id: data.id.present ? data.id.value : this.id,
+      currencyCode: data.currencyCode.present
+          ? data.currencyCode.value
+          : this.currencyCode,
+      denominationValue: data.denominationValue.present
+          ? data.denominationValue.value
+          : this.denominationValue,
+      denominationNameAr: data.denominationNameAr.present
+          ? data.denominationNameAr.value
+          : this.denominationNameAr,
+      denominationNameEn: data.denominationNameEn.present
+          ? data.denominationNameEn.value
+          : this.denominationNameEn,
+      denominationType: data.denominationType.present
+          ? data.denominationType.value
+          : this.denominationType,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurrencyDenomination(')
+          ..write('id: $id, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('denominationValue: $denominationValue, ')
+          ..write('denominationNameAr: $denominationNameAr, ')
+          ..write('denominationNameEn: $denominationNameEn, ')
+          ..write('denominationType: $denominationType')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, currencyCode, denominationValue,
+      denominationNameAr, denominationNameEn, denominationType);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CurrencyDenomination &&
+          other.id == this.id &&
+          other.currencyCode == this.currencyCode &&
+          other.denominationValue == this.denominationValue &&
+          other.denominationNameAr == this.denominationNameAr &&
+          other.denominationNameEn == this.denominationNameEn &&
+          other.denominationType == this.denominationType);
+}
+
+class CurrencyDenominationsCompanion
+    extends UpdateCompanion<CurrencyDenomination> {
+  final Value<int> id;
+  final Value<String> currencyCode;
+  final Value<double> denominationValue;
+  final Value<String> denominationNameAr;
+  final Value<String> denominationNameEn;
+  final Value<String> denominationType;
+  const CurrencyDenominationsCompanion({
+    this.id = const Value.absent(),
+    this.currencyCode = const Value.absent(),
+    this.denominationValue = const Value.absent(),
+    this.denominationNameAr = const Value.absent(),
+    this.denominationNameEn = const Value.absent(),
+    this.denominationType = const Value.absent(),
+  });
+  CurrencyDenominationsCompanion.insert({
+    this.id = const Value.absent(),
+    required String currencyCode,
+    required double denominationValue,
+    required String denominationNameAr,
+    required String denominationNameEn,
+    required String denominationType,
+  })  : currencyCode = Value(currencyCode),
+        denominationValue = Value(denominationValue),
+        denominationNameAr = Value(denominationNameAr),
+        denominationNameEn = Value(denominationNameEn),
+        denominationType = Value(denominationType);
+  static Insertable<CurrencyDenomination> custom({
+    Expression<int>? id,
+    Expression<String>? currencyCode,
+    Expression<double>? denominationValue,
+    Expression<String>? denominationNameAr,
+    Expression<String>? denominationNameEn,
+    Expression<String>? denominationType,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (currencyCode != null) 'currency_code': currencyCode,
+      if (denominationValue != null) 'denomination_value': denominationValue,
+      if (denominationNameAr != null)
+        'denomination_name_ar': denominationNameAr,
+      if (denominationNameEn != null)
+        'denomination_name_en': denominationNameEn,
+      if (denominationType != null) 'denomination_type': denominationType,
+    });
+  }
+
+  CurrencyDenominationsCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? currencyCode,
+      Value<double>? denominationValue,
+      Value<String>? denominationNameAr,
+      Value<String>? denominationNameEn,
+      Value<String>? denominationType}) {
+    return CurrencyDenominationsCompanion(
+      id: id ?? this.id,
+      currencyCode: currencyCode ?? this.currencyCode,
+      denominationValue: denominationValue ?? this.denominationValue,
+      denominationNameAr: denominationNameAr ?? this.denominationNameAr,
+      denominationNameEn: denominationNameEn ?? this.denominationNameEn,
+      denominationType: denominationType ?? this.denominationType,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (currencyCode.present) {
+      map['currency_code'] = Variable<String>(currencyCode.value);
+    }
+    if (denominationValue.present) {
+      map['denomination_value'] = Variable<double>(denominationValue.value);
+    }
+    if (denominationNameAr.present) {
+      map['denomination_name_ar'] = Variable<String>(denominationNameAr.value);
+    }
+    if (denominationNameEn.present) {
+      map['denomination_name_en'] = Variable<String>(denominationNameEn.value);
+    }
+    if (denominationType.present) {
+      map['denomination_type'] = Variable<String>(denominationType.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CurrencyDenominationsCompanion(')
+          ..write('id: $id, ')
+          ..write('currencyCode: $currencyCode, ')
+          ..write('denominationValue: $denominationValue, ')
+          ..write('denominationNameAr: $denominationNameAr, ')
+          ..write('denominationNameEn: $denominationNameEn, ')
+          ..write('denominationType: $denominationType')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Zones extends Table with TableInfo<Zones, Zone> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Zones(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _zoneCodeMeta =
+      const VerificationMeta('zoneCode');
+  late final GeneratedColumn<String> zoneCode = GeneratedColumn<String>(
+      'zone_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, zoneCode, nameAr, nameEn, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'zones';
+  @override
+  VerificationContext validateIntegrity(Insertable<Zone> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('zone_code')) {
+      context.handle(_zoneCodeMeta,
+          zoneCode.isAcceptableOrUnknown(data['zone_code']!, _zoneCodeMeta));
+    } else if (isInserting) {
+      context.missing(_zoneCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Zone map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Zone(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      zoneCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}zone_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Zones createAlias(String alias) {
+    return Zones(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Zone extends DataClass implements Insertable<Zone> {
+  final int id;
+  final String zoneCode;
+  final String nameAr;
+  final String nameEn;
+  final bool isActive;
+  const Zone(
+      {required this.id,
+      required this.zoneCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['zone_code'] = Variable<String>(zoneCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  ZonesCompanion toCompanion(bool nullToAbsent) {
+    return ZonesCompanion(
+      id: Value(id),
+      zoneCode: Value(zoneCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Zone.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Zone(
+      id: serializer.fromJson<int>(json['id']),
+      zoneCode: serializer.fromJson<String>(json['zone_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'zone_code': serializer.toJson<String>(zoneCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Zone copyWith(
+          {int? id,
+          String? zoneCode,
+          String? nameAr,
+          String? nameEn,
+          bool? isActive}) =>
+      Zone(
+        id: id ?? this.id,
+        zoneCode: zoneCode ?? this.zoneCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        isActive: isActive ?? this.isActive,
+      );
+  Zone copyWithCompanion(ZonesCompanion data) {
+    return Zone(
+      id: data.id.present ? data.id.value : this.id,
+      zoneCode: data.zoneCode.present ? data.zoneCode.value : this.zoneCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Zone(')
+          ..write('id: $id, ')
+          ..write('zoneCode: $zoneCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, zoneCode, nameAr, nameEn, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Zone &&
+          other.id == this.id &&
+          other.zoneCode == this.zoneCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.isActive == this.isActive);
+}
+
+class ZonesCompanion extends UpdateCompanion<Zone> {
+  final Value<int> id;
+  final Value<String> zoneCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<bool> isActive;
+  const ZonesCompanion({
+    this.id = const Value.absent(),
+    this.zoneCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  ZonesCompanion.insert({
+    this.id = const Value.absent(),
+    required String zoneCode,
+    required String nameAr,
+    required String nameEn,
+    this.isActive = const Value.absent(),
+  })  : zoneCode = Value(zoneCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn);
+  static Insertable<Zone> custom({
+    Expression<int>? id,
+    Expression<String>? zoneCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (zoneCode != null) 'zone_code': zoneCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  ZonesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? zoneCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<bool>? isActive}) {
+    return ZonesCompanion(
+      id: id ?? this.id,
+      zoneCode: zoneCode ?? this.zoneCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (zoneCode.present) {
+      map['zone_code'] = Variable<String>(zoneCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ZonesCompanion(')
+          ..write('id: $id, ')
+          ..write('zoneCode: $zoneCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Countries extends Table with TableInfo<Countries, Country> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Countries(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _countryCodeMeta =
+      const VerificationMeta('countryCode');
+  late final GeneratedColumn<String> countryCode = GeneratedColumn<String>(
+      'country_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nationalityArMeta =
+      const VerificationMeta('nationalityAr');
+  late final GeneratedColumn<String> nationalityAr = GeneratedColumn<String>(
+      'nationality_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nationalityEnMeta =
+      const VerificationMeta('nationalityEn');
+  late final GeneratedColumn<String> nationalityEn = GeneratedColumn<String>(
+      'nationality_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _zoneIdMeta = const VerificationMeta('zoneId');
+  late final GeneratedColumn<int> zoneId = GeneratedColumn<int>(
+      'zone_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES zones(id)');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        countryCode,
+        nameAr,
+        nameEn,
+        nationalityAr,
+        nationalityEn,
+        zoneId,
+        isActive
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'countries';
+  @override
+  VerificationContext validateIntegrity(Insertable<Country> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('country_code')) {
+      context.handle(
+          _countryCodeMeta,
+          countryCode.isAcceptableOrUnknown(
+              data['country_code']!, _countryCodeMeta));
+    } else if (isInserting) {
+      context.missing(_countryCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('nationality_ar')) {
+      context.handle(
+          _nationalityArMeta,
+          nationalityAr.isAcceptableOrUnknown(
+              data['nationality_ar']!, _nationalityArMeta));
+    } else if (isInserting) {
+      context.missing(_nationalityArMeta);
+    }
+    if (data.containsKey('nationality_en')) {
+      context.handle(
+          _nationalityEnMeta,
+          nationalityEn.isAcceptableOrUnknown(
+              data['nationality_en']!, _nationalityEnMeta));
+    } else if (isInserting) {
+      context.missing(_nationalityEnMeta);
+    }
+    if (data.containsKey('zone_id')) {
+      context.handle(_zoneIdMeta,
+          zoneId.isAcceptableOrUnknown(data['zone_id']!, _zoneIdMeta));
+    } else if (isInserting) {
+      context.missing(_zoneIdMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Country map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Country(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      countryCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      nationalityAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nationality_ar'])!,
+      nationalityEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}nationality_en'])!,
+      zoneId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}zone_id'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Countries createAlias(String alias) {
+    return Countries(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Country extends DataClass implements Insertable<Country> {
+  final int id;
+  final String countryCode;
+  final String nameAr;
+  final String nameEn;
+  final String nationalityAr;
+  final String nationalityEn;
+  final int zoneId;
+  final bool isActive;
+  const Country(
+      {required this.id,
+      required this.countryCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.nationalityAr,
+      required this.nationalityEn,
+      required this.zoneId,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['country_code'] = Variable<String>(countryCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['nationality_ar'] = Variable<String>(nationalityAr);
+    map['nationality_en'] = Variable<String>(nationalityEn);
+    map['zone_id'] = Variable<int>(zoneId);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  CountriesCompanion toCompanion(bool nullToAbsent) {
+    return CountriesCompanion(
+      id: Value(id),
+      countryCode: Value(countryCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      nationalityAr: Value(nationalityAr),
+      nationalityEn: Value(nationalityEn),
+      zoneId: Value(zoneId),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Country.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Country(
+      id: serializer.fromJson<int>(json['id']),
+      countryCode: serializer.fromJson<String>(json['country_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      nationalityAr: serializer.fromJson<String>(json['nationality_ar']),
+      nationalityEn: serializer.fromJson<String>(json['nationality_en']),
+      zoneId: serializer.fromJson<int>(json['zone_id']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'country_code': serializer.toJson<String>(countryCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'nationality_ar': serializer.toJson<String>(nationalityAr),
+      'nationality_en': serializer.toJson<String>(nationalityEn),
+      'zone_id': serializer.toJson<int>(zoneId),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Country copyWith(
+          {int? id,
+          String? countryCode,
+          String? nameAr,
+          String? nameEn,
+          String? nationalityAr,
+          String? nationalityEn,
+          int? zoneId,
+          bool? isActive}) =>
+      Country(
+        id: id ?? this.id,
+        countryCode: countryCode ?? this.countryCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        nationalityAr: nationalityAr ?? this.nationalityAr,
+        nationalityEn: nationalityEn ?? this.nationalityEn,
+        zoneId: zoneId ?? this.zoneId,
+        isActive: isActive ?? this.isActive,
+      );
+  Country copyWithCompanion(CountriesCompanion data) {
+    return Country(
+      id: data.id.present ? data.id.value : this.id,
+      countryCode:
+          data.countryCode.present ? data.countryCode.value : this.countryCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      nationalityAr: data.nationalityAr.present
+          ? data.nationalityAr.value
+          : this.nationalityAr,
+      nationalityEn: data.nationalityEn.present
+          ? data.nationalityEn.value
+          : this.nationalityEn,
+      zoneId: data.zoneId.present ? data.zoneId.value : this.zoneId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Country(')
+          ..write('id: $id, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('nationalityAr: $nationalityAr, ')
+          ..write('nationalityEn: $nationalityEn, ')
+          ..write('zoneId: $zoneId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, countryCode, nameAr, nameEn,
+      nationalityAr, nationalityEn, zoneId, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Country &&
+          other.id == this.id &&
+          other.countryCode == this.countryCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.nationalityAr == this.nationalityAr &&
+          other.nationalityEn == this.nationalityEn &&
+          other.zoneId == this.zoneId &&
+          other.isActive == this.isActive);
+}
+
+class CountriesCompanion extends UpdateCompanion<Country> {
+  final Value<int> id;
+  final Value<String> countryCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> nationalityAr;
+  final Value<String> nationalityEn;
+  final Value<int> zoneId;
+  final Value<bool> isActive;
+  const CountriesCompanion({
+    this.id = const Value.absent(),
+    this.countryCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.nationalityAr = const Value.absent(),
+    this.nationalityEn = const Value.absent(),
+    this.zoneId = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  CountriesCompanion.insert({
+    this.id = const Value.absent(),
+    required String countryCode,
+    required String nameAr,
+    required String nameEn,
+    required String nationalityAr,
+    required String nationalityEn,
+    required int zoneId,
+    this.isActive = const Value.absent(),
+  })  : countryCode = Value(countryCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        nationalityAr = Value(nationalityAr),
+        nationalityEn = Value(nationalityEn),
+        zoneId = Value(zoneId);
+  static Insertable<Country> custom({
+    Expression<int>? id,
+    Expression<String>? countryCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? nationalityAr,
+    Expression<String>? nationalityEn,
+    Expression<int>? zoneId,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (countryCode != null) 'country_code': countryCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (nationalityAr != null) 'nationality_ar': nationalityAr,
+      if (nationalityEn != null) 'nationality_en': nationalityEn,
+      if (zoneId != null) 'zone_id': zoneId,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  CountriesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? countryCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? nationalityAr,
+      Value<String>? nationalityEn,
+      Value<int>? zoneId,
+      Value<bool>? isActive}) {
+    return CountriesCompanion(
+      id: id ?? this.id,
+      countryCode: countryCode ?? this.countryCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      nationalityAr: nationalityAr ?? this.nationalityAr,
+      nationalityEn: nationalityEn ?? this.nationalityEn,
+      zoneId: zoneId ?? this.zoneId,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (countryCode.present) {
+      map['country_code'] = Variable<String>(countryCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (nationalityAr.present) {
+      map['nationality_ar'] = Variable<String>(nationalityAr.value);
+    }
+    if (nationalityEn.present) {
+      map['nationality_en'] = Variable<String>(nationalityEn.value);
+    }
+    if (zoneId.present) {
+      map['zone_id'] = Variable<int>(zoneId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CountriesCompanion(')
+          ..write('id: $id, ')
+          ..write('countryCode: $countryCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('nationalityAr: $nationalityAr, ')
+          ..write('nationalityEn: $nationalityEn, ')
+          ..write('zoneId: $zoneId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Governorates extends Table with TableInfo<Governorates, Governorate> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Governorates(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _govCodeMeta =
+      const VerificationMeta('govCode');
+  late final GeneratedColumn<String> govCode = GeneratedColumn<String>(
+      'gov_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _countryIdMeta =
+      const VerificationMeta('countryId');
+  late final GeneratedColumn<int> countryId = GeneratedColumn<int>(
+      'country_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES countries(id)');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, govCode, nameAr, nameEn, countryId, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'governorates';
+  @override
+  VerificationContext validateIntegrity(Insertable<Governorate> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('gov_code')) {
+      context.handle(_govCodeMeta,
+          govCode.isAcceptableOrUnknown(data['gov_code']!, _govCodeMeta));
+    } else if (isInserting) {
+      context.missing(_govCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('country_id')) {
+      context.handle(_countryIdMeta,
+          countryId.isAcceptableOrUnknown(data['country_id']!, _countryIdMeta));
+    } else if (isInserting) {
+      context.missing(_countryIdMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Governorate map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Governorate(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      govCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}gov_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      countryId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}country_id'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Governorates createAlias(String alias) {
+    return Governorates(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Governorate extends DataClass implements Insertable<Governorate> {
+  final int id;
+  final String govCode;
+  final String nameAr;
+  final String nameEn;
+  final int countryId;
+  final bool isActive;
+  const Governorate(
+      {required this.id,
+      required this.govCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.countryId,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['gov_code'] = Variable<String>(govCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['country_id'] = Variable<int>(countryId);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  GovernoratesCompanion toCompanion(bool nullToAbsent) {
+    return GovernoratesCompanion(
+      id: Value(id),
+      govCode: Value(govCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      countryId: Value(countryId),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Governorate.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Governorate(
+      id: serializer.fromJson<int>(json['id']),
+      govCode: serializer.fromJson<String>(json['gov_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      countryId: serializer.fromJson<int>(json['country_id']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'gov_code': serializer.toJson<String>(govCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'country_id': serializer.toJson<int>(countryId),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Governorate copyWith(
+          {int? id,
+          String? govCode,
+          String? nameAr,
+          String? nameEn,
+          int? countryId,
+          bool? isActive}) =>
+      Governorate(
+        id: id ?? this.id,
+        govCode: govCode ?? this.govCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        countryId: countryId ?? this.countryId,
+        isActive: isActive ?? this.isActive,
+      );
+  Governorate copyWithCompanion(GovernoratesCompanion data) {
+    return Governorate(
+      id: data.id.present ? data.id.value : this.id,
+      govCode: data.govCode.present ? data.govCode.value : this.govCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      countryId: data.countryId.present ? data.countryId.value : this.countryId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Governorate(')
+          ..write('id: $id, ')
+          ..write('govCode: $govCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('countryId: $countryId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, govCode, nameAr, nameEn, countryId, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Governorate &&
+          other.id == this.id &&
+          other.govCode == this.govCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.countryId == this.countryId &&
+          other.isActive == this.isActive);
+}
+
+class GovernoratesCompanion extends UpdateCompanion<Governorate> {
+  final Value<int> id;
+  final Value<String> govCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<int> countryId;
+  final Value<bool> isActive;
+  const GovernoratesCompanion({
+    this.id = const Value.absent(),
+    this.govCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.countryId = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  GovernoratesCompanion.insert({
+    this.id = const Value.absent(),
+    required String govCode,
+    required String nameAr,
+    required String nameEn,
+    required int countryId,
+    this.isActive = const Value.absent(),
+  })  : govCode = Value(govCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        countryId = Value(countryId);
+  static Insertable<Governorate> custom({
+    Expression<int>? id,
+    Expression<String>? govCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<int>? countryId,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (govCode != null) 'gov_code': govCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (countryId != null) 'country_id': countryId,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  GovernoratesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? govCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<int>? countryId,
+      Value<bool>? isActive}) {
+    return GovernoratesCompanion(
+      id: id ?? this.id,
+      govCode: govCode ?? this.govCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      countryId: countryId ?? this.countryId,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (govCode.present) {
+      map['gov_code'] = Variable<String>(govCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (countryId.present) {
+      map['country_id'] = Variable<int>(countryId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('GovernoratesCompanion(')
+          ..write('id: $id, ')
+          ..write('govCode: $govCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('countryId: $countryId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Cities extends Table with TableInfo<Cities, City> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Cities(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _cityCodeMeta =
+      const VerificationMeta('cityCode');
+  late final GeneratedColumn<String> cityCode = GeneratedColumn<String>(
+      'city_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _govIdMeta = const VerificationMeta('govId');
+  late final GeneratedColumn<int> govId = GeneratedColumn<int>(
+      'gov_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES governorates(id)');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, cityCode, nameAr, nameEn, govId, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'cities';
+  @override
+  VerificationContext validateIntegrity(Insertable<City> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('city_code')) {
+      context.handle(_cityCodeMeta,
+          cityCode.isAcceptableOrUnknown(data['city_code']!, _cityCodeMeta));
+    } else if (isInserting) {
+      context.missing(_cityCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('gov_id')) {
+      context.handle(
+          _govIdMeta, govId.isAcceptableOrUnknown(data['gov_id']!, _govIdMeta));
+    } else if (isInserting) {
+      context.missing(_govIdMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  City map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return City(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      cityCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}city_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      govId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}gov_id'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Cities createAlias(String alias) {
+    return Cities(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class City extends DataClass implements Insertable<City> {
+  final int id;
+  final String cityCode;
+  final String nameAr;
+  final String nameEn;
+  final int govId;
+  final bool isActive;
+  const City(
+      {required this.id,
+      required this.cityCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.govId,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['city_code'] = Variable<String>(cityCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['gov_id'] = Variable<int>(govId);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  CitiesCompanion toCompanion(bool nullToAbsent) {
+    return CitiesCompanion(
+      id: Value(id),
+      cityCode: Value(cityCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      govId: Value(govId),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory City.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return City(
+      id: serializer.fromJson<int>(json['id']),
+      cityCode: serializer.fromJson<String>(json['city_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      govId: serializer.fromJson<int>(json['gov_id']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'city_code': serializer.toJson<String>(cityCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'gov_id': serializer.toJson<int>(govId),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  City copyWith(
+          {int? id,
+          String? cityCode,
+          String? nameAr,
+          String? nameEn,
+          int? govId,
+          bool? isActive}) =>
+      City(
+        id: id ?? this.id,
+        cityCode: cityCode ?? this.cityCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        govId: govId ?? this.govId,
+        isActive: isActive ?? this.isActive,
+      );
+  City copyWithCompanion(CitiesCompanion data) {
+    return City(
+      id: data.id.present ? data.id.value : this.id,
+      cityCode: data.cityCode.present ? data.cityCode.value : this.cityCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      govId: data.govId.present ? data.govId.value : this.govId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('City(')
+          ..write('id: $id, ')
+          ..write('cityCode: $cityCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('govId: $govId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, cityCode, nameAr, nameEn, govId, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is City &&
+          other.id == this.id &&
+          other.cityCode == this.cityCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.govId == this.govId &&
+          other.isActive == this.isActive);
+}
+
+class CitiesCompanion extends UpdateCompanion<City> {
+  final Value<int> id;
+  final Value<String> cityCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<int> govId;
+  final Value<bool> isActive;
+  const CitiesCompanion({
+    this.id = const Value.absent(),
+    this.cityCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.govId = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  CitiesCompanion.insert({
+    this.id = const Value.absent(),
+    required String cityCode,
+    required String nameAr,
+    required String nameEn,
+    required int govId,
+    this.isActive = const Value.absent(),
+  })  : cityCode = Value(cityCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        govId = Value(govId);
+  static Insertable<City> custom({
+    Expression<int>? id,
+    Expression<String>? cityCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<int>? govId,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (cityCode != null) 'city_code': cityCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (govId != null) 'gov_id': govId,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  CitiesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? cityCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<int>? govId,
+      Value<bool>? isActive}) {
+    return CitiesCompanion(
+      id: id ?? this.id,
+      cityCode: cityCode ?? this.cityCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      govId: govId ?? this.govId,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (cityCode.present) {
+      map['city_code'] = Variable<String>(cityCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (govId.present) {
+      map['gov_id'] = Variable<int>(govId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CitiesCompanion(')
+          ..write('id: $id, ')
+          ..write('cityCode: $cityCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('govId: $govId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Regions extends Table with TableInfo<Regions, Region> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Regions(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _regionCodeMeta =
+      const VerificationMeta('regionCode');
+  late final GeneratedColumn<String> regionCode = GeneratedColumn<String>(
+      'region_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _cityIdMeta = const VerificationMeta('cityId');
+  late final GeneratedColumn<int> cityId = GeneratedColumn<int>(
+      'city_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES cities(id)');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, regionCode, nameAr, nameEn, cityId, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'regions';
+  @override
+  VerificationContext validateIntegrity(Insertable<Region> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('region_code')) {
+      context.handle(
+          _regionCodeMeta,
+          regionCode.isAcceptableOrUnknown(
+              data['region_code']!, _regionCodeMeta));
+    } else if (isInserting) {
+      context.missing(_regionCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('city_id')) {
+      context.handle(_cityIdMeta,
+          cityId.isAcceptableOrUnknown(data['city_id']!, _cityIdMeta));
+    } else if (isInserting) {
+      context.missing(_cityIdMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Region map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Region(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      regionCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}region_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      cityId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}city_id'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Regions createAlias(String alias) {
+    return Regions(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Region extends DataClass implements Insertable<Region> {
+  final int id;
+  final String regionCode;
+  final String nameAr;
+  final String nameEn;
+  final int cityId;
+  final bool isActive;
+  const Region(
+      {required this.id,
+      required this.regionCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.cityId,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['region_code'] = Variable<String>(regionCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['city_id'] = Variable<int>(cityId);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  RegionsCompanion toCompanion(bool nullToAbsent) {
+    return RegionsCompanion(
+      id: Value(id),
+      regionCode: Value(regionCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      cityId: Value(cityId),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Region.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Region(
+      id: serializer.fromJson<int>(json['id']),
+      regionCode: serializer.fromJson<String>(json['region_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      cityId: serializer.fromJson<int>(json['city_id']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'region_code': serializer.toJson<String>(regionCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'city_id': serializer.toJson<int>(cityId),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Region copyWith(
+          {int? id,
+          String? regionCode,
+          String? nameAr,
+          String? nameEn,
+          int? cityId,
+          bool? isActive}) =>
+      Region(
+        id: id ?? this.id,
+        regionCode: regionCode ?? this.regionCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        cityId: cityId ?? this.cityId,
+        isActive: isActive ?? this.isActive,
+      );
+  Region copyWithCompanion(RegionsCompanion data) {
+    return Region(
+      id: data.id.present ? data.id.value : this.id,
+      regionCode:
+          data.regionCode.present ? data.regionCode.value : this.regionCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      cityId: data.cityId.present ? data.cityId.value : this.cityId,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Region(')
+          ..write('id: $id, ')
+          ..write('regionCode: $regionCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('cityId: $cityId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, regionCode, nameAr, nameEn, cityId, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Region &&
+          other.id == this.id &&
+          other.regionCode == this.regionCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.cityId == this.cityId &&
+          other.isActive == this.isActive);
+}
+
+class RegionsCompanion extends UpdateCompanion<Region> {
+  final Value<int> id;
+  final Value<String> regionCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<int> cityId;
+  final Value<bool> isActive;
+  const RegionsCompanion({
+    this.id = const Value.absent(),
+    this.regionCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.cityId = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  RegionsCompanion.insert({
+    this.id = const Value.absent(),
+    required String regionCode,
+    required String nameAr,
+    required String nameEn,
+    required int cityId,
+    this.isActive = const Value.absent(),
+  })  : regionCode = Value(regionCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        cityId = Value(cityId);
+  static Insertable<Region> custom({
+    Expression<int>? id,
+    Expression<String>? regionCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<int>? cityId,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (regionCode != null) 'region_code': regionCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (cityId != null) 'city_id': cityId,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  RegionsCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? regionCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<int>? cityId,
+      Value<bool>? isActive}) {
+    return RegionsCompanion(
+      id: id ?? this.id,
+      regionCode: regionCode ?? this.regionCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      cityId: cityId ?? this.cityId,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (regionCode.present) {
+      map['region_code'] = Variable<String>(regionCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (cityId.present) {
+      map['city_id'] = Variable<int>(cityId.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RegionsCompanion(')
+          ..write('id: $id, ')
+          ..write('regionCode: $regionCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('cityId: $cityId, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class SystemConfig extends Table
+    with TableInfo<SystemConfig, SystemConfigData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  SystemConfig(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _languageMeta =
+      const VerificationMeta('language');
+  late final GeneratedColumn<String> language = GeneratedColumn<String>(
+      'language', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _dateFormatMeta =
+      const VerificationMeta('dateFormat');
+  late final GeneratedColumn<String> dateFormat = GeneratedColumn<String>(
+      'date_format', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _calendarTypeMeta =
+      const VerificationMeta('calendarType');
+  late final GeneratedColumn<String> calendarType = GeneratedColumn<String>(
+      'calendar_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _accountNumberTypeMeta =
+      const VerificationMeta('accountNumberType');
+  late final GeneratedColumn<String> accountNumberType =
+      GeneratedColumn<String>('account_number_type', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
+  static const VerificationMeta _accountNumberLengthMeta =
+      const VerificationMeta('accountNumberLength');
+  late final GeneratedColumn<int> accountNumberLength = GeneratedColumn<int>(
+      'account_number_length', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _costCenterPolicyMeta =
+      const VerificationMeta('costCenterPolicy');
+  late final GeneratedColumn<String> costCenterPolicy = GeneratedColumn<String>(
+      'cost_center_policy', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _projectPolicyMeta =
+      const VerificationMeta('projectPolicy');
+  late final GeneratedColumn<String> projectPolicy = GeneratedColumn<String>(
+      'project_policy', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _passwordMinLengthMeta =
+      const VerificationMeta('passwordMinLength');
+  late final GeneratedColumn<int> passwordMinLength = GeneratedColumn<int>(
+      'password_min_length', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _autoLockTimeoutMeta =
+      const VerificationMeta('autoLockTimeout');
+  late final GeneratedColumn<int> autoLockTimeout = GeneratedColumn<int>(
+      'auto_lock_timeout', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _useVatMeta = const VerificationMeta('useVat');
+  late final GeneratedColumn<bool> useVat = GeneratedColumn<bool>(
+      'use_vat', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _useTdsMeta = const VerificationMeta('useTds');
+  late final GeneratedColumn<bool> useTds = GeneratedColumn<bool>(
+      'use_tds', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _useEInvoiceMeta =
+      const VerificationMeta('useEInvoice');
+  late final GeneratedColumn<bool> useEInvoice = GeneratedColumn<bool>(
+      'use_e_invoice', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _priceIncludesTaxMeta =
+      const VerificationMeta('priceIncludesTax');
+  late final GeneratedColumn<bool> priceIncludesTax = GeneratedColumn<bool>(
+      'price_includes_tax', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _backupFrequencyMeta =
+      const VerificationMeta('backupFrequency');
+  late final GeneratedColumn<String> backupFrequency = GeneratedColumn<String>(
+      'backup_frequency', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _cloudBackupMeta =
+      const VerificationMeta('cloudBackup');
+  late final GeneratedColumn<bool> cloudBackup = GeneratedColumn<bool>(
+      'cloud_backup', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _uiThemeMeta =
+      const VerificationMeta('uiTheme');
+  late final GeneratedColumn<String> uiTheme = GeneratedColumn<String>(
+      'ui_theme', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _fontSizeMeta =
+      const VerificationMeta('fontSize');
+  late final GeneratedColumn<String> fontSize = GeneratedColumn<String>(
+      'font_size', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        language,
+        dateFormat,
+        calendarType,
+        accountNumberType,
+        accountNumberLength,
+        costCenterPolicy,
+        projectPolicy,
+        passwordMinLength,
+        autoLockTimeout,
+        useVat,
+        useTds,
+        useEInvoice,
+        priceIncludesTax,
+        backupFrequency,
+        cloudBackup,
+        uiTheme,
+        fontSize
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'system_config';
+  @override
+  VerificationContext validateIntegrity(Insertable<SystemConfigData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('language')) {
+      context.handle(_languageMeta,
+          language.isAcceptableOrUnknown(data['language']!, _languageMeta));
+    } else if (isInserting) {
+      context.missing(_languageMeta);
+    }
+    if (data.containsKey('date_format')) {
+      context.handle(
+          _dateFormatMeta,
+          dateFormat.isAcceptableOrUnknown(
+              data['date_format']!, _dateFormatMeta));
+    } else if (isInserting) {
+      context.missing(_dateFormatMeta);
+    }
+    if (data.containsKey('calendar_type')) {
+      context.handle(
+          _calendarTypeMeta,
+          calendarType.isAcceptableOrUnknown(
+              data['calendar_type']!, _calendarTypeMeta));
+    } else if (isInserting) {
+      context.missing(_calendarTypeMeta);
+    }
+    if (data.containsKey('account_number_type')) {
+      context.handle(
+          _accountNumberTypeMeta,
+          accountNumberType.isAcceptableOrUnknown(
+              data['account_number_type']!, _accountNumberTypeMeta));
+    } else if (isInserting) {
+      context.missing(_accountNumberTypeMeta);
+    }
+    if (data.containsKey('account_number_length')) {
+      context.handle(
+          _accountNumberLengthMeta,
+          accountNumberLength.isAcceptableOrUnknown(
+              data['account_number_length']!, _accountNumberLengthMeta));
+    } else if (isInserting) {
+      context.missing(_accountNumberLengthMeta);
+    }
+    if (data.containsKey('cost_center_policy')) {
+      context.handle(
+          _costCenterPolicyMeta,
+          costCenterPolicy.isAcceptableOrUnknown(
+              data['cost_center_policy']!, _costCenterPolicyMeta));
+    } else if (isInserting) {
+      context.missing(_costCenterPolicyMeta);
+    }
+    if (data.containsKey('project_policy')) {
+      context.handle(
+          _projectPolicyMeta,
+          projectPolicy.isAcceptableOrUnknown(
+              data['project_policy']!, _projectPolicyMeta));
+    } else if (isInserting) {
+      context.missing(_projectPolicyMeta);
+    }
+    if (data.containsKey('password_min_length')) {
+      context.handle(
+          _passwordMinLengthMeta,
+          passwordMinLength.isAcceptableOrUnknown(
+              data['password_min_length']!, _passwordMinLengthMeta));
+    } else if (isInserting) {
+      context.missing(_passwordMinLengthMeta);
+    }
+    if (data.containsKey('auto_lock_timeout')) {
+      context.handle(
+          _autoLockTimeoutMeta,
+          autoLockTimeout.isAcceptableOrUnknown(
+              data['auto_lock_timeout']!, _autoLockTimeoutMeta));
+    } else if (isInserting) {
+      context.missing(_autoLockTimeoutMeta);
+    }
+    if (data.containsKey('use_vat')) {
+      context.handle(_useVatMeta,
+          useVat.isAcceptableOrUnknown(data['use_vat']!, _useVatMeta));
+    } else if (isInserting) {
+      context.missing(_useVatMeta);
+    }
+    if (data.containsKey('use_tds')) {
+      context.handle(_useTdsMeta,
+          useTds.isAcceptableOrUnknown(data['use_tds']!, _useTdsMeta));
+    } else if (isInserting) {
+      context.missing(_useTdsMeta);
+    }
+    if (data.containsKey('use_e_invoice')) {
+      context.handle(
+          _useEInvoiceMeta,
+          useEInvoice.isAcceptableOrUnknown(
+              data['use_e_invoice']!, _useEInvoiceMeta));
+    } else if (isInserting) {
+      context.missing(_useEInvoiceMeta);
+    }
+    if (data.containsKey('price_includes_tax')) {
+      context.handle(
+          _priceIncludesTaxMeta,
+          priceIncludesTax.isAcceptableOrUnknown(
+              data['price_includes_tax']!, _priceIncludesTaxMeta));
+    } else if (isInserting) {
+      context.missing(_priceIncludesTaxMeta);
+    }
+    if (data.containsKey('backup_frequency')) {
+      context.handle(
+          _backupFrequencyMeta,
+          backupFrequency.isAcceptableOrUnknown(
+              data['backup_frequency']!, _backupFrequencyMeta));
+    } else if (isInserting) {
+      context.missing(_backupFrequencyMeta);
+    }
+    if (data.containsKey('cloud_backup')) {
+      context.handle(
+          _cloudBackupMeta,
+          cloudBackup.isAcceptableOrUnknown(
+              data['cloud_backup']!, _cloudBackupMeta));
+    } else if (isInserting) {
+      context.missing(_cloudBackupMeta);
+    }
+    if (data.containsKey('ui_theme')) {
+      context.handle(_uiThemeMeta,
+          uiTheme.isAcceptableOrUnknown(data['ui_theme']!, _uiThemeMeta));
+    } else if (isInserting) {
+      context.missing(_uiThemeMeta);
+    }
+    if (data.containsKey('font_size')) {
+      context.handle(_fontSizeMeta,
+          fontSize.isAcceptableOrUnknown(data['font_size']!, _fontSizeMeta));
+    } else if (isInserting) {
+      context.missing(_fontSizeMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SystemConfigData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SystemConfigData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      language: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}language'])!,
+      dateFormat: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}date_format'])!,
+      calendarType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}calendar_type'])!,
+      accountNumberType: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}account_number_type'])!,
+      accountNumberLength: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}account_number_length'])!,
+      costCenterPolicy: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}cost_center_policy'])!,
+      projectPolicy: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}project_policy'])!,
+      passwordMinLength: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}password_min_length'])!,
+      autoLockTimeout: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}auto_lock_timeout'])!,
+      useVat: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}use_vat'])!,
+      useTds: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}use_tds'])!,
+      useEInvoice: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}use_e_invoice'])!,
+      priceIncludesTax: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}price_includes_tax'])!,
+      backupFrequency: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}backup_frequency'])!,
+      cloudBackup: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}cloud_backup'])!,
+      uiTheme: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}ui_theme'])!,
+      fontSize: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}font_size'])!,
+    );
+  }
+
+  @override
+  SystemConfig createAlias(String alias) {
+    return SystemConfig(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class SystemConfigData extends DataClass
+    implements Insertable<SystemConfigData> {
+  final int id;
+  final String language;
+  final String dateFormat;
+  final String calendarType;
+  final String accountNumberType;
+  final int accountNumberLength;
+  final String costCenterPolicy;
+  final String projectPolicy;
+  final int passwordMinLength;
+  final int autoLockTimeout;
+  final bool useVat;
+  final bool useTds;
+  final bool useEInvoice;
+  final bool priceIncludesTax;
+  final String backupFrequency;
+  final bool cloudBackup;
+  final String uiTheme;
+  final String fontSize;
+  const SystemConfigData(
+      {required this.id,
+      required this.language,
+      required this.dateFormat,
+      required this.calendarType,
+      required this.accountNumberType,
+      required this.accountNumberLength,
+      required this.costCenterPolicy,
+      required this.projectPolicy,
+      required this.passwordMinLength,
+      required this.autoLockTimeout,
+      required this.useVat,
+      required this.useTds,
+      required this.useEInvoice,
+      required this.priceIncludesTax,
+      required this.backupFrequency,
+      required this.cloudBackup,
+      required this.uiTheme,
+      required this.fontSize});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['language'] = Variable<String>(language);
+    map['date_format'] = Variable<String>(dateFormat);
+    map['calendar_type'] = Variable<String>(calendarType);
+    map['account_number_type'] = Variable<String>(accountNumberType);
+    map['account_number_length'] = Variable<int>(accountNumberLength);
+    map['cost_center_policy'] = Variable<String>(costCenterPolicy);
+    map['project_policy'] = Variable<String>(projectPolicy);
+    map['password_min_length'] = Variable<int>(passwordMinLength);
+    map['auto_lock_timeout'] = Variable<int>(autoLockTimeout);
+    map['use_vat'] = Variable<bool>(useVat);
+    map['use_tds'] = Variable<bool>(useTds);
+    map['use_e_invoice'] = Variable<bool>(useEInvoice);
+    map['price_includes_tax'] = Variable<bool>(priceIncludesTax);
+    map['backup_frequency'] = Variable<String>(backupFrequency);
+    map['cloud_backup'] = Variable<bool>(cloudBackup);
+    map['ui_theme'] = Variable<String>(uiTheme);
+    map['font_size'] = Variable<String>(fontSize);
+    return map;
+  }
+
+  SystemConfigCompanion toCompanion(bool nullToAbsent) {
+    return SystemConfigCompanion(
+      id: Value(id),
+      language: Value(language),
+      dateFormat: Value(dateFormat),
+      calendarType: Value(calendarType),
+      accountNumberType: Value(accountNumberType),
+      accountNumberLength: Value(accountNumberLength),
+      costCenterPolicy: Value(costCenterPolicy),
+      projectPolicy: Value(projectPolicy),
+      passwordMinLength: Value(passwordMinLength),
+      autoLockTimeout: Value(autoLockTimeout),
+      useVat: Value(useVat),
+      useTds: Value(useTds),
+      useEInvoice: Value(useEInvoice),
+      priceIncludesTax: Value(priceIncludesTax),
+      backupFrequency: Value(backupFrequency),
+      cloudBackup: Value(cloudBackup),
+      uiTheme: Value(uiTheme),
+      fontSize: Value(fontSize),
+    );
+  }
+
+  factory SystemConfigData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SystemConfigData(
+      id: serializer.fromJson<int>(json['id']),
+      language: serializer.fromJson<String>(json['language']),
+      dateFormat: serializer.fromJson<String>(json['date_format']),
+      calendarType: serializer.fromJson<String>(json['calendar_type']),
+      accountNumberType:
+          serializer.fromJson<String>(json['account_number_type']),
+      accountNumberLength:
+          serializer.fromJson<int>(json['account_number_length']),
+      costCenterPolicy: serializer.fromJson<String>(json['cost_center_policy']),
+      projectPolicy: serializer.fromJson<String>(json['project_policy']),
+      passwordMinLength: serializer.fromJson<int>(json['password_min_length']),
+      autoLockTimeout: serializer.fromJson<int>(json['auto_lock_timeout']),
+      useVat: serializer.fromJson<bool>(json['use_vat']),
+      useTds: serializer.fromJson<bool>(json['use_tds']),
+      useEInvoice: serializer.fromJson<bool>(json['use_e_invoice']),
+      priceIncludesTax: serializer.fromJson<bool>(json['price_includes_tax']),
+      backupFrequency: serializer.fromJson<String>(json['backup_frequency']),
+      cloudBackup: serializer.fromJson<bool>(json['cloud_backup']),
+      uiTheme: serializer.fromJson<String>(json['ui_theme']),
+      fontSize: serializer.fromJson<String>(json['font_size']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'language': serializer.toJson<String>(language),
+      'date_format': serializer.toJson<String>(dateFormat),
+      'calendar_type': serializer.toJson<String>(calendarType),
+      'account_number_type': serializer.toJson<String>(accountNumberType),
+      'account_number_length': serializer.toJson<int>(accountNumberLength),
+      'cost_center_policy': serializer.toJson<String>(costCenterPolicy),
+      'project_policy': serializer.toJson<String>(projectPolicy),
+      'password_min_length': serializer.toJson<int>(passwordMinLength),
+      'auto_lock_timeout': serializer.toJson<int>(autoLockTimeout),
+      'use_vat': serializer.toJson<bool>(useVat),
+      'use_tds': serializer.toJson<bool>(useTds),
+      'use_e_invoice': serializer.toJson<bool>(useEInvoice),
+      'price_includes_tax': serializer.toJson<bool>(priceIncludesTax),
+      'backup_frequency': serializer.toJson<String>(backupFrequency),
+      'cloud_backup': serializer.toJson<bool>(cloudBackup),
+      'ui_theme': serializer.toJson<String>(uiTheme),
+      'font_size': serializer.toJson<String>(fontSize),
+    };
+  }
+
+  SystemConfigData copyWith(
+          {int? id,
+          String? language,
+          String? dateFormat,
+          String? calendarType,
+          String? accountNumberType,
+          int? accountNumberLength,
+          String? costCenterPolicy,
+          String? projectPolicy,
+          int? passwordMinLength,
+          int? autoLockTimeout,
+          bool? useVat,
+          bool? useTds,
+          bool? useEInvoice,
+          bool? priceIncludesTax,
+          String? backupFrequency,
+          bool? cloudBackup,
+          String? uiTheme,
+          String? fontSize}) =>
+      SystemConfigData(
+        id: id ?? this.id,
+        language: language ?? this.language,
+        dateFormat: dateFormat ?? this.dateFormat,
+        calendarType: calendarType ?? this.calendarType,
+        accountNumberType: accountNumberType ?? this.accountNumberType,
+        accountNumberLength: accountNumberLength ?? this.accountNumberLength,
+        costCenterPolicy: costCenterPolicy ?? this.costCenterPolicy,
+        projectPolicy: projectPolicy ?? this.projectPolicy,
+        passwordMinLength: passwordMinLength ?? this.passwordMinLength,
+        autoLockTimeout: autoLockTimeout ?? this.autoLockTimeout,
+        useVat: useVat ?? this.useVat,
+        useTds: useTds ?? this.useTds,
+        useEInvoice: useEInvoice ?? this.useEInvoice,
+        priceIncludesTax: priceIncludesTax ?? this.priceIncludesTax,
+        backupFrequency: backupFrequency ?? this.backupFrequency,
+        cloudBackup: cloudBackup ?? this.cloudBackup,
+        uiTheme: uiTheme ?? this.uiTheme,
+        fontSize: fontSize ?? this.fontSize,
+      );
+  SystemConfigData copyWithCompanion(SystemConfigCompanion data) {
+    return SystemConfigData(
+      id: data.id.present ? data.id.value : this.id,
+      language: data.language.present ? data.language.value : this.language,
+      dateFormat:
+          data.dateFormat.present ? data.dateFormat.value : this.dateFormat,
+      calendarType: data.calendarType.present
+          ? data.calendarType.value
+          : this.calendarType,
+      accountNumberType: data.accountNumberType.present
+          ? data.accountNumberType.value
+          : this.accountNumberType,
+      accountNumberLength: data.accountNumberLength.present
+          ? data.accountNumberLength.value
+          : this.accountNumberLength,
+      costCenterPolicy: data.costCenterPolicy.present
+          ? data.costCenterPolicy.value
+          : this.costCenterPolicy,
+      projectPolicy: data.projectPolicy.present
+          ? data.projectPolicy.value
+          : this.projectPolicy,
+      passwordMinLength: data.passwordMinLength.present
+          ? data.passwordMinLength.value
+          : this.passwordMinLength,
+      autoLockTimeout: data.autoLockTimeout.present
+          ? data.autoLockTimeout.value
+          : this.autoLockTimeout,
+      useVat: data.useVat.present ? data.useVat.value : this.useVat,
+      useTds: data.useTds.present ? data.useTds.value : this.useTds,
+      useEInvoice:
+          data.useEInvoice.present ? data.useEInvoice.value : this.useEInvoice,
+      priceIncludesTax: data.priceIncludesTax.present
+          ? data.priceIncludesTax.value
+          : this.priceIncludesTax,
+      backupFrequency: data.backupFrequency.present
+          ? data.backupFrequency.value
+          : this.backupFrequency,
+      cloudBackup:
+          data.cloudBackup.present ? data.cloudBackup.value : this.cloudBackup,
+      uiTheme: data.uiTheme.present ? data.uiTheme.value : this.uiTheme,
+      fontSize: data.fontSize.present ? data.fontSize.value : this.fontSize,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SystemConfigData(')
+          ..write('id: $id, ')
+          ..write('language: $language, ')
+          ..write('dateFormat: $dateFormat, ')
+          ..write('calendarType: $calendarType, ')
+          ..write('accountNumberType: $accountNumberType, ')
+          ..write('accountNumberLength: $accountNumberLength, ')
+          ..write('costCenterPolicy: $costCenterPolicy, ')
+          ..write('projectPolicy: $projectPolicy, ')
+          ..write('passwordMinLength: $passwordMinLength, ')
+          ..write('autoLockTimeout: $autoLockTimeout, ')
+          ..write('useVat: $useVat, ')
+          ..write('useTds: $useTds, ')
+          ..write('useEInvoice: $useEInvoice, ')
+          ..write('priceIncludesTax: $priceIncludesTax, ')
+          ..write('backupFrequency: $backupFrequency, ')
+          ..write('cloudBackup: $cloudBackup, ')
+          ..write('uiTheme: $uiTheme, ')
+          ..write('fontSize: $fontSize')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      language,
+      dateFormat,
+      calendarType,
+      accountNumberType,
+      accountNumberLength,
+      costCenterPolicy,
+      projectPolicy,
+      passwordMinLength,
+      autoLockTimeout,
+      useVat,
+      useTds,
+      useEInvoice,
+      priceIncludesTax,
+      backupFrequency,
+      cloudBackup,
+      uiTheme,
+      fontSize);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SystemConfigData &&
+          other.id == this.id &&
+          other.language == this.language &&
+          other.dateFormat == this.dateFormat &&
+          other.calendarType == this.calendarType &&
+          other.accountNumberType == this.accountNumberType &&
+          other.accountNumberLength == this.accountNumberLength &&
+          other.costCenterPolicy == this.costCenterPolicy &&
+          other.projectPolicy == this.projectPolicy &&
+          other.passwordMinLength == this.passwordMinLength &&
+          other.autoLockTimeout == this.autoLockTimeout &&
+          other.useVat == this.useVat &&
+          other.useTds == this.useTds &&
+          other.useEInvoice == this.useEInvoice &&
+          other.priceIncludesTax == this.priceIncludesTax &&
+          other.backupFrequency == this.backupFrequency &&
+          other.cloudBackup == this.cloudBackup &&
+          other.uiTheme == this.uiTheme &&
+          other.fontSize == this.fontSize);
+}
+
+class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
+  final Value<int> id;
+  final Value<String> language;
+  final Value<String> dateFormat;
+  final Value<String> calendarType;
+  final Value<String> accountNumberType;
+  final Value<int> accountNumberLength;
+  final Value<String> costCenterPolicy;
+  final Value<String> projectPolicy;
+  final Value<int> passwordMinLength;
+  final Value<int> autoLockTimeout;
+  final Value<bool> useVat;
+  final Value<bool> useTds;
+  final Value<bool> useEInvoice;
+  final Value<bool> priceIncludesTax;
+  final Value<String> backupFrequency;
+  final Value<bool> cloudBackup;
+  final Value<String> uiTheme;
+  final Value<String> fontSize;
+  const SystemConfigCompanion({
+    this.id = const Value.absent(),
+    this.language = const Value.absent(),
+    this.dateFormat = const Value.absent(),
+    this.calendarType = const Value.absent(),
+    this.accountNumberType = const Value.absent(),
+    this.accountNumberLength = const Value.absent(),
+    this.costCenterPolicy = const Value.absent(),
+    this.projectPolicy = const Value.absent(),
+    this.passwordMinLength = const Value.absent(),
+    this.autoLockTimeout = const Value.absent(),
+    this.useVat = const Value.absent(),
+    this.useTds = const Value.absent(),
+    this.useEInvoice = const Value.absent(),
+    this.priceIncludesTax = const Value.absent(),
+    this.backupFrequency = const Value.absent(),
+    this.cloudBackup = const Value.absent(),
+    this.uiTheme = const Value.absent(),
+    this.fontSize = const Value.absent(),
+  });
+  SystemConfigCompanion.insert({
+    this.id = const Value.absent(),
+    required String language,
+    required String dateFormat,
+    required String calendarType,
+    required String accountNumberType,
+    required int accountNumberLength,
+    required String costCenterPolicy,
+    required String projectPolicy,
+    required int passwordMinLength,
+    required int autoLockTimeout,
+    required bool useVat,
+    required bool useTds,
+    required bool useEInvoice,
+    required bool priceIncludesTax,
+    required String backupFrequency,
+    required bool cloudBackup,
+    required String uiTheme,
+    required String fontSize,
+  })  : language = Value(language),
+        dateFormat = Value(dateFormat),
+        calendarType = Value(calendarType),
+        accountNumberType = Value(accountNumberType),
+        accountNumberLength = Value(accountNumberLength),
+        costCenterPolicy = Value(costCenterPolicy),
+        projectPolicy = Value(projectPolicy),
+        passwordMinLength = Value(passwordMinLength),
+        autoLockTimeout = Value(autoLockTimeout),
+        useVat = Value(useVat),
+        useTds = Value(useTds),
+        useEInvoice = Value(useEInvoice),
+        priceIncludesTax = Value(priceIncludesTax),
+        backupFrequency = Value(backupFrequency),
+        cloudBackup = Value(cloudBackup),
+        uiTheme = Value(uiTheme),
+        fontSize = Value(fontSize);
+  static Insertable<SystemConfigData> custom({
+    Expression<int>? id,
+    Expression<String>? language,
+    Expression<String>? dateFormat,
+    Expression<String>? calendarType,
+    Expression<String>? accountNumberType,
+    Expression<int>? accountNumberLength,
+    Expression<String>? costCenterPolicy,
+    Expression<String>? projectPolicy,
+    Expression<int>? passwordMinLength,
+    Expression<int>? autoLockTimeout,
+    Expression<bool>? useVat,
+    Expression<bool>? useTds,
+    Expression<bool>? useEInvoice,
+    Expression<bool>? priceIncludesTax,
+    Expression<String>? backupFrequency,
+    Expression<bool>? cloudBackup,
+    Expression<String>? uiTheme,
+    Expression<String>? fontSize,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (language != null) 'language': language,
+      if (dateFormat != null) 'date_format': dateFormat,
+      if (calendarType != null) 'calendar_type': calendarType,
+      if (accountNumberType != null) 'account_number_type': accountNumberType,
+      if (accountNumberLength != null)
+        'account_number_length': accountNumberLength,
+      if (costCenterPolicy != null) 'cost_center_policy': costCenterPolicy,
+      if (projectPolicy != null) 'project_policy': projectPolicy,
+      if (passwordMinLength != null) 'password_min_length': passwordMinLength,
+      if (autoLockTimeout != null) 'auto_lock_timeout': autoLockTimeout,
+      if (useVat != null) 'use_vat': useVat,
+      if (useTds != null) 'use_tds': useTds,
+      if (useEInvoice != null) 'use_e_invoice': useEInvoice,
+      if (priceIncludesTax != null) 'price_includes_tax': priceIncludesTax,
+      if (backupFrequency != null) 'backup_frequency': backupFrequency,
+      if (cloudBackup != null) 'cloud_backup': cloudBackup,
+      if (uiTheme != null) 'ui_theme': uiTheme,
+      if (fontSize != null) 'font_size': fontSize,
+    });
+  }
+
+  SystemConfigCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? language,
+      Value<String>? dateFormat,
+      Value<String>? calendarType,
+      Value<String>? accountNumberType,
+      Value<int>? accountNumberLength,
+      Value<String>? costCenterPolicy,
+      Value<String>? projectPolicy,
+      Value<int>? passwordMinLength,
+      Value<int>? autoLockTimeout,
+      Value<bool>? useVat,
+      Value<bool>? useTds,
+      Value<bool>? useEInvoice,
+      Value<bool>? priceIncludesTax,
+      Value<String>? backupFrequency,
+      Value<bool>? cloudBackup,
+      Value<String>? uiTheme,
+      Value<String>? fontSize}) {
+    return SystemConfigCompanion(
+      id: id ?? this.id,
+      language: language ?? this.language,
+      dateFormat: dateFormat ?? this.dateFormat,
+      calendarType: calendarType ?? this.calendarType,
+      accountNumberType: accountNumberType ?? this.accountNumberType,
+      accountNumberLength: accountNumberLength ?? this.accountNumberLength,
+      costCenterPolicy: costCenterPolicy ?? this.costCenterPolicy,
+      projectPolicy: projectPolicy ?? this.projectPolicy,
+      passwordMinLength: passwordMinLength ?? this.passwordMinLength,
+      autoLockTimeout: autoLockTimeout ?? this.autoLockTimeout,
+      useVat: useVat ?? this.useVat,
+      useTds: useTds ?? this.useTds,
+      useEInvoice: useEInvoice ?? this.useEInvoice,
+      priceIncludesTax: priceIncludesTax ?? this.priceIncludesTax,
+      backupFrequency: backupFrequency ?? this.backupFrequency,
+      cloudBackup: cloudBackup ?? this.cloudBackup,
+      uiTheme: uiTheme ?? this.uiTheme,
+      fontSize: fontSize ?? this.fontSize,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (language.present) {
+      map['language'] = Variable<String>(language.value);
+    }
+    if (dateFormat.present) {
+      map['date_format'] = Variable<String>(dateFormat.value);
+    }
+    if (calendarType.present) {
+      map['calendar_type'] = Variable<String>(calendarType.value);
+    }
+    if (accountNumberType.present) {
+      map['account_number_type'] = Variable<String>(accountNumberType.value);
+    }
+    if (accountNumberLength.present) {
+      map['account_number_length'] = Variable<int>(accountNumberLength.value);
+    }
+    if (costCenterPolicy.present) {
+      map['cost_center_policy'] = Variable<String>(costCenterPolicy.value);
+    }
+    if (projectPolicy.present) {
+      map['project_policy'] = Variable<String>(projectPolicy.value);
+    }
+    if (passwordMinLength.present) {
+      map['password_min_length'] = Variable<int>(passwordMinLength.value);
+    }
+    if (autoLockTimeout.present) {
+      map['auto_lock_timeout'] = Variable<int>(autoLockTimeout.value);
+    }
+    if (useVat.present) {
+      map['use_vat'] = Variable<bool>(useVat.value);
+    }
+    if (useTds.present) {
+      map['use_tds'] = Variable<bool>(useTds.value);
+    }
+    if (useEInvoice.present) {
+      map['use_e_invoice'] = Variable<bool>(useEInvoice.value);
+    }
+    if (priceIncludesTax.present) {
+      map['price_includes_tax'] = Variable<bool>(priceIncludesTax.value);
+    }
+    if (backupFrequency.present) {
+      map['backup_frequency'] = Variable<String>(backupFrequency.value);
+    }
+    if (cloudBackup.present) {
+      map['cloud_backup'] = Variable<bool>(cloudBackup.value);
+    }
+    if (uiTheme.present) {
+      map['ui_theme'] = Variable<String>(uiTheme.value);
+    }
+    if (fontSize.present) {
+      map['font_size'] = Variable<String>(fontSize.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SystemConfigCompanion(')
+          ..write('id: $id, ')
+          ..write('language: $language, ')
+          ..write('dateFormat: $dateFormat, ')
+          ..write('calendarType: $calendarType, ')
+          ..write('accountNumberType: $accountNumberType, ')
+          ..write('accountNumberLength: $accountNumberLength, ')
+          ..write('costCenterPolicy: $costCenterPolicy, ')
+          ..write('projectPolicy: $projectPolicy, ')
+          ..write('passwordMinLength: $passwordMinLength, ')
+          ..write('autoLockTimeout: $autoLockTimeout, ')
+          ..write('useVat: $useVat, ')
+          ..write('useTds: $useTds, ')
+          ..write('useEInvoice: $useEInvoice, ')
+          ..write('priceIncludesTax: $priceIncludesTax, ')
+          ..write('backupFrequency: $backupFrequency, ')
+          ..write('cloudBackup: $cloudBackup, ')
+          ..write('uiTheme: $uiTheme, ')
+          ..write('fontSize: $fontSize')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class CompanyInfo extends Table with TableInfo<CompanyInfo, CompanyInfoData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  CompanyInfo(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _companyCodeMeta =
+      const VerificationMeta('companyCode');
+  late final GeneratedColumn<String> companyCode = GeneratedColumn<String>(
+      'company_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _countryIdMeta =
+      const VerificationMeta('countryId');
+  late final GeneratedColumn<String> countryId = GeneratedColumn<String>(
+      'country_id', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _taxNumberMeta =
+      const VerificationMeta('taxNumber');
+  late final GeneratedColumn<String> taxNumber = GeneratedColumn<String>(
+      'tax_number', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _commercialRegNoMeta =
+      const VerificationMeta('commercialRegNo');
+  late final GeneratedColumn<String> commercialRegNo = GeneratedColumn<String>(
+      'commercial_reg_no', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _addressMeta =
+      const VerificationMeta('address');
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+      'address', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
+      'phone', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+      'email', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _logoMeta = const VerificationMeta('logo');
+  late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
+      'logo', aliasedName, true,
+      type: DriftSqlType.blob,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isMainCompanyMeta =
+      const VerificationMeta('isMainCompany');
+  late final GeneratedColumn<bool> isMainCompany = GeneratedColumn<bool>(
+      'is_main_company', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
+  late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        companyCode,
+        nameAr,
+        nameEn,
+        countryId,
+        taxNumber,
+        commercialRegNo,
+        address,
+        phone,
+        email,
+        logo,
+        isMainCompany,
+        remarks
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'company_info';
+  @override
+  VerificationContext validateIntegrity(Insertable<CompanyInfoData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('company_code')) {
+      context.handle(
+          _companyCodeMeta,
+          companyCode.isAcceptableOrUnknown(
+              data['company_code']!, _companyCodeMeta));
+    } else if (isInserting) {
+      context.missing(_companyCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('country_id')) {
+      context.handle(_countryIdMeta,
+          countryId.isAcceptableOrUnknown(data['country_id']!, _countryIdMeta));
+    }
+    if (data.containsKey('tax_number')) {
+      context.handle(_taxNumberMeta,
+          taxNumber.isAcceptableOrUnknown(data['tax_number']!, _taxNumberMeta));
+    }
+    if (data.containsKey('commercial_reg_no')) {
+      context.handle(
+          _commercialRegNoMeta,
+          commercialRegNo.isAcceptableOrUnknown(
+              data['commercial_reg_no']!, _commercialRegNoMeta));
+    }
     if (data.containsKey('address')) {
       context.handle(_addressMeta,
           address.isAcceptableOrUnknown(data['address']!, _addressMeta));
@@ -406,10 +4752,6 @@ class $CompanyInfoTable extends CompanyInfo
       context.handle(
           _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
     }
-    if (data.containsKey('website')) {
-      context.handle(_websiteMeta,
-          website.isAcceptableOrUnknown(data['website']!, _websiteMeta));
-    }
     if (data.containsKey('logo')) {
       context.handle(
           _logoMeta, logo.isAcceptableOrUnknown(data['logo']!, _logoMeta));
@@ -419,6 +4761,12 @@ class $CompanyInfoTable extends CompanyInfo
           _isMainCompanyMeta,
           isMainCompany.isAcceptableOrUnknown(
               data['is_main_company']!, _isMainCompanyMeta));
+    } else if (isInserting) {
+      context.missing(_isMainCompanyMeta);
+    }
+    if (data.containsKey('remarks')) {
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
     }
     return context;
   }
@@ -431,57 +4779,86 @@ class $CompanyInfoTable extends CompanyInfo
     return CompanyInfoData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      companyCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}company_code'])!,
       nameAr: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
       nameEn: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      countryId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}country_id']),
+      taxNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tax_number']),
+      commercialRegNo: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}commercial_reg_no']),
       address: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}address']),
       phone: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}phone']),
       email: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}email']),
-      website: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}website']),
       logo: attachedDatabase.typeMapping
           .read(DriftSqlType.blob, data['${effectivePrefix}logo']),
       isMainCompany: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_main_company'])!,
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
     );
   }
 
   @override
-  $CompanyInfoTable createAlias(String alias) {
-    return $CompanyInfoTable(attachedDatabase, alias);
+  CompanyInfo createAlias(String alias) {
+    return CompanyInfo(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
   final int id;
+  final String companyCode;
   final String nameAr;
   final String nameEn;
+  final String? countryId;
+  final String? taxNumber;
+  final String? commercialRegNo;
   final String? address;
   final String? phone;
   final String? email;
-  final String? website;
   final Uint8List? logo;
   final bool isMainCompany;
+  final String? remarks;
   const CompanyInfoData(
       {required this.id,
+      required this.companyCode,
       required this.nameAr,
       required this.nameEn,
+      this.countryId,
+      this.taxNumber,
+      this.commercialRegNo,
       this.address,
       this.phone,
       this.email,
-      this.website,
       this.logo,
-      required this.isMainCompany});
+      required this.isMainCompany,
+      this.remarks});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['company_code'] = Variable<String>(companyCode);
     map['name_ar'] = Variable<String>(nameAr);
     map['name_en'] = Variable<String>(nameEn);
+    if (!nullToAbsent || countryId != null) {
+      map['country_id'] = Variable<String>(countryId);
+    }
+    if (!nullToAbsent || taxNumber != null) {
+      map['tax_number'] = Variable<String>(taxNumber);
+    }
+    if (!nullToAbsent || commercialRegNo != null) {
+      map['commercial_reg_no'] = Variable<String>(commercialRegNo);
+    }
     if (!nullToAbsent || address != null) {
       map['address'] = Variable<String>(address);
     }
@@ -491,21 +4868,31 @@ class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
     if (!nullToAbsent || email != null) {
       map['email'] = Variable<String>(email);
     }
-    if (!nullToAbsent || website != null) {
-      map['website'] = Variable<String>(website);
-    }
     if (!nullToAbsent || logo != null) {
       map['logo'] = Variable<Uint8List>(logo);
     }
     map['is_main_company'] = Variable<bool>(isMainCompany);
+    if (!nullToAbsent || remarks != null) {
+      map['remarks'] = Variable<String>(remarks);
+    }
     return map;
   }
 
   CompanyInfoCompanion toCompanion(bool nullToAbsent) {
     return CompanyInfoCompanion(
       id: Value(id),
+      companyCode: Value(companyCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
+      countryId: countryId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(countryId),
+      taxNumber: taxNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(taxNumber),
+      commercialRegNo: commercialRegNo == null && nullToAbsent
+          ? const Value.absent()
+          : Value(commercialRegNo),
       address: address == null && nullToAbsent
           ? const Value.absent()
           : Value(address),
@@ -513,11 +4900,11 @@ class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
           phone == null && nullToAbsent ? const Value.absent() : Value(phone),
       email:
           email == null && nullToAbsent ? const Value.absent() : Value(email),
-      website: website == null && nullToAbsent
-          ? const Value.absent()
-          : Value(website),
       logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
       isMainCompany: Value(isMainCompany),
+      remarks: remarks == null && nullToAbsent
+          ? const Value.absent()
+          : Value(remarks),
     );
   }
 
@@ -526,14 +4913,18 @@ class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CompanyInfoData(
       id: serializer.fromJson<int>(json['id']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
+      companyCode: serializer.fromJson<String>(json['company_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      countryId: serializer.fromJson<String?>(json['country_id']),
+      taxNumber: serializer.fromJson<String?>(json['tax_number']),
+      commercialRegNo: serializer.fromJson<String?>(json['commercial_reg_no']),
       address: serializer.fromJson<String?>(json['address']),
       phone: serializer.fromJson<String?>(json['phone']),
       email: serializer.fromJson<String?>(json['email']),
-      website: serializer.fromJson<String?>(json['website']),
       logo: serializer.fromJson<Uint8List?>(json['logo']),
-      isMainCompany: serializer.fromJson<bool>(json['isMainCompany']),
+      isMainCompany: serializer.fromJson<bool>(json['is_main_company']),
+      remarks: serializer.fromJson<String?>(json['remarks']),
     );
   }
   @override
@@ -541,51 +4932,72 @@ class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
+      'company_code': serializer.toJson<String>(companyCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'country_id': serializer.toJson<String?>(countryId),
+      'tax_number': serializer.toJson<String?>(taxNumber),
+      'commercial_reg_no': serializer.toJson<String?>(commercialRegNo),
       'address': serializer.toJson<String?>(address),
       'phone': serializer.toJson<String?>(phone),
       'email': serializer.toJson<String?>(email),
-      'website': serializer.toJson<String?>(website),
       'logo': serializer.toJson<Uint8List?>(logo),
-      'isMainCompany': serializer.toJson<bool>(isMainCompany),
+      'is_main_company': serializer.toJson<bool>(isMainCompany),
+      'remarks': serializer.toJson<String?>(remarks),
     };
   }
 
   CompanyInfoData copyWith(
           {int? id,
+          String? companyCode,
           String? nameAr,
           String? nameEn,
+          Value<String?> countryId = const Value.absent(),
+          Value<String?> taxNumber = const Value.absent(),
+          Value<String?> commercialRegNo = const Value.absent(),
           Value<String?> address = const Value.absent(),
           Value<String?> phone = const Value.absent(),
           Value<String?> email = const Value.absent(),
-          Value<String?> website = const Value.absent(),
           Value<Uint8List?> logo = const Value.absent(),
-          bool? isMainCompany}) =>
+          bool? isMainCompany,
+          Value<String?> remarks = const Value.absent()}) =>
       CompanyInfoData(
         id: id ?? this.id,
+        companyCode: companyCode ?? this.companyCode,
         nameAr: nameAr ?? this.nameAr,
         nameEn: nameEn ?? this.nameEn,
+        countryId: countryId.present ? countryId.value : this.countryId,
+        taxNumber: taxNumber.present ? taxNumber.value : this.taxNumber,
+        commercialRegNo: commercialRegNo.present
+            ? commercialRegNo.value
+            : this.commercialRegNo,
         address: address.present ? address.value : this.address,
         phone: phone.present ? phone.value : this.phone,
         email: email.present ? email.value : this.email,
-        website: website.present ? website.value : this.website,
         logo: logo.present ? logo.value : this.logo,
         isMainCompany: isMainCompany ?? this.isMainCompany,
+        remarks: remarks.present ? remarks.value : this.remarks,
       );
   CompanyInfoData copyWithCompanion(CompanyInfoCompanion data) {
     return CompanyInfoData(
       id: data.id.present ? data.id.value : this.id,
+      companyCode:
+          data.companyCode.present ? data.companyCode.value : this.companyCode,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      countryId: data.countryId.present ? data.countryId.value : this.countryId,
+      taxNumber: data.taxNumber.present ? data.taxNumber.value : this.taxNumber,
+      commercialRegNo: data.commercialRegNo.present
+          ? data.commercialRegNo.value
+          : this.commercialRegNo,
       address: data.address.present ? data.address.value : this.address,
       phone: data.phone.present ? data.phone.value : this.phone,
       email: data.email.present ? data.email.value : this.email,
-      website: data.website.present ? data.website.value : this.website,
       logo: data.logo.present ? data.logo.value : this.logo,
       isMainCompany: data.isMainCompany.present
           ? data.isMainCompany.value
           : this.isMainCompany,
+      remarks: data.remarks.present ? data.remarks.value : this.remarks,
     );
   }
 
@@ -593,113 +5005,163 @@ class CompanyInfoData extends DataClass implements Insertable<CompanyInfoData> {
   String toString() {
     return (StringBuffer('CompanyInfoData(')
           ..write('id: $id, ')
+          ..write('companyCode: $companyCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
+          ..write('countryId: $countryId, ')
+          ..write('taxNumber: $taxNumber, ')
+          ..write('commercialRegNo: $commercialRegNo, ')
           ..write('address: $address, ')
           ..write('phone: $phone, ')
           ..write('email: $email, ')
-          ..write('website: $website, ')
           ..write('logo: $logo, ')
-          ..write('isMainCompany: $isMainCompany')
+          ..write('isMainCompany: $isMainCompany, ')
+          ..write('remarks: $remarks')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nameAr, nameEn, address, phone, email,
-      website, $driftBlobEquality.hash(logo), isMainCompany);
+  int get hashCode => Object.hash(
+      id,
+      companyCode,
+      nameAr,
+      nameEn,
+      countryId,
+      taxNumber,
+      commercialRegNo,
+      address,
+      phone,
+      email,
+      $driftBlobEquality.hash(logo),
+      isMainCompany,
+      remarks);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CompanyInfoData &&
           other.id == this.id &&
+          other.companyCode == this.companyCode &&
           other.nameAr == this.nameAr &&
           other.nameEn == this.nameEn &&
+          other.countryId == this.countryId &&
+          other.taxNumber == this.taxNumber &&
+          other.commercialRegNo == this.commercialRegNo &&
           other.address == this.address &&
           other.phone == this.phone &&
           other.email == this.email &&
-          other.website == this.website &&
           $driftBlobEquality.equals(other.logo, this.logo) &&
-          other.isMainCompany == this.isMainCompany);
+          other.isMainCompany == this.isMainCompany &&
+          other.remarks == this.remarks);
 }
 
 class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
   final Value<int> id;
+  final Value<String> companyCode;
   final Value<String> nameAr;
   final Value<String> nameEn;
+  final Value<String?> countryId;
+  final Value<String?> taxNumber;
+  final Value<String?> commercialRegNo;
   final Value<String?> address;
   final Value<String?> phone;
   final Value<String?> email;
-  final Value<String?> website;
   final Value<Uint8List?> logo;
   final Value<bool> isMainCompany;
+  final Value<String?> remarks;
   const CompanyInfoCompanion({
     this.id = const Value.absent(),
+    this.companyCode = const Value.absent(),
     this.nameAr = const Value.absent(),
     this.nameEn = const Value.absent(),
+    this.countryId = const Value.absent(),
+    this.taxNumber = const Value.absent(),
+    this.commercialRegNo = const Value.absent(),
     this.address = const Value.absent(),
     this.phone = const Value.absent(),
     this.email = const Value.absent(),
-    this.website = const Value.absent(),
     this.logo = const Value.absent(),
     this.isMainCompany = const Value.absent(),
+    this.remarks = const Value.absent(),
   });
   CompanyInfoCompanion.insert({
     this.id = const Value.absent(),
+    required String companyCode,
     required String nameAr,
     required String nameEn,
+    this.countryId = const Value.absent(),
+    this.taxNumber = const Value.absent(),
+    this.commercialRegNo = const Value.absent(),
     this.address = const Value.absent(),
     this.phone = const Value.absent(),
     this.email = const Value.absent(),
-    this.website = const Value.absent(),
     this.logo = const Value.absent(),
-    this.isMainCompany = const Value.absent(),
-  })  : nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
+    required bool isMainCompany,
+    this.remarks = const Value.absent(),
+  })  : companyCode = Value(companyCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        isMainCompany = Value(isMainCompany);
   static Insertable<CompanyInfoData> custom({
     Expression<int>? id,
+    Expression<String>? companyCode,
     Expression<String>? nameAr,
     Expression<String>? nameEn,
+    Expression<String>? countryId,
+    Expression<String>? taxNumber,
+    Expression<String>? commercialRegNo,
     Expression<String>? address,
     Expression<String>? phone,
     Expression<String>? email,
-    Expression<String>? website,
     Expression<Uint8List>? logo,
     Expression<bool>? isMainCompany,
+    Expression<String>? remarks,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (companyCode != null) 'company_code': companyCode,
       if (nameAr != null) 'name_ar': nameAr,
       if (nameEn != null) 'name_en': nameEn,
+      if (countryId != null) 'country_id': countryId,
+      if (taxNumber != null) 'tax_number': taxNumber,
+      if (commercialRegNo != null) 'commercial_reg_no': commercialRegNo,
       if (address != null) 'address': address,
       if (phone != null) 'phone': phone,
       if (email != null) 'email': email,
-      if (website != null) 'website': website,
       if (logo != null) 'logo': logo,
       if (isMainCompany != null) 'is_main_company': isMainCompany,
+      if (remarks != null) 'remarks': remarks,
     });
   }
 
   CompanyInfoCompanion copyWith(
       {Value<int>? id,
+      Value<String>? companyCode,
       Value<String>? nameAr,
       Value<String>? nameEn,
+      Value<String?>? countryId,
+      Value<String?>? taxNumber,
+      Value<String?>? commercialRegNo,
       Value<String?>? address,
       Value<String?>? phone,
       Value<String?>? email,
-      Value<String?>? website,
       Value<Uint8List?>? logo,
-      Value<bool>? isMainCompany}) {
+      Value<bool>? isMainCompany,
+      Value<String?>? remarks}) {
     return CompanyInfoCompanion(
       id: id ?? this.id,
+      companyCode: companyCode ?? this.companyCode,
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
+      countryId: countryId ?? this.countryId,
+      taxNumber: taxNumber ?? this.taxNumber,
+      commercialRegNo: commercialRegNo ?? this.commercialRegNo,
       address: address ?? this.address,
       phone: phone ?? this.phone,
       email: email ?? this.email,
-      website: website ?? this.website,
       logo: logo ?? this.logo,
       isMainCompany: isMainCompany ?? this.isMainCompany,
+      remarks: remarks ?? this.remarks,
     );
   }
 
@@ -709,11 +5171,23 @@ class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
+    if (companyCode.present) {
+      map['company_code'] = Variable<String>(companyCode.value);
+    }
     if (nameAr.present) {
       map['name_ar'] = Variable<String>(nameAr.value);
     }
     if (nameEn.present) {
       map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (countryId.present) {
+      map['country_id'] = Variable<String>(countryId.value);
+    }
+    if (taxNumber.present) {
+      map['tax_number'] = Variable<String>(taxNumber.value);
+    }
+    if (commercialRegNo.present) {
+      map['commercial_reg_no'] = Variable<String>(commercialRegNo.value);
     }
     if (address.present) {
       map['address'] = Variable<String>(address.value);
@@ -724,14 +5198,14 @@ class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
     if (email.present) {
       map['email'] = Variable<String>(email.value);
     }
-    if (website.present) {
-      map['website'] = Variable<String>(website.value);
-    }
     if (logo.present) {
       map['logo'] = Variable<Uint8List>(logo.value);
     }
     if (isMainCompany.present) {
       map['is_main_company'] = Variable<bool>(isMainCompany.value);
+    }
+    if (remarks.present) {
+      map['remarks'] = Variable<String>(remarks.value);
     }
     return map;
   }
@@ -740,52 +5214,54 @@ class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
   String toString() {
     return (StringBuffer('CompanyInfoCompanion(')
           ..write('id: $id, ')
+          ..write('companyCode: $companyCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
+          ..write('countryId: $countryId, ')
+          ..write('taxNumber: $taxNumber, ')
+          ..write('commercialRegNo: $commercialRegNo, ')
           ..write('address: $address, ')
           ..write('phone: $phone, ')
           ..write('email: $email, ')
-          ..write('website: $website, ')
           ..write('logo: $logo, ')
-          ..write('isMainCompany: $isMainCompany')
+          ..write('isMainCompany: $isMainCompany, ')
+          ..write('remarks: $remarks')
           ..write(')'))
         .toString();
   }
 }
 
-class $BranchesTable extends Branches with TableInfo<$BranchesTable, Branche> {
+class Branches extends Table with TableInfo<Branches, Branche> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $BranchesTable(this.attachedDatabase, [this._alias]);
+  Branches(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
   static const VerificationMeta _companyIdMeta =
       const VerificationMeta('companyId');
-  @override
   late final GeneratedColumn<int> companyId = GeneratedColumn<int>(
       'company_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES company_info (id)'));
+      $customConstraints: 'NOT NULL REFERENCES company_info(id)');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
   late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
       'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<GeneratedColumn> get $columns => [id, companyId, nameAr, nameEn];
   @override
@@ -840,9 +5316,12 @@ class $BranchesTable extends Branches with TableInfo<$BranchesTable, Branche> {
   }
 
   @override
-  $BranchesTable createAlias(String alias) {
-    return $BranchesTable(attachedDatabase, alias);
+  Branches createAlias(String alias) {
+    return Branches(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class Branche extends DataClass implements Insertable<Branche> {
@@ -879,9 +5358,9 @@ class Branche extends DataClass implements Insertable<Branche> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Branche(
       id: serializer.fromJson<int>(json['id']),
-      companyId: serializer.fromJson<int>(json['companyId']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
+      companyId: serializer.fromJson<int>(json['company_id']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
     );
   }
   @override
@@ -889,9 +5368,9 @@ class Branche extends DataClass implements Insertable<Branche> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'companyId': serializer.toJson<int>(companyId),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
+      'company_id': serializer.toJson<int>(companyId),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
     };
   }
 
@@ -1010,43 +5489,41 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
   }
 }
 
-class $FinancialPeriodsTable extends FinancialPeriods
-    with TableInfo<$FinancialPeriodsTable, FinancialPeriod> {
+class FinancialPeriods extends Table
+    with TableInfo<FinancialPeriods, FinancialPeriod> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $FinancialPeriodsTable(this.attachedDatabase, [this._alias]);
+  FinancialPeriods(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
   static const VerificationMeta _startDateMeta =
       const VerificationMeta('startDate');
-  @override
-  late final GeneratedColumn<DateTime> startDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<double> startDate = GeneratedColumn<double>(
       'start_date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      type: DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _endDateMeta =
       const VerificationMeta('endDate');
-  @override
-  late final GeneratedColumn<DateTime> endDate = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<double> endDate = GeneratedColumn<double>(
       'end_date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+      type: DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _isClosedMeta =
       const VerificationMeta('isClosed');
-  @override
   late final GeneratedColumn<bool> isClosed = GeneratedColumn<bool>(
       'is_closed', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_closed" IN (0, 1))'),
-      defaultValue: const Constant(false));
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   @override
   List<GeneratedColumn> get $columns => [id, startDate, endDate, isClosed];
   @override
@@ -1090,24 +5567,27 @@ class $FinancialPeriodsTable extends FinancialPeriods
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       startDate: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}start_date'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}start_date'])!,
       endDate: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}end_date'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}end_date'])!,
       isClosed: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_closed'])!,
     );
   }
 
   @override
-  $FinancialPeriodsTable createAlias(String alias) {
-    return $FinancialPeriodsTable(attachedDatabase, alias);
+  FinancialPeriods createAlias(String alias) {
+    return FinancialPeriods(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   final int id;
-  final DateTime startDate;
-  final DateTime endDate;
+  final double startDate;
+  final double endDate;
   final bool isClosed;
   const FinancialPeriod(
       {required this.id,
@@ -1118,8 +5598,8 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['start_date'] = Variable<DateTime>(startDate);
-    map['end_date'] = Variable<DateTime>(endDate);
+    map['start_date'] = Variable<double>(startDate);
+    map['end_date'] = Variable<double>(endDate);
     map['is_closed'] = Variable<bool>(isClosed);
     return map;
   }
@@ -1138,9 +5618,9 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return FinancialPeriod(
       id: serializer.fromJson<int>(json['id']),
-      startDate: serializer.fromJson<DateTime>(json['startDate']),
-      endDate: serializer.fromJson<DateTime>(json['endDate']),
-      isClosed: serializer.fromJson<bool>(json['isClosed']),
+      startDate: serializer.fromJson<double>(json['start_date']),
+      endDate: serializer.fromJson<double>(json['end_date']),
+      isClosed: serializer.fromJson<bool>(json['is_closed']),
     );
   }
   @override
@@ -1148,14 +5628,14 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'startDate': serializer.toJson<DateTime>(startDate),
-      'endDate': serializer.toJson<DateTime>(endDate),
-      'isClosed': serializer.toJson<bool>(isClosed),
+      'start_date': serializer.toJson<double>(startDate),
+      'end_date': serializer.toJson<double>(endDate),
+      'is_closed': serializer.toJson<bool>(isClosed),
     };
   }
 
   FinancialPeriod copyWith(
-          {int? id, DateTime? startDate, DateTime? endDate, bool? isClosed}) =>
+          {int? id, double? startDate, double? endDate, bool? isClosed}) =>
       FinancialPeriod(
         id: id ?? this.id,
         startDate: startDate ?? this.startDate,
@@ -1196,8 +5676,8 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
 
 class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   final Value<int> id;
-  final Value<DateTime> startDate;
-  final Value<DateTime> endDate;
+  final Value<double> startDate;
+  final Value<double> endDate;
   final Value<bool> isClosed;
   const FinancialPeriodsCompanion({
     this.id = const Value.absent(),
@@ -1207,15 +5687,15 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   });
   FinancialPeriodsCompanion.insert({
     this.id = const Value.absent(),
-    required DateTime startDate,
-    required DateTime endDate,
+    required double startDate,
+    required double endDate,
     this.isClosed = const Value.absent(),
   })  : startDate = Value(startDate),
         endDate = Value(endDate);
   static Insertable<FinancialPeriod> custom({
     Expression<int>? id,
-    Expression<DateTime>? startDate,
-    Expression<DateTime>? endDate,
+    Expression<double>? startDate,
+    Expression<double>? endDate,
     Expression<bool>? isClosed,
   }) {
     return RawValuesInsertable({
@@ -1228,8 +5708,8 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
 
   FinancialPeriodsCompanion copyWith(
       {Value<int>? id,
-      Value<DateTime>? startDate,
-      Value<DateTime>? endDate,
+      Value<double>? startDate,
+      Value<double>? endDate,
       Value<bool>? isClosed}) {
     return FinancialPeriodsCompanion(
       id: id ?? this.id,
@@ -1246,10 +5726,10 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
       map['id'] = Variable<int>(id.value);
     }
     if (startDate.present) {
-      map['start_date'] = Variable<DateTime>(startDate.value);
+      map['start_date'] = Variable<double>(startDate.value);
     }
     if (endDate.present) {
-      map['end_date'] = Variable<DateTime>(endDate.value);
+      map['end_date'] = Variable<double>(endDate.value);
     }
     if (isClosed.present) {
       map['is_closed'] = Variable<bool>(isClosed.value);
@@ -1269,83 +5749,85 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   }
 }
 
-class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
+class Accounts extends Table with TableInfo<Accounts, Account> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AccountsTable(this.attachedDatabase, [this._alias]);
+  Accounts(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
   static const VerificationMeta _parentIdMeta =
       const VerificationMeta('parentId');
-  @override
   late final GeneratedColumn<int> parentId = GeneratedColumn<int>(
       'parent_id', aliasedName, true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES accounts (id)'));
+      $customConstraints: 'REFERENCES accounts(id)');
   static const VerificationMeta _accountCodeMeta =
       const VerificationMeta('accountCode');
-  @override
   late final GeneratedColumn<String> accountCode = GeneratedColumn<String>(
       'account_code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
   late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
       'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _levelMeta = const VerificationMeta('level');
-  @override
   late final GeneratedColumn<int> level = GeneratedColumn<int>(
       'level', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
-  @override
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
       'is_active', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
   static const VerificationMeta _natureMeta = const VerificationMeta('nature');
-  @override
   late final GeneratedColumn<String> nature = GeneratedColumn<String>(
       'nature', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _reportTypeMeta =
       const VerificationMeta('reportType');
-  @override
   late final GeneratedColumn<String> reportType = GeneratedColumn<String>(
       'report_type', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _cashFlowTypeMeta =
       const VerificationMeta('cashFlowType');
-  @override
   late final GeneratedColumn<String> cashFlowType = GeneratedColumn<String>(
       'cash_flow_type', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   static const VerificationMeta _detailAccountTypeMeta =
       const VerificationMeta('detailAccountType');
-  @override
   late final GeneratedColumn<String> detailAccountType =
       GeneratedColumn<String>('detail_account_type', aliasedName, true,
-          type: DriftSqlType.string, requiredDuringInsert: false);
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -1468,9 +5950,12 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   }
 
   @override
-  $AccountsTable createAlias(String alias) {
-    return $AccountsTable(attachedDatabase, alias);
+  Accounts createAlias(String alias) {
+    return Accounts(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class Account extends DataClass implements Insertable<Account> {
@@ -1547,17 +6032,17 @@ class Account extends DataClass implements Insertable<Account> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Account(
       id: serializer.fromJson<int>(json['id']),
-      parentId: serializer.fromJson<int?>(json['parentId']),
-      accountCode: serializer.fromJson<String>(json['accountCode']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
+      parentId: serializer.fromJson<int?>(json['parent_id']),
+      accountCode: serializer.fromJson<String>(json['account_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
       level: serializer.fromJson<int>(json['level']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
       nature: serializer.fromJson<String>(json['nature']),
-      reportType: serializer.fromJson<String>(json['reportType']),
-      cashFlowType: serializer.fromJson<String?>(json['cashFlowType']),
+      reportType: serializer.fromJson<String>(json['report_type']),
+      cashFlowType: serializer.fromJson<String?>(json['cash_flow_type']),
       detailAccountType:
-          serializer.fromJson<String?>(json['detailAccountType']),
+          serializer.fromJson<String?>(json['detail_account_type']),
     );
   }
   @override
@@ -1565,16 +6050,16 @@ class Account extends DataClass implements Insertable<Account> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'parentId': serializer.toJson<int?>(parentId),
-      'accountCode': serializer.toJson<String>(accountCode),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
+      'parent_id': serializer.toJson<int?>(parentId),
+      'account_code': serializer.toJson<String>(accountCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
       'level': serializer.toJson<int>(level),
-      'isActive': serializer.toJson<bool>(isActive),
+      'is_active': serializer.toJson<bool>(isActive),
       'nature': serializer.toJson<String>(nature),
-      'reportType': serializer.toJson<String>(reportType),
-      'cashFlowType': serializer.toJson<String?>(cashFlowType),
-      'detailAccountType': serializer.toJson<String?>(detailAccountType),
+      'report_type': serializer.toJson<String>(reportType),
+      'cash_flow_type': serializer.toJson<String?>(cashFlowType),
+      'detail_account_type': serializer.toJson<String?>(detailAccountType),
     };
   }
 
@@ -1822,35 +6307,47 @@ class AccountsCompanion extends UpdateCompanion<Account> {
   }
 }
 
-class $RolesTable extends Roles with TableInfo<$RolesTable, Role> {
+class Roles extends Table with TableInfo<Roles, Role> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RolesTable(this.attachedDatabase, [this._alias]);
+  Roles(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _descriptionMeta =
       const VerificationMeta('description');
-  @override
   late final GeneratedColumn<String> description = GeneratedColumn<String>(
       'description', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
-  List<GeneratedColumn> get $columns => [id, name, description];
+  List<GeneratedColumn> get $columns =>
+      [id, nameAr, nameEn, description, isActive];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1864,17 +6361,29 @@ class $RolesTable extends Roles with TableInfo<$RolesTable, Role> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
     }
     if (data.containsKey('description')) {
       context.handle(
           _descriptionMeta,
           description.isAcceptableOrUnknown(
               data['description']!, _descriptionMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
     }
     return context;
   }
@@ -1887,42 +6396,60 @@ class $RolesTable extends Roles with TableInfo<$RolesTable, Role> {
     return Role(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
       description: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}description']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
     );
   }
 
   @override
-  $RolesTable createAlias(String alias) {
-    return $RolesTable(attachedDatabase, alias);
+  Roles createAlias(String alias) {
+    return Roles(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class Role extends DataClass implements Insertable<Role> {
   final int id;
-  final String name;
+  final String nameAr;
+  final String nameEn;
   final String? description;
-  const Role({required this.id, required this.name, this.description});
+  final bool isActive;
+  const Role(
+      {required this.id,
+      required this.nameAr,
+      required this.nameEn,
+      this.description,
+      required this.isActive});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
     if (!nullToAbsent || description != null) {
       map['description'] = Variable<String>(description);
     }
+    map['is_active'] = Variable<bool>(isActive);
     return map;
   }
 
   RolesCompanion toCompanion(bool nullToAbsent) {
     return RolesCompanion(
       id: Value(id),
-      name: Value(name),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
       description: description == null && nullToAbsent
           ? const Value.absent()
           : Value(description),
+      isActive: Value(isActive),
     );
   }
 
@@ -1931,8 +6458,10 @@ class Role extends DataClass implements Insertable<Role> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Role(
       id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
       description: serializer.fromJson<String?>(json['description']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
     );
   }
   @override
@@ -1940,26 +6469,34 @@ class Role extends DataClass implements Insertable<Role> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
       'description': serializer.toJson<String?>(description),
+      'is_active': serializer.toJson<bool>(isActive),
     };
   }
 
   Role copyWith(
           {int? id,
-          String? name,
-          Value<String?> description = const Value.absent()}) =>
+          String? nameAr,
+          String? nameEn,
+          Value<String?> description = const Value.absent(),
+          bool? isActive}) =>
       Role(
         id: id ?? this.id,
-        name: name ?? this.name,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
         description: description.present ? description.value : this.description,
+        isActive: isActive ?? this.isActive,
       );
   Role copyWithCompanion(RolesCompanion data) {
     return Role(
       id: data.id.present ? data.id.value : this.id,
-      name: data.name.present ? data.name.value : this.name,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
       description:
           data.description.present ? data.description.value : this.description,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
 
@@ -1967,55 +6504,77 @@ class Role extends DataClass implements Insertable<Role> {
   String toString() {
     return (StringBuffer('Role(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('description: $description')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name, description);
+  int get hashCode => Object.hash(id, nameAr, nameEn, description, isActive);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Role &&
           other.id == this.id &&
-          other.name == this.name &&
-          other.description == this.description);
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.description == this.description &&
+          other.isActive == this.isActive);
 }
 
 class RolesCompanion extends UpdateCompanion<Role> {
   final Value<int> id;
-  final Value<String> name;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
   final Value<String?> description;
+  final Value<bool> isActive;
   const RolesCompanion({
     this.id = const Value.absent(),
-    this.name = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
     this.description = const Value.absent(),
+    this.isActive = const Value.absent(),
   });
   RolesCompanion.insert({
     this.id = const Value.absent(),
-    required String name,
+    required String nameAr,
+    required String nameEn,
     this.description = const Value.absent(),
-  }) : name = Value(name);
+    required bool isActive,
+  })  : nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        isActive = Value(isActive);
   static Insertable<Role> custom({
     Expression<int>? id,
-    Expression<String>? name,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
     Expression<String>? description,
+    Expression<bool>? isActive,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (name != null) 'name': name,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
       if (description != null) 'description': description,
+      if (isActive != null) 'is_active': isActive,
     });
   }
 
   RolesCompanion copyWith(
-      {Value<int>? id, Value<String>? name, Value<String?>? description}) {
+      {Value<int>? id,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String?>? description,
+      Value<bool>? isActive}) {
     return RolesCompanion(
       id: id ?? this.id,
-      name: name ?? this.name,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
       description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
     );
   }
 
@@ -2025,11 +6584,17 @@ class RolesCompanion extends UpdateCompanion<Role> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
     }
     if (description.present) {
       map['description'] = Variable<String>(description.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
     }
     return map;
   }
@@ -2038,35 +6603,419 @@ class RolesCompanion extends UpdateCompanion<Role> {
   String toString() {
     return (StringBuffer('RolesCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('description: $description')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
 }
 
-class $UserRolesTable extends UserRoles
-    with TableInfo<$UserRolesTable, UserRole> {
+class Users extends Table with TableInfo<Users, User> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserRolesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  Users(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _usernameMeta =
+      const VerificationMeta('username');
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+      'username', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _passwordHashMeta =
+      const VerificationMeta('passwordHash');
+  late final GeneratedColumn<String> passwordHash = GeneratedColumn<String>(
+      'password_hash', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _fullNameArMeta =
+      const VerificationMeta('fullNameAr');
+  late final GeneratedColumn<String> fullNameAr = GeneratedColumn<String>(
+      'full_name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _fullNameEnMeta =
+      const VerificationMeta('fullNameEn');
+  late final GeneratedColumn<String> fullNameEn = GeneratedColumn<String>(
+      'full_name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+      'email', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
   @override
+  List<GeneratedColumn> get $columns =>
+      [id, username, passwordHash, fullNameAr, fullNameEn, email, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'users';
+  @override
+  VerificationContext validateIntegrity(Insertable<User> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('username')) {
+      context.handle(_usernameMeta,
+          username.isAcceptableOrUnknown(data['username']!, _usernameMeta));
+    } else if (isInserting) {
+      context.missing(_usernameMeta);
+    }
+    if (data.containsKey('password_hash')) {
+      context.handle(
+          _passwordHashMeta,
+          passwordHash.isAcceptableOrUnknown(
+              data['password_hash']!, _passwordHashMeta));
+    } else if (isInserting) {
+      context.missing(_passwordHashMeta);
+    }
+    if (data.containsKey('full_name_ar')) {
+      context.handle(
+          _fullNameArMeta,
+          fullNameAr.isAcceptableOrUnknown(
+              data['full_name_ar']!, _fullNameArMeta));
+    } else if (isInserting) {
+      context.missing(_fullNameArMeta);
+    }
+    if (data.containsKey('full_name_en')) {
+      context.handle(
+          _fullNameEnMeta,
+          fullNameEn.isAcceptableOrUnknown(
+              data['full_name_en']!, _fullNameEnMeta));
+    } else if (isInserting) {
+      context.missing(_fullNameEnMeta);
+    }
+    if (data.containsKey('email')) {
+      context.handle(
+          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  User map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return User(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      username: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}username'])!,
+      passwordHash: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}password_hash'])!,
+      fullNameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}full_name_ar'])!,
+      fullNameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}full_name_en'])!,
+      email: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}email']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Users createAlias(String alias) {
+    return Users(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class User extends DataClass implements Insertable<User> {
+  final int id;
+  final String username;
+  final String passwordHash;
+  final String fullNameAr;
+  final String fullNameEn;
+  final String? email;
+  final bool isActive;
+  const User(
+      {required this.id,
+      required this.username,
+      required this.passwordHash,
+      required this.fullNameAr,
+      required this.fullNameEn,
+      this.email,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['username'] = Variable<String>(username);
+    map['password_hash'] = Variable<String>(passwordHash);
+    map['full_name_ar'] = Variable<String>(fullNameAr);
+    map['full_name_en'] = Variable<String>(fullNameEn);
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  UsersCompanion toCompanion(bool nullToAbsent) {
+    return UsersCompanion(
+      id: Value(id),
+      username: Value(username),
+      passwordHash: Value(passwordHash),
+      fullNameAr: Value(fullNameAr),
+      fullNameEn: Value(fullNameEn),
+      email:
+          email == null && nullToAbsent ? const Value.absent() : Value(email),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory User.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return User(
+      id: serializer.fromJson<int>(json['id']),
+      username: serializer.fromJson<String>(json['username']),
+      passwordHash: serializer.fromJson<String>(json['password_hash']),
+      fullNameAr: serializer.fromJson<String>(json['full_name_ar']),
+      fullNameEn: serializer.fromJson<String>(json['full_name_en']),
+      email: serializer.fromJson<String?>(json['email']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'username': serializer.toJson<String>(username),
+      'password_hash': serializer.toJson<String>(passwordHash),
+      'full_name_ar': serializer.toJson<String>(fullNameAr),
+      'full_name_en': serializer.toJson<String>(fullNameEn),
+      'email': serializer.toJson<String?>(email),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  User copyWith(
+          {int? id,
+          String? username,
+          String? passwordHash,
+          String? fullNameAr,
+          String? fullNameEn,
+          Value<String?> email = const Value.absent(),
+          bool? isActive}) =>
+      User(
+        id: id ?? this.id,
+        username: username ?? this.username,
+        passwordHash: passwordHash ?? this.passwordHash,
+        fullNameAr: fullNameAr ?? this.fullNameAr,
+        fullNameEn: fullNameEn ?? this.fullNameEn,
+        email: email.present ? email.value : this.email,
+        isActive: isActive ?? this.isActive,
+      );
+  User copyWithCompanion(UsersCompanion data) {
+    return User(
+      id: data.id.present ? data.id.value : this.id,
+      username: data.username.present ? data.username.value : this.username,
+      passwordHash: data.passwordHash.present
+          ? data.passwordHash.value
+          : this.passwordHash,
+      fullNameAr:
+          data.fullNameAr.present ? data.fullNameAr.value : this.fullNameAr,
+      fullNameEn:
+          data.fullNameEn.present ? data.fullNameEn.value : this.fullNameEn,
+      email: data.email.present ? data.email.value : this.email,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('User(')
+          ..write('id: $id, ')
+          ..write('username: $username, ')
+          ..write('passwordHash: $passwordHash, ')
+          ..write('fullNameAr: $fullNameAr, ')
+          ..write('fullNameEn: $fullNameEn, ')
+          ..write('email: $email, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, username, passwordHash, fullNameAr, fullNameEn, email, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is User &&
+          other.id == this.id &&
+          other.username == this.username &&
+          other.passwordHash == this.passwordHash &&
+          other.fullNameAr == this.fullNameAr &&
+          other.fullNameEn == this.fullNameEn &&
+          other.email == this.email &&
+          other.isActive == this.isActive);
+}
+
+class UsersCompanion extends UpdateCompanion<User> {
+  final Value<int> id;
+  final Value<String> username;
+  final Value<String> passwordHash;
+  final Value<String> fullNameAr;
+  final Value<String> fullNameEn;
+  final Value<String?> email;
+  final Value<bool> isActive;
+  const UsersCompanion({
+    this.id = const Value.absent(),
+    this.username = const Value.absent(),
+    this.passwordHash = const Value.absent(),
+    this.fullNameAr = const Value.absent(),
+    this.fullNameEn = const Value.absent(),
+    this.email = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  UsersCompanion.insert({
+    this.id = const Value.absent(),
+    required String username,
+    required String passwordHash,
+    required String fullNameAr,
+    required String fullNameEn,
+    this.email = const Value.absent(),
+    this.isActive = const Value.absent(),
+  })  : username = Value(username),
+        passwordHash = Value(passwordHash),
+        fullNameAr = Value(fullNameAr),
+        fullNameEn = Value(fullNameEn);
+  static Insertable<User> custom({
+    Expression<int>? id,
+    Expression<String>? username,
+    Expression<String>? passwordHash,
+    Expression<String>? fullNameAr,
+    Expression<String>? fullNameEn,
+    Expression<String>? email,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (username != null) 'username': username,
+      if (passwordHash != null) 'password_hash': passwordHash,
+      if (fullNameAr != null) 'full_name_ar': fullNameAr,
+      if (fullNameEn != null) 'full_name_en': fullNameEn,
+      if (email != null) 'email': email,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  UsersCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? username,
+      Value<String>? passwordHash,
+      Value<String>? fullNameAr,
+      Value<String>? fullNameEn,
+      Value<String?>? email,
+      Value<bool>? isActive}) {
+    return UsersCompanion(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      passwordHash: passwordHash ?? this.passwordHash,
+      fullNameAr: fullNameAr ?? this.fullNameAr,
+      fullNameEn: fullNameEn ?? this.fullNameEn,
+      email: email ?? this.email,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (username.present) {
+      map['username'] = Variable<String>(username.value);
+    }
+    if (passwordHash.present) {
+      map['password_hash'] = Variable<String>(passwordHash.value);
+    }
+    if (fullNameAr.present) {
+      map['full_name_ar'] = Variable<String>(fullNameAr.value);
+    }
+    if (fullNameEn.present) {
+      map['full_name_en'] = Variable<String>(fullNameEn.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UsersCompanion(')
+          ..write('id: $id, ')
+          ..write('username: $username, ')
+          ..write('passwordHash: $passwordHash, ')
+          ..write('fullNameAr: $fullNameAr, ')
+          ..write('fullNameEn: $fullNameEn, ')
+          ..write('email: $email, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class UserRoles extends Table with TableInfo<UserRoles, UserRole> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  UserRoles(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
       'user_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES users (id)'));
+      $customConstraints: 'NOT NULL REFERENCES users(id)');
   static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
-  @override
   late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
       'role_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES roles (id)'));
+      $customConstraints: 'NOT NULL REFERENCES roles(id)');
   @override
   List<GeneratedColumn> get $columns => [userId, roleId];
   @override
@@ -2108,9 +7057,14 @@ class $UserRolesTable extends UserRoles
   }
 
   @override
-  $UserRolesTable createAlias(String alias) {
-    return $UserRolesTable(attachedDatabase, alias);
+  UserRoles createAlias(String alias) {
+    return UserRoles(attachedDatabase, alias);
   }
+
+  @override
+  List<String> get customConstraints => const ['PRIMARY KEY(user_id, role_id)'];
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class UserRole extends DataClass implements Insertable<UserRole> {
@@ -2136,16 +7090,16 @@ class UserRole extends DataClass implements Insertable<UserRole> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserRole(
-      userId: serializer.fromJson<int>(json['userId']),
-      roleId: serializer.fromJson<int>(json['roleId']),
+      userId: serializer.fromJson<int>(json['user_id']),
+      roleId: serializer.fromJson<int>(json['role_id']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'userId': serializer.toJson<int>(userId),
-      'roleId': serializer.toJson<int>(roleId),
+      'user_id': serializer.toJson<int>(userId),
+      'role_id': serializer.toJson<int>(roleId),
     };
   }
 
@@ -2241,26 +7195,25 @@ class UserRolesCompanion extends UpdateCompanion<UserRole> {
   }
 }
 
-class $RolePermissionsTable extends RolePermissions
-    with TableInfo<$RolePermissionsTable, RolePermission> {
+class RolePermissions extends Table
+    with TableInfo<RolePermissions, RolePermission> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $RolePermissionsTable(this.attachedDatabase, [this._alias]);
+  RolePermissions(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
-  @override
   late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
       'role_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES roles (id)'));
-  @override
-  late final GeneratedColumnWithTypeConverter<AppPermission, String>
-      permission = GeneratedColumn<String>('permission', aliasedName, false,
-              type: DriftSqlType.string, requiredDuringInsert: true)
-          .withConverter<AppPermission>(
-              $RolePermissionsTable.$converterpermission);
+      $customConstraints: 'NOT NULL REFERENCES roles(id)');
+  static const VerificationMeta _permissionMeta =
+      const VerificationMeta('permission');
+  late final GeneratedColumn<String> permission = GeneratedColumn<String>(
+      'permission', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<GeneratedColumn> get $columns => [roleId, permission];
   @override
@@ -2279,6 +7232,14 @@ class $RolePermissionsTable extends RolePermissions
     } else if (isInserting) {
       context.missing(_roleIdMeta);
     }
+    if (data.containsKey('permission')) {
+      context.handle(
+          _permissionMeta,
+          permission.isAcceptableOrUnknown(
+              data['permission']!, _permissionMeta));
+    } else if (isInserting) {
+      context.missing(_permissionMeta);
+    }
     return context;
   }
 
@@ -2290,34 +7251,32 @@ class $RolePermissionsTable extends RolePermissions
     return RolePermission(
       roleId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}role_id'])!,
-      permission: $RolePermissionsTable.$converterpermission.fromSql(
-          attachedDatabase.typeMapping.read(
-              DriftSqlType.string, data['${effectivePrefix}permission'])!),
+      permission: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}permission'])!,
     );
   }
 
   @override
-  $RolePermissionsTable createAlias(String alias) {
-    return $RolePermissionsTable(attachedDatabase, alias);
+  RolePermissions createAlias(String alias) {
+    return RolePermissions(attachedDatabase, alias);
   }
 
-  static JsonTypeConverter2<AppPermission, String, String>
-      $converterpermission =
-      const EnumNameConverter<AppPermission>(AppPermission.values);
+  @override
+  List<String> get customConstraints =>
+      const ['PRIMARY KEY(role_id, permission)'];
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class RolePermission extends DataClass implements Insertable<RolePermission> {
   final int roleId;
-  final AppPermission permission;
+  final String permission;
   const RolePermission({required this.roleId, required this.permission});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['role_id'] = Variable<int>(roleId);
-    {
-      map['permission'] = Variable<String>(
-          $RolePermissionsTable.$converterpermission.toSql(permission));
-    }
+    map['permission'] = Variable<String>(permission);
     return map;
   }
 
@@ -2332,23 +7291,20 @@ class RolePermission extends DataClass implements Insertable<RolePermission> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return RolePermission(
-      roleId: serializer.fromJson<int>(json['roleId']),
-      permission: $RolePermissionsTable.$converterpermission
-          .fromJson(serializer.fromJson<String>(json['permission'])),
+      roleId: serializer.fromJson<int>(json['role_id']),
+      permission: serializer.fromJson<String>(json['permission']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'roleId': serializer.toJson<int>(roleId),
-      'permission': serializer.toJson<String>(
-          $RolePermissionsTable.$converterpermission.toJson(permission)),
+      'role_id': serializer.toJson<int>(roleId),
+      'permission': serializer.toJson<String>(permission),
     };
   }
 
-  RolePermission copyWith({int? roleId, AppPermission? permission}) =>
-      RolePermission(
+  RolePermission copyWith({int? roleId, String? permission}) => RolePermission(
         roleId: roleId ?? this.roleId,
         permission: permission ?? this.permission,
       );
@@ -2381,7 +7337,7 @@ class RolePermission extends DataClass implements Insertable<RolePermission> {
 
 class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
   final Value<int> roleId;
-  final Value<AppPermission> permission;
+  final Value<String> permission;
   final Value<int> rowid;
   const RolePermissionsCompanion({
     this.roleId = const Value.absent(),
@@ -2390,7 +7346,7 @@ class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
   });
   RolePermissionsCompanion.insert({
     required int roleId,
-    required AppPermission permission,
+    required String permission,
     this.rowid = const Value.absent(),
   })  : roleId = Value(roleId),
         permission = Value(permission);
@@ -2407,9 +7363,7 @@ class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
   }
 
   RolePermissionsCompanion copyWith(
-      {Value<int>? roleId,
-      Value<AppPermission>? permission,
-      Value<int>? rowid}) {
+      {Value<int>? roleId, Value<String>? permission, Value<int>? rowid}) {
     return RolePermissionsCompanion(
       roleId: roleId ?? this.roleId,
       permission: permission ?? this.permission,
@@ -2424,8 +7378,7 @@ class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
       map['role_id'] = Variable<int>(roleId.value);
     }
     if (permission.present) {
-      map['permission'] = Variable<String>(
-          $RolePermissionsTable.$converterpermission.toSql(permission.value));
+      map['permission'] = Variable<String>(permission.value);
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -2444,49 +7397,48 @@ class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
   }
 }
 
-class $AuditLogTable extends AuditLog
-    with TableInfo<$AuditLogTable, AuditLogData> {
+class AuditLog extends Table with TableInfo<AuditLog, AuditLogData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AuditLogTable(this.attachedDatabase, [this._alias]);
+  AuditLog(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
-  @override
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
       'user_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES users (id)'));
+      $customConstraints: 'NOT NULL REFERENCES users(id)');
   static const VerificationMeta _timestampMeta =
       const VerificationMeta('timestamp');
-  @override
-  late final GeneratedColumn<DateTime> timestamp = GeneratedColumn<DateTime>(
+  late final GeneratedColumn<double> timestamp = GeneratedColumn<double>(
       'timestamp', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _actionMeta = const VerificationMeta('action');
-  @override
-  late final GeneratedColumn<String> action = GeneratedColumn<String>(
-      'action', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.double,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _eventActionMeta =
+      const VerificationMeta('eventAction');
+  late final GeneratedColumn<String> eventAction = GeneratedColumn<String>(
+      'event_action', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _detailsMeta =
       const VerificationMeta('details');
-  @override
   late final GeneratedColumn<String> details = GeneratedColumn<String>(
       'details', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns =>
-      [id, userId, timestamp, action, details];
+      [id, userId, timestamp, eventAction, details];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2512,11 +7464,13 @@ class $AuditLogTable extends AuditLog
     } else if (isInserting) {
       context.missing(_timestampMeta);
     }
-    if (data.containsKey('action')) {
-      context.handle(_actionMeta,
-          action.isAcceptableOrUnknown(data['action']!, _actionMeta));
+    if (data.containsKey('event_action')) {
+      context.handle(
+          _eventActionMeta,
+          eventAction.isAcceptableOrUnknown(
+              data['event_action']!, _eventActionMeta));
     } else if (isInserting) {
-      context.missing(_actionMeta);
+      context.missing(_eventActionMeta);
     }
     if (data.containsKey('details')) {
       context.handle(_detailsMeta,
@@ -2536,39 +7490,42 @@ class $AuditLogTable extends AuditLog
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
       timestamp: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}timestamp'])!,
-      action: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}action'])!,
+          .read(DriftSqlType.double, data['${effectivePrefix}timestamp'])!,
+      eventAction: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}event_action'])!,
       details: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}details']),
     );
   }
 
   @override
-  $AuditLogTable createAlias(String alias) {
-    return $AuditLogTable(attachedDatabase, alias);
+  AuditLog createAlias(String alias) {
+    return AuditLog(attachedDatabase, alias);
   }
+
+  @override
+  bool get dontWriteConstraints => true;
 }
 
 class AuditLogData extends DataClass implements Insertable<AuditLogData> {
   final int id;
   final int userId;
-  final DateTime timestamp;
-  final String action;
+  final double timestamp;
+  final String eventAction;
   final String? details;
   const AuditLogData(
       {required this.id,
       required this.userId,
       required this.timestamp,
-      required this.action,
+      required this.eventAction,
       this.details});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['user_id'] = Variable<int>(userId);
-    map['timestamp'] = Variable<DateTime>(timestamp);
-    map['action'] = Variable<String>(action);
+    map['timestamp'] = Variable<double>(timestamp);
+    map['event_action'] = Variable<String>(eventAction);
     if (!nullToAbsent || details != null) {
       map['details'] = Variable<String>(details);
     }
@@ -2580,7 +7537,7 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
       id: Value(id),
       userId: Value(userId),
       timestamp: Value(timestamp),
-      action: Value(action),
+      eventAction: Value(eventAction),
       details: details == null && nullToAbsent
           ? const Value.absent()
           : Value(details),
@@ -2592,9 +7549,9 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AuditLogData(
       id: serializer.fromJson<int>(json['id']),
-      userId: serializer.fromJson<int>(json['userId']),
-      timestamp: serializer.fromJson<DateTime>(json['timestamp']),
-      action: serializer.fromJson<String>(json['action']),
+      userId: serializer.fromJson<int>(json['user_id']),
+      timestamp: serializer.fromJson<double>(json['timestamp']),
+      eventAction: serializer.fromJson<String>(json['event_action']),
       details: serializer.fromJson<String?>(json['details']),
     );
   }
@@ -2603,9 +7560,9 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'userId': serializer.toJson<int>(userId),
-      'timestamp': serializer.toJson<DateTime>(timestamp),
-      'action': serializer.toJson<String>(action),
+      'user_id': serializer.toJson<int>(userId),
+      'timestamp': serializer.toJson<double>(timestamp),
+      'event_action': serializer.toJson<String>(eventAction),
       'details': serializer.toJson<String?>(details),
     };
   }
@@ -2613,14 +7570,14 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
   AuditLogData copyWith(
           {int? id,
           int? userId,
-          DateTime? timestamp,
-          String? action,
+          double? timestamp,
+          String? eventAction,
           Value<String?> details = const Value.absent()}) =>
       AuditLogData(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         timestamp: timestamp ?? this.timestamp,
-        action: action ?? this.action,
+        eventAction: eventAction ?? this.eventAction,
         details: details.present ? details.value : this.details,
       );
   AuditLogData copyWithCompanion(AuditLogCompanion data) {
@@ -2628,7 +7585,8 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
       id: data.id.present ? data.id.value : this.id,
       userId: data.userId.present ? data.userId.value : this.userId,
       timestamp: data.timestamp.present ? data.timestamp.value : this.timestamp,
-      action: data.action.present ? data.action.value : this.action,
+      eventAction:
+          data.eventAction.present ? data.eventAction.value : this.eventAction,
       details: data.details.present ? data.details.value : this.details,
     );
   }
@@ -2639,14 +7597,14 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('timestamp: $timestamp, ')
-          ..write('action: $action, ')
+          ..write('eventAction: $eventAction, ')
           ..write('details: $details')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, userId, timestamp, action, details);
+  int get hashCode => Object.hash(id, userId, timestamp, eventAction, details);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2654,44 +7612,44 @@ class AuditLogData extends DataClass implements Insertable<AuditLogData> {
           other.id == this.id &&
           other.userId == this.userId &&
           other.timestamp == this.timestamp &&
-          other.action == this.action &&
+          other.eventAction == this.eventAction &&
           other.details == this.details);
 }
 
 class AuditLogCompanion extends UpdateCompanion<AuditLogData> {
   final Value<int> id;
   final Value<int> userId;
-  final Value<DateTime> timestamp;
-  final Value<String> action;
+  final Value<double> timestamp;
+  final Value<String> eventAction;
   final Value<String?> details;
   const AuditLogCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
     this.timestamp = const Value.absent(),
-    this.action = const Value.absent(),
+    this.eventAction = const Value.absent(),
     this.details = const Value.absent(),
   });
   AuditLogCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
-    required DateTime timestamp,
-    required String action,
+    required double timestamp,
+    required String eventAction,
     this.details = const Value.absent(),
   })  : userId = Value(userId),
         timestamp = Value(timestamp),
-        action = Value(action);
+        eventAction = Value(eventAction);
   static Insertable<AuditLogData> custom({
     Expression<int>? id,
     Expression<int>? userId,
-    Expression<DateTime>? timestamp,
-    Expression<String>? action,
+    Expression<double>? timestamp,
+    Expression<String>? eventAction,
     Expression<String>? details,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
       if (timestamp != null) 'timestamp': timestamp,
-      if (action != null) 'action': action,
+      if (eventAction != null) 'event_action': eventAction,
       if (details != null) 'details': details,
     });
   }
@@ -2699,14 +7657,14 @@ class AuditLogCompanion extends UpdateCompanion<AuditLogData> {
   AuditLogCompanion copyWith(
       {Value<int>? id,
       Value<int>? userId,
-      Value<DateTime>? timestamp,
-      Value<String>? action,
+      Value<double>? timestamp,
+      Value<String>? eventAction,
       Value<String?>? details}) {
     return AuditLogCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
       timestamp: timestamp ?? this.timestamp,
-      action: action ?? this.action,
+      eventAction: eventAction ?? this.eventAction,
       details: details ?? this.details,
     );
   }
@@ -2721,10 +7679,10 @@ class AuditLogCompanion extends UpdateCompanion<AuditLogData> {
       map['user_id'] = Variable<int>(userId.value);
     }
     if (timestamp.present) {
-      map['timestamp'] = Variable<DateTime>(timestamp.value);
+      map['timestamp'] = Variable<double>(timestamp.value);
     }
-    if (action.present) {
-      map['action'] = Variable<String>(action.value);
+    if (eventAction.present) {
+      map['event_action'] = Variable<String>(eventAction.value);
     }
     if (details.present) {
       map['details'] = Variable<String>(details.value);
@@ -2738,1956 +7696,8 @@ class AuditLogCompanion extends UpdateCompanion<AuditLogData> {
           ..write('id: $id, ')
           ..write('userId: $userId, ')
           ..write('timestamp: $timestamp, ')
-          ..write('action: $action, ')
+          ..write('eventAction: $eventAction, ')
           ..write('details: $details')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $SystemConfigTable extends SystemConfig
-    with TableInfo<$SystemConfigTable, SystemConfigData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $SystemConfigTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _keyMeta = const VerificationMeta('key');
-  @override
-  late final GeneratedColumn<String> key = GeneratedColumn<String>(
-      'key', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
-  static const VerificationMeta _valueMeta = const VerificationMeta('value');
-  @override
-  late final GeneratedColumn<String> value = GeneratedColumn<String>(
-      'value', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [id, key, value];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'system_config';
-  @override
-  VerificationContext validateIntegrity(Insertable<SystemConfigData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('key')) {
-      context.handle(
-          _keyMeta, key.isAcceptableOrUnknown(data['key']!, _keyMeta));
-    } else if (isInserting) {
-      context.missing(_keyMeta);
-    }
-    if (data.containsKey('value')) {
-      context.handle(
-          _valueMeta, value.isAcceptableOrUnknown(data['value']!, _valueMeta));
-    } else if (isInserting) {
-      context.missing(_valueMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  SystemConfigData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SystemConfigData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      key: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}key'])!,
-      value: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}value'])!,
-    );
-  }
-
-  @override
-  $SystemConfigTable createAlias(String alias) {
-    return $SystemConfigTable(attachedDatabase, alias);
-  }
-}
-
-class SystemConfigData extends DataClass
-    implements Insertable<SystemConfigData> {
-  final int id;
-  final String key;
-  final String value;
-  const SystemConfigData(
-      {required this.id, required this.key, required this.value});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['key'] = Variable<String>(key);
-    map['value'] = Variable<String>(value);
-    return map;
-  }
-
-  SystemConfigCompanion toCompanion(bool nullToAbsent) {
-    return SystemConfigCompanion(
-      id: Value(id),
-      key: Value(key),
-      value: Value(value),
-    );
-  }
-
-  factory SystemConfigData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SystemConfigData(
-      id: serializer.fromJson<int>(json['id']),
-      key: serializer.fromJson<String>(json['key']),
-      value: serializer.fromJson<String>(json['value']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'key': serializer.toJson<String>(key),
-      'value': serializer.toJson<String>(value),
-    };
-  }
-
-  SystemConfigData copyWith({int? id, String? key, String? value}) =>
-      SystemConfigData(
-        id: id ?? this.id,
-        key: key ?? this.key,
-        value: value ?? this.value,
-      );
-  SystemConfigData copyWithCompanion(SystemConfigCompanion data) {
-    return SystemConfigData(
-      id: data.id.present ? data.id.value : this.id,
-      key: data.key.present ? data.key.value : this.key,
-      value: data.value.present ? data.value.value : this.value,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SystemConfigData(')
-          ..write('id: $id, ')
-          ..write('key: $key, ')
-          ..write('value: $value')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, key, value);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is SystemConfigData &&
-          other.id == this.id &&
-          other.key == this.key &&
-          other.value == this.value);
-}
-
-class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
-  final Value<int> id;
-  final Value<String> key;
-  final Value<String> value;
-  const SystemConfigCompanion({
-    this.id = const Value.absent(),
-    this.key = const Value.absent(),
-    this.value = const Value.absent(),
-  });
-  SystemConfigCompanion.insert({
-    this.id = const Value.absent(),
-    required String key,
-    required String value,
-  })  : key = Value(key),
-        value = Value(value);
-  static Insertable<SystemConfigData> custom({
-    Expression<int>? id,
-    Expression<String>? key,
-    Expression<String>? value,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (key != null) 'key': key,
-      if (value != null) 'value': value,
-    });
-  }
-
-  SystemConfigCompanion copyWith(
-      {Value<int>? id, Value<String>? key, Value<String>? value}) {
-    return SystemConfigCompanion(
-      id: id ?? this.id,
-      key: key ?? this.key,
-      value: value ?? this.value,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (key.present) {
-      map['key'] = Variable<String>(key.value);
-    }
-    if (value.present) {
-      map['value'] = Variable<String>(value.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('SystemConfigCompanion(')
-          ..write('id: $id, ')
-          ..write('key: $key, ')
-          ..write('value: $value')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $ZonesTable extends Zones with TableInfo<$ZonesTable, Zone> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $ZonesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns => [id, code, nameAr, nameEn, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'zones';
-  @override
-  VerificationContext validateIntegrity(Insertable<Zone> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Zone map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Zone(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $ZonesTable createAlias(String alias) {
-    return $ZonesTable(attachedDatabase, alias);
-  }
-}
-
-class Zone extends DataClass implements Insertable<Zone> {
-  final int id;
-  final String code;
-  final String nameAr;
-  final String nameEn;
-  final bool isActive;
-  const Zone(
-      {required this.id,
-      required this.code,
-      required this.nameAr,
-      required this.nameEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['code'] = Variable<String>(code);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  ZonesCompanion toCompanion(bool nullToAbsent) {
-    return ZonesCompanion(
-      id: Value(id),
-      code: Value(code),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Zone.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Zone(
-      id: serializer.fromJson<int>(json['id']),
-      code: serializer.fromJson<String>(json['code']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'code': serializer.toJson<String>(code),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Zone copyWith(
-          {int? id,
-          String? code,
-          String? nameAr,
-          String? nameEn,
-          bool? isActive}) =>
-      Zone(
-        id: id ?? this.id,
-        code: code ?? this.code,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        isActive: isActive ?? this.isActive,
-      );
-  Zone copyWithCompanion(ZonesCompanion data) {
-    return Zone(
-      id: data.id.present ? data.id.value : this.id,
-      code: data.code.present ? data.code.value : this.code,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Zone(')
-          ..write('id: $id, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, code, nameAr, nameEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Zone &&
-          other.id == this.id &&
-          other.code == this.code &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.isActive == this.isActive);
-}
-
-class ZonesCompanion extends UpdateCompanion<Zone> {
-  final Value<int> id;
-  final Value<String> code;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<bool> isActive;
-  const ZonesCompanion({
-    this.id = const Value.absent(),
-    this.code = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  ZonesCompanion.insert({
-    this.id = const Value.absent(),
-    required String code,
-    required String nameAr,
-    required String nameEn,
-    this.isActive = const Value.absent(),
-  })  : code = Value(code),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
-  static Insertable<Zone> custom({
-    Expression<int>? id,
-    Expression<String>? code,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (code != null) 'code': code,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  ZonesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? code,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<bool>? isActive}) {
-    return ZonesCompanion(
-      id: id ?? this.id,
-      code: code ?? this.code,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('ZonesCompanion(')
-          ..write('id: $id, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $CountriesTable extends Countries
-    with TableInfo<$CountriesTable, Country> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $CountriesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _zoneIdMeta = const VerificationMeta('zoneId');
-  @override
-  late final GeneratedColumn<int> zoneId = GeneratedColumn<int>(
-      'zone_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES zones (id)'));
-  static const VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nationalityArMeta =
-      const VerificationMeta('nationalityAr');
-  @override
-  late final GeneratedColumn<String> nationalityAr = GeneratedColumn<String>(
-      'nationality_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nationalityEnMeta =
-      const VerificationMeta('nationalityEn');
-  @override
-  late final GeneratedColumn<String> nationalityEn = GeneratedColumn<String>(
-      'nationality_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        zoneId,
-        code,
-        nameAr,
-        nameEn,
-        nationalityAr,
-        nationalityEn,
-        isActive
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'countries';
-  @override
-  VerificationContext validateIntegrity(Insertable<Country> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('zone_id')) {
-      context.handle(_zoneIdMeta,
-          zoneId.isAcceptableOrUnknown(data['zone_id']!, _zoneIdMeta));
-    } else if (isInserting) {
-      context.missing(_zoneIdMeta);
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('nationality_ar')) {
-      context.handle(
-          _nationalityArMeta,
-          nationalityAr.isAcceptableOrUnknown(
-              data['nationality_ar']!, _nationalityArMeta));
-    } else if (isInserting) {
-      context.missing(_nationalityArMeta);
-    }
-    if (data.containsKey('nationality_en')) {
-      context.handle(
-          _nationalityEnMeta,
-          nationalityEn.isAcceptableOrUnknown(
-              data['nationality_en']!, _nationalityEnMeta));
-    } else if (isInserting) {
-      context.missing(_nationalityEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Country map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Country(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      zoneId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}zone_id'])!,
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      nationalityAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}nationality_ar'])!,
-      nationalityEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}nationality_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $CountriesTable createAlias(String alias) {
-    return $CountriesTable(attachedDatabase, alias);
-  }
-}
-
-class Country extends DataClass implements Insertable<Country> {
-  final int id;
-  final int zoneId;
-  final String code;
-  final String nameAr;
-  final String nameEn;
-  final String nationalityAr;
-  final String nationalityEn;
-  final bool isActive;
-  const Country(
-      {required this.id,
-      required this.zoneId,
-      required this.code,
-      required this.nameAr,
-      required this.nameEn,
-      required this.nationalityAr,
-      required this.nationalityEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['zone_id'] = Variable<int>(zoneId);
-    map['code'] = Variable<String>(code);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['nationality_ar'] = Variable<String>(nationalityAr);
-    map['nationality_en'] = Variable<String>(nationalityEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  CountriesCompanion toCompanion(bool nullToAbsent) {
-    return CountriesCompanion(
-      id: Value(id),
-      zoneId: Value(zoneId),
-      code: Value(code),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      nationalityAr: Value(nationalityAr),
-      nationalityEn: Value(nationalityEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Country.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Country(
-      id: serializer.fromJson<int>(json['id']),
-      zoneId: serializer.fromJson<int>(json['zoneId']),
-      code: serializer.fromJson<String>(json['code']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
-      nationalityAr: serializer.fromJson<String>(json['nationalityAr']),
-      nationalityEn: serializer.fromJson<String>(json['nationalityEn']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'zoneId': serializer.toJson<int>(zoneId),
-      'code': serializer.toJson<String>(code),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
-      'nationalityAr': serializer.toJson<String>(nationalityAr),
-      'nationalityEn': serializer.toJson<String>(nationalityEn),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Country copyWith(
-          {int? id,
-          int? zoneId,
-          String? code,
-          String? nameAr,
-          String? nameEn,
-          String? nationalityAr,
-          String? nationalityEn,
-          bool? isActive}) =>
-      Country(
-        id: id ?? this.id,
-        zoneId: zoneId ?? this.zoneId,
-        code: code ?? this.code,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        nationalityAr: nationalityAr ?? this.nationalityAr,
-        nationalityEn: nationalityEn ?? this.nationalityEn,
-        isActive: isActive ?? this.isActive,
-      );
-  Country copyWithCompanion(CountriesCompanion data) {
-    return Country(
-      id: data.id.present ? data.id.value : this.id,
-      zoneId: data.zoneId.present ? data.zoneId.value : this.zoneId,
-      code: data.code.present ? data.code.value : this.code,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      nationalityAr: data.nationalityAr.present
-          ? data.nationalityAr.value
-          : this.nationalityAr,
-      nationalityEn: data.nationalityEn.present
-          ? data.nationalityEn.value
-          : this.nationalityEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Country(')
-          ..write('id: $id, ')
-          ..write('zoneId: $zoneId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('nationalityAr: $nationalityAr, ')
-          ..write('nationalityEn: $nationalityEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id, zoneId, code, nameAr, nameEn, nationalityAr, nationalityEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Country &&
-          other.id == this.id &&
-          other.zoneId == this.zoneId &&
-          other.code == this.code &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.nationalityAr == this.nationalityAr &&
-          other.nationalityEn == this.nationalityEn &&
-          other.isActive == this.isActive);
-}
-
-class CountriesCompanion extends UpdateCompanion<Country> {
-  final Value<int> id;
-  final Value<int> zoneId;
-  final Value<String> code;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<String> nationalityAr;
-  final Value<String> nationalityEn;
-  final Value<bool> isActive;
-  const CountriesCompanion({
-    this.id = const Value.absent(),
-    this.zoneId = const Value.absent(),
-    this.code = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.nationalityAr = const Value.absent(),
-    this.nationalityEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  CountriesCompanion.insert({
-    this.id = const Value.absent(),
-    required int zoneId,
-    required String code,
-    required String nameAr,
-    required String nameEn,
-    required String nationalityAr,
-    required String nationalityEn,
-    this.isActive = const Value.absent(),
-  })  : zoneId = Value(zoneId),
-        code = Value(code),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        nationalityAr = Value(nationalityAr),
-        nationalityEn = Value(nationalityEn);
-  static Insertable<Country> custom({
-    Expression<int>? id,
-    Expression<int>? zoneId,
-    Expression<String>? code,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<String>? nationalityAr,
-    Expression<String>? nationalityEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (zoneId != null) 'zone_id': zoneId,
-      if (code != null) 'code': code,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (nationalityAr != null) 'nationality_ar': nationalityAr,
-      if (nationalityEn != null) 'nationality_en': nationalityEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  CountriesCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? zoneId,
-      Value<String>? code,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<String>? nationalityAr,
-      Value<String>? nationalityEn,
-      Value<bool>? isActive}) {
-    return CountriesCompanion(
-      id: id ?? this.id,
-      zoneId: zoneId ?? this.zoneId,
-      code: code ?? this.code,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      nationalityAr: nationalityAr ?? this.nationalityAr,
-      nationalityEn: nationalityEn ?? this.nationalityEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (zoneId.present) {
-      map['zone_id'] = Variable<int>(zoneId.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (nationalityAr.present) {
-      map['nationality_ar'] = Variable<String>(nationalityAr.value);
-    }
-    if (nationalityEn.present) {
-      map['nationality_en'] = Variable<String>(nationalityEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('CountriesCompanion(')
-          ..write('id: $id, ')
-          ..write('zoneId: $zoneId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('nationalityAr: $nationalityAr, ')
-          ..write('nationalityEn: $nationalityEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $GovernoratesTable extends Governorates
-    with TableInfo<$GovernoratesTable, Governorate> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $GovernoratesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _countryIdMeta =
-      const VerificationMeta('countryId');
-  @override
-  late final GeneratedColumn<int> countryId = GeneratedColumn<int>(
-      'country_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES countries (id)'));
-  static const VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, countryId, code, nameAr, nameEn, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'governorates';
-  @override
-  VerificationContext validateIntegrity(Insertable<Governorate> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('country_id')) {
-      context.handle(_countryIdMeta,
-          countryId.isAcceptableOrUnknown(data['country_id']!, _countryIdMeta));
-    } else if (isInserting) {
-      context.missing(_countryIdMeta);
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Governorate map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Governorate(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      countryId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}country_id'])!,
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $GovernoratesTable createAlias(String alias) {
-    return $GovernoratesTable(attachedDatabase, alias);
-  }
-}
-
-class Governorate extends DataClass implements Insertable<Governorate> {
-  final int id;
-  final int countryId;
-  final String code;
-  final String nameAr;
-  final String nameEn;
-  final bool isActive;
-  const Governorate(
-      {required this.id,
-      required this.countryId,
-      required this.code,
-      required this.nameAr,
-      required this.nameEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['country_id'] = Variable<int>(countryId);
-    map['code'] = Variable<String>(code);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  GovernoratesCompanion toCompanion(bool nullToAbsent) {
-    return GovernoratesCompanion(
-      id: Value(id),
-      countryId: Value(countryId),
-      code: Value(code),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Governorate.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Governorate(
-      id: serializer.fromJson<int>(json['id']),
-      countryId: serializer.fromJson<int>(json['countryId']),
-      code: serializer.fromJson<String>(json['code']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'countryId': serializer.toJson<int>(countryId),
-      'code': serializer.toJson<String>(code),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Governorate copyWith(
-          {int? id,
-          int? countryId,
-          String? code,
-          String? nameAr,
-          String? nameEn,
-          bool? isActive}) =>
-      Governorate(
-        id: id ?? this.id,
-        countryId: countryId ?? this.countryId,
-        code: code ?? this.code,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        isActive: isActive ?? this.isActive,
-      );
-  Governorate copyWithCompanion(GovernoratesCompanion data) {
-    return Governorate(
-      id: data.id.present ? data.id.value : this.id,
-      countryId: data.countryId.present ? data.countryId.value : this.countryId,
-      code: data.code.present ? data.code.value : this.code,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Governorate(')
-          ..write('id: $id, ')
-          ..write('countryId: $countryId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(id, countryId, code, nameAr, nameEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Governorate &&
-          other.id == this.id &&
-          other.countryId == this.countryId &&
-          other.code == this.code &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.isActive == this.isActive);
-}
-
-class GovernoratesCompanion extends UpdateCompanion<Governorate> {
-  final Value<int> id;
-  final Value<int> countryId;
-  final Value<String> code;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<bool> isActive;
-  const GovernoratesCompanion({
-    this.id = const Value.absent(),
-    this.countryId = const Value.absent(),
-    this.code = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  GovernoratesCompanion.insert({
-    this.id = const Value.absent(),
-    required int countryId,
-    required String code,
-    required String nameAr,
-    required String nameEn,
-    this.isActive = const Value.absent(),
-  })  : countryId = Value(countryId),
-        code = Value(code),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
-  static Insertable<Governorate> custom({
-    Expression<int>? id,
-    Expression<int>? countryId,
-    Expression<String>? code,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (countryId != null) 'country_id': countryId,
-      if (code != null) 'code': code,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  GovernoratesCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? countryId,
-      Value<String>? code,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<bool>? isActive}) {
-    return GovernoratesCompanion(
-      id: id ?? this.id,
-      countryId: countryId ?? this.countryId,
-      code: code ?? this.code,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (countryId.present) {
-      map['country_id'] = Variable<int>(countryId.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('GovernoratesCompanion(')
-          ..write('id: $id, ')
-          ..write('countryId: $countryId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $CitiesTable extends Cities with TableInfo<$CitiesTable, City> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $CitiesTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _govIdMeta = const VerificationMeta('govId');
-  @override
-  late final GeneratedColumn<int> govId = GeneratedColumn<int>(
-      'gov_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES governorates (id)'));
-  static const VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, govId, code, nameAr, nameEn, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'cities';
-  @override
-  VerificationContext validateIntegrity(Insertable<City> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('gov_id')) {
-      context.handle(
-          _govIdMeta, govId.isAcceptableOrUnknown(data['gov_id']!, _govIdMeta));
-    } else if (isInserting) {
-      context.missing(_govIdMeta);
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  City map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return City(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      govId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}gov_id'])!,
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $CitiesTable createAlias(String alias) {
-    return $CitiesTable(attachedDatabase, alias);
-  }
-}
-
-class City extends DataClass implements Insertable<City> {
-  final int id;
-  final int govId;
-  final String code;
-  final String nameAr;
-  final String nameEn;
-  final bool isActive;
-  const City(
-      {required this.id,
-      required this.govId,
-      required this.code,
-      required this.nameAr,
-      required this.nameEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['gov_id'] = Variable<int>(govId);
-    map['code'] = Variable<String>(code);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  CitiesCompanion toCompanion(bool nullToAbsent) {
-    return CitiesCompanion(
-      id: Value(id),
-      govId: Value(govId),
-      code: Value(code),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory City.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return City(
-      id: serializer.fromJson<int>(json['id']),
-      govId: serializer.fromJson<int>(json['govId']),
-      code: serializer.fromJson<String>(json['code']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'govId': serializer.toJson<int>(govId),
-      'code': serializer.toJson<String>(code),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  City copyWith(
-          {int? id,
-          int? govId,
-          String? code,
-          String? nameAr,
-          String? nameEn,
-          bool? isActive}) =>
-      City(
-        id: id ?? this.id,
-        govId: govId ?? this.govId,
-        code: code ?? this.code,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        isActive: isActive ?? this.isActive,
-      );
-  City copyWithCompanion(CitiesCompanion data) {
-    return City(
-      id: data.id.present ? data.id.value : this.id,
-      govId: data.govId.present ? data.govId.value : this.govId,
-      code: data.code.present ? data.code.value : this.code,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('City(')
-          ..write('id: $id, ')
-          ..write('govId: $govId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, govId, code, nameAr, nameEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is City &&
-          other.id == this.id &&
-          other.govId == this.govId &&
-          other.code == this.code &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.isActive == this.isActive);
-}
-
-class CitiesCompanion extends UpdateCompanion<City> {
-  final Value<int> id;
-  final Value<int> govId;
-  final Value<String> code;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<bool> isActive;
-  const CitiesCompanion({
-    this.id = const Value.absent(),
-    this.govId = const Value.absent(),
-    this.code = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  CitiesCompanion.insert({
-    this.id = const Value.absent(),
-    required int govId,
-    required String code,
-    required String nameAr,
-    required String nameEn,
-    this.isActive = const Value.absent(),
-  })  : govId = Value(govId),
-        code = Value(code),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
-  static Insertable<City> custom({
-    Expression<int>? id,
-    Expression<int>? govId,
-    Expression<String>? code,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (govId != null) 'gov_id': govId,
-      if (code != null) 'code': code,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  CitiesCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? govId,
-      Value<String>? code,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<bool>? isActive}) {
-    return CitiesCompanion(
-      id: id ?? this.id,
-      govId: govId ?? this.govId,
-      code: code ?? this.code,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (govId.present) {
-      map['gov_id'] = Variable<int>(govId.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('CitiesCompanion(')
-          ..write('id: $id, ')
-          ..write('govId: $govId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $RegionsTable extends Regions with TableInfo<$RegionsTable, Region> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $RegionsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _cityIdMeta = const VerificationMeta('cityId');
-  @override
-  late final GeneratedColumn<int> cityId = GeneratedColumn<int>(
-      'city_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES cities (id)'));
-  static const VerificationMeta _codeMeta = const VerificationMeta('code');
-  @override
-  late final GeneratedColumn<String> code = GeneratedColumn<String>(
-      'code', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  @override
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  @override
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'),
-      defaultValue: const Constant(true));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, cityId, code, nameAr, nameEn, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'regions';
-  @override
-  VerificationContext validateIntegrity(Insertable<Region> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('city_id')) {
-      context.handle(_cityIdMeta,
-          cityId.isAcceptableOrUnknown(data['city_id']!, _cityIdMeta));
-    } else if (isInserting) {
-      context.missing(_cityIdMeta);
-    }
-    if (data.containsKey('code')) {
-      context.handle(
-          _codeMeta, code.isAcceptableOrUnknown(data['code']!, _codeMeta));
-    } else if (isInserting) {
-      context.missing(_codeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Region map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Region(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      cityId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}city_id'])!,
-      code: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  $RegionsTable createAlias(String alias) {
-    return $RegionsTable(attachedDatabase, alias);
-  }
-}
-
-class Region extends DataClass implements Insertable<Region> {
-  final int id;
-  final int cityId;
-  final String code;
-  final String nameAr;
-  final String nameEn;
-  final bool isActive;
-  const Region(
-      {required this.id,
-      required this.cityId,
-      required this.code,
-      required this.nameAr,
-      required this.nameEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['city_id'] = Variable<int>(cityId);
-    map['code'] = Variable<String>(code);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  RegionsCompanion toCompanion(bool nullToAbsent) {
-    return RegionsCompanion(
-      id: Value(id),
-      cityId: Value(cityId),
-      code: Value(code),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Region.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Region(
-      id: serializer.fromJson<int>(json['id']),
-      cityId: serializer.fromJson<int>(json['cityId']),
-      code: serializer.fromJson<String>(json['code']),
-      nameAr: serializer.fromJson<String>(json['nameAr']),
-      nameEn: serializer.fromJson<String>(json['nameEn']),
-      isActive: serializer.fromJson<bool>(json['isActive']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'cityId': serializer.toJson<int>(cityId),
-      'code': serializer.toJson<String>(code),
-      'nameAr': serializer.toJson<String>(nameAr),
-      'nameEn': serializer.toJson<String>(nameEn),
-      'isActive': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Region copyWith(
-          {int? id,
-          int? cityId,
-          String? code,
-          String? nameAr,
-          String? nameEn,
-          bool? isActive}) =>
-      Region(
-        id: id ?? this.id,
-        cityId: cityId ?? this.cityId,
-        code: code ?? this.code,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        isActive: isActive ?? this.isActive,
-      );
-  Region copyWithCompanion(RegionsCompanion data) {
-    return Region(
-      id: data.id.present ? data.id.value : this.id,
-      cityId: data.cityId.present ? data.cityId.value : this.cityId,
-      code: data.code.present ? data.code.value : this.code,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Region(')
-          ..write('id: $id, ')
-          ..write('cityId: $cityId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, cityId, code, nameAr, nameEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Region &&
-          other.id == this.id &&
-          other.cityId == this.cityId &&
-          other.code == this.code &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.isActive == this.isActive);
-}
-
-class RegionsCompanion extends UpdateCompanion<Region> {
-  final Value<int> id;
-  final Value<int> cityId;
-  final Value<String> code;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<bool> isActive;
-  const RegionsCompanion({
-    this.id = const Value.absent(),
-    this.cityId = const Value.absent(),
-    this.code = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  RegionsCompanion.insert({
-    this.id = const Value.absent(),
-    required int cityId,
-    required String code,
-    required String nameAr,
-    required String nameEn,
-    this.isActive = const Value.absent(),
-  })  : cityId = Value(cityId),
-        code = Value(code),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
-  static Insertable<Region> custom({
-    Expression<int>? id,
-    Expression<int>? cityId,
-    Expression<String>? code,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (cityId != null) 'city_id': cityId,
-      if (code != null) 'code': code,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  RegionsCompanion copyWith(
-      {Value<int>? id,
-      Value<int>? cityId,
-      Value<String>? code,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<bool>? isActive}) {
-    return RegionsCompanion(
-      id: id ?? this.id,
-      cityId: cityId ?? this.cityId,
-      code: code ?? this.code,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (cityId.present) {
-      map['city_id'] = Variable<int>(cityId.value);
-    }
-    if (code.present) {
-      map['code'] = Variable<String>(code.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RegionsCompanion(')
-          ..write('id: $id, ')
-          ..write('cityId: $cityId, ')
-          ..write('code: $code, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
@@ -4696,96 +7706,956 @@ class RegionsCompanion extends UpdateCompanion<Region> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
-  late final $UsersTable users = $UsersTable(this);
-  late final $CompanyInfoTable companyInfo = $CompanyInfoTable(this);
-  late final $BranchesTable branches = $BranchesTable(this);
-  late final $FinancialPeriodsTable financialPeriods =
-      $FinancialPeriodsTable(this);
-  late final $AccountsTable accounts = $AccountsTable(this);
-  late final $RolesTable roles = $RolesTable(this);
-  late final $UserRolesTable userRoles = $UserRolesTable(this);
-  late final $RolePermissionsTable rolePermissions =
-      $RolePermissionsTable(this);
-  late final $AuditLogTable auditLog = $AuditLogTable(this);
-  late final $SystemConfigTable systemConfig = $SystemConfigTable(this);
-  late final $ZonesTable zones = $ZonesTable(this);
-  late final $CountriesTable countries = $CountriesTable(this);
-  late final $GovernoratesTable governorates = $GovernoratesTable(this);
-  late final $CitiesTable cities = $CitiesTable(this);
-  late final $RegionsTable regions = $RegionsTable(this);
+  late final TaxBrackets taxBrackets = TaxBrackets(this);
+  late final TaxTypes taxTypes = TaxTypes(this);
+  late final TaxCalcMethods taxCalcMethods = TaxCalcMethods(this);
+  late final Currencies currencies = Currencies(this);
+  late final CurrencyDenominations currencyDenominations =
+      CurrencyDenominations(this);
+  late final Zones zones = Zones(this);
+  late final Countries countries = Countries(this);
+  late final Governorates governorates = Governorates(this);
+  late final Cities cities = Cities(this);
+  late final Regions regions = Regions(this);
+  late final SystemConfig systemConfig = SystemConfig(this);
+  late final CompanyInfo companyInfo = CompanyInfo(this);
+  late final Branches branches = Branches(this);
+  late final FinancialPeriods financialPeriods = FinancialPeriods(this);
+  late final Accounts accounts = Accounts(this);
+  late final Roles roles = Roles(this);
+  late final Users users = Users(this);
+  late final UserRoles userRoles = UserRoles(this);
+  late final RolePermissions rolePermissions = RolePermissions(this);
+  late final AuditLog auditLog = AuditLog(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-        users,
+        taxBrackets,
+        taxTypes,
+        taxCalcMethods,
+        currencies,
+        currencyDenominations,
+        zones,
+        countries,
+        governorates,
+        cities,
+        regions,
+        systemConfig,
         companyInfo,
         branches,
         financialPeriods,
         accounts,
         roles,
+        users,
         userRoles,
         rolePermissions,
-        auditLog,
-        systemConfig,
-        zones,
-        countries,
-        governorates,
-        cities,
-        regions
+        auditLog
       ];
 }
 
-typedef $$UsersTableCreateCompanionBuilder = UsersCompanion Function({
-  Value<int> id,
-  required String username,
-  required String password,
-  Value<String?> email,
-  Value<bool> isActive,
+typedef $TaxBracketsCreateCompanionBuilder = TaxBracketsCompanion Function({
+  required String bracketCode,
+  required String nameAr,
+  required String nameEn,
+  required double taxRate,
+  required bool isDefault,
+  Value<int> rowid,
 });
-typedef $$UsersTableUpdateCompanionBuilder = UsersCompanion Function({
-  Value<int> id,
-  Value<String> username,
-  Value<String> password,
-  Value<String?> email,
-  Value<bool> isActive,
+typedef $TaxBracketsUpdateCompanionBuilder = TaxBracketsCompanion Function({
+  Value<String> bracketCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<double> taxRate,
+  Value<bool> isDefault,
+  Value<int> rowid,
 });
 
-final class $$UsersTableReferences
-    extends BaseReferences<_$AppDatabase, $UsersTable, User> {
-  $$UsersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+class $TaxBracketsFilterComposer extends Composer<_$AppDatabase, TaxBrackets> {
+  $TaxBracketsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get bracketCode => $composableBuilder(
+      column: $table.bracketCode, builder: (column) => ColumnFilters(column));
 
-  static MultiTypedResultKey<$UserRolesTable, List<UserRole>>
-      _userRolesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-          db.userRoles,
-          aliasName: $_aliasNameGenerator(db.users.id, db.userRoles.userId));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
 
-  $$UserRolesTableProcessedTableManager get userRolesRefs {
-    final manager = $$UserRolesTableTableManager($_db, $_db.userRoles)
-        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
-    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
+  ColumnFilters<double> get taxRate => $composableBuilder(
+      column: $table.taxRate, builder: (column) => ColumnFilters(column));
 
-  static MultiTypedResultKey<$AuditLogTable, List<AuditLogData>>
-      _auditLogRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.auditLog,
-              aliasName: $_aliasNameGenerator(db.users.id, db.auditLog.userId));
+  ColumnFilters<bool> get isDefault => $composableBuilder(
+      column: $table.isDefault, builder: (column) => ColumnFilters(column));
+}
 
-  $$AuditLogTableProcessedTableManager get auditLogRefs {
-    final manager = $$AuditLogTableTableManager($_db, $_db.auditLog)
-        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+class $TaxBracketsOrderingComposer
+    extends Composer<_$AppDatabase, TaxBrackets> {
+  $TaxBracketsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get bracketCode => $composableBuilder(
+      column: $table.bracketCode, builder: (column) => ColumnOrderings(column));
 
-    final cache = $_typedResult.readTableOrNull(_auditLogRefsTable($_db));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get taxRate => $composableBuilder(
+      column: $table.taxRate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDefault => $composableBuilder(
+      column: $table.isDefault, builder: (column) => ColumnOrderings(column));
+}
+
+class $TaxBracketsAnnotationComposer
+    extends Composer<_$AppDatabase, TaxBrackets> {
+  $TaxBracketsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get bracketCode => $composableBuilder(
+      column: $table.bracketCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<double> get taxRate =>
+      $composableBuilder(column: $table.taxRate, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDefault =>
+      $composableBuilder(column: $table.isDefault, builder: (column) => column);
+}
+
+class $TaxBracketsTableManager extends RootTableManager<
+    _$AppDatabase,
+    TaxBrackets,
+    TaxBracket,
+    $TaxBracketsFilterComposer,
+    $TaxBracketsOrderingComposer,
+    $TaxBracketsAnnotationComposer,
+    $TaxBracketsCreateCompanionBuilder,
+    $TaxBracketsUpdateCompanionBuilder,
+    (TaxBracket, BaseReferences<_$AppDatabase, TaxBrackets, TaxBracket>),
+    TaxBracket,
+    PrefetchHooks Function()> {
+  $TaxBracketsTableManager(_$AppDatabase db, TaxBrackets table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $TaxBracketsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $TaxBracketsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $TaxBracketsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> bracketCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<double> taxRate = const Value.absent(),
+            Value<bool> isDefault = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxBracketsCompanion(
+            bracketCode: bracketCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            taxRate: taxRate,
+            isDefault: isDefault,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String bracketCode,
+            required String nameAr,
+            required String nameEn,
+            required double taxRate,
+            required bool isDefault,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxBracketsCompanion.insert(
+            bracketCode: bracketCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            taxRate: taxRate,
+            isDefault: isDefault,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $TaxBracketsProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    TaxBrackets,
+    TaxBracket,
+    $TaxBracketsFilterComposer,
+    $TaxBracketsOrderingComposer,
+    $TaxBracketsAnnotationComposer,
+    $TaxBracketsCreateCompanionBuilder,
+    $TaxBracketsUpdateCompanionBuilder,
+    (TaxBracket, BaseReferences<_$AppDatabase, TaxBrackets, TaxBracket>),
+    TaxBracket,
+    PrefetchHooks Function()>;
+typedef $TaxTypesCreateCompanionBuilder = TaxTypesCompanion Function({
+  required String typeCode,
+  required String nameAr,
+  required String nameEn,
+  required String calcMethod,
+  Value<String?> salesAccountId,
+  Value<String?> purchasesAccountId,
+  Value<int> rowid,
+});
+typedef $TaxTypesUpdateCompanionBuilder = TaxTypesCompanion Function({
+  Value<String> typeCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> calcMethod,
+  Value<String?> salesAccountId,
+  Value<String?> purchasesAccountId,
+  Value<int> rowid,
+});
+
+class $TaxTypesFilterComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get typeCode => $composableBuilder(
+      column: $table.typeCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get calcMethod => $composableBuilder(
+      column: $table.calcMethod, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId,
+      builder: (column) => ColumnFilters(column));
+}
+
+class $TaxTypesOrderingComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get typeCode => $composableBuilder(
+      column: $table.typeCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get calcMethod => $composableBuilder(
+      column: $table.calcMethod, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $TaxTypesAnnotationComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get typeCode =>
+      $composableBuilder(column: $table.typeCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get calcMethod => $composableBuilder(
+      column: $table.calcMethod, builder: (column) => column);
+
+  GeneratedColumn<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId, builder: (column) => column);
+
+  GeneratedColumn<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId, builder: (column) => column);
+}
+
+class $TaxTypesTableManager extends RootTableManager<
+    _$AppDatabase,
+    TaxTypes,
+    TaxType,
+    $TaxTypesFilterComposer,
+    $TaxTypesOrderingComposer,
+    $TaxTypesAnnotationComposer,
+    $TaxTypesCreateCompanionBuilder,
+    $TaxTypesUpdateCompanionBuilder,
+    (TaxType, BaseReferences<_$AppDatabase, TaxTypes, TaxType>),
+    TaxType,
+    PrefetchHooks Function()> {
+  $TaxTypesTableManager(_$AppDatabase db, TaxTypes table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $TaxTypesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $TaxTypesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $TaxTypesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> typeCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> calcMethod = const Value.absent(),
+            Value<String?> salesAccountId = const Value.absent(),
+            Value<String?> purchasesAccountId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxTypesCompanion(
+            typeCode: typeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            calcMethod: calcMethod,
+            salesAccountId: salesAccountId,
+            purchasesAccountId: purchasesAccountId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String typeCode,
+            required String nameAr,
+            required String nameEn,
+            required String calcMethod,
+            Value<String?> salesAccountId = const Value.absent(),
+            Value<String?> purchasesAccountId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxTypesCompanion.insert(
+            typeCode: typeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            calcMethod: calcMethod,
+            salesAccountId: salesAccountId,
+            purchasesAccountId: purchasesAccountId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $TaxTypesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    TaxTypes,
+    TaxType,
+    $TaxTypesFilterComposer,
+    $TaxTypesOrderingComposer,
+    $TaxTypesAnnotationComposer,
+    $TaxTypesCreateCompanionBuilder,
+    $TaxTypesUpdateCompanionBuilder,
+    (TaxType, BaseReferences<_$AppDatabase, TaxTypes, TaxType>),
+    TaxType,
+    PrefetchHooks Function()>;
+typedef $TaxCalcMethodsCreateCompanionBuilder = TaxCalcMethodsCompanion
+    Function({
+  required String methodCode,
+  required String nameAr,
+  required String nameEn,
+  required String category,
+  Value<int> rowid,
+});
+typedef $TaxCalcMethodsUpdateCompanionBuilder = TaxCalcMethodsCompanion
+    Function({
+  Value<String> methodCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> category,
+  Value<int> rowid,
+});
+
+class $TaxCalcMethodsFilterComposer
+    extends Composer<_$AppDatabase, TaxCalcMethods> {
+  $TaxCalcMethodsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get methodCode => $composableBuilder(
+      column: $table.methodCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+}
+
+class $TaxCalcMethodsOrderingComposer
+    extends Composer<_$AppDatabase, TaxCalcMethods> {
+  $TaxCalcMethodsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get methodCode => $composableBuilder(
+      column: $table.methodCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+}
+
+class $TaxCalcMethodsAnnotationComposer
+    extends Composer<_$AppDatabase, TaxCalcMethods> {
+  $TaxCalcMethodsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get methodCode => $composableBuilder(
+      column: $table.methodCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+}
+
+class $TaxCalcMethodsTableManager extends RootTableManager<
+    _$AppDatabase,
+    TaxCalcMethods,
+    TaxCalcMethod,
+    $TaxCalcMethodsFilterComposer,
+    $TaxCalcMethodsOrderingComposer,
+    $TaxCalcMethodsAnnotationComposer,
+    $TaxCalcMethodsCreateCompanionBuilder,
+    $TaxCalcMethodsUpdateCompanionBuilder,
+    (
+      TaxCalcMethod,
+      BaseReferences<_$AppDatabase, TaxCalcMethods, TaxCalcMethod>
+    ),
+    TaxCalcMethod,
+    PrefetchHooks Function()> {
+  $TaxCalcMethodsTableManager(_$AppDatabase db, TaxCalcMethods table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $TaxCalcMethodsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $TaxCalcMethodsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $TaxCalcMethodsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> methodCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> category = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxCalcMethodsCompanion(
+            methodCode: methodCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            category: category,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String methodCode,
+            required String nameAr,
+            required String nameEn,
+            required String category,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxCalcMethodsCompanion.insert(
+            methodCode: methodCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            category: category,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $TaxCalcMethodsProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    TaxCalcMethods,
+    TaxCalcMethod,
+    $TaxCalcMethodsFilterComposer,
+    $TaxCalcMethodsOrderingComposer,
+    $TaxCalcMethodsAnnotationComposer,
+    $TaxCalcMethodsCreateCompanionBuilder,
+    $TaxCalcMethodsUpdateCompanionBuilder,
+    (
+      TaxCalcMethod,
+      BaseReferences<_$AppDatabase, TaxCalcMethods, TaxCalcMethod>
+    ),
+    TaxCalcMethod,
+    PrefetchHooks Function()>;
+typedef $CurrenciesCreateCompanionBuilder = CurrenciesCompanion Function({
+  required String currencyCode,
+  required String nameAr,
+  required String nameEn,
+  required String fractionNameAr,
+  required String fractionNameEn,
+  required double exchangeRate,
+  required bool isBaseCurrency,
+  required int decimalPlaces,
+  Value<double?> minRateLimit,
+  Value<double?> maxRateLimit,
+  Value<bool> isActive,
+  Value<int> rowid,
+});
+typedef $CurrenciesUpdateCompanionBuilder = CurrenciesCompanion Function({
+  Value<String> currencyCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> fractionNameAr,
+  Value<String> fractionNameEn,
+  Value<double> exchangeRate,
+  Value<bool> isBaseCurrency,
+  Value<int> decimalPlaces,
+  Value<double?> minRateLimit,
+  Value<double?> maxRateLimit,
+  Value<bool> isActive,
+  Value<int> rowid,
+});
+
+final class $CurrenciesReferences
+    extends BaseReferences<_$AppDatabase, Currencies, Currency> {
+  $CurrenciesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<CurrencyDenominations, List<CurrencyDenomination>>
+      _currencyDenominationsRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.currencyDenominations,
+              aliasName: $_aliasNameGenerator(db.currencies.currencyCode,
+                  db.currencyDenominations.currencyCode));
+
+  $CurrencyDenominationsProcessedTableManager get currencyDenominationsRefs {
+    final manager =
+        $CurrencyDenominationsTableManager($_db, $_db.currencyDenominations)
+            .filter((f) => f.currencyCode.currencyCode
+                .sqlEquals($_itemColumn<String>('currency_code')!));
+
+    final cache =
+        $_typedResult.readTableOrNull(_currencyDenominationsRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableFilterComposer({
+class $CurrenciesFilterComposer extends Composer<_$AppDatabase, Currencies> {
+  $CurrenciesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get currencyCode => $composableBuilder(
+      column: $table.currencyCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fractionNameAr => $composableBuilder(
+      column: $table.fractionNameAr,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fractionNameEn => $composableBuilder(
+      column: $table.fractionNameEn,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get exchangeRate => $composableBuilder(
+      column: $table.exchangeRate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isBaseCurrency => $composableBuilder(
+      column: $table.isBaseCurrency,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get decimalPlaces => $composableBuilder(
+      column: $table.decimalPlaces, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get minRateLimit => $composableBuilder(
+      column: $table.minRateLimit, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get maxRateLimit => $composableBuilder(
+      column: $table.maxRateLimit, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> currencyDenominationsRefs(
+      Expression<bool> Function($CurrencyDenominationsFilterComposer f) f) {
+    final $CurrencyDenominationsFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.currencyCode,
+        referencedTable: $db.currencyDenominations,
+        getReferencedColumn: (t) => t.currencyCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CurrencyDenominationsFilterComposer(
+              $db: $db,
+              $table: $db.currencyDenominations,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CurrenciesOrderingComposer extends Composer<_$AppDatabase, Currencies> {
+  $CurrenciesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get currencyCode => $composableBuilder(
+      column: $table.currencyCode,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fractionNameAr => $composableBuilder(
+      column: $table.fractionNameAr,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fractionNameEn => $composableBuilder(
+      column: $table.fractionNameEn,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get exchangeRate => $composableBuilder(
+      column: $table.exchangeRate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isBaseCurrency => $composableBuilder(
+      column: $table.isBaseCurrency,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get decimalPlaces => $composableBuilder(
+      column: $table.decimalPlaces,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get minRateLimit => $composableBuilder(
+      column: $table.minRateLimit,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get maxRateLimit => $composableBuilder(
+      column: $table.maxRateLimit,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+}
+
+class $CurrenciesAnnotationComposer
+    extends Composer<_$AppDatabase, Currencies> {
+  $CurrenciesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get currencyCode => $composableBuilder(
+      column: $table.currencyCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get fractionNameAr => $composableBuilder(
+      column: $table.fractionNameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get fractionNameEn => $composableBuilder(
+      column: $table.fractionNameEn, builder: (column) => column);
+
+  GeneratedColumn<double> get exchangeRate => $composableBuilder(
+      column: $table.exchangeRate, builder: (column) => column);
+
+  GeneratedColumn<bool> get isBaseCurrency => $composableBuilder(
+      column: $table.isBaseCurrency, builder: (column) => column);
+
+  GeneratedColumn<int> get decimalPlaces => $composableBuilder(
+      column: $table.decimalPlaces, builder: (column) => column);
+
+  GeneratedColumn<double> get minRateLimit => $composableBuilder(
+      column: $table.minRateLimit, builder: (column) => column);
+
+  GeneratedColumn<double> get maxRateLimit => $composableBuilder(
+      column: $table.maxRateLimit, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  Expression<T> currencyDenominationsRefs<T extends Object>(
+      Expression<T> Function($CurrencyDenominationsAnnotationComposer a) f) {
+    final $CurrencyDenominationsAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.currencyCode,
+        referencedTable: $db.currencyDenominations,
+        getReferencedColumn: (t) => t.currencyCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CurrencyDenominationsAnnotationComposer(
+              $db: $db,
+              $table: $db.currencyDenominations,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CurrenciesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Currencies,
+    Currency,
+    $CurrenciesFilterComposer,
+    $CurrenciesOrderingComposer,
+    $CurrenciesAnnotationComposer,
+    $CurrenciesCreateCompanionBuilder,
+    $CurrenciesUpdateCompanionBuilder,
+    (Currency, $CurrenciesReferences),
+    Currency,
+    PrefetchHooks Function({bool currencyDenominationsRefs})> {
+  $CurrenciesTableManager(_$AppDatabase db, Currencies table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $CurrenciesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CurrenciesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CurrenciesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> currencyCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> fractionNameAr = const Value.absent(),
+            Value<String> fractionNameEn = const Value.absent(),
+            Value<double> exchangeRate = const Value.absent(),
+            Value<bool> isBaseCurrency = const Value.absent(),
+            Value<int> decimalPlaces = const Value.absent(),
+            Value<double?> minRateLimit = const Value.absent(),
+            Value<double?> maxRateLimit = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CurrenciesCompanion(
+            currencyCode: currencyCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            fractionNameAr: fractionNameAr,
+            fractionNameEn: fractionNameEn,
+            exchangeRate: exchangeRate,
+            isBaseCurrency: isBaseCurrency,
+            decimalPlaces: decimalPlaces,
+            minRateLimit: minRateLimit,
+            maxRateLimit: maxRateLimit,
+            isActive: isActive,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String currencyCode,
+            required String nameAr,
+            required String nameEn,
+            required String fractionNameAr,
+            required String fractionNameEn,
+            required double exchangeRate,
+            required bool isBaseCurrency,
+            required int decimalPlaces,
+            Value<double?> minRateLimit = const Value.absent(),
+            Value<double?> maxRateLimit = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              CurrenciesCompanion.insert(
+            currencyCode: currencyCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            fractionNameAr: fractionNameAr,
+            fractionNameEn: fractionNameEn,
+            exchangeRate: exchangeRate,
+            isBaseCurrency: isBaseCurrency,
+            decimalPlaces: decimalPlaces,
+            minRateLimit: minRateLimit,
+            maxRateLimit: maxRateLimit,
+            isActive: isActive,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $CurrenciesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({currencyDenominationsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (currencyDenominationsRefs) db.currencyDenominations
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (currencyDenominationsRefs)
+                    await $_getPrefetchedData<Currency, Currencies,
+                            CurrencyDenomination>(
+                        currentTable: table,
+                        referencedTable: $CurrenciesReferences
+                            ._currencyDenominationsRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $CurrenciesReferences(db, table, p0)
+                                .currencyDenominationsRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems.where(
+                                (e) => e.currencyCode == item.currencyCode),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $CurrenciesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Currencies,
+    Currency,
+    $CurrenciesFilterComposer,
+    $CurrenciesOrderingComposer,
+    $CurrenciesAnnotationComposer,
+    $CurrenciesCreateCompanionBuilder,
+    $CurrenciesUpdateCompanionBuilder,
+    (Currency, $CurrenciesReferences),
+    Currency,
+    PrefetchHooks Function({bool currencyDenominationsRefs})>;
+typedef $CurrencyDenominationsCreateCompanionBuilder
+    = CurrencyDenominationsCompanion Function({
+  Value<int> id,
+  required String currencyCode,
+  required double denominationValue,
+  required String denominationNameAr,
+  required String denominationNameEn,
+  required String denominationType,
+});
+typedef $CurrencyDenominationsUpdateCompanionBuilder
+    = CurrencyDenominationsCompanion Function({
+  Value<int> id,
+  Value<String> currencyCode,
+  Value<double> denominationValue,
+  Value<String> denominationNameAr,
+  Value<String> denominationNameEn,
+  Value<String> denominationType,
+});
+
+final class $CurrencyDenominationsReferences extends BaseReferences<
+    _$AppDatabase, CurrencyDenominations, CurrencyDenomination> {
+  $CurrencyDenominationsReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static Currencies _currencyCodeTable(_$AppDatabase db) =>
+      db.currencies.createAlias($_aliasNameGenerator(
+          db.currencyDenominations.currencyCode, db.currencies.currencyCode));
+
+  $CurrenciesProcessedTableManager get currencyCode {
+    final $_column = $_itemColumn<String>('currency_code')!;
+
+    final manager = $CurrenciesTableManager($_db, $_db.currencies)
+        .filter((f) => f.currencyCode.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_currencyCodeTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $CurrencyDenominationsFilterComposer
+    extends Composer<_$AppDatabase, CurrencyDenominations> {
+  $CurrencyDenominationsFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4795,64 +8665,46 @@ class $$UsersTableFilterComposer extends Composer<_$AppDatabase, $UsersTable> {
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get username => $composableBuilder(
-      column: $table.username, builder: (column) => ColumnFilters(column));
+  ColumnFilters<double> get denominationValue => $composableBuilder(
+      column: $table.denominationValue,
+      builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get denominationNameAr => $composableBuilder(
+      column: $table.denominationNameAr,
+      builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get denominationNameEn => $composableBuilder(
+      column: $table.denominationNameEn,
+      builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get denominationType => $composableBuilder(
+      column: $table.denominationType,
+      builder: (column) => ColumnFilters(column));
 
-  Expression<bool> userRolesRefs(
-      Expression<bool> Function($$UserRolesTableFilterComposer f) f) {
-    final $$UserRolesTableFilterComposer composer = $composerBuilder(
+  $CurrenciesFilterComposer get currencyCode {
+    final $CurrenciesFilterComposer composer = $composerBuilder(
         composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.userId,
+        getCurrentColumn: (t) => t.currencyCode,
+        referencedTable: $db.currencies,
+        getReferencedColumn: (t) => t.currencyCode,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UserRolesTableFilterComposer(
+            $CurrenciesFilterComposer(
               $db: $db,
-              $table: $db.userRoles,
+              $table: $db.currencies,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
                   $removeJoinBuilderFromRootComposer,
             ));
-    return f(composer);
-  }
-
-  Expression<bool> auditLogRefs(
-      Expression<bool> Function($$AuditLogTableFilterComposer f) f) {
-    final $$AuditLogTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.auditLog,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$AuditLogTableFilterComposer(
-              $db: $db,
-              $table: $db.auditLog,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
+    return composer;
   }
 }
 
-class $$UsersTableOrderingComposer
-    extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableOrderingComposer({
+class $CurrencyDenominationsOrderingComposer
+    extends Composer<_$AppDatabase, CurrencyDenominations> {
+  $CurrencyDenominationsOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4862,22 +8714,46 @@ class $$UsersTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get username => $composableBuilder(
-      column: $table.username, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<double> get denominationValue => $composableBuilder(
+      column: $table.denominationValue,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get denominationNameAr => $composableBuilder(
+      column: $table.denominationNameAr,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get denominationNameEn => $composableBuilder(
+      column: $table.denominationNameEn,
+      builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get denominationType => $composableBuilder(
+      column: $table.denominationType,
+      builder: (column) => ColumnOrderings(column));
+
+  $CurrenciesOrderingComposer get currencyCode {
+    final $CurrenciesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.currencyCode,
+        referencedTable: $db.currencies,
+        getReferencedColumn: (t) => t.currencyCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CurrenciesOrderingComposer(
+              $db: $db,
+              $table: $db.currencies,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
-class $$UsersTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UsersTable> {
-  $$UsersTableAnnotationComposer({
+class $CurrencyDenominationsAnnotationComposer
+    extends Composer<_$AppDatabase, CurrencyDenominations> {
+  $CurrencyDenominationsAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -4887,215 +8763,187 @@ class $$UsersTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get username =>
-      $composableBuilder(column: $table.username, builder: (column) => column);
+  GeneratedColumn<double> get denominationValue => $composableBuilder(
+      column: $table.denominationValue, builder: (column) => column);
 
-  GeneratedColumn<String> get password =>
-      $composableBuilder(column: $table.password, builder: (column) => column);
+  GeneratedColumn<String> get denominationNameAr => $composableBuilder(
+      column: $table.denominationNameAr, builder: (column) => column);
 
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
+  GeneratedColumn<String> get denominationNameEn => $composableBuilder(
+      column: $table.denominationNameEn, builder: (column) => column);
 
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
+  GeneratedColumn<String> get denominationType => $composableBuilder(
+      column: $table.denominationType, builder: (column) => column);
 
-  Expression<T> userRolesRefs<T extends Object>(
-      Expression<T> Function($$UserRolesTableAnnotationComposer a) f) {
-    final $$UserRolesTableAnnotationComposer composer = $composerBuilder(
+  $CurrenciesAnnotationComposer get currencyCode {
+    final $CurrenciesAnnotationComposer composer = $composerBuilder(
         composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.userId,
+        getCurrentColumn: (t) => t.currencyCode,
+        referencedTable: $db.currencies,
+        getReferencedColumn: (t) => t.currencyCode,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UserRolesTableAnnotationComposer(
+            $CurrenciesAnnotationComposer(
               $db: $db,
-              $table: $db.userRoles,
+              $table: $db.currencies,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
                   $removeJoinBuilderFromRootComposer,
             ));
-    return f(composer);
-  }
-
-  Expression<T> auditLogRefs<T extends Object>(
-      Expression<T> Function($$AuditLogTableAnnotationComposer a) f) {
-    final $$AuditLogTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.auditLog,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$AuditLogTableAnnotationComposer(
-              $db: $db,
-              $table: $db.auditLog,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
+    return composer;
   }
 }
 
-class $$UsersTableTableManager extends RootTableManager<
+class $CurrencyDenominationsTableManager extends RootTableManager<
     _$AppDatabase,
-    $UsersTable,
-    User,
-    $$UsersTableFilterComposer,
-    $$UsersTableOrderingComposer,
-    $$UsersTableAnnotationComposer,
-    $$UsersTableCreateCompanionBuilder,
-    $$UsersTableUpdateCompanionBuilder,
-    (User, $$UsersTableReferences),
-    User,
-    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})> {
-  $$UsersTableTableManager(_$AppDatabase db, $UsersTable table)
+    CurrencyDenominations,
+    CurrencyDenomination,
+    $CurrencyDenominationsFilterComposer,
+    $CurrencyDenominationsOrderingComposer,
+    $CurrencyDenominationsAnnotationComposer,
+    $CurrencyDenominationsCreateCompanionBuilder,
+    $CurrencyDenominationsUpdateCompanionBuilder,
+    (CurrencyDenomination, $CurrencyDenominationsReferences),
+    CurrencyDenomination,
+    PrefetchHooks Function({bool currencyCode})> {
+  $CurrencyDenominationsTableManager(
+      _$AppDatabase db, CurrencyDenominations table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$UsersTableFilterComposer($db: db, $table: table),
+              $CurrencyDenominationsFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$UsersTableOrderingComposer($db: db, $table: table),
+              $CurrencyDenominationsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$UsersTableAnnotationComposer($db: db, $table: table),
+              $CurrencyDenominationsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<String> username = const Value.absent(),
-            Value<String> password = const Value.absent(),
-            Value<String?> email = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
+            Value<String> currencyCode = const Value.absent(),
+            Value<double> denominationValue = const Value.absent(),
+            Value<String> denominationNameAr = const Value.absent(),
+            Value<String> denominationNameEn = const Value.absent(),
+            Value<String> denominationType = const Value.absent(),
           }) =>
-              UsersCompanion(
+              CurrencyDenominationsCompanion(
             id: id,
-            username: username,
-            password: password,
-            email: email,
-            isActive: isActive,
+            currencyCode: currencyCode,
+            denominationValue: denominationValue,
+            denominationNameAr: denominationNameAr,
+            denominationNameEn: denominationNameEn,
+            denominationType: denominationType,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required String username,
-            required String password,
-            Value<String?> email = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
+            required String currencyCode,
+            required double denominationValue,
+            required String denominationNameAr,
+            required String denominationNameEn,
+            required String denominationType,
           }) =>
-              UsersCompanion.insert(
+              CurrencyDenominationsCompanion.insert(
             id: id,
-            username: username,
-            password: password,
-            email: email,
-            isActive: isActive,
+            currencyCode: currencyCode,
+            denominationValue: denominationValue,
+            denominationNameAr: denominationNameAr,
+            denominationNameEn: denominationNameEn,
+            denominationType: denominationType,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$UsersTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable(table),
+                    $CurrencyDenominationsReferences(db, table, e)
+                  ))
               .toList(),
-          prefetchHooksCallback: (
-              {userRolesRefs = false, auditLogRefs = false}) {
+          prefetchHooksCallback: ({currencyCode = false}) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [
-                if (userRolesRefs) db.userRoles,
-                if (auditLogRefs) db.auditLog
-              ],
-              addJoins: null,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (currencyCode) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.currencyCode,
+                    referencedTable:
+                        $CurrencyDenominationsReferences._currencyCodeTable(db),
+                    referencedColumn: $CurrencyDenominationsReferences
+                        ._currencyCodeTable(db)
+                        .currencyCode,
+                  ) as T;
+                }
+
+                return state;
+              },
               getPrefetchedDataCallback: (items) async {
-                return [
-                  if (userRolesRefs)
-                    await $_getPrefetchedData<User, $UsersTable, UserRole>(
-                        currentTable: table,
-                        referencedTable:
-                            $$UsersTableReferences._userRolesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$UsersTableReferences(db, table, p0).userRolesRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.userId == item.id),
-                        typedResults: items),
-                  if (auditLogRefs)
-                    await $_getPrefetchedData<User, $UsersTable, AuditLogData>(
-                        currentTable: table,
-                        referencedTable:
-                            $$UsersTableReferences._auditLogRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$UsersTableReferences(db, table, p0).auditLogRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.userId == item.id),
-                        typedResults: items)
-                ];
+                return [];
               },
             );
           },
         ));
 }
 
-typedef $$UsersTableProcessedTableManager = ProcessedTableManager<
+typedef $CurrencyDenominationsProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $UsersTable,
-    User,
-    $$UsersTableFilterComposer,
-    $$UsersTableOrderingComposer,
-    $$UsersTableAnnotationComposer,
-    $$UsersTableCreateCompanionBuilder,
-    $$UsersTableUpdateCompanionBuilder,
-    (User, $$UsersTableReferences),
-    User,
-    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})>;
-typedef $$CompanyInfoTableCreateCompanionBuilder = CompanyInfoCompanion
-    Function({
+    CurrencyDenominations,
+    CurrencyDenomination,
+    $CurrencyDenominationsFilterComposer,
+    $CurrencyDenominationsOrderingComposer,
+    $CurrencyDenominationsAnnotationComposer,
+    $CurrencyDenominationsCreateCompanionBuilder,
+    $CurrencyDenominationsUpdateCompanionBuilder,
+    (CurrencyDenomination, $CurrencyDenominationsReferences),
+    CurrencyDenomination,
+    PrefetchHooks Function({bool currencyCode})>;
+typedef $ZonesCreateCompanionBuilder = ZonesCompanion Function({
   Value<int> id,
+  required String zoneCode,
   required String nameAr,
   required String nameEn,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> email,
-  Value<String?> website,
-  Value<Uint8List?> logo,
-  Value<bool> isMainCompany,
+  Value<bool> isActive,
 });
-typedef $$CompanyInfoTableUpdateCompanionBuilder = CompanyInfoCompanion
-    Function({
+typedef $ZonesUpdateCompanionBuilder = ZonesCompanion Function({
   Value<int> id,
+  Value<String> zoneCode,
   Value<String> nameAr,
   Value<String> nameEn,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> email,
-  Value<String?> website,
-  Value<Uint8List?> logo,
-  Value<bool> isMainCompany,
+  Value<bool> isActive,
 });
 
-final class $$CompanyInfoTableReferences
-    extends BaseReferences<_$AppDatabase, $CompanyInfoTable, CompanyInfoData> {
-  $$CompanyInfoTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $ZonesReferences
+    extends BaseReferences<_$AppDatabase, Zones, Zone> {
+  $ZonesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$BranchesTable, List<Branche>> _branchesRefsTable(
+  static MultiTypedResultKey<Countries, List<Country>> _countriesRefsTable(
           _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.branches,
-          aliasName:
-              $_aliasNameGenerator(db.companyInfo.id, db.branches.companyId));
+      MultiTypedResultKey.fromTable(db.countries,
+          aliasName: $_aliasNameGenerator(db.zones.id, db.countries.zoneId));
 
-  $$BranchesTableProcessedTableManager get branchesRefs {
-    final manager = $$BranchesTableTableManager($_db, $_db.branches)
-        .filter((f) => f.companyId.id.sqlEquals($_itemColumn<int>('id')!));
+  $CountriesProcessedTableManager get countriesRefs {
+    final manager = $CountriesTableManager($_db, $_db.countries)
+        .filter((f) => f.zoneId.id.sqlEquals($_itemColumn<int>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
+    final cache = $_typedResult.readTableOrNull(_countriesRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$CompanyInfoTableFilterComposer
-    extends Composer<_$AppDatabase, $CompanyInfoTable> {
-  $$CompanyInfoTableFilterComposer({
+class $ZonesFilterComposer extends Composer<_$AppDatabase, Zones> {
+  $ZonesFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5105,11 +8953,1994 @@ class $$CompanyInfoTableFilterComposer
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get zoneCode => $composableBuilder(
+      column: $table.zoneCode, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<String> get nameAr => $composableBuilder(
       column: $table.nameAr, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> countriesRefs(
+      Expression<bool> Function($CountriesFilterComposer f) f) {
+    final $CountriesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.countries,
+        getReferencedColumn: (t) => t.zoneId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CountriesFilterComposer(
+              $db: $db,
+              $table: $db.countries,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $ZonesOrderingComposer extends Composer<_$AppDatabase, Zones> {
+  $ZonesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get zoneCode => $composableBuilder(
+      column: $table.zoneCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+}
+
+class $ZonesAnnotationComposer extends Composer<_$AppDatabase, Zones> {
+  $ZonesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get zoneCode =>
+      $composableBuilder(column: $table.zoneCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  Expression<T> countriesRefs<T extends Object>(
+      Expression<T> Function($CountriesAnnotationComposer a) f) {
+    final $CountriesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.countries,
+        getReferencedColumn: (t) => t.zoneId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CountriesAnnotationComposer(
+              $db: $db,
+              $table: $db.countries,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $ZonesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Zones,
+    Zone,
+    $ZonesFilterComposer,
+    $ZonesOrderingComposer,
+    $ZonesAnnotationComposer,
+    $ZonesCreateCompanionBuilder,
+    $ZonesUpdateCompanionBuilder,
+    (Zone, $ZonesReferences),
+    Zone,
+    PrefetchHooks Function({bool countriesRefs})> {
+  $ZonesTableManager(_$AppDatabase db, Zones table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $ZonesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $ZonesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $ZonesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> zoneCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              ZonesCompanion(
+            id: id,
+            zoneCode: zoneCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String zoneCode,
+            required String nameAr,
+            required String nameEn,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              ZonesCompanion.insert(
+            id: id,
+            zoneCode: zoneCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), $ZonesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({countriesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (countriesRefs) db.countries],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (countriesRefs)
+                    await $_getPrefetchedData<Zone, Zones, Country>(
+                        currentTable: table,
+                        referencedTable:
+                            $ZonesReferences._countriesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $ZonesReferences(db, table, p0).countriesRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.zoneId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $ZonesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Zones,
+    Zone,
+    $ZonesFilterComposer,
+    $ZonesOrderingComposer,
+    $ZonesAnnotationComposer,
+    $ZonesCreateCompanionBuilder,
+    $ZonesUpdateCompanionBuilder,
+    (Zone, $ZonesReferences),
+    Zone,
+    PrefetchHooks Function({bool countriesRefs})>;
+typedef $CountriesCreateCompanionBuilder = CountriesCompanion Function({
+  Value<int> id,
+  required String countryCode,
+  required String nameAr,
+  required String nameEn,
+  required String nationalityAr,
+  required String nationalityEn,
+  required int zoneId,
+  Value<bool> isActive,
+});
+typedef $CountriesUpdateCompanionBuilder = CountriesCompanion Function({
+  Value<int> id,
+  Value<String> countryCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> nationalityAr,
+  Value<String> nationalityEn,
+  Value<int> zoneId,
+  Value<bool> isActive,
+});
+
+final class $CountriesReferences
+    extends BaseReferences<_$AppDatabase, Countries, Country> {
+  $CountriesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Zones _zoneIdTable(_$AppDatabase db) => db.zones
+      .createAlias($_aliasNameGenerator(db.countries.zoneId, db.zones.id));
+
+  $ZonesProcessedTableManager get zoneId {
+    final $_column = $_itemColumn<int>('zone_id')!;
+
+    final manager = $ZonesTableManager($_db, $_db.zones)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_zoneIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<Governorates, List<Governorate>>
+      _governoratesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+          db.governorates,
+          aliasName:
+              $_aliasNameGenerator(db.countries.id, db.governorates.countryId));
+
+  $GovernoratesProcessedTableManager get governoratesRefs {
+    final manager = $GovernoratesTableManager($_db, $_db.governorates)
+        .filter((f) => f.countryId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_governoratesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $CountriesFilterComposer extends Composer<_$AppDatabase, Countries> {
+  $CountriesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get countryCode => $composableBuilder(
+      column: $table.countryCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nationalityAr => $composableBuilder(
+      column: $table.nationalityAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nationalityEn => $composableBuilder(
+      column: $table.nationalityEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  $ZonesFilterComposer get zoneId {
+    final $ZonesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.zoneId,
+        referencedTable: $db.zones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $ZonesFilterComposer(
+              $db: $db,
+              $table: $db.zones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> governoratesRefs(
+      Expression<bool> Function($GovernoratesFilterComposer f) f) {
+    final $GovernoratesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.governorates,
+        getReferencedColumn: (t) => t.countryId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $GovernoratesFilterComposer(
+              $db: $db,
+              $table: $db.governorates,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CountriesOrderingComposer extends Composer<_$AppDatabase, Countries> {
+  $CountriesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get countryCode => $composableBuilder(
+      column: $table.countryCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nationalityAr => $composableBuilder(
+      column: $table.nationalityAr,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nationalityEn => $composableBuilder(
+      column: $table.nationalityEn,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  $ZonesOrderingComposer get zoneId {
+    final $ZonesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.zoneId,
+        referencedTable: $db.zones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $ZonesOrderingComposer(
+              $db: $db,
+              $table: $db.zones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $CountriesAnnotationComposer extends Composer<_$AppDatabase, Countries> {
+  $CountriesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get countryCode => $composableBuilder(
+      column: $table.countryCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get nationalityAr => $composableBuilder(
+      column: $table.nationalityAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nationalityEn => $composableBuilder(
+      column: $table.nationalityEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  $ZonesAnnotationComposer get zoneId {
+    final $ZonesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.zoneId,
+        referencedTable: $db.zones,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $ZonesAnnotationComposer(
+              $db: $db,
+              $table: $db.zones,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> governoratesRefs<T extends Object>(
+      Expression<T> Function($GovernoratesAnnotationComposer a) f) {
+    final $GovernoratesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.governorates,
+        getReferencedColumn: (t) => t.countryId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $GovernoratesAnnotationComposer(
+              $db: $db,
+              $table: $db.governorates,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CountriesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Countries,
+    Country,
+    $CountriesFilterComposer,
+    $CountriesOrderingComposer,
+    $CountriesAnnotationComposer,
+    $CountriesCreateCompanionBuilder,
+    $CountriesUpdateCompanionBuilder,
+    (Country, $CountriesReferences),
+    Country,
+    PrefetchHooks Function({bool zoneId, bool governoratesRefs})> {
+  $CountriesTableManager(_$AppDatabase db, Countries table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $CountriesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CountriesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CountriesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> countryCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> nationalityAr = const Value.absent(),
+            Value<String> nationalityEn = const Value.absent(),
+            Value<int> zoneId = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              CountriesCompanion(
+            id: id,
+            countryCode: countryCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            nationalityAr: nationalityAr,
+            nationalityEn: nationalityEn,
+            zoneId: zoneId,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String countryCode,
+            required String nameAr,
+            required String nameEn,
+            required String nationalityAr,
+            required String nationalityEn,
+            required int zoneId,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              CountriesCompanion.insert(
+            id: id,
+            countryCode: countryCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            nationalityAr: nationalityAr,
+            nationalityEn: nationalityEn,
+            zoneId: zoneId,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $CountriesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({zoneId = false, governoratesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (governoratesRefs) db.governorates],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (zoneId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.zoneId,
+                    referencedTable: $CountriesReferences._zoneIdTable(db),
+                    referencedColumn: $CountriesReferences._zoneIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (governoratesRefs)
+                    await $_getPrefetchedData<Country, Countries, Governorate>(
+                        currentTable: table,
+                        referencedTable:
+                            $CountriesReferences._governoratesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $CountriesReferences(db, table, p0)
+                                .governoratesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.countryId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $CountriesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Countries,
+    Country,
+    $CountriesFilterComposer,
+    $CountriesOrderingComposer,
+    $CountriesAnnotationComposer,
+    $CountriesCreateCompanionBuilder,
+    $CountriesUpdateCompanionBuilder,
+    (Country, $CountriesReferences),
+    Country,
+    PrefetchHooks Function({bool zoneId, bool governoratesRefs})>;
+typedef $GovernoratesCreateCompanionBuilder = GovernoratesCompanion Function({
+  Value<int> id,
+  required String govCode,
+  required String nameAr,
+  required String nameEn,
+  required int countryId,
+  Value<bool> isActive,
+});
+typedef $GovernoratesUpdateCompanionBuilder = GovernoratesCompanion Function({
+  Value<int> id,
+  Value<String> govCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<int> countryId,
+  Value<bool> isActive,
+});
+
+final class $GovernoratesReferences
+    extends BaseReferences<_$AppDatabase, Governorates, Governorate> {
+  $GovernoratesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Countries _countryIdTable(_$AppDatabase db) =>
+      db.countries.createAlias(
+          $_aliasNameGenerator(db.governorates.countryId, db.countries.id));
+
+  $CountriesProcessedTableManager get countryId {
+    final $_column = $_itemColumn<int>('country_id')!;
+
+    final manager = $CountriesTableManager($_db, $_db.countries)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_countryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<Cities, List<City>> _citiesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.cities,
+          aliasName: $_aliasNameGenerator(db.governorates.id, db.cities.govId));
+
+  $CitiesProcessedTableManager get citiesRefs {
+    final manager = $CitiesTableManager($_db, $_db.cities)
+        .filter((f) => f.govId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_citiesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $GovernoratesFilterComposer
+    extends Composer<_$AppDatabase, Governorates> {
+  $GovernoratesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get govCode => $composableBuilder(
+      column: $table.govCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  $CountriesFilterComposer get countryId {
+    final $CountriesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.countryId,
+        referencedTable: $db.countries,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CountriesFilterComposer(
+              $db: $db,
+              $table: $db.countries,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> citiesRefs(
+      Expression<bool> Function($CitiesFilterComposer f) f) {
+    final $CitiesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.cities,
+        getReferencedColumn: (t) => t.govId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CitiesFilterComposer(
+              $db: $db,
+              $table: $db.cities,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $GovernoratesOrderingComposer
+    extends Composer<_$AppDatabase, Governorates> {
+  $GovernoratesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get govCode => $composableBuilder(
+      column: $table.govCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  $CountriesOrderingComposer get countryId {
+    final $CountriesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.countryId,
+        referencedTable: $db.countries,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CountriesOrderingComposer(
+              $db: $db,
+              $table: $db.countries,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $GovernoratesAnnotationComposer
+    extends Composer<_$AppDatabase, Governorates> {
+  $GovernoratesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get govCode =>
+      $composableBuilder(column: $table.govCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  $CountriesAnnotationComposer get countryId {
+    final $CountriesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.countryId,
+        referencedTable: $db.countries,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CountriesAnnotationComposer(
+              $db: $db,
+              $table: $db.countries,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> citiesRefs<T extends Object>(
+      Expression<T> Function($CitiesAnnotationComposer a) f) {
+    final $CitiesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.cities,
+        getReferencedColumn: (t) => t.govId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CitiesAnnotationComposer(
+              $db: $db,
+              $table: $db.cities,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $GovernoratesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Governorates,
+    Governorate,
+    $GovernoratesFilterComposer,
+    $GovernoratesOrderingComposer,
+    $GovernoratesAnnotationComposer,
+    $GovernoratesCreateCompanionBuilder,
+    $GovernoratesUpdateCompanionBuilder,
+    (Governorate, $GovernoratesReferences),
+    Governorate,
+    PrefetchHooks Function({bool countryId, bool citiesRefs})> {
+  $GovernoratesTableManager(_$AppDatabase db, Governorates table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $GovernoratesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $GovernoratesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $GovernoratesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> govCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<int> countryId = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              GovernoratesCompanion(
+            id: id,
+            govCode: govCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            countryId: countryId,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String govCode,
+            required String nameAr,
+            required String nameEn,
+            required int countryId,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              GovernoratesCompanion.insert(
+            id: id,
+            govCode: govCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            countryId: countryId,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $GovernoratesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({countryId = false, citiesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (citiesRefs) db.cities],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (countryId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.countryId,
+                    referencedTable:
+                        $GovernoratesReferences._countryIdTable(db),
+                    referencedColumn:
+                        $GovernoratesReferences._countryIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (citiesRefs)
+                    await $_getPrefetchedData<Governorate, Governorates, City>(
+                        currentTable: table,
+                        referencedTable:
+                            $GovernoratesReferences._citiesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $GovernoratesReferences(db, table, p0).citiesRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.govId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $GovernoratesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Governorates,
+    Governorate,
+    $GovernoratesFilterComposer,
+    $GovernoratesOrderingComposer,
+    $GovernoratesAnnotationComposer,
+    $GovernoratesCreateCompanionBuilder,
+    $GovernoratesUpdateCompanionBuilder,
+    (Governorate, $GovernoratesReferences),
+    Governorate,
+    PrefetchHooks Function({bool countryId, bool citiesRefs})>;
+typedef $CitiesCreateCompanionBuilder = CitiesCompanion Function({
+  Value<int> id,
+  required String cityCode,
+  required String nameAr,
+  required String nameEn,
+  required int govId,
+  Value<bool> isActive,
+});
+typedef $CitiesUpdateCompanionBuilder = CitiesCompanion Function({
+  Value<int> id,
+  Value<String> cityCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<int> govId,
+  Value<bool> isActive,
+});
+
+final class $CitiesReferences
+    extends BaseReferences<_$AppDatabase, Cities, City> {
+  $CitiesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Governorates _govIdTable(_$AppDatabase db) => db.governorates
+      .createAlias($_aliasNameGenerator(db.cities.govId, db.governorates.id));
+
+  $GovernoratesProcessedTableManager get govId {
+    final $_column = $_itemColumn<int>('gov_id')!;
+
+    final manager = $GovernoratesTableManager($_db, $_db.governorates)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_govIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<Regions, List<Region>> _regionsRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.regions,
+          aliasName: $_aliasNameGenerator(db.cities.id, db.regions.cityId));
+
+  $RegionsProcessedTableManager get regionsRefs {
+    final manager = $RegionsTableManager($_db, $_db.regions)
+        .filter((f) => f.cityId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_regionsRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $CitiesFilterComposer extends Composer<_$AppDatabase, Cities> {
+  $CitiesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get cityCode => $composableBuilder(
+      column: $table.cityCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  $GovernoratesFilterComposer get govId {
+    final $GovernoratesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.govId,
+        referencedTable: $db.governorates,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $GovernoratesFilterComposer(
+              $db: $db,
+              $table: $db.governorates,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> regionsRefs(
+      Expression<bool> Function($RegionsFilterComposer f) f) {
+    final $RegionsFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.regions,
+        getReferencedColumn: (t) => t.cityId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RegionsFilterComposer(
+              $db: $db,
+              $table: $db.regions,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CitiesOrderingComposer extends Composer<_$AppDatabase, Cities> {
+  $CitiesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get cityCode => $composableBuilder(
+      column: $table.cityCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  $GovernoratesOrderingComposer get govId {
+    final $GovernoratesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.govId,
+        referencedTable: $db.governorates,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $GovernoratesOrderingComposer(
+              $db: $db,
+              $table: $db.governorates,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $CitiesAnnotationComposer extends Composer<_$AppDatabase, Cities> {
+  $CitiesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get cityCode =>
+      $composableBuilder(column: $table.cityCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  $GovernoratesAnnotationComposer get govId {
+    final $GovernoratesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.govId,
+        referencedTable: $db.governorates,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $GovernoratesAnnotationComposer(
+              $db: $db,
+              $table: $db.governorates,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> regionsRefs<T extends Object>(
+      Expression<T> Function($RegionsAnnotationComposer a) f) {
+    final $RegionsAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.regions,
+        getReferencedColumn: (t) => t.cityId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RegionsAnnotationComposer(
+              $db: $db,
+              $table: $db.regions,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CitiesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Cities,
+    City,
+    $CitiesFilterComposer,
+    $CitiesOrderingComposer,
+    $CitiesAnnotationComposer,
+    $CitiesCreateCompanionBuilder,
+    $CitiesUpdateCompanionBuilder,
+    (City, $CitiesReferences),
+    City,
+    PrefetchHooks Function({bool govId, bool regionsRefs})> {
+  $CitiesTableManager(_$AppDatabase db, Cities table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $CitiesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CitiesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CitiesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> cityCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<int> govId = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              CitiesCompanion(
+            id: id,
+            cityCode: cityCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            govId: govId,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String cityCode,
+            required String nameAr,
+            required String nameEn,
+            required int govId,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              CitiesCompanion.insert(
+            id: id,
+            cityCode: cityCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            govId: govId,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), $CitiesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({govId = false, regionsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (regionsRefs) db.regions],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (govId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.govId,
+                    referencedTable: $CitiesReferences._govIdTable(db),
+                    referencedColumn: $CitiesReferences._govIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (regionsRefs)
+                    await $_getPrefetchedData<City, Cities, Region>(
+                        currentTable: table,
+                        referencedTable:
+                            $CitiesReferences._regionsRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $CitiesReferences(db, table, p0).regionsRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.cityId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $CitiesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Cities,
+    City,
+    $CitiesFilterComposer,
+    $CitiesOrderingComposer,
+    $CitiesAnnotationComposer,
+    $CitiesCreateCompanionBuilder,
+    $CitiesUpdateCompanionBuilder,
+    (City, $CitiesReferences),
+    City,
+    PrefetchHooks Function({bool govId, bool regionsRefs})>;
+typedef $RegionsCreateCompanionBuilder = RegionsCompanion Function({
+  Value<int> id,
+  required String regionCode,
+  required String nameAr,
+  required String nameEn,
+  required int cityId,
+  Value<bool> isActive,
+});
+typedef $RegionsUpdateCompanionBuilder = RegionsCompanion Function({
+  Value<int> id,
+  Value<String> regionCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<int> cityId,
+  Value<bool> isActive,
+});
+
+final class $RegionsReferences
+    extends BaseReferences<_$AppDatabase, Regions, Region> {
+  $RegionsReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Cities _cityIdTable(_$AppDatabase db) => db.cities
+      .createAlias($_aliasNameGenerator(db.regions.cityId, db.cities.id));
+
+  $CitiesProcessedTableManager get cityId {
+    final $_column = $_itemColumn<int>('city_id')!;
+
+    final manager = $CitiesTableManager($_db, $_db.cities)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_cityIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $RegionsFilterComposer extends Composer<_$AppDatabase, Regions> {
+  $RegionsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get regionCode => $composableBuilder(
+      column: $table.regionCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  $CitiesFilterComposer get cityId {
+    final $CitiesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.cityId,
+        referencedTable: $db.cities,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CitiesFilterComposer(
+              $db: $db,
+              $table: $db.cities,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $RegionsOrderingComposer extends Composer<_$AppDatabase, Regions> {
+  $RegionsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get regionCode => $composableBuilder(
+      column: $table.regionCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  $CitiesOrderingComposer get cityId {
+    final $CitiesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.cityId,
+        referencedTable: $db.cities,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CitiesOrderingComposer(
+              $db: $db,
+              $table: $db.cities,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $RegionsAnnotationComposer extends Composer<_$AppDatabase, Regions> {
+  $RegionsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get regionCode => $composableBuilder(
+      column: $table.regionCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  $CitiesAnnotationComposer get cityId {
+    final $CitiesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.cityId,
+        referencedTable: $db.cities,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CitiesAnnotationComposer(
+              $db: $db,
+              $table: $db.cities,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $RegionsTableManager extends RootTableManager<
+    _$AppDatabase,
+    Regions,
+    Region,
+    $RegionsFilterComposer,
+    $RegionsOrderingComposer,
+    $RegionsAnnotationComposer,
+    $RegionsCreateCompanionBuilder,
+    $RegionsUpdateCompanionBuilder,
+    (Region, $RegionsReferences),
+    Region,
+    PrefetchHooks Function({bool cityId})> {
+  $RegionsTableManager(_$AppDatabase db, Regions table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $RegionsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $RegionsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $RegionsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> regionCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<int> cityId = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              RegionsCompanion(
+            id: id,
+            regionCode: regionCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            cityId: cityId,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String regionCode,
+            required String nameAr,
+            required String nameEn,
+            required int cityId,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              RegionsCompanion.insert(
+            id: id,
+            regionCode: regionCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            cityId: cityId,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                  (e) => (e.readTable(table), $RegionsReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({cityId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (cityId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.cityId,
+                    referencedTable: $RegionsReferences._cityIdTable(db),
+                    referencedColumn: $RegionsReferences._cityIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $RegionsProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Regions,
+    Region,
+    $RegionsFilterComposer,
+    $RegionsOrderingComposer,
+    $RegionsAnnotationComposer,
+    $RegionsCreateCompanionBuilder,
+    $RegionsUpdateCompanionBuilder,
+    (Region, $RegionsReferences),
+    Region,
+    PrefetchHooks Function({bool cityId})>;
+typedef $SystemConfigCreateCompanionBuilder = SystemConfigCompanion Function({
+  Value<int> id,
+  required String language,
+  required String dateFormat,
+  required String calendarType,
+  required String accountNumberType,
+  required int accountNumberLength,
+  required String costCenterPolicy,
+  required String projectPolicy,
+  required int passwordMinLength,
+  required int autoLockTimeout,
+  required bool useVat,
+  required bool useTds,
+  required bool useEInvoice,
+  required bool priceIncludesTax,
+  required String backupFrequency,
+  required bool cloudBackup,
+  required String uiTheme,
+  required String fontSize,
+});
+typedef $SystemConfigUpdateCompanionBuilder = SystemConfigCompanion Function({
+  Value<int> id,
+  Value<String> language,
+  Value<String> dateFormat,
+  Value<String> calendarType,
+  Value<String> accountNumberType,
+  Value<int> accountNumberLength,
+  Value<String> costCenterPolicy,
+  Value<String> projectPolicy,
+  Value<int> passwordMinLength,
+  Value<int> autoLockTimeout,
+  Value<bool> useVat,
+  Value<bool> useTds,
+  Value<bool> useEInvoice,
+  Value<bool> priceIncludesTax,
+  Value<String> backupFrequency,
+  Value<bool> cloudBackup,
+  Value<String> uiTheme,
+  Value<String> fontSize,
+});
+
+class $SystemConfigFilterComposer
+    extends Composer<_$AppDatabase, SystemConfig> {
+  $SystemConfigFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get language => $composableBuilder(
+      column: $table.language, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get dateFormat => $composableBuilder(
+      column: $table.dateFormat, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get calendarType => $composableBuilder(
+      column: $table.calendarType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get accountNumberType => $composableBuilder(
+      column: $table.accountNumberType,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accountNumberLength => $composableBuilder(
+      column: $table.accountNumberLength,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get costCenterPolicy => $composableBuilder(
+      column: $table.costCenterPolicy,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get projectPolicy => $composableBuilder(
+      column: $table.projectPolicy, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get passwordMinLength => $composableBuilder(
+      column: $table.passwordMinLength,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get autoLockTimeout => $composableBuilder(
+      column: $table.autoLockTimeout,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get useVat => $composableBuilder(
+      column: $table.useVat, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get useTds => $composableBuilder(
+      column: $table.useTds, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get useEInvoice => $composableBuilder(
+      column: $table.useEInvoice, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get priceIncludesTax => $composableBuilder(
+      column: $table.priceIncludesTax,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get backupFrequency => $composableBuilder(
+      column: $table.backupFrequency,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get cloudBackup => $composableBuilder(
+      column: $table.cloudBackup, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get uiTheme => $composableBuilder(
+      column: $table.uiTheme, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fontSize => $composableBuilder(
+      column: $table.fontSize, builder: (column) => ColumnFilters(column));
+}
+
+class $SystemConfigOrderingComposer
+    extends Composer<_$AppDatabase, SystemConfig> {
+  $SystemConfigOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get language => $composableBuilder(
+      column: $table.language, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get dateFormat => $composableBuilder(
+      column: $table.dateFormat, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get calendarType => $composableBuilder(
+      column: $table.calendarType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get accountNumberType => $composableBuilder(
+      column: $table.accountNumberType,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accountNumberLength => $composableBuilder(
+      column: $table.accountNumberLength,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get costCenterPolicy => $composableBuilder(
+      column: $table.costCenterPolicy,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get projectPolicy => $composableBuilder(
+      column: $table.projectPolicy,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get passwordMinLength => $composableBuilder(
+      column: $table.passwordMinLength,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get autoLockTimeout => $composableBuilder(
+      column: $table.autoLockTimeout,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get useVat => $composableBuilder(
+      column: $table.useVat, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get useTds => $composableBuilder(
+      column: $table.useTds, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get useEInvoice => $composableBuilder(
+      column: $table.useEInvoice, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get priceIncludesTax => $composableBuilder(
+      column: $table.priceIncludesTax,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get backupFrequency => $composableBuilder(
+      column: $table.backupFrequency,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get cloudBackup => $composableBuilder(
+      column: $table.cloudBackup, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get uiTheme => $composableBuilder(
+      column: $table.uiTheme, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fontSize => $composableBuilder(
+      column: $table.fontSize, builder: (column) => ColumnOrderings(column));
+}
+
+class $SystemConfigAnnotationComposer
+    extends Composer<_$AppDatabase, SystemConfig> {
+  $SystemConfigAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get language =>
+      $composableBuilder(column: $table.language, builder: (column) => column);
+
+  GeneratedColumn<String> get dateFormat => $composableBuilder(
+      column: $table.dateFormat, builder: (column) => column);
+
+  GeneratedColumn<String> get calendarType => $composableBuilder(
+      column: $table.calendarType, builder: (column) => column);
+
+  GeneratedColumn<String> get accountNumberType => $composableBuilder(
+      column: $table.accountNumberType, builder: (column) => column);
+
+  GeneratedColumn<int> get accountNumberLength => $composableBuilder(
+      column: $table.accountNumberLength, builder: (column) => column);
+
+  GeneratedColumn<String> get costCenterPolicy => $composableBuilder(
+      column: $table.costCenterPolicy, builder: (column) => column);
+
+  GeneratedColumn<String> get projectPolicy => $composableBuilder(
+      column: $table.projectPolicy, builder: (column) => column);
+
+  GeneratedColumn<int> get passwordMinLength => $composableBuilder(
+      column: $table.passwordMinLength, builder: (column) => column);
+
+  GeneratedColumn<int> get autoLockTimeout => $composableBuilder(
+      column: $table.autoLockTimeout, builder: (column) => column);
+
+  GeneratedColumn<bool> get useVat =>
+      $composableBuilder(column: $table.useVat, builder: (column) => column);
+
+  GeneratedColumn<bool> get useTds =>
+      $composableBuilder(column: $table.useTds, builder: (column) => column);
+
+  GeneratedColumn<bool> get useEInvoice => $composableBuilder(
+      column: $table.useEInvoice, builder: (column) => column);
+
+  GeneratedColumn<bool> get priceIncludesTax => $composableBuilder(
+      column: $table.priceIncludesTax, builder: (column) => column);
+
+  GeneratedColumn<String> get backupFrequency => $composableBuilder(
+      column: $table.backupFrequency, builder: (column) => column);
+
+  GeneratedColumn<bool> get cloudBackup => $composableBuilder(
+      column: $table.cloudBackup, builder: (column) => column);
+
+  GeneratedColumn<String> get uiTheme =>
+      $composableBuilder(column: $table.uiTheme, builder: (column) => column);
+
+  GeneratedColumn<String> get fontSize =>
+      $composableBuilder(column: $table.fontSize, builder: (column) => column);
+}
+
+class $SystemConfigTableManager extends RootTableManager<
+    _$AppDatabase,
+    SystemConfig,
+    SystemConfigData,
+    $SystemConfigFilterComposer,
+    $SystemConfigOrderingComposer,
+    $SystemConfigAnnotationComposer,
+    $SystemConfigCreateCompanionBuilder,
+    $SystemConfigUpdateCompanionBuilder,
+    (
+      SystemConfigData,
+      BaseReferences<_$AppDatabase, SystemConfig, SystemConfigData>
+    ),
+    SystemConfigData,
+    PrefetchHooks Function()> {
+  $SystemConfigTableManager(_$AppDatabase db, SystemConfig table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $SystemConfigFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $SystemConfigOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $SystemConfigAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> language = const Value.absent(),
+            Value<String> dateFormat = const Value.absent(),
+            Value<String> calendarType = const Value.absent(),
+            Value<String> accountNumberType = const Value.absent(),
+            Value<int> accountNumberLength = const Value.absent(),
+            Value<String> costCenterPolicy = const Value.absent(),
+            Value<String> projectPolicy = const Value.absent(),
+            Value<int> passwordMinLength = const Value.absent(),
+            Value<int> autoLockTimeout = const Value.absent(),
+            Value<bool> useVat = const Value.absent(),
+            Value<bool> useTds = const Value.absent(),
+            Value<bool> useEInvoice = const Value.absent(),
+            Value<bool> priceIncludesTax = const Value.absent(),
+            Value<String> backupFrequency = const Value.absent(),
+            Value<bool> cloudBackup = const Value.absent(),
+            Value<String> uiTheme = const Value.absent(),
+            Value<String> fontSize = const Value.absent(),
+          }) =>
+              SystemConfigCompanion(
+            id: id,
+            language: language,
+            dateFormat: dateFormat,
+            calendarType: calendarType,
+            accountNumberType: accountNumberType,
+            accountNumberLength: accountNumberLength,
+            costCenterPolicy: costCenterPolicy,
+            projectPolicy: projectPolicy,
+            passwordMinLength: passwordMinLength,
+            autoLockTimeout: autoLockTimeout,
+            useVat: useVat,
+            useTds: useTds,
+            useEInvoice: useEInvoice,
+            priceIncludesTax: priceIncludesTax,
+            backupFrequency: backupFrequency,
+            cloudBackup: cloudBackup,
+            uiTheme: uiTheme,
+            fontSize: fontSize,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String language,
+            required String dateFormat,
+            required String calendarType,
+            required String accountNumberType,
+            required int accountNumberLength,
+            required String costCenterPolicy,
+            required String projectPolicy,
+            required int passwordMinLength,
+            required int autoLockTimeout,
+            required bool useVat,
+            required bool useTds,
+            required bool useEInvoice,
+            required bool priceIncludesTax,
+            required String backupFrequency,
+            required bool cloudBackup,
+            required String uiTheme,
+            required String fontSize,
+          }) =>
+              SystemConfigCompanion.insert(
+            id: id,
+            language: language,
+            dateFormat: dateFormat,
+            calendarType: calendarType,
+            accountNumberType: accountNumberType,
+            accountNumberLength: accountNumberLength,
+            costCenterPolicy: costCenterPolicy,
+            projectPolicy: projectPolicy,
+            passwordMinLength: passwordMinLength,
+            autoLockTimeout: autoLockTimeout,
+            useVat: useVat,
+            useTds: useTds,
+            useEInvoice: useEInvoice,
+            priceIncludesTax: priceIncludesTax,
+            backupFrequency: backupFrequency,
+            cloudBackup: cloudBackup,
+            uiTheme: uiTheme,
+            fontSize: fontSize,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $SystemConfigProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    SystemConfig,
+    SystemConfigData,
+    $SystemConfigFilterComposer,
+    $SystemConfigOrderingComposer,
+    $SystemConfigAnnotationComposer,
+    $SystemConfigCreateCompanionBuilder,
+    $SystemConfigUpdateCompanionBuilder,
+    (
+      SystemConfigData,
+      BaseReferences<_$AppDatabase, SystemConfig, SystemConfigData>
+    ),
+    SystemConfigData,
+    PrefetchHooks Function()>;
+typedef $CompanyInfoCreateCompanionBuilder = CompanyInfoCompanion Function({
+  Value<int> id,
+  required String companyCode,
+  required String nameAr,
+  required String nameEn,
+  Value<String?> countryId,
+  Value<String?> taxNumber,
+  Value<String?> commercialRegNo,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<Uint8List?> logo,
+  required bool isMainCompany,
+  Value<String?> remarks,
+});
+typedef $CompanyInfoUpdateCompanionBuilder = CompanyInfoCompanion Function({
+  Value<int> id,
+  Value<String> companyCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String?> countryId,
+  Value<String?> taxNumber,
+  Value<String?> commercialRegNo,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<Uint8List?> logo,
+  Value<bool> isMainCompany,
+  Value<String?> remarks,
+});
+
+final class $CompanyInfoReferences
+    extends BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData> {
+  $CompanyInfoReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.branches,
+          aliasName:
+              $_aliasNameGenerator(db.companyInfo.id, db.branches.companyId));
+
+  $BranchesProcessedTableManager get branchesRefs {
+    final manager = $BranchesTableManager($_db, $_db.branches)
+        .filter((f) => f.companyId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get countryId => $composableBuilder(
+      column: $table.countryId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get taxNumber => $composableBuilder(
+      column: $table.taxNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnFilters(column));
@@ -5120,18 +10951,18 @@ class $$CompanyInfoTableFilterComposer
   ColumnFilters<String> get email => $composableBuilder(
       column: $table.email, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get website => $composableBuilder(
-      column: $table.website, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<Uint8List> get logo => $composableBuilder(
       column: $table.logo, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isMainCompany => $composableBuilder(
       column: $table.isMainCompany, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
+
   Expression<bool> branchesRefs(
-      Expression<bool> Function($$BranchesTableFilterComposer f) f) {
-    final $$BranchesTableFilterComposer composer = $composerBuilder(
+      Expression<bool> Function($BranchesFilterComposer f) f) {
+    final $BranchesFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.branches,
@@ -5139,7 +10970,7 @@ class $$CompanyInfoTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$BranchesTableFilterComposer(
+            $BranchesFilterComposer(
               $db: $db,
               $table: $db.branches,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -5151,9 +10982,9 @@ class $$CompanyInfoTableFilterComposer
   }
 }
 
-class $$CompanyInfoTableOrderingComposer
-    extends Composer<_$AppDatabase, $CompanyInfoTable> {
-  $$CompanyInfoTableOrderingComposer({
+class $CompanyInfoOrderingComposer
+    extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5163,11 +10994,24 @@ class $$CompanyInfoTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get nameAr => $composableBuilder(
       column: $table.nameAr, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get countryId => $composableBuilder(
+      column: $table.countryId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get taxNumber => $composableBuilder(
+      column: $table.taxNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnOrderings(column));
@@ -5178,20 +11022,20 @@ class $$CompanyInfoTableOrderingComposer
   ColumnOrderings<String> get email => $composableBuilder(
       column: $table.email, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get website => $composableBuilder(
-      column: $table.website, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<Uint8List> get logo => $composableBuilder(
       column: $table.logo, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isMainCompany => $composableBuilder(
       column: $table.isMainCompany,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
 }
 
-class $$CompanyInfoTableAnnotationComposer
-    extends Composer<_$AppDatabase, $CompanyInfoTable> {
-  $$CompanyInfoTableAnnotationComposer({
+class $CompanyInfoAnnotationComposer
+    extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5201,11 +11045,23 @@ class $$CompanyInfoTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
+  GeneratedColumn<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => column);
+
   GeneratedColumn<String> get nameAr =>
       $composableBuilder(column: $table.nameAr, builder: (column) => column);
 
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get countryId =>
+      $composableBuilder(column: $table.countryId, builder: (column) => column);
+
+  GeneratedColumn<String> get taxNumber =>
+      $composableBuilder(column: $table.taxNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo, builder: (column) => column);
 
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
@@ -5216,18 +11072,18 @@ class $$CompanyInfoTableAnnotationComposer
   GeneratedColumn<String> get email =>
       $composableBuilder(column: $table.email, builder: (column) => column);
 
-  GeneratedColumn<String> get website =>
-      $composableBuilder(column: $table.website, builder: (column) => column);
-
   GeneratedColumn<Uint8List> get logo =>
       $composableBuilder(column: $table.logo, builder: (column) => column);
 
   GeneratedColumn<bool> get isMainCompany => $composableBuilder(
       column: $table.isMainCompany, builder: (column) => column);
 
+  GeneratedColumn<String> get remarks =>
+      $composableBuilder(column: $table.remarks, builder: (column) => column);
+
   Expression<T> branchesRefs<T extends Object>(
-      Expression<T> Function($$BranchesTableAnnotationComposer a) f) {
-    final $$BranchesTableAnnotationComposer composer = $composerBuilder(
+      Expression<T> Function($BranchesAnnotationComposer a) f) {
+    final $BranchesAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.branches,
@@ -5235,7 +11091,7 @@ class $$CompanyInfoTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$BranchesTableAnnotationComposer(
+            $BranchesAnnotationComposer(
               $db: $db,
               $table: $db.branches,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -5247,77 +11103,91 @@ class $$CompanyInfoTableAnnotationComposer
   }
 }
 
-class $$CompanyInfoTableTableManager extends RootTableManager<
+class $CompanyInfoTableManager extends RootTableManager<
     _$AppDatabase,
-    $CompanyInfoTable,
+    CompanyInfo,
     CompanyInfoData,
-    $$CompanyInfoTableFilterComposer,
-    $$CompanyInfoTableOrderingComposer,
-    $$CompanyInfoTableAnnotationComposer,
-    $$CompanyInfoTableCreateCompanionBuilder,
-    $$CompanyInfoTableUpdateCompanionBuilder,
-    (CompanyInfoData, $$CompanyInfoTableReferences),
+    $CompanyInfoFilterComposer,
+    $CompanyInfoOrderingComposer,
+    $CompanyInfoAnnotationComposer,
+    $CompanyInfoCreateCompanionBuilder,
+    $CompanyInfoUpdateCompanionBuilder,
+    (CompanyInfoData, $CompanyInfoReferences),
     CompanyInfoData,
     PrefetchHooks Function({bool branchesRefs})> {
-  $$CompanyInfoTableTableManager(_$AppDatabase db, $CompanyInfoTable table)
+  $CompanyInfoTableManager(_$AppDatabase db, CompanyInfo table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$CompanyInfoTableFilterComposer($db: db, $table: table),
+              $CompanyInfoFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$CompanyInfoTableOrderingComposer($db: db, $table: table),
+              $CompanyInfoOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$CompanyInfoTableAnnotationComposer($db: db, $table: table),
+              $CompanyInfoAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
+            Value<String> companyCode = const Value.absent(),
             Value<String> nameAr = const Value.absent(),
             Value<String> nameEn = const Value.absent(),
+            Value<String?> countryId = const Value.absent(),
+            Value<String?> taxNumber = const Value.absent(),
+            Value<String?> commercialRegNo = const Value.absent(),
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> email = const Value.absent(),
-            Value<String?> website = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
             Value<bool> isMainCompany = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
           }) =>
               CompanyInfoCompanion(
             id: id,
+            companyCode: companyCode,
             nameAr: nameAr,
             nameEn: nameEn,
+            countryId: countryId,
+            taxNumber: taxNumber,
+            commercialRegNo: commercialRegNo,
             address: address,
             phone: phone,
             email: email,
-            website: website,
             logo: logo,
             isMainCompany: isMainCompany,
+            remarks: remarks,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
+            required String companyCode,
             required String nameAr,
             required String nameEn,
+            Value<String?> countryId = const Value.absent(),
+            Value<String?> taxNumber = const Value.absent(),
+            Value<String?> commercialRegNo = const Value.absent(),
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> email = const Value.absent(),
-            Value<String?> website = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
-            Value<bool> isMainCompany = const Value.absent(),
+            required bool isMainCompany,
+            Value<String?> remarks = const Value.absent(),
           }) =>
               CompanyInfoCompanion.insert(
             id: id,
+            companyCode: companyCode,
             nameAr: nameAr,
             nameEn: nameEn,
+            countryId: countryId,
+            taxNumber: taxNumber,
+            commercialRegNo: commercialRegNo,
             address: address,
             phone: phone,
             email: email,
-            website: website,
             logo: logo,
             isMainCompany: isMainCompany,
+            remarks: remarks,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$CompanyInfoTableReferences(db, table, e)
-                  ))
+              .map((e) =>
+                  (e.readTable(table), $CompanyInfoReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({branchesRefs = false}) {
             return PrefetchHooks(
@@ -5327,14 +11197,13 @@ class $$CompanyInfoTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (branchesRefs)
-                    await $_getPrefetchedData<CompanyInfoData,
-                            $CompanyInfoTable, Branche>(
+                    await $_getPrefetchedData<CompanyInfoData, CompanyInfo,
+                            Branche>(
                         currentTable: table,
                         referencedTable:
-                            $$CompanyInfoTableReferences._branchesRefsTable(db),
+                            $CompanyInfoReferences._branchesRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$CompanyInfoTableReferences(db, table, p0)
-                                .branchesRefs,
+                            $CompanyInfoReferences(db, table, p0).branchesRefs,
                         referencedItemsForCurrentItem:
                             (item, referencedItems) => referencedItems
                                 .where((e) => e.companyId == item.id),
@@ -5346,43 +11215,43 @@ class $$CompanyInfoTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$CompanyInfoTableProcessedTableManager = ProcessedTableManager<
+typedef $CompanyInfoProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $CompanyInfoTable,
+    CompanyInfo,
     CompanyInfoData,
-    $$CompanyInfoTableFilterComposer,
-    $$CompanyInfoTableOrderingComposer,
-    $$CompanyInfoTableAnnotationComposer,
-    $$CompanyInfoTableCreateCompanionBuilder,
-    $$CompanyInfoTableUpdateCompanionBuilder,
-    (CompanyInfoData, $$CompanyInfoTableReferences),
+    $CompanyInfoFilterComposer,
+    $CompanyInfoOrderingComposer,
+    $CompanyInfoAnnotationComposer,
+    $CompanyInfoCreateCompanionBuilder,
+    $CompanyInfoUpdateCompanionBuilder,
+    (CompanyInfoData, $CompanyInfoReferences),
     CompanyInfoData,
     PrefetchHooks Function({bool branchesRefs})>;
-typedef $$BranchesTableCreateCompanionBuilder = BranchesCompanion Function({
+typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
   Value<int> id,
   required int companyId,
   required String nameAr,
   required String nameEn,
 });
-typedef $$BranchesTableUpdateCompanionBuilder = BranchesCompanion Function({
+typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
   Value<int> id,
   Value<int> companyId,
   Value<String> nameAr,
   Value<String> nameEn,
 });
 
-final class $$BranchesTableReferences
-    extends BaseReferences<_$AppDatabase, $BranchesTable, Branche> {
-  $$BranchesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $BranchesReferences
+    extends BaseReferences<_$AppDatabase, Branches, Branche> {
+  $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $CompanyInfoTable _companyIdTable(_$AppDatabase db) =>
+  static CompanyInfo _companyIdTable(_$AppDatabase db) =>
       db.companyInfo.createAlias(
           $_aliasNameGenerator(db.branches.companyId, db.companyInfo.id));
 
-  $$CompanyInfoTableProcessedTableManager get companyId {
+  $CompanyInfoProcessedTableManager get companyId {
     final $_column = $_itemColumn<int>('company_id')!;
 
-    final manager = $$CompanyInfoTableTableManager($_db, $_db.companyInfo)
+    final manager = $CompanyInfoTableManager($_db, $_db.companyInfo)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_companyIdTable($_db));
     if (item == null) return manager;
@@ -5391,9 +11260,8 @@ final class $$BranchesTableReferences
   }
 }
 
-class $$BranchesTableFilterComposer
-    extends Composer<_$AppDatabase, $BranchesTable> {
-  $$BranchesTableFilterComposer({
+class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5409,8 +11277,8 @@ class $$BranchesTableFilterComposer
   ColumnFilters<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
-  $$CompanyInfoTableFilterComposer get companyId {
-    final $$CompanyInfoTableFilterComposer composer = $composerBuilder(
+  $CompanyInfoFilterComposer get companyId {
+    final $CompanyInfoFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.companyId,
         referencedTable: $db.companyInfo,
@@ -5418,7 +11286,7 @@ class $$BranchesTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$CompanyInfoTableFilterComposer(
+            $CompanyInfoFilterComposer(
               $db: $db,
               $table: $db.companyInfo,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -5430,9 +11298,8 @@ class $$BranchesTableFilterComposer
   }
 }
 
-class $$BranchesTableOrderingComposer
-    extends Composer<_$AppDatabase, $BranchesTable> {
-  $$BranchesTableOrderingComposer({
+class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5448,8 +11315,8 @@ class $$BranchesTableOrderingComposer
   ColumnOrderings<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
-  $$CompanyInfoTableOrderingComposer get companyId {
-    final $$CompanyInfoTableOrderingComposer composer = $composerBuilder(
+  $CompanyInfoOrderingComposer get companyId {
+    final $CompanyInfoOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.companyId,
         referencedTable: $db.companyInfo,
@@ -5457,7 +11324,7 @@ class $$BranchesTableOrderingComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$CompanyInfoTableOrderingComposer(
+            $CompanyInfoOrderingComposer(
               $db: $db,
               $table: $db.companyInfo,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -5469,9 +11336,8 @@ class $$BranchesTableOrderingComposer
   }
 }
 
-class $$BranchesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $BranchesTable> {
-  $$BranchesTableAnnotationComposer({
+class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5487,8 +11353,8 @@ class $$BranchesTableAnnotationComposer
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
-  $$CompanyInfoTableAnnotationComposer get companyId {
-    final $$CompanyInfoTableAnnotationComposer composer = $composerBuilder(
+  $CompanyInfoAnnotationComposer get companyId {
+    final $CompanyInfoAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.companyId,
         referencedTable: $db.companyInfo,
@@ -5496,7 +11362,7 @@ class $$BranchesTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$CompanyInfoTableAnnotationComposer(
+            $CompanyInfoAnnotationComposer(
               $db: $db,
               $table: $db.companyInfo,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -5508,28 +11374,28 @@ class $$BranchesTableAnnotationComposer
   }
 }
 
-class $$BranchesTableTableManager extends RootTableManager<
+class $BranchesTableManager extends RootTableManager<
     _$AppDatabase,
-    $BranchesTable,
+    Branches,
     Branche,
-    $$BranchesTableFilterComposer,
-    $$BranchesTableOrderingComposer,
-    $$BranchesTableAnnotationComposer,
-    $$BranchesTableCreateCompanionBuilder,
-    $$BranchesTableUpdateCompanionBuilder,
-    (Branche, $$BranchesTableReferences),
+    $BranchesFilterComposer,
+    $BranchesOrderingComposer,
+    $BranchesAnnotationComposer,
+    $BranchesCreateCompanionBuilder,
+    $BranchesUpdateCompanionBuilder,
+    (Branche, $BranchesReferences),
     Branche,
     PrefetchHooks Function({bool companyId})> {
-  $$BranchesTableTableManager(_$AppDatabase db, $BranchesTable table)
+  $BranchesTableManager(_$AppDatabase db, Branches table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$BranchesTableFilterComposer($db: db, $table: table),
+              $BranchesFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$BranchesTableOrderingComposer($db: db, $table: table),
+              $BranchesOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$BranchesTableAnnotationComposer($db: db, $table: table),
+              $BranchesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> companyId = const Value.absent(),
@@ -5556,7 +11422,7 @@ class $$BranchesTableTableManager extends RootTableManager<
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>
-                  (e.readTable(table), $$BranchesTableReferences(db, table, e)))
+                  (e.readTable(table), $BranchesReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({companyId = false}) {
             return PrefetchHooks(
@@ -5579,10 +11445,9 @@ class $$BranchesTableTableManager extends RootTableManager<
                   state = state.withJoin(
                     currentTable: table,
                     currentColumn: table.companyId,
-                    referencedTable:
-                        $$BranchesTableReferences._companyIdTable(db),
+                    referencedTable: $BranchesReferences._companyIdTable(db),
                     referencedColumn:
-                        $$BranchesTableReferences._companyIdTable(db).id,
+                        $BranchesReferences._companyIdTable(db).id,
                   ) as T;
                 }
 
@@ -5596,36 +11461,36 @@ class $$BranchesTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$BranchesTableProcessedTableManager = ProcessedTableManager<
+typedef $BranchesProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $BranchesTable,
+    Branches,
     Branche,
-    $$BranchesTableFilterComposer,
-    $$BranchesTableOrderingComposer,
-    $$BranchesTableAnnotationComposer,
-    $$BranchesTableCreateCompanionBuilder,
-    $$BranchesTableUpdateCompanionBuilder,
-    (Branche, $$BranchesTableReferences),
+    $BranchesFilterComposer,
+    $BranchesOrderingComposer,
+    $BranchesAnnotationComposer,
+    $BranchesCreateCompanionBuilder,
+    $BranchesUpdateCompanionBuilder,
+    (Branche, $BranchesReferences),
     Branche,
     PrefetchHooks Function({bool companyId})>;
-typedef $$FinancialPeriodsTableCreateCompanionBuilder
-    = FinancialPeriodsCompanion Function({
+typedef $FinancialPeriodsCreateCompanionBuilder = FinancialPeriodsCompanion
+    Function({
   Value<int> id,
-  required DateTime startDate,
-  required DateTime endDate,
+  required double startDate,
+  required double endDate,
   Value<bool> isClosed,
 });
-typedef $$FinancialPeriodsTableUpdateCompanionBuilder
-    = FinancialPeriodsCompanion Function({
+typedef $FinancialPeriodsUpdateCompanionBuilder = FinancialPeriodsCompanion
+    Function({
   Value<int> id,
-  Value<DateTime> startDate,
-  Value<DateTime> endDate,
+  Value<double> startDate,
+  Value<double> endDate,
   Value<bool> isClosed,
 });
 
-class $$FinancialPeriodsTableFilterComposer
-    extends Composer<_$AppDatabase, $FinancialPeriodsTable> {
-  $$FinancialPeriodsTableFilterComposer({
+class $FinancialPeriodsFilterComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5635,19 +11500,19 @@ class $$FinancialPeriodsTableFilterComposer
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get startDate => $composableBuilder(
+  ColumnFilters<double> get startDate => $composableBuilder(
       column: $table.startDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get endDate => $composableBuilder(
+  ColumnFilters<double> get endDate => $composableBuilder(
       column: $table.endDate, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isClosed => $composableBuilder(
       column: $table.isClosed, builder: (column) => ColumnFilters(column));
 }
 
-class $$FinancialPeriodsTableOrderingComposer
-    extends Composer<_$AppDatabase, $FinancialPeriodsTable> {
-  $$FinancialPeriodsTableOrderingComposer({
+class $FinancialPeriodsOrderingComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5657,19 +11522,19 @@ class $$FinancialPeriodsTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get startDate => $composableBuilder(
+  ColumnOrderings<double> get startDate => $composableBuilder(
       column: $table.startDate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+  ColumnOrderings<double> get endDate => $composableBuilder(
       column: $table.endDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<bool> get isClosed => $composableBuilder(
       column: $table.isClosed, builder: (column) => ColumnOrderings(column));
 }
 
-class $$FinancialPeriodsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $FinancialPeriodsTable> {
-  $$FinancialPeriodsTableAnnotationComposer({
+class $FinancialPeriodsAnnotationComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5679,46 +11544,45 @@ class $$FinancialPeriodsTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get startDate =>
+  GeneratedColumn<double> get startDate =>
       $composableBuilder(column: $table.startDate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get endDate =>
+  GeneratedColumn<double> get endDate =>
       $composableBuilder(column: $table.endDate, builder: (column) => column);
 
   GeneratedColumn<bool> get isClosed =>
       $composableBuilder(column: $table.isClosed, builder: (column) => column);
 }
 
-class $$FinancialPeriodsTableTableManager extends RootTableManager<
+class $FinancialPeriodsTableManager extends RootTableManager<
     _$AppDatabase,
-    $FinancialPeriodsTable,
+    FinancialPeriods,
     FinancialPeriod,
-    $$FinancialPeriodsTableFilterComposer,
-    $$FinancialPeriodsTableOrderingComposer,
-    $$FinancialPeriodsTableAnnotationComposer,
-    $$FinancialPeriodsTableCreateCompanionBuilder,
-    $$FinancialPeriodsTableUpdateCompanionBuilder,
+    $FinancialPeriodsFilterComposer,
+    $FinancialPeriodsOrderingComposer,
+    $FinancialPeriodsAnnotationComposer,
+    $FinancialPeriodsCreateCompanionBuilder,
+    $FinancialPeriodsUpdateCompanionBuilder,
     (
       FinancialPeriod,
-      BaseReferences<_$AppDatabase, $FinancialPeriodsTable, FinancialPeriod>
+      BaseReferences<_$AppDatabase, FinancialPeriods, FinancialPeriod>
     ),
     FinancialPeriod,
     PrefetchHooks Function()> {
-  $$FinancialPeriodsTableTableManager(
-      _$AppDatabase db, $FinancialPeriodsTable table)
+  $FinancialPeriodsTableManager(_$AppDatabase db, FinancialPeriods table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$FinancialPeriodsTableFilterComposer($db: db, $table: table),
+              $FinancialPeriodsFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$FinancialPeriodsTableOrderingComposer($db: db, $table: table),
+              $FinancialPeriodsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$FinancialPeriodsTableAnnotationComposer($db: db, $table: table),
+              $FinancialPeriodsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<DateTime> startDate = const Value.absent(),
-            Value<DateTime> endDate = const Value.absent(),
+            Value<double> startDate = const Value.absent(),
+            Value<double> endDate = const Value.absent(),
             Value<bool> isClosed = const Value.absent(),
           }) =>
               FinancialPeriodsCompanion(
@@ -5729,8 +11593,8 @@ class $$FinancialPeriodsTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required DateTime startDate,
-            required DateTime endDate,
+            required double startDate,
+            required double endDate,
             Value<bool> isClosed = const Value.absent(),
           }) =>
               FinancialPeriodsCompanion.insert(
@@ -5746,22 +11610,22 @@ class $$FinancialPeriodsTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$FinancialPeriodsTableProcessedTableManager = ProcessedTableManager<
+typedef $FinancialPeriodsProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $FinancialPeriodsTable,
+    FinancialPeriods,
     FinancialPeriod,
-    $$FinancialPeriodsTableFilterComposer,
-    $$FinancialPeriodsTableOrderingComposer,
-    $$FinancialPeriodsTableAnnotationComposer,
-    $$FinancialPeriodsTableCreateCompanionBuilder,
-    $$FinancialPeriodsTableUpdateCompanionBuilder,
+    $FinancialPeriodsFilterComposer,
+    $FinancialPeriodsOrderingComposer,
+    $FinancialPeriodsAnnotationComposer,
+    $FinancialPeriodsCreateCompanionBuilder,
+    $FinancialPeriodsUpdateCompanionBuilder,
     (
       FinancialPeriod,
-      BaseReferences<_$AppDatabase, $FinancialPeriodsTable, FinancialPeriod>
+      BaseReferences<_$AppDatabase, FinancialPeriods, FinancialPeriod>
     ),
     FinancialPeriod,
     PrefetchHooks Function()>;
-typedef $$AccountsTableCreateCompanionBuilder = AccountsCompanion Function({
+typedef $AccountsCreateCompanionBuilder = AccountsCompanion Function({
   Value<int> id,
   Value<int?> parentId,
   required String accountCode,
@@ -5774,7 +11638,7 @@ typedef $$AccountsTableCreateCompanionBuilder = AccountsCompanion Function({
   Value<String?> cashFlowType,
   Value<String?> detailAccountType,
 });
-typedef $$AccountsTableUpdateCompanionBuilder = AccountsCompanion Function({
+typedef $AccountsUpdateCompanionBuilder = AccountsCompanion Function({
   Value<int> id,
   Value<int?> parentId,
   Value<String> accountCode,
@@ -5788,28 +11652,8 @@ typedef $$AccountsTableUpdateCompanionBuilder = AccountsCompanion Function({
   Value<String?> detailAccountType,
 });
 
-final class $$AccountsTableReferences
-    extends BaseReferences<_$AppDatabase, $AccountsTable, Account> {
-  $$AccountsTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $AccountsTable _parentIdTable(_$AppDatabase db) => db.accounts
-      .createAlias($_aliasNameGenerator(db.accounts.parentId, db.accounts.id));
-
-  $$AccountsTableProcessedTableManager? get parentId {
-    final $_column = $_itemColumn<int>('parent_id');
-    if ($_column == null) return null;
-    final manager = $$AccountsTableTableManager($_db, $_db.accounts)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_parentIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $$AccountsTableFilterComposer
-    extends Composer<_$AppDatabase, $AccountsTable> {
-  $$AccountsTableFilterComposer({
+class $AccountsFilterComposer extends Composer<_$AppDatabase, Accounts> {
+  $AccountsFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5818,6 +11662,9 @@ class $$AccountsTableFilterComposer
   });
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get parentId => $composableBuilder(
+      column: $table.parentId, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get accountCode => $composableBuilder(
       column: $table.accountCode, builder: (column) => ColumnFilters(column));
@@ -5846,31 +11693,10 @@ class $$AccountsTableFilterComposer
   ColumnFilters<String> get detailAccountType => $composableBuilder(
       column: $table.detailAccountType,
       builder: (column) => ColumnFilters(column));
-
-  $$AccountsTableFilterComposer get parentId {
-    final $$AccountsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.accounts,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$AccountsTableFilterComposer(
-              $db: $db,
-              $table: $db.accounts,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
-class $$AccountsTableOrderingComposer
-    extends Composer<_$AppDatabase, $AccountsTable> {
-  $$AccountsTableOrderingComposer({
+class $AccountsOrderingComposer extends Composer<_$AppDatabase, Accounts> {
+  $AccountsOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5879,6 +11705,9 @@ class $$AccountsTableOrderingComposer
   });
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get parentId => $composableBuilder(
+      column: $table.parentId, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get accountCode => $composableBuilder(
       column: $table.accountCode, builder: (column) => ColumnOrderings(column));
@@ -5908,31 +11737,10 @@ class $$AccountsTableOrderingComposer
   ColumnOrderings<String> get detailAccountType => $composableBuilder(
       column: $table.detailAccountType,
       builder: (column) => ColumnOrderings(column));
-
-  $$AccountsTableOrderingComposer get parentId {
-    final $$AccountsTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.accounts,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$AccountsTableOrderingComposer(
-              $db: $db,
-              $table: $db.accounts,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
-class $$AccountsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $AccountsTable> {
-  $$AccountsTableAnnotationComposer({
+class $AccountsAnnotationComposer extends Composer<_$AppDatabase, Accounts> {
+  $AccountsAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -5941,6 +11749,9 @@ class $$AccountsTableAnnotationComposer
   });
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get parentId =>
+      $composableBuilder(column: $table.parentId, builder: (column) => column);
 
   GeneratedColumn<String> get accountCode => $composableBuilder(
       column: $table.accountCode, builder: (column) => column);
@@ -5968,50 +11779,30 @@ class $$AccountsTableAnnotationComposer
 
   GeneratedColumn<String> get detailAccountType => $composableBuilder(
       column: $table.detailAccountType, builder: (column) => column);
-
-  $$AccountsTableAnnotationComposer get parentId {
-    final $$AccountsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.accounts,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$AccountsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.accounts,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
-class $$AccountsTableTableManager extends RootTableManager<
+class $AccountsTableManager extends RootTableManager<
     _$AppDatabase,
-    $AccountsTable,
+    Accounts,
     Account,
-    $$AccountsTableFilterComposer,
-    $$AccountsTableOrderingComposer,
-    $$AccountsTableAnnotationComposer,
-    $$AccountsTableCreateCompanionBuilder,
-    $$AccountsTableUpdateCompanionBuilder,
-    (Account, $$AccountsTableReferences),
+    $AccountsFilterComposer,
+    $AccountsOrderingComposer,
+    $AccountsAnnotationComposer,
+    $AccountsCreateCompanionBuilder,
+    $AccountsUpdateCompanionBuilder,
+    (Account, BaseReferences<_$AppDatabase, Accounts, Account>),
     Account,
-    PrefetchHooks Function({bool parentId})> {
-  $$AccountsTableTableManager(_$AppDatabase db, $AccountsTable table)
+    PrefetchHooks Function()> {
+  $AccountsTableManager(_$AppDatabase db, Accounts table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$AccountsTableFilterComposer($db: db, $table: table),
+              $AccountsFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$AccountsTableOrderingComposer($db: db, $table: table),
+              $AccountsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$AccountsTableAnnotationComposer($db: db, $table: table),
+              $AccountsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int?> parentId = const Value.absent(),
@@ -6065,81 +11856,50 @@ class $$AccountsTableTableManager extends RootTableManager<
             detailAccountType: detailAccountType,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$AccountsTableReferences(db, table, e)))
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({parentId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (parentId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.parentId,
-                    referencedTable:
-                        $$AccountsTableReferences._parentIdTable(db),
-                    referencedColumn:
-                        $$AccountsTableReferences._parentIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
+          prefetchHooksCallback: null,
         ));
 }
 
-typedef $$AccountsTableProcessedTableManager = ProcessedTableManager<
+typedef $AccountsProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $AccountsTable,
+    Accounts,
     Account,
-    $$AccountsTableFilterComposer,
-    $$AccountsTableOrderingComposer,
-    $$AccountsTableAnnotationComposer,
-    $$AccountsTableCreateCompanionBuilder,
-    $$AccountsTableUpdateCompanionBuilder,
-    (Account, $$AccountsTableReferences),
+    $AccountsFilterComposer,
+    $AccountsOrderingComposer,
+    $AccountsAnnotationComposer,
+    $AccountsCreateCompanionBuilder,
+    $AccountsUpdateCompanionBuilder,
+    (Account, BaseReferences<_$AppDatabase, Accounts, Account>),
     Account,
-    PrefetchHooks Function({bool parentId})>;
-typedef $$RolesTableCreateCompanionBuilder = RolesCompanion Function({
+    PrefetchHooks Function()>;
+typedef $RolesCreateCompanionBuilder = RolesCompanion Function({
   Value<int> id,
-  required String name,
+  required String nameAr,
+  required String nameEn,
   Value<String?> description,
+  required bool isActive,
 });
-typedef $$RolesTableUpdateCompanionBuilder = RolesCompanion Function({
+typedef $RolesUpdateCompanionBuilder = RolesCompanion Function({
   Value<int> id,
-  Value<String> name,
+  Value<String> nameAr,
+  Value<String> nameEn,
   Value<String?> description,
+  Value<bool> isActive,
 });
 
-final class $$RolesTableReferences
-    extends BaseReferences<_$AppDatabase, $RolesTable, Role> {
-  $$RolesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $RolesReferences
+    extends BaseReferences<_$AppDatabase, Roles, Role> {
+  $RolesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$UserRolesTable, List<UserRole>>
-      _userRolesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-          db.userRoles,
+  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.userRoles,
           aliasName: $_aliasNameGenerator(db.roles.id, db.userRoles.roleId));
 
-  $$UserRolesTableProcessedTableManager get userRolesRefs {
-    final manager = $$UserRolesTableTableManager($_db, $_db.userRoles)
+  $UserRolesProcessedTableManager get userRolesRefs {
+    final manager = $UserRolesTableManager($_db, $_db.userRoles)
         .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
@@ -6147,16 +11907,15 @@ final class $$RolesTableReferences
         manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<$RolePermissionsTable, List<RolePermission>>
+  static MultiTypedResultKey<RolePermissions, List<RolePermission>>
       _rolePermissionsRefsTable(_$AppDatabase db) =>
           MultiTypedResultKey.fromTable(db.rolePermissions,
               aliasName:
                   $_aliasNameGenerator(db.roles.id, db.rolePermissions.roleId));
 
-  $$RolePermissionsTableProcessedTableManager get rolePermissionsRefs {
-    final manager =
-        $$RolePermissionsTableTableManager($_db, $_db.rolePermissions)
-            .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
+  $RolePermissionsProcessedTableManager get rolePermissionsRefs {
+    final manager = $RolePermissionsTableManager($_db, $_db.rolePermissions)
+        .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache =
         $_typedResult.readTableOrNull(_rolePermissionsRefsTable($_db));
@@ -6165,8 +11924,8 @@ final class $$RolesTableReferences
   }
 }
 
-class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
-  $$RolesTableFilterComposer({
+class $RolesFilterComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -6176,15 +11935,21 @@ class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
   Expression<bool> userRolesRefs(
-      Expression<bool> Function($$UserRolesTableFilterComposer f) f) {
-    final $$UserRolesTableFilterComposer composer = $composerBuilder(
+      Expression<bool> Function($UserRolesFilterComposer f) f) {
+    final $UserRolesFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.userRoles,
@@ -6192,7 +11957,7 @@ class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UserRolesTableFilterComposer(
+            $UserRolesFilterComposer(
               $db: $db,
               $table: $db.userRoles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6204,8 +11969,8 @@ class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
   }
 
   Expression<bool> rolePermissionsRefs(
-      Expression<bool> Function($$RolePermissionsTableFilterComposer f) f) {
-    final $$RolePermissionsTableFilterComposer composer = $composerBuilder(
+      Expression<bool> Function($RolePermissionsFilterComposer f) f) {
+    final $RolePermissionsFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.rolePermissions,
@@ -6213,7 +11978,7 @@ class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolePermissionsTableFilterComposer(
+            $RolePermissionsFilterComposer(
               $db: $db,
               $table: $db.rolePermissions,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6225,9 +11990,8 @@ class $$RolesTableFilterComposer extends Composer<_$AppDatabase, $RolesTable> {
   }
 }
 
-class $$RolesTableOrderingComposer
-    extends Composer<_$AppDatabase, $RolesTable> {
-  $$RolesTableOrderingComposer({
+class $RolesOrderingComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -6237,16 +12001,21 @@ class $$RolesTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
 }
 
-class $$RolesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $RolesTable> {
-  $$RolesTableAnnotationComposer({
+class $RolesAnnotationComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -6256,15 +12025,21 @@ class $$RolesTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
   GeneratedColumn<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => column);
 
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
   Expression<T> userRolesRefs<T extends Object>(
-      Expression<T> Function($$UserRolesTableAnnotationComposer a) f) {
-    final $$UserRolesTableAnnotationComposer composer = $composerBuilder(
+      Expression<T> Function($UserRolesAnnotationComposer a) f) {
+    final $UserRolesAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.userRoles,
@@ -6272,7 +12047,7 @@ class $$RolesTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UserRolesTableAnnotationComposer(
+            $UserRolesAnnotationComposer(
               $db: $db,
               $table: $db.userRoles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6284,8 +12059,8 @@ class $$RolesTableAnnotationComposer
   }
 
   Expression<T> rolePermissionsRefs<T extends Object>(
-      Expression<T> Function($$RolePermissionsTableAnnotationComposer a) f) {
-    final $$RolePermissionsTableAnnotationComposer composer = $composerBuilder(
+      Expression<T> Function($RolePermissionsAnnotationComposer a) f) {
+    final $RolePermissionsAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
         referencedTable: $db.rolePermissions,
@@ -6293,7 +12068,7 @@ class $$RolesTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolePermissionsTableAnnotationComposer(
+            $RolePermissionsAnnotationComposer(
               $db: $db,
               $table: $db.rolePermissions,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6305,51 +12080,58 @@ class $$RolesTableAnnotationComposer
   }
 }
 
-class $$RolesTableTableManager extends RootTableManager<
+class $RolesTableManager extends RootTableManager<
     _$AppDatabase,
-    $RolesTable,
+    Roles,
     Role,
-    $$RolesTableFilterComposer,
-    $$RolesTableOrderingComposer,
-    $$RolesTableAnnotationComposer,
-    $$RolesTableCreateCompanionBuilder,
-    $$RolesTableUpdateCompanionBuilder,
-    (Role, $$RolesTableReferences),
+    $RolesFilterComposer,
+    $RolesOrderingComposer,
+    $RolesAnnotationComposer,
+    $RolesCreateCompanionBuilder,
+    $RolesUpdateCompanionBuilder,
+    (Role, $RolesReferences),
     Role,
     PrefetchHooks Function({bool userRolesRefs, bool rolePermissionsRefs})> {
-  $$RolesTableTableManager(_$AppDatabase db, $RolesTable table)
+  $RolesTableManager(_$AppDatabase db, Roles table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$RolesTableFilterComposer($db: db, $table: table),
+              $RolesFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$RolesTableOrderingComposer($db: db, $table: table),
+              $RolesOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$RolesTableAnnotationComposer($db: db, $table: table),
+              $RolesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
             Value<String?> description = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
           }) =>
               RolesCompanion(
             id: id,
-            name: name,
+            nameAr: nameAr,
+            nameEn: nameEn,
             description: description,
+            isActive: isActive,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required String name,
+            required String nameAr,
+            required String nameEn,
             Value<String?> description = const Value.absent(),
+            required bool isActive,
           }) =>
               RolesCompanion.insert(
             id: id,
-            name: name,
+            nameAr: nameAr,
+            nameEn: nameEn,
             description: description,
+            isActive: isActive,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$RolesTableReferences(db, table, e)))
+              .map((e) => (e.readTable(table), $RolesReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: (
               {userRolesRefs = false, rolePermissionsRefs = false}) {
@@ -6363,25 +12145,23 @@ class $$RolesTableTableManager extends RootTableManager<
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (userRolesRefs)
-                    await $_getPrefetchedData<Role, $RolesTable, UserRole>(
+                    await $_getPrefetchedData<Role, Roles, UserRole>(
                         currentTable: table,
                         referencedTable:
-                            $$RolesTableReferences._userRolesRefsTable(db),
+                            $RolesReferences._userRolesRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$RolesTableReferences(db, table, p0).userRolesRefs,
+                            $RolesReferences(db, table, p0).userRolesRefs,
                         referencedItemsForCurrentItem: (item,
                                 referencedItems) =>
                             referencedItems.where((e) => e.roleId == item.id),
                         typedResults: items),
                   if (rolePermissionsRefs)
-                    await $_getPrefetchedData<Role, $RolesTable,
-                            RolePermission>(
+                    await $_getPrefetchedData<Role, Roles, RolePermission>(
                         currentTable: table,
-                        referencedTable: $$RolesTableReferences
-                            ._rolePermissionsRefsTable(db),
+                        referencedTable:
+                            $RolesReferences._rolePermissionsRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$RolesTableReferences(db, table, p0)
-                                .rolePermissionsRefs,
+                            $RolesReferences(db, table, p0).rolePermissionsRefs,
                         referencedItemsForCurrentItem: (item,
                                 referencedItems) =>
                             referencedItems.where((e) => e.roleId == item.id),
@@ -6393,40 +12173,380 @@ class $$RolesTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$RolesTableProcessedTableManager = ProcessedTableManager<
+typedef $RolesProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $RolesTable,
+    Roles,
     Role,
-    $$RolesTableFilterComposer,
-    $$RolesTableOrderingComposer,
-    $$RolesTableAnnotationComposer,
-    $$RolesTableCreateCompanionBuilder,
-    $$RolesTableUpdateCompanionBuilder,
-    (Role, $$RolesTableReferences),
+    $RolesFilterComposer,
+    $RolesOrderingComposer,
+    $RolesAnnotationComposer,
+    $RolesCreateCompanionBuilder,
+    $RolesUpdateCompanionBuilder,
+    (Role, $RolesReferences),
     Role,
     PrefetchHooks Function({bool userRolesRefs, bool rolePermissionsRefs})>;
-typedef $$UserRolesTableCreateCompanionBuilder = UserRolesCompanion Function({
+typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
+  Value<int> id,
+  required String username,
+  required String passwordHash,
+  required String fullNameAr,
+  required String fullNameEn,
+  Value<String?> email,
+  Value<bool> isActive,
+});
+typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
+  Value<int> id,
+  Value<String> username,
+  Value<String> passwordHash,
+  Value<String> fullNameAr,
+  Value<String> fullNameEn,
+  Value<String?> email,
+  Value<bool> isActive,
+});
+
+final class $UsersReferences
+    extends BaseReferences<_$AppDatabase, Users, User> {
+  $UsersReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.userRoles,
+          aliasName: $_aliasNameGenerator(db.users.id, db.userRoles.userId));
+
+  $UserRolesProcessedTableManager get userRolesRefs {
+    final manager = $UserRolesTableManager($_db, $_db.userRoles)
+        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<AuditLog, List<AuditLogData>> _auditLogRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.auditLog,
+          aliasName: $_aliasNameGenerator(db.users.id, db.auditLog.userId));
+
+  $AuditLogProcessedTableManager get auditLogRefs {
+    final manager = $AuditLogTableManager($_db, $_db.auditLog)
+        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_auditLogRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
+  $UsersFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get passwordHash => $composableBuilder(
+      column: $table.passwordHash, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> userRolesRefs(
+      Expression<bool> Function($UserRolesFilterComposer f) f) {
+    final $UserRolesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesFilterComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> auditLogRefs(
+      Expression<bool> Function($AuditLogFilterComposer f) f) {
+    final $AuditLogFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.auditLog,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $AuditLogFilterComposer(
+              $db: $db,
+              $table: $db.auditLog,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
+  $UsersOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get passwordHash => $composableBuilder(
+      column: $table.passwordHash,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+}
+
+class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
+  $UsersAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => column);
+
+  GeneratedColumn<String> get passwordHash => $composableBuilder(
+      column: $table.passwordHash, builder: (column) => column);
+
+  GeneratedColumn<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  Expression<T> userRolesRefs<T extends Object>(
+      Expression<T> Function($UserRolesAnnotationComposer a) f) {
+    final $UserRolesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesAnnotationComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> auditLogRefs<T extends Object>(
+      Expression<T> Function($AuditLogAnnotationComposer a) f) {
+    final $AuditLogAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.auditLog,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $AuditLogAnnotationComposer(
+              $db: $db,
+              $table: $db.auditLog,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $UsersTableManager extends RootTableManager<
+    _$AppDatabase,
+    Users,
+    User,
+    $UsersFilterComposer,
+    $UsersOrderingComposer,
+    $UsersAnnotationComposer,
+    $UsersCreateCompanionBuilder,
+    $UsersUpdateCompanionBuilder,
+    (User, $UsersReferences),
+    User,
+    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})> {
+  $UsersTableManager(_$AppDatabase db, Users table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $UsersFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $UsersOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $UsersAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> username = const Value.absent(),
+            Value<String> passwordHash = const Value.absent(),
+            Value<String> fullNameAr = const Value.absent(),
+            Value<String> fullNameEn = const Value.absent(),
+            Value<String?> email = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              UsersCompanion(
+            id: id,
+            username: username,
+            passwordHash: passwordHash,
+            fullNameAr: fullNameAr,
+            fullNameEn: fullNameEn,
+            email: email,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String username,
+            required String passwordHash,
+            required String fullNameAr,
+            required String fullNameEn,
+            Value<String?> email = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              UsersCompanion.insert(
+            id: id,
+            username: username,
+            passwordHash: passwordHash,
+            fullNameAr: fullNameAr,
+            fullNameEn: fullNameEn,
+            email: email,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {userRolesRefs = false, auditLogRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (userRolesRefs) db.userRoles,
+                if (auditLogRefs) db.auditLog
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (userRolesRefs)
+                    await $_getPrefetchedData<User, Users, UserRole>(
+                        currentTable: table,
+                        referencedTable:
+                            $UsersReferences._userRolesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $UsersReferences(db, table, p0).userRolesRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.userId == item.id),
+                        typedResults: items),
+                  if (auditLogRefs)
+                    await $_getPrefetchedData<User, Users, AuditLogData>(
+                        currentTable: table,
+                        referencedTable:
+                            $UsersReferences._auditLogRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $UsersReferences(db, table, p0).auditLogRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.userId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $UsersProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Users,
+    User,
+    $UsersFilterComposer,
+    $UsersOrderingComposer,
+    $UsersAnnotationComposer,
+    $UsersCreateCompanionBuilder,
+    $UsersUpdateCompanionBuilder,
+    (User, $UsersReferences),
+    User,
+    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})>;
+typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
   required int userId,
   required int roleId,
   Value<int> rowid,
 });
-typedef $$UserRolesTableUpdateCompanionBuilder = UserRolesCompanion Function({
+typedef $UserRolesUpdateCompanionBuilder = UserRolesCompanion Function({
   Value<int> userId,
   Value<int> roleId,
   Value<int> rowid,
 });
 
-final class $$UserRolesTableReferences
-    extends BaseReferences<_$AppDatabase, $UserRolesTable, UserRole> {
-  $$UserRolesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $UserRolesReferences
+    extends BaseReferences<_$AppDatabase, UserRoles, UserRole> {
+  $UserRolesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $UsersTable _userIdTable(_$AppDatabase db) => db.users
+  static Users _userIdTable(_$AppDatabase db) => db.users
       .createAlias($_aliasNameGenerator(db.userRoles.userId, db.users.id));
 
-  $$UsersTableProcessedTableManager get userId {
+  $UsersProcessedTableManager get userId {
     final $_column = $_itemColumn<int>('user_id')!;
 
-    final manager = $$UsersTableTableManager($_db, $_db.users)
+    final manager = $UsersTableManager($_db, $_db.users)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_userIdTable($_db));
     if (item == null) return manager;
@@ -6434,13 +12554,13 @@ final class $$UserRolesTableReferences
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $RolesTable _roleIdTable(_$AppDatabase db) => db.roles
+  static Roles _roleIdTable(_$AppDatabase db) => db.roles
       .createAlias($_aliasNameGenerator(db.userRoles.roleId, db.roles.id));
 
-  $$RolesTableProcessedTableManager get roleId {
+  $RolesProcessedTableManager get roleId {
     final $_column = $_itemColumn<int>('role_id')!;
 
-    final manager = $$RolesTableTableManager($_db, $_db.roles)
+    final manager = $RolesTableManager($_db, $_db.roles)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_roleIdTable($_db));
     if (item == null) return manager;
@@ -6449,17 +12569,16 @@ final class $$UserRolesTableReferences
   }
 }
 
-class $$UserRolesTableFilterComposer
-    extends Composer<_$AppDatabase, $UserRolesTable> {
-  $$UserRolesTableFilterComposer({
+class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $$UsersTableFilterComposer get userId {
-    final $$UsersTableFilterComposer composer = $composerBuilder(
+  $UsersFilterComposer get userId {
+    final $UsersFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -6467,7 +12586,7 @@ class $$UserRolesTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableFilterComposer(
+            $UsersFilterComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6478,8 +12597,8 @@ class $$UserRolesTableFilterComposer
     return composer;
   }
 
-  $$RolesTableFilterComposer get roleId {
-    final $$RolesTableFilterComposer composer = $composerBuilder(
+  $RolesFilterComposer get roleId {
+    final $RolesFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6487,7 +12606,7 @@ class $$UserRolesTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableFilterComposer(
+            $RolesFilterComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6499,17 +12618,16 @@ class $$UserRolesTableFilterComposer
   }
 }
 
-class $$UserRolesTableOrderingComposer
-    extends Composer<_$AppDatabase, $UserRolesTable> {
-  $$UserRolesTableOrderingComposer({
+class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $$UsersTableOrderingComposer get userId {
-    final $$UsersTableOrderingComposer composer = $composerBuilder(
+  $UsersOrderingComposer get userId {
+    final $UsersOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -6517,7 +12635,7 @@ class $$UserRolesTableOrderingComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableOrderingComposer(
+            $UsersOrderingComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6528,8 +12646,8 @@ class $$UserRolesTableOrderingComposer
     return composer;
   }
 
-  $$RolesTableOrderingComposer get roleId {
-    final $$RolesTableOrderingComposer composer = $composerBuilder(
+  $RolesOrderingComposer get roleId {
+    final $RolesOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6537,7 +12655,7 @@ class $$UserRolesTableOrderingComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableOrderingComposer(
+            $RolesOrderingComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6549,17 +12667,16 @@ class $$UserRolesTableOrderingComposer
   }
 }
 
-class $$UserRolesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $UserRolesTable> {
-  $$UserRolesTableAnnotationComposer({
+class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $$UsersTableAnnotationComposer get userId {
-    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+  $UsersAnnotationComposer get userId {
+    final $UsersAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -6567,7 +12684,7 @@ class $$UserRolesTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableAnnotationComposer(
+            $UsersAnnotationComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6578,8 +12695,8 @@ class $$UserRolesTableAnnotationComposer
     return composer;
   }
 
-  $$RolesTableAnnotationComposer get roleId {
-    final $$RolesTableAnnotationComposer composer = $composerBuilder(
+  $RolesAnnotationComposer get roleId {
+    final $RolesAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6587,7 +12704,7 @@ class $$UserRolesTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableAnnotationComposer(
+            $RolesAnnotationComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6599,28 +12716,28 @@ class $$UserRolesTableAnnotationComposer
   }
 }
 
-class $$UserRolesTableTableManager extends RootTableManager<
+class $UserRolesTableManager extends RootTableManager<
     _$AppDatabase,
-    $UserRolesTable,
+    UserRoles,
     UserRole,
-    $$UserRolesTableFilterComposer,
-    $$UserRolesTableOrderingComposer,
-    $$UserRolesTableAnnotationComposer,
-    $$UserRolesTableCreateCompanionBuilder,
-    $$UserRolesTableUpdateCompanionBuilder,
-    (UserRole, $$UserRolesTableReferences),
+    $UserRolesFilterComposer,
+    $UserRolesOrderingComposer,
+    $UserRolesAnnotationComposer,
+    $UserRolesCreateCompanionBuilder,
+    $UserRolesUpdateCompanionBuilder,
+    (UserRole, $UserRolesReferences),
     UserRole,
     PrefetchHooks Function({bool userId, bool roleId})> {
-  $$UserRolesTableTableManager(_$AppDatabase db, $UserRolesTable table)
+  $UserRolesTableManager(_$AppDatabase db, UserRoles table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$UserRolesTableFilterComposer($db: db, $table: table),
+              $UserRolesFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$UserRolesTableOrderingComposer($db: db, $table: table),
+              $UserRolesOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$UserRolesTableAnnotationComposer($db: db, $table: table),
+              $UserRolesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> userId = const Value.absent(),
             Value<int> roleId = const Value.absent(),
@@ -6642,10 +12759,8 @@ class $$UserRolesTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$UserRolesTableReferences(db, table, e)
-                  ))
+              .map((e) =>
+                  (e.readTable(table), $UserRolesReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({userId = false, roleId = false}) {
             return PrefetchHooks(
@@ -6668,20 +12783,16 @@ class $$UserRolesTableTableManager extends RootTableManager<
                   state = state.withJoin(
                     currentTable: table,
                     currentColumn: table.userId,
-                    referencedTable:
-                        $$UserRolesTableReferences._userIdTable(db),
-                    referencedColumn:
-                        $$UserRolesTableReferences._userIdTable(db).id,
+                    referencedTable: $UserRolesReferences._userIdTable(db),
+                    referencedColumn: $UserRolesReferences._userIdTable(db).id,
                   ) as T;
                 }
                 if (roleId) {
                   state = state.withJoin(
                     currentTable: table,
                     currentColumn: table.roleId,
-                    referencedTable:
-                        $$UserRolesTableReferences._roleIdTable(db),
-                    referencedColumn:
-                        $$UserRolesTableReferences._roleIdTable(db).id,
+                    referencedTable: $UserRolesReferences._roleIdTable(db),
+                    referencedColumn: $UserRolesReferences._roleIdTable(db).id,
                   ) as T;
                 }
 
@@ -6695,43 +12806,42 @@ class $$UserRolesTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$UserRolesTableProcessedTableManager = ProcessedTableManager<
+typedef $UserRolesProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $UserRolesTable,
+    UserRoles,
     UserRole,
-    $$UserRolesTableFilterComposer,
-    $$UserRolesTableOrderingComposer,
-    $$UserRolesTableAnnotationComposer,
-    $$UserRolesTableCreateCompanionBuilder,
-    $$UserRolesTableUpdateCompanionBuilder,
-    (UserRole, $$UserRolesTableReferences),
+    $UserRolesFilterComposer,
+    $UserRolesOrderingComposer,
+    $UserRolesAnnotationComposer,
+    $UserRolesCreateCompanionBuilder,
+    $UserRolesUpdateCompanionBuilder,
+    (UserRole, $UserRolesReferences),
     UserRole,
     PrefetchHooks Function({bool userId, bool roleId})>;
-typedef $$RolePermissionsTableCreateCompanionBuilder = RolePermissionsCompanion
+typedef $RolePermissionsCreateCompanionBuilder = RolePermissionsCompanion
     Function({
   required int roleId,
-  required AppPermission permission,
+  required String permission,
   Value<int> rowid,
 });
-typedef $$RolePermissionsTableUpdateCompanionBuilder = RolePermissionsCompanion
+typedef $RolePermissionsUpdateCompanionBuilder = RolePermissionsCompanion
     Function({
   Value<int> roleId,
-  Value<AppPermission> permission,
+  Value<String> permission,
   Value<int> rowid,
 });
 
-final class $$RolePermissionsTableReferences extends BaseReferences<
-    _$AppDatabase, $RolePermissionsTable, RolePermission> {
-  $$RolePermissionsTableReferences(
-      super.$_db, super.$_table, super.$_typedResult);
+final class $RolePermissionsReferences
+    extends BaseReferences<_$AppDatabase, RolePermissions, RolePermission> {
+  $RolePermissionsReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $RolesTable _roleIdTable(_$AppDatabase db) => db.roles.createAlias(
+  static Roles _roleIdTable(_$AppDatabase db) => db.roles.createAlias(
       $_aliasNameGenerator(db.rolePermissions.roleId, db.roles.id));
 
-  $$RolesTableProcessedTableManager get roleId {
+  $RolesProcessedTableManager get roleId {
     final $_column = $_itemColumn<int>('role_id')!;
 
-    final manager = $$RolesTableTableManager($_db, $_db.roles)
+    final manager = $RolesTableManager($_db, $_db.roles)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_roleIdTable($_db));
     if (item == null) return manager;
@@ -6740,22 +12850,20 @@ final class $$RolePermissionsTableReferences extends BaseReferences<
   }
 }
 
-class $$RolePermissionsTableFilterComposer
-    extends Composer<_$AppDatabase, $RolePermissionsTable> {
-  $$RolePermissionsTableFilterComposer({
+class $RolePermissionsFilterComposer
+    extends Composer<_$AppDatabase, RolePermissions> {
+  $RolePermissionsFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnWithTypeConverterFilters<AppPermission, AppPermission, String>
-      get permission => $composableBuilder(
-          column: $table.permission,
-          builder: (column) => ColumnWithTypeConverterFilters(column));
+  ColumnFilters<String> get permission => $composableBuilder(
+      column: $table.permission, builder: (column) => ColumnFilters(column));
 
-  $$RolesTableFilterComposer get roleId {
-    final $$RolesTableFilterComposer composer = $composerBuilder(
+  $RolesFilterComposer get roleId {
+    final $RolesFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6763,7 +12871,7 @@ class $$RolePermissionsTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableFilterComposer(
+            $RolesFilterComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6775,9 +12883,9 @@ class $$RolePermissionsTableFilterComposer
   }
 }
 
-class $$RolePermissionsTableOrderingComposer
-    extends Composer<_$AppDatabase, $RolePermissionsTable> {
-  $$RolePermissionsTableOrderingComposer({
+class $RolePermissionsOrderingComposer
+    extends Composer<_$AppDatabase, RolePermissions> {
+  $RolePermissionsOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -6787,8 +12895,8 @@ class $$RolePermissionsTableOrderingComposer
   ColumnOrderings<String> get permission => $composableBuilder(
       column: $table.permission, builder: (column) => ColumnOrderings(column));
 
-  $$RolesTableOrderingComposer get roleId {
-    final $$RolesTableOrderingComposer composer = $composerBuilder(
+  $RolesOrderingComposer get roleId {
+    final $RolesOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6796,7 +12904,7 @@ class $$RolePermissionsTableOrderingComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableOrderingComposer(
+            $RolesOrderingComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6808,21 +12916,20 @@ class $$RolePermissionsTableOrderingComposer
   }
 }
 
-class $$RolePermissionsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $RolePermissionsTable> {
-  $$RolePermissionsTableAnnotationComposer({
+class $RolePermissionsAnnotationComposer
+    extends Composer<_$AppDatabase, RolePermissions> {
+  $RolePermissionsAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumnWithTypeConverter<AppPermission, String> get permission =>
-      $composableBuilder(
-          column: $table.permission, builder: (column) => column);
+  GeneratedColumn<String> get permission => $composableBuilder(
+      column: $table.permission, builder: (column) => column);
 
-  $$RolesTableAnnotationComposer get roleId {
-    final $$RolesTableAnnotationComposer composer = $composerBuilder(
+  $RolesAnnotationComposer get roleId {
+    final $RolesAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.roleId,
         referencedTable: $db.roles,
@@ -6830,7 +12937,7 @@ class $$RolePermissionsTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$RolesTableAnnotationComposer(
+            $RolesAnnotationComposer(
               $db: $db,
               $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -6842,32 +12949,31 @@ class $$RolePermissionsTableAnnotationComposer
   }
 }
 
-class $$RolePermissionsTableTableManager extends RootTableManager<
+class $RolePermissionsTableManager extends RootTableManager<
     _$AppDatabase,
-    $RolePermissionsTable,
+    RolePermissions,
     RolePermission,
-    $$RolePermissionsTableFilterComposer,
-    $$RolePermissionsTableOrderingComposer,
-    $$RolePermissionsTableAnnotationComposer,
-    $$RolePermissionsTableCreateCompanionBuilder,
-    $$RolePermissionsTableUpdateCompanionBuilder,
-    (RolePermission, $$RolePermissionsTableReferences),
+    $RolePermissionsFilterComposer,
+    $RolePermissionsOrderingComposer,
+    $RolePermissionsAnnotationComposer,
+    $RolePermissionsCreateCompanionBuilder,
+    $RolePermissionsUpdateCompanionBuilder,
+    (RolePermission, $RolePermissionsReferences),
     RolePermission,
     PrefetchHooks Function({bool roleId})> {
-  $$RolePermissionsTableTableManager(
-      _$AppDatabase db, $RolePermissionsTable table)
+  $RolePermissionsTableManager(_$AppDatabase db, RolePermissions table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$RolePermissionsTableFilterComposer($db: db, $table: table),
+              $RolePermissionsFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$RolePermissionsTableOrderingComposer($db: db, $table: table),
+              $RolePermissionsOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$RolePermissionsTableAnnotationComposer($db: db, $table: table),
+              $RolePermissionsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> roleId = const Value.absent(),
-            Value<AppPermission> permission = const Value.absent(),
+            Value<String> permission = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               RolePermissionsCompanion(
@@ -6877,7 +12983,7 @@ class $$RolePermissionsTableTableManager extends RootTableManager<
           ),
           createCompanionCallback: ({
             required int roleId,
-            required AppPermission permission,
+            required String permission,
             Value<int> rowid = const Value.absent(),
           }) =>
               RolePermissionsCompanion.insert(
@@ -6888,7 +12994,7 @@ class $$RolePermissionsTableTableManager extends RootTableManager<
           withReferenceMapper: (p0) => p0
               .map((e) => (
                     e.readTable(table),
-                    $$RolePermissionsTableReferences(db, table, e)
+                    $RolePermissionsReferences(db, table, e)
                   ))
               .toList(),
           prefetchHooksCallback: ({roleId = false}) {
@@ -6913,9 +13019,9 @@ class $$RolePermissionsTableTableManager extends RootTableManager<
                     currentTable: table,
                     currentColumn: table.roleId,
                     referencedTable:
-                        $$RolePermissionsTableReferences._roleIdTable(db),
+                        $RolePermissionsReferences._roleIdTable(db),
                     referencedColumn:
-                        $$RolePermissionsTableReferences._roleIdTable(db).id,
+                        $RolePermissionsReferences._roleIdTable(db).id,
                   ) as T;
                 }
 
@@ -6929,44 +13035,44 @@ class $$RolePermissionsTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$RolePermissionsTableProcessedTableManager = ProcessedTableManager<
+typedef $RolePermissionsProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $RolePermissionsTable,
+    RolePermissions,
     RolePermission,
-    $$RolePermissionsTableFilterComposer,
-    $$RolePermissionsTableOrderingComposer,
-    $$RolePermissionsTableAnnotationComposer,
-    $$RolePermissionsTableCreateCompanionBuilder,
-    $$RolePermissionsTableUpdateCompanionBuilder,
-    (RolePermission, $$RolePermissionsTableReferences),
+    $RolePermissionsFilterComposer,
+    $RolePermissionsOrderingComposer,
+    $RolePermissionsAnnotationComposer,
+    $RolePermissionsCreateCompanionBuilder,
+    $RolePermissionsUpdateCompanionBuilder,
+    (RolePermission, $RolePermissionsReferences),
     RolePermission,
     PrefetchHooks Function({bool roleId})>;
-typedef $$AuditLogTableCreateCompanionBuilder = AuditLogCompanion Function({
+typedef $AuditLogCreateCompanionBuilder = AuditLogCompanion Function({
   Value<int> id,
   required int userId,
-  required DateTime timestamp,
-  required String action,
+  required double timestamp,
+  required String eventAction,
   Value<String?> details,
 });
-typedef $$AuditLogTableUpdateCompanionBuilder = AuditLogCompanion Function({
+typedef $AuditLogUpdateCompanionBuilder = AuditLogCompanion Function({
   Value<int> id,
   Value<int> userId,
-  Value<DateTime> timestamp,
-  Value<String> action,
+  Value<double> timestamp,
+  Value<String> eventAction,
   Value<String?> details,
 });
 
-final class $$AuditLogTableReferences
-    extends BaseReferences<_$AppDatabase, $AuditLogTable, AuditLogData> {
-  $$AuditLogTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $AuditLogReferences
+    extends BaseReferences<_$AppDatabase, AuditLog, AuditLogData> {
+  $AuditLogReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static $UsersTable _userIdTable(_$AppDatabase db) => db.users
+  static Users _userIdTable(_$AppDatabase db) => db.users
       .createAlias($_aliasNameGenerator(db.auditLog.userId, db.users.id));
 
-  $$UsersTableProcessedTableManager get userId {
+  $UsersProcessedTableManager get userId {
     final $_column = $_itemColumn<int>('user_id')!;
 
-    final manager = $$UsersTableTableManager($_db, $_db.users)
+    final manager = $UsersTableManager($_db, $_db.users)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_userIdTable($_db));
     if (item == null) return manager;
@@ -6975,9 +13081,8 @@ final class $$AuditLogTableReferences
   }
 }
 
-class $$AuditLogTableFilterComposer
-    extends Composer<_$AppDatabase, $AuditLogTable> {
-  $$AuditLogTableFilterComposer({
+class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
+  $AuditLogFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -6987,17 +13092,17 @@ class $$AuditLogTableFilterComposer
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get timestamp => $composableBuilder(
+  ColumnFilters<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get action => $composableBuilder(
-      column: $table.action, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get eventAction => $composableBuilder(
+      column: $table.eventAction, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnFilters(column));
 
-  $$UsersTableFilterComposer get userId {
-    final $$UsersTableFilterComposer composer = $composerBuilder(
+  $UsersFilterComposer get userId {
+    final $UsersFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -7005,7 +13110,7 @@ class $$AuditLogTableFilterComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableFilterComposer(
+            $UsersFilterComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7017,9 +13122,8 @@ class $$AuditLogTableFilterComposer
   }
 }
 
-class $$AuditLogTableOrderingComposer
-    extends Composer<_$AppDatabase, $AuditLogTable> {
-  $$AuditLogTableOrderingComposer({
+class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
+  $AuditLogOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -7029,17 +13133,17 @@ class $$AuditLogTableOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get timestamp => $composableBuilder(
+  ColumnOrderings<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get action => $composableBuilder(
-      column: $table.action, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get eventAction => $composableBuilder(
+      column: $table.eventAction, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnOrderings(column));
 
-  $$UsersTableOrderingComposer get userId {
-    final $$UsersTableOrderingComposer composer = $composerBuilder(
+  $UsersOrderingComposer get userId {
+    final $UsersOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -7047,7 +13151,7 @@ class $$AuditLogTableOrderingComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableOrderingComposer(
+            $UsersOrderingComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7059,9 +13163,8 @@ class $$AuditLogTableOrderingComposer
   }
 }
 
-class $$AuditLogTableAnnotationComposer
-    extends Composer<_$AppDatabase, $AuditLogTable> {
-  $$AuditLogTableAnnotationComposer({
+class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
+  $AuditLogAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -7071,17 +13174,17 @@ class $$AuditLogTableAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get timestamp =>
+  GeneratedColumn<double> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
 
-  GeneratedColumn<String> get action =>
-      $composableBuilder(column: $table.action, builder: (column) => column);
+  GeneratedColumn<String> get eventAction => $composableBuilder(
+      column: $table.eventAction, builder: (column) => column);
 
   GeneratedColumn<String> get details =>
       $composableBuilder(column: $table.details, builder: (column) => column);
 
-  $$UsersTableAnnotationComposer get userId {
-    final $$UsersTableAnnotationComposer composer = $composerBuilder(
+  $UsersAnnotationComposer get userId {
+    final $UsersAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.userId,
         referencedTable: $db.users,
@@ -7089,7 +13192,7 @@ class $$AuditLogTableAnnotationComposer
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$UsersTableAnnotationComposer(
+            $UsersAnnotationComposer(
               $db: $db,
               $table: $db.users,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
@@ -7101,59 +13204,59 @@ class $$AuditLogTableAnnotationComposer
   }
 }
 
-class $$AuditLogTableTableManager extends RootTableManager<
+class $AuditLogTableManager extends RootTableManager<
     _$AppDatabase,
-    $AuditLogTable,
+    AuditLog,
     AuditLogData,
-    $$AuditLogTableFilterComposer,
-    $$AuditLogTableOrderingComposer,
-    $$AuditLogTableAnnotationComposer,
-    $$AuditLogTableCreateCompanionBuilder,
-    $$AuditLogTableUpdateCompanionBuilder,
-    (AuditLogData, $$AuditLogTableReferences),
+    $AuditLogFilterComposer,
+    $AuditLogOrderingComposer,
+    $AuditLogAnnotationComposer,
+    $AuditLogCreateCompanionBuilder,
+    $AuditLogUpdateCompanionBuilder,
+    (AuditLogData, $AuditLogReferences),
     AuditLogData,
     PrefetchHooks Function({bool userId})> {
-  $$AuditLogTableTableManager(_$AppDatabase db, $AuditLogTable table)
+  $AuditLogTableManager(_$AppDatabase db, AuditLog table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$AuditLogTableFilterComposer($db: db, $table: table),
+              $AuditLogFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$AuditLogTableOrderingComposer($db: db, $table: table),
+              $AuditLogOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$AuditLogTableAnnotationComposer($db: db, $table: table),
+              $AuditLogAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
-            Value<DateTime> timestamp = const Value.absent(),
-            Value<String> action = const Value.absent(),
+            Value<double> timestamp = const Value.absent(),
+            Value<String> eventAction = const Value.absent(),
             Value<String?> details = const Value.absent(),
           }) =>
               AuditLogCompanion(
             id: id,
             userId: userId,
             timestamp: timestamp,
-            action: action,
+            eventAction: eventAction,
             details: details,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int userId,
-            required DateTime timestamp,
-            required String action,
+            required double timestamp,
+            required String eventAction,
             Value<String?> details = const Value.absent(),
           }) =>
               AuditLogCompanion.insert(
             id: id,
             userId: userId,
             timestamp: timestamp,
-            action: action,
+            eventAction: eventAction,
             details: details,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>
-                  (e.readTable(table), $$AuditLogTableReferences(db, table, e)))
+                  (e.readTable(table), $AuditLogReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: ({userId = false}) {
             return PrefetchHooks(
@@ -7176,9 +13279,8 @@ class $$AuditLogTableTableManager extends RootTableManager<
                   state = state.withJoin(
                     currentTable: table,
                     currentColumn: table.userId,
-                    referencedTable: $$AuditLogTableReferences._userIdTable(db),
-                    referencedColumn:
-                        $$AuditLogTableReferences._userIdTable(db).id,
+                    referencedTable: $AuditLogReferences._userIdTable(db),
+                    referencedColumn: $AuditLogReferences._userIdTable(db).id,
                   ) as T;
                 }
 
@@ -7192,1790 +13294,55 @@ class $$AuditLogTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$AuditLogTableProcessedTableManager = ProcessedTableManager<
+typedef $AuditLogProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $AuditLogTable,
+    AuditLog,
     AuditLogData,
-    $$AuditLogTableFilterComposer,
-    $$AuditLogTableOrderingComposer,
-    $$AuditLogTableAnnotationComposer,
-    $$AuditLogTableCreateCompanionBuilder,
-    $$AuditLogTableUpdateCompanionBuilder,
-    (AuditLogData, $$AuditLogTableReferences),
+    $AuditLogFilterComposer,
+    $AuditLogOrderingComposer,
+    $AuditLogAnnotationComposer,
+    $AuditLogCreateCompanionBuilder,
+    $AuditLogUpdateCompanionBuilder,
+    (AuditLogData, $AuditLogReferences),
     AuditLogData,
     PrefetchHooks Function({bool userId})>;
-typedef $$SystemConfigTableCreateCompanionBuilder = SystemConfigCompanion
-    Function({
-  Value<int> id,
-  required String key,
-  required String value,
-});
-typedef $$SystemConfigTableUpdateCompanionBuilder = SystemConfigCompanion
-    Function({
-  Value<int> id,
-  Value<String> key,
-  Value<String> value,
-});
-
-class $$SystemConfigTableFilterComposer
-    extends Composer<_$AppDatabase, $SystemConfigTable> {
-  $$SystemConfigTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get key => $composableBuilder(
-      column: $table.key, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get value => $composableBuilder(
-      column: $table.value, builder: (column) => ColumnFilters(column));
-}
-
-class $$SystemConfigTableOrderingComposer
-    extends Composer<_$AppDatabase, $SystemConfigTable> {
-  $$SystemConfigTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get key => $composableBuilder(
-      column: $table.key, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get value => $composableBuilder(
-      column: $table.value, builder: (column) => ColumnOrderings(column));
-}
-
-class $$SystemConfigTableAnnotationComposer
-    extends Composer<_$AppDatabase, $SystemConfigTable> {
-  $$SystemConfigTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get key =>
-      $composableBuilder(column: $table.key, builder: (column) => column);
-
-  GeneratedColumn<String> get value =>
-      $composableBuilder(column: $table.value, builder: (column) => column);
-}
-
-class $$SystemConfigTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $SystemConfigTable,
-    SystemConfigData,
-    $$SystemConfigTableFilterComposer,
-    $$SystemConfigTableOrderingComposer,
-    $$SystemConfigTableAnnotationComposer,
-    $$SystemConfigTableCreateCompanionBuilder,
-    $$SystemConfigTableUpdateCompanionBuilder,
-    (
-      SystemConfigData,
-      BaseReferences<_$AppDatabase, $SystemConfigTable, SystemConfigData>
-    ),
-    SystemConfigData,
-    PrefetchHooks Function()> {
-  $$SystemConfigTableTableManager(_$AppDatabase db, $SystemConfigTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$SystemConfigTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$SystemConfigTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$SystemConfigTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> key = const Value.absent(),
-            Value<String> value = const Value.absent(),
-          }) =>
-              SystemConfigCompanion(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String key,
-            required String value,
-          }) =>
-              SystemConfigCompanion.insert(
-            id: id,
-            key: key,
-            value: value,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $$SystemConfigTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $SystemConfigTable,
-    SystemConfigData,
-    $$SystemConfigTableFilterComposer,
-    $$SystemConfigTableOrderingComposer,
-    $$SystemConfigTableAnnotationComposer,
-    $$SystemConfigTableCreateCompanionBuilder,
-    $$SystemConfigTableUpdateCompanionBuilder,
-    (
-      SystemConfigData,
-      BaseReferences<_$AppDatabase, $SystemConfigTable, SystemConfigData>
-    ),
-    SystemConfigData,
-    PrefetchHooks Function()>;
-typedef $$ZonesTableCreateCompanionBuilder = ZonesCompanion Function({
-  Value<int> id,
-  required String code,
-  required String nameAr,
-  required String nameEn,
-  Value<bool> isActive,
-});
-typedef $$ZonesTableUpdateCompanionBuilder = ZonesCompanion Function({
-  Value<int> id,
-  Value<String> code,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<bool> isActive,
-});
-
-final class $$ZonesTableReferences
-    extends BaseReferences<_$AppDatabase, $ZonesTable, Zone> {
-  $$ZonesTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<$CountriesTable, List<Country>>
-      _countriesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-          db.countries,
-          aliasName: $_aliasNameGenerator(db.zones.id, db.countries.zoneId));
-
-  $$CountriesTableProcessedTableManager get countriesRefs {
-    final manager = $$CountriesTableTableManager($_db, $_db.countries)
-        .filter((f) => f.zoneId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_countriesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$ZonesTableFilterComposer extends Composer<_$AppDatabase, $ZonesTable> {
-  $$ZonesTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> countriesRefs(
-      Expression<bool> Function($$CountriesTableFilterComposer f) f) {
-    final $$CountriesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.countries,
-        getReferencedColumn: (t) => t.zoneId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CountriesTableFilterComposer(
-              $db: $db,
-              $table: $db.countries,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$ZonesTableOrderingComposer
-    extends Composer<_$AppDatabase, $ZonesTable> {
-  $$ZonesTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-}
-
-class $$ZonesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $ZonesTable> {
-  $$ZonesTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  Expression<T> countriesRefs<T extends Object>(
-      Expression<T> Function($$CountriesTableAnnotationComposer a) f) {
-    final $$CountriesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.countries,
-        getReferencedColumn: (t) => t.zoneId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CountriesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.countries,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$ZonesTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $ZonesTable,
-    Zone,
-    $$ZonesTableFilterComposer,
-    $$ZonesTableOrderingComposer,
-    $$ZonesTableAnnotationComposer,
-    $$ZonesTableCreateCompanionBuilder,
-    $$ZonesTableUpdateCompanionBuilder,
-    (Zone, $$ZonesTableReferences),
-    Zone,
-    PrefetchHooks Function({bool countriesRefs})> {
-  $$ZonesTableTableManager(_$AppDatabase db, $ZonesTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$ZonesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$ZonesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$ZonesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> code = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              ZonesCompanion(
-            id: id,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String code,
-            required String nameAr,
-            required String nameEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              ZonesCompanion.insert(
-            id: id,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$ZonesTableReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({countriesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (countriesRefs) db.countries],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (countriesRefs)
-                    await $_getPrefetchedData<Zone, $ZonesTable, Country>(
-                        currentTable: table,
-                        referencedTable:
-                            $$ZonesTableReferences._countriesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$ZonesTableReferences(db, table, p0).countriesRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.zoneId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$ZonesTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $ZonesTable,
-    Zone,
-    $$ZonesTableFilterComposer,
-    $$ZonesTableOrderingComposer,
-    $$ZonesTableAnnotationComposer,
-    $$ZonesTableCreateCompanionBuilder,
-    $$ZonesTableUpdateCompanionBuilder,
-    (Zone, $$ZonesTableReferences),
-    Zone,
-    PrefetchHooks Function({bool countriesRefs})>;
-typedef $$CountriesTableCreateCompanionBuilder = CountriesCompanion Function({
-  Value<int> id,
-  required int zoneId,
-  required String code,
-  required String nameAr,
-  required String nameEn,
-  required String nationalityAr,
-  required String nationalityEn,
-  Value<bool> isActive,
-});
-typedef $$CountriesTableUpdateCompanionBuilder = CountriesCompanion Function({
-  Value<int> id,
-  Value<int> zoneId,
-  Value<String> code,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<String> nationalityAr,
-  Value<String> nationalityEn,
-  Value<bool> isActive,
-});
-
-final class $$CountriesTableReferences
-    extends BaseReferences<_$AppDatabase, $CountriesTable, Country> {
-  $$CountriesTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $ZonesTable _zoneIdTable(_$AppDatabase db) => db.zones
-      .createAlias($_aliasNameGenerator(db.countries.zoneId, db.zones.id));
-
-  $$ZonesTableProcessedTableManager get zoneId {
-    final $_column = $_itemColumn<int>('zone_id')!;
-
-    final manager = $$ZonesTableTableManager($_db, $_db.zones)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_zoneIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static MultiTypedResultKey<$GovernoratesTable, List<Governorate>>
-      _governoratesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
-          db.governorates,
-          aliasName:
-              $_aliasNameGenerator(db.countries.id, db.governorates.countryId));
-
-  $$GovernoratesTableProcessedTableManager get governoratesRefs {
-    final manager = $$GovernoratesTableTableManager($_db, $_db.governorates)
-        .filter((f) => f.countryId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_governoratesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$CountriesTableFilterComposer
-    extends Composer<_$AppDatabase, $CountriesTable> {
-  $$CountriesTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nationalityAr => $composableBuilder(
-      column: $table.nationalityAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nationalityEn => $composableBuilder(
-      column: $table.nationalityEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  $$ZonesTableFilterComposer get zoneId {
-    final $$ZonesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.zoneId,
-        referencedTable: $db.zones,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ZonesTableFilterComposer(
-              $db: $db,
-              $table: $db.zones,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<bool> governoratesRefs(
-      Expression<bool> Function($$GovernoratesTableFilterComposer f) f) {
-    final $$GovernoratesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.governorates,
-        getReferencedColumn: (t) => t.countryId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GovernoratesTableFilterComposer(
-              $db: $db,
-              $table: $db.governorates,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$CountriesTableOrderingComposer
-    extends Composer<_$AppDatabase, $CountriesTable> {
-  $$CountriesTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nationalityAr => $composableBuilder(
-      column: $table.nationalityAr,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nationalityEn => $composableBuilder(
-      column: $table.nationalityEn,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-
-  $$ZonesTableOrderingComposer get zoneId {
-    final $$ZonesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.zoneId,
-        referencedTable: $db.zones,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ZonesTableOrderingComposer(
-              $db: $db,
-              $table: $db.zones,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$CountriesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $CountriesTable> {
-  $$CountriesTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<String> get nationalityAr => $composableBuilder(
-      column: $table.nationalityAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nationalityEn => $composableBuilder(
-      column: $table.nationalityEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  $$ZonesTableAnnotationComposer get zoneId {
-    final $$ZonesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.zoneId,
-        referencedTable: $db.zones,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$ZonesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.zones,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<T> governoratesRefs<T extends Object>(
-      Expression<T> Function($$GovernoratesTableAnnotationComposer a) f) {
-    final $$GovernoratesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.governorates,
-        getReferencedColumn: (t) => t.countryId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GovernoratesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.governorates,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$CountriesTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $CountriesTable,
-    Country,
-    $$CountriesTableFilterComposer,
-    $$CountriesTableOrderingComposer,
-    $$CountriesTableAnnotationComposer,
-    $$CountriesTableCreateCompanionBuilder,
-    $$CountriesTableUpdateCompanionBuilder,
-    (Country, $$CountriesTableReferences),
-    Country,
-    PrefetchHooks Function({bool zoneId, bool governoratesRefs})> {
-  $$CountriesTableTableManager(_$AppDatabase db, $CountriesTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$CountriesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$CountriesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$CountriesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> zoneId = const Value.absent(),
-            Value<String> code = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<String> nationalityAr = const Value.absent(),
-            Value<String> nationalityEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              CountriesCompanion(
-            id: id,
-            zoneId: zoneId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            nationalityAr: nationalityAr,
-            nationalityEn: nationalityEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int zoneId,
-            required String code,
-            required String nameAr,
-            required String nameEn,
-            required String nationalityAr,
-            required String nationalityEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              CountriesCompanion.insert(
-            id: id,
-            zoneId: zoneId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            nationalityAr: nationalityAr,
-            nationalityEn: nationalityEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$CountriesTableReferences(db, table, e)
-                  ))
-              .toList(),
-          prefetchHooksCallback: ({zoneId = false, governoratesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (governoratesRefs) db.governorates],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (zoneId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.zoneId,
-                    referencedTable:
-                        $$CountriesTableReferences._zoneIdTable(db),
-                    referencedColumn:
-                        $$CountriesTableReferences._zoneIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (governoratesRefs)
-                    await $_getPrefetchedData<Country, $CountriesTable,
-                            Governorate>(
-                        currentTable: table,
-                        referencedTable: $$CountriesTableReferences
-                            ._governoratesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CountriesTableReferences(db, table, p0)
-                                .governoratesRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.countryId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$CountriesTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $CountriesTable,
-    Country,
-    $$CountriesTableFilterComposer,
-    $$CountriesTableOrderingComposer,
-    $$CountriesTableAnnotationComposer,
-    $$CountriesTableCreateCompanionBuilder,
-    $$CountriesTableUpdateCompanionBuilder,
-    (Country, $$CountriesTableReferences),
-    Country,
-    PrefetchHooks Function({bool zoneId, bool governoratesRefs})>;
-typedef $$GovernoratesTableCreateCompanionBuilder = GovernoratesCompanion
-    Function({
-  Value<int> id,
-  required int countryId,
-  required String code,
-  required String nameAr,
-  required String nameEn,
-  Value<bool> isActive,
-});
-typedef $$GovernoratesTableUpdateCompanionBuilder = GovernoratesCompanion
-    Function({
-  Value<int> id,
-  Value<int> countryId,
-  Value<String> code,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<bool> isActive,
-});
-
-final class $$GovernoratesTableReferences
-    extends BaseReferences<_$AppDatabase, $GovernoratesTable, Governorate> {
-  $$GovernoratesTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $CountriesTable _countryIdTable(_$AppDatabase db) =>
-      db.countries.createAlias(
-          $_aliasNameGenerator(db.governorates.countryId, db.countries.id));
-
-  $$CountriesTableProcessedTableManager get countryId {
-    final $_column = $_itemColumn<int>('country_id')!;
-
-    final manager = $$CountriesTableTableManager($_db, $_db.countries)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_countryIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static MultiTypedResultKey<$CitiesTable, List<City>> _citiesRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.cities,
-          aliasName: $_aliasNameGenerator(db.governorates.id, db.cities.govId));
-
-  $$CitiesTableProcessedTableManager get citiesRefs {
-    final manager = $$CitiesTableTableManager($_db, $_db.cities)
-        .filter((f) => f.govId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_citiesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$GovernoratesTableFilterComposer
-    extends Composer<_$AppDatabase, $GovernoratesTable> {
-  $$GovernoratesTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  $$CountriesTableFilterComposer get countryId {
-    final $$CountriesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.countryId,
-        referencedTable: $db.countries,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CountriesTableFilterComposer(
-              $db: $db,
-              $table: $db.countries,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<bool> citiesRefs(
-      Expression<bool> Function($$CitiesTableFilterComposer f) f) {
-    final $$CitiesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.cities,
-        getReferencedColumn: (t) => t.govId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CitiesTableFilterComposer(
-              $db: $db,
-              $table: $db.cities,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$GovernoratesTableOrderingComposer
-    extends Composer<_$AppDatabase, $GovernoratesTable> {
-  $$GovernoratesTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-
-  $$CountriesTableOrderingComposer get countryId {
-    final $$CountriesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.countryId,
-        referencedTable: $db.countries,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CountriesTableOrderingComposer(
-              $db: $db,
-              $table: $db.countries,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$GovernoratesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $GovernoratesTable> {
-  $$GovernoratesTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  $$CountriesTableAnnotationComposer get countryId {
-    final $$CountriesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.countryId,
-        referencedTable: $db.countries,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CountriesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.countries,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<T> citiesRefs<T extends Object>(
-      Expression<T> Function($$CitiesTableAnnotationComposer a) f) {
-    final $$CitiesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.cities,
-        getReferencedColumn: (t) => t.govId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CitiesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.cities,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$GovernoratesTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $GovernoratesTable,
-    Governorate,
-    $$GovernoratesTableFilterComposer,
-    $$GovernoratesTableOrderingComposer,
-    $$GovernoratesTableAnnotationComposer,
-    $$GovernoratesTableCreateCompanionBuilder,
-    $$GovernoratesTableUpdateCompanionBuilder,
-    (Governorate, $$GovernoratesTableReferences),
-    Governorate,
-    PrefetchHooks Function({bool countryId, bool citiesRefs})> {
-  $$GovernoratesTableTableManager(_$AppDatabase db, $GovernoratesTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$GovernoratesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$GovernoratesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$GovernoratesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> countryId = const Value.absent(),
-            Value<String> code = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              GovernoratesCompanion(
-            id: id,
-            countryId: countryId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int countryId,
-            required String code,
-            required String nameAr,
-            required String nameEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              GovernoratesCompanion.insert(
-            id: id,
-            countryId: countryId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (
-                    e.readTable(table),
-                    $$GovernoratesTableReferences(db, table, e)
-                  ))
-              .toList(),
-          prefetchHooksCallback: ({countryId = false, citiesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (citiesRefs) db.cities],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (countryId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.countryId,
-                    referencedTable:
-                        $$GovernoratesTableReferences._countryIdTable(db),
-                    referencedColumn:
-                        $$GovernoratesTableReferences._countryIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (citiesRefs)
-                    await $_getPrefetchedData<Governorate, $GovernoratesTable,
-                            City>(
-                        currentTable: table,
-                        referencedTable:
-                            $$GovernoratesTableReferences._citiesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$GovernoratesTableReferences(db, table, p0)
-                                .citiesRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.govId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$GovernoratesTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $GovernoratesTable,
-    Governorate,
-    $$GovernoratesTableFilterComposer,
-    $$GovernoratesTableOrderingComposer,
-    $$GovernoratesTableAnnotationComposer,
-    $$GovernoratesTableCreateCompanionBuilder,
-    $$GovernoratesTableUpdateCompanionBuilder,
-    (Governorate, $$GovernoratesTableReferences),
-    Governorate,
-    PrefetchHooks Function({bool countryId, bool citiesRefs})>;
-typedef $$CitiesTableCreateCompanionBuilder = CitiesCompanion Function({
-  Value<int> id,
-  required int govId,
-  required String code,
-  required String nameAr,
-  required String nameEn,
-  Value<bool> isActive,
-});
-typedef $$CitiesTableUpdateCompanionBuilder = CitiesCompanion Function({
-  Value<int> id,
-  Value<int> govId,
-  Value<String> code,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<bool> isActive,
-});
-
-final class $$CitiesTableReferences
-    extends BaseReferences<_$AppDatabase, $CitiesTable, City> {
-  $$CitiesTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $GovernoratesTable _govIdTable(_$AppDatabase db) => db.governorates
-      .createAlias($_aliasNameGenerator(db.cities.govId, db.governorates.id));
-
-  $$GovernoratesTableProcessedTableManager get govId {
-    final $_column = $_itemColumn<int>('gov_id')!;
-
-    final manager = $$GovernoratesTableTableManager($_db, $_db.governorates)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_govIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
-  static MultiTypedResultKey<$RegionsTable, List<Region>> _regionsRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.regions,
-          aliasName: $_aliasNameGenerator(db.cities.id, db.regions.cityId));
-
-  $$RegionsTableProcessedTableManager get regionsRefs {
-    final manager = $$RegionsTableTableManager($_db, $_db.regions)
-        .filter((f) => f.cityId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_regionsRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $$CitiesTableFilterComposer
-    extends Composer<_$AppDatabase, $CitiesTable> {
-  $$CitiesTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  $$GovernoratesTableFilterComposer get govId {
-    final $$GovernoratesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.govId,
-        referencedTable: $db.governorates,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GovernoratesTableFilterComposer(
-              $db: $db,
-              $table: $db.governorates,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<bool> regionsRefs(
-      Expression<bool> Function($$RegionsTableFilterComposer f) f) {
-    final $$RegionsTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.regions,
-        getReferencedColumn: (t) => t.cityId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$RegionsTableFilterComposer(
-              $db: $db,
-              $table: $db.regions,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$CitiesTableOrderingComposer
-    extends Composer<_$AppDatabase, $CitiesTable> {
-  $$CitiesTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-
-  $$GovernoratesTableOrderingComposer get govId {
-    final $$GovernoratesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.govId,
-        referencedTable: $db.governorates,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GovernoratesTableOrderingComposer(
-              $db: $db,
-              $table: $db.governorates,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$CitiesTableAnnotationComposer
-    extends Composer<_$AppDatabase, $CitiesTable> {
-  $$CitiesTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  $$GovernoratesTableAnnotationComposer get govId {
-    final $$GovernoratesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.govId,
-        referencedTable: $db.governorates,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$GovernoratesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.governorates,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-
-  Expression<T> regionsRefs<T extends Object>(
-      Expression<T> Function($$RegionsTableAnnotationComposer a) f) {
-    final $$RegionsTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.regions,
-        getReferencedColumn: (t) => t.cityId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$RegionsTableAnnotationComposer(
-              $db: $db,
-              $table: $db.regions,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $$CitiesTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $CitiesTable,
-    City,
-    $$CitiesTableFilterComposer,
-    $$CitiesTableOrderingComposer,
-    $$CitiesTableAnnotationComposer,
-    $$CitiesTableCreateCompanionBuilder,
-    $$CitiesTableUpdateCompanionBuilder,
-    (City, $$CitiesTableReferences),
-    City,
-    PrefetchHooks Function({bool govId, bool regionsRefs})> {
-  $$CitiesTableTableManager(_$AppDatabase db, $CitiesTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$CitiesTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$CitiesTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$CitiesTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> govId = const Value.absent(),
-            Value<String> code = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              CitiesCompanion(
-            id: id,
-            govId: govId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int govId,
-            required String code,
-            required String nameAr,
-            required String nameEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              CitiesCompanion.insert(
-            id: id,
-            govId: govId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$CitiesTableReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({govId = false, regionsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (regionsRefs) db.regions],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (govId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.govId,
-                    referencedTable: $$CitiesTableReferences._govIdTable(db),
-                    referencedColumn:
-                        $$CitiesTableReferences._govIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (regionsRefs)
-                    await $_getPrefetchedData<City, $CitiesTable, Region>(
-                        currentTable: table,
-                        referencedTable:
-                            $$CitiesTableReferences._regionsRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $$CitiesTableReferences(db, table, p0).regionsRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.cityId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$CitiesTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $CitiesTable,
-    City,
-    $$CitiesTableFilterComposer,
-    $$CitiesTableOrderingComposer,
-    $$CitiesTableAnnotationComposer,
-    $$CitiesTableCreateCompanionBuilder,
-    $$CitiesTableUpdateCompanionBuilder,
-    (City, $$CitiesTableReferences),
-    City,
-    PrefetchHooks Function({bool govId, bool regionsRefs})>;
-typedef $$RegionsTableCreateCompanionBuilder = RegionsCompanion Function({
-  Value<int> id,
-  required int cityId,
-  required String code,
-  required String nameAr,
-  required String nameEn,
-  Value<bool> isActive,
-});
-typedef $$RegionsTableUpdateCompanionBuilder = RegionsCompanion Function({
-  Value<int> id,
-  Value<int> cityId,
-  Value<String> code,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<bool> isActive,
-});
-
-final class $$RegionsTableReferences
-    extends BaseReferences<_$AppDatabase, $RegionsTable, Region> {
-  $$RegionsTableReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static $CitiesTable _cityIdTable(_$AppDatabase db) => db.cities
-      .createAlias($_aliasNameGenerator(db.regions.cityId, db.cities.id));
-
-  $$CitiesTableProcessedTableManager get cityId {
-    final $_column = $_itemColumn<int>('city_id')!;
-
-    final manager = $$CitiesTableTableManager($_db, $_db.cities)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_cityIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $$RegionsTableFilterComposer
-    extends Composer<_$AppDatabase, $RegionsTable> {
-  $$RegionsTableFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  $$CitiesTableFilterComposer get cityId {
-    final $$CitiesTableFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.cityId,
-        referencedTable: $db.cities,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CitiesTableFilterComposer(
-              $db: $db,
-              $table: $db.cities,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$RegionsTableOrderingComposer
-    extends Composer<_$AppDatabase, $RegionsTable> {
-  $$RegionsTableOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get code => $composableBuilder(
-      column: $table.code, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-
-  $$CitiesTableOrderingComposer get cityId {
-    final $$CitiesTableOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.cityId,
-        referencedTable: $db.cities,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CitiesTableOrderingComposer(
-              $db: $db,
-              $table: $db.cities,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$RegionsTableAnnotationComposer
-    extends Composer<_$AppDatabase, $RegionsTable> {
-  $$RegionsTableAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get code =>
-      $composableBuilder(column: $table.code, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  $$CitiesTableAnnotationComposer get cityId {
-    final $$CitiesTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.cityId,
-        referencedTable: $db.cities,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$CitiesTableAnnotationComposer(
-              $db: $db,
-              $table: $db.cities,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $$RegionsTableTableManager extends RootTableManager<
-    _$AppDatabase,
-    $RegionsTable,
-    Region,
-    $$RegionsTableFilterComposer,
-    $$RegionsTableOrderingComposer,
-    $$RegionsTableAnnotationComposer,
-    $$RegionsTableCreateCompanionBuilder,
-    $$RegionsTableUpdateCompanionBuilder,
-    (Region, $$RegionsTableReferences),
-    Region,
-    PrefetchHooks Function({bool cityId})> {
-  $$RegionsTableTableManager(_$AppDatabase db, $RegionsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $$RegionsTableFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $$RegionsTableOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $$RegionsTableAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> cityId = const Value.absent(),
-            Value<String> code = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              RegionsCompanion(
-            id: id,
-            cityId: cityId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int cityId,
-            required String code,
-            required String nameAr,
-            required String nameEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              RegionsCompanion.insert(
-            id: id,
-            cityId: cityId,
-            code: code,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$RegionsTableReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({cityId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (cityId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.cityId,
-                    referencedTable: $$RegionsTableReferences._cityIdTable(db),
-                    referencedColumn:
-                        $$RegionsTableReferences._cityIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ));
-}
-
-typedef $$RegionsTableProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    $RegionsTable,
-    Region,
-    $$RegionsTableFilterComposer,
-    $$RegionsTableOrderingComposer,
-    $$RegionsTableAnnotationComposer,
-    $$RegionsTableCreateCompanionBuilder,
-    $$RegionsTableUpdateCompanionBuilder,
-    (Region, $$RegionsTableReferences),
-    Region,
-    PrefetchHooks Function({bool cityId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
-  $$UsersTableTableManager get users =>
-      $$UsersTableTableManager(_db, _db.users);
-  $$CompanyInfoTableTableManager get companyInfo =>
-      $$CompanyInfoTableTableManager(_db, _db.companyInfo);
-  $$BranchesTableTableManager get branches =>
-      $$BranchesTableTableManager(_db, _db.branches);
-  $$FinancialPeriodsTableTableManager get financialPeriods =>
-      $$FinancialPeriodsTableTableManager(_db, _db.financialPeriods);
-  $$AccountsTableTableManager get accounts =>
-      $$AccountsTableTableManager(_db, _db.accounts);
-  $$RolesTableTableManager get roles =>
-      $$RolesTableTableManager(_db, _db.roles);
-  $$UserRolesTableTableManager get userRoles =>
-      $$UserRolesTableTableManager(_db, _db.userRoles);
-  $$RolePermissionsTableTableManager get rolePermissions =>
-      $$RolePermissionsTableTableManager(_db, _db.rolePermissions);
-  $$AuditLogTableTableManager get auditLog =>
-      $$AuditLogTableTableManager(_db, _db.auditLog);
-  $$SystemConfigTableTableManager get systemConfig =>
-      $$SystemConfigTableTableManager(_db, _db.systemConfig);
-  $$ZonesTableTableManager get zones =>
-      $$ZonesTableTableManager(_db, _db.zones);
-  $$CountriesTableTableManager get countries =>
-      $$CountriesTableTableManager(_db, _db.countries);
-  $$GovernoratesTableTableManager get governorates =>
-      $$GovernoratesTableTableManager(_db, _db.governorates);
-  $$CitiesTableTableManager get cities =>
-      $$CitiesTableTableManager(_db, _db.cities);
-  $$RegionsTableTableManager get regions =>
-      $$RegionsTableTableManager(_db, _db.regions);
+  $TaxBracketsTableManager get taxBrackets =>
+      $TaxBracketsTableManager(_db, _db.taxBrackets);
+  $TaxTypesTableManager get taxTypes =>
+      $TaxTypesTableManager(_db, _db.taxTypes);
+  $TaxCalcMethodsTableManager get taxCalcMethods =>
+      $TaxCalcMethodsTableManager(_db, _db.taxCalcMethods);
+  $CurrenciesTableManager get currencies =>
+      $CurrenciesTableManager(_db, _db.currencies);
+  $CurrencyDenominationsTableManager get currencyDenominations =>
+      $CurrencyDenominationsTableManager(_db, _db.currencyDenominations);
+  $ZonesTableManager get zones => $ZonesTableManager(_db, _db.zones);
+  $CountriesTableManager get countries =>
+      $CountriesTableManager(_db, _db.countries);
+  $GovernoratesTableManager get governorates =>
+      $GovernoratesTableManager(_db, _db.governorates);
+  $CitiesTableManager get cities => $CitiesTableManager(_db, _db.cities);
+  $RegionsTableManager get regions => $RegionsTableManager(_db, _db.regions);
+  $SystemConfigTableManager get systemConfig =>
+      $SystemConfigTableManager(_db, _db.systemConfig);
+  $CompanyInfoTableManager get companyInfo =>
+      $CompanyInfoTableManager(_db, _db.companyInfo);
+  $BranchesTableManager get branches =>
+      $BranchesTableManager(_db, _db.branches);
+  $FinancialPeriodsTableManager get financialPeriods =>
+      $FinancialPeriodsTableManager(_db, _db.financialPeriods);
+  $AccountsTableManager get accounts =>
+      $AccountsTableManager(_db, _db.accounts);
+  $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
+  $UsersTableManager get users => $UsersTableManager(_db, _db.users);
+  $UserRolesTableManager get userRoles =>
+      $UserRolesTableManager(_db, _db.userRoles);
+  $RolePermissionsTableManager get rolePermissions =>
+      $RolePermissionsTableManager(_db, _db.rolePermissions);
+  $AuditLogTableManager get auditLog =>
+      $AuditLogTableManager(_db, _db.auditLog);
 }

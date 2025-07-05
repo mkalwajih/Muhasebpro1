@@ -1,4 +1,4 @@
--- lib/features/system_setup/data/datasources/geographical_data_tables.drift
+-- lib/core/db/schemas/geographical_data_schema.drift
 
 CREATE TABLE zones (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,

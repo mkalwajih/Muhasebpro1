@@ -31,6 +31,11 @@ class SystemSetupMenuScreen extends StatelessWidget {
             onTap: () => context.go('/dashboard/system_setup/geographical_data'),
           ),
           ListTile(
+            leading: const Icon(Iconsax.dollar_circle),
+            title: Text(l10n.currencies),
+            onTap: () => context.go('/dashboard/system_setup/currencies'),
+          ),
+          ListTile(
             leading: const Icon(Iconsax.diagram),
             title: Text(l10n.chartOfAccounts),
             onTap: () => context.go('/dashboard/system_setup/coa'),

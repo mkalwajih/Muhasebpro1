@@ -470,4 +470,145 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectCountryPrompt => 'Select a country to view its governorates.';
+
+  @override
+  String get currencies => 'Currencies';
+
+  @override
+  String get addNewCurrency => 'Add New Currency';
+
+  @override
+  String get editCurrency => 'Edit Currency';
+
+  @override
+  String get currencyCode => 'Currency Code';
+
+  @override
+  String get currencyNameAr => 'Currency Name (Arabic)';
+
+  @override
+  String get currencyNameEn => 'Currency Name (English)';
+
+  @override
+  String get fractionNameAr => 'Fraction Name (Arabic)';
+
+  @override
+  String get fractionNameEn => 'Fraction Name (English)';
+
+  @override
+  String get exchangeRate => 'Exchange Rate';
+
+  @override
+  String get isBaseCurrency => 'Base Currency';
+
+  @override
+  String get decimalPlaces => 'Decimal Places';
+
+  @override
+  String get minRateLimit => 'Min Exchange Rate';
+
+  @override
+  String get maxRateLimit => 'Max Exchange Rate';
+
+  @override
+  String get denominations => 'Denominations';
+
+  @override
+  String get denominationValue => 'Value';
+
+  @override
+  String get denominationNameAr => 'Name (Arabic)';
+
+  @override
+  String get denominationNameEn => 'Name (English)';
+
+  @override
+  String get denominationType => 'Type';
+
+  @override
+  String get banknote => 'Banknote';
+
+  @override
+  String get coin => 'Coin';
+
+  @override
+  String get taxSettings => 'Tax Settings';
+
+  @override
+  String get taxBrackets => 'Tax Brackets';
+
+  @override
+  String get taxTypes => 'Tax Types';
+
+  @override
+  String get taxCalculationMethods => 'Calculation Methods';
+
+  @override
+  String get addNewTaxBracket => 'Add New Tax Bracket';
+
+  @override
+  String get editTaxBracket => 'Edit Tax Bracket';
+
+  @override
+  String get bracketCode => 'Bracket Code';
+
+  @override
+  String get taxRate => 'Tax Rate (%)';
+
+  @override
+  String get isDefault => 'Is Default';
+
+  @override
+  String get addNewTaxType => 'Add New Tax Type';
+
+  @override
+  String get editTaxType => 'Edit Tax Type';
+
+  @override
+  String get typeCode => 'Type Code';
+
+  @override
+  String get calcMethod => 'Calculation Method';
+
+  @override
+  String get salesAccount => 'Sales Account';
+
+  @override
+  String get purchasesAccount => 'Purchases Account';
+
+  @override
+  String get addNewTaxCalcMethod => 'Add New Calc Method';
+
+  @override
+  String get editTaxCalcMethod => 'Edit Calc Method';
+
+  @override
+  String get methodCode => 'Method Code';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get taxable => 'Taxable';
+
+  @override
+  String get exempted => 'Exempted';
+
+  @override
+  String get zeroTax => 'Zero Tax';
+
+  @override
+  String get accounting => 'Accounting';
+
+  @override
+  String get security => 'Security';
+
+  @override
+  String get ui => 'UI';
+
+  @override
+  String get backup => 'Backup';
+
+  @override
+  String get cannotChangeAccountSettings => 'Cannot change account number settings when accounts exist.';
 }

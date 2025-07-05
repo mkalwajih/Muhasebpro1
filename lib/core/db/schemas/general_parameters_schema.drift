@@ -1,7 +1,7 @@
--- lib/features/system_setup/data/datasources/general_parameters_tables.drift
+-- lib/core/db/schemas/general_parameters_schema.drift
 
 CREATE TABLE system_config (
-  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
+  id INT NOT NULL PRIMARY KEY,
   language TEXT NOT NULL,
   date_format TEXT NOT NULL,
   calendar_type TEXT NOT NULL,
