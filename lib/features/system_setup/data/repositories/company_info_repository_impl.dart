@@ -1,6 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/core/errors/exceptions.dart';
+import 'package:muhaseb_pro/core/errors/failures.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/company_info_local_datasource.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/company_info_repository.dart';
 
@@ -13,7 +17,7 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   Future<CompanyInfoEntity?> getCompanyInfo() async {
     final data = await localDataSource.getCompanyInfo();
     if (data == null) return null;
-    
+
     // Map from the Drift-generated CompanyInfoData to our CompanyInfoEntity
     return CompanyInfoEntity(
       id: data.id,
@@ -51,5 +55,15 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       remarks: Value(info.remarks),
     );
     return localDataSource.upsertCompanyInfo(companion);
+  }
+
+  @override
+  Future<Either<Failure, List<Company>>> getAllCompanies() async {
+    try {
+      final localCompanies = await localDataSource.getAllCompanies();
+      return Right(localCompanies);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
   }
 }

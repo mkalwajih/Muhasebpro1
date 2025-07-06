@@ -5,7 +5,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/account_entity
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/coa_repository.dart';
 
 final coaRepositoryProvider = Provider<CoaRepository>(
-  (ref) => CoaRepositoryImpl(ref.watch(databaseProvider)),
+  (ref) => CoaRepositoryImpl(ref.watch(appDatabaseProvider)),
 );
 
 final coaProvider = StateNotifierProvider<CoaNotifier, AsyncValue<List<AccountEntity>>>((ref) {

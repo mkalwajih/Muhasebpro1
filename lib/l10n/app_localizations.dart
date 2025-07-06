@@ -233,6 +233,12 @@ abstract class AppLocalizations {
   /// **'Company Information'**
   String get companyInfo;
 
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
+
   /// No description provided for @companyCode.
   ///
   /// In en, this message translates to:
@@ -1294,6 +1300,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cannot change account number settings when accounts exist.'**
   String get cannotChangeAccountSettings;
+
+  /// No description provided for @branchCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Code'**
+  String get branchCode;
+
+  /// No description provided for @branchNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Name (Arabic)'**
+  String get branchNameAr;
+
+  /// No description provided for @branchNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Name (English)'**
+  String get branchNameEn;
+
+  /// No description provided for @branchGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Group'**
+  String get branchGroup;
+
+  /// No description provided for @defaultWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Warehouse'**
+  String get defaultWarehouse;
+
+  /// No description provided for @branchStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Status'**
+  String get branchStatus;
+
+  /// No description provided for @logo.
+  ///
+  /// In en, this message translates to:
+  /// **'Logo'**
+  String get logo;
+
+  /// No description provided for @addNewBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Branch'**
+  String get addNewBranch;
+
+  /// No description provided for @editBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Branch'**
+  String get editBranch;
+
+  /// No description provided for @deleteBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Branch'**
+  String get deleteBranch;
+
+  /// No description provided for @deleteBranchConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this branch?'**
+  String get deleteBranchConfirm;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

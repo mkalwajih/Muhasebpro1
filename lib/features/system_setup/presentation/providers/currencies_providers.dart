@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/core/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/currencies_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/repositories/currencies_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/currencies_repository.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
+
 
 final currenciesLocalDataSourceProvider = Provider<CurrenciesLocalDataSource>(
-  (ref) => CurrenciesLocalDataSourceImpl(ref.read(databaseProvider)),
+  (ref) => CurrenciesLocalDataSourceImpl(ref.read(appDatabaseProvider)),
 );
 
 final currenciesRepositoryProvider = Provider<CurrenciesRepository>(

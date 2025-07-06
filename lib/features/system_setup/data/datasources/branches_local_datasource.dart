@@ -1,12 +1,13 @@
 import '../../../../core/db/app_database.dart';
 import '../models/branch_model.dart';
+import 'package:drift/drift.dart'; // Import for .toUpdateCompanion()
 
 abstract class BranchesLocalDataSource {
-  Future<List<BranchModel>> getAllBranches();
+  Future<List<BranchModel>> getAllBranches({bool includeInactive = false});
   Future<BranchModel?> getBranch(String branchCode);
   Future<void> addBranch(BranchModel branch);
   Future<void> updateBranch(BranchModel branch);
-  Future<void> deleteBranch(String branchCode);
+  Future<void> deactivateBranch(String branchCode);
 }
 
 class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
@@ -15,8 +16,12 @@ class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
   BranchesLocalDataSourceImpl({required this.database});
 
   @override
-  Future<List<BranchModel>> getAllBranches() async {
-    final branches = await database.select(database.branches).get();
+  Future<List<BranchModel>> getAllBranches({bool includeInactive = false}) async {
+    final query = database.select(database.branches);
+    if (!includeInactive) {
+      query.where((b) => b.branchStatus.equals(1)); // 1 for active
+    }
+    final branches = await query.get();
     return branches.map((branch) => BranchModel.fromDb(branch)).toList();
   }
 
@@ -37,7 +42,8 @@ class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
   }
 
   @override
-  Future<void> deleteBranch(String branchCode) {
-    return (database.delete(database.branches)..where((b) => b.branchCode.equals(branchCode))).go();
+  Future<void> deactivateBranch(String branchCode) {
+    return (database.update(database.branches)..where((b) => b.branchCode.equals(branchCode)))
+        .write(BranchesCompanion(branchStatus: const Value(0))); // Set status to 0 (inactive)
   }
 }

@@ -6,3 +6,5 @@ IMPORT 'schemas/general_parameters_schema.drift';
 IMPORT 'schemas/geographical_data_schema.drift';
 IMPORT 'schemas/currencies_schema.drift';
 IMPORT 'schemas/tax_schema.drift';
+IMPORT 'schemas/branches_schema.drift';
+IMPORT 'schemas/branch_groups_schema.drift';

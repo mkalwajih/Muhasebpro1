@@ -78,6 +78,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get companyInfo => 'بيانات الشركة';
 
   @override
+  String get branches => 'الفروع';
+
+  @override
   String get companyCode => 'رمز الشركة';
 
   @override
@@ -611,4 +614,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cannotChangeAccountSettings => 'لا يمكن تغيير إعدادات رقم الحساب عند وجود حسابات.';
+
+  @override
+  String get branchCode => 'رمز الفرع';
+
+  @override
+  String get branchNameAr => 'اسم الفرع (عربي)';
+
+  @override
+  String get branchNameEn => 'اسم الفرع (انجليزي)';
+
+  @override
+  String get branchGroup => 'مجموعة الفروع';
+
+  @override
+  String get defaultWarehouse => 'المستودع الافتراضي';
+
+  @override
+  String get branchStatus => 'حالة الفرع';
+
+  @override
+  String get logo => 'الشعار';
+
+  @override
+  String get addNewBranch => 'إضافة فرع جديد';
+
+  @override
+  String get editBranch => 'تعديل الفرع';
+
+  @override
+  String get deleteBranch => 'حذف الفرع';
+
+  @override
+  String get deleteBranchConfirm => 'هل أنت متأكد من رغبتك في حذف هذا الفرع؟';
+
+  @override
+  String get delete => 'حذف';
 }

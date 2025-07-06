@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/core/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/geographical_data_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/repositories/geographical_data_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/geographical_data_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/geographical_data_repository.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
+
 
 // --- Data Source and Repository Providers ---
 
 final geoLocalDataSourceProvider = Provider<GeographicalDataLocalDataSource>(
-  (ref) => GeographicalDataLocalDataSourceImpl(ref.read(databaseProvider)),
+  (ref) => GeographicalDataLocalDataSourceImpl(ref.read(appDatabaseProvider)),
 );
 
 final geoRepositoryProvider = Provider<GeographicalDataRepository>(

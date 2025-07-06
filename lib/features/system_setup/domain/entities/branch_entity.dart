@@ -5,8 +5,8 @@ class BranchEntity extends Equatable {
   final String branchCode;
   final String nameAr;
   final String nameEn;
-  final int companyId;
-  final String? branchGroup;
+  final String companyId;
+  final int? branchGroupId; // Changed from String? branchGroup to int? branchGroupId
   final String? address;
   final String? phone;
   final String? defaultWarehouseId;
@@ -19,7 +19,7 @@ class BranchEntity extends Equatable {
     required this.nameAr,
     required this.nameEn,
     required this.companyId,
-    this.branchGroup,
+    this.branchGroupId, // Changed parameter name
     this.address,
     this.phone,
     this.defaultWarehouseId,
@@ -34,7 +34,7 @@ class BranchEntity extends Equatable {
         nameAr,
         nameEn,
         companyId,
-        branchGroup,
+        branchGroupId, // Changed prop name
         address,
         phone,
         defaultWarehouseId,

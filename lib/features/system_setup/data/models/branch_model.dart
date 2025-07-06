@@ -1,33 +1,20 @@
-import 'dart:typed_data';
 import '../../../../core/db/app_database.dart';
 import '../../domain/entities/branch_entity.dart';
 
 class BranchModel extends BranchEntity {
   const BranchModel({
-    required String branchCode,
-    required String nameAr,
-    required String nameEn,
-    required int companyId,
-    String? branchGroup,
-    String? address,
-    String? phone,
-    String? defaultWarehouseId,
-    required bool branchStatus,
-    Uint8List? logo,
-    String? remarks,
-  }) : super(
-          branchCode: branchCode,
-          nameAr: nameAr,
-          nameEn: nameEn,
-          companyId: companyId,
-          branchGroup: branchGroup,
-          address: address,
-          phone: phone,
-          defaultWarehouseId: defaultWarehouseId,
-          branchStatus: branchStatus,
-          logo: logo,
-          remarks: remarks,
-        );
+    required super.branchCode,
+    required super.nameAr,
+    required super.nameEn,
+    required super.companyId,
+    super.branchGroupId, // Changed from super.branchGroup
+    super.address,
+    super.phone,
+    super.defaultWarehouseId,
+    required super.branchStatus,
+    super.logo,
+    super.remarks,
+  });
 
   factory BranchModel.fromEntity(BranchEntity entity) {
     return BranchModel(
@@ -35,7 +22,7 @@ class BranchModel extends BranchEntity {
       nameAr: entity.nameAr,
       nameEn: entity.nameEn,
       companyId: entity.companyId,
-      branchGroup: entity.branchGroup,
+      branchGroupId: entity.branchGroupId, // Changed from branchGroup
       address: entity.address,
       phone: entity.phone,
       defaultWarehouseId: entity.defaultWarehouseId,
@@ -45,33 +32,33 @@ class BranchModel extends BranchEntity {
     );
   }
 
-  factory BranchModel.fromDb(Branch dbBranch) {
+  factory BranchModel.fromDb(Branche dbBranch) {
     return BranchModel(
       branchCode: dbBranch.branchCode,
       nameAr: dbBranch.nameAr,
       nameEn: dbBranch.nameEn,
       companyId: dbBranch.companyId,
-      branchGroup: dbBranch.branchGroup,
+      branchGroupId: dbBranch.branchGroupId, // Changed from dbBranch.branchGroup
       address: dbBranch.address,
       phone: dbBranch.phone,
       defaultWarehouseId: dbBranch.defaultWarehouseId,
-      branchStatus: dbBranch.branchStatus,
+      branchStatus: dbBranch.branchStatus == 1 ? true : false,
       logo: dbBranch.logo,
       remarks: dbBranch.remarks,
     );
   }
 
-  Branch toDb() {
-    return Branch(
+  Branche toDb() {
+    return Branche(
       branchCode: branchCode,
       nameAr: nameAr,
       nameEn: nameEn,
       companyId: companyId,
-      branchGroup: branchGroup,
+      branchGroupId: branchGroupId, // Changed from branchGroup
       address: address,
       phone: phone,
       defaultWarehouseId: defaultWarehouseId,
-      branchStatus: branchStatus,
+      branchStatus: branchStatus ? 1 : 0,
       logo: logo,
       remarks: remarks,
     );

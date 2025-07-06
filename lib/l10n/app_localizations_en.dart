@@ -78,6 +78,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get companyInfo => 'Company Information';
 
   @override
+  String get branches => 'Branches';
+
+  @override
   String get companyCode => 'Company Code';
 
   @override
@@ -611,4 +614,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cannotChangeAccountSettings => 'Cannot change account number settings when accounts exist.';
+
+  @override
+  String get branchCode => 'Branch Code';
+
+  @override
+  String get branchNameAr => 'Branch Name (Arabic)';
+
+  @override
+  String get branchNameEn => 'Branch Name (English)';
+
+  @override
+  String get branchGroup => 'Branch Group';
+
+  @override
+  String get defaultWarehouse => 'Default Warehouse';
+
+  @override
+  String get branchStatus => 'Branch Status';
+
+  @override
+  String get logo => 'Logo';
+
+  @override
+  String get addNewBranch => 'Add New Branch';
+
+  @override
+  String get editBranch => 'Edit Branch';
+
+  @override
+  String get deleteBranch => 'Delete Branch';
+
+  @override
+  String get deleteBranchConfirm => 'Are you sure you want to delete this branch?';
+
+  @override
+  String get delete => 'Delete';
 }

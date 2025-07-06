@@ -7,7 +7,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_manag
 
 final userManagementRepositoryProvider = Provider<UserManagementRepository>((ref) {
   return UserManagementRepositoryImpl(
-    ref.watch(databaseProvider),
+    ref.watch(appDatabaseProvider),
     ref.watch(authLocalDataSourceProvider),
   );
 });

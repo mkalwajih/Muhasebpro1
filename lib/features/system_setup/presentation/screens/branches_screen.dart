@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/l10n/app_localizations.dart'; // Import for l10n
 import '../providers/branches_providers.dart';
 import '../widgets/add_edit_branch_dialog.dart';
-import '../../domain/entities/branch_entity.dart';
 
 class BranchesScreen extends ConsumerWidget {
   const BranchesScreen({super.key});
 
-  void _showDeleteConfirmation(BuildContext context, WidgetRef ref, String branchCode) {
+  void _showDeactivateConfirmation(BuildContext context, WidgetRef ref, String branchCode) {
+    final l10n = AppLocalizations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Branch'),
-        content: const Text('Are you sure you want to delete this branch?'),
+        title: Text(l10n.deactivateBranchConfirmationTitle),
+        content: Text(l10n.deactivateBranchConfirmationMessage),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(l10n.cancel),
           ),
           TextButton(
             onPressed: () {
-              ref.read(branchesProvider.notifier).deleteBranch(branchCode);
+              ref.read(branchesProvider.notifier).deactivateBranch(branchCode);
               Navigator.of(context).pop();
             },
-            child: const Text('Delete'),
+            child: Text(l10n.deactivate),
           ),
         ],
       ),
@@ -33,10 +34,11 @@ class BranchesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final branchesAsyncValue = ref.watch(branchesProvider);
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Branches'),
+        title: Text(l10n.branches),
       ),
       body: branchesAsyncValue.when(
         data: (branches) => ListView.builder(
@@ -59,8 +61,8 @@ class BranchesScreen extends ConsumerWidget {
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                    onPressed: () => _showDeleteConfirmation(context, ref, branch.branchCode),
+                    icon: const Icon(Icons.delete, color: Colors.red), // Use delete icon for deactivate for now
+                    onPressed: () => _showDeactivateConfirmation(context, ref, branch.branchCode),
                   ),
                 ],
               ),
@@ -68,7 +70,7 @@ class BranchesScreen extends ConsumerWidget {
           },
         ),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stackTrace) => Center(child: Text('Error: $error')),
+        error: (error, stackTrace) => Center(child: Text('${l10n.error}: $error')),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

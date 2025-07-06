@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/core/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/tax_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/repositories/tax_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/tax_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/tax_repository.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
+
 
 final taxLocalDataSourceProvider = Provider<TaxLocalDataSource>(
-  (ref) => TaxLocalDataSourceImpl(ref.read(databaseProvider)),
+  (ref) => TaxLocalDataSourceImpl(ref.read(appDatabaseProvider)),
 );
 
 final taxRepositoryProvider = Provider<TaxRepository>(

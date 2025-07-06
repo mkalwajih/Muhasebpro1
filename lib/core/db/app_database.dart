@@ -4,13 +4,17 @@ import 'connection/shared.dart' as connection;
 part 'app_database.g.dart';
 
 @DriftDatabase(
-  include: {'schema.drift'},
+  include: {
+    'schema.drift',
+    'schemas/branches_schema.drift',
+    'schemas/branch_groups_schema.drift',
+  },
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   @override
-  int get schemaVersion => 10; // Bump version for the updated general parameters
+  int get schemaVersion => 13; // Bumped version after fixing schema syntax
 
   @override
   MigrationStrategy get migration {
@@ -19,8 +23,9 @@ class AppDatabase extends _$AppDatabase {
         await m.createAll();
       },
       onUpgrade: (m, from, to) async {
-        // Since we are consolidating the schema,
-        // we can let drift handle the creation of the new tables.
+        // We'll let drift handle all migrations from now on.
+        // For major changes, a custom migration step might be needed,
+        // but for now, letting drift recreate tables is safer.
         await m.createAll();
       },
     );

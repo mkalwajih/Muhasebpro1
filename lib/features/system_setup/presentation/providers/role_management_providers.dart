@@ -6,7 +6,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.da
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
 
 final roleManagementRepositoryProvider = Provider<RoleManagementRepository>(
-  (ref) => RoleManagementRepositoryImpl(ref.watch(databaseProvider)),
+  (ref) => RoleManagementRepositoryImpl(ref.watch(appDatabaseProvider)),
 );
 
 final roleManagementProvider = StateNotifierProvider<RoleManagementNotifier, AsyncValue<List<RoleEntity>>>((ref) {

@@ -1,0 +1,15 @@
+-- lib/core/db/schemas/branches_schema.drift
+
+CREATE TABLE branches (
+  branch_code TEXT NOT NULL PRIMARY KEY,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  company_id INTEGER NOT NULL REFERENCES company_info(id), -- Changed to INTEGER and references company_info(id)
+  branch_group_id INTEGER REFERENCES branch_groups(id),    -- Changed to branch_group_id INTEGER
+  address TEXT,
+  phone TEXT,
+  default_warehouse_id TEXT,
+  branch_status BOOLEAN DEFAULT TRUE,                     -- Changed to BOOLEAN
+  logo BLOB,
+  remarks TEXT
+);

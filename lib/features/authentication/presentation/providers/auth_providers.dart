@@ -40,7 +40,7 @@ final authStateProvider = StateProvider<UserEntity?>((ref) => null);
 // --- DI Providers ---
 
 final authLocalDataSourceProvider = Provider<AuthLocalDataSource>(
-  (ref) => AuthLocalDataSourceImpl(ref.watch(databaseProvider)),
+  (ref) => AuthLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
 
 final authRepositoryProvider = Provider<AuthRepository>(

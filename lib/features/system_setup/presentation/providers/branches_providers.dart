@@ -1,13 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/db/app_database.dart';
-import '../../../../core/errors/failures.dart';
+import 'package:muhaseb_pro/core/di/database_provider.dart';
 import '../../../../core/usecases/usecase.dart';
 import '../../data/datasources/branches_local_datasource.dart';
 import '../../data/repositories/branches_repository_impl.dart';
 import '../../domain/entities/branch_entity.dart';
 import '../../domain/repositories/branches_repository.dart';
 import '../../domain/usecases/add_branch.dart';
-import '../../domain/usecases/delete_branch.dart';
+import '../../domain/usecases/deactivate_branch.dart'; // Changed from delete_branch.dart
 import '../../domain/usecases/get_all_branches.dart';
 import '../../domain/usecases/update_branch.dart';
 
@@ -22,7 +21,7 @@ final branchesRepositoryProvider = Provider<BranchesRepository>((ref) {
   return BranchesRepositoryImpl(localDataSource: localDataSource);
 });
 
-// 2. Use Case Providers (no change)
+// 2. Use Case Providers (updated for deactivate)
 final getAllBranchesUseCaseProvider = Provider<GetAllBranches>((ref) {
   return GetAllBranches(ref.watch(branchesRepositoryProvider));
 });
@@ -35,8 +34,8 @@ final updateBranchUseCaseProvider = Provider<UpdateBranch>((ref) {
   return UpdateBranch(ref.watch(branchesRepositoryProvider));
 });
 
-final deleteBranchUseCaseProvider = Provider<DeleteBranch>((ref) {
-  return DeleteBranch(ref.watch(branchesRepositoryProvider));
+final deactivateBranchUseCaseProvider = Provider<DeactivateBranch>((ref) {
+  return DeactivateBranch(ref.watch(branchesRepositoryProvider));
 });
 
 
@@ -45,16 +44,16 @@ class BranchesNotifier extends StateNotifier<AsyncValue<List<BranchEntity>>> {
   final GetAllBranches _getAllBranches;
   final AddBranch _addBranch;
   final UpdateBranch _updateBranch;
-  final DeleteBranch _deleteBranch;
+  final DeactivateBranch _deactivateBranch; // Changed from _deleteBranch
 
-  BranchesNotifier(this._getAllBranches, this._addBranch, this._updateBranch, this._deleteBranch)
+  BranchesNotifier(this._getAllBranches, this._addBranch, this._updateBranch, this._deactivateBranch)
       : super(const AsyncValue.loading()) {
     fetchBranches();
   }
 
-  Future<void> fetchBranches() async {
+  Future<void> fetchBranches({bool includeInactive = false}) async {
     state = const AsyncValue.loading();
-    final result = await _getAllBranches(NoParams());
+    final result = await _getAllBranches(NoParams()); // NoParams for now, will pass includeInactive here
     result.fold(
       (failure) => state = AsyncValue.error(failure, StackTrace.current),
       (branches) => state = AsyncValue.data(branches),
@@ -81,8 +80,8 @@ class BranchesNotifier extends StateNotifier<AsyncValue<List<BranchEntity>>> {
     );
   }
 
-  Future<void> deleteBranch(String branchCode) async {
-    final result = await _deleteBranch(DeleteBranchParams(branchCode: branchCode));
+  Future<void> deactivateBranch(String branchCode) async {
+    final result = await _deactivateBranch(DeactivateBranchParams(branchCode: branchCode)); // Changed to deactivateBranch
      result.fold(
       (failure) {
         // Optionally handle failure
@@ -98,6 +97,6 @@ final branchesProvider = StateNotifierProvider<BranchesNotifier, AsyncValue<List
     ref.watch(getAllBranchesUseCaseProvider),
     ref.watch(addBranchUseCaseProvider),
     ref.watch(updateBranchUseCaseProvider),
-    ref.watch(deleteBranchUseCaseProvider),
+    ref.watch(deactivateBranchUseCaseProvider), // Changed from deleteBranchUseCaseProvider
   );
 });
