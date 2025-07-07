@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../l10n/app_localizations.dart';
-import '../../domain/entities/branch_entity.dart';
-import '../../domain/entities/company_entity.dart';
-import '../providers/branches_providers.dart';
-import '../providers/company_info_providers.dart';
+import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
 
 class AddEditBranchDialog extends ConsumerStatefulWidget {
   final BranchEntity? branch;
@@ -36,8 +36,8 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
   ];
   final List<String> _warehouses = ['WH 1', 'WH 2'];
 
-  String? _selectedCompanyId; // Changed from int? to String?
-  int? _selectedBranchGroupId; // Changed from String? _selectedBranchGroup to int? _selectedBranchGroupId
+  int? _selectedCompanyId;
+  int? _selectedBranchGroupId;
   String? _selectedWarehouse;
   Uint8List? _logo;
 
@@ -53,8 +53,8 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
       _phoneController = TextEditingController(text: branch.phone);
       _remarksController = TextEditingController(text: branch.remarks);
       _branchStatus = branch.branchStatus;
-      _selectedCompanyId = branch.companyId; // No cast needed, now String
-      _selectedBranchGroupId = branch.branchGroupId; // Now int?
+      _selectedCompanyId = branch.companyId;
+      _selectedBranchGroupId = branch.branchGroupId;
       _selectedWarehouse = branch.defaultWarehouseId;
       _logo = branch.logo;
     } else {
@@ -97,8 +97,8 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
         branchCode: _branchCodeController.text,
         nameAr: _nameArController.text,
         nameEn: _nameEnController.text,
-        companyId: _selectedCompanyId!, // Now String
-        branchGroupId: _selectedBranchGroupId, // Now int?
+        companyId: _selectedCompanyId!, 
+        branchGroupId: _selectedBranchGroupId, 
         address: _addressController.text,
         phone: _phoneController.text,
         defaultWarehouseId: _selectedWarehouse,
@@ -149,11 +149,11 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                  validator: (value) => (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
               companiesAsyncValue.when(
-                data: (companies) => DropdownButtonFormField<String>( // Changed to String
+                data: (companies) => DropdownButtonFormField<int>( 
                   value: _selectedCompanyId,
                   decoration: InputDecoration(labelText: l10n.company),
                   items: companies.map((Company company) {
-                    return DropdownMenuItem<String>( // Changed to String
+                    return DropdownMenuItem<int>(
                       value: company.id,
                       child: Text(company.name),
                     );
@@ -164,7 +164,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) => Text(l10n.error),
               ),
-               DropdownButtonFormField<int>( // Changed to int
+               DropdownButtonFormField<int>( 
                 value: _selectedBranchGroupId,
                 decoration: InputDecoration(labelText: l10n.branchGroup),
                 items: _dummyBranchGroups.map((group) => DropdownMenuItem<int>(value: group['id'], child: Text(group['name']))).toList(),

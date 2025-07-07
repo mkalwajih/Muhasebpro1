@@ -1,16 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
+import 'package:muhaseb_pro/di/modules/auth_module.dart';
+import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
-import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
-import 'package:muhaseb_pro/features/system_setup/data/repositories/user_management_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
-
-final userManagementRepositoryProvider = Provider<UserManagementRepository>((ref) {
-  return UserManagementRepositoryImpl(
-    ref.watch(appDatabaseProvider),
-    ref.watch(authLocalDataSourceProvider),
-  );
-});
 
 final userManagementProvider = StateNotifierProvider<UserManagementNotifier, AsyncValue<List<UserEntity>>>((ref) {
   return UserManagementNotifier(ref.watch(userManagementRepositoryProvider));

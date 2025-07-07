@@ -1,22 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
-import 'package:muhaseb_pro/core/usecases/usecase.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/company_info_local_datasource.dart';
-import 'package:muhaseb_pro/features/system_setup/data/repositories/company_info_repository_impl.dart';
+import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/repositories/company_info_repository.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_all_companies_usecase.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_company_info_usecase.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/save_company_info_usecase.dart';
+import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 
 // DI Providers
-final companyInfoLocalDataSourceProvider = Provider<CompanyInfoLocalDataSource>(
-    (ref) => CompanyInfoLocalDataSourceImpl(ref.watch(appDatabaseProvider)));
-
-final companyInfoRepositoryProvider = Provider<CompanyInfoRepository>(
-    (ref) => CompanyInfoRepositoryImpl(ref.watch(companyInfoLocalDataSourceProvider)));
-
 final getCompanyInfoUseCaseProvider = Provider<GetCompanyInfoUseCase>(
     (ref) => GetCompanyInfoUseCase(ref.watch(companyInfoRepositoryProvider)));
 
@@ -47,7 +38,7 @@ class CompanyInfoNotifier extends StateNotifier<AsyncValue<CompanyInfoEntity?>> 
   Future<void> fetchCompanyInfo() async {
     state = const AsyncValue.loading();
     try {
-      final info = await _getCompanyInfo();
+      final info = await _getCompanyInfo(NoParams());
       state = AsyncValue.data(info);
     } catch (e, st) {
       state = AsyncValue.error(e, st);

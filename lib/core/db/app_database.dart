@@ -5,16 +5,21 @@ part 'app_database.g.dart';
 
 @DriftDatabase(
   include: {
-    'schema.drift',
-    'schemas/branches_schema.drift',
+    'schemas/auth_schema.drift',
     'schemas/branch_groups_schema.drift',
+    'schemas/branches_schema.drift',
+    'schemas/currencies_schema.drift',
+    'schemas/general_parameters_schema.drift',
+    'schemas/geographical_data_schema.drift',
+    'schemas/system_setup_schema.drift',
+    'schemas/tax_schema.drift',
   },
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   @override
-  int get schemaVersion => 13; // Bumped version after fixing schema syntax
+  int get schemaVersion => 13; 
 
   @override
   MigrationStrategy get migration {
@@ -23,9 +28,6 @@ class AppDatabase extends _$AppDatabase {
         await m.createAll();
       },
       onUpgrade: (m, from, to) async {
-        // We'll let drift handle all migrations from now on.
-        // For major changes, a custom migration step might be needed,
-        // but for now, letting drift recreate tables is safer.
         await m.createAll();
       },
     );

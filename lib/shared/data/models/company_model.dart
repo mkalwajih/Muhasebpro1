@@ -1,11 +1,12 @@
+import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 
-class CompanyModel extends Company {
+class CompanyModel extends CompanyEntity {
   const CompanyModel({required super.id, required super.name});
 
-  factory CompanyModel.fromDb(dynamic data) {
+  factory CompanyModel.fromDb(CompanyInfoData data) {
     return CompanyModel(
-      id: data.id as String, // Changed to String cast
+      id: data.id.toString(),
       name: data.nameEn,
     );
   }

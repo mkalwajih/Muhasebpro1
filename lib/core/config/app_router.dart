@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:muhaseb_pro/core/widgets/placeholder_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_screen.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/screens/dashboard_screen.dart';
@@ -16,7 +15,7 @@ import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_perm
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_setup_menu_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_management_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/general_parameters_screen.dart';
-
+import 'package:muhaseb_pro/shared/presentation/widgets/placeholder_screen.dart';
 
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);

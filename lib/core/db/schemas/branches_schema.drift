@@ -1,15 +1,18 @@
 -- lib/core/db/schemas/branches_schema.drift
 
+IMPORT 'system_setup_schema.drift';
+IMPORT 'branch_groups_schema.drift';
+
 CREATE TABLE branches (
   branch_code TEXT NOT NULL PRIMARY KEY,
   name_ar TEXT NOT NULL,
   name_en TEXT NOT NULL,
-  company_id INTEGER NOT NULL REFERENCES company_info(id), -- Changed to INTEGER and references company_info(id)
-  branch_group_id INTEGER REFERENCES branch_groups(id),    -- Changed to branch_group_id INTEGER
+  company_id INTEGER NOT NULL REFERENCES company_info(id),
+  branch_group_id INTEGER REFERENCES branch_groups(id),
   address TEXT,
   phone TEXT,
   default_warehouse_id TEXT,
-  branch_status BOOLEAN DEFAULT TRUE,                     -- Changed to BOOLEAN
+  branch_status BOOLEAN DEFAULT TRUE,
   logo BLOB,
   remarks TEXT
 );

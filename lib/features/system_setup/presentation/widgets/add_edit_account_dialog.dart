@@ -225,9 +225,8 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
     if (possibleDescendant.parentId == ancestor.id) return true;
     
     // Find the parent account in the fetched list and recursively check
-    final parent = ref.read(coaProvider).value?.firstWhere(
-      (acc) => acc.id == possibleDescendant.parentId, orElse: () => const AccountEntity(id: -1, accountCode: '', nameAr: '', nameEn: '', level: 0, isActive: false, nature: '', reportType: '', detailAccountType: '')); 
-    if(parent == null || parent.id == -1) return false;
+    final parent = ref.read(coaProvider).value?.firstWhere((acc) => acc.id == possibleDescendant.parentId); 
+    if(parent == null) return false;
     return _isDescendant(parent, ancestor);
   }
 }

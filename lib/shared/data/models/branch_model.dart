@@ -1,5 +1,5 @@
-import '../../../../core/db/app_database.dart';
-import '../../domain/entities/branch_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
 
 class BranchModel extends BranchEntity {
   const BranchModel({
@@ -7,7 +7,7 @@ class BranchModel extends BranchEntity {
     required super.nameAr,
     required super.nameEn,
     required super.companyId,
-    super.branchGroupId, // Changed from super.branchGroup
+    super.branchGroupId,
     super.address,
     super.phone,
     super.defaultWarehouseId,
@@ -22,7 +22,7 @@ class BranchModel extends BranchEntity {
       nameAr: entity.nameAr,
       nameEn: entity.nameEn,
       companyId: entity.companyId,
-      branchGroupId: entity.branchGroupId, // Changed from branchGroup
+      branchGroupId: entity.branchGroupId,
       address: entity.address,
       phone: entity.phone,
       defaultWarehouseId: entity.defaultWarehouseId,
@@ -32,35 +32,35 @@ class BranchModel extends BranchEntity {
     );
   }
 
-  factory BranchModel.fromDb(Branche dbBranch) {
+  factory BranchModel.fromDb(Branch dbBranch) {
     return BranchModel(
       branchCode: dbBranch.branchCode,
       nameAr: dbBranch.nameAr,
       nameEn: dbBranch.nameEn,
       companyId: dbBranch.companyId,
-      branchGroupId: dbBranch.branchGroupId, // Changed from dbBranch.branchGroup
+      branchGroupId: dbBranch.branchGroupId,
       address: dbBranch.address,
       phone: dbBranch.phone,
       defaultWarehouseId: dbBranch.defaultWarehouseId,
-      branchStatus: dbBranch.branchStatus == 1 ? true : false,
+      branchStatus: dbBranch.branchStatus == 1,
       logo: dbBranch.logo,
       remarks: dbBranch.remarks,
     );
   }
 
-  Branche toDb() {
-    return Branche(
-      branchCode: branchCode,
-      nameAr: nameAr,
-      nameEn: nameEn,
-      companyId: companyId,
-      branchGroupId: branchGroupId, // Changed from branchGroup
-      address: address,
-      phone: phone,
-      defaultWarehouseId: defaultWarehouseId,
-      branchStatus: branchStatus ? 1 : 0,
-      logo: logo,
-      remarks: remarks,
+  BranchesCompanion toDb() {
+    return BranchesCompanion(
+      branchCode: Value(branchCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      companyId: Value(companyId),
+      branchGroupId: Value(branchGroupId),
+      address: Value(address),
+      phone: Value(phone),
+      defaultWarehouseId: Value(defaultWarehouseId),
+      branchStatus: Value(branchStatus ? 1 : 0),
+      logo: Value(logo),
+      remarks: Value(remarks),
     );
   }
 }

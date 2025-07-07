@@ -1,18 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/currencies_local_datasource.dart';
-import 'package:muhaseb_pro/features/system_setup/data/repositories/currencies_repository_impl.dart';
+import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/currencies_repository.dart';
-
-
-final currenciesLocalDataSourceProvider = Provider<CurrenciesLocalDataSource>(
-  (ref) => CurrenciesLocalDataSourceImpl(ref.read(appDatabaseProvider)),
-);
-
-final currenciesRepositoryProvider = Provider<CurrenciesRepository>(
-  (ref) => CurrenciesRepositoryImpl(ref.read(currenciesLocalDataSourceProvider)),
-);
 
 final currenciesProvider = StateNotifierProvider<CurrenciesNotifier, AsyncValue<List<CurrencyEntity>>>(
   (ref) => CurrenciesNotifier(ref.read(currenciesRepositoryProvider)),
@@ -49,12 +38,12 @@ class CurrenciesNotifier extends StateNotifier<AsyncValue<List<CurrencyEntity>>>
     _loadCurrencies();
   }
 
-  Future<void> addDenomination(CurrencyDenominationEntity denomination) async {
+  Future<void> addDenomination(DenominationEntity denomination) async {
     await _repository.addDenomination(denomination);
     _loadCurrencies();
   }
 
-  Future<void> updateDenomination(CurrencyDenominationEntity denomination) async {
+  Future<void> updateDenomination(DenominationEntity denomination) async {
     await _repository.updateDenomination(denomination);
     _loadCurrencies();
   }

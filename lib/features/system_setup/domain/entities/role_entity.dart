@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:muhaseb_pro/core/permissions/app_permissions.dart';
+import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 
 class RoleEntity extends Equatable {
   final int id;

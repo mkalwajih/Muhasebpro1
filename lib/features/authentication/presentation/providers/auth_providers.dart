@@ -1,9 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
-import 'package:muhaseb_pro/features/authentication/data/datasources/auth_local_datasource.dart';
-import 'package:muhaseb_pro/features/authentication/data/repositories/auth_repository_impl.dart';
+import 'package:muhaseb_pro/di/modules/auth_module.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
-import 'package:muhaseb_pro/features/authentication/domain/repositories/auth_repository.dart';
 import 'package:muhaseb_pro/features/authentication/domain/usecases/login_usecase.dart';
 import 'package:muhaseb_pro/features/authentication/domain/usecases/seed_user_usecase.dart';
 
@@ -38,14 +35,6 @@ class LoginNotifier extends StateNotifier<LoginState> {
 final authStateProvider = StateProvider<UserEntity?>((ref) => null);
 
 // --- DI Providers ---
-
-final authLocalDataSourceProvider = Provider<AuthLocalDataSource>(
-  (ref) => AuthLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
-);
-
-final authRepositoryProvider = Provider<AuthRepository>(
-  (ref) => AuthRepositoryImpl(ref.watch(authLocalDataSourceProvider)),
-);
 
 final loginUseCaseProvider = Provider<LoginUseCase>(
   (ref) => LoginUseCase(ref.watch(authRepositoryProvider)),

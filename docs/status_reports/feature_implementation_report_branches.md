@@ -3,7 +3,7 @@
 **Date:** 2024-10-27
 
 ## 1. Feature Objective
-The goal was to implement the "Branches Settings" component of Module 1, as defined in the Functional Requirements Document. This included creating the necessary data layer, business logic, state management, and a fully functional, bilingual (Arabic/English) user interface for performing CRUD (Create, Read, Update, Delete) operations on branch records.
+The goal was to implement the "Branches Settings" component of Module 1, as defined in the Functional Requirements Document. This included creating the necessary data layer, business logic, state management, and a fully  functional, bilingual (Arabic/English) user interface for performing CRUD (Create, Read, Update, Delete) operations on branch records.
 
 ## 2. Final Status: Partially Implemented & Not Production-Ready
 

@@ -1,10 +1,9 @@
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/system_setup/data/models/company_model.dart';
 
 abstract class CompanyInfoLocalDataSource {
   Future<CompanyInfoData?> getCompanyInfo();
   Future<void> upsertCompanyInfo(CompanyInfoCompanion info);
-  Future<List<CompanyModel>> getAllCompanies();
+  Future<List<CompanyInfoData>> getAllCompanies();
 }
 
 class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
@@ -23,8 +22,7 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
   }
 
   @override
-  Future<List<CompanyModel>> getAllCompanies() async {
-    final companies = await db.select(db.companyInfo).get();
-    return companies.map((company) => CompanyModel.fromDb(company)).toList();
+  Future<List<CompanyInfoData>> getAllCompanies() async {
+    return await db.select(db.companyInfo).get();
   }
 }

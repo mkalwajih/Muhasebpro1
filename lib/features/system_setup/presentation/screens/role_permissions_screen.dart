@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/permissions/app_permissions.dart';
+import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/role_management_providers.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
@@ -32,7 +32,7 @@ class _RolePermissionsScreenState extends ConsumerState<RolePermissionsScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    const allPermissions = AppPermission.values; // Changed to const
+    const allPermissions = AppPermission.values;
 
     return Scaffold(
       appBar: AppBar(

@@ -1,13 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
-import 'package:muhaseb_pro/core/permissions/app_permissions.dart';
-import 'package:muhaseb_pro/features/system_setup/data/repositories/role_management_repository_impl.dart';
+import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
-
-final roleManagementRepositoryProvider = Provider<RoleManagementRepository>(
-  (ref) => RoleManagementRepositoryImpl(ref.watch(appDatabaseProvider)),
-);
+import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 
 final roleManagementProvider = StateNotifierProvider<RoleManagementNotifier, AsyncValue<List<RoleEntity>>>((ref) {
   return RoleManagementNotifier(ref.watch(roleManagementRepositoryProvider));
@@ -42,6 +37,6 @@ class RoleManagementNotifier extends StateNotifier<AsyncValue<List<RoleEntity>>>
 
   Future<void> updatePermissions(int roleId, List<AppPermission> permissions) async {
     await _repository.updatePermissionsForRole(roleId, permissions);
-    await fetchRoles(); // Refetch all roles to update the state everywhere
+    await fetchRoles();
   }
 }

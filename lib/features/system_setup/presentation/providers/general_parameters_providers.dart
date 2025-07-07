@@ -1,20 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/di/database_provider.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/general_parameters_local_datasource.dart';
-import 'package:muhaseb_pro/features/system_setup/data/repositories/general_parameters_repository_impl.dart';
+import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/general_parameters_repository.dart';
-
-
-// Provider for the local data source
-final generalParametersLocalDataSourceProvider = Provider<GeneralParametersLocalDataSource>(
-  (ref) => GeneralParametersLocalDataSourceImpl(ref.read(appDatabaseProvider)),
-);
-
-// Provider for the repository
-final generalParametersRepositoryProvider = Provider<GeneralParametersRepository>(
-  (ref) => GeneralParametersRepositoryImpl(ref.read(generalParametersLocalDataSourceProvider), ref.read(appDatabaseProvider)),
-);
 
 // StateNotifierProvider for managing GeneralParametersEntity
 final generalParametersProvider = StateNotifierProvider<GeneralParametersNotifier, AsyncValue<GeneralParametersEntity>>(
