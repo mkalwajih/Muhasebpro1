@@ -38,8 +38,11 @@ class CompanyInfoNotifier extends StateNotifier<AsyncValue<CompanyInfoEntity?>> 
   Future<void> fetchCompanyInfo() async {
     state = const AsyncValue.loading();
     try {
-      final info = await _getCompanyInfo(const NoParams());
-      state = AsyncValue.data(info);
+      final result = await _getCompanyInfo(const NoParams());
+      result.fold(
+        (failure) => state = AsyncValue.error(failure, StackTrace.current),
+        (info) => state = AsyncValue.data(info),
+      );
     } catch (e, st) {
       state = AsyncValue.error(e, st);
     }

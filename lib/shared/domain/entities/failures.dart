@@ -9,6 +9,14 @@ abstract class Failure extends Equatable {
   List<Object?> get props => [properties];
 }
 
-class ServerFailure extends Failure {}
+class ServerFailure extends Failure {
+  final String? message;
+  // Removed const from constructor because message is not always const.
+  ServerFailure({this.message}) : super(message != null ? [message] : const []);
+}
 
-class CacheFailure extends Failure {}
+class CacheFailure extends Failure {
+  final String? message;
+  // Removed const from constructor because message is not always const.
+  CacheFailure({this.message}) : super(message != null ? [message] : const []);
+}
