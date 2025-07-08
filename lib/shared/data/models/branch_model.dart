@@ -35,13 +35,13 @@ class BranchModel extends BranchEntity {
     );
   }
 
-  factory BranchModel.fromDb(db.Branch dbBranch) {
+  factory BranchModel.fromDb(db.Branche dbBranch) {
     return BranchModel(
       id: dbBranch.id,
       branchCode: dbBranch.branchCode,
       nameAr: dbBranch.nameAr,
       nameEn: dbBranch.nameEn,
-      companyId: dbBranch.companyId, // This will now be int
+      companyId: dbBranch.companyId, 
       branchGroupId: dbBranch.branchGroupId,
       address: dbBranch.address,
       phone: dbBranch.phone,
@@ -58,7 +58,7 @@ class BranchModel extends BranchEntity {
       branchCode: Value(branchCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
-      companyId: Value(companyId), // This will now be int
+      companyId: Value(companyId), 
       branchGroupId: Value(branchGroupId),
       address: Value(address),
       phone: Value(phone),
