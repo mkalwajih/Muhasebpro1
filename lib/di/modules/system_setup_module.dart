@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/branches_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/company_info_local_datasource.dart';
@@ -25,42 +24,43 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/geographic
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/tax_repository.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
+import 'package:muhaseb_pro/di/modules/auth_module.dart';
 
 // --- DataSources ---
 final branchesLocalDataSourceProvider = Provider<BranchesLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return BranchesLocalDataSource(db);
+  return BranchesLocalDataSourceImpl(db);
 });
 
 final companyInfoLocalDataSourceProvider = Provider<CompanyInfoLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return CompanyInfoLocalDataSource(db);
+  return CompanyInfoLocalDataSourceImpl(db);
 });
 
 final currenciesLocalDataSourceProvider = Provider<CurrenciesLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return CurrenciesLocalDataSource(db);
+  return CurrenciesLocalDataSourceImpl(db);
 });
 
 final generalParametersLocalDataSourceProvider = Provider<GeneralParametersLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return GeneralParametersLocalDataSource(db);
+  return GeneralParametersLocalDataSourceImpl(db);
 });
 
 final geographicalDataLocalDataSourceProvider = Provider<GeographicalDataLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return GeographicalDataLocalDataSource(db);
+  return GeographicalDataLocalDataSourceImpl(db);
 });
 
 final taxLocalDataSourceProvider = Provider<TaxLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return TaxLocalDataSource(db);
+  return TaxLocalDataSourceImpl(db);
 });
 
 // --- Repositories ---
 final branchesRepositoryProvider = Provider<BranchesRepository>((ref) {
   final localDataSource = ref.watch(branchesLocalDataSourceProvider);
-  return BranchesRepositoryImpl(localDataSource);
+  return BranchesRepositoryImpl(localDataSource: localDataSource);
 });
 
 final coaRepositoryProvider = Provider<CoaRepository>((ref) {
@@ -75,12 +75,13 @@ final companyInfoRepositoryProvider = Provider<CompanyInfoRepository>((ref) {
 
 final currenciesRepositoryProvider = Provider<CurrenciesRepository>((ref) {
   final localDataSource = ref.watch(currenciesLocalDataSourceProvider);
-  return CurrenciesRepositoryImpl(localDataSource);
+  return CurrenciesRepositoryImpl(localDataSource); // Changed this line
 });
 
 final generalParametersRepositoryProvider = Provider<GeneralParametersRepository>((ref) {
   final localDataSource = ref.watch(generalParametersLocalDataSourceProvider);
-  return GeneralParametersRepositoryImpl(localDataSource);
+  final db = ref.watch(appDatabaseProvider);
+  return GeneralParametersRepositoryImpl(localDataSource, db);
 });
 
 final geographicalDataRepositoryProvider = Provider<GeographicalDataRepository>((ref) {
@@ -99,6 +100,8 @@ final taxRepositoryProvider = Provider<TaxRepository>((ref) {
 });
 
 final userManagementRepositoryProvider = Provider<UserManagementRepository>((ref) {
+  final authLocalDataSource = ref.watch(authLocalDataSourceProvider);
   final db = ref.watch(appDatabaseProvider);
-  return UserManagementRepositoryImpl(db);
+  return UserManagementRepositoryImpl(
+      authLocalDataSource: authLocalDataSource, database: db);
 });

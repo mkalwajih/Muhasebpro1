@@ -66,7 +66,7 @@ class BranchesNotifier extends StateNotifier<AsyncValue<List<BranchEntity>>> {
   }
 
   Future<void> deactivateBranch(String branchCode) async {
-    final result = await _deactivateBranch(DeactivateBranchParams(branchCode: branchCode));
+    final result = await _deactivateBranch(branchCode); // Changed this line
      result.fold(
       (failure) {
         // Optionally handle failure

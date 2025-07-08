@@ -1,9 +1,9 @@
 import 'package:muhaseb_pro/core/db/app_database.dart' as app_db;
 
 abstract class TaxLocalDataSource {
-  Future<List<app_db.TaxBracket>> getTaxBrackets();
-  Future<void> addTaxBracket(app_db.TaxBracketsCompanion taxBracket);
-  Future<void> updateTaxBracket(app_db.TaxBracketsCompanion taxBracket);
+  Future<List<app_db.TaxBracketData>> getTaxBrackets();
+  Future<void> addTaxBracket(app_db.TaxBracketCompanion taxBracket);
+  Future<void> updateTaxBracket(app_db.TaxBracketCompanion taxBracket);
   Future<int> deleteTaxBracket(String bracketCode);
 
   Future<List<app_db.TaxType>> getTaxTypes();
@@ -23,21 +23,21 @@ class TaxLocalDataSourceImpl implements TaxLocalDataSource {
   TaxLocalDataSourceImpl(this.db);
 
   @override
-  Future<List<app_db.TaxBracket>> getTaxBrackets() => db.select(db.taxBrackets).get();
+  Future<List<app_db.TaxBracketData>> getTaxBrackets() => db.select(db.taxBracket).get();
 
   @override
-  Future<void> addTaxBracket(app_db.TaxBracketsCompanion taxBracket) =>
-      db.into(db.taxBrackets).insert(taxBracket);
+  Future<void> addTaxBracket(app_db.TaxBracketCompanion taxBracket) =>
+      db.into(db.taxBracket).insert(taxBracket);
 
   @override
-  Future<void> updateTaxBracket(app_db.TaxBracketsCompanion taxBracket) =>
-      (db.update(db.taxBrackets)
+  Future<void> updateTaxBracket(app_db.TaxBracketCompanion taxBracket) =>
+      (db.update(db.taxBracket)
             ..where((tbl) => tbl.bracketCode.equals(taxBracket.bracketCode.value)))
           .write(taxBracket);
 
   @override
   Future<int> deleteTaxBracket(String bracketCode) =>
-      (db.delete(db.taxBrackets)..where((tbl) => tbl.bracketCode.equals(bracketCode))).go();
+      (db.delete(db.taxBracket)..where((tbl) => tbl.bracketCode.equals(bracketCode))).go();
 
   @override
   Future<List<app_db.TaxType>> getTaxTypes() => db.select(db.taxTypes).get();

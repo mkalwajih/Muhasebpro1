@@ -650,4 +650,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get delete => 'حذف';
+
+  @override
+  String get deactivateBranchConfirmationTitle => 'تأكيد إلغاء التفعيل';
+
+  @override
+  String get deactivateBranchConfirmationMessage => 'هل أنت متأكد من رغبتك في إلغاء تفعيل هذا الفرع؟ لن تكون الفروع غير النشطة متاحة للمعاملات الجديدة.';
+
+  @override
+  String get deactivate => 'إلغاء التفعيل';
+
+  @override
+  String get error => 'خطأ';
 }

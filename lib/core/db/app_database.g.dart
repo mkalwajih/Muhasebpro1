@@ -3,11 +3,11 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
-class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
+class TaxBracket extends Table with TableInfo<TaxBracket, TaxBracketData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  TaxBrackets(this.attachedDatabase, [this._alias]);
+  TaxBracket(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _bracketCodeMeta =
       const VerificationMeta('bracketCode');
   late final GeneratedColumn<String> bracketCode = GeneratedColumn<String>(
@@ -39,8 +39,9 @@ class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
   late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
       'is_default', aliasedName, false,
       type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   @override
   List<GeneratedColumn> get $columns =>
       [bracketCode, nameAr, nameEn, taxRate, isDefault];
@@ -48,9 +49,9 @@ class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'tax_brackets';
+  static const String $name = 'tax_bracket';
   @override
-  VerificationContext validateIntegrity(Insertable<TaxBracket> instance,
+  VerificationContext validateIntegrity(Insertable<TaxBracketData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -83,8 +84,6 @@ class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
     if (data.containsKey('is_default')) {
       context.handle(_isDefaultMeta,
           isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta));
-    } else if (isInserting) {
-      context.missing(_isDefaultMeta);
     }
     return context;
   }
@@ -92,9 +91,9 @@ class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
   @override
   Set<GeneratedColumn> get $primaryKey => {bracketCode};
   @override
-  TaxBracket map(Map<String, dynamic> data, {String? tablePrefix}) {
+  TaxBracketData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TaxBracket(
+    return TaxBracketData(
       bracketCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}bracket_code'])!,
       nameAr: attachedDatabase.typeMapping
@@ -109,21 +108,21 @@ class TaxBrackets extends Table with TableInfo<TaxBrackets, TaxBracket> {
   }
 
   @override
-  TaxBrackets createAlias(String alias) {
-    return TaxBrackets(attachedDatabase, alias);
+  TaxBracket createAlias(String alias) {
+    return TaxBracket(attachedDatabase, alias);
   }
 
   @override
   bool get dontWriteConstraints => true;
 }
 
-class TaxBracket extends DataClass implements Insertable<TaxBracket> {
+class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
   final String bracketCode;
   final String nameAr;
   final String nameEn;
   final double taxRate;
   final bool isDefault;
-  const TaxBracket(
+  const TaxBracketData(
       {required this.bracketCode,
       required this.nameAr,
       required this.nameEn,
@@ -140,8 +139,8 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
     return map;
   }
 
-  TaxBracketsCompanion toCompanion(bool nullToAbsent) {
-    return TaxBracketsCompanion(
+  TaxBracketCompanion toCompanion(bool nullToAbsent) {
+    return TaxBracketCompanion(
       bracketCode: Value(bracketCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
@@ -150,10 +149,10 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
     );
   }
 
-  factory TaxBracket.fromJson(Map<String, dynamic> json,
+  factory TaxBracketData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TaxBracket(
+    return TaxBracketData(
       bracketCode: serializer.fromJson<String>(json['bracket_code']),
       nameAr: serializer.fromJson<String>(json['name_ar']),
       nameEn: serializer.fromJson<String>(json['name_en']),
@@ -173,21 +172,21 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
     };
   }
 
-  TaxBracket copyWith(
+  TaxBracketData copyWith(
           {String? bracketCode,
           String? nameAr,
           String? nameEn,
           double? taxRate,
           bool? isDefault}) =>
-      TaxBracket(
+      TaxBracketData(
         bracketCode: bracketCode ?? this.bracketCode,
         nameAr: nameAr ?? this.nameAr,
         nameEn: nameEn ?? this.nameEn,
         taxRate: taxRate ?? this.taxRate,
         isDefault: isDefault ?? this.isDefault,
       );
-  TaxBracket copyWithCompanion(TaxBracketsCompanion data) {
-    return TaxBracket(
+  TaxBracketData copyWithCompanion(TaxBracketCompanion data) {
+    return TaxBracketData(
       bracketCode:
           data.bracketCode.present ? data.bracketCode.value : this.bracketCode,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
@@ -199,7 +198,7 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
 
   @override
   String toString() {
-    return (StringBuffer('TaxBracket(')
+    return (StringBuffer('TaxBracketData(')
           ..write('bracketCode: $bracketCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
@@ -215,7 +214,7 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TaxBracket &&
+      (other is TaxBracketData &&
           other.bracketCode == this.bracketCode &&
           other.nameAr == this.nameAr &&
           other.nameEn == this.nameEn &&
@@ -223,14 +222,14 @@ class TaxBracket extends DataClass implements Insertable<TaxBracket> {
           other.isDefault == this.isDefault);
 }
 
-class TaxBracketsCompanion extends UpdateCompanion<TaxBracket> {
+class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
   final Value<String> bracketCode;
   final Value<String> nameAr;
   final Value<String> nameEn;
   final Value<double> taxRate;
   final Value<bool> isDefault;
   final Value<int> rowid;
-  const TaxBracketsCompanion({
+  const TaxBracketCompanion({
     this.bracketCode = const Value.absent(),
     this.nameAr = const Value.absent(),
     this.nameEn = const Value.absent(),
@@ -238,19 +237,18 @@ class TaxBracketsCompanion extends UpdateCompanion<TaxBracket> {
     this.isDefault = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  TaxBracketsCompanion.insert({
+  TaxBracketCompanion.insert({
     required String bracketCode,
     required String nameAr,
     required String nameEn,
     required double taxRate,
-    required bool isDefault,
+    this.isDefault = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : bracketCode = Value(bracketCode),
         nameAr = Value(nameAr),
         nameEn = Value(nameEn),
-        taxRate = Value(taxRate),
-        isDefault = Value(isDefault);
-  static Insertable<TaxBracket> custom({
+        taxRate = Value(taxRate);
+  static Insertable<TaxBracketData> custom({
     Expression<String>? bracketCode,
     Expression<String>? nameAr,
     Expression<String>? nameEn,
@@ -268,14 +266,14 @@ class TaxBracketsCompanion extends UpdateCompanion<TaxBracket> {
     });
   }
 
-  TaxBracketsCompanion copyWith(
+  TaxBracketCompanion copyWith(
       {Value<String>? bracketCode,
       Value<String>? nameAr,
       Value<String>? nameEn,
       Value<double>? taxRate,
       Value<bool>? isDefault,
       Value<int>? rowid}) {
-    return TaxBracketsCompanion(
+    return TaxBracketCompanion(
       bracketCode: bracketCode ?? this.bracketCode,
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
@@ -311,391 +309,12 @@ class TaxBracketsCompanion extends UpdateCompanion<TaxBracket> {
 
   @override
   String toString() {
-    return (StringBuffer('TaxBracketsCompanion(')
+    return (StringBuffer('TaxBracketCompanion(')
           ..write('bracketCode: $bracketCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
           ..write('taxRate: $taxRate, ')
           ..write('isDefault: $isDefault, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class TaxTypes extends Table with TableInfo<TaxTypes, TaxType> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  TaxTypes(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _typeCodeMeta =
-      const VerificationMeta('typeCode');
-  late final GeneratedColumn<String> typeCode = GeneratedColumn<String>(
-      'type_code', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL PRIMARY KEY');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _calcMethodMeta =
-      const VerificationMeta('calcMethod');
-  late final GeneratedColumn<String> calcMethod = GeneratedColumn<String>(
-      'calc_method', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _salesAccountIdMeta =
-      const VerificationMeta('salesAccountId');
-  late final GeneratedColumn<String> salesAccountId = GeneratedColumn<String>(
-      'sales_account_id', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _purchasesAccountIdMeta =
-      const VerificationMeta('purchasesAccountId');
-  late final GeneratedColumn<String> purchasesAccountId =
-      GeneratedColumn<String>('purchases_account_id', aliasedName, true,
-          type: DriftSqlType.string,
-          requiredDuringInsert: false,
-          $customConstraints: '');
-  @override
-  List<GeneratedColumn> get $columns => [
-        typeCode,
-        nameAr,
-        nameEn,
-        calcMethod,
-        salesAccountId,
-        purchasesAccountId
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'tax_types';
-  @override
-  VerificationContext validateIntegrity(Insertable<TaxType> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('type_code')) {
-      context.handle(_typeCodeMeta,
-          typeCode.isAcceptableOrUnknown(data['type_code']!, _typeCodeMeta));
-    } else if (isInserting) {
-      context.missing(_typeCodeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('calc_method')) {
-      context.handle(
-          _calcMethodMeta,
-          calcMethod.isAcceptableOrUnknown(
-              data['calc_method']!, _calcMethodMeta));
-    } else if (isInserting) {
-      context.missing(_calcMethodMeta);
-    }
-    if (data.containsKey('sales_account_id')) {
-      context.handle(
-          _salesAccountIdMeta,
-          salesAccountId.isAcceptableOrUnknown(
-              data['sales_account_id']!, _salesAccountIdMeta));
-    }
-    if (data.containsKey('purchases_account_id')) {
-      context.handle(
-          _purchasesAccountIdMeta,
-          purchasesAccountId.isAcceptableOrUnknown(
-              data['purchases_account_id']!, _purchasesAccountIdMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {typeCode};
-  @override
-  TaxType map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TaxType(
-      typeCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}type_code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      calcMethod: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}calc_method'])!,
-      salesAccountId: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}sales_account_id']),
-      purchasesAccountId: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}purchases_account_id']),
-    );
-  }
-
-  @override
-  TaxTypes createAlias(String alias) {
-    return TaxTypes(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class TaxType extends DataClass implements Insertable<TaxType> {
-  final String typeCode;
-  final String nameAr;
-  final String nameEn;
-  final String calcMethod;
-  final String? salesAccountId;
-  final String? purchasesAccountId;
-  const TaxType(
-      {required this.typeCode,
-      required this.nameAr,
-      required this.nameEn,
-      required this.calcMethod,
-      this.salesAccountId,
-      this.purchasesAccountId});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['type_code'] = Variable<String>(typeCode);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['calc_method'] = Variable<String>(calcMethod);
-    if (!nullToAbsent || salesAccountId != null) {
-      map['sales_account_id'] = Variable<String>(salesAccountId);
-    }
-    if (!nullToAbsent || purchasesAccountId != null) {
-      map['purchases_account_id'] = Variable<String>(purchasesAccountId);
-    }
-    return map;
-  }
-
-  TaxTypesCompanion toCompanion(bool nullToAbsent) {
-    return TaxTypesCompanion(
-      typeCode: Value(typeCode),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      calcMethod: Value(calcMethod),
-      salesAccountId: salesAccountId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(salesAccountId),
-      purchasesAccountId: purchasesAccountId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(purchasesAccountId),
-    );
-  }
-
-  factory TaxType.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TaxType(
-      typeCode: serializer.fromJson<String>(json['type_code']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      calcMethod: serializer.fromJson<String>(json['calc_method']),
-      salesAccountId: serializer.fromJson<String?>(json['sales_account_id']),
-      purchasesAccountId:
-          serializer.fromJson<String?>(json['purchases_account_id']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'type_code': serializer.toJson<String>(typeCode),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'calc_method': serializer.toJson<String>(calcMethod),
-      'sales_account_id': serializer.toJson<String?>(salesAccountId),
-      'purchases_account_id': serializer.toJson<String?>(purchasesAccountId),
-    };
-  }
-
-  TaxType copyWith(
-          {String? typeCode,
-          String? nameAr,
-          String? nameEn,
-          String? calcMethod,
-          Value<String?> salesAccountId = const Value.absent(),
-          Value<String?> purchasesAccountId = const Value.absent()}) =>
-      TaxType(
-        typeCode: typeCode ?? this.typeCode,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        calcMethod: calcMethod ?? this.calcMethod,
-        salesAccountId:
-            salesAccountId.present ? salesAccountId.value : this.salesAccountId,
-        purchasesAccountId: purchasesAccountId.present
-            ? purchasesAccountId.value
-            : this.purchasesAccountId,
-      );
-  TaxType copyWithCompanion(TaxTypesCompanion data) {
-    return TaxType(
-      typeCode: data.typeCode.present ? data.typeCode.value : this.typeCode,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      calcMethod:
-          data.calcMethod.present ? data.calcMethod.value : this.calcMethod,
-      salesAccountId: data.salesAccountId.present
-          ? data.salesAccountId.value
-          : this.salesAccountId,
-      purchasesAccountId: data.purchasesAccountId.present
-          ? data.purchasesAccountId.value
-          : this.purchasesAccountId,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TaxType(')
-          ..write('typeCode: $typeCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('calcMethod: $calcMethod, ')
-          ..write('salesAccountId: $salesAccountId, ')
-          ..write('purchasesAccountId: $purchasesAccountId')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      typeCode, nameAr, nameEn, calcMethod, salesAccountId, purchasesAccountId);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TaxType &&
-          other.typeCode == this.typeCode &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.calcMethod == this.calcMethod &&
-          other.salesAccountId == this.salesAccountId &&
-          other.purchasesAccountId == this.purchasesAccountId);
-}
-
-class TaxTypesCompanion extends UpdateCompanion<TaxType> {
-  final Value<String> typeCode;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<String> calcMethod;
-  final Value<String?> salesAccountId;
-  final Value<String?> purchasesAccountId;
-  final Value<int> rowid;
-  const TaxTypesCompanion({
-    this.typeCode = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.calcMethod = const Value.absent(),
-    this.salesAccountId = const Value.absent(),
-    this.purchasesAccountId = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  TaxTypesCompanion.insert({
-    required String typeCode,
-    required String nameAr,
-    required String nameEn,
-    required String calcMethod,
-    this.salesAccountId = const Value.absent(),
-    this.purchasesAccountId = const Value.absent(),
-    this.rowid = const Value.absent(),
-  })  : typeCode = Value(typeCode),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        calcMethod = Value(calcMethod);
-  static Insertable<TaxType> custom({
-    Expression<String>? typeCode,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<String>? calcMethod,
-    Expression<String>? salesAccountId,
-    Expression<String>? purchasesAccountId,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (typeCode != null) 'type_code': typeCode,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (calcMethod != null) 'calc_method': calcMethod,
-      if (salesAccountId != null) 'sales_account_id': salesAccountId,
-      if (purchasesAccountId != null)
-        'purchases_account_id': purchasesAccountId,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  TaxTypesCompanion copyWith(
-      {Value<String>? typeCode,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<String>? calcMethod,
-      Value<String?>? salesAccountId,
-      Value<String?>? purchasesAccountId,
-      Value<int>? rowid}) {
-    return TaxTypesCompanion(
-      typeCode: typeCode ?? this.typeCode,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      calcMethod: calcMethod ?? this.calcMethod,
-      salesAccountId: salesAccountId ?? this.salesAccountId,
-      purchasesAccountId: purchasesAccountId ?? this.purchasesAccountId,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (typeCode.present) {
-      map['type_code'] = Variable<String>(typeCode.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (calcMethod.present) {
-      map['calc_method'] = Variable<String>(calcMethod.value);
-    }
-    if (salesAccountId.present) {
-      map['sales_account_id'] = Variable<String>(salesAccountId.value);
-    }
-    if (purchasesAccountId.present) {
-      map['purchases_account_id'] = Variable<String>(purchasesAccountId.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TaxTypesCompanion(')
-          ..write('typeCode: $typeCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('calcMethod: $calcMethod, ')
-          ..write('salesAccountId: $salesAccountId, ')
-          ..write('purchasesAccountId: $purchasesAccountId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -977,6 +596,388 @@ class TaxCalcMethodsCompanion extends UpdateCompanion<TaxCalcMethod> {
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
           ..write('category: $category, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class TaxTypes extends Table with TableInfo<TaxTypes, TaxType> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  TaxTypes(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _typeCodeMeta =
+      const VerificationMeta('typeCode');
+  late final GeneratedColumn<String> typeCode = GeneratedColumn<String>(
+      'type_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _calcMethodCodeMeta =
+      const VerificationMeta('calcMethodCode');
+  late final GeneratedColumn<String> calcMethodCode = GeneratedColumn<String>(
+      'calc_method_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES tax_calc_methods(method_code)');
+  static const VerificationMeta _salesAccountIdMeta =
+      const VerificationMeta('salesAccountId');
+  late final GeneratedColumn<String> salesAccountId = GeneratedColumn<String>(
+      'sales_account_id', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _purchasesAccountIdMeta =
+      const VerificationMeta('purchasesAccountId');
+  late final GeneratedColumn<String> purchasesAccountId =
+      GeneratedColumn<String>('purchases_account_id', aliasedName, true,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          $customConstraints: '');
+  @override
+  List<GeneratedColumn> get $columns => [
+        typeCode,
+        nameAr,
+        nameEn,
+        calcMethodCode,
+        salesAccountId,
+        purchasesAccountId
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tax_types';
+  @override
+  VerificationContext validateIntegrity(Insertable<TaxType> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('type_code')) {
+      context.handle(_typeCodeMeta,
+          typeCode.isAcceptableOrUnknown(data['type_code']!, _typeCodeMeta));
+    } else if (isInserting) {
+      context.missing(_typeCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('calc_method_code')) {
+      context.handle(
+          _calcMethodCodeMeta,
+          calcMethodCode.isAcceptableOrUnknown(
+              data['calc_method_code']!, _calcMethodCodeMeta));
+    } else if (isInserting) {
+      context.missing(_calcMethodCodeMeta);
+    }
+    if (data.containsKey('sales_account_id')) {
+      context.handle(
+          _salesAccountIdMeta,
+          salesAccountId.isAcceptableOrUnknown(
+              data['sales_account_id']!, _salesAccountIdMeta));
+    }
+    if (data.containsKey('purchases_account_id')) {
+      context.handle(
+          _purchasesAccountIdMeta,
+          purchasesAccountId.isAcceptableOrUnknown(
+              data['purchases_account_id']!, _purchasesAccountIdMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {typeCode};
+  @override
+  TaxType map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaxType(
+      typeCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      calcMethodCode: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}calc_method_code'])!,
+      salesAccountId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}sales_account_id']),
+      purchasesAccountId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}purchases_account_id']),
+    );
+  }
+
+  @override
+  TaxTypes createAlias(String alias) {
+    return TaxTypes(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class TaxType extends DataClass implements Insertable<TaxType> {
+  final String typeCode;
+  final String nameAr;
+  final String nameEn;
+  final String calcMethodCode;
+  final String? salesAccountId;
+
+  /// Should reference accounts table later
+  final String? purchasesAccountId;
+  const TaxType(
+      {required this.typeCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.calcMethodCode,
+      this.salesAccountId,
+      this.purchasesAccountId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['type_code'] = Variable<String>(typeCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['calc_method_code'] = Variable<String>(calcMethodCode);
+    if (!nullToAbsent || salesAccountId != null) {
+      map['sales_account_id'] = Variable<String>(salesAccountId);
+    }
+    if (!nullToAbsent || purchasesAccountId != null) {
+      map['purchases_account_id'] = Variable<String>(purchasesAccountId);
+    }
+    return map;
+  }
+
+  TaxTypesCompanion toCompanion(bool nullToAbsent) {
+    return TaxTypesCompanion(
+      typeCode: Value(typeCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      calcMethodCode: Value(calcMethodCode),
+      salesAccountId: salesAccountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(salesAccountId),
+      purchasesAccountId: purchasesAccountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(purchasesAccountId),
+    );
+  }
+
+  factory TaxType.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaxType(
+      typeCode: serializer.fromJson<String>(json['type_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      calcMethodCode: serializer.fromJson<String>(json['calc_method_code']),
+      salesAccountId: serializer.fromJson<String?>(json['sales_account_id']),
+      purchasesAccountId:
+          serializer.fromJson<String?>(json['purchases_account_id']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'type_code': serializer.toJson<String>(typeCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'calc_method_code': serializer.toJson<String>(calcMethodCode),
+      'sales_account_id': serializer.toJson<String?>(salesAccountId),
+      'purchases_account_id': serializer.toJson<String?>(purchasesAccountId),
+    };
+  }
+
+  TaxType copyWith(
+          {String? typeCode,
+          String? nameAr,
+          String? nameEn,
+          String? calcMethodCode,
+          Value<String?> salesAccountId = const Value.absent(),
+          Value<String?> purchasesAccountId = const Value.absent()}) =>
+      TaxType(
+        typeCode: typeCode ?? this.typeCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        calcMethodCode: calcMethodCode ?? this.calcMethodCode,
+        salesAccountId:
+            salesAccountId.present ? salesAccountId.value : this.salesAccountId,
+        purchasesAccountId: purchasesAccountId.present
+            ? purchasesAccountId.value
+            : this.purchasesAccountId,
+      );
+  TaxType copyWithCompanion(TaxTypesCompanion data) {
+    return TaxType(
+      typeCode: data.typeCode.present ? data.typeCode.value : this.typeCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      calcMethodCode: data.calcMethodCode.present
+          ? data.calcMethodCode.value
+          : this.calcMethodCode,
+      salesAccountId: data.salesAccountId.present
+          ? data.salesAccountId.value
+          : this.salesAccountId,
+      purchasesAccountId: data.purchasesAccountId.present
+          ? data.purchasesAccountId.value
+          : this.purchasesAccountId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxType(')
+          ..write('typeCode: $typeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('calcMethodCode: $calcMethodCode, ')
+          ..write('salesAccountId: $salesAccountId, ')
+          ..write('purchasesAccountId: $purchasesAccountId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(typeCode, nameAr, nameEn, calcMethodCode,
+      salesAccountId, purchasesAccountId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaxType &&
+          other.typeCode == this.typeCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.calcMethodCode == this.calcMethodCode &&
+          other.salesAccountId == this.salesAccountId &&
+          other.purchasesAccountId == this.purchasesAccountId);
+}
+
+class TaxTypesCompanion extends UpdateCompanion<TaxType> {
+  final Value<String> typeCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> calcMethodCode;
+  final Value<String?> salesAccountId;
+  final Value<String?> purchasesAccountId;
+  final Value<int> rowid;
+  const TaxTypesCompanion({
+    this.typeCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.calcMethodCode = const Value.absent(),
+    this.salesAccountId = const Value.absent(),
+    this.purchasesAccountId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaxTypesCompanion.insert({
+    required String typeCode,
+    required String nameAr,
+    required String nameEn,
+    required String calcMethodCode,
+    this.salesAccountId = const Value.absent(),
+    this.purchasesAccountId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : typeCode = Value(typeCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        calcMethodCode = Value(calcMethodCode);
+  static Insertable<TaxType> custom({
+    Expression<String>? typeCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? calcMethodCode,
+    Expression<String>? salesAccountId,
+    Expression<String>? purchasesAccountId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (typeCode != null) 'type_code': typeCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (calcMethodCode != null) 'calc_method_code': calcMethodCode,
+      if (salesAccountId != null) 'sales_account_id': salesAccountId,
+      if (purchasesAccountId != null)
+        'purchases_account_id': purchasesAccountId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaxTypesCompanion copyWith(
+      {Value<String>? typeCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? calcMethodCode,
+      Value<String?>? salesAccountId,
+      Value<String?>? purchasesAccountId,
+      Value<int>? rowid}) {
+    return TaxTypesCompanion(
+      typeCode: typeCode ?? this.typeCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      calcMethodCode: calcMethodCode ?? this.calcMethodCode,
+      salesAccountId: salesAccountId ?? this.salesAccountId,
+      purchasesAccountId: purchasesAccountId ?? this.purchasesAccountId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (typeCode.present) {
+      map['type_code'] = Variable<String>(typeCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (calcMethodCode.present) {
+      map['calc_method_code'] = Variable<String>(calcMethodCode.value);
+    }
+    if (salesAccountId.present) {
+      map['sales_account_id'] = Variable<String>(salesAccountId.value);
+    }
+    if (purchasesAccountId.present) {
+      map['purchases_account_id'] = Variable<String>(purchasesAccountId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaxTypesCompanion(')
+          ..write('typeCode: $typeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('calcMethodCode: $calcMethodCode, ')
+          ..write('salesAccountId: $salesAccountId, ')
+          ..write('purchasesAccountId: $purchasesAccountId, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -1623,593 +1624,6 @@ class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
           ..write('logo: $logo, ')
           ..write('isMainCompany: $isMainCompany, ')
           ..write('remarks: $remarks')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class Branches extends Table with TableInfo<Branches, Branche> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Branches(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _branchCodeMeta =
-      const VerificationMeta('branchCode');
-  late final GeneratedColumn<String> branchCode = GeneratedColumn<String>(
-      'branch_code', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL PRIMARY KEY');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _companyIdMeta =
-      const VerificationMeta('companyId');
-  late final GeneratedColumn<int> companyId = GeneratedColumn<int>(
-      'company_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES company_info(id)');
-  static const VerificationMeta _branchGroupMeta =
-      const VerificationMeta('branchGroup');
-  late final GeneratedColumn<String> branchGroup = GeneratedColumn<String>(
-      'branch_group', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _addressMeta =
-      const VerificationMeta('address');
-  late final GeneratedColumn<String> address = GeneratedColumn<String>(
-      'address', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
-  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
-      'phone', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _defaultWarehouseIdMeta =
-      const VerificationMeta('defaultWarehouseId');
-  late final GeneratedColumn<String> defaultWarehouseId =
-      GeneratedColumn<String>('default_warehouse_id', aliasedName, true,
-          type: DriftSqlType.string,
-          requiredDuringInsert: false,
-          $customConstraints: '');
-  static const VerificationMeta _branchStatusMeta =
-      const VerificationMeta('branchStatus');
-  late final GeneratedColumn<bool> branchStatus = GeneratedColumn<bool>(
-      'branch_status', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT TRUE',
-      defaultValue: const CustomExpression('TRUE'));
-  static const VerificationMeta _logoMeta = const VerificationMeta('logo');
-  late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
-      'logo', aliasedName, true,
-      type: DriftSqlType.blob,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _remarksMeta =
-      const VerificationMeta('remarks');
-  late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-      'remarks', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  @override
-  List<GeneratedColumn> get $columns => [
-        branchCode,
-        nameAr,
-        nameEn,
-        companyId,
-        branchGroup,
-        address,
-        phone,
-        defaultWarehouseId,
-        branchStatus,
-        logo,
-        remarks
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'branches';
-  @override
-  VerificationContext validateIntegrity(Insertable<Branche> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('branch_code')) {
-      context.handle(
-          _branchCodeMeta,
-          branchCode.isAcceptableOrUnknown(
-              data['branch_code']!, _branchCodeMeta));
-    } else if (isInserting) {
-      context.missing(_branchCodeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('company_id')) {
-      context.handle(_companyIdMeta,
-          companyId.isAcceptableOrUnknown(data['company_id']!, _companyIdMeta));
-    } else if (isInserting) {
-      context.missing(_companyIdMeta);
-    }
-    if (data.containsKey('branch_group')) {
-      context.handle(
-          _branchGroupMeta,
-          branchGroup.isAcceptableOrUnknown(
-              data['branch_group']!, _branchGroupMeta));
-    }
-    if (data.containsKey('address')) {
-      context.handle(_addressMeta,
-          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
-    }
-    if (data.containsKey('phone')) {
-      context.handle(
-          _phoneMeta, phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta));
-    }
-    if (data.containsKey('default_warehouse_id')) {
-      context.handle(
-          _defaultWarehouseIdMeta,
-          defaultWarehouseId.isAcceptableOrUnknown(
-              data['default_warehouse_id']!, _defaultWarehouseIdMeta));
-    }
-    if (data.containsKey('branch_status')) {
-      context.handle(
-          _branchStatusMeta,
-          branchStatus.isAcceptableOrUnknown(
-              data['branch_status']!, _branchStatusMeta));
-    }
-    if (data.containsKey('logo')) {
-      context.handle(
-          _logoMeta, logo.isAcceptableOrUnknown(data['logo']!, _logoMeta));
-    }
-    if (data.containsKey('remarks')) {
-      context.handle(_remarksMeta,
-          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {branchCode};
-  @override
-  Branche map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Branche(
-      branchCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}branch_code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      companyId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}company_id'])!,
-      branchGroup: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}branch_group']),
-      address: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}address']),
-      phone: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phone']),
-      defaultWarehouseId: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}default_warehouse_id']),
-      branchStatus: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}branch_status'])!,
-      logo: attachedDatabase.typeMapping
-          .read(DriftSqlType.blob, data['${effectivePrefix}logo']),
-      remarks: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
-    );
-  }
-
-  @override
-  Branches createAlias(String alias) {
-    return Branches(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Branche extends DataClass implements Insertable<Branche> {
-  final String branchCode;
-  final String nameAr;
-  final String nameEn;
-  final int companyId;
-  final String? branchGroup;
-  final String? address;
-  final String? phone;
-  final String? defaultWarehouseId;
-
-  /// This will eventually be a foreign key to a Warehouses table
-  final bool branchStatus;
-
-  /// TRUE for Active, FALSE for Inactive
-  final Uint8List? logo;
-  final String? remarks;
-  const Branche(
-      {required this.branchCode,
-      required this.nameAr,
-      required this.nameEn,
-      required this.companyId,
-      this.branchGroup,
-      this.address,
-      this.phone,
-      this.defaultWarehouseId,
-      required this.branchStatus,
-      this.logo,
-      this.remarks});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['branch_code'] = Variable<String>(branchCode);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['company_id'] = Variable<int>(companyId);
-    if (!nullToAbsent || branchGroup != null) {
-      map['branch_group'] = Variable<String>(branchGroup);
-    }
-    if (!nullToAbsent || address != null) {
-      map['address'] = Variable<String>(address);
-    }
-    if (!nullToAbsent || phone != null) {
-      map['phone'] = Variable<String>(phone);
-    }
-    if (!nullToAbsent || defaultWarehouseId != null) {
-      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId);
-    }
-    map['branch_status'] = Variable<bool>(branchStatus);
-    if (!nullToAbsent || logo != null) {
-      map['logo'] = Variable<Uint8List>(logo);
-    }
-    if (!nullToAbsent || remarks != null) {
-      map['remarks'] = Variable<String>(remarks);
-    }
-    return map;
-  }
-
-  BranchesCompanion toCompanion(bool nullToAbsent) {
-    return BranchesCompanion(
-      branchCode: Value(branchCode),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      companyId: Value(companyId),
-      branchGroup: branchGroup == null && nullToAbsent
-          ? const Value.absent()
-          : Value(branchGroup),
-      address: address == null && nullToAbsent
-          ? const Value.absent()
-          : Value(address),
-      phone:
-          phone == null && nullToAbsent ? const Value.absent() : Value(phone),
-      defaultWarehouseId: defaultWarehouseId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(defaultWarehouseId),
-      branchStatus: Value(branchStatus),
-      logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
-      remarks: remarks == null && nullToAbsent
-          ? const Value.absent()
-          : Value(remarks),
-    );
-  }
-
-  factory Branche.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Branche(
-      branchCode: serializer.fromJson<String>(json['branch_code']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      companyId: serializer.fromJson<int>(json['company_id']),
-      branchGroup: serializer.fromJson<String?>(json['branch_group']),
-      address: serializer.fromJson<String?>(json['address']),
-      phone: serializer.fromJson<String?>(json['phone']),
-      defaultWarehouseId:
-          serializer.fromJson<String?>(json['default_warehouse_id']),
-      branchStatus: serializer.fromJson<bool>(json['branch_status']),
-      logo: serializer.fromJson<Uint8List?>(json['logo']),
-      remarks: serializer.fromJson<String?>(json['remarks']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'branch_code': serializer.toJson<String>(branchCode),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'company_id': serializer.toJson<int>(companyId),
-      'branch_group': serializer.toJson<String?>(branchGroup),
-      'address': serializer.toJson<String?>(address),
-      'phone': serializer.toJson<String?>(phone),
-      'default_warehouse_id': serializer.toJson<String?>(defaultWarehouseId),
-      'branch_status': serializer.toJson<bool>(branchStatus),
-      'logo': serializer.toJson<Uint8List?>(logo),
-      'remarks': serializer.toJson<String?>(remarks),
-    };
-  }
-
-  Branche copyWith(
-          {String? branchCode,
-          String? nameAr,
-          String? nameEn,
-          int? companyId,
-          Value<String?> branchGroup = const Value.absent(),
-          Value<String?> address = const Value.absent(),
-          Value<String?> phone = const Value.absent(),
-          Value<String?> defaultWarehouseId = const Value.absent(),
-          bool? branchStatus,
-          Value<Uint8List?> logo = const Value.absent(),
-          Value<String?> remarks = const Value.absent()}) =>
-      Branche(
-        branchCode: branchCode ?? this.branchCode,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        companyId: companyId ?? this.companyId,
-        branchGroup: branchGroup.present ? branchGroup.value : this.branchGroup,
-        address: address.present ? address.value : this.address,
-        phone: phone.present ? phone.value : this.phone,
-        defaultWarehouseId: defaultWarehouseId.present
-            ? defaultWarehouseId.value
-            : this.defaultWarehouseId,
-        branchStatus: branchStatus ?? this.branchStatus,
-        logo: logo.present ? logo.value : this.logo,
-        remarks: remarks.present ? remarks.value : this.remarks,
-      );
-  Branche copyWithCompanion(BranchesCompanion data) {
-    return Branche(
-      branchCode:
-          data.branchCode.present ? data.branchCode.value : this.branchCode,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      companyId: data.companyId.present ? data.companyId.value : this.companyId,
-      branchGroup:
-          data.branchGroup.present ? data.branchGroup.value : this.branchGroup,
-      address: data.address.present ? data.address.value : this.address,
-      phone: data.phone.present ? data.phone.value : this.phone,
-      defaultWarehouseId: data.defaultWarehouseId.present
-          ? data.defaultWarehouseId.value
-          : this.defaultWarehouseId,
-      branchStatus: data.branchStatus.present
-          ? data.branchStatus.value
-          : this.branchStatus,
-      logo: data.logo.present ? data.logo.value : this.logo,
-      remarks: data.remarks.present ? data.remarks.value : this.remarks,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Branche(')
-          ..write('branchCode: $branchCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('companyId: $companyId, ')
-          ..write('branchGroup: $branchGroup, ')
-          ..write('address: $address, ')
-          ..write('phone: $phone, ')
-          ..write('defaultWarehouseId: $defaultWarehouseId, ')
-          ..write('branchStatus: $branchStatus, ')
-          ..write('logo: $logo, ')
-          ..write('remarks: $remarks')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      branchCode,
-      nameAr,
-      nameEn,
-      companyId,
-      branchGroup,
-      address,
-      phone,
-      defaultWarehouseId,
-      branchStatus,
-      $driftBlobEquality.hash(logo),
-      remarks);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Branche &&
-          other.branchCode == this.branchCode &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.companyId == this.companyId &&
-          other.branchGroup == this.branchGroup &&
-          other.address == this.address &&
-          other.phone == this.phone &&
-          other.defaultWarehouseId == this.defaultWarehouseId &&
-          other.branchStatus == this.branchStatus &&
-          $driftBlobEquality.equals(other.logo, this.logo) &&
-          other.remarks == this.remarks);
-}
-
-class BranchesCompanion extends UpdateCompanion<Branche> {
-  final Value<String> branchCode;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<int> companyId;
-  final Value<String?> branchGroup;
-  final Value<String?> address;
-  final Value<String?> phone;
-  final Value<String?> defaultWarehouseId;
-  final Value<bool> branchStatus;
-  final Value<Uint8List?> logo;
-  final Value<String?> remarks;
-  final Value<int> rowid;
-  const BranchesCompanion({
-    this.branchCode = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.companyId = const Value.absent(),
-    this.branchGroup = const Value.absent(),
-    this.address = const Value.absent(),
-    this.phone = const Value.absent(),
-    this.defaultWarehouseId = const Value.absent(),
-    this.branchStatus = const Value.absent(),
-    this.logo = const Value.absent(),
-    this.remarks = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  BranchesCompanion.insert({
-    required String branchCode,
-    required String nameAr,
-    required String nameEn,
-    required int companyId,
-    this.branchGroup = const Value.absent(),
-    this.address = const Value.absent(),
-    this.phone = const Value.absent(),
-    this.defaultWarehouseId = const Value.absent(),
-    this.branchStatus = const Value.absent(),
-    this.logo = const Value.absent(),
-    this.remarks = const Value.absent(),
-    this.rowid = const Value.absent(),
-  })  : branchCode = Value(branchCode),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        companyId = Value(companyId);
-  static Insertable<Branche> custom({
-    Expression<String>? branchCode,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<int>? companyId,
-    Expression<String>? branchGroup,
-    Expression<String>? address,
-    Expression<String>? phone,
-    Expression<String>? defaultWarehouseId,
-    Expression<bool>? branchStatus,
-    Expression<Uint8List>? logo,
-    Expression<String>? remarks,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (branchCode != null) 'branch_code': branchCode,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (companyId != null) 'company_id': companyId,
-      if (branchGroup != null) 'branch_group': branchGroup,
-      if (address != null) 'address': address,
-      if (phone != null) 'phone': phone,
-      if (defaultWarehouseId != null)
-        'default_warehouse_id': defaultWarehouseId,
-      if (branchStatus != null) 'branch_status': branchStatus,
-      if (logo != null) 'logo': logo,
-      if (remarks != null) 'remarks': remarks,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  BranchesCompanion copyWith(
-      {Value<String>? branchCode,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<int>? companyId,
-      Value<String?>? branchGroup,
-      Value<String?>? address,
-      Value<String?>? phone,
-      Value<String?>? defaultWarehouseId,
-      Value<bool>? branchStatus,
-      Value<Uint8List?>? logo,
-      Value<String?>? remarks,
-      Value<int>? rowid}) {
-    return BranchesCompanion(
-      branchCode: branchCode ?? this.branchCode,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      companyId: companyId ?? this.companyId,
-      branchGroup: branchGroup ?? this.branchGroup,
-      address: address ?? this.address,
-      phone: phone ?? this.phone,
-      defaultWarehouseId: defaultWarehouseId ?? this.defaultWarehouseId,
-      branchStatus: branchStatus ?? this.branchStatus,
-      logo: logo ?? this.logo,
-      remarks: remarks ?? this.remarks,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (branchCode.present) {
-      map['branch_code'] = Variable<String>(branchCode.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (companyId.present) {
-      map['company_id'] = Variable<int>(companyId.value);
-    }
-    if (branchGroup.present) {
-      map['branch_group'] = Variable<String>(branchGroup.value);
-    }
-    if (address.present) {
-      map['address'] = Variable<String>(address.value);
-    }
-    if (phone.present) {
-      map['phone'] = Variable<String>(phone.value);
-    }
-    if (defaultWarehouseId.present) {
-      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId.value);
-    }
-    if (branchStatus.present) {
-      map['branch_status'] = Variable<bool>(branchStatus.value);
-    }
-    if (logo.present) {
-      map['logo'] = Variable<Uint8List>(logo.value);
-    }
-    if (remarks.present) {
-      map['remarks'] = Variable<String>(remarks.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BranchesCompanion(')
-          ..write('branchCode: $branchCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('companyId: $companyId, ')
-          ..write('branchGroup: $branchGroup, ')
-          ..write('address: $address, ')
-          ..write('phone: $phone, ')
-          ..write('defaultWarehouseId: $defaultWarehouseId, ')
-          ..write('branchStatus: $branchStatus, ')
-          ..write('logo: $logo, ')
-          ..write('remarks: $remarks, ')
-          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -4447,7 +3861,7 @@ class Zones extends Table with TableInfo<Zones, Zone> {
       'zone_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -4746,7 +4160,7 @@ class Countries extends Table with TableInfo<Countries, Country> {
       'country_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -5178,7 +4592,7 @@ class Governorates extends Table with TableInfo<Governorates, Governorate> {
       'gov_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -5516,7 +4930,7 @@ class Cities extends Table with TableInfo<Cities, City> {
       'city_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -5853,7 +5267,7 @@ class Regions extends Table with TableInfo<Regions, Region> {
       'region_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -7105,8 +6519,9 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
   late final GeneratedColumn<bool> isBaseCurrency = GeneratedColumn<bool>(
       'is_base_currency', aliasedName, false,
       type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   static const VerificationMeta _decimalPlacesMeta =
       const VerificationMeta('decimalPlaces');
   late final GeneratedColumn<int> decimalPlaces = GeneratedColumn<int>(
@@ -7133,9 +6548,8 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
       'is_active', aliasedName, false,
       type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT TRUE',
-      defaultValue: const CustomExpression('TRUE'));
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   @override
   List<GeneratedColumn> get $columns => [
         currencyCode,
@@ -7209,8 +6623,6 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
           _isBaseCurrencyMeta,
           isBaseCurrency.isAcceptableOrUnknown(
               data['is_base_currency']!, _isBaseCurrencyMeta));
-    } else if (isInserting) {
-      context.missing(_isBaseCurrencyMeta);
     }
     if (data.containsKey('decimal_places')) {
       context.handle(
@@ -7235,6 +6647,8 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
     if (data.containsKey('is_active')) {
       context.handle(_isActiveMeta,
           isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
     }
     return context;
   }
@@ -7520,11 +6934,11 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
     required String fractionNameAr,
     required String fractionNameEn,
     required double exchangeRate,
-    required bool isBaseCurrency,
+    this.isBaseCurrency = const Value.absent(),
     required int decimalPlaces,
     this.minRateLimit = const Value.absent(),
     this.maxRateLimit = const Value.absent(),
-    this.isActive = const Value.absent(),
+    required bool isActive,
     this.rowid = const Value.absent(),
   })  : currencyCode = Value(currencyCode),
         nameAr = Value(nameAr),
@@ -7532,8 +6946,8 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
         fractionNameAr = Value(fractionNameAr),
         fractionNameEn = Value(fractionNameEn),
         exchangeRate = Value(exchangeRate),
-        isBaseCurrency = Value(isBaseCurrency),
-        decimalPlaces = Value(decimalPlaces);
+        decimalPlaces = Value(decimalPlaces),
+        isActive = Value(isActive);
   static Insertable<Currency> custom({
     Expression<String>? currencyCode,
     Expression<String>? nameAr,
@@ -8215,13 +7629,20 @@ class Branches extends Table with TableInfo<Branches, Branche> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   Branches(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
   static const VerificationMeta _branchCodeMeta =
       const VerificationMeta('branchCode');
   late final GeneratedColumn<String> branchCode = GeneratedColumn<String>(
       'branch_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL PRIMARY KEY');
+      $customConstraints: 'NOT NULL');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -8271,10 +7692,10 @@ class Branches extends Table with TableInfo<Branches, Branche> {
   static const VerificationMeta _branchStatusMeta =
       const VerificationMeta('branchStatus');
   late final GeneratedColumn<bool> branchStatus = GeneratedColumn<bool>(
-      'branch_status', aliasedName, true,
+      'branch_status', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
-      $customConstraints: 'DEFAULT TRUE',
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
       defaultValue: const CustomExpression('TRUE'));
   static const VerificationMeta _logoMeta = const VerificationMeta('logo');
   late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
@@ -8291,6 +7712,7 @@ class Branches extends Table with TableInfo<Branches, Branche> {
       $customConstraints: '');
   @override
   List<GeneratedColumn> get $columns => [
+        id,
         branchCode,
         nameAr,
         nameEn,
@@ -8313,6 +7735,9 @@ class Branches extends Table with TableInfo<Branches, Branche> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
     if (data.containsKey('branch_code')) {
       context.handle(
           _branchCodeMeta,
@@ -8377,11 +7802,13 @@ class Branches extends Table with TableInfo<Branches, Branche> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {branchCode};
+  Set<GeneratedColumn> get $primaryKey => {id};
   @override
   Branche map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Branche(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       branchCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}branch_code'])!,
       nameAr: attachedDatabase.typeMapping
@@ -8399,7 +7826,7 @@ class Branches extends Table with TableInfo<Branches, Branche> {
       defaultWarehouseId: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}default_warehouse_id']),
       branchStatus: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}branch_status']),
+          .read(DriftSqlType.bool, data['${effectivePrefix}branch_status'])!,
       logo: attachedDatabase.typeMapping
           .read(DriftSqlType.blob, data['${effectivePrefix}logo']),
       remarks: attachedDatabase.typeMapping
@@ -8417,6 +7844,7 @@ class Branches extends Table with TableInfo<Branches, Branche> {
 }
 
 class Branche extends DataClass implements Insertable<Branche> {
+  final int id;
   final String branchCode;
   final String nameAr;
   final String nameEn;
@@ -8425,11 +7853,12 @@ class Branche extends DataClass implements Insertable<Branche> {
   final String? address;
   final String? phone;
   final String? defaultWarehouseId;
-  final bool? branchStatus;
+  final bool branchStatus;
   final Uint8List? logo;
   final String? remarks;
   const Branche(
-      {required this.branchCode,
+      {required this.id,
+      required this.branchCode,
       required this.nameAr,
       required this.nameEn,
       required this.companyId,
@@ -8437,12 +7866,13 @@ class Branche extends DataClass implements Insertable<Branche> {
       this.address,
       this.phone,
       this.defaultWarehouseId,
-      this.branchStatus,
+      required this.branchStatus,
       this.logo,
       this.remarks});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
     map['branch_code'] = Variable<String>(branchCode);
     map['name_ar'] = Variable<String>(nameAr);
     map['name_en'] = Variable<String>(nameEn);
@@ -8459,9 +7889,7 @@ class Branche extends DataClass implements Insertable<Branche> {
     if (!nullToAbsent || defaultWarehouseId != null) {
       map['default_warehouse_id'] = Variable<String>(defaultWarehouseId);
     }
-    if (!nullToAbsent || branchStatus != null) {
-      map['branch_status'] = Variable<bool>(branchStatus);
-    }
+    map['branch_status'] = Variable<bool>(branchStatus);
     if (!nullToAbsent || logo != null) {
       map['logo'] = Variable<Uint8List>(logo);
     }
@@ -8473,6 +7901,7 @@ class Branche extends DataClass implements Insertable<Branche> {
 
   BranchesCompanion toCompanion(bool nullToAbsent) {
     return BranchesCompanion(
+      id: Value(id),
       branchCode: Value(branchCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
@@ -8488,9 +7917,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       defaultWarehouseId: defaultWarehouseId == null && nullToAbsent
           ? const Value.absent()
           : Value(defaultWarehouseId),
-      branchStatus: branchStatus == null && nullToAbsent
-          ? const Value.absent()
-          : Value(branchStatus),
+      branchStatus: Value(branchStatus),
       logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
       remarks: remarks == null && nullToAbsent
           ? const Value.absent()
@@ -8502,6 +7929,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Branche(
+      id: serializer.fromJson<int>(json['id']),
       branchCode: serializer.fromJson<String>(json['branch_code']),
       nameAr: serializer.fromJson<String>(json['name_ar']),
       nameEn: serializer.fromJson<String>(json['name_en']),
@@ -8511,7 +7939,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       phone: serializer.fromJson<String?>(json['phone']),
       defaultWarehouseId:
           serializer.fromJson<String?>(json['default_warehouse_id']),
-      branchStatus: serializer.fromJson<bool?>(json['branch_status']),
+      branchStatus: serializer.fromJson<bool>(json['branch_status']),
       logo: serializer.fromJson<Uint8List?>(json['logo']),
       remarks: serializer.fromJson<String?>(json['remarks']),
     );
@@ -8520,6 +7948,7 @@ class Branche extends DataClass implements Insertable<Branche> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
       'branch_code': serializer.toJson<String>(branchCode),
       'name_ar': serializer.toJson<String>(nameAr),
       'name_en': serializer.toJson<String>(nameEn),
@@ -8528,14 +7957,15 @@ class Branche extends DataClass implements Insertable<Branche> {
       'address': serializer.toJson<String?>(address),
       'phone': serializer.toJson<String?>(phone),
       'default_warehouse_id': serializer.toJson<String?>(defaultWarehouseId),
-      'branch_status': serializer.toJson<bool?>(branchStatus),
+      'branch_status': serializer.toJson<bool>(branchStatus),
       'logo': serializer.toJson<Uint8List?>(logo),
       'remarks': serializer.toJson<String?>(remarks),
     };
   }
 
   Branche copyWith(
-          {String? branchCode,
+          {int? id,
+          String? branchCode,
           String? nameAr,
           String? nameEn,
           int? companyId,
@@ -8543,10 +7973,11 @@ class Branche extends DataClass implements Insertable<Branche> {
           Value<String?> address = const Value.absent(),
           Value<String?> phone = const Value.absent(),
           Value<String?> defaultWarehouseId = const Value.absent(),
-          Value<bool?> branchStatus = const Value.absent(),
+          bool? branchStatus,
           Value<Uint8List?> logo = const Value.absent(),
           Value<String?> remarks = const Value.absent()}) =>
       Branche(
+        id: id ?? this.id,
         branchCode: branchCode ?? this.branchCode,
         nameAr: nameAr ?? this.nameAr,
         nameEn: nameEn ?? this.nameEn,
@@ -8558,13 +7989,13 @@ class Branche extends DataClass implements Insertable<Branche> {
         defaultWarehouseId: defaultWarehouseId.present
             ? defaultWarehouseId.value
             : this.defaultWarehouseId,
-        branchStatus:
-            branchStatus.present ? branchStatus.value : this.branchStatus,
+        branchStatus: branchStatus ?? this.branchStatus,
         logo: logo.present ? logo.value : this.logo,
         remarks: remarks.present ? remarks.value : this.remarks,
       );
   Branche copyWithCompanion(BranchesCompanion data) {
     return Branche(
+      id: data.id.present ? data.id.value : this.id,
       branchCode:
           data.branchCode.present ? data.branchCode.value : this.branchCode,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
@@ -8589,6 +8020,7 @@ class Branche extends DataClass implements Insertable<Branche> {
   @override
   String toString() {
     return (StringBuffer('Branche(')
+          ..write('id: $id, ')
           ..write('branchCode: $branchCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
@@ -8606,6 +8038,7 @@ class Branche extends DataClass implements Insertable<Branche> {
 
   @override
   int get hashCode => Object.hash(
+      id,
       branchCode,
       nameAr,
       nameEn,
@@ -8621,6 +8054,7 @@ class Branche extends DataClass implements Insertable<Branche> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Branche &&
+          other.id == this.id &&
           other.branchCode == this.branchCode &&
           other.nameAr == this.nameAr &&
           other.nameEn == this.nameEn &&
@@ -8635,6 +8069,7 @@ class Branche extends DataClass implements Insertable<Branche> {
 }
 
 class BranchesCompanion extends UpdateCompanion<Branche> {
+  final Value<int> id;
   final Value<String> branchCode;
   final Value<String> nameAr;
   final Value<String> nameEn;
@@ -8643,11 +8078,11 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
   final Value<String?> address;
   final Value<String?> phone;
   final Value<String?> defaultWarehouseId;
-  final Value<bool?> branchStatus;
+  final Value<bool> branchStatus;
   final Value<Uint8List?> logo;
   final Value<String?> remarks;
-  final Value<int> rowid;
   const BranchesCompanion({
+    this.id = const Value.absent(),
     this.branchCode = const Value.absent(),
     this.nameAr = const Value.absent(),
     this.nameEn = const Value.absent(),
@@ -8659,9 +8094,9 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     this.branchStatus = const Value.absent(),
     this.logo = const Value.absent(),
     this.remarks = const Value.absent(),
-    this.rowid = const Value.absent(),
   });
   BranchesCompanion.insert({
+    this.id = const Value.absent(),
     required String branchCode,
     required String nameAr,
     required String nameEn,
@@ -8673,12 +8108,12 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     this.branchStatus = const Value.absent(),
     this.logo = const Value.absent(),
     this.remarks = const Value.absent(),
-    this.rowid = const Value.absent(),
   })  : branchCode = Value(branchCode),
         nameAr = Value(nameAr),
         nameEn = Value(nameEn),
         companyId = Value(companyId);
   static Insertable<Branche> custom({
+    Expression<int>? id,
     Expression<String>? branchCode,
     Expression<String>? nameAr,
     Expression<String>? nameEn,
@@ -8690,9 +8125,9 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     Expression<bool>? branchStatus,
     Expression<Uint8List>? logo,
     Expression<String>? remarks,
-    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
+      if (id != null) 'id': id,
       if (branchCode != null) 'branch_code': branchCode,
       if (nameAr != null) 'name_ar': nameAr,
       if (nameEn != null) 'name_en': nameEn,
@@ -8705,12 +8140,12 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       if (branchStatus != null) 'branch_status': branchStatus,
       if (logo != null) 'logo': logo,
       if (remarks != null) 'remarks': remarks,
-      if (rowid != null) 'rowid': rowid,
     });
   }
 
   BranchesCompanion copyWith(
-      {Value<String>? branchCode,
+      {Value<int>? id,
+      Value<String>? branchCode,
       Value<String>? nameAr,
       Value<String>? nameEn,
       Value<int>? companyId,
@@ -8718,11 +8153,11 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       Value<String?>? address,
       Value<String?>? phone,
       Value<String?>? defaultWarehouseId,
-      Value<bool?>? branchStatus,
+      Value<bool>? branchStatus,
       Value<Uint8List?>? logo,
-      Value<String?>? remarks,
-      Value<int>? rowid}) {
+      Value<String?>? remarks}) {
     return BranchesCompanion(
+      id: id ?? this.id,
       branchCode: branchCode ?? this.branchCode,
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
@@ -8734,13 +8169,15 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       branchStatus: branchStatus ?? this.branchStatus,
       logo: logo ?? this.logo,
       remarks: remarks ?? this.remarks,
-      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
     if (branchCode.present) {
       map['branch_code'] = Variable<String>(branchCode.value);
     }
@@ -8774,15 +8211,13 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     if (remarks.present) {
       map['remarks'] = Variable<String>(remarks.value);
     }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
     return map;
   }
 
   @override
   String toString() {
     return (StringBuffer('BranchesCompanion(')
+          ..write('id: $id, ')
           ..write('branchCode: $branchCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
@@ -8793,8 +8228,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
           ..write('defaultWarehouseId: $defaultWarehouseId, ')
           ..write('branchStatus: $branchStatus, ')
           ..write('logo: $logo, ')
-          ..write('remarks: $remarks, ')
-          ..write('rowid: $rowid')
+          ..write('remarks: $remarks')
           ..write(')'))
         .toString();
   }
@@ -8803,11 +8237,10 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
-  late final TaxBrackets taxBrackets = TaxBrackets(this);
-  late final TaxTypes taxTypes = TaxTypes(this);
+  late final TaxBracket taxBracket = TaxBracket(this);
   late final TaxCalcMethods taxCalcMethods = TaxCalcMethods(this);
+  late final TaxTypes taxTypes = TaxTypes(this);
   late final CompanyInfo companyInfo = CompanyInfo(this);
-  late final Branches branches = Branches(this);
   late final FinancialPeriods financialPeriods = FinancialPeriods(this);
   late final Accounts accounts = Accounts(this);
   late final Roles roles = Roles(this);
@@ -8831,11 +8264,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
-        taxBrackets,
-        taxTypes,
+        taxBracket,
         taxCalcMethods,
+        taxTypes,
         companyInfo,
-        branches,
         financialPeriods,
         accounts,
         roles,
@@ -8856,15 +8288,15 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       ];
 }
 
-typedef $TaxBracketsCreateCompanionBuilder = TaxBracketsCompanion Function({
+typedef $TaxBracketCreateCompanionBuilder = TaxBracketCompanion Function({
   required String bracketCode,
   required String nameAr,
   required String nameEn,
   required double taxRate,
-  required bool isDefault,
+  Value<bool> isDefault,
   Value<int> rowid,
 });
-typedef $TaxBracketsUpdateCompanionBuilder = TaxBracketsCompanion Function({
+typedef $TaxBracketUpdateCompanionBuilder = TaxBracketCompanion Function({
   Value<String> bracketCode,
   Value<String> nameAr,
   Value<String> nameEn,
@@ -8873,8 +8305,8 @@ typedef $TaxBracketsUpdateCompanionBuilder = TaxBracketsCompanion Function({
   Value<int> rowid,
 });
 
-class $TaxBracketsFilterComposer extends Composer<_$AppDatabase, TaxBrackets> {
-  $TaxBracketsFilterComposer({
+class $TaxBracketFilterComposer extends Composer<_$AppDatabase, TaxBracket> {
+  $TaxBracketFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -8897,9 +8329,8 @@ class $TaxBracketsFilterComposer extends Composer<_$AppDatabase, TaxBrackets> {
       column: $table.isDefault, builder: (column) => ColumnFilters(column));
 }
 
-class $TaxBracketsOrderingComposer
-    extends Composer<_$AppDatabase, TaxBrackets> {
-  $TaxBracketsOrderingComposer({
+class $TaxBracketOrderingComposer extends Composer<_$AppDatabase, TaxBracket> {
+  $TaxBracketOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -8922,9 +8353,9 @@ class $TaxBracketsOrderingComposer
       column: $table.isDefault, builder: (column) => ColumnOrderings(column));
 }
 
-class $TaxBracketsAnnotationComposer
-    extends Composer<_$AppDatabase, TaxBrackets> {
-  $TaxBracketsAnnotationComposer({
+class $TaxBracketAnnotationComposer
+    extends Composer<_$AppDatabase, TaxBracket> {
+  $TaxBracketAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -8947,28 +8378,28 @@ class $TaxBracketsAnnotationComposer
       $composableBuilder(column: $table.isDefault, builder: (column) => column);
 }
 
-class $TaxBracketsTableManager extends RootTableManager<
+class $TaxBracketTableManager extends RootTableManager<
     _$AppDatabase,
-    TaxBrackets,
     TaxBracket,
-    $TaxBracketsFilterComposer,
-    $TaxBracketsOrderingComposer,
-    $TaxBracketsAnnotationComposer,
-    $TaxBracketsCreateCompanionBuilder,
-    $TaxBracketsUpdateCompanionBuilder,
-    (TaxBracket, BaseReferences<_$AppDatabase, TaxBrackets, TaxBracket>),
-    TaxBracket,
+    TaxBracketData,
+    $TaxBracketFilterComposer,
+    $TaxBracketOrderingComposer,
+    $TaxBracketAnnotationComposer,
+    $TaxBracketCreateCompanionBuilder,
+    $TaxBracketUpdateCompanionBuilder,
+    (TaxBracketData, BaseReferences<_$AppDatabase, TaxBracket, TaxBracketData>),
+    TaxBracketData,
     PrefetchHooks Function()> {
-  $TaxBracketsTableManager(_$AppDatabase db, TaxBrackets table)
+  $TaxBracketTableManager(_$AppDatabase db, TaxBracket table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $TaxBracketsFilterComposer($db: db, $table: table),
+              $TaxBracketFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $TaxBracketsOrderingComposer($db: db, $table: table),
+              $TaxBracketOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $TaxBracketsAnnotationComposer($db: db, $table: table),
+              $TaxBracketAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> bracketCode = const Value.absent(),
             Value<String> nameAr = const Value.absent(),
@@ -8977,7 +8408,7 @@ class $TaxBracketsTableManager extends RootTableManager<
             Value<bool> isDefault = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              TaxBracketsCompanion(
+              TaxBracketCompanion(
             bracketCode: bracketCode,
             nameAr: nameAr,
             nameEn: nameEn,
@@ -8990,10 +8421,10 @@ class $TaxBracketsTableManager extends RootTableManager<
             required String nameAr,
             required String nameEn,
             required double taxRate,
-            required bool isDefault,
+            Value<bool> isDefault = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              TaxBracketsCompanion.insert(
+              TaxBracketCompanion.insert(
             bracketCode: bracketCode,
             nameAr: nameAr,
             nameEn: nameEn,
@@ -9008,198 +8439,17 @@ class $TaxBracketsTableManager extends RootTableManager<
         ));
 }
 
-typedef $TaxBracketsProcessedTableManager = ProcessedTableManager<
+typedef $TaxBracketProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    TaxBrackets,
     TaxBracket,
-    $TaxBracketsFilterComposer,
-    $TaxBracketsOrderingComposer,
-    $TaxBracketsAnnotationComposer,
-    $TaxBracketsCreateCompanionBuilder,
-    $TaxBracketsUpdateCompanionBuilder,
-    (TaxBracket, BaseReferences<_$AppDatabase, TaxBrackets, TaxBracket>),
-    TaxBracket,
-    PrefetchHooks Function()>;
-typedef $TaxTypesCreateCompanionBuilder = TaxTypesCompanion Function({
-  required String typeCode,
-  required String nameAr,
-  required String nameEn,
-  required String calcMethod,
-  Value<String?> salesAccountId,
-  Value<String?> purchasesAccountId,
-  Value<int> rowid,
-});
-typedef $TaxTypesUpdateCompanionBuilder = TaxTypesCompanion Function({
-  Value<String> typeCode,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<String> calcMethod,
-  Value<String?> salesAccountId,
-  Value<String?> purchasesAccountId,
-  Value<int> rowid,
-});
-
-class $TaxTypesFilterComposer extends Composer<_$AppDatabase, TaxTypes> {
-  $TaxTypesFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<String> get typeCode => $composableBuilder(
-      column: $table.typeCode, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get calcMethod => $composableBuilder(
-      column: $table.calcMethod, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get salesAccountId => $composableBuilder(
-      column: $table.salesAccountId,
-      builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get purchasesAccountId => $composableBuilder(
-      column: $table.purchasesAccountId,
-      builder: (column) => ColumnFilters(column));
-}
-
-class $TaxTypesOrderingComposer extends Composer<_$AppDatabase, TaxTypes> {
-  $TaxTypesOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<String> get typeCode => $composableBuilder(
-      column: $table.typeCode, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get calcMethod => $composableBuilder(
-      column: $table.calcMethod, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get salesAccountId => $composableBuilder(
-      column: $table.salesAccountId,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get purchasesAccountId => $composableBuilder(
-      column: $table.purchasesAccountId,
-      builder: (column) => ColumnOrderings(column));
-}
-
-class $TaxTypesAnnotationComposer extends Composer<_$AppDatabase, TaxTypes> {
-  $TaxTypesAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<String> get typeCode =>
-      $composableBuilder(column: $table.typeCode, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<String> get calcMethod => $composableBuilder(
-      column: $table.calcMethod, builder: (column) => column);
-
-  GeneratedColumn<String> get salesAccountId => $composableBuilder(
-      column: $table.salesAccountId, builder: (column) => column);
-
-  GeneratedColumn<String> get purchasesAccountId => $composableBuilder(
-      column: $table.purchasesAccountId, builder: (column) => column);
-}
-
-class $TaxTypesTableManager extends RootTableManager<
-    _$AppDatabase,
-    TaxTypes,
-    TaxType,
-    $TaxTypesFilterComposer,
-    $TaxTypesOrderingComposer,
-    $TaxTypesAnnotationComposer,
-    $TaxTypesCreateCompanionBuilder,
-    $TaxTypesUpdateCompanionBuilder,
-    (TaxType, BaseReferences<_$AppDatabase, TaxTypes, TaxType>),
-    TaxType,
-    PrefetchHooks Function()> {
-  $TaxTypesTableManager(_$AppDatabase db, TaxTypes table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $TaxTypesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $TaxTypesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $TaxTypesAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> typeCode = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<String> calcMethod = const Value.absent(),
-            Value<String?> salesAccountId = const Value.absent(),
-            Value<String?> purchasesAccountId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              TaxTypesCompanion(
-            typeCode: typeCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            calcMethod: calcMethod,
-            salesAccountId: salesAccountId,
-            purchasesAccountId: purchasesAccountId,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String typeCode,
-            required String nameAr,
-            required String nameEn,
-            required String calcMethod,
-            Value<String?> salesAccountId = const Value.absent(),
-            Value<String?> purchasesAccountId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              TaxTypesCompanion.insert(
-            typeCode: typeCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            calcMethod: calcMethod,
-            salesAccountId: salesAccountId,
-            purchasesAccountId: purchasesAccountId,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $TaxTypesProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    TaxTypes,
-    TaxType,
-    $TaxTypesFilterComposer,
-    $TaxTypesOrderingComposer,
-    $TaxTypesAnnotationComposer,
-    $TaxTypesCreateCompanionBuilder,
-    $TaxTypesUpdateCompanionBuilder,
-    (TaxType, BaseReferences<_$AppDatabase, TaxTypes, TaxType>),
-    TaxType,
+    TaxBracketData,
+    $TaxBracketFilterComposer,
+    $TaxBracketOrderingComposer,
+    $TaxBracketAnnotationComposer,
+    $TaxBracketCreateCompanionBuilder,
+    $TaxBracketUpdateCompanionBuilder,
+    (TaxBracketData, BaseReferences<_$AppDatabase, TaxBracket, TaxBracketData>),
+    TaxBracketData,
     PrefetchHooks Function()>;
 typedef $TaxCalcMethodsCreateCompanionBuilder = TaxCalcMethodsCompanion
     Function({
@@ -9217,6 +8467,27 @@ typedef $TaxCalcMethodsUpdateCompanionBuilder = TaxCalcMethodsCompanion
   Value<String> category,
   Value<int> rowid,
 });
+
+final class $TaxCalcMethodsReferences
+    extends BaseReferences<_$AppDatabase, TaxCalcMethods, TaxCalcMethod> {
+  $TaxCalcMethodsReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<TaxTypes, List<TaxType>> _taxTypesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.taxTypes,
+          aliasName: $_aliasNameGenerator(
+              db.taxCalcMethods.methodCode, db.taxTypes.calcMethodCode));
+
+  $TaxTypesProcessedTableManager get taxTypesRefs {
+    final manager = $TaxTypesTableManager($_db, $_db.taxTypes).filter((f) => f
+        .calcMethodCode.methodCode
+        .sqlEquals($_itemColumn<String>('method_code')!));
+
+    final cache = $_typedResult.readTableOrNull(_taxTypesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
 
 class $TaxCalcMethodsFilterComposer
     extends Composer<_$AppDatabase, TaxCalcMethods> {
@@ -9238,6 +8509,27 @@ class $TaxCalcMethodsFilterComposer
 
   ColumnFilters<String> get category => $composableBuilder(
       column: $table.category, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> taxTypesRefs(
+      Expression<bool> Function($TaxTypesFilterComposer f) f) {
+    final $TaxTypesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.methodCode,
+        referencedTable: $db.taxTypes,
+        getReferencedColumn: (t) => t.calcMethodCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $TaxTypesFilterComposer(
+              $db: $db,
+              $table: $db.taxTypes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $TaxCalcMethodsOrderingComposer
@@ -9282,6 +8574,27 @@ class $TaxCalcMethodsAnnotationComposer
 
   GeneratedColumn<String> get category =>
       $composableBuilder(column: $table.category, builder: (column) => column);
+
+  Expression<T> taxTypesRefs<T extends Object>(
+      Expression<T> Function($TaxTypesAnnotationComposer a) f) {
+    final $TaxTypesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.methodCode,
+        referencedTable: $db.taxTypes,
+        getReferencedColumn: (t) => t.calcMethodCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $TaxTypesAnnotationComposer(
+              $db: $db,
+              $table: $db.taxTypes,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $TaxCalcMethodsTableManager extends RootTableManager<
@@ -9293,12 +8606,9 @@ class $TaxCalcMethodsTableManager extends RootTableManager<
     $TaxCalcMethodsAnnotationComposer,
     $TaxCalcMethodsCreateCompanionBuilder,
     $TaxCalcMethodsUpdateCompanionBuilder,
-    (
-      TaxCalcMethod,
-      BaseReferences<_$AppDatabase, TaxCalcMethods, TaxCalcMethod>
-    ),
+    (TaxCalcMethod, $TaxCalcMethodsReferences),
     TaxCalcMethod,
-    PrefetchHooks Function()> {
+    PrefetchHooks Function({bool taxTypesRefs})> {
   $TaxCalcMethodsTableManager(_$AppDatabase db, TaxCalcMethods table)
       : super(TableManagerState(
           db: db,
@@ -9338,9 +8648,33 @@ class $TaxCalcMethodsTableManager extends RootTableManager<
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map((e) =>
+                  (e.readTable(table), $TaxCalcMethodsReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({taxTypesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (taxTypesRefs) db.taxTypes],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (taxTypesRefs)
+                    await $_getPrefetchedData<TaxCalcMethod, TaxCalcMethods,
+                            TaxType>(
+                        currentTable: table,
+                        referencedTable:
+                            $TaxCalcMethodsReferences._taxTypesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $TaxCalcMethodsReferences(db, table, p0)
+                                .taxTypesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems.where(
+                                (e) => e.calcMethodCode == item.methodCode),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
         ));
 }
 
@@ -9353,12 +8687,296 @@ typedef $TaxCalcMethodsProcessedTableManager = ProcessedTableManager<
     $TaxCalcMethodsAnnotationComposer,
     $TaxCalcMethodsCreateCompanionBuilder,
     $TaxCalcMethodsUpdateCompanionBuilder,
-    (
-      TaxCalcMethod,
-      BaseReferences<_$AppDatabase, TaxCalcMethods, TaxCalcMethod>
-    ),
+    (TaxCalcMethod, $TaxCalcMethodsReferences),
     TaxCalcMethod,
-    PrefetchHooks Function()>;
+    PrefetchHooks Function({bool taxTypesRefs})>;
+typedef $TaxTypesCreateCompanionBuilder = TaxTypesCompanion Function({
+  required String typeCode,
+  required String nameAr,
+  required String nameEn,
+  required String calcMethodCode,
+  Value<String?> salesAccountId,
+  Value<String?> purchasesAccountId,
+  Value<int> rowid,
+});
+typedef $TaxTypesUpdateCompanionBuilder = TaxTypesCompanion Function({
+  Value<String> typeCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> calcMethodCode,
+  Value<String?> salesAccountId,
+  Value<String?> purchasesAccountId,
+  Value<int> rowid,
+});
+
+final class $TaxTypesReferences
+    extends BaseReferences<_$AppDatabase, TaxTypes, TaxType> {
+  $TaxTypesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static TaxCalcMethods _calcMethodCodeTable(_$AppDatabase db) =>
+      db.taxCalcMethods.createAlias($_aliasNameGenerator(
+          db.taxTypes.calcMethodCode, db.taxCalcMethods.methodCode));
+
+  $TaxCalcMethodsProcessedTableManager get calcMethodCode {
+    final $_column = $_itemColumn<String>('calc_method_code')!;
+
+    final manager = $TaxCalcMethodsTableManager($_db, $_db.taxCalcMethods)
+        .filter((f) => f.methodCode.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_calcMethodCodeTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $TaxTypesFilterComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get typeCode => $composableBuilder(
+      column: $table.typeCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId,
+      builder: (column) => ColumnFilters(column));
+
+  $TaxCalcMethodsFilterComposer get calcMethodCode {
+    final $TaxCalcMethodsFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.calcMethodCode,
+        referencedTable: $db.taxCalcMethods,
+        getReferencedColumn: (t) => t.methodCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $TaxCalcMethodsFilterComposer(
+              $db: $db,
+              $table: $db.taxCalcMethods,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $TaxTypesOrderingComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get typeCode => $composableBuilder(
+      column: $table.typeCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId,
+      builder: (column) => ColumnOrderings(column));
+
+  $TaxCalcMethodsOrderingComposer get calcMethodCode {
+    final $TaxCalcMethodsOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.calcMethodCode,
+        referencedTable: $db.taxCalcMethods,
+        getReferencedColumn: (t) => t.methodCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $TaxCalcMethodsOrderingComposer(
+              $db: $db,
+              $table: $db.taxCalcMethods,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $TaxTypesAnnotationComposer extends Composer<_$AppDatabase, TaxTypes> {
+  $TaxTypesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get typeCode =>
+      $composableBuilder(column: $table.typeCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get salesAccountId => $composableBuilder(
+      column: $table.salesAccountId, builder: (column) => column);
+
+  GeneratedColumn<String> get purchasesAccountId => $composableBuilder(
+      column: $table.purchasesAccountId, builder: (column) => column);
+
+  $TaxCalcMethodsAnnotationComposer get calcMethodCode {
+    final $TaxCalcMethodsAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.calcMethodCode,
+        referencedTable: $db.taxCalcMethods,
+        getReferencedColumn: (t) => t.methodCode,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $TaxCalcMethodsAnnotationComposer(
+              $db: $db,
+              $table: $db.taxCalcMethods,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $TaxTypesTableManager extends RootTableManager<
+    _$AppDatabase,
+    TaxTypes,
+    TaxType,
+    $TaxTypesFilterComposer,
+    $TaxTypesOrderingComposer,
+    $TaxTypesAnnotationComposer,
+    $TaxTypesCreateCompanionBuilder,
+    $TaxTypesUpdateCompanionBuilder,
+    (TaxType, $TaxTypesReferences),
+    TaxType,
+    PrefetchHooks Function({bool calcMethodCode})> {
+  $TaxTypesTableManager(_$AppDatabase db, TaxTypes table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $TaxTypesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $TaxTypesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $TaxTypesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> typeCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> calcMethodCode = const Value.absent(),
+            Value<String?> salesAccountId = const Value.absent(),
+            Value<String?> purchasesAccountId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxTypesCompanion(
+            typeCode: typeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            calcMethodCode: calcMethodCode,
+            salesAccountId: salesAccountId,
+            purchasesAccountId: purchasesAccountId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String typeCode,
+            required String nameAr,
+            required String nameEn,
+            required String calcMethodCode,
+            Value<String?> salesAccountId = const Value.absent(),
+            Value<String?> purchasesAccountId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaxTypesCompanion.insert(
+            typeCode: typeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            calcMethodCode: calcMethodCode,
+            salesAccountId: salesAccountId,
+            purchasesAccountId: purchasesAccountId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $TaxTypesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({calcMethodCode = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (calcMethodCode) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.calcMethodCode,
+                    referencedTable:
+                        $TaxTypesReferences._calcMethodCodeTable(db),
+                    referencedColumn:
+                        $TaxTypesReferences._calcMethodCodeTable(db).methodCode,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $TaxTypesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    TaxTypes,
+    TaxType,
+    $TaxTypesFilterComposer,
+    $TaxTypesOrderingComposer,
+    $TaxTypesAnnotationComposer,
+    $TaxTypesCreateCompanionBuilder,
+    $TaxTypesUpdateCompanionBuilder,
+    (TaxType, $TaxTypesReferences),
+    TaxType,
+    PrefetchHooks Function({bool calcMethodCode})>;
 typedef $CompanyInfoCreateCompanionBuilder = CompanyInfoCompanion Function({
   Value<int> id,
   required String companyCode,
@@ -9389,6 +9007,26 @@ typedef $CompanyInfoUpdateCompanionBuilder = CompanyInfoCompanion Function({
   Value<bool> isMainCompany,
   Value<String?> remarks,
 });
+
+final class $CompanyInfoReferences
+    extends BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData> {
+  $CompanyInfoReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.branches,
+          aliasName:
+              $_aliasNameGenerator(db.companyInfo.id, db.branches.companyId));
+
+  $BranchesProcessedTableManager get branchesRefs {
+    final manager = $BranchesTableManager($_db, $_db.branches)
+        .filter((f) => f.companyId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
 
 class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
   $CompanyInfoFilterComposer({
@@ -9437,6 +9075,27 @@ class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
 
   ColumnFilters<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> branchesRefs(
+      Expression<bool> Function($BranchesFilterComposer f) f) {
+    final $BranchesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.companyId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesFilterComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $CompanyInfoOrderingComposer
@@ -9537,6 +9196,27 @@ class $CompanyInfoAnnotationComposer
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
+
+  Expression<T> branchesRefs<T extends Object>(
+      Expression<T> Function($BranchesAnnotationComposer a) f) {
+    final $BranchesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.companyId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesAnnotationComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
 }
 
 class $CompanyInfoTableManager extends RootTableManager<
@@ -9548,12 +9228,9 @@ class $CompanyInfoTableManager extends RootTableManager<
     $CompanyInfoAnnotationComposer,
     $CompanyInfoCreateCompanionBuilder,
     $CompanyInfoUpdateCompanionBuilder,
-    (
-      CompanyInfoData,
-      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
-    ),
+    (CompanyInfoData, $CompanyInfoReferences),
     CompanyInfoData,
-    PrefetchHooks Function()> {
+    PrefetchHooks Function({bool branchesRefs})> {
   $CompanyInfoTableManager(_$AppDatabase db, CompanyInfo table)
       : super(TableManagerState(
           db: db,
@@ -9625,9 +9302,32 @@ class $CompanyInfoTableManager extends RootTableManager<
             remarks: remarks,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map((e) =>
+                  (e.readTable(table), $CompanyInfoReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({branchesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (branchesRefs) db.branches],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (branchesRefs)
+                    await $_getPrefetchedData<CompanyInfoData, CompanyInfo,
+                            Branche>(
+                        currentTable: table,
+                        referencedTable:
+                            $CompanyInfoReferences._branchesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $CompanyInfoReferences(db, table, p0).branchesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.companyId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
         ));
 }
 
@@ -9640,372 +9340,9 @@ typedef $CompanyInfoProcessedTableManager = ProcessedTableManager<
     $CompanyInfoAnnotationComposer,
     $CompanyInfoCreateCompanionBuilder,
     $CompanyInfoUpdateCompanionBuilder,
-    (
-      CompanyInfoData,
-      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
-    ),
+    (CompanyInfoData, $CompanyInfoReferences),
     CompanyInfoData,
-    PrefetchHooks Function()>;
-typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
-  required String branchCode,
-  required String nameAr,
-  required String nameEn,
-  required int companyId,
-  Value<String?> branchGroup,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> defaultWarehouseId,
-  Value<bool> branchStatus,
-  Value<Uint8List?> logo,
-  Value<String?> remarks,
-  Value<int> rowid,
-});
-typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
-  Value<String> branchCode,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<int> companyId,
-  Value<String?> branchGroup,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> defaultWarehouseId,
-  Value<bool> branchStatus,
-  Value<Uint8List?> logo,
-  Value<String?> remarks,
-  Value<int> rowid,
-});
-
-final class $BranchesReferences
-    extends BaseReferences<_$AppDatabase, Branches, Branche> {
-  $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static CompanyInfo _companyIdTable(_$AppDatabase db) =>
-      db.companyInfo.createAlias(
-          $_aliasNameGenerator(db.branches.companyId, db.companyInfo.id));
-
-  $CompanyInfoProcessedTableManager get companyId {
-    final $_column = $_itemColumn<int>('company_id')!;
-
-    final manager = $CompanyInfoTableManager($_db, $_db.companyInfo)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_companyIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get branchGroup => $composableBuilder(
-      column: $table.branchGroup, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId,
-      builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnFilters(column));
-
-  $CompanyInfoFilterComposer get companyId {
-    final $CompanyInfoFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoFilterComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get branchGroup => $composableBuilder(
-      column: $table.branchGroup, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnOrderings(column));
-
-  $CompanyInfoOrderingComposer get companyId {
-    final $CompanyInfoOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoOrderingComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<String> get branchGroup => $composableBuilder(
-      column: $table.branchGroup, builder: (column) => column);
-
-  GeneratedColumn<String> get address =>
-      $composableBuilder(column: $table.address, builder: (column) => column);
-
-  GeneratedColumn<String> get phone =>
-      $composableBuilder(column: $table.phone, builder: (column) => column);
-
-  GeneratedColumn<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId, builder: (column) => column);
-
-  GeneratedColumn<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus, builder: (column) => column);
-
-  GeneratedColumn<Uint8List> get logo =>
-      $composableBuilder(column: $table.logo, builder: (column) => column);
-
-  GeneratedColumn<String> get remarks =>
-      $composableBuilder(column: $table.remarks, builder: (column) => column);
-
-  $CompanyInfoAnnotationComposer get companyId {
-    final $CompanyInfoAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoAnnotationComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesTableManager extends RootTableManager<
-    _$AppDatabase,
-    Branches,
-    Branche,
-    $BranchesFilterComposer,
-    $BranchesOrderingComposer,
-    $BranchesAnnotationComposer,
-    $BranchesCreateCompanionBuilder,
-    $BranchesUpdateCompanionBuilder,
-    (Branche, $BranchesReferences),
-    Branche,
-    PrefetchHooks Function({bool companyId})> {
-  $BranchesTableManager(_$AppDatabase db, Branches table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $BranchesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $BranchesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $BranchesAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<String> branchCode = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<int> companyId = const Value.absent(),
-            Value<String?> branchGroup = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool> branchStatus = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            Value<String?> remarks = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              BranchesCompanion(
-            branchCode: branchCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            companyId: companyId,
-            branchGroup: branchGroup,
-            address: address,
-            phone: phone,
-            defaultWarehouseId: defaultWarehouseId,
-            branchStatus: branchStatus,
-            logo: logo,
-            remarks: remarks,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required String branchCode,
-            required String nameAr,
-            required String nameEn,
-            required int companyId,
-            Value<String?> branchGroup = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool> branchStatus = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            Value<String?> remarks = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              BranchesCompanion.insert(
-            branchCode: branchCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            companyId: companyId,
-            branchGroup: branchGroup,
-            address: address,
-            phone: phone,
-            defaultWarehouseId: defaultWarehouseId,
-            branchStatus: branchStatus,
-            logo: logo,
-            remarks: remarks,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $BranchesReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({companyId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (companyId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.companyId,
-                    referencedTable: $BranchesReferences._companyIdTable(db),
-                    referencedColumn:
-                        $BranchesReferences._companyIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ));
-}
-
-typedef $BranchesProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    Branches,
-    Branche,
-    $BranchesFilterComposer,
-    $BranchesOrderingComposer,
-    $BranchesAnnotationComposer,
-    $BranchesCreateCompanionBuilder,
-    $BranchesUpdateCompanionBuilder,
-    (Branche, $BranchesReferences),
-    Branche,
-    PrefetchHooks Function({bool companyId})>;
+    PrefetchHooks Function({bool branchesRefs})>;
 typedef $FinancialPeriodsCreateCompanionBuilder = FinancialPeriodsCompanion
     Function({
   Value<int> id,
@@ -13799,11 +13136,11 @@ typedef $CurrenciesCreateCompanionBuilder = CurrenciesCompanion Function({
   required String fractionNameAr,
   required String fractionNameEn,
   required double exchangeRate,
-  required bool isBaseCurrency,
+  Value<bool> isBaseCurrency,
   required int decimalPlaces,
   Value<double?> minRateLimit,
   Value<double?> maxRateLimit,
-  Value<bool> isActive,
+  required bool isActive,
   Value<int> rowid,
 });
 typedef $CurrenciesUpdateCompanionBuilder = CurrenciesCompanion Function({
@@ -14081,11 +13418,11 @@ class $CurrenciesTableManager extends RootTableManager<
             required String fractionNameAr,
             required String fractionNameEn,
             required double exchangeRate,
-            required bool isBaseCurrency,
+            Value<bool> isBaseCurrency = const Value.absent(),
             required int decimalPlaces,
             Value<double?> minRateLimit = const Value.absent(),
             Value<double?> maxRateLimit = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
+            required bool isActive,
             Value<int> rowid = const Value.absent(),
           }) =>
               CurrenciesCompanion.insert(
@@ -14642,6 +13979,7 @@ typedef $BranchGroupsProcessedTableManager = ProcessedTableManager<
     BranchGroup,
     PrefetchHooks Function({bool branchesRefs})>;
 typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
+  Value<int> id,
   required String branchCode,
   required String nameAr,
   required String nameEn,
@@ -14650,12 +13988,12 @@ typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
   Value<String?> address,
   Value<String?> phone,
   Value<String?> defaultWarehouseId,
-  Value<bool?> branchStatus,
+  Value<bool> branchStatus,
   Value<Uint8List?> logo,
   Value<String?> remarks,
-  Value<int> rowid,
 });
 typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
+  Value<int> id,
   Value<String> branchCode,
   Value<String> nameAr,
   Value<String> nameEn,
@@ -14664,10 +14002,9 @@ typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
   Value<String?> address,
   Value<String?> phone,
   Value<String?> defaultWarehouseId,
-  Value<bool?> branchStatus,
+  Value<bool> branchStatus,
   Value<Uint8List?> logo,
   Value<String?> remarks,
-  Value<int> rowid,
 });
 
 final class $BranchesReferences
@@ -14713,6 +14050,9 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<String> get branchCode => $composableBuilder(
       column: $table.branchCode, builder: (column) => ColumnFilters(column));
 
@@ -14790,6 +14130,9 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get branchCode => $composableBuilder(
       column: $table.branchCode, builder: (column) => ColumnOrderings(column));
 
@@ -14868,6 +14211,9 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
   GeneratedColumn<String> get branchCode => $composableBuilder(
       column: $table.branchCode, builder: (column) => column);
 
@@ -14959,6 +14305,7 @@ class $BranchesTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $BranchesAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
             Value<String> branchCode = const Value.absent(),
             Value<String> nameAr = const Value.absent(),
             Value<String> nameEn = const Value.absent(),
@@ -14967,12 +14314,12 @@ class $BranchesTableManager extends RootTableManager<
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool?> branchStatus = const Value.absent(),
+            Value<bool> branchStatus = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
             Value<String?> remarks = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               BranchesCompanion(
+            id: id,
             branchCode: branchCode,
             nameAr: nameAr,
             nameEn: nameEn,
@@ -14984,9 +14331,9 @@ class $BranchesTableManager extends RootTableManager<
             branchStatus: branchStatus,
             logo: logo,
             remarks: remarks,
-            rowid: rowid,
           ),
           createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
             required String branchCode,
             required String nameAr,
             required String nameEn,
@@ -14995,12 +14342,12 @@ class $BranchesTableManager extends RootTableManager<
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool?> branchStatus = const Value.absent(),
+            Value<bool> branchStatus = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
             Value<String?> remarks = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
           }) =>
               BranchesCompanion.insert(
+            id: id,
             branchCode: branchCode,
             nameAr: nameAr,
             nameEn: nameEn,
@@ -15012,7 +14359,6 @@ class $BranchesTableManager extends RootTableManager<
             branchStatus: branchStatus,
             logo: logo,
             remarks: remarks,
-            rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>
@@ -15081,16 +14427,14 @@ typedef $BranchesProcessedTableManager = ProcessedTableManager<
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
-  $TaxBracketsTableManager get taxBrackets =>
-      $TaxBracketsTableManager(_db, _db.taxBrackets);
-  $TaxTypesTableManager get taxTypes =>
-      $TaxTypesTableManager(_db, _db.taxTypes);
+  $TaxBracketTableManager get taxBracket =>
+      $TaxBracketTableManager(_db, _db.taxBracket);
   $TaxCalcMethodsTableManager get taxCalcMethods =>
       $TaxCalcMethodsTableManager(_db, _db.taxCalcMethods);
+  $TaxTypesTableManager get taxTypes =>
+      $TaxTypesTableManager(_db, _db.taxTypes);
   $CompanyInfoTableManager get companyInfo =>
       $CompanyInfoTableManager(_db, _db.companyInfo);
-  $BranchesTableManager get branches =>
-      $BranchesTableManager(_db, _db.branches);
   $FinancialPeriodsTableManager get financialPeriods =>
       $FinancialPeriodsTableManager(_db, _db.financialPeriods);
   $AccountsTableManager get accounts =>

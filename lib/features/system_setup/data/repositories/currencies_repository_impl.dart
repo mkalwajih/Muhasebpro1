@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart' as drift;
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/currencies_local_datasource.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/currencies_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/currencies_repository.dart';
 

@@ -1,110 +1,120 @@
 import 'package:equatable/equatable.dart';
 
-// Using a single file for all related geo entities for simplicity.
-
-class ZoneEntity extends Equatable {
+// Base class
+abstract class GeographicalDataEntity extends Equatable {
   final int id;
-  final String zoneCode;
   final String nameAr;
   final String nameEn;
-  final bool isActive;
+  final bool isActive; // Added isActive here
 
-  const ZoneEntity({
+  const GeographicalDataEntity({
     required this.id,
-    required this.zoneCode,
     required this.nameAr,
     required this.nameEn,
-    required this.isActive,
+    required this.isActive, // Added isActive to constructor
   });
 
   @override
-  List<Object?> get props => [id, zoneCode, nameAr, nameEn, isActive];
+  List<Object?> get props => [id, nameAr, nameEn, isActive]; // Added isActive to props
 }
 
-class CountryEntity extends Equatable {
-  final int id;
+// Zone
+class ZoneEntity extends GeographicalDataEntity {
+  final String zoneCode;
+
+  const ZoneEntity({
+    required super.id,
+    required this.zoneCode,
+    required super.nameAr,
+    required super.nameEn,
+    required super.isActive, // Added isActive to constructor
+  });
+
+  @override
+  List<Object?> get props => [id, zoneCode, nameAr, nameEn, isActive]; // Added isActive to props
+}
+
+// Country
+class CountryEntity extends GeographicalDataEntity {
   final String countryCode;
-  final String nameAr;
-  final String nameEn;
   final String nationalityAr;
   final String nationalityEn;
   final int zoneId;
-  final bool isActive;
 
   const CountryEntity({
-    required this.id,
+    required super.id,
     required this.countryCode,
-    required this.nameAr,
-    required this.nameEn,
+    required super.nameAr,
+    required super.nameEn,
     required this.nationalityAr,
     required this.nationalityEn,
     required this.zoneId,
-    required this.isActive,
+    required super.isActive, // Added isActive to constructor
   });
 
   @override
-  List<Object?> get props => [id, countryCode, nameAr, nameEn, nationalityAr, nationalityEn, zoneId, isActive];
+  List<Object?> get props => [
+        id,
+        countryCode,
+        nameAr,
+        nameEn,
+        nationalityAr,
+        nationalityEn,
+        zoneId,
+        isActive, // Added isActive to props
+      ];
 }
 
-class GovernorateEntity extends Equatable {
-  final int id;
+// Governorate
+class GovernorateEntity extends GeographicalDataEntity {
   final String govCode;
-  final String nameAr;
-  final String nameEn;
   final int countryId;
-  final bool isActive;
 
   const GovernorateEntity({
-    required this.id,
+    required super.id,
     required this.govCode,
-    required this.nameAr,
-    required this.nameEn,
+    required super.nameAr,
+    required super.nameEn,
     required this.countryId,
-    required this.isActive,
+    required super.isActive, // Added isActive to constructor
   });
 
   @override
-  List<Object?> get props => [id, govCode, nameAr, nameEn, countryId, isActive];
+  List<Object?> get props => [id, govCode, nameAr, nameEn, countryId, isActive]; // Added isActive to props
 }
 
-class CityEntity extends Equatable {
-  final int id;
+// City
+class CityEntity extends GeographicalDataEntity {
   final String cityCode;
-  final String nameAr;
-  final String nameEn;
   final int govId;
-  final bool isActive;
 
   const CityEntity({
-    required this.id,
+    required super.id,
     required this.cityCode,
-    required this.nameAr,
-    required this.nameEn,
+    required super.nameAr,
+    required super.nameEn,
     required this.govId,
-    required this.isActive,
+    required super.isActive, // Added isActive to constructor
   });
 
   @override
-  List<Object?> get props => [id, cityCode, nameAr, nameEn, govId, isActive];
+  List<Object?> get props => [id, cityCode, nameAr, nameEn, govId, isActive]; // Added isActive to props
 }
 
-class RegionEntity extends Equatable {
-  final int id;
+// Region
+class RegionEntity extends GeographicalDataEntity {
   final String regionCode;
-  final String nameAr;
-  final String nameEn;
   final int cityId;
-  final bool isActive;
 
   const RegionEntity({
-    required this.id,
+    required super.id,
     required this.regionCode,
-    required this.nameAr,
-    required this.nameEn,
+    required super.nameAr,
+    required super.nameEn,
     required this.cityId,
-    required this.isActive,
+    required super.isActive, // Added isActive to constructor
   });
 
   @override
-  List<Object?> get props => [id, regionCode, nameAr, nameEn, cityId, isActive];
+  List<Object?> get props => [id, regionCode, nameAr, nameEn, cityId, isActive]; // Added isActive to props
 }

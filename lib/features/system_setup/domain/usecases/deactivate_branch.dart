@@ -1,71 +1,15 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/exceptions.dart';
-import '../../../../core/errors/failures.dart';
-import '../../domain/entities/branch_entity.dart';
-import '../../domain/repositories/branches_repository.dart';
-import '../datasources/branches_local_datasource.dart';
-import '../models/branch_model.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/repositories/branches_repository.dart';
 
-class BranchesRepositoryImpl implements BranchesRepository {
-  final BranchesLocalDataSource localDataSource;
+class DeactivateBranch implements UseCase<Unit, String> {
+  final BranchesRepository repository;
 
-  BranchesRepositoryImpl({required this.localDataSource});
+  DeactivateBranch(this.repository);
 
   @override
-  Future<Either<Failure, List<BranchEntity>>> getAllBranches({bool includeInactive = false}) async {
-    try {
-      final localBranches = await localDataSource.getAllBranches(includeInactive: includeInactive);
-      return Right(localBranches);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, BranchEntity>> getBranch(String branchCode) async {
-    try {
-      final localBranch = await localDataSource.getBranch(branchCode);
-      if (localBranch != null) {
-        return Right(localBranch);
-      } else {
-        return Left(CacheFailure());
-      }
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, Unit>> addBranch(BranchEntity branch) async {
-    try {
-      final branchModel = BranchModel.fromEntity(branch);
-      await localDataSource.addBranch(branchModel);
-      return const Right(unit);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, Unit>> updateBranch(BranchEntity branch) async {
-    try {
-      final branchModel = BranchModel.fromEntity(branch);
-      await localDataSource.updateBranch(branchModel);
-      return const Right(unit);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, Unit>> deactivateBranch(String branchCode) async {
-    try {
-      // Before deactivating, we should add logic here to check for associated transactions
-      // For now, we'll just call the datasource method
-      await localDataSource.deactivateBranch(branchCode);
-      return const Right(unit);
-    } on CacheException {
-      return Left(CacheFailure());
-    }
+  Future<Either<Failure, Unit>> call(String params) async {
+    return await repository.deactivateBranch(params);
   }
 }

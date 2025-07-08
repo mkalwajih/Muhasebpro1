@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/errors/exceptions.dart';
-import '../../../../core/errors/failures.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 import '../../domain/entities/branch_entity.dart';
 import '../../domain/repositories/branches_repository.dart';
-import '../datasources/branches_local_datasource.dart';
-import '../models/branch_model.dart';
+import '../datasources/local/branches_local_datasource.dart';
+import 'package:muhaseb_pro/shared/data/models/branch_model.dart';
 
 class BranchesRepositoryImpl implements BranchesRepository {
   final BranchesLocalDataSource localDataSource;

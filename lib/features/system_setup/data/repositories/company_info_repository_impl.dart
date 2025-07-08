@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:drift/drift.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/core/errors/exceptions.dart';
-import 'package:muhaseb_pro/core/errors/failures.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/company_info_local_datasource.dart';
+import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/company_info_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/company_info_repository.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
 
 class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   final CompanyInfoLocalDataSource localDataSource;
@@ -58,10 +58,24 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   }
 
   @override
-  Future<Either<Failure, List<Company>>> getAllCompanies() async {
+  Future<Either<Failure, List<CompanyEntity>>> getAllCompanies() async {
     try {
       final localCompanies = await localDataSource.getAllCompanies();
-      return Right(localCompanies);
+      final companyEntities = localCompanies.map((c) => CompanyEntity(
+            id: c.id,
+            companyCode: c.companyCode,
+            nameAr: c.nameAr,
+            nameEn: c.nameEn,
+            isMainCompany: c.isMainCompany,
+            countryId: c.countryId,
+            taxNumber: c.taxNumber,
+            commercialRegNo: c.commercialRegNo,
+            address: c.address,
+            phone: c.phone,
+            email: c.email,
+            remarks: c.remarks,
+          )).toList();
+      return Right(companyEntities);
     } on CacheException {
       return Left(CacheFailure());
     }

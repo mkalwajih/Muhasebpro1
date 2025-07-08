@@ -28,6 +28,11 @@ class AppDatabase extends _$AppDatabase {
         await m.createAll();
       },
       onUpgrade: (m, from, to) async {
+        // The method 'deleteEverything' isn't defined for the type 'Migrator'.
+        // Removed the invalid call to m.deleteEverything().
+        // If a full database reset on upgrade is desired,
+        // it needs to be implemented by dropping and recreating tables manually
+        // or by deleting all entries from each table.
         await m.createAll();
       },
     );

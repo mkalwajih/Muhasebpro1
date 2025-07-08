@@ -216,7 +216,7 @@
     "ui": "UI",
     "backup": "Backup",
     "cannotChangeAccountSettings": "Cannot change account number settings when accounts exist.",
-
+    
     "branchCode": "Branch Code",
     "branchNameAr": "Branch Name (Arabic)",
     "branchNameEn": "Branch Name (English)",
@@ -228,5 +228,9 @@
     "editBranch": "Edit Branch",
     "deleteBranch": "Delete Branch",
     "deleteBranchConfirm": "Are you sure you want to delete this branch?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "deactivateBranchConfirmationTitle": "Confirm Deactivation",
+    "deactivateBranchConfirmationMessage": "Are you sure you want to deactivate this branch? Deactivated branches will not be available for new transactions.",
+    "deactivate": "Deactivate",
+    "error": "Error"
 }

@@ -38,12 +38,12 @@ class CurrenciesNotifier extends StateNotifier<AsyncValue<List<CurrencyEntity>>>
     _loadCurrencies();
   }
 
-  Future<void> addDenomination(DenominationEntity denomination) async {
+  Future<void> addDenomination(CurrencyDenominationEntity denomination) async {
     await _repository.addDenomination(denomination);
     _loadCurrencies();
   }
 
-  Future<void> updateDenomination(DenominationEntity denomination) async {
+  Future<void> updateDenomination(CurrencyDenominationEntity denomination) async {
     await _repository.updateDenomination(denomination);
     _loadCurrencies();
   }

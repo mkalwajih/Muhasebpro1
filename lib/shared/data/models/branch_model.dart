@@ -1,8 +1,10 @@
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart' as db;
+import 'package:drift/drift.dart';
 
 class BranchModel extends BranchEntity {
   const BranchModel({
+    super.id,
     required super.branchCode,
     required super.nameAr,
     required super.nameEn,
@@ -18,6 +20,7 @@ class BranchModel extends BranchEntity {
 
   factory BranchModel.fromEntity(BranchEntity entity) {
     return BranchModel(
+      id: entity.id,
       branchCode: entity.branchCode,
       nameAr: entity.nameAr,
       nameEn: entity.nameEn,
@@ -32,33 +35,35 @@ class BranchModel extends BranchEntity {
     );
   }
 
-  factory BranchModel.fromDb(Branch dbBranch) {
+  factory BranchModel.fromDb(db.Branch dbBranch) {
     return BranchModel(
+      id: dbBranch.id,
       branchCode: dbBranch.branchCode,
       nameAr: dbBranch.nameAr,
       nameEn: dbBranch.nameEn,
-      companyId: dbBranch.companyId,
+      companyId: dbBranch.companyId, // This will now be int
       branchGroupId: dbBranch.branchGroupId,
       address: dbBranch.address,
       phone: dbBranch.phone,
       defaultWarehouseId: dbBranch.defaultWarehouseId,
-      branchStatus: dbBranch.branchStatus == 1,
+      branchStatus: dbBranch.branchStatus,
       logo: dbBranch.logo,
       remarks: dbBranch.remarks,
     );
   }
 
-  BranchesCompanion toDb() {
-    return BranchesCompanion(
+  db.BranchesCompanion toDb() {
+    return db.BranchesCompanion(
+      id: id != null ? Value(id!) : const Value.absent(),
       branchCode: Value(branchCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
-      companyId: Value(companyId),
+      companyId: Value(companyId), // This will now be int
       branchGroupId: Value(branchGroupId),
       address: Value(address),
       phone: Value(phone),
       defaultWarehouseId: Value(defaultWarehouseId),
-      branchStatus: Value(branchStatus ? 1 : 0),
+      branchStatus: Value(branchStatus),
       logo: Value(logo),
       remarks: Value(remarks),
     );

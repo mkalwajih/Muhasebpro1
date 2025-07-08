@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart' as db;
-import 'package:muhaseb_pro/core/permissions/app_permissions.dart';
+import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
 

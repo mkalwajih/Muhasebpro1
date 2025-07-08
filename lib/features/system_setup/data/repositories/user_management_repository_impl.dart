@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart' as db;
-import 'package:muhaseb_pro/features/authentication/data/datasources/auth_local_datasource.dart';
+import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
@@ -9,7 +9,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
   final db.AppDatabase database;
   final AuthLocalDataSource authLocalDataSource;
 
-  UserManagementRepositoryImpl(this.database, this.authLocalDataSource);
+  UserManagementRepositoryImpl({required this.database, required this.authLocalDataSource});
 
   @override
   Future<List<UserEntity>> getAllUsers() async {

@@ -8,7 +8,7 @@ class BranchesScreen extends ConsumerWidget {
   const BranchesScreen({super.key});
 
   void _showDeactivateConfirmation(BuildContext context, WidgetRef ref, String branchCode) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -34,7 +34,7 @@ class BranchesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final branchesAsyncValue = ref.watch(branchesProvider);
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(

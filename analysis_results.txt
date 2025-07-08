@@ -1,0 +1,210 @@
+Analyzing Muhasebpro1...                                        
+
+  error • The name 'Branches' is already defined • lib/core/db/app_database.g.dart:8213:7 • duplicate_definition
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8393:7 • undefined_named_parameter
+  error • The argument type 'bool?' can't be assigned to the parameter type 'bool'.  • lib/core/db/app_database.g.dart:8401:21 • argument_type_not_assignable
+  error • The name 'Branche' is already defined • lib/core/db/app_database.g.dart:8419:7 • duplicate_definition
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8480:7 • undefined_named_parameter
+  error • The argument type 'bool?' can't be assigned to the parameter type 'bool'.  • lib/core/db/app_database.g.dart:8493:19 • argument_type_not_assignable
+  error • The name of a factory constructor must be the same as the name of the immediately enclosing class • lib/core/db/app_database.g.dart:8501:11 • invalid_factory_name_not_a_class
+  error • A value of type 'Branche (where Branche is defined in /home/user/Muhasebpro1/lib/core/db/app_database.g.dart)' can't be returned from the constructor 'Branche.fromJson' because it has a return type of 'Branche (where Branche is defined in /home/user/Muhasebpro1/lib/core/db/app_database.g.dart)' • lib/core/db/app_database.g.dart:8504:12 • return_of_invalid_type
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8509:7 • undefined_named_parameter
+  error • The argument type 'bool?' can't be assigned to the parameter type 'bool'.  • lib/core/db/app_database.g.dart:8514:21 • argument_type_not_assignable
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8554:9 • undefined_named_parameter
+  error • The argument type 'bool?' can't be assigned to the parameter type 'bool'.  • lib/core/db/app_database.g.dart:8562:13 • argument_type_not_assignable
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8573:7 • undefined_named_parameter
+  error • The getter 'branchGroupId' isn't defined for the type 'BranchesCompanion' • lib/core/db/app_database.g.dart:8573:27 • undefined_getter
+  error • The getter 'branchGroupId' isn't defined for the type 'BranchesCompanion' • lib/core/db/app_database.g.dart:8574:18 • undefined_getter
+  error • The argument type 'bool?' can't be assigned to the parameter type 'bool'.  • lib/core/db/app_database.g.dart:8581:21 • argument_type_not_assignable
+  error • The getter 'branchGroupId' isn't defined for the type 'Branche' • lib/core/db/app_database.g.dart:8628:17 • undefined_getter
+  error • The name 'BranchesCompanion' is already defined • lib/core/db/app_database.g.dart:8637:7 • duplicate_definition
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:8730:7 • undefined_named_parameter
+  error • The argument type 'Value<bool?>' can't be assigned to the parameter type 'Value<bool>'.  • lib/core/db/app_database.g.dart:8734:21 • argument_type_not_assignable
+  error • The name 'branches' is already defined • lib/core/db/app_database.g.dart:8828:23 • duplicate_definition
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14462:47 • undefined_getter
+  error • The getter 'branchGroupId' isn't defined for the type '$BranchesFilterComposer' • lib/core/db/app_database.g.dart:14466:26 • undefined_getter
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14495:39 • undefined_getter
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14548:39 • undefined_getter
+  error • The getter 'branchGroupId' isn't defined for the type 'Branche' • lib/core/db/app_database.g.dart:14623:49 • undefined_getter
+  error • The name '$BranchesCreateCompanionBuilder' is already defined • lib/core/db/app_database.g.dart:14644:9 • duplicate_definition
+  error • The name '$BranchesUpdateCompanionBuilder' is already defined • lib/core/db/app_database.g.dart:14658:9 • duplicate_definition
+  error • The name '$BranchesReferences' is already defined • lib/core/db/app_database.g.dart:14673:13 • duplicate_definition
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14694:44 • undefined_getter
+  error • The name '$BranchesFilterComposer' is already defined • lib/core/db/app_database.g.dart:14708:7 • duplicate_definition
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14767:36 • undefined_getter
+  error • The name '$BranchesOrderingComposer' is already defined • lib/core/db/app_database.g.dart:14785:7 • duplicate_definition
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14845:36 • undefined_getter
+  error • The name '$BranchesAnnotationComposer' is already defined • lib/core/db/app_database.g.dart:14863:7 • duplicate_definition
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:14921:36 • undefined_getter
+  error • The name '$BranchesTableManager' is already defined • lib/core/db/app_database.g.dart:14939:7 • duplicate_definition
+  error • The argument type 'BranchesCompanion Function({Value<String?> address, Value<String> branchCode, Value<int?> branchGroupId, Value<bool?> branchStatus, Value<int> companyId, Value<String?> defaultWarehouseId, Value<Uint8List?> logo, Value<String> nameAr, Value<String> nameEn, Value<String?> phone, Value<String?> remarks, Value<int> rowid})' can't be assigned to the parameter type '$BranchesUpdateCompanionBuilder'.  • lib/core/db/app_database.g.dart:14961:36 • argument_type_not_assignable
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:14980:13 • undefined_named_parameter
+  error • The argument type 'Value<bool?>' can't be assigned to the parameter type 'Value<bool>'.  • lib/core/db/app_database.g.dart:14984:27 • argument_type_not_assignable
+  error • The argument type 'BranchesCompanion Function({Value<String?> address, required String branchCode, Value<int?> branchGroupId, Value<bool?> branchStatus, required int companyId, Value<String?> defaultWarehouseId, Value<Uint8List?> logo, required String nameAr, required String nameEn, Value<String?> phone, Value<String?> remarks, Value<int> rowid})' can't be assigned to the parameter type '$BranchesCreateCompanionBuilder'.  • lib/core/db/app_database.g.dart:14989:36 • argument_type_not_assignable
+  error • The named parameter 'branchGroupId' isn't defined • lib/core/db/app_database.g.dart:15008:13 • undefined_named_parameter
+  error • The argument type 'Value<bool?>' can't be assigned to the parameter type 'Value<bool>'.  • lib/core/db/app_database.g.dart:15012:27 • argument_type_not_assignable
+  error • The getter 'branchGroupId' isn't defined for the type 'Branches' • lib/core/db/app_database.g.dart:15050:42 • undefined_getter
+  error • The method '_branchGroupIdTable' isn't defined for the type '$BranchesReferences' • lib/core/db/app_database.g.dart:15052:45 • undefined_method
+  error • The method '_branchGroupIdTable' isn't defined for the type '$BranchesReferences' • lib/core/db/app_database.g.dart:15054:45 • undefined_method
+  error • The name '$BranchesProcessedTableManager' is already defined • lib/core/db/app_database.g.dart:15068:9 • duplicate_definition
+  error • The name 'branches' is already defined • lib/core/db/app_database.g.dart:15121:29 • duplicate_definition
+  error • Undefined name 'appDatabaseProvider' • lib/di/modules/auth_module.dart:12:24 • undefined_identifier
+  error • Abstract classes can't be instantiated • lib/di/modules/auth_module.dart:13:10 • instantiate_abstract_class
+  error • Too many positional arguments: 0 expected, but 1 found • lib/di/modules/auth_module.dart:13:30 • extra_positional_arguments
+  error • Target of URI doesn't exist: 'package.muhaseb_pro/features/system_setup/domain/repositories/tax_repository.dart' • lib/di/modules/system_setup_module.dart:25:8 • uri_does_not_exist
+  error • The named parameter 'localDataSource' is required, but there's no corresponding argument • lib/di/modules/system_setup_module.dart:62:10 • missing_required_argument
+  error • Too many positional arguments: 0 expected, but 1 found • lib/di/modules/system_setup_module.dart:62:33 • extra_positional_arguments_could_be_named
+  error • 2 positional arguments expected by 'GeneralParametersRepositoryImpl.new', but 0 found • lib/di/modules/system_setup_module.dart:82:42 • not_enough_positional_arguments
+  error • The named parameter 'localDataSource' isn't defined • lib/di/modules/system_setup_module.dart:82:42 • undefined_named_parameter
+  error • The name 'TaxRepository' isn't a type, so it can't be used as a type argument • lib/di/modules/system_setup_module.dart:95:40 • non_type_as_type_argument
+  error • The named parameter 'authLocalDataSource' is required, but there's no corresponding argument • lib/di/modules/system_setup_module.dart:102:10 • missing_required_argument
+  error • The named parameter 'database' is required, but there's no corresponding argument • lib/di/modules/system_setup_module.dart:102:10 • missing_required_argument
+  error • The named parameter 'localDataSource' isn't defined • lib/di/modules/system_setup_module.dart:102:39 • undefined_named_parameter
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/authentication/data/datasources/auth_local_datasource.dart' • lib/features/authentication/data/repositories/auth_repository_impl.dart:3:8 • uri_does_not_exist
+  error • Undefined class 'AuthLocalDataSource' • lib/features/authentication/data/repositories/auth_repository_impl.dart:10:9 • undefined_class
+  error • The name 'Branch' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:5:15 • non_type_as_type_argument
+  error • The name 'Branch' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:6:10 • non_type_as_type_argument
+  error • Undefined class 'Branch' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:7:26 • undefined_class
+  error • Undefined class 'Branch' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:8:29 • undefined_class
+  error • The name 'Branch' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:18:15 • non_type_as_type_argument
+  error • The argument type 'int' can't be assigned to the parameter type 'bool'.  • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:21:48 • argument_type_not_assignable
+  error • The name 'Branch' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:27:10 • non_type_as_type_argument
+  error • Undefined class 'Branch' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:32:26 • undefined_class
+  error • Undefined class 'Branch' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:37:29 • undefined_class
+  error • A value of type 'int' can't be assigned to a parameter of type 'bool?' in a const constructor • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:44:60 • const_constructor_param_type_mismatch
+  error • The argument type 'int' can't be assigned to the parameter type 'bool?'.  • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:44:60 • argument_type_not_assignable
+warning • Unused import: 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:7:8 • unused_import
+  error • The name 'Company' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:61:31 • non_type_as_type_argument
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/system_setup/data/datasources/general_parameters_local_datasource.dart' • lib/features/system_setup/data/repositories/general_parameters_repository_impl.dart:3:8 • uri_does_not_exist
+  error • Undefined class 'GeneralParametersLocalDataSource' • lib/features/system_setup/data/repositories/general_parameters_repository_impl.dart:8:9 • undefined_class
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/system_setup/data/datasources/geographical_data_local_datasource.dart' • lib/features/system_setup/data/repositories/geographical_data_repository_impl.dart:3:8 • uri_does_not_exist
+  error • Undefined class 'GeographicalDataLocalDataSource' • lib/features/system_setup/data/repositories/geographical_data_repository_impl.dart:8:9 • undefined_class
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/system_setup/data/datasources/tax_local_datasource.dart' • lib/features/system_setup/data/repositories/tax_repository_impl.dart:3:8 • uri_does_not_exist
+  error • Undefined class 'TaxLocalDataSource' • lib/features/system_setup/data/repositories/tax_repository_impl.dart:8:9 • undefined_class
+warning • Unused import: 'package:muhaseb_pro/core/db/app_database.dart' • lib/features/system_setup/domain/repositories/company_info_repository.dart:4:8 • unused_import
+  error • The name 'Company' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/repositories/company_info_repository.dart:9:31 • non_type_as_type_argument
+  error • Target of URI doesn't exist: '../../../../core/errors/failures.dart' • lib/features/system_setup/domain/usecases/add_branch.dart:4:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/usecases/usecase.dart' • lib/features/system_setup/domain/usecases/add_branch.dart:5:8 • uri_does_not_exist
+  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/domain/usecases/add_branch.dart:9:28 • implements_non_class
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/add_branch.dart:15:17 • non_type_as_type_argument
+warning • The method doesn't override an inherited method • lib/features/system_setup/domain/usecases/add_branch.dart:15:33 • override_on_non_overriding_member
+  error • Target of URI doesn't exist: '../../../../core/errors/exceptions.dart' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:2:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/errors/failures.dart' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:3:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../datasources/branches_local_datasource.dart' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:6:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../models/branch_model.dart' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:7:8 • uri_does_not_exist
+  error • Undefined class 'BranchesLocalDataSource' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:10:9 • undefined_class
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/deactivate_branch.dart:15:17 • non_type_as_type_argument
+  error • The name 'CacheException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/domain/usecases/deactivate_branch.dart:19:10 • non_type_in_catch_clause
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:20:19 • undefined_method
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/deactivate_branch.dart:25:17 • non_type_as_type_argument
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:31:21 • undefined_method
+  error • The name 'CacheException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/domain/usecases/deactivate_branch.dart:33:10 • non_type_in_catch_clause
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:34:19 • undefined_method
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/deactivate_branch.dart:39:17 • non_type_as_type_argument
+  error • Undefined name 'BranchModel' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:41:27 • undefined_identifier
+  error • The name 'CacheException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/domain/usecases/deactivate_branch.dart:44:10 • non_type_in_catch_clause
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:45:19 • undefined_method
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/deactivate_branch.dart:50:17 • non_type_as_type_argument
+  error • Undefined name 'BranchModel' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:52:27 • undefined_identifier
+  error • The name 'CacheException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/domain/usecases/deactivate_branch.dart:55:10 • non_type_in_catch_clause
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:56:19 • undefined_method
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/deactivate_branch.dart:61:17 • non_type_as_type_argument
+  error • The name 'CacheException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/domain/usecases/deactivate_branch.dart:67:10 • non_type_in_catch_clause
+  error • The method 'CacheFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/domain/usecases/deactivate_branch.dart:68:19 • undefined_method
+  error • Target of URI doesn't exist: '../../../../core/errors/failures.dart' • lib/features/system_setup/domain/usecases/get_all_branches.dart:2:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/usecases/usecase.dart' • lib/features/system_setup/domain/usecases/get_all_branches.dart:3:8 • uri_does_not_exist
+  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/domain/usecases/get_all_branches.dart:7:33 • implements_non_class
+  error • The name 'NoParams' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_branches.dart:7:61 • non_type_as_type_argument
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_branches.dart:13:17 • non_type_as_type_argument
+warning • The method doesn't override an inherited method • lib/features/system_setup/domain/usecases/get_all_branches.dart:13:47 • override_on_non_overriding_member
+  error • Undefined class 'NoParams' • lib/features/system_setup/domain/usecases/get_all_branches.dart:13:52 • undefined_class
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/core/errors/failures.dart' • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:2:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/core/usecases/usecase.dart' • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:3:8 • uri_does_not_exist
+  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:7:41 • implements_non_class
+  error • The name 'Company' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:7:54 • non_type_as_type_argument
+  error • The name 'NoParams' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:7:64 • non_type_as_type_argument
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:13:17 • non_type_as_type_argument
+  error • The name 'Company' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:13:31 • non_type_as_type_argument
+warning • The method doesn't override an inherited method • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:13:42 • override_on_non_overriding_member
+  error • Undefined class 'NoParams' • lib/features/system_setup/domain/usecases/get_all_companies_usecase.dart:13:47 • undefined_class
+  error • Target of URI doesn't exist: '../../../../core/errors/failures.dart' • lib/features/system_setup/domain/usecases/get_branch.dart:4:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/usecases/usecase.dart' • lib/features/system_setup/domain/usecases/get_branch.dart:5:8 • uri_does_not_exist
+  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/domain/usecases/get_branch.dart:9:28 • implements_non_class
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/get_branch.dart:15:17 • non_type_as_type_argument
+warning • The method doesn't override an inherited method • lib/features/system_setup/domain/usecases/get_branch.dart:15:41 • override_on_non_overriding_member
+  error • A value of type 'Either<Failure, BranchEntity?>' can't be returned from the method 'call' because it has a return type of 'Future<Either<InvalidType, BranchEntity>>' • lib/features/system_setup/domain/usecases/get_branch.dart:16:12 • return_of_invalid_type
+  error • Target of URI doesn't exist: '../../../../core/errors/failures.dart' • lib/features/system_setup/domain/usecases/update_branch.dart:4:8 • uri_does_not_exist
+  error • Target of URI doesn't exist: '../../../../core/usecases/usecase.dart' • lib/features/system_setup/domain/usecases/update_branch.dart:5:8 • uri_does_not_exist
+  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/domain/usecases/update_branch.dart:9:31 • implements_non_class
+  error • The name 'Failure' isn't a type, so it can't be used as a type argument • lib/features/system_setup/domain/usecases/update_branch.dart:15:17 • non_type_as_type_argument
+warning • The method doesn't override an inherited method • lib/features/system_setup/domain/usecases/update_branch.dart:15:33 • override_on_non_overriding_member
+  error • The name 'DeactivateBranch' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:23:50 • non_type_as_type_argument
+  error • The function 'DeactivateBranch' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:24:10 • undefined_function
+  error • Undefined class 'DeactivateBranch' • lib/features/system_setup/presentation/providers/branches_providers.dart:32:9 • undefined_class
+  error • The argument type 'Object?' can't be assigned to the parameter type 'Object'.  • lib/features/system_setup/presentation/providers/branches_providers.dart:43:45 • argument_type_not_assignable
+  error • The method 'DeactivateBranchParams' isn't defined for the type 'BranchesNotifier' • lib/features/system_setup/presentation/providers/branches_providers.dart:69:44 • undefined_method
+warning • Unused import: 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart' • lib/features/system_setup/presentation/providers/company_info_providers.dart:3:8 • unused_import
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/presentation/providers/company_info_providers.dart:41:42 • extra_positional_arguments
+  error • The name 'Company' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/company_info_providers.dart:56:51 • non_type_as_type_argument
+  error • The type 'Object?' of the thrown expression must be assignable to 'Object' • lib/features/system_setup/presentation/providers/company_info_providers.dart:60:24 • throw_of_invalid_type
+  error • Undefined class 'DenominationEntity' • lib/features/system_setup/presentation/providers/currencies_providers.dart:41:32 • undefined_class
+  error • Undefined class 'DenominationEntity' • lib/features/system_setup/presentation/providers/currencies_providers.dart:46:35 • undefined_class
+warning • Unused import: 'package:muhaseb_pro/di/modules/auth_module.dart' • lib/features/system_setup/presentation/providers/user_management_providers.dart:2:8 • unused_import
+  error • The property 'deactivateBranchConfirmationTitle' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:15:26 • unchecked_use_of_nullable_value
+  error • The property 'deactivateBranchConfirmationMessage' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:16:28 • unchecked_use_of_nullable_value
+  error • The property 'cancel' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:20:30 • unchecked_use_of_nullable_value
+  error • The property 'deactivate' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:27:30 • unchecked_use_of_nullable_value
+  error • The property 'branches' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:41:26 • unchecked_use_of_nullable_value
+  error • The property 'error' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/screens/branches_screen.dart:73:66 • unchecked_use_of_nullable_value
+  error • A value of type 'String' can't be assigned to a variable of type 'int?' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:56:28 • invalid_assignment
+  error • The argument type 'int' can't be assigned to the parameter type 'String'.  • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:100:20 • argument_type_not_assignable
+  error • The property 'addBranch' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:129:48 • unchecked_use_of_nullable_value
+  error • The property 'editBranch' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:129:65 • unchecked_use_of_nullable_value
+  error • The property 'branchCode' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:138:61 • unchecked_use_of_nullable_value
+  error • The property 'requiredField' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:139:79 • unchecked_use_of_nullable_value
+  error • The property 'branchNameEn' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:143:61 • unchecked_use_of_nullable_value
+  error • The property 'requiredField' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:144:80 • unchecked_use_of_nullable_value
+  error • The property 'branchNameAr' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:148:61 • unchecked_use_of_nullable_value
+  error • The property 'requiredField' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:149:80 • unchecked_use_of_nullable_value
+  error • The property 'company' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:154:63 • unchecked_use_of_nullable_value
+  error • Undefined class 'Company' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:155:41 • undefined_class
+  error • The property 'requiredField' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:162:64 • unchecked_use_of_nullable_value
+  error • The property 'error' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:165:52 • unchecked_use_of_nullable_value
+  error • The property 'branchGroup' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:169:61 • unchecked_use_of_nullable_value
+  error • The property 'defaultWarehouse' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:175:61 • unchecked_use_of_nullable_value
+  error • The property 'address' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:181:61 • unchecked_use_of_nullable_value
+  error • The property 'phone' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:185:61 • unchecked_use_of_nullable_value
+  error • The property 'active' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:189:34 • unchecked_use_of_nullable_value
+  error • The property 'logo' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:199:30 • unchecked_use_of_nullable_value
+  error • The property 'remarks' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:207:61 • unchecked_use_of_nullable_value
+  error • The property 'cancel' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:216:28 • unchecked_use_of_nullable_value
+  error • The property 'save' can't be unconditionally accessed because the receiver can be 'null' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:220:28 • unchecked_use_of_nullable_value
+  error • A value of type 'String' can't be assigned to a variable of type 'int' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.old.dart:45:20 • invalid_assignment
+  error • The getter 'branchGroup' isn't defined for the type 'BranchEntity' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.old.dart:46:29 • undefined_getter
+  error • The argument type 'int' can't be assigned to the parameter type 'String'.  • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.old.dart:79:20 • argument_type_not_assignable
+  error • The named parameter 'branchGroup' isn't defined • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.old.dart:80:9 • undefined_named_parameter
+  error • Classes can only extend other classes • lib/shared/data/models/branch_group_model.dart:4:32 • extends_non_class
+  error • No associated named super constructor parameter • lib/shared/data/models/branch_group_model.dart:6:20 • super_formal_parameter_without_associated_named
+  error • No associated named super constructor parameter • lib/shared/data/models/branch_group_model.dart:7:20 • super_formal_parameter_without_associated_named
+  error • The name 'BranchGroup' is defined in the libraries 'package:muhaseb_pro/core/db/app_database.dart' and 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart' • lib/shared/data/models/branch_group_model.dart:10:35 • ambiguous_import
+  error • The method 'Value' isn't defined for the type 'BranchGroupModel' • lib/shared/data/models/branch_group_model.dart:19:11 • undefined_method
+  error • Undefined name 'id' • lib/shared/data/models/branch_group_model.dart:19:17 • undefined_identifier
+  error • The method 'Value' isn't defined for the type 'BranchGroupModel' • lib/shared/data/models/branch_group_model.dart:20:13 • undefined_method
+  error • Undefined name 'name' • lib/shared/data/models/branch_group_model.dart:20:19 • undefined_identifier
+  error • Undefined class 'Branch' • lib/shared/data/models/branch_model.dart:35:30 • undefined_class
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:53:19 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:54:15 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:55:15 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:56:18 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:57:22 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:58:16 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:59:14 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:60:27 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:61:21 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:62:13 • undefined_method
+  error • The method 'Value' isn't defined for the type 'BranchModel' • lib/shared/data/models/branch_model.dart:63:16 • undefined_method
+  error • The implicitly invoked unnamed constructor from 'CompanyEntity' has required parameters • lib/shared/data/models/company_model.dart:5:9 • implicit_super_initializer_missing_arguments
+  error • No associated named super constructor parameter • lib/shared/data/models/company_model.dart:5:57 • super_formal_parameter_without_associated_named
+  error • The argument type 'String' can't be assigned to the parameter type 'int'.  • lib/shared/data/models/company_model.dart:9:11 • argument_type_not_assignable
+
+206 issues found. (ran in 1.2s)

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart' as db;
-import 'package:muhaseb_pro/features/system_setup/data/datasources/geographical_data_local_datasource.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/geographical_data_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/geographical_data_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/geographical_data_repository.dart';
 
@@ -139,8 +139,9 @@ class GeographicalDataRepositoryImpl implements GeographicalDataRepository {
 
   @override
   Future<List<CountryEntity>> getCountries(int zoneId) async {
-    final countries = await localDataSource.getCountries(zoneId);
-    return countries.map(_mapCountry).toList();
+    final allCountries = await localDataSource.getCountries();
+    final filteredCountries = allCountries.where((country) => country.zoneId == zoneId).toList();
+    return filteredCountries.map(_mapCountry).toList();
   }
 
   @override

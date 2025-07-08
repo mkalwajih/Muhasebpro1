@@ -1,25 +1,25 @@
 -- lib/core/db/schemas/tax_schema.drift
 
-CREATE TABLE tax_brackets (
-  bracket_code TEXT NOT NULL PRIMARY KEY,
-  name_ar TEXT NOT NULL,
-  name_en TEXT NOT NULL,
-  tax_rate REAL NOT NULL,
-  is_default BOOLEAN NOT NULL
-);
-
-CREATE TABLE tax_types (
-  type_code TEXT NOT NULL PRIMARY KEY,
-  name_ar TEXT NOT NULL,
-  name_en TEXT NOT NULL,
-  calc_method TEXT NOT NULL,
-  sales_account_id TEXT,
-  purchases_account_id TEXT
+CREATE TABLE tax_bracket (
+    bracket_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    tax_rate REAL NOT NULL,
+    is_default BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE tax_calc_methods (
-  method_code TEXT NOT NULL PRIMARY KEY,
-  name_ar TEXT NOT NULL,
-  name_en TEXT NOT NULL,
-  category TEXT NOT NULL
+    method_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    category TEXT NOT NULL -- Taxable, Exempted, Zero Tax
+);
+
+CREATE TABLE tax_types (
+    type_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    calc_method_code TEXT NOT NULL REFERENCES tax_calc_methods(method_code),
+    sales_account_id TEXT, -- Should reference accounts table later
+    purchases_account_id TEXT -- Should reference accounts table later
 );

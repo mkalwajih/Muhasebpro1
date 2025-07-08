@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/general_parameters_local_datasource.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/general_parameters_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/general_parameters_repository.dart';
 

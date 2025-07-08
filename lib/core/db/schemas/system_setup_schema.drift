@@ -18,20 +18,6 @@ CREATE TABLE company_info (
   remarks TEXT
 );
 
-CREATE TABLE branches (
-  branch_code TEXT NOT NULL PRIMARY KEY,
-  name_ar TEXT NOT NULL,
-  name_en TEXT NOT NULL,
-  company_id INT NOT NULL REFERENCES company_info(id),
-  branch_group TEXT,
-  address TEXT,
-  phone TEXT,
-  default_warehouse_id TEXT, -- This will eventually be a foreign key to a Warehouses table
-  branch_status BOOLEAN NOT NULL DEFAULT TRUE, -- TRUE for Active, FALSE for Inactive
-  logo BLOB,
-  remarks TEXT
-);
-
 CREATE TABLE financial_periods (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
   start_date TIMESTAMP NOT NULL,

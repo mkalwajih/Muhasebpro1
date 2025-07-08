@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/authentication/data/datasources/auth_local_datasource.dart';
+import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/authentication/domain/repositories/auth_repository.dart';
 import 'dart:convert';
@@ -9,7 +9,7 @@ import 'package:crypto/crypto.dart';
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource _localDataSource;
 
-  AuthRepositoryImpl(this._localDataSource);
+  AuthRepositoryImpl({required AuthLocalDataSource authLocalDataSource, required AppDatabase database}) : _localDataSource = authLocalDataSource;
   
   String _hashPassword(String password) {
     final bytes = utf8.encode(password);

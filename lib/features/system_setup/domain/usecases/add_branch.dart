@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/errors/failures.dart';
-import '../../../../core/usecases/usecase.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 import '../entities/branch_entity.dart';
 import '../repositories/branches_repository.dart';
 

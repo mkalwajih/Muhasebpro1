@@ -216,7 +216,7 @@
     "ui": "واجهة المستخدم",
     "backup": "النسخ الاحتياطي",
     "cannotChangeAccountSettings": "لا يمكن تغيير إعدادات رقم الحساب عند وجود حسابات.",
-    
+
     "branchCode": "رمز الفرع",
     "branchNameAr": "اسم الفرع (عربي)",
     "branchNameEn": "اسم الفرع (انجليزي)",
@@ -228,5 +228,9 @@
     "editBranch": "تعديل الفرع",
     "deleteBranch": "حذف الفرع",
     "deleteBranchConfirm": "هل أنت متأكد من رغبتك في حذف هذا الفرع؟",
-    "delete": "حذف"
+    "delete": "حذف",
+    "deactivateBranchConfirmationTitle": "تأكيد إلغاء التفعيل",
+    "deactivateBranchConfirmationMessage": "هل أنت متأكد من رغبتك في إلغاء تفعيل هذا الفرع؟ لن تكون الفروع غير النشطة متاحة للمعاملات الجديدة.",
+    "deactivate": "إلغاء التفعيل",
+    "error": "خطأ"
 }

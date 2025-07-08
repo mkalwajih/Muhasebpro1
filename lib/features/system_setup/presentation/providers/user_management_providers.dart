@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/di/modules/auth_module.dart';
 import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';

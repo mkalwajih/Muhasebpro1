@@ -2,11 +2,12 @@ import 'package:equatable/equatable.dart';
 import 'dart:typed_data';
 
 class BranchEntity extends Equatable {
+  final int? id;
   final String branchCode;
   final String nameAr;
   final String nameEn;
-  final String companyId;
-  final int? branchGroupId; // Changed from String? branchGroup to int? branchGroupId
+  final int companyId; // Changed from String to int
+  final int? branchGroupId;
   final String? address;
   final String? phone;
   final String? defaultWarehouseId;
@@ -15,11 +16,12 @@ class BranchEntity extends Equatable {
   final String? remarks;
 
   const BranchEntity({
+    this.id,
     required this.branchCode,
     required this.nameAr,
     required this.nameEn,
     required this.companyId,
-    this.branchGroupId, // Changed parameter name
+    this.branchGroupId,
     this.address,
     this.phone,
     this.defaultWarehouseId,
@@ -30,11 +32,12 @@ class BranchEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         branchCode,
         nameAr,
         nameEn,
         companyId,
-        branchGroupId, // Changed prop name
+        branchGroupId,
         address,
         phone,
         defaultWarehouseId,

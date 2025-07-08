@@ -1372,6 +1372,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @deactivateBranchConfirmationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deactivation'**
+  String get deactivateBranchConfirmationTitle;
+
+  /// No description provided for @deactivateBranchConfirmationMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to deactivate this branch? Deactivated branches will not be available for new transactions.'**
+  String get deactivateBranchConfirmationMessage;
+
+  /// No description provided for @deactivate.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate'**
+  String get deactivate;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

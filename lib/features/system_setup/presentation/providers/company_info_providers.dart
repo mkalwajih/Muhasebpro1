@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/di/modules/system_setup_module.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_all_companies_usecase.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_company_info_usecase.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/save_company_info_usecase.dart';
@@ -38,7 +38,7 @@ class CompanyInfoNotifier extends StateNotifier<AsyncValue<CompanyInfoEntity?>> 
   Future<void> fetchCompanyInfo() async {
     state = const AsyncValue.loading();
     try {
-      final info = await _getCompanyInfo(NoParams());
+      final info = await _getCompanyInfo(const NoParams());
       state = AsyncValue.data(info);
     } catch (e, st) {
       state = AsyncValue.error(e, st);
@@ -53,9 +53,9 @@ class CompanyInfoNotifier extends StateNotifier<AsyncValue<CompanyInfoEntity?>> 
 }
 
 // Companies List Provider
-final companiesListProvider = FutureProvider<List<Company>>((ref) async {
+final companiesListProvider = FutureProvider<List<CompanyEntity>>((ref) async {
   final getAllCompanies = ref.watch(getAllCompaniesUseCaseProvider);
-  final result = await getAllCompanies(NoParams());
+  final result = await getAllCompanies(const NoParams());
   return result.fold(
     (failure) => throw failure, // Or handle error appropriately
     (companies) => companies,

@@ -1,11 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/data/models/branch_model.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
+
 abstract class BranchesLocalDataSource {
-  Future<List<Branch>> getAllBranches({bool includeInactive = false});
-  Future<Branch?> getBranch(String branchCode);
-  Future<void> addBranch(Branch branch);
-  Future<void> updateBranch(Branch branch);
+  Future<List<BranchModel>> getAllBranches({bool includeInactive = false});
+  Future<BranchModel?> getBranch(String branchCode);
+  Future<void> addBranch(BranchEntity branch);
+  Future<void> updateBranch(BranchEntity branch);
   Future<void> deactivateBranch(String branchCode);
 }
 
@@ -15,32 +17,36 @@ class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
   BranchesLocalDataSourceImpl(this.database);
 
   @override
-  Future<List<Branch>> getAllBranches({bool includeInactive = false}) async {
+  Future<List<BranchModel>> getAllBranches({bool includeInactive = false}) async {
     final query = database.select(database.branches);
     if (!includeInactive) {
-      query.where((b) => b.branchStatus.equals(1)); // 1 for active
+      query.where((b) => b.branchStatus.equals(true));
     }
-    return await query.get();
+    final result = await query.get();
+    return result.map((b) => BranchModel.fromDb(b)).toList();
   }
 
   @override
-  Future<Branch?> getBranch(String branchCode) async {
-    return await (database.select(database.branches)..where((b) => b.branchCode.equals(branchCode))).getSingleOrNull();
+  Future<BranchModel?> getBranch(String branchCode) async {
+    final branch = await (database.select(database.branches)..where((b) => b.branchCode.equals(branchCode))).getSingleOrNull();
+    return branch != null ? BranchModel.fromDb(branch) : null;
   }
 
   @override
-  Future<void> addBranch(Branch branch) {
-    return database.into(database.branches).insert(branch);
+  Future<void> addBranch(BranchEntity branch) {
+    final branchCompanion = BranchModel.fromEntity(branch).toDb();
+    return database.into(database.branches).insert(branchCompanion);
   }
 
   @override
-  Future<void> updateBranch(Branch branch) {
-    return database.update(database.branches).replace(branch);
+  Future<void> updateBranch(BranchEntity branch) {
+    final branchCompanion = BranchModel.fromEntity(branch).toDb();
+    return database.update(database.branches).replace(branchCompanion);
   }
 
   @override
   Future<void> deactivateBranch(String branchCode) {
     return (database.update(database.branches)..where((b) => b.branchCode.equals(branchCode)))
-        .write(const BranchesCompanion(branchStatus: Value(0))); // Set status to 0 (inactive)
+        .write(const BranchesCompanion(branchStatus: Value(false)));
   }
 }

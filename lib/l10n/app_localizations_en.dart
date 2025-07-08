@@ -650,4 +650,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get deactivateBranchConfirmationTitle => 'Confirm Deactivation';
+
+  @override
+  String get deactivateBranchConfirmationMessage => 'Are you sure you want to deactivate this branch? Deactivated branches will not be available for new transactions.';
+
+  @override
+  String get deactivate => 'Deactivate';
+
+  @override
+  String get error => 'Error';
 }

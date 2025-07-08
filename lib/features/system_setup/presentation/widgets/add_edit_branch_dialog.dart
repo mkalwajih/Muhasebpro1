@@ -34,11 +34,14 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
     {'id': 1, 'name': 'Group 1'},
     {'id': 2, 'name': 'Group 2'},
   ];
-  final List<String> _warehouses = ['WH 1', 'WH 2'];
+  final List<Map<String, dynamic>> _warehouses = [
+    {'id': 1, 'name': 'WH 1'},
+    {'id': 2, 'name': 'WH 2'}
+  ];
 
   int? _selectedCompanyId;
   int? _selectedBranchGroupId;
-  String? _selectedWarehouse;
+  int? _selectedWarehouseId; 
   Uint8List? _logo;
 
   @override
@@ -53,9 +56,9 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
       _phoneController = TextEditingController(text: branch.phone);
       _remarksController = TextEditingController(text: branch.remarks);
       _branchStatus = branch.branchStatus;
-      _selectedCompanyId = branch.companyId;
+      _selectedCompanyId = branch.companyId; // Company ID is now int
       _selectedBranchGroupId = branch.branchGroupId;
-      _selectedWarehouse = branch.defaultWarehouseId;
+      _selectedWarehouseId = int.tryParse(branch.defaultWarehouseId ?? '');
       _logo = branch.logo;
     } else {
       _branchCodeController = TextEditingController();
@@ -94,14 +97,15 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
       _formKey.currentState!.save();
 
       final branchEntity = BranchEntity(
+        id: widget.branch?.id,
         branchCode: _branchCodeController.text,
         nameAr: _nameArController.text,
         nameEn: _nameEnController.text,
-        companyId: _selectedCompanyId!, 
-        branchGroupId: _selectedBranchGroupId, 
+        companyId: _selectedCompanyId!,
+        branchGroupId: _selectedBranchGroupId,
         address: _addressController.text,
         phone: _phoneController.text,
-        defaultWarehouseId: _selectedWarehouse,
+        defaultWarehouseId: _selectedWarehouseId?.toString(),
         branchStatus: _branchStatus,
         logo: _logo,
         remarks: _remarksController.text,
@@ -122,11 +126,11 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final companiesAsyncValue = ref.watch(companiesListProvider);
 
     return AlertDialog(
-      title: Text(widget.branch == null ? l10n.addBranch : l10n.editBranch),
+      title: Text(widget.branch == null ? l10n.addNewBranch : l10n.editBranch),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -136,45 +140,56 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               TextFormField(
                 controller: _branchCodeController,
                 decoration: InputDecoration(labelText: l10n.branchCode),
-                validator: (value) => (value == null || value.isEmpty) ? l10n.requiredField : null,
+                validator: (value) =>
+                    (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
               TextFormField(
                 controller: _nameEnController,
                 decoration: InputDecoration(labelText: l10n.branchNameEn),
-                 validator: (value) => (value == null || value.isEmpty) ? l10n.requiredField : null,
+                validator: (value) =>
+                    (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.branchNameAr),
-                 validator: (value) => (value == null || value.isEmpty) ? l10n.requiredField : null,
+                validator: (value) =>
+                    (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
               companiesAsyncValue.when(
-                data: (companies) => DropdownButtonFormField<int>( 
+                data: (companies) => DropdownButtonFormField<int>(
                   value: _selectedCompanyId,
-                  decoration: InputDecoration(labelText: l10n.company),
-                  items: companies.map((Company company) {
+                  decoration: InputDecoration(labelText: l10n.companyNameEn ),
+                  items: companies.map((CompanyEntity company) {
                     return DropdownMenuItem<int>(
                       value: company.id,
-                      child: Text(company.name),
+                      child: Text(company.nameEn),
                     );
                   }).toList(),
                   onChanged: (value) => setState(() => _selectedCompanyId = value),
-                  validator: (value) => (value == null) ? l10n.requiredField : null,
+                  validator: (value) =>
+                      (value == null) ? l10n.requiredField : null,
                 ),
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stack) => Text(l10n.error),
+                error: (error, stack) => Text('${l10n.error}: $error'),
               ),
-               DropdownButtonFormField<int>( 
-                value: _selectedBranchGroupId,
+              DropdownButtonFormField<int>(
+                value:_selectedBranchGroupId,
                 decoration: InputDecoration(labelText: l10n.branchGroup),
-                items: _dummyBranchGroups.map((group) => DropdownMenuItem<int>(value: group['id'], child: Text(group['name']))).toList(),
-                onChanged: (value) => setState(() => _selectedBranchGroupId = value),
+                items: _dummyBranchGroups
+                    .map((group) => DropdownMenuItem<int>(
+                        value: group['id'], child: Text(group['name'] as String)))
+                    .toList(),
+                onChanged: (value) =>
+                    setState(() => _selectedBranchGroupId = value),
               ),
-               DropdownButtonFormField<String>(
-                value: _selectedWarehouse,
+              DropdownButtonFormField<int>(
+                value: _selectedWarehouseId,
                 decoration: InputDecoration(labelText: l10n.defaultWarehouse),
-                items: _warehouses.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
-                onChanged: (value) => setState(() => _selectedWarehouse = value),
+                items: _warehouses
+                    .map((c) =>
+                        DropdownMenuItem<int>(value: c['id'], child: Text(c['name'] as String)))
+                    .toList(),
+                onChanged: (value) => setState(() => _selectedWarehouseId = value),
               ),
               TextFormField(
                 controller: _addressController,
@@ -183,9 +198,9 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               TextFormField(
                 controller: _phoneController,
                 decoration: InputDecoration(labelText: l10n.phone),
-                 keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.phone,
               ),
-               SwitchListTile(
+              SwitchListTile(
                 title: Text(l10n.active),
                 value: _branchStatus,
                 onChanged: (value) {
@@ -196,10 +211,12 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               ),
               Row(
                 children: [
-                   Text(l10n.logo),
+                  Text(l10n.logo),
                   const Spacer(),
                   if (_logo != null) Image.memory(_logo!, height: 40, width: 40),
-                  IconButton(icon: const Icon(Icons.upload_file), onPressed: _pickImage),
+                  IconButton(
+                      icon: const Icon(Icons.upload_file),
+                      onPressed: _pickImage),
                 ],
               ),
               TextFormField(

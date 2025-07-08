@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
-import 'package:muhaseb_pro/features/system_setup/data/datasources/tax_local_datasource.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/tax_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/tax_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/tax_repository.dart';
 
@@ -25,11 +25,11 @@ class TaxRepositoryImpl implements TaxRepository {
 
   @override
   Future<void> addTaxBracket(TaxBracketEntity taxBracket) {
-    final companion = TaxBracketsCompanion(
-      bracketCode: Value(taxBracket.bracketCode),
-      nameAr: Value(taxBracket.nameAr),
-      nameEn: Value(taxBracket.nameEn),
-      taxRate: Value(taxBracket.taxRate),
+    final companion = TaxBracketCompanion.insert(
+      bracketCode: taxBracket.bracketCode,
+      nameAr: taxBracket.nameAr,
+      nameEn: taxBracket.nameEn,
+      taxRate: taxBracket.taxRate,
       isDefault: Value(taxBracket.isDefault),
     );
     return localDataSource.addTaxBracket(companion);
@@ -37,7 +37,7 @@ class TaxRepositoryImpl implements TaxRepository {
 
   @override
   Future<void> updateTaxBracket(TaxBracketEntity taxBracket) {
-    final companion = TaxBracketsCompanion(
+    final companion = TaxBracketCompanion(
       bracketCode: Value(taxBracket.bracketCode),
       nameAr: Value(taxBracket.nameAr),
       nameEn: Value(taxBracket.nameEn),
@@ -60,7 +60,7 @@ class TaxRepositoryImpl implements TaxRepository {
               typeCode: e.typeCode,
               nameAr: e.nameAr,
               nameEn: e.nameEn,
-              calcMethod: e.calcMethod,
+              calcMethod: e.calcMethodCode, // Corrected: Mapped calcMethod to calcMethodCode
               salesAccountId: e.salesAccountId,
               purchasesAccountId: e.purchasesAccountId,
             ))
@@ -73,7 +73,7 @@ class TaxRepositoryImpl implements TaxRepository {
       typeCode: Value(taxType.typeCode),
       nameAr: Value(taxType.nameAr),
       nameEn: Value(taxType.nameEn),
-      calcMethod: Value(taxType.calcMethod),
+      calcMethodCode: Value(taxType.calcMethod), // Corrected: Mapped calcMethod to calcMethodCode
       salesAccountId: Value(taxType.salesAccountId),
       purchasesAccountId: Value(taxType.purchasesAccountId),
     );
@@ -86,7 +86,7 @@ class TaxRepositoryImpl implements TaxRepository {
       typeCode: Value(taxType.typeCode),
       nameAr: Value(taxType.nameAr),
       nameEn: Value(taxType.nameEn),
-      calcMethod: Value(taxType.calcMethod),
+      calcMethodCode: Value(taxType.calcMethod), // Corrected: Mapped calcMethod to calcMethodCode
       salesAccountId: Value(taxType.salesAccountId),
       purchasesAccountId: Value(taxType.purchasesAccountId),
     );
