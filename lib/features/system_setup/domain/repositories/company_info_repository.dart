@@ -5,6 +5,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity
 
 abstract class CompanyInfoRepository {
   Future<CompanyInfoEntity?> getCompanyInfo();
-  Future<void> saveCompanyInfo(CompanyInfoEntity info);
+  Future<(bool, String?)> saveCompanyInfo(CompanyInfoEntity info);
+  Future<bool> isCompanyCodeUnique(String code, {int? companyId});
   Future<Either<Failure, List<CompanyEntity>>> getAllCompanies();
 }

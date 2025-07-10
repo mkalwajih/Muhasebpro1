@@ -6,10 +6,12 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/geographic
 
 class GeographicalDataRepositoryImpl implements GeographicalDataRepository {
   final GeographicalDataLocalDataSource localDataSource;
+  final db.AppDatabase _database;
 
-  GeographicalDataRepositoryImpl(this.localDataSource);
+  GeographicalDataRepositoryImpl(this.localDataSource, this._database);
 
-  // Mapper for Zone
+  // Mappers...
+    // Mapper for Zone
   ZoneEntity _mapZone(db.Zone zone) => ZoneEntity(
         id: zone.id,
         zoneCode: zone.zoneCode,
@@ -116,21 +118,55 @@ class GeographicalDataRepositoryImpl implements GeographicalDataRepository {
     return localDataSource.addZone(companion);
   }
 
-  @override
-  Future<void> deleteCity(int id) => localDataSource.deleteCity(id);
 
   @override
-  Future<void> deleteCountry(int id) => localDataSource.deleteCountry(id);
+  Future<(bool, String?)> deleteZone(int id) async {
+    final countryCount = await (_database.select(_database.countries)..where((c) => c.zoneId.equals(id))).get();
+    if (countryCount.isNotEmpty) {
+      return (false, 'Cannot delete zone with associated countries.');
+    }
+    await localDataSource.deleteZone(id);
+    return (true, null);
+  }
 
   @override
-  Future<void> deleteGovernorate(int id) => localDataSource.deleteGovernorate(id);
+  Future<(bool, String?)> deleteCountry(int id) async {
+    final govCount = await (_database.select(_database.governorates)..where((g) => g.countryId.equals(id))).get();
+    if (govCount.isNotEmpty) {
+      return (false, 'Cannot delete country with associated governorates.');
+    }
+    await localDataSource.deleteCountry(id);
+    return (true, null);
+  }
 
   @override
-  Future<void> deleteRegion(int id) => localDataSource.deleteRegion(id);
+  Future<(bool, String?)> deleteGovernorate(int id) async {
+    final cityCount = await (_database.select(_database.cities)..where((c) => c.govId.equals(id))).get();
+    if (cityCount.isNotEmpty) {
+      return (false, 'Cannot delete governorate with associated cities.');
+    }
+    await localDataSource.deleteGovernorate(id);
+    return (true, null);
+  }
 
   @override
-  Future<void> deleteZone(int id) => localDataSource.deleteZone(id);
+  Future<(bool, String?)> deleteCity(int id) async {
+    final regionCount = await (_database.select(_database.regions)..where((r) => r.cityId.equals(id))).get();
+    if (regionCount.isNotEmpty) {
+      return (false, 'Cannot delete city with associated regions.');
+    }
+    await localDataSource.deleteCity(id);
+    return (true, null);
+  }
 
+  @override
+  Future<(bool, String?)> deleteRegion(int id) async {
+    // Regions are the lowest level, so they can always be deleted (for now).
+    await localDataSource.deleteRegion(id);
+    return (true, null);
+  }
+
+  // ... other methods
   @override
   Future<List<CityEntity>> getCities(int govId) async {
     final cities = await localDataSource.getCities(govId);

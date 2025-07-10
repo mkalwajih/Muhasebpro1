@@ -15,24 +15,35 @@ class BackupParamsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
+        // Backup Frequency
         DropdownButtonFormField<BackupFrequencyOption>(
           value: params.backupFrequency,
-          decoration: InputDecoration(labelText: l10n.backupFrequency),
+          decoration: InputDecoration(
+            labelText: l10n.backupFrequency,
+            border: const OutlineInputBorder(),
+          ),
           items: BackupFrequencyOption.values
               .map((e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e.toString().split('.').last),
+                    child: Text(e.name),
                   ))
               .toList(),
-          onChanged: (value) =>
-              onChanged(params.copyWith(backupFrequency: value)),
+          onChanged: (value) {
+            if (value != null) {
+              onChanged(params.copyWith(backupFrequency: value));
+            }
+          },
         ),
         const SizedBox(height: 16),
-        SwitchListTile(
+        
+        // Cloud Backup
+        CheckboxListTile(
           title: Text(l10n.cloudBackup),
+          subtitle: Text(l10n.cloudBackupHint),
           value: params.cloudBackup,
           onChanged: (value) => onChanged(params.copyWith(cloudBackup: value)),
         ),

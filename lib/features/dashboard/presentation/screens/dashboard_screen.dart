@@ -5,6 +5,7 @@ import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 import 'package:muhaseb_pro/features/dashboard/domain/entities/dashboard_item.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/providers/dashboard_providers.dart';
+import 'package:muhaseb_pro/shared/utils/role_checker.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -13,7 +14,13 @@ class DashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final user = ref.watch(authStateProvider);
-    final dashboardItems = ref.watch(dashboardItemsProvider);
+    final roleChecker = ref.watch(roleCheckerProvider);
+    
+    // Filter dashboard items based on permissions
+    final allItems = ref.watch(dashboardItemsProvider);
+    final accessibleItems = allItems.where((item) {
+      return item.permission == null || roleChecker.hasPermission(item.permission!);
+    }).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -37,10 +44,10 @@ class DashboardScreen extends ConsumerWidget {
           crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
-        itemCount: dashboardItems.length,
+        itemCount: accessibleItems.length,
         itemBuilder: (context, index) {
-          final item = dashboardItems[index];
- return DashboardCard(item: item, l10n: l10n);
+          final item = accessibleItems[index];
+          return DashboardCard(item: item, l10n: l10n);
         },
       ),
     );
@@ -50,12 +57,12 @@ class DashboardScreen extends ConsumerWidget {
 class DashboardCard extends StatelessWidget {
   const DashboardCard({
     super.key,
- required this.l10n,
+    required this.l10n,
     required this.item,
   });
 
   final DashboardItem item;
-  final AppLocalizations l10n; // FIX: Receive the l10n object.
+  final AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +82,7 @@ class DashboardCard extends StatelessWidget {
               Icon(item.icon, size: 32, color: theme.colorScheme.primary),
               const SizedBox(height: 12),
               Text(
- item.getTitle(l10n),
+                item.getTitle(l10n),
                 style: theme.textTheme.titleMedium,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,

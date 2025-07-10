@@ -7,7 +7,7 @@ class UserEntity extends Equatable {
   final String fullNameEn;
   final String fullNameAr;
   final bool isActive;
-  final List<RoleEntity> roles; // Add this line
+  final List<RoleEntity> roles; 
 
   const UserEntity({
     required this.userId,
@@ -15,7 +15,7 @@ class UserEntity extends Equatable {
     required this.fullNameEn,
     required this.fullNameAr,
     required this.isActive,
-    this.roles = const [], // Add this line
+    this.roles = const [], 
   });
 
   @override

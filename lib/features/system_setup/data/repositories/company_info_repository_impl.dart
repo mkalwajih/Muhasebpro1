@@ -10,15 +10,16 @@ import 'package:muhaseb_pro/core/db/app_database.dart';
 
 class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   final CompanyInfoLocalDataSource localDataSource;
+  final AppDatabase _database;
 
-  CompanyInfoRepositoryImpl(this.localDataSource);
+
+  CompanyInfoRepositoryImpl(this.localDataSource, this._database);
 
   @override
   Future<CompanyInfoEntity?> getCompanyInfo() async {
     final data = await localDataSource.getCompanyInfo();
     if (data == null) return null;
 
-    // Map from the Drift-generated CompanyInfoData to our CompanyInfoEntity
     return CompanyInfoEntity(
       id: data.id,
       companyCode: data.companyCode,
@@ -37,8 +38,12 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   }
 
   @override
-  Future<void> saveCompanyInfo(CompanyInfoEntity info) {
-    // Map from our CompanyInfoEntity to the Drift-generated CompanyInfoCompanion
+  Future<(bool, String?)> saveCompanyInfo(CompanyInfoEntity info) async {
+    final isUnique = await isCompanyCodeUnique(info.companyCode, companyId: info.id);
+    if (!isUnique) {
+      return (false, 'Company code must be unique.');
+    }
+
     final companion = CompanyInfoCompanion(
       id: Value(info.id),
       companyCode: Value(info.companyCode),
@@ -54,7 +59,20 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       isMainCompany: Value(info.isMainCompany),
       remarks: Value(info.remarks),
     );
-    return localDataSource.upsertCompanyInfo(companion);
+    await localDataSource.upsertCompanyInfo(companion);
+    return (true, null);
+  }
+
+  @override
+  Future<bool> isCompanyCodeUnique(String code, {int? companyId}) async {
+    final query = _database.select(_database.companyInfo)..where((c) => c.companyCode.equals(code));
+    
+    if (companyId != null) {
+      query.where((c) => c.id.isNotValue(companyId));
+    }
+    
+    final result = await query.get();
+    return result.isEmpty;
   }
 
   @override

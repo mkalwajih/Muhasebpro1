@@ -16,7 +16,7 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
     return rolesList.map((role) {
       final assignedPermissionKeys = permissionsList
           .where((p) => p.roleId == role.id)
-          .map((p) => AppPermission.values.byName(p.permission)) // Fix: Convert String to AppPermission
+          .map((p) => AppPermission.values.byName(p.permission))
           .toList();
 
       return RoleEntity(
@@ -29,6 +29,47 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
       );
     }).toList();
   }
+  
+    @override
+  Future<List<RoleEntity>> getRolesForUser(int userId) async {
+    // 1. Find all role IDs for the given user
+    final userRolesQuery = database.select(database.userRoles)
+      ..where((ur) => ur.userId.equals(userId));
+    final userRoles = await userRolesQuery.get();
+    final roleIds = userRoles.map((ur) => ur.roleId).toList();
+
+    if (roleIds.isEmpty) {
+      return [];
+    }
+
+    // 2. Fetch the details for those roles
+    final rolesQuery = database.select(database.roles)
+      ..where((r) => r.id.isIn(roleIds) & r.isActive.equals(true));
+    final rolesList = await rolesQuery.get();
+
+    // 3. Fetch all permissions for the fetched roles in a single query
+    final permissionsQuery = database.select(database.rolePermissions)
+      ..where((p) => p.roleId.isIn(roleIds));
+    final permissionsList = await permissionsQuery.get();
+
+    // 4. Map the results
+    return rolesList.map((role) {
+      final assignedPermissions = permissionsList
+          .where((p) => p.roleId == role.id)
+          .map((p) => AppPermission.values.byName(p.permission))
+          .toList();
+      
+      return RoleEntity(
+        id: role.id,
+        nameAr: role.nameAr,
+        nameEn: role.nameEn,
+        description: role.description ?? '',
+        isActive: role.isActive,
+        permissions: assignedPermissions,
+      );
+    }).toList();
+  }
+
 
   @override
   Future<void> addRole(RoleEntity role) {
@@ -64,7 +105,7 @@ class RoleManagementRepositoryImpl implements RoleManagementRepository {
 
       // 2. Insert the new permissions
       final permissionsToInsert = permissions.map((p) =>
-          db.RolePermissionsCompanion.insert(roleId: roleId, permission: p.name)); // Fix: Convert AppPermission to String
+          db.RolePermissionsCompanion.insert(roleId: roleId, permission: p.name)); 
       
       if (permissionsToInsert.isNotEmpty) {
         await database.batch((batch) {

@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 
-// FIX: The title is now a function that takes the AppLocalizations object.
+// Type definition for a function that takes AppLocalizations and returns a String.
+typedef LocalizedTitle = String Function(AppLocalizations l10n);
+
 class DashboardItem {
-  // FIX: The title is now a function that takes the AppLocalizations object.
-  // This decouples the data model from the specific translated string.
-  final String Function(AppLocalizations l10n) getTitle;
+  final LocalizedTitle getTitle;
   final IconData icon;
   final String route;
+  final AppPermission? permission; // Nullable for items that don't need a permission check
 
   DashboardItem({
     required this.getTitle,
     required this.icon,
     required this.route,
+    this.permission,
   });
 }

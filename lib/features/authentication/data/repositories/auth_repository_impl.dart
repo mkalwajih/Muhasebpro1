@@ -3,14 +3,21 @@ import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/authentication/domain/repositories/auth_repository.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalDataSource _localDataSource;
+  final RoleManagementRepository _roleManagementRepository;
 
-  AuthRepositoryImpl({required AuthLocalDataSource authLocalDataSource, required AppDatabase database}) : _localDataSource = authLocalDataSource;
-  
+  AuthRepositoryImpl({
+    required AuthLocalDataSource authLocalDataSource,
+    required RoleManagementRepository roleManagementRepository,
+    required AppDatabase database,
+  })  : _localDataSource = authLocalDataSource,
+        _roleManagementRepository = roleManagementRepository;
+
   String _hashPassword(String password) {
     final bytes = utf8.encode(password);
     final digest = sha256.convert(bytes);
@@ -34,15 +41,19 @@ class AuthRepositoryImpl implements AuthRepository {
         return (null, 'Invalid username or password.');
       }
 
+      // Fetch roles for the user
+      final roles = await _roleManagementRepository.getRolesForUser(user.id);
+
       final userEntity = UserEntity(
         userId: user.id,
         username: user.username,
         fullNameEn: user.fullNameEn,
         fullNameAr: user.fullNameAr,
         isActive: user.isActive,
+        roles: roles, // Assign the fetched roles
       );
       
- return (userEntity, null);
+      return (userEntity, null);
 
     } catch (e) {
       // Log the error
@@ -59,10 +70,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<void> seedInitialUser() async {
     final userCount = await _localDataSource.countUsers();
     if (userCount == 0) {
-      // Seed the default 'admin' user
       const adminUser = UsersCompanion(
         username: Value('admin'),
-        passwordHash: Value('admin'), // Will be hashed by datasource
+        passwordHash: Value('admin'),
         fullNameAr: Value('المدير العام'),
         fullNameEn: Value('System Administrator'),
         isActive: Value(true),

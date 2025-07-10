@@ -32,12 +32,46 @@ class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScree
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final paramsAsync = ref.watch(generalParametersProvider);
+    ref.listen<AsyncValue<GeneralParametersEntity>>(generalParametersProvider, (previous, next) {
+      next.whenData((value) => setState(() {
+        _params = value;
+      }));
+    });
 
     return DefaultTabController(
       length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.generalParameters),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.restore),
+              tooltip: l10n.resetToDefaults,
+              onPressed: () async {
+                final confirm = await showDialog<bool>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(l10n.confirmReset),
+                    content: Text(l10n.confirmResetMessage),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(false),
+                        child: Text(l10n.cancel),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(true),
+                        child: Text(l10n.reset),
+                      ),
+                    ],
+                  ),
+                );
+
+                if (confirm == true) {
+                  await ref.read(generalParametersProvider.notifier).resetToDefaults();
+                }
+              },
+            )
+          ],
           bottom: TabBar(
             isScrollable: true,
             tabs: [
@@ -51,7 +85,6 @@ class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScree
         ),
         body: paramsAsync.when(
           data: (data) {
-            _params = data; // Update local state with latest data from provider
             return Form(
               key: _formKey,
               child: TabBarView(
@@ -90,12 +123,12 @@ class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScree
                 await ref
                     .read(generalParametersProvider.notifier)
                     .saveGeneralParameters(_params);
-                if (!context.mounted) return; // Add this line
+                if (!context.mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(l10n.saveSuccess)),
                 );
               } catch (e) {
-                if (!context.mounted) return; // Add this line
+                if (!context.mounted) return;
                 String errorMessage = l10n.saveFailed;
                 if (e.toString().contains('Cannot change account number settings')) {
                   errorMessage = l10n.cannotChangeAccountSettings;

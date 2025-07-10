@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 
@@ -6,42 +7,60 @@ class AccountingParamsView extends StatelessWidget {
   final GeneralParametersEntity params;
   final ValueChanged<GeneralParametersEntity> onChanged;
 
-  const AccountingParamsView(
-      {super.key, required this.params, required this.onChanged});
+  const AccountingParamsView({
+    super.key,
+    required this.params,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        // Account Number Type
-        Text(l10n.accountNumberType, style: Theme.of(context).textTheme.titleMedium),
+        // Account Number Type Radio Buttons
+        Text(l10n.accountNumberType, style: theme.textTheme.titleSmall),
         Column(
-          children: AccountNumberTypeOption.values
-              .map(
-                (e) => RadioListTile<AccountNumberTypeOption>(
-                  title: Text(e.toString().split('.').last),
-                  value: e,
-                  groupValue: params.accountNumberType,
-                  onChanged: (value) =>
-                      onChanged(params.copyWith(accountNumberType: value)),
-                ),
-              )
-              .toList(),
+          children: AccountNumberTypeOption.values.map((option) {
+            return RadioListTile<AccountNumberTypeOption>(
+              title: Text(option.name),
+              value: option,
+              groupValue: params.accountNumberType,
+              onChanged: (value) {
+                if (value != null) {
+                  onChanged(params.copyWith(accountNumberType: value));
+                }
+              },
+            );
+          }).toList(),
         ),
         const SizedBox(height: 16),
+
+        // Account Number Length
         TextFormField(
           initialValue: params.accountNumberLength.toString(),
-          decoration: InputDecoration(labelText: l10n.accountNumberLength),
+          decoration: InputDecoration(
+            labelText: l10n.accountNumberLength,
+            border: const OutlineInputBorder(),
+          ),
           keyboardType: TextInputType.number,
-          onChanged: (value) => onChanged(params.copyWith(
-              accountNumberLength: int.tryParse(value) ?? 0)),
-          validator: (v) {
-            if (v == null || v.isEmpty) return l10n.requiredField;
-            final length = int.tryParse(v);
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          onChanged: (value) {
+            final length = int.tryParse(value);
+            if (length != null && length >= 3 && length <= 20) {
+              onChanged(params.copyWith(accountNumberLength: length));
+            }
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Value is required';
+            }
+            final length = int.tryParse(value);
             if (length == null || length < 3 || length > 20) {
-              return l10n.invalidLengthRange(3, 20); // Fixed: positional arguments
+              return 'Must be between 3 and 20';
             }
             return null;
           },
@@ -51,54 +70,43 @@ class AccountingParamsView extends StatelessWidget {
         // Cost Center Policy
         DropdownButtonFormField<PolicyOption>(
           value: params.costCenterPolicy,
-          decoration: InputDecoration(labelText: l10n.costCenterPolicy),
+          decoration: InputDecoration(
+            labelText: l10n.costCenterPolicy,
+            border: const OutlineInputBorder(),
+          ),
           items: PolicyOption.values
               .map((e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e.toString().split('.').last),
+                    child: Text(e.name),
                   ))
               .toList(),
-          onChanged: (value) =>
-              onChanged(params.copyWith(costCenterPolicy: value)),
+          onChanged: (value) {
+            if (value != null) {
+              onChanged(params.copyWith(costCenterPolicy: value));
+            }
+          },
         ),
         const SizedBox(height: 16),
 
         // Project Policy
         DropdownButtonFormField<PolicyOption>(
           value: params.projectPolicy,
-          decoration: InputDecoration(labelText: l10n.projectPolicy),
+          decoration: InputDecoration(
+            labelText: l10n.projectPolicy,
+            border: const OutlineInputBorder(),
+          ),
           items: PolicyOption.values
               .map((e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e.toString().split('.').last),
+                    child: Text(e.name),
                   ))
               .toList(),
-          onChanged: (value) =>
-              onChanged(params.copyWith(projectPolicy: value)),
+          onChanged: (value) {
+            if (value != null) {
+              onChanged(params.copyWith(projectPolicy: value));
+            }
+          },
         ),
-        const SizedBox(height: 16),
-        SwitchListTile(
-          title: Text(l10n.useVAT),
-          value: params.useVAT,
-          onChanged: (value) => onChanged(params.copyWith(useVAT: value)),
-        ),
-        SwitchListTile(
-          title: Text(l10n.useTDS),
-          value: params.useTDS,
-          onChanged: (value) => onChanged(params.copyWith(useTDS: value)),
-        ),
-        SwitchListTile(
-          title: Text(l10n.useEInvoice),
-          value: params.useEInvoice,
-          onChanged: (value) => onChanged(params.copyWith(useEInvoice: value)),
-        ),
-        if (params.useVAT) // Only visible if useVAT is true
-          SwitchListTile(
-            title: Text(l10n.priceIncludesTax),
-            value: params.priceIncludesTax,
-            onChanged: (value) =>
-                onChanged(params.copyWith(priceIncludesTax: value)),
-          ),
       ],
     );
   }

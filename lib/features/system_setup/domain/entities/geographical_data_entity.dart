@@ -1,47 +1,45 @@
-import 'package:equatable/equatable.dart';
+enum GeoLevel { zone, country, governorate, city, region }
 
-// Base class
-abstract class GeographicalDataEntity extends Equatable {
+abstract class GeoEntity {
   final int id;
   final String nameAr;
   final String nameEn;
-  final bool isActive; // Added isActive here
+  final bool isActive;
+  String get code;
 
-  const GeographicalDataEntity({
+  GeoEntity({
     required this.id,
     required this.nameAr,
     required this.nameEn,
-    required this.isActive, // Added isActive to constructor
+    required this.isActive,
   });
-
-  @override
-  List<Object?> get props => [id, nameAr, nameEn, isActive]; // Added isActive to props
 }
 
-// Zone
-class ZoneEntity extends GeographicalDataEntity {
+class ZoneEntity extends GeoEntity {
   final String zoneCode;
 
-  const ZoneEntity({
+  @override
+  String get code => zoneCode;
+
+  ZoneEntity({
     required super.id,
     required this.zoneCode,
     required super.nameAr,
     required super.nameEn,
-    required super.isActive, // Added isActive to constructor
+    required super.isActive,
   });
-
-  @override
-  List<Object?> get props => [id, zoneCode, nameAr, nameEn, isActive]; // Added isActive to props
 }
 
-// Country
-class CountryEntity extends GeographicalDataEntity {
+class CountryEntity extends GeoEntity {
   final String countryCode;
   final String nationalityAr;
   final String nationalityEn;
   final int zoneId;
+  
+  @override
+  String get code => countryCode;
 
-  const CountryEntity({
+  CountryEntity({
     required super.id,
     required this.countryCode,
     required super.nameAr,
@@ -49,72 +47,57 @@ class CountryEntity extends GeographicalDataEntity {
     required this.nationalityAr,
     required this.nationalityEn,
     required this.zoneId,
-    required super.isActive, // Added isActive to constructor
+    required super.isActive,
   });
-
-  @override
-  List<Object?> get props => [
-        id,
-        countryCode,
-        nameAr,
-        nameEn,
-        nationalityAr,
-        nationalityEn,
-        zoneId,
-        isActive, // Added isActive to props
-      ];
 }
 
-// Governorate
-class GovernorateEntity extends GeographicalDataEntity {
+class GovernorateEntity extends GeoEntity {
   final String govCode;
   final int countryId;
 
-  const GovernorateEntity({
+  @override
+  String get code => govCode;
+
+  GovernorateEntity({
     required super.id,
     required this.govCode,
     required super.nameAr,
     required super.nameEn,
     required this.countryId,
-    required super.isActive, // Added isActive to constructor
+    required super.isActive,
   });
-
-  @override
-  List<Object?> get props => [id, govCode, nameAr, nameEn, countryId, isActive]; // Added isActive to props
 }
 
-// City
-class CityEntity extends GeographicalDataEntity {
+class CityEntity extends GeoEntity {
   final String cityCode;
   final int govId;
 
-  const CityEntity({
+  @override
+  String get code => cityCode;
+
+  CityEntity({
     required super.id,
     required this.cityCode,
     required super.nameAr,
     required super.nameEn,
     required this.govId,
-    required super.isActive, // Added isActive to constructor
+    required super.isActive,
   });
-
-  @override
-  List<Object?> get props => [id, cityCode, nameAr, nameEn, govId, isActive]; // Added isActive to props
 }
 
-// Region
-class RegionEntity extends GeographicalDataEntity {
+class RegionEntity extends GeoEntity {
   final String regionCode;
   final int cityId;
 
-  const RegionEntity({
+  @override
+  String get code => regionCode;
+
+  RegionEntity({
     required super.id,
     required this.regionCode,
     required super.nameAr,
     required super.nameEn,
     required this.cityId,
-    required super.isActive, // Added isActive to constructor
+    required super.isActive,
   });
-
-  @override
-  List<Object?> get props => [id, regionCode, nameAr, nameEn, cityId, isActive]; // Added isActive to props
 }

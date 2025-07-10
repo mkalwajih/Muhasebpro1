@@ -8,4 +8,5 @@ abstract class BranchesRepository {
   Future<Either<Failure, Unit>> addBranch(BranchEntity branch);
   Future<Either<Failure, Unit>> updateBranch(BranchEntity branch);
   Future<Either<Failure, Unit>> deactivateBranch(String branchCode);
+  Future<bool> isBranchCodeUnique(String code, {int? branchId});
 }
