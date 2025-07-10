@@ -29,6 +29,14 @@ class CurrenciesNotifier extends StateNotifier<AsyncValue<List<CurrencyEntity>>>
   }
 
   Future<void> updateCurrency(CurrencyEntity currency) async {
+    if (currency.isBaseCurrency) {
+      final allCurrencies = state.asData?.value ?? [];
+      for (final otherCurrency in allCurrencies) {
+        if (otherCurrency.currencyCode != currency.currencyCode && otherCurrency.isBaseCurrency) {
+          await _repository.updateCurrency(otherCurrency.copyWith(isBaseCurrency: false));
+        }
+      }
+    }
     await _repository.updateCurrency(currency);
     _loadCurrencies();
   }
@@ -51,5 +59,24 @@ class CurrenciesNotifier extends StateNotifier<AsyncValue<List<CurrencyEntity>>>
   Future<void> deleteDenomination(int id) async {
     await _repository.deleteDenomination(id);
     _loadCurrencies();
+  }
+}
+
+extension on CurrencyEntity {
+  CurrencyEntity copyWith({
+    bool? isBaseCurrency,
+  }) {
+    return CurrencyEntity(
+      currencyCode: currencyCode,
+      nameEn: nameEn,
+      nameAr: nameAr,
+      fractionNameEn: fractionNameEn,
+      fractionNameAr: fractionNameAr,
+      exchangeRate: exchangeRate,
+      isBaseCurrency: isBaseCurrency ?? this.isBaseCurrency,
+      decimalPlaces: decimalPlaces,
+      isActive: isActive,
+      denominations: denominations,
+    );
   }
 }
