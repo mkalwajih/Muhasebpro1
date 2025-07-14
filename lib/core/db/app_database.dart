@@ -1,33 +1,20 @@
 import 'package:drift/drift.dart';
-import 'package:muhaseb_pro/core/db/schemas/auth_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/branch_groups_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/branches_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/currencies_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/general_parameters_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/geographical_data_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/system_setup_schema.dart';
-import 'package:muhaseb_pro/core/db/schemas/tax_schema.dart';
 import 'connection/shared.dart' as connection;
 
 part 'app_database.g.dart';
 
 @DriftDatabase(
-  tables: [
-    Users,
-    Roles,
-    Permissions,
-    RolePermissions,
-    BranchGroups,
-    Branches,
-    Currencies,
-    GeneralParameters,
-    GeographicalData,
-    ChartOfAccounts,
-    TaxTypes,
-    TaxBrackets,
-    TaxCalculationMethods,
-    SystemSetup
-  ],
+  include: {
+    'schemas/auth_schema.drift',
+    'schemas/branch_groups_schema.drift',
+    'schemas/branches_schema.drift',
+    'schemas/currencies_schema.drift',
+    'schemas/general_parameters_schema.drift',
+    'schemas/geographical_data_schema.drift',
+    'schemas/system_setup_schema.drift',
+    'schemas/tax_schema.drift',
+    'schemas/chart_of_accounts_schema.drift', // Added this line
+  },
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
