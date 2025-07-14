@@ -26,6 +26,7 @@ part 'app_database.g.dart';
     TaxTypes,
     TaxBrackets,
     TaxCalculationMethods,
+    SystemSetup
   ],
 )
 class AppDatabase extends _$AppDatabase {
