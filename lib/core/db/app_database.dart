@@ -1,25 +1,38 @@
 import 'package:drift/drift.dart';
+import 'package:muhaseb_pro/core/db/schemas/auth_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/branch_groups_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/branches_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/currencies_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/general_parameters_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/geographical_data_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/system_setup_schema.dart';
+import 'package:muhaseb_pro/core/db/schemas/tax_schema.dart';
 import 'connection/shared.dart' as connection;
 
 part 'app_database.g.dart';
 
 @DriftDatabase(
-  include: {
-    'schemas/auth_schema.drift',
-    'schemas/branch_groups_schema.drift',
-    'schemas/branches_schema.drift',
-    'schemas/currencies_schema.drift',
-    'schemas/general_parameters_schema.drift',
-    'schemas/geographical_data_schema.drift',
-    'schemas/system_setup_schema.drift',
-    'schemas/tax_schema.drift',
-  },
+  tables: [
+    Users,
+    Roles,
+    Permissions,
+    RolePermissions,
+    BranchGroups,
+    Branches,
+    Currencies,
+    GeneralParameters,
+    GeographicalData,
+    ChartOfAccounts,
+    TaxTypes,
+    TaxBrackets,
+    TaxCalculationMethods,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   @override
-  int get schemaVersion => 13; 
+  int get schemaVersion => 13;
 
   @override
   MigrationStrategy get migration {
@@ -28,11 +41,6 @@ class AppDatabase extends _$AppDatabase {
         await m.createAll();
       },
       onUpgrade: (m, from, to) async {
-        // The method 'deleteEverything' isn't defined for the type 'Migrator'.
-        // Removed the invalid call to m.deleteEverything().
-        // If a full database reset on upgrade is desired,
-        // it needs to be implemented by dropping and recreating tables manually
-        // or by deleting all entries from each table.
         await m.createAll();
       },
     );
