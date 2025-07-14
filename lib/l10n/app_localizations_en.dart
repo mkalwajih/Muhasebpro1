@@ -535,6 +535,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get coin => 'Coin';
 
   @override
+  String get selectCurrencyPrompt => 'Select a currency to view its details and denominations.';
+
+  @override
+  String get addNewDenomination => 'Add New Denomination';
+
+  @override
+  String get editDenomination => 'Edit Denomination';
+
+  @override
+  String get value => 'Value';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
   String get taxSettings => 'Tax Settings';
 
   @override
@@ -580,10 +598,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get purchasesAccount => 'Purchases Account';
 
   @override
-  String get addNewTaxCalcMethod => 'Add New Calc Method';
+  String get addNewTaxCalculationMethod => 'Add New Calc Method';
 
   @override
-  String get editTaxCalcMethod => 'Edit Calc Method';
+  String get editTaxCalculationMethod => 'Edit Calc Method';
 
   @override
   String get methodCode => 'Method Code';
@@ -662,4 +680,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get error => 'Error';
+
+  @override
+  String get cloudBackupHint => 'Enables synchronization of data to cloud storage (e.g., Firebase, Google Drive).';
+
+  @override
+  String get inMinutes => '(in minutes)';
+
+  @override
+  String get code => 'Code';
+
+  @override
+  String get nameEn => 'Name (English)';
+
+  @override
+  String get nameAr => 'Name (Arabic)';
+
+  @override
+  String get add => 'Add';
 }

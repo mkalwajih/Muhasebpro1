@@ -535,6 +535,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get coin => 'عملة معدنية';
 
   @override
+  String get selectCurrencyPrompt => 'Select a currency to view its details and denominations.';
+
+  @override
+  String get addNewDenomination => 'Add New Denomination';
+
+  @override
+  String get editDenomination => 'Edit Denomination';
+
+  @override
+  String get value => 'Value';
+
+  @override
+  String get type => 'Type';
+
+  @override
+  String get actions => 'Actions';
+
+  @override
   String get taxSettings => 'إعدادات الضرائب';
 
   @override
@@ -580,10 +598,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchasesAccount => 'حساب المشتريات';
 
   @override
-  String get addNewTaxCalcMethod => 'إضافة طريقة حساب جديدة';
+  String get addNewTaxCalculationMethod => 'Add New Calc Method';
 
   @override
-  String get editTaxCalcMethod => 'تعديل طريقة الحساب';
+  String get editTaxCalculationMethod => 'Edit Calc Method';
 
   @override
   String get methodCode => 'رمز الطريقة';
@@ -662,4 +680,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get error => 'خطأ';
+
+  @override
+  String get cloudBackupHint => 'Enables synchronization of data to cloud storage (e.g., Firebase, Google Drive).';
+
+  @override
+  String get inMinutes => '(in minutes)';
+
+  @override
+  String get code => 'Code';
+
+  @override
+  String get nameEn => 'Name (English)';
+
+  @override
+  String get nameAr => 'Name (Arabic)';
+
+  @override
+  String get add => 'Add';
 }

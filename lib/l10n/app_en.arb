@@ -187,6 +187,12 @@
     "denominationType": "Type",
     "banknote": "Banknote",
     "coin": "Coin",
+    "selectCurrencyPrompt": "Select a currency to view its details and denominations.",
+    "addNewDenomination": "Add New Denomination",
+    "editDenomination": "Edit Denomination",
+    "value": "Value",
+    "type": "Type",
+    "actions": "Actions",
 
     "taxSettings": "Tax Settings",
     "taxBrackets": "Tax Brackets",
@@ -203,8 +209,8 @@
     "calcMethod": "Calculation Method",
     "salesAccount": "Sales Account",
     "purchasesAccount": "Purchases Account",
-    "addNewTaxCalcMethod": "Add New Calc Method",
-    "editTaxCalcMethod": "Edit Calc Method",
+    "addNewTaxCalculationMethod": "Add New Calc Method",
+    "editTaxCalculationMethod": "Edit Calc Method",
     "methodCode": "Method Code",
     "category": "Category",
     "taxable": "Taxable",
@@ -232,5 +238,11 @@
     "deactivateBranchConfirmationTitle": "Confirm Deactivation",
     "deactivateBranchConfirmationMessage": "Are you sure you want to deactivate this branch? Deactivated branches will not be available for new transactions.",
     "deactivate": "Deactivate",
-    "error": "Error"
+    "error": "Error",
+    "cloudBackupHint": "Enables synchronization of data to cloud storage (e.g., Firebase, Google Drive).",
+    "inMinutes": "(in minutes)",
+    "code": "Code",
+    "nameEn": "Name (English)",
+    "nameAr": "Name (Arabic)",
+    "add": "Add"
 }

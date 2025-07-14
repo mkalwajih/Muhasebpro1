@@ -1139,6 +1139,42 @@ abstract class AppLocalizations {
   /// **'Coin'**
   String get coin;
 
+  /// No description provided for @selectCurrencyPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a currency to view its details and denominations.'**
+  String get selectCurrencyPrompt;
+
+  /// No description provided for @addNewDenomination.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Denomination'**
+  String get addNewDenomination;
+
+  /// No description provided for @editDenomination.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Denomination'**
+  String get editDenomination;
+
+  /// No description provided for @value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get value;
+
+  /// No description provided for @type.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get type;
+
+  /// No description provided for @actions.
+  ///
+  /// In en, this message translates to:
+  /// **'Actions'**
+  String get actions;
+
   /// No description provided for @taxSettings.
   ///
   /// In en, this message translates to:
@@ -1229,17 +1265,17 @@ abstract class AppLocalizations {
   /// **'Purchases Account'**
   String get purchasesAccount;
 
-  /// No description provided for @addNewTaxCalcMethod.
+  /// No description provided for @addNewTaxCalculationMethod.
   ///
   /// In en, this message translates to:
   /// **'Add New Calc Method'**
-  String get addNewTaxCalcMethod;
+  String get addNewTaxCalculationMethod;
 
-  /// No description provided for @editTaxCalcMethod.
+  /// No description provided for @editTaxCalculationMethod.
   ///
   /// In en, this message translates to:
   /// **'Edit Calc Method'**
-  String get editTaxCalcMethod;
+  String get editTaxCalculationMethod;
 
   /// No description provided for @methodCode.
   ///
@@ -1396,6 +1432,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error'**
   String get error;
+
+  /// No description provided for @cloudBackupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enables synchronization of data to cloud storage (e.g., Firebase, Google Drive).'**
+  String get cloudBackupHint;
+
+  /// No description provided for @inMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'(in minutes)'**
+  String get inMinutes;
+
+  /// No description provided for @code.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get code;
+
+  /// No description provided for @nameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (English)'**
+  String get nameEn;
+
+  /// No description provided for @nameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Arabic)'**
+  String get nameAr;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
