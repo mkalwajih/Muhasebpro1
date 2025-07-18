@@ -36,10 +36,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loginFailed => 'فشل تسجيل الدخول';
 
   @override
-  String get invalidCredentials => 'اسم المستخدم أو كلمة المرور غير صحيحة.';
+  String get invalidCredentials => 'اسم المستخدم أو كلمة المرور غير صالحة.';
 
   @override
-  String get anErrorOccurred => 'حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى.';
+  String get anErrorOccurred => 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
 
   @override
   String get dashboard => 'لوحة التحكم';
@@ -72,10 +72,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get comingSoon => 'قريباً';
 
   @override
-  String get featureUnderDevelopment => 'هذه الميزة قيد التطوير حالياً.';
+  String get featureUnderDevelopment => 'هذه الميزة قيد التطوير حاليًا.';
 
   @override
-  String get companyInfo => 'بيانات الشركة';
+  String get companyInfo => 'معلومات الشركة';
 
   @override
   String get branches => 'الفروع';
@@ -114,7 +114,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get remarks => 'ملاحظات';
 
   @override
-  String get isMainCompany => 'هل هي الشركة الرئيسية';
+  String get isMainCompany => 'هي الشركة الرئيسية';
 
   @override
   String get save => 'حفظ';
@@ -123,10 +123,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get saving => 'جاري الحفظ...';
 
   @override
-  String get saveSuccess => 'تم حفظ البيانات بنجاح.';
+  String get saveSuccess => 'تم حفظ المعلومات بنجاح.';
 
   @override
-  String get saveFailed => 'فشل حفظ البيانات.';
+  String get saveFailed => 'فشل حفظ المعلومات.';
 
   @override
   String get chartOfAccounts => 'دليل الحسابات';
@@ -168,7 +168,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectParent => 'اختر الحساب الرئيسي';
 
   @override
-  String get active => 'فعال';
+  String get active => 'نشط';
 
   @override
   String get nature => 'طبيعة الحساب';
@@ -183,7 +183,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reportType => 'نوع التقرير';
 
   @override
-  String get balanceSheet => 'ميزانية عمومية';
+  String get balanceSheet => 'الميزانية العمومية';
 
   @override
   String get incomeStatement => 'قائمة الدخل';
@@ -198,7 +198,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get general => 'عام';
 
   @override
-  String get cash => 'صندوق';
+  String get cash => 'نقدي';
 
   @override
   String get bank => 'بنك';
@@ -213,13 +213,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get employee => 'موظف';
 
   @override
-  String get otherDebit => 'ذمم مدينة أخرى';
+  String get otherDebit => 'مدين آخر';
 
   @override
-  String get otherCredit => 'ذمم دائنة أخرى';
+  String get otherCredit => 'دائن آخر';
 
   @override
-  String get none => 'بدون';
+  String get none => 'لا شيء';
 
   @override
   String get operating => 'تشغيلي';
@@ -258,7 +258,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirmPassword => 'تأكيد كلمة المرور';
 
   @override
-  String get passwordMismatch => 'كلمات المرور غير متطابقة';
+  String get passwordMismatch => 'كلمتا المرور غير متطابقتين';
 
   @override
   String get roleManagement => 'إدارة الأدوار';
@@ -288,7 +288,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get language => 'اللغة';
 
   @override
-  String get dateFormat => 'تنسيق التاريخ';
+  String get dateFormat => 'صيغة التاريخ';
 
   @override
   String get calendarType => 'نوع التقويم';
@@ -300,13 +300,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get accountNumberLength => 'طول رقم الحساب';
 
   @override
-  String get costCenterPolicy => 'سياسة مراكز التكلفة';
+  String get costCenterPolicy => 'سياسة مركز التكلفة';
 
   @override
   String get projectPolicy => 'سياسة المشاريع';
 
   @override
-  String get passwordMinLength => 'الحد الأدنى لطول كلمة المرور';
+  String get passwordMinLength => 'أقل طول لكلمة المرور';
 
   @override
   String get autoLockTimeout => 'مهلة القفل التلقائي (دقائق)';
@@ -315,7 +315,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get useVAT => 'استخدام ضريبة القيمة المضافة';
 
   @override
-  String get useTDS => 'استخدام خصم الضريبة عند المصدر';
+  String get useTDS => 'استخدام الخصم من المنبع';
 
   @override
   String get useEInvoice => 'استخدام الفاتورة الإلكترونية';
@@ -327,10 +327,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get backupFrequency => 'تكرار النسخ الاحتياطي';
 
   @override
-  String get cloudBackup => 'النسخ الاحتياطي السحابي';
+  String get cloudBackup => 'نسخ احتياطي سحابي';
 
   @override
-  String get uiTheme => 'السمة';
+  String get uiTheme => 'سمة الواجهة';
 
   @override
   String get fontSize => 'حجم الخط';
@@ -390,7 +390,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get large => 'كبير';
 
   @override
-  String get resetToDefaults => 'إعادة تعيين إلى الافتراضيات';
+  String get resetToDefaults => 'إعادة تعيين إلى الإعدادات الافتراضية';
 
   @override
   String get requiredField => 'هذا الحقل مطلوب';
@@ -409,7 +409,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resetSuccess => 'تمت إعادة تعيين الإعدادات الافتراضية بنجاح.';
 
   @override
-  String get resetFailed => 'فشل إعادة تعيين الإعدادات الافتراضية.';
+  String get resetFailed => 'فشل في إعادة تعيين الإعدادات الافتراضية.';
 
   @override
   String get geographicalData => 'البيانات الجغرافية';
@@ -475,6 +475,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get selectCountryPrompt => 'اختر دولة لعرض محافظاتها.';
 
   @override
+  String get selectParentPrompt => 'اختر الرئيسي';
+
+  @override
+  String get confirmDeletion => 'تأكيد الحذف';
+
+  @override
+  String get confirmDeleteMessage => 'هل أنت متأكد أنك تريد حذف هذا العنصر؟';
+
+  @override
+  String get deleteFailed => 'فشل الحذف';
+
+  @override
+  String get addNewGovernorate => 'إضافة محافظة جديدة';
+
+  @override
+  String get editGovernorate => 'تعديل المحافظة';
+
+  @override
+  String get addNewCity => 'إضافة مدينة جديدة';
+
+  @override
+  String get editCity => 'تعديل المدينة';
+
+  @override
+  String get addNewRegion => 'إضافة حي جديد';
+
+  @override
+  String get editRegion => 'تعديل الحي';
+
+  @override
   String get currencies => 'العملات';
 
   @override
@@ -493,19 +523,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currencyNameEn => 'اسم العملة (انجليزي)';
 
   @override
-  String get fractionNameAr => 'اسم الجزء (عربي)';
+  String get fractionNameAr => 'اسم الكسر (عربي)';
 
   @override
-  String get fractionNameEn => 'اسم الجزء (انجليزي)';
+  String get fractionNameEn => 'اسم الكسر (انجليزي)';
 
   @override
   String get exchangeRate => 'سعر الصرف';
 
   @override
-  String get isBaseCurrency => 'العملة الأساسية';
+  String get isBaseCurrency => 'عملة أساسية';
 
   @override
-  String get decimalPlaces => 'عدد الخانات العشرية';
+  String get decimalPlaces => 'الخانات العشرية';
 
   @override
   String get minRateLimit => 'أدنى سعر صرف';
@@ -514,7 +544,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get maxRateLimit => 'أعلى سعر صرف';
 
   @override
-  String get denominations => 'فئات العملة';
+  String get denominations => 'الفئات';
 
   @override
   String get denominationValue => 'القيمة';
@@ -535,22 +565,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get coin => 'عملة معدنية';
 
   @override
-  String get selectCurrencyPrompt => 'Select a currency to view its details and denominations.';
+  String get selectCurrencyPrompt => 'اختر عملة لعرض تفاصيلها وفئاتها.';
 
   @override
-  String get addNewDenomination => 'Add New Denomination';
+  String get addNewDenomination => 'إضافة فئة جديدة';
 
   @override
-  String get editDenomination => 'Edit Denomination';
+  String get editDenomination => 'تعديل الفئة';
 
   @override
-  String get value => 'Value';
+  String get value => 'القيمة';
 
   @override
-  String get type => 'Type';
+  String get type => 'النوع';
 
   @override
-  String get actions => 'Actions';
+  String get actions => 'الإجراءات';
+
+  @override
+  String get baseCurrency => 'العملة الأساسية';
 
   @override
   String get taxSettings => 'إعدادات الضرائب';
@@ -568,16 +601,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addNewTaxBracket => 'إضافة شريحة ضريبية جديدة';
 
   @override
-  String get editTaxBracket => 'تعديل الشريحة الضريبية';
+  String get editTaxBracket => 'تعديل شريحة ضريبية';
 
   @override
   String get bracketCode => 'رمز الشريحة';
 
   @override
-  String get taxRate => 'معدل الضريبة (%)';
+  String get taxRate => 'نسبة الضريبة (%)';
 
   @override
-  String get isDefault => 'هل هي الافتراضية';
+  String get isDefault => 'افتراضي';
 
   @override
   String get addNewTaxType => 'إضافة نوع ضريبة جديد';
@@ -598,10 +631,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get purchasesAccount => 'حساب المشتريات';
 
   @override
-  String get addNewTaxCalculationMethod => 'Add New Calc Method';
+  String get addNewTaxCalculationMethod => 'إضافة طريقة حساب جديدة';
 
   @override
-  String get editTaxCalculationMethod => 'Edit Calc Method';
+  String get editTaxCalculationMethod => 'تعديل طريقة حساب';
 
   @override
   String get methodCode => 'رمز الطريقة';
@@ -619,13 +652,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get zeroTax => 'ضريبة صفرية';
 
   @override
+  String get calculationMethod => 'طريقة الحساب';
+
+  @override
   String get accounting => 'المحاسبة';
 
   @override
   String get security => 'الأمان';
 
   @override
-  String get ui => 'واجهة المستخدم';
+  String get ui => 'الواجهة';
 
   @override
   String get backup => 'النسخ الاحتياطي';
@@ -664,38 +700,47 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteBranch => 'حذف الفرع';
 
   @override
-  String get deleteBranchConfirm => 'هل أنت متأكد من رغبتك في حذف هذا الفرع؟';
+  String get deleteBranchConfirm => 'هل أنت متأكد أنك تريد حذف هذا الفرع؟';
 
   @override
   String get delete => 'حذف';
 
   @override
-  String get deactivateBranchConfirmationTitle => 'تأكيد إلغاء التفعيل';
+  String get deactivateBranchConfirmationTitle => 'تأكيد إلغاء التنشيط';
 
   @override
-  String get deactivateBranchConfirmationMessage => 'هل أنت متأكد من رغبتك في إلغاء تفعيل هذا الفرع؟ لن تكون الفروع غير النشطة متاحة للمعاملات الجديدة.';
+  String get deactivateBranchConfirmationMessage => 'هل أنت متأكد أنك تريد إلغاء تنشيط هذا الفرع؟ لن تكون الفروع غير النشطة متاحة للمعاملات الجديدة.';
 
   @override
-  String get deactivate => 'إلغاء التفعيل';
+  String get deactivate => 'إلغاء التنشيط';
 
   @override
   String get error => 'خطأ';
 
   @override
-  String get cloudBackupHint => 'Enables synchronization of data to cloud storage (e.g., Firebase, Google Drive).';
+  String get cloudBackupHint => 'تمكين مزامنة البيانات مع التخزين السحابي (مثل Firebase ، Google Drive).';
 
   @override
-  String get inMinutes => '(in minutes)';
+  String get inMinutes => '(بالدقائق)';
 
   @override
-  String get code => 'Code';
+  String get code => 'الرمز';
 
   @override
-  String get nameEn => 'Name (English)';
+  String get nameEn => 'الاسم (انجليزي)';
 
   @override
-  String get nameAr => 'Name (Arabic)';
+  String get nameAr => 'الاسم (عربي)';
 
   @override
-  String get add => 'Add';
+  String get add => 'إضافة';
+
+  @override
+  String get confirmReset => 'تأكيد إعادة التعيين';
+
+  @override
+  String get confirmResetMessage => 'هل أنت متأكد من أنك تريد إعادة تعيين جميع المعلمات العامة إلى قيمها الافتراضية؟ لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get reset => 'إعادة تعيين';
 }

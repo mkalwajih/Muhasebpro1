@@ -475,6 +475,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get selectCountryPrompt => 'Select a country to view its governorates.';
 
   @override
+  String get selectParentPrompt => 'Select Parent';
+
+  @override
+  String get confirmDeletion => 'Confirm Deletion';
+
+  @override
+  String get confirmDeleteMessage => 'Are you sure you want to delete this item?';
+
+  @override
+  String get deleteFailed => 'Delete Failed';
+
+  @override
+  String get addNewGovernorate => 'Add New Governorate';
+
+  @override
+  String get editGovernorate => 'Edit Governorate';
+
+  @override
+  String get addNewCity => 'Add New City';
+
+  @override
+  String get editCity => 'Edit City';
+
+  @override
+  String get addNewRegion => 'Add New Region';
+
+  @override
+  String get editRegion => 'Edit Region';
+
+  @override
   String get currencies => 'Currencies';
 
   @override
@@ -553,6 +583,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get actions => 'Actions';
 
   @override
+  String get baseCurrency => 'Base Currency';
+
+  @override
   String get taxSettings => 'Tax Settings';
 
   @override
@@ -617,6 +650,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get zeroTax => 'Zero Tax';
+
+  @override
+  String get calculationMethod => 'Calculation Method';
 
   @override
   String get accounting => 'Accounting';
@@ -698,4 +734,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add => 'Add';
+
+  @override
+  String get confirmReset => 'Confirm Reset';
+
+  @override
+  String get confirmResetMessage => 'Are you sure you want to reset all general parameters to their default values? This action cannot be undone.';
+
+  @override
+  String get reset => 'Reset';
 }

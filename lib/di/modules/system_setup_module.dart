@@ -26,9 +26,12 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/geographic
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/tax_repository.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
-
 import 'auth_module.dart';
 
+// General Parameters
+final generalParametersLocalDataSourceProvider = Provider<GeneralParametersLocalDataSource>(
+  (ref) => GeneralParametersLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+);
 final generalParametersRepositoryProvider = Provider<GeneralParametersRepository>(
   (ref) => GeneralParametersRepositoryImpl(
     ref.watch(generalParametersLocalDataSourceProvider),
@@ -36,11 +39,10 @@ final generalParametersRepositoryProvider = Provider<GeneralParametersRepository
   ),
 );
 
-final generalParametersLocalDataSourceProvider =
-    Provider<GeneralParametersLocalDataSource>(
-  (ref) => GeneralParametersLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Company Info
+final companyInfoLocalDataSourceProvider = Provider<CompanyInfoLocalDataSource>(
+  (ref) => CompanyInfoLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-
 final companyInfoRepositoryProvider = Provider<CompanyInfoRepository>(
   (ref) => CompanyInfoRepositoryImpl(
     ref.watch(companyInfoLocalDataSourceProvider),
@@ -48,10 +50,10 @@ final companyInfoRepositoryProvider = Provider<CompanyInfoRepository>(
   ),
 );
 
-final companyInfoLocalDataSourceProvider = Provider<CompanyInfoLocalDataSource>(
-  (ref) => CompanyInfoLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Branches
+final branchesLocalDataSourceProvider = Provider<BranchesLocalDataSource>(
+  (ref) => BranchesLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-
 final branchesRepositoryProvider = Provider<BranchesRepository>(
   (ref) => BranchesRepositoryImpl(
     localDataSource: ref.watch(branchesLocalDataSourceProvider),
@@ -59,10 +61,10 @@ final branchesRepositoryProvider = Provider<BranchesRepository>(
   ),
 );
 
-final branchesLocalDataSourceProvider = Provider<BranchesLocalDataSource>(
-  (ref) => BranchesLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Geographical Data
+final geographicalDataLocalDataSourceProvider = Provider<GeographicalDataLocalDataSource>(
+  (ref) => GeographicalDataLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-
 final geographicalDataRepositoryProvider = Provider<GeographicalDataRepository>(
   (ref) => GeographicalDataRepositoryImpl(
     ref.watch(geographicalDataLocalDataSourceProvider),
@@ -70,43 +72,44 @@ final geographicalDataRepositoryProvider = Provider<GeographicalDataRepository>(
   ),
 );
 
-final geographicalDataLocalDataSourceProvider =
-    Provider<GeographicalDataLocalDataSource>(
-  (ref) => GeographicalDataLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Currencies
+final currenciesLocalDataSourceProvider = Provider<CurrenciesLocalDataSource>(
+  (ref) => CurrenciesLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-
 final currenciesRepositoryProvider = Provider<CurrenciesRepository>(
   (ref) => CurrenciesRepositoryImpl(
     ref.watch(currenciesLocalDataSourceProvider),
   ),
 );
 
-final currenciesLocalDataSourceProvider = Provider<CurrenciesLocalDataSource>(
-  (ref) => CurrenciesLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Tax
+final taxLocalDataSourceProvider = Provider<TaxLocalDataSource>(
+  (ref) => TaxLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-
 final taxRepositoryProvider = Provider<TaxRepository>(
   (ref) => TaxRepositoryImpl(
     ref.watch(taxLocalDataSourceProvider),
   ),
 );
 
-final taxLocalDataSourceProvider = Provider<TaxLocalDataSource>(
-  (ref) => TaxLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
+// Chart of Accounts (COA)
+final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
+  (ref) => CoaLocalDataSourceImpl(
+    database: ref.watch(appDatabaseProvider),
+  ),
 );
-
 final coaRepositoryProvider = Provider<CoaRepository>(
   (ref) => CoaRepositoryImpl(
     ref.watch(appDatabaseProvider),
   ),
 );
 
-final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
-  (ref) => CoaLocalDataSourceImpl(
+// User Management
+final userManagementLocalDataSourceProvider = Provider<UserManagementLocalDataSource>(
+  (ref) => UserManagementLocalDataSourceImpl(
     database: ref.watch(appDatabaseProvider),
   ),
 );
-
 final userManagementRepositoryProvider = Provider<UserManagementRepository>(
   (ref) => UserManagementRepositoryImpl(
     database: ref.watch(appDatabaseProvider),
@@ -114,13 +117,7 @@ final userManagementRepositoryProvider = Provider<UserManagementRepository>(
   ),
 );
 
-final userManagementLocalDataSourceProvider =
-    Provider<UserManagementLocalDataSource>(
-  (ref) => UserManagementLocalDataSourceImpl(
-    database: ref.watch(appDatabaseProvider),
-  ),
-);
-
+// Role Management
 final roleManagementRepositoryProvider = Provider<RoleManagementRepository>(
   (ref) => RoleManagementRepositoryImpl(ref.watch(appDatabaseProvider)),
 );

@@ -1019,6 +1019,66 @@ abstract class AppLocalizations {
   /// **'Select a country to view its governorates.'**
   String get selectCountryPrompt;
 
+  /// No description provided for @selectParentPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Parent'**
+  String get selectParentPrompt;
+
+  /// No description provided for @confirmDeletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deletion'**
+  String get confirmDeletion;
+
+  /// No description provided for @confirmDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this item?'**
+  String get confirmDeleteMessage;
+
+  /// No description provided for @deleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Failed'**
+  String get deleteFailed;
+
+  /// No description provided for @addNewGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Governorate'**
+  String get addNewGovernorate;
+
+  /// No description provided for @editGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Governorate'**
+  String get editGovernorate;
+
+  /// No description provided for @addNewCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New City'**
+  String get addNewCity;
+
+  /// No description provided for @editCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit City'**
+  String get editCity;
+
+  /// No description provided for @addNewRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Region'**
+  String get addNewRegion;
+
+  /// No description provided for @editRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Region'**
+  String get editRegion;
+
   /// No description provided for @currencies.
   ///
   /// In en, this message translates to:
@@ -1175,6 +1235,12 @@ abstract class AppLocalizations {
   /// **'Actions'**
   String get actions;
 
+  /// No description provided for @baseCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Currency'**
+  String get baseCurrency;
+
   /// No description provided for @taxSettings.
   ///
   /// In en, this message translates to:
@@ -1306,6 +1372,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Zero Tax'**
   String get zeroTax;
+
+  /// No description provided for @calculationMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation Method'**
+  String get calculationMethod;
 
   /// No description provided for @accounting.
   ///
@@ -1468,6 +1540,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add'**
   String get add;
+
+  /// No description provided for @confirmReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Reset'**
+  String get confirmReset;
+
+  /// No description provided for @confirmResetMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to reset all general parameters to their default values? This action cannot be undone.'**
+  String get confirmResetMessage;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
