@@ -110,9 +110,9 @@ class TaxTypesView extends ConsumerWidget {
                         purchasesAccountId: purchasesAccountId,
                       );
                       if (typeToEdit == null) {
-                        ref.read(taxTypesProvider.notifier).addType(newType);
+                        ref.read(taxTypesProvider.notifier).addTaxType(newType);
                       } else {
-                        ref.read(taxTypesProvider.notifier).updateType(newType);
+                        ref.read(taxTypesProvider.notifier).updateTaxType(newType);
                       }
                       Navigator.of(context).pop();
                     }

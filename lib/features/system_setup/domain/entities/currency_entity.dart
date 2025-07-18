@@ -29,6 +29,36 @@ class CurrencyEntity extends Equatable {
     this.denominations = const [],
   });
 
+  CurrencyEntity copyWith({
+    String? currencyCode,
+    String? nameAr,
+    String? nameEn,
+    String? fractionNameAr,
+    String? fractionNameEn,
+    double? exchangeRate,
+    bool? isBaseCurrency,
+    int? decimalPlaces,
+    double? minRateLimit,
+    double? maxRateLimit,
+    bool? isActive,
+    List<CurrencyDenominationEntity>? denominations,
+  }) {
+    return CurrencyEntity(
+      currencyCode: currencyCode ?? this.currencyCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      fractionNameAr: fractionNameAr ?? this.fractionNameAr,
+      fractionNameEn: fractionNameEn ?? this.fractionNameEn,
+      exchangeRate: exchangeRate ?? this.exchangeRate,
+      isBaseCurrency: isBaseCurrency ?? this.isBaseCurrency,
+      decimalPlaces: decimalPlaces ?? this.decimalPlaces,
+      minRateLimit: minRateLimit ?? this.minRateLimit,
+      maxRateLimit: maxRateLimit ?? this.maxRateLimit,
+      isActive: isActive ?? this.isActive,
+      denominations: denominations ?? this.denominations,
+    );
+  }
+
   @override
   List<Object?> get props => [
         currencyCode,

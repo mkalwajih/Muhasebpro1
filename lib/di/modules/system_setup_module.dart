@@ -1,6 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod';
 import 'package:muhaseb_pro/di/database_provider.dart';
-import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/branches_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/coa_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/company_info_local_datasource.dart';
@@ -98,21 +97,20 @@ final taxLocalDataSourceProvider = Provider<TaxLocalDataSource>(
 
 final coaRepositoryProvider = Provider<CoaRepository>(
   (ref) => CoaRepositoryImpl(
-    ref.watch(coaLocalDataSourceProvider),
+    ref.watch(appDatabaseProvider),
   ),
 );
 
 final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
   (ref) => CoaLocalDataSourceImpl(
     database: ref.watch(appDatabaseProvider),
-    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
   ),
 );
 
 final userManagementRepositoryProvider = Provider<UserManagementRepository>(
   (ref) => UserManagementRepositoryImpl(
-    ref.watch(userManagementLocalDataSourceProvider),
-    ref.watch(appDatabaseProvider),
+    database: ref.watch(appDatabaseProvider),
+    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
   ),
 );
 
@@ -120,7 +118,6 @@ final userManagementLocalDataSourceProvider =
     Provider<UserManagementLocalDataSource>(
   (ref) => UserManagementLocalDataSourceImpl(
     database: ref.watch(appDatabaseProvider),
-    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
   ),
 );
 

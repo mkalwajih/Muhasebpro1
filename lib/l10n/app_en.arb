@@ -166,6 +166,16 @@
     "nationalityAr": "Nationality (Arabic)",
     "nationalityEn": "Nationality (English)",
     "selectCountryPrompt": "Select a country to view its governorates.",
+    "selectParentPrompt": "Select Parent",
+    "confirmDeletion": "Confirm Deletion",
+    "confirmDeleteMessage": "Are you sure you want to delete this item?",
+    "deleteFailed": "Delete Failed",
+    "addNewGovernorate": "Add New Governorate",
+    "editGovernorate": "Edit Governorate",
+    "addNewCity": "Add New City",
+    "editCity": "Edit City",
+    "addNewRegion": "Add New Region",
+    "editRegion": "Edit Region",
 
     "currencies": "Currencies",
     "addNewCurrency": "Add New Currency",
@@ -193,6 +203,7 @@
     "value": "Value",
     "type": "Type",
     "actions": "Actions",
+    "baseCurrency": "Base Currency",
 
     "taxSettings": "Tax Settings",
     "taxBrackets": "Tax Brackets",
@@ -216,6 +227,7 @@
     "taxable": "Taxable",
     "exempted": "Exempted",
     "zeroTax": "Zero Tax",
+    "calculationMethod": "Calculation Method",
 
     "accounting": "Accounting",
     "security": "Security",
@@ -244,5 +256,8 @@
     "code": "Code",
     "nameEn": "Name (English)",
     "nameAr": "Name (Arabic)",
-    "add": "Add"
+    "add": "Add",
+    "confirmReset": "Confirm Reset",
+    "confirmResetMessage": "Are you sure you want to reset all general parameters to their default values? This action cannot be undone.",
+    "reset": "Reset"
 }

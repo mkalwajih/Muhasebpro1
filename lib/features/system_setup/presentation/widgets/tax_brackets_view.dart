@@ -87,9 +87,9 @@ class TaxBracketsView extends ConsumerWidget {
                     isDefault: isDefault,
                   );
                   if (bracketToEdit == null) {
-                    ref.read(taxBracketsProvider.notifier).addBracket(newBracket);
+                    ref.read(taxBracketsProvider.notifier).addTaxBracket(newBracket);
                   } else {
-                    ref.read(taxBracketsProvider.notifier).updateBracket(newBracket);
+                    ref.read(taxBracketsProvider.notifier).updateTaxBracket(newBracket);
                   }
                   Navigator.of(context).pop();
                 }
