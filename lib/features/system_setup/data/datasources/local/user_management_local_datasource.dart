@@ -20,7 +20,7 @@ class UserManagementLocalDataSourceImpl implements UserManagementLocalDataSource
 
   @override
   Future<void> addUser(UsersCompanion user) async {
-    await database.into(.users).insert(user);
+    await database.into(database.users).insert(user);
   }
 
   @override

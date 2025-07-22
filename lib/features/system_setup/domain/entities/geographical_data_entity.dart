@@ -13,6 +13,22 @@ abstract class GeoEntity {
     required this.nameEn,
     required this.isActive,
   });
+
+  int? get parentId {
+    if (this is CountryEntity) {
+      return (this as CountryEntity).zoneId;
+    }
+    if (this is GovernorateEntity) {
+      return (this as GovernorateEntity).countryId;
+    }
+    if (this is CityEntity) {
+      return (this as CityEntity).govId;
+    }
+    if (this is RegionEntity) {
+      return (this as RegionEntity).cityId;
+    }
+    return null;
+  }
 }
 
 class ZoneEntity extends GeoEntity {
