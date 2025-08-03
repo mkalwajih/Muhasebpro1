@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';

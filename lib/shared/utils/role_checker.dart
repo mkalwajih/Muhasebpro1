@@ -14,12 +14,12 @@ class RoleChecker {
     }
 
     // A super admin (e.g., username 'admin') has all permissions
-    if (_user!.username == 'admin') {
+    if (_user.username == 'admin') {
       return true;
     }
 
     // Check if any of the user's roles contain the required permission
-    for (final role in _user!.roles) {
+    for (final role in _user.roles) {
       if (role.permissions.contains(permission)) {
         return true;
       }
@@ -33,7 +33,7 @@ class RoleChecker {
       return false;
     }
     
-    if (_user!.username == 'admin') {
+    if (_user.username == 'admin') {
       return true;
     }
 

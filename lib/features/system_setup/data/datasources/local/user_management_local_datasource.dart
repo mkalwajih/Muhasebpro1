@@ -1,5 +1,4 @@
 
-import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 

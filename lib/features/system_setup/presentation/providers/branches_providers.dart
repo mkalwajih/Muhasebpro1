@@ -38,7 +38,7 @@ class BranchesNotifier extends StateNotifier<AsyncValue<List<BranchEntity>>> {
 
   Future<void> fetchBranches({bool includeInactive = false}) async {
     state = const AsyncValue.loading();
-    final result = await _getAllBranches(NoParams());
+    final result = await _getAllBranches(const NoParams());
     result.fold(
       (failure) => state = AsyncValue.error(failure, StackTrace.current),
       (branches) => state = AsyncValue.data(branches),

@@ -96,6 +96,7 @@ final taxRepositoryProvider = Provider<TaxRepository>(
 final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
   (ref) => CoaLocalDataSourceImpl(
     database: ref.watch(appDatabaseProvider),
+    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
   ),
 );
 final coaRepositoryProvider = Provider<CoaRepository>(

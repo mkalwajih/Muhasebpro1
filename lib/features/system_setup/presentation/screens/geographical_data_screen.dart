@@ -264,6 +264,8 @@ class _GeoColumn extends ConsumerWidget {
     String nameEn = '';
     bool isActive = itemToEdit?.isActive ?? true;
 
+    final CountryEntity? countryItemToEdit = itemToEdit is CountryEntity ? itemToEdit : null;
+
     if (itemToEdit != null) {
         code = itemToEdit.code;
         nameAr = itemToEdit.nameAr;
@@ -350,7 +352,7 @@ class _GeoColumn extends ConsumerWidget {
                         }
                         break;
                       case GeoLevel.country:
-                        entity = CountryEntity(id: currentId, countryCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, nationalityAr: (itemToEdit as CountryEntity?)?.nationalityAr ?? '', nationalityEn: (itemToEdit as CountryEntity?)?.nationalityEn ?? '', zoneId: pId!, isActive: isActive);
+                        entity = CountryEntity(id: currentId, countryCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, nationalityAr: countryItemToEdit?.nationalityAr ?? '', nationalityEn: countryItemToEdit?.nationalityEn ?? '', zoneId: pId!, isActive: isActive);
                         if (itemToEdit == null) {
                           await ref.read(countriesProvider(pId).notifier).addCountry(entity as CountryEntity);
                         } else {
