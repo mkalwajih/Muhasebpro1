@@ -2,8 +2,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 
 class CompanyInfoScreen extends ConsumerStatefulWidget {
@@ -15,9 +17,9 @@ class CompanyInfoScreen extends ConsumerStatefulWidget {
 
 class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _picker = ImagePicker();
   bool _isLoading = false;
 
-  // Controllers for the new entity structure
   late final TextEditingController _companyCodeController;
   late final TextEditingController _nameArController;
   late final TextEditingController _nameEnController;
@@ -27,11 +29,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   late final TextEditingController _taxController;
   late final TextEditingController _regController;
   late final TextEditingController _remarksController;
+  
   bool _isMainCompany = false;
-  // Placeholder for logo and country
   Uint8List? _logo;
-  String? _countryId;
-  int _companyId = 1; // Defaulting to 1 for now as per old logic
+  int? _countryId; 
+  int _companyId = 1;
 
   @override
   void initState() {
@@ -45,6 +47,12 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     _taxController = TextEditingController();
     _regController = TextEditingController();
     _remarksController = TextEditingController();
+
+    // Initial load
+    final initialData = ref.read(companyInfoProvider).asData?.value;
+    if (initialData != null) {
+      _updateControllers(initialData);
+    }
   }
 
   @override
@@ -76,7 +84,17 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
       setState(() {
         _isMainCompany = info.isMainCompany;
         _logo = info.logo;
-        _countryId = info.countryId;
+        _countryId = int.tryParse(info.countryId ?? '');
+      });
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxWidth: 512);
+    if (pickedFile != null) {
+      final bytes = await pickedFile.readAsBytes();
+      setState(() {
+        _logo = bytes;
       });
     }
   }
@@ -99,7 +117,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
           remarks: _remarksController.text,
           isMainCompany: _isMainCompany,
           logo: _logo,
-          countryId: _countryId,
+          countryId: _countryId?.toString(),
         );
         await ref.read(companyInfoProvider.notifier).saveCompanyInfo(newInfo);
         if (mounted) {
@@ -123,6 +141,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final companyInfoAsync = ref.watch(companyInfoProvider);
+    final allCountriesAsync = ref.watch(countriesProvider(0)); // Dummy parent ID to get all countries
 
     ref.listen<AsyncValue<CompanyInfoEntity?>>(companyInfoProvider, (_, state) {
       state.whenData((info) => _updateControllers(info));
@@ -140,29 +159,75 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
           child: ListView(
             padding: const EdgeInsets.all(16.0),
             children: [
-              // TODO: Add logo picker widget
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                    backgroundImage: _logo != null ? MemoryImage(_logo!) : null,
+                    child: _logo == null ? const Icon(Iconsax.building, size: 40) : null,
+                  ),
+                  const SizedBox(width: 16),
+                  ElevatedButton.icon(
+                    onPressed: _pickImage,
+                    icon: const Icon(Iconsax.image),
+                    label: Text(l10n.uploadLogo),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
               TextFormField(
                 controller: _companyCodeController,
-                decoration: const InputDecoration(labelText: 'Company Code'), // Add to l10n
-                validator: (val) => val!.isEmpty ? 'Required' : null,
+                decoration: InputDecoration(labelText: l10n.companyCode),
+                validator: (val) => val!.isEmpty ? l10n.requiredField : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.companyNameAr),
-                validator: (val) => val!.isEmpty ? 'Required' : null,
+                validator: (val) => val!.isEmpty ? l10n.requiredField : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _nameEnController,
                 decoration: InputDecoration(labelText: l10n.companyNameEn),
-                validator: (val) => val!.isEmpty ? 'Required' : null,
+                validator: (val) => val!.isEmpty ? l10n.requiredField : null,
               ),
                const SizedBox(height: 16),
-              // TODO: Add country dropdown
+              allCountriesAsync.when(
+                data: (countries) => DropdownButtonFormField<int>(
+                  value: _countryId,
+                  decoration: InputDecoration(labelText: l10n.country),
+                  items: countries.map((country) => DropdownMenuItem(
+                    value: country.id,
+                    child: Text(l10n.localeName == 'ar' ? country.nameAr : country.nameEn),
+                  )).toList(),
+                  onChanged: (value) => setState(() => _countryId = value),
+                  validator: (value) => value == null ? l10n.requiredField : null,
+                ),
+                loading: () => const Center(child: CircularProgressIndicator()),
+                error: (e, st) => Text('Could not load countries: $e'),
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _taxController,
+                decoration: InputDecoration(labelText: l10n.taxNumber),
+                validator: (value) {
+                  // TODO: Implement country-specific tax validation
+                  if (value == null || value.isEmpty) return l10n.requiredField;
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _regController,
+                decoration: InputDecoration(labelText: l10n.commercialRegNo),
+              ),
+               const SizedBox(height: 16),
               TextFormField(
                 controller: _addressController,
-                decoration: const InputDecoration(labelText: 'Address'), // Add to l10n
+                decoration: InputDecoration(labelText: l10n.address),
               ),
               const SizedBox(height: 16),
               TextFormField(
@@ -175,29 +240,15 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 decoration: InputDecoration(labelText: l10n.email),
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                controller: _taxController,
-                decoration: InputDecoration(labelText: l10n.taxNumber),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _regController,
-                decoration: InputDecoration(labelText: l10n.commercialRegNo),
-              ),
-              const SizedBox(height: 16),
                TextFormField(
                 controller: _remarksController,
-                decoration: const InputDecoration(labelText: 'Remarks'), // Add to l10n
+                decoration: InputDecoration(labelText: l10n.remarks),
               ),
               const SizedBox(height: 16),
               CheckboxListTile(
-                title: const Text('Is Main Company'), // Add to l10n
+                title: Text(l10n.mainCompany),
                 value: _isMainCompany,
-                onChanged: (bool? value) {
-                  setState(() {
-                    _isMainCompany = value ?? false;
-                  });
-                },
+                onChanged: (bool? value) => setState(() => _isMainCompany = value ?? false),
               ),
               const SizedBox(height: 32),
               ElevatedButton(

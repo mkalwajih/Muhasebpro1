@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/user_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_user_dialog.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
@@ -10,6 +11,7 @@ class UserManagementScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final usersAsync = ref.watch(userManagementProvider);
+    final branchesAsync = ref.watch(branchesProvider);
     final l10n = AppLocalizations.of(context)!;
     final locale = l10n.localeName;
 
@@ -23,6 +25,8 @@ class UserManagementScreen extends ConsumerWidget {
             itemCount: users.length,
             itemBuilder: (context, index) {
               final user = users[index];
+              final branch = branchesAsync.asData?.value.firstWhere((b) => b.id == user.branchId, orElse: () => null);
+              
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: ListTile(
@@ -31,6 +35,14 @@ class UserManagementScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(locale == 'ar' ? user.fullNameAr : user.fullNameEn),
+                       if (branch != null)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            '${l10n.branch}: ${locale == 'ar' ? branch.nameAr : branch.nameEn}',
+                            style: Theme.of(context).textTheme.bodySmall,
+                          ),
+                        ),
                       if (user.roles.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),

@@ -1,11 +1,32 @@
 import 'package:equatable/equatable.dart';
 
-class BranchGroup extends Equatable {
+class BranchGroupEntity extends Equatable {
   final int id;
-  final String name;
+  final String nameAr;
+  final String nameEn;
+  final bool isActive;
 
-  const BranchGroup({required this.id, required this.name});
+  const BranchGroupEntity({
+    required this.id,
+    required this.nameAr,
+    required this.nameEn,
+    required this.isActive,
+  });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, nameAr, nameEn, isActive];
+
+  BranchGroupEntity copyWith({
+    int? id,
+    String? nameAr,
+    String? nameEn,
+    bool? isActive,
+  }) {
+    return BranchGroupEntity(
+      id: id ?? this.id,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      isActive: isActive ?? this.isActive,
+    );
+  }
 }

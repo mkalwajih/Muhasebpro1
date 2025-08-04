@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/geographical_data_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
 class GeographicalDataScreen extends ConsumerStatefulWidget {
   const GeographicalDataScreen({super.key});
@@ -109,7 +110,7 @@ class _GeographicalDataScreenState extends ConsumerState<GeographicalDataScreen>
 class _GeoColumn extends ConsumerWidget {
   final GeoLevel level;
   final String title;
-  final dynamic provider; // Can be null now
+  final dynamic provider;
   final GeoEntity? selectedItem;
   final int? parentId;
   final Function(GeoEntity) onTap;
@@ -126,28 +127,13 @@ class _GeoColumn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    
-    // Disable adding if the parent isn't selected
     final canAdd = (level == GeoLevel.zone) || (parentId != null);
 
     if (provider == null) {
       return Expanded(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title, style: Theme.of(context).textTheme.titleLarge),
-                  IconButton(
-                    icon: const Icon(Icons.add_circle_outline),
-                    onPressed: null, // Disabled
-                    tooltip: l10n.selectParentPrompt,
-                  ),
-                ],
-              ),
-            ),
+            _buildHeader(context, l10n, canAdd, ref),
             Expanded(
               child: Center(child: Text(l10n.selectParentPrompt, textAlign: TextAlign.center))
             ),
@@ -161,20 +147,7 @@ class _GeoColumn extends ConsumerWidget {
     return Expanded(
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title, style: Theme.of(context).textTheme.titleLarge),
-                IconButton(
-                  icon: const Icon(Icons.add_circle_outline),
-                  onPressed: canAdd ? () => _showAddEditGeoDialog(context, ref, level: level, parentId: parentId) : null,
-                  tooltip: canAdd ? l10n.addNew : l10n.selectParentPrompt,
-                ),
-              ],
-            ),
-          ),
+          _buildHeader(context, l10n, canAdd, ref),
           Expanded(
             child: asyncValue.when(
               data: (items) => ListView.builder(
@@ -195,8 +168,8 @@ class _GeoColumn extends ConsumerWidget {
                           onPressed: () => _showAddEditGeoDialog(context, ref, level: level, itemToEdit: item, parentId: item.parentId),
                         ),
                         IconButton(
-                          icon: const Icon(Icons.delete, size: 18),
-                          onPressed: () => _confirmDelete(context, ref, item, level),
+                          icon: Icon(Icons.delete, size: 18, color: Theme.of(context).colorScheme.error),
+                          onPressed: () => _confirmDelete(context, ref, item),
                         ),
                       ],
                     ),
@@ -212,7 +185,24 @@ class _GeoColumn extends ConsumerWidget {
     );
   }
 
-  Future<void> _confirmDelete(BuildContext context, WidgetRef ref, GeoEntity item, GeoLevel level) async {
+  Widget _buildHeader(BuildContext context, AppLocalizations l10n, bool canAdd, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: Theme.of(context).textTheme.titleLarge),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline),
+            onPressed: canAdd ? () => _showAddEditGeoDialog(context, ref, level: level, parentId: parentId) : null,
+            tooltip: canAdd ? l10n.addNew : l10n.selectParentPrompt,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _confirmDelete(BuildContext context, WidgetRef ref, GeoEntity item) async {
     final l10n = AppLocalizations.of(context)!;
     final confirm = await showDialog<bool>(
       context: context,
@@ -221,36 +211,51 @@ class _GeoColumn extends ConsumerWidget {
         content: Text(l10n.confirmDeleteMessage),
         actions: [
           TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
-          TextButton(onPressed: () => Navigator.of(context).pop(true), child: Text(l10n.delete)),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
+            child: Text(l10n.delete),
+          ),
         ],
       ),
     );
 
-    if (confirm == true) {
-      try {
-        switch(level) {
-          case GeoLevel.zone:
-            await ref.read(zonesProvider.notifier).deleteZone(item.id);
-            break;
-          case GeoLevel.country:
-             await ref.read(countriesProvider(item.parentId!).notifier).deleteCountry(item.id);
-            break;
-          case GeoLevel.governorate:
-             await ref.read(governoratesProvider(item.parentId!).notifier).deleteGovernorate(item.id);
-            break;
-          case GeoLevel.city:
-             await ref.read(citiesProvider(item.parentId!).notifier).deleteCity(item.id);
-            break;
-          case GeoLevel.region:
-             await ref.read(regionsProvider(item.parentId!).notifier).deleteRegion(item.id);
-            break;
-        }
-      } catch (e) {
-        if (!context.mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.toString())),
-        );
+    if (confirm != true) return;
+
+    try {
+      switch(level) {
+        case GeoLevel.zone:
+          await ref.read(zonesProvider.notifier).deleteZone(item.id);
+          break;
+        case GeoLevel.country:
+           await ref.read(countriesProvider(item.parentId!).notifier).deleteCountry(item.id);
+          break;
+        case GeoLevel.governorate:
+           await ref.read(governoratesProvider(item.parentId!).notifier).deleteGovernorate(item.id);
+          break;
+        case GeoLevel.city:
+           await ref.read(citiesProvider(item.parentId!).notifier).deleteCity(item.id);
+          break;
+        case GeoLevel.region:
+           await ref.read(regionsProvider(item.parentId!).notifier).deleteRegion(item.id);
+          break;
       }
+    } on DataIntegrityException catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.message ?? 'This item cannot be deleted as it is in use.'), // Fallback message
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${l10n.deleteFailed}: ${e.toString()}'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
     }
   }
 
@@ -258,50 +263,30 @@ class _GeoColumn extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final formKey = GlobalKey<FormState>();
 
-    String title;
-    String code = '';
-    String nameAr = '';
-    String nameEn = '';
+    final countryItemToEdit = itemToEdit is CountryEntity ? itemToEdit : null;
+
+    final codeController = TextEditingController(text: itemToEdit?.code ?? '');
+    final nameArController = TextEditingController(text: itemToEdit?.nameAr ?? '');
+    final nameEnController = TextEditingController(text: itemToEdit?.nameEn ?? '');
+    final nationalityArController = TextEditingController(text: countryItemToEdit?.nationalityAr ?? '');
+    final nationalityEnController = TextEditingController(text: countryItemToEdit?.nationalityEn ?? '');
+    
     bool isActive = itemToEdit?.isActive ?? true;
 
-    final CountryEntity? countryItemToEdit = itemToEdit is CountryEntity ? itemToEdit : null;
-
-    if (itemToEdit != null) {
-        code = itemToEdit.code;
-        nameAr = itemToEdit.nameAr;
-        nameEn = itemToEdit.nameEn;
-        // The parentId for an existing item should come from the item itself
-        parentId = itemToEdit.parentId;
-    }
-
-    switch (level) {
-      case GeoLevel.zone:
-        title = itemToEdit == null ? l10n.addNewZone : l10n.editZone;
-        break;
-      case GeoLevel.country:
-        title = itemToEdit == null ? l10n.addNewCountry : l10n.editCountry;
-        break;
-      case GeoLevel.governorate:
-        title = itemToEdit == null ? l10n.addNewGovernorate : l10n.editGovernorate;
-        break;
-      case GeoLevel.city:
-        title = itemToEdit == null ? l10n.addNewCity : l10n.editCity;
-        break;
-      case GeoLevel.region:
-        title = itemToEdit == null ? l10n.addNewRegion : l10n.editRegion;
-        break;
-    }
-  
-    final codeController = TextEditingController(text: code);
-    final nameArController = TextEditingController(text: nameAr);
-    final nameEnController = TextEditingController(text: nameEn);
+    final String title = switch(level) {
+      GeoLevel.zone => itemToEdit == null ? l10n.addNewZone : l10n.editZone,
+      GeoLevel.country => itemToEdit == null ? l10n.addNewCountry : l10n.editCountry,
+      GeoLevel.governorate => itemToEdit == null ? l10n.addNewGovernorate : l10n.editGovernorate,
+      GeoLevel.city => itemToEdit == null ? l10n.addNewCity : l10n.editCity,
+      GeoLevel.region => itemToEdit == null ? l10n.addNewRegion : l10n.editRegion,
+    };
   
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: Text(title),
-          content: StatefulBuilder( // Use StatefulBuilder to manage the switch's state
+          content: StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Form(
                 key: formKey,
@@ -310,16 +295,22 @@ class _GeoColumn extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(controller: codeController, decoration: InputDecoration(labelText: l10n.code), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      const SizedBox(height: 8),
                       TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      const SizedBox(height: 8),
                       TextFormField(controller: nameEnController, decoration: InputDecoration(labelText: l10n.nameEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      if (level == GeoLevel.country) ...[
+                        const SizedBox(height: 8),
+                        TextFormField(controller: nationalityArController, decoration: InputDecoration(labelText: l10n.nationalityAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                        const SizedBox(height: 8),
+                        TextFormField(controller: nationalityEnController, decoration: InputDecoration(labelText: l10n.nationalityEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      ],
+                      const SizedBox(height: 8),
                       SwitchListTile(
                         title: Text(l10n.active),
                         value: isActive,
-                        onChanged: (val) {
-                          setState(() { // This will now update the dialog's UI
-                            isActive = val;
-                          });
-                        },
+                        contentPadding: EdgeInsets.zero,
+                        onChanged: (val) => setState(() => isActive = val),
                       )
                     ],
                   ),
@@ -331,63 +322,49 @@ class _GeoColumn extends ConsumerWidget {
             TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
             ElevatedButton(
               onPressed: () async {
-                if (formKey.currentState!.validate()) {
-                  GeoEntity entity;
-                  final currentId = itemToEdit?.id ?? 0;
-                  final pId = parentId; // Use a local variable for the parentId
+                if (!formKey.currentState!.validate()) return;
+                
+                final currentId = itemToEdit?.id ?? 0;
+                final pId = itemToEdit?.parentId ?? parentId;
 
-                  if (pId == null && level != GeoLevel.zone) {
-                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.selectParentPrompt)));
-                     return;
-                  }
+                if (pId == null && level != GeoLevel.zone) {
+                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.selectParentPrompt)));
+                   return;
+                }
 
-                  try {
-                    switch (level) {
-                      case GeoLevel.zone:
-                        entity = ZoneEntity(id: currentId, zoneCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, isActive: isActive);
-                        if (itemToEdit == null) {
-                          await ref.read(zonesProvider.notifier).addZone(entity as ZoneEntity);
-                        } else {
-                          await ref.read(zonesProvider.notifier).updateZone(entity as ZoneEntity);
-                        }
-                        break;
-                      case GeoLevel.country:
-                        entity = CountryEntity(id: currentId, countryCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, nationalityAr: countryItemToEdit?.nationalityAr ?? '', nationalityEn: countryItemToEdit?.nationalityEn ?? '', zoneId: pId!, isActive: isActive);
-                        if (itemToEdit == null) {
-                          await ref.read(countriesProvider(pId).notifier).addCountry(entity as CountryEntity);
-                        } else {
-                          await ref.read(countriesProvider(pId).notifier).updateCountry(entity as CountryEntity);
-                        }
-                        break;
+                try {
+                  switch (level) {
+                    case GeoLevel.zone:
+                      final entity = ZoneEntity(id: currentId, zoneCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, isActive: isActive);
+                      final notifier = ref.read(zonesProvider.notifier);
+                      itemToEdit == null ? await notifier.addZone(entity) : await notifier.updateZone(entity);
+                      break;
+                    case GeoLevel.country:
+                      final entity = CountryEntity(id: currentId, countryCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, nationalityAr: nationalityArController.text, nationalityEn: nationalityEnController.text, zoneId: pId!, isActive: isActive);
+                      final notifier = ref.read(countriesProvider(pId).notifier);
+                      itemToEdit == null ? await notifier.addCountry(entity) : await notifier.updateCountry(entity);
+                      break;
                     case GeoLevel.governorate:
-                        entity = GovernorateEntity(id: currentId, govCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, countryId: pId!, isActive: isActive);
-                        if (itemToEdit == null) {
-                          await ref.read(governoratesProvider(pId).notifier).addGovernorate(entity as GovernorateEntity);
-                        } else {
-                          await ref.read(governoratesProvider(pId).notifier).updateGovernorate(entity as GovernorateEntity);
-                        }
-                        break;
+                      final entity = GovernorateEntity(id: currentId, govCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, countryId: pId!, isActive: isActive);
+                      final notifier = ref.read(governoratesProvider(pId).notifier);
+                      itemToEdit == null ? await notifier.addGovernorate(entity) : await notifier.updateGovernorate(entity);
+                      break;
                     case GeoLevel.city:
-                        entity = CityEntity(id: currentId, cityCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, govId: pId!, isActive: isActive);
-                         if (itemToEdit == null) {
-                          await ref.read(citiesProvider(pId).notifier).addCity(entity as CityEntity);
-                        } else {
-                          await ref.read(citiesProvider(pId).notifier).updateCity(entity as CityEntity);
-                        }
-                        break;
+                      final entity = CityEntity(id: currentId, cityCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, govId: pId!, isActive: isActive);
+                      final notifier = ref.read(citiesProvider(pId).notifier);
+                       itemToEdit == null ? await notifier.addCity(entity) : await notifier.updateCity(entity);
+                      break;
                     case GeoLevel.region:
-                        entity = RegionEntity(id: currentId, regionCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, cityId: pId!, isActive: isActive);
-                        if (itemToEdit == null) {
-                          await ref.read(regionsProvider(pId).notifier).addRegion(entity as RegionEntity);
-                        } else {
-                          await ref.read(regionsProvider(pId).notifier).updateRegion(entity as RegionEntity);
-                        }
-                        break;
-                    }
-                    if (context.mounted) Navigator.of(context).pop();
-                  } catch (e) {
-                     if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+                      final entity = RegionEntity(id: currentId, regionCode: codeController.text, nameAr: nameArController.text, nameEn: nameEnController.text, cityId: pId!, isActive: isActive);
+                      final notifier = ref.read(regionsProvider(pId).notifier);
+                      itemToEdit == null ? await notifier.addRegion(entity) : await notifier.updateRegion(entity);
+                      break;
                   }
+                  if (context.mounted) Navigator.of(context).pop();
+                } on DataIntegrityException catch(e) {
+                   if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message ?? 'A record with this code already exists.'), backgroundColor: Theme.of(context).colorScheme.error));
+                } catch (e) {
+                   if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString()), backgroundColor: Theme.of(context).colorScheme.error));
                 }
               },
               child: Text(l10n.save),

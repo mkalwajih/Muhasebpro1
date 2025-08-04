@@ -1,11 +1,19 @@
 -- lib/core/db/schemas/auth_schema.drift
 
 CREATE TABLE users (
-  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-  username TEXT NOT NULL UNIQUE,
-  password_hash TEXT NOT NULL,
-  full_name_ar TEXT NOT NULL,
-  full_name_en TEXT NOT NULL,
-  email TEXT,
-  is_active BOOLEAN NOT NULL DEFAULT TRUE
+    user_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    full_name_ar TEXT NOT NULL,
+    full_name_en TEXT NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    branch_id INTEGER REFERENCES branches(id), -- Can be null for system-wide users
+    is_biometric_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    is_device_linked BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE user_roles (
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    role_id INTEGER NOT NULL REFERENCES roles(id),
+    PRIMARY KEY (user_id, role_id)
 );

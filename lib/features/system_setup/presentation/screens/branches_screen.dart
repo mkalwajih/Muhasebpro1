@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart'; // Import for l10n
+import 'package:iconsax/iconsax.dart';
+import 'package:muhaseb_pro/l10n/app_localizations.dart'; 
 import '../providers/branches_providers.dart';
 import '../widgets/add_edit_branch_dialog.dart';
 
@@ -24,6 +25,7 @@ class BranchesScreen extends ConsumerWidget {
               ref.read(branchesProvider.notifier).deactivateBranch(branchCode);
               Navigator.of(context).pop();
             },
+            style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
             child: Text(l10n.deactivate),
           ),
         ],
@@ -52,7 +54,7 @@ class BranchesScreen extends ConsumerWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(Iconsax.edit),
                     onPressed: () {
                       showDialog(
                         context: context,
@@ -61,7 +63,11 @@ class BranchesScreen extends ConsumerWidget {
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.red), // Use delete icon for deactivate for now
+                    icon: Icon(
+                      branch.branchStatus ? Iconsax.pause_circle : Iconsax.play_circle,
+                      color: branch.branchStatus ? Theme.of(context).colorScheme.error : Colors.green,
+                    ),
+                    tooltip: branch.branchStatus ? l10n.deactivate : l10n.activate, // Assuming you have an 'activate' key
                     onPressed: () => _showDeactivateConfirmation(context, ref, branch.branchCode),
                   ),
                 ],

@@ -1,24 +1,32 @@
 import 'package:drift/drift.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart' as db;
+import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart';
 
-class BranchGroupModel extends BranchGroup {
-  const BranchGroupModel({
-    required super.id,
-    required super.name,
-  });
+class BranchGroups extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get nameAr => text()();
+  TextColumn get nameEn => text()();
+  BoolColumn get isActive => boolean().withDefault(const Constant(true))();
+}
 
-  factory BranchGroupModel.fromDb(db.BranchGroup dbBranchGroup) {
-    return BranchGroupModel(
-      id: dbBranchGroup.id,
-      name: dbBranchGroup.name,
+extension BranchGroupMapper on BranchGroup {
+  BranchGroupEntity toEntity() {
+    return BranchGroupEntity(
+      id: id,
+      nameAr: nameAr,
+      nameEn: nameEn,
+      isActive: isActive,
     );
   }
+}
 
-  db.BranchGroupsCompanion toDb() {
-    return db.BranchGroupsCompanion(
-      id: Value(id),
-      name: Value(name),
+extension BranchGroupCompanionMapper on BranchGroupsCompanion {
+  static BranchGroupsCompanion fromEntity(BranchGroupEntity entity) {
+    return BranchGroupsCompanion(
+      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      nameAr: Value(entity.nameAr),
+      nameEn: Value(entity.nameEn),
+      isActive: Value(entity.isActive),
     );
   }
 }

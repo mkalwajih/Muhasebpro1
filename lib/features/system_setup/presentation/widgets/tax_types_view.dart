@@ -57,6 +57,9 @@ class TaxTypesView extends ConsumerWidget {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
+            bool showSales = calcMethod == 'Sales' || calcMethod == 'All';
+            bool showPurchases = calcMethod == 'Purchases' || calcMethod == 'All';
+            
             return AlertDialog(
               title: Text(typeToEdit == null ? l10n.addNewTaxType : l10n.editTaxType),
               content: Form(
@@ -66,8 +69,11 @@ class TaxTypesView extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(controller: codeController, decoration: InputDecoration(labelText: l10n.code), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      const SizedBox(height: 8),
                       TextFormField(controller: nameEnController, decoration: InputDecoration(labelText: l10n.nameEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      const SizedBox(height: 8),
                       TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
                         value: calcMethod,
                         decoration: InputDecoration(labelText: l10n.calculationMethod),
@@ -80,18 +86,26 @@ class TaxTypesView extends ConsumerWidget {
                           }
                         },
                       ),
-                      DropdownButtonFormField<String>(
-                        value: salesAccountId,
-                        decoration: InputDecoration(labelText: l10n.salesAccount),
-                        items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
-                        onChanged: (value) => setDialogState(() => salesAccountId = value),
-                      ),
-                      DropdownButtonFormField<String>(
-                        value: purchasesAccountId,
-                        decoration: InputDecoration(labelText: l10n.purchasesAccount),
-                        items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
-                        onChanged: (value) => setDialogState(() => purchasesAccountId = value),
-                      ),
+                      if (showSales) ...[
+                        const SizedBox(height: 8),
+                        DropdownButtonFormField<String>(
+                          value: salesAccountId,
+                          decoration: InputDecoration(labelText: l10n.salesAccount),
+                          items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
+                          onChanged: (value) => setDialogState(() => salesAccountId = value),
+                           validator: (v) => v == null ? l10n.requiredField : null,
+                        ),
+                      ],
+                      if (showPurchases) ...[
+                        const SizedBox(height: 8),
+                        DropdownButtonFormField<String>(
+                          value: purchasesAccountId,
+                          decoration: InputDecoration(labelText: l10n.purchasesAccount),
+                          items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
+                          onChanged: (value) => setDialogState(() => purchasesAccountId = value),
+                          validator: (v) => v == null ? l10n.requiredField : null,
+                        ),
+                      ]
                     ],
                   ),
                 ),
@@ -106,8 +120,8 @@ class TaxTypesView extends ConsumerWidget {
                         nameEn: nameEnController.text,
                         nameAr: nameArController.text,
                         calcMethod: calcMethod,
-                        salesAccountId: salesAccountId,
-                        purchasesAccountId: purchasesAccountId,
+                        salesAccountId: showSales ? salesAccountId : null,
+                        purchasesAccountId: showPurchases ? purchasesAccountId : null,
                       );
                       if (typeToEdit == null) {
                         ref.read(taxTypesProvider.notifier).addTaxType(newType);

@@ -19,6 +19,7 @@ class TaxBracketsView extends ConsumerWidget {
           itemBuilder: (context, index) {
             final bracket = brackets[index];
             return ListTile(
+              leading: bracket.isDefault ? const Icon(Icons.star, color: Colors.amber) : const SizedBox(width: 24),
               title: Text(bracket.nameEn),
               subtitle: Text('${bracket.taxRate}%'),
               trailing: IconButton(
@@ -51,52 +52,54 @@ class TaxBracketsView extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text(bracketToEdit == null ? l10n.addNewTaxBracket : l10n.editTaxBracket),
-          content: Form(
-            key: formKey,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(controller: codeController, decoration: InputDecoration(labelText: l10n.code), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
-                  TextFormField(controller: nameEnController, decoration: InputDecoration(labelText: l10n.nameEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
-                  TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
-                  TextFormField(controller: rateController, decoration: InputDecoration(labelText: l10n.taxRate), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? l10n.requiredField : null),
-                  SwitchListTile(
-                    title: Text(l10n.isDefault),
-                    value: isDefault,
-                    onChanged: (val) {
-                      // Needs stateful builder to update UI
-                    },
-                  )
-                ],
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Text(bracketToEdit == null ? l10n.addNewTaxBracket : l10n.editTaxBracket),
+              content: Form(
+                key: formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(controller: codeController, decoration: InputDecoration(labelText: l10n.code), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      TextFormField(controller: nameEnController, decoration: InputDecoration(labelText: l10n.nameEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      TextFormField(controller: rateController, decoration: InputDecoration(labelText: l10n.taxRate), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                      SwitchListTile(
+                        title: Text(l10n.isDefault),
+                        value: isDefault,
+                        onChanged: (val) => setDialogState(() => isDefault = val),
+                      )
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          actions: [
-            TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
-            ElevatedButton(
-              onPressed: () {
-                if (formKey.currentState!.validate()) {
-                  final newBracket = TaxBracketEntity(
-                    bracketCode: codeController.text,
-                    nameEn: nameEnController.text,
-                    nameAr: nameArController.text,
-                    taxRate: double.parse(rateController.text),
-                    isDefault: isDefault,
-                  );
-                  if (bracketToEdit == null) {
-                    ref.read(taxBracketsProvider.notifier).addTaxBracket(newBracket);
-                  } else {
-                    ref.read(taxBracketsProvider.notifier).updateTaxBracket(newBracket);
-                  }
-                  Navigator.of(context).pop();
-                }
-              },
-              child: Text(l10n.save),
-            ),
-          ],
+              actions: [
+                TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      final newBracket = TaxBracketEntity(
+                        bracketCode: codeController.text,
+                        nameEn: nameEnController.text,
+                        nameAr: nameArController.text,
+                        taxRate: double.parse(rateController.text),
+                        isDefault: isDefault,
+                      );
+                      if (bracketToEdit == null) {
+                        ref.read(taxBracketsProvider.notifier).addTaxBracket(newBracket);
+                      } else {
+                        ref.read(taxBracketsProvider.notifier).updateTaxBracket(newBracket);
+                      }
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Text(l10n.save),
+                ),
+              ],
+            );
+          },
         );
       },
     );

@@ -2,9 +2,10 @@
 
 IMPORT 'schemas/auth_schema.drift';
 IMPORT 'schemas/system_setup_schema.drift';
-IMPORT 'schemas/general_parameters_schema.drift';
 IMPORT 'schemas/geographical_data_schema.drift';
 IMPORT 'schemas/currencies_schema.drift';
+IMPORT 'schemas/general_parameters_schema.drift';
 IMPORT 'schemas/tax_schema.drift';
+IMPORT 'schemas/chart_of_accounts_schema.drift';
 IMPORT 'schemas/branches_schema.drift';
-IMPORT 'schemas/branch_groups_schema.drift';
+IMPORT 'schemas/branch_groups_schema.drift'; -- Added this line
