@@ -123,18 +123,21 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                 validator: (value) =>
                     (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
+              const SizedBox(height: 8),
               TextFormField(
                 controller: _nameEnController,
                 decoration: InputDecoration(labelText: l10n.branchNameEn),
                 validator: (value) =>
                     (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
+               const SizedBox(height: 8),
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.branchNameAr),
                 validator: (value) =>
                     (value == null || value.isEmpty) ? l10n.requiredField : null,
               ),
+               const SizedBox(height: 8),
               companiesAsyncValue.when(
                 data: (companies) => DropdownButtonFormField<int>(
                   value: _selectedCompanyId,
@@ -152,6 +155,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stack) => Text('${l10n.error}: $error'),
               ),
+               const SizedBox(height: 8),
               branchGroupsAsyncValue.when(
                 data: (groups) => DropdownButtonFormField<int>(
                   value:_selectedBranchGroupId,
@@ -166,8 +170,9 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                  loading: () => const Center(child: CircularProgressIndicator()),
                  error: (error, stack) => Text('${l10n.error}: $error'),
               ),
+               const SizedBox(height: 8),
               Tooltip(
-                message: 'Will be enabled when Inventory module is active',
+                message: l10n.warehouseTooltip,
                 child: DropdownButtonFormField<int>(
                   value: null,
                   decoration: InputDecoration(
@@ -178,15 +183,18 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                   onChanged: null,
                 ),
               ),
+               const SizedBox(height: 8),
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(labelText: l10n.address),
               ),
+               const SizedBox(height: 8),
               TextFormField(
                 controller: _phoneController,
                 decoration: InputDecoration(labelText: l10n.phone),
                 keyboardType: TextInputType.phone,
               ),
+               const SizedBox(height: 8),
               SwitchListTile(
                 title: Text(l10n.active),
                 value: _branchStatus,
@@ -196,6 +204,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                   });
                 },
               ),
+               const SizedBox(height: 8),
               Row(
                 children: [
                   Text(l10n.logo),
@@ -206,6 +215,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                       onPressed: _pickImage),
                 ],
               ),
+               const SizedBox(height: 8),
               TextFormField(
                 controller: _remarksController,
                 decoration: InputDecoration(labelText: l10n.remarks),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/core/config/app_router.dart';
 import 'package:muhaseb_pro/core/theme/app_theme.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 
 class App extends ConsumerWidget {
@@ -9,20 +10,18 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(goRouterProvider);
-    
+    final router = ref.watch(appRouterProvider);
     return MaterialApp.router(
-      title: 'MuhasebPro',
-      debugShowCheckedModeBanner: false,
+      routerConfig: router,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
-      
-      // Router Configuration
-      routerConfig: router,
-      
-      // Localization
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       supportedLocales: AppLocalizations.supportedLocales,
     );
   }

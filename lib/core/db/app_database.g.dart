@@ -4340,9 +4340,9 @@ class Users extends Table with TableInfo<Users, User> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   Users(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
@@ -4354,10 +4354,10 @@ class Users extends Table with TableInfo<Users, User> {
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL UNIQUE');
-  static const VerificationMeta _passwordHashMeta =
-      const VerificationMeta('passwordHash');
-  late final GeneratedColumn<String> passwordHash = GeneratedColumn<String>(
-      'password_hash', aliasedName, false,
+  static const VerificationMeta _passwordMeta =
+      const VerificationMeta('password');
+  late final GeneratedColumn<String> password = GeneratedColumn<String>(
+      'password', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
@@ -4375,12 +4375,6 @@ class Users extends Table with TableInfo<Users, User> {
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
@@ -4389,9 +4383,41 @@ class Users extends Table with TableInfo<Users, User> {
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL DEFAULT TRUE',
       defaultValue: const CustomExpression('TRUE'));
+  static const VerificationMeta _branchIdMeta =
+      const VerificationMeta('branchId');
+  late final GeneratedColumn<int> branchId = GeneratedColumn<int>(
+      'branch_id', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'REFERENCES branches(id)');
+  static const VerificationMeta _isBiometricEnabledMeta =
+      const VerificationMeta('isBiometricEnabled');
+  late final GeneratedColumn<bool> isBiometricEnabled = GeneratedColumn<bool>(
+      'is_biometric_enabled', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
+  static const VerificationMeta _isDeviceLinkedMeta =
+      const VerificationMeta('isDeviceLinked');
+  late final GeneratedColumn<bool> isDeviceLinked = GeneratedColumn<bool>(
+      'is_device_linked', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, username, passwordHash, fullNameAr, fullNameEn, email, isActive];
+  List<GeneratedColumn> get $columns => [
+        userId,
+        username,
+        password,
+        fullNameAr,
+        fullNameEn,
+        isActive,
+        branchId,
+        isBiometricEnabled,
+        isDeviceLinked
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -4402,8 +4428,9 @@ class Users extends Table with TableInfo<Users, User> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
     }
     if (data.containsKey('username')) {
       context.handle(_usernameMeta,
@@ -4411,13 +4438,11 @@ class Users extends Table with TableInfo<Users, User> {
     } else if (isInserting) {
       context.missing(_usernameMeta);
     }
-    if (data.containsKey('password_hash')) {
-      context.handle(
-          _passwordHashMeta,
-          passwordHash.isAcceptableOrUnknown(
-              data['password_hash']!, _passwordHashMeta));
+    if (data.containsKey('password')) {
+      context.handle(_passwordMeta,
+          password.isAcceptableOrUnknown(data['password']!, _passwordMeta));
     } else if (isInserting) {
-      context.missing(_passwordHashMeta);
+      context.missing(_passwordMeta);
     }
     if (data.containsKey('full_name_ar')) {
       context.handle(
@@ -4435,37 +4460,53 @@ class Users extends Table with TableInfo<Users, User> {
     } else if (isInserting) {
       context.missing(_fullNameEnMeta);
     }
-    if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
-    }
     if (data.containsKey('is_active')) {
       context.handle(_isActiveMeta,
           isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    if (data.containsKey('branch_id')) {
+      context.handle(_branchIdMeta,
+          branchId.isAcceptableOrUnknown(data['branch_id']!, _branchIdMeta));
+    }
+    if (data.containsKey('is_biometric_enabled')) {
+      context.handle(
+          _isBiometricEnabledMeta,
+          isBiometricEnabled.isAcceptableOrUnknown(
+              data['is_biometric_enabled']!, _isBiometricEnabledMeta));
+    }
+    if (data.containsKey('is_device_linked')) {
+      context.handle(
+          _isDeviceLinkedMeta,
+          isDeviceLinked.isAcceptableOrUnknown(
+              data['is_device_linked']!, _isDeviceLinkedMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {userId};
   @override
   User map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return User(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
       username: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}username'])!,
-      passwordHash: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}password_hash'])!,
+      password: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}password'])!,
       fullNameAr: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}full_name_ar'])!,
       fullNameEn: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}full_name_en'])!,
-      email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email']),
       isActive: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+      branchId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}branch_id']),
+      isBiometricEnabled: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}is_biometric_enabled'])!,
+      isDeviceLinked: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_device_linked'])!,
     );
   }
 
@@ -4479,46 +4520,57 @@ class Users extends Table with TableInfo<Users, User> {
 }
 
 class User extends DataClass implements Insertable<User> {
-  final int id;
+  final int userId;
   final String username;
-  final String passwordHash;
+  final String password;
   final String fullNameAr;
   final String fullNameEn;
-  final String? email;
   final bool isActive;
+  final int? branchId;
+
+  /// Can be null for system-wide users
+  final bool isBiometricEnabled;
+  final bool isDeviceLinked;
   const User(
-      {required this.id,
+      {required this.userId,
       required this.username,
-      required this.passwordHash,
+      required this.password,
       required this.fullNameAr,
       required this.fullNameEn,
-      this.email,
-      required this.isActive});
+      required this.isActive,
+      this.branchId,
+      required this.isBiometricEnabled,
+      required this.isDeviceLinked});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['user_id'] = Variable<int>(userId);
     map['username'] = Variable<String>(username);
-    map['password_hash'] = Variable<String>(passwordHash);
+    map['password'] = Variable<String>(password);
     map['full_name_ar'] = Variable<String>(fullNameAr);
     map['full_name_en'] = Variable<String>(fullNameEn);
-    if (!nullToAbsent || email != null) {
-      map['email'] = Variable<String>(email);
-    }
     map['is_active'] = Variable<bool>(isActive);
+    if (!nullToAbsent || branchId != null) {
+      map['branch_id'] = Variable<int>(branchId);
+    }
+    map['is_biometric_enabled'] = Variable<bool>(isBiometricEnabled);
+    map['is_device_linked'] = Variable<bool>(isDeviceLinked);
     return map;
   }
 
   UsersCompanion toCompanion(bool nullToAbsent) {
     return UsersCompanion(
-      id: Value(id),
+      userId: Value(userId),
       username: Value(username),
-      passwordHash: Value(passwordHash),
+      password: Value(password),
       fullNameAr: Value(fullNameAr),
       fullNameEn: Value(fullNameEn),
-      email:
-          email == null && nullToAbsent ? const Value.absent() : Value(email),
       isActive: Value(isActive),
+      branchId: branchId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(branchId),
+      isBiometricEnabled: Value(isBiometricEnabled),
+      isDeviceLinked: Value(isDeviceLinked),
     );
   }
 
@@ -4526,171 +4578,203 @@ class User extends DataClass implements Insertable<User> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return User(
-      id: serializer.fromJson<int>(json['id']),
+      userId: serializer.fromJson<int>(json['user_id']),
       username: serializer.fromJson<String>(json['username']),
-      passwordHash: serializer.fromJson<String>(json['password_hash']),
+      password: serializer.fromJson<String>(json['password']),
       fullNameAr: serializer.fromJson<String>(json['full_name_ar']),
       fullNameEn: serializer.fromJson<String>(json['full_name_en']),
-      email: serializer.fromJson<String?>(json['email']),
       isActive: serializer.fromJson<bool>(json['is_active']),
+      branchId: serializer.fromJson<int?>(json['branch_id']),
+      isBiometricEnabled:
+          serializer.fromJson<bool>(json['is_biometric_enabled']),
+      isDeviceLinked: serializer.fromJson<bool>(json['is_device_linked']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'user_id': serializer.toJson<int>(userId),
       'username': serializer.toJson<String>(username),
-      'password_hash': serializer.toJson<String>(passwordHash),
+      'password': serializer.toJson<String>(password),
       'full_name_ar': serializer.toJson<String>(fullNameAr),
       'full_name_en': serializer.toJson<String>(fullNameEn),
-      'email': serializer.toJson<String?>(email),
       'is_active': serializer.toJson<bool>(isActive),
+      'branch_id': serializer.toJson<int?>(branchId),
+      'is_biometric_enabled': serializer.toJson<bool>(isBiometricEnabled),
+      'is_device_linked': serializer.toJson<bool>(isDeviceLinked),
     };
   }
 
   User copyWith(
-          {int? id,
+          {int? userId,
           String? username,
-          String? passwordHash,
+          String? password,
           String? fullNameAr,
           String? fullNameEn,
-          Value<String?> email = const Value.absent(),
-          bool? isActive}) =>
+          bool? isActive,
+          Value<int?> branchId = const Value.absent(),
+          bool? isBiometricEnabled,
+          bool? isDeviceLinked}) =>
       User(
-        id: id ?? this.id,
+        userId: userId ?? this.userId,
         username: username ?? this.username,
-        passwordHash: passwordHash ?? this.passwordHash,
+        password: password ?? this.password,
         fullNameAr: fullNameAr ?? this.fullNameAr,
         fullNameEn: fullNameEn ?? this.fullNameEn,
-        email: email.present ? email.value : this.email,
         isActive: isActive ?? this.isActive,
+        branchId: branchId.present ? branchId.value : this.branchId,
+        isBiometricEnabled: isBiometricEnabled ?? this.isBiometricEnabled,
+        isDeviceLinked: isDeviceLinked ?? this.isDeviceLinked,
       );
   User copyWithCompanion(UsersCompanion data) {
     return User(
-      id: data.id.present ? data.id.value : this.id,
+      userId: data.userId.present ? data.userId.value : this.userId,
       username: data.username.present ? data.username.value : this.username,
-      passwordHash: data.passwordHash.present
-          ? data.passwordHash.value
-          : this.passwordHash,
+      password: data.password.present ? data.password.value : this.password,
       fullNameAr:
           data.fullNameAr.present ? data.fullNameAr.value : this.fullNameAr,
       fullNameEn:
           data.fullNameEn.present ? data.fullNameEn.value : this.fullNameEn,
-      email: data.email.present ? data.email.value : this.email,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      branchId: data.branchId.present ? data.branchId.value : this.branchId,
+      isBiometricEnabled: data.isBiometricEnabled.present
+          ? data.isBiometricEnabled.value
+          : this.isBiometricEnabled,
+      isDeviceLinked: data.isDeviceLinked.present
+          ? data.isDeviceLinked.value
+          : this.isDeviceLinked,
     );
   }
 
   @override
   String toString() {
     return (StringBuffer('User(')
-          ..write('id: $id, ')
+          ..write('userId: $userId, ')
           ..write('username: $username, ')
-          ..write('passwordHash: $passwordHash, ')
+          ..write('password: $password, ')
           ..write('fullNameAr: $fullNameAr, ')
           ..write('fullNameEn: $fullNameEn, ')
-          ..write('email: $email, ')
-          ..write('isActive: $isActive')
+          ..write('isActive: $isActive, ')
+          ..write('branchId: $branchId, ')
+          ..write('isBiometricEnabled: $isBiometricEnabled, ')
+          ..write('isDeviceLinked: $isDeviceLinked')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, username, passwordHash, fullNameAr, fullNameEn, email, isActive);
+  int get hashCode => Object.hash(userId, username, password, fullNameAr,
+      fullNameEn, isActive, branchId, isBiometricEnabled, isDeviceLinked);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is User &&
-          other.id == this.id &&
+          other.userId == this.userId &&
           other.username == this.username &&
-          other.passwordHash == this.passwordHash &&
+          other.password == this.password &&
           other.fullNameAr == this.fullNameAr &&
           other.fullNameEn == this.fullNameEn &&
-          other.email == this.email &&
-          other.isActive == this.isActive);
+          other.isActive == this.isActive &&
+          other.branchId == this.branchId &&
+          other.isBiometricEnabled == this.isBiometricEnabled &&
+          other.isDeviceLinked == this.isDeviceLinked);
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
-  final Value<int> id;
+  final Value<int> userId;
   final Value<String> username;
-  final Value<String> passwordHash;
+  final Value<String> password;
   final Value<String> fullNameAr;
   final Value<String> fullNameEn;
-  final Value<String?> email;
   final Value<bool> isActive;
+  final Value<int?> branchId;
+  final Value<bool> isBiometricEnabled;
+  final Value<bool> isDeviceLinked;
   const UsersCompanion({
-    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
     this.username = const Value.absent(),
-    this.passwordHash = const Value.absent(),
+    this.password = const Value.absent(),
     this.fullNameAr = const Value.absent(),
     this.fullNameEn = const Value.absent(),
-    this.email = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.branchId = const Value.absent(),
+    this.isBiometricEnabled = const Value.absent(),
+    this.isDeviceLinked = const Value.absent(),
   });
   UsersCompanion.insert({
-    this.id = const Value.absent(),
+    this.userId = const Value.absent(),
     required String username,
-    required String passwordHash,
+    required String password,
     required String fullNameAr,
     required String fullNameEn,
-    this.email = const Value.absent(),
     this.isActive = const Value.absent(),
+    this.branchId = const Value.absent(),
+    this.isBiometricEnabled = const Value.absent(),
+    this.isDeviceLinked = const Value.absent(),
   })  : username = Value(username),
-        passwordHash = Value(passwordHash),
+        password = Value(password),
         fullNameAr = Value(fullNameAr),
         fullNameEn = Value(fullNameEn);
   static Insertable<User> custom({
-    Expression<int>? id,
+    Expression<int>? userId,
     Expression<String>? username,
-    Expression<String>? passwordHash,
+    Expression<String>? password,
     Expression<String>? fullNameAr,
     Expression<String>? fullNameEn,
-    Expression<String>? email,
     Expression<bool>? isActive,
+    Expression<int>? branchId,
+    Expression<bool>? isBiometricEnabled,
+    Expression<bool>? isDeviceLinked,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (userId != null) 'user_id': userId,
       if (username != null) 'username': username,
-      if (passwordHash != null) 'password_hash': passwordHash,
+      if (password != null) 'password': password,
       if (fullNameAr != null) 'full_name_ar': fullNameAr,
       if (fullNameEn != null) 'full_name_en': fullNameEn,
-      if (email != null) 'email': email,
       if (isActive != null) 'is_active': isActive,
+      if (branchId != null) 'branch_id': branchId,
+      if (isBiometricEnabled != null)
+        'is_biometric_enabled': isBiometricEnabled,
+      if (isDeviceLinked != null) 'is_device_linked': isDeviceLinked,
     });
   }
 
   UsersCompanion copyWith(
-      {Value<int>? id,
+      {Value<int>? userId,
       Value<String>? username,
-      Value<String>? passwordHash,
+      Value<String>? password,
       Value<String>? fullNameAr,
       Value<String>? fullNameEn,
-      Value<String?>? email,
-      Value<bool>? isActive}) {
+      Value<bool>? isActive,
+      Value<int?>? branchId,
+      Value<bool>? isBiometricEnabled,
+      Value<bool>? isDeviceLinked}) {
     return UsersCompanion(
-      id: id ?? this.id,
+      userId: userId ?? this.userId,
       username: username ?? this.username,
-      passwordHash: passwordHash ?? this.passwordHash,
+      password: password ?? this.password,
       fullNameAr: fullNameAr ?? this.fullNameAr,
       fullNameEn: fullNameEn ?? this.fullNameEn,
-      email: email ?? this.email,
       isActive: isActive ?? this.isActive,
+      branchId: branchId ?? this.branchId,
+      isBiometricEnabled: isBiometricEnabled ?? this.isBiometricEnabled,
+      isDeviceLinked: isDeviceLinked ?? this.isDeviceLinked,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
     }
     if (username.present) {
       map['username'] = Variable<String>(username.value);
     }
-    if (passwordHash.present) {
-      map['password_hash'] = Variable<String>(passwordHash.value);
+    if (password.present) {
+      map['password'] = Variable<String>(password.value);
     }
     if (fullNameAr.present) {
       map['full_name_ar'] = Variable<String>(fullNameAr.value);
@@ -4698,11 +4782,17 @@ class UsersCompanion extends UpdateCompanion<User> {
     if (fullNameEn.present) {
       map['full_name_en'] = Variable<String>(fullNameEn.value);
     }
-    if (email.present) {
-      map['email'] = Variable<String>(email.value);
-    }
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (branchId.present) {
+      map['branch_id'] = Variable<int>(branchId.value);
+    }
+    if (isBiometricEnabled.present) {
+      map['is_biometric_enabled'] = Variable<bool>(isBiometricEnabled.value);
+    }
+    if (isDeviceLinked.present) {
+      map['is_device_linked'] = Variable<bool>(isDeviceLinked.value);
     }
     return map;
   }
@@ -4710,13 +4800,15 @@ class UsersCompanion extends UpdateCompanion<User> {
   @override
   String toString() {
     return (StringBuffer('UsersCompanion(')
-          ..write('id: $id, ')
+          ..write('userId: $userId, ')
           ..write('username: $username, ')
-          ..write('passwordHash: $passwordHash, ')
+          ..write('password: $password, ')
           ..write('fullNameAr: $fullNameAr, ')
           ..write('fullNameEn: $fullNameEn, ')
-          ..write('email: $email, ')
-          ..write('isActive: $isActive')
+          ..write('isActive: $isActive, ')
+          ..write('branchId: $branchId, ')
+          ..write('isBiometricEnabled: $isBiometricEnabled, ')
+          ..write('isDeviceLinked: $isDeviceLinked')
           ..write(')'))
         .toString();
   }
@@ -9041,14 +9133,28 @@ class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
   @override
-  List<GeneratedColumn> get $columns => [id, name];
+  List<GeneratedColumn> get $columns => [id, nameAr, nameEn, isActive];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -9062,11 +9168,21 @@ class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     }
     return context;
   }
@@ -9079,8 +9195,12 @@ class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
     return BranchGroup(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
     );
   }
 
@@ -9095,20 +9215,30 @@ class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
 
 class BranchGroup extends DataClass implements Insertable<BranchGroup> {
   final int id;
-  final String name;
-  const BranchGroup({required this.id, required this.name});
+  final String nameAr;
+  final String nameEn;
+  final bool isActive;
+  const BranchGroup(
+      {required this.id,
+      required this.nameAr,
+      required this.nameEn,
+      required this.isActive});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['is_active'] = Variable<bool>(isActive);
     return map;
   }
 
   BranchGroupsCompanion toCompanion(bool nullToAbsent) {
     return BranchGroupsCompanion(
       id: Value(id),
-      name: Value(name),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      isActive: Value(isActive),
     );
   }
 
@@ -9117,7 +9247,9 @@ class BranchGroup extends DataClass implements Insertable<BranchGroup> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return BranchGroup(
       id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
     );
   }
   @override
@@ -9125,18 +9257,26 @@ class BranchGroup extends DataClass implements Insertable<BranchGroup> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'is_active': serializer.toJson<bool>(isActive),
     };
   }
 
-  BranchGroup copyWith({int? id, String? name}) => BranchGroup(
+  BranchGroup copyWith(
+          {int? id, String? nameAr, String? nameEn, bool? isActive}) =>
+      BranchGroup(
         id: id ?? this.id,
-        name: name ?? this.name,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        isActive: isActive ?? this.isActive,
       );
   BranchGroup copyWithCompanion(BranchGroupsCompanion data) {
     return BranchGroup(
       id: data.id.present ? data.id.value : this.id,
-      name: data.name.present ? data.name.value : this.name,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
 
@@ -9144,44 +9284,67 @@ class BranchGroup extends DataClass implements Insertable<BranchGroup> {
   String toString() {
     return (StringBuffer('BranchGroup(')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name);
+  int get hashCode => Object.hash(id, nameAr, nameEn, isActive);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is BranchGroup && other.id == this.id && other.name == this.name);
+      (other is BranchGroup &&
+          other.id == this.id &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.isActive == this.isActive);
 }
 
 class BranchGroupsCompanion extends UpdateCompanion<BranchGroup> {
   final Value<int> id;
-  final Value<String> name;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<bool> isActive;
   const BranchGroupsCompanion({
     this.id = const Value.absent(),
-    this.name = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.isActive = const Value.absent(),
   });
   BranchGroupsCompanion.insert({
     this.id = const Value.absent(),
-    required String name,
-  }) : name = Value(name);
+    required String nameAr,
+    required String nameEn,
+    this.isActive = const Value.absent(),
+  })  : nameAr = Value(nameAr),
+        nameEn = Value(nameEn);
   static Insertable<BranchGroup> custom({
     Expression<int>? id,
-    Expression<String>? name,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<bool>? isActive,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (name != null) 'name': name,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (isActive != null) 'is_active': isActive,
     });
   }
 
-  BranchGroupsCompanion copyWith({Value<int>? id, Value<String>? name}) {
+  BranchGroupsCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<bool>? isActive}) {
     return BranchGroupsCompanion(
       id: id ?? this.id,
-      name: name ?? this.name,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      isActive: isActive ?? this.isActive,
     );
   }
 
@@ -9191,8 +9354,14 @@ class BranchGroupsCompanion extends UpdateCompanion<BranchGroup> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
     }
     return map;
   }
@@ -9201,7 +9370,9 @@ class BranchGroupsCompanion extends UpdateCompanion<BranchGroup> {
   String toString() {
     return (StringBuffer('BranchGroupsCompanion(')
           ..write('id: $id, ')
-          ..write('name: $name')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
@@ -9817,6 +9988,202 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
   }
 }
 
+class UserRoles extends Table with TableInfo<UserRoles, UserRole> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  UserRoles(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES users(user_id)');
+  static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
+  late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
+      'role_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES roles(id)');
+  @override
+  List<GeneratedColumn> get $columns => [userId, roleId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_roles';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserRole> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('role_id')) {
+      context.handle(_roleIdMeta,
+          roleId.isAcceptableOrUnknown(data['role_id']!, _roleIdMeta));
+    } else if (isInserting) {
+      context.missing(_roleIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {userId, roleId};
+  @override
+  UserRole map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserRole(
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
+      roleId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}role_id'])!,
+    );
+  }
+
+  @override
+  UserRoles createAlias(String alias) {
+    return UserRoles(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints => const ['PRIMARY KEY(user_id, role_id)'];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class UserRole extends DataClass implements Insertable<UserRole> {
+  final int userId;
+  final int roleId;
+  const UserRole({required this.userId, required this.roleId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['user_id'] = Variable<int>(userId);
+    map['role_id'] = Variable<int>(roleId);
+    return map;
+  }
+
+  UserRolesCompanion toCompanion(bool nullToAbsent) {
+    return UserRolesCompanion(
+      userId: Value(userId),
+      roleId: Value(roleId),
+    );
+  }
+
+  factory UserRole.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserRole(
+      userId: serializer.fromJson<int>(json['user_id']),
+      roleId: serializer.fromJson<int>(json['role_id']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'user_id': serializer.toJson<int>(userId),
+      'role_id': serializer.toJson<int>(roleId),
+    };
+  }
+
+  UserRole copyWith({int? userId, int? roleId}) => UserRole(
+        userId: userId ?? this.userId,
+        roleId: roleId ?? this.roleId,
+      );
+  UserRole copyWithCompanion(UserRolesCompanion data) {
+    return UserRole(
+      userId: data.userId.present ? data.userId.value : this.userId,
+      roleId: data.roleId.present ? data.roleId.value : this.roleId,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserRole(')
+          ..write('userId: $userId, ')
+          ..write('roleId: $roleId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(userId, roleId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserRole &&
+          other.userId == this.userId &&
+          other.roleId == this.roleId);
+}
+
+class UserRolesCompanion extends UpdateCompanion<UserRole> {
+  final Value<int> userId;
+  final Value<int> roleId;
+  final Value<int> rowid;
+  const UserRolesCompanion({
+    this.userId = const Value.absent(),
+    this.roleId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  UserRolesCompanion.insert({
+    required int userId,
+    required int roleId,
+    this.rowid = const Value.absent(),
+  })  : userId = Value(userId),
+        roleId = Value(roleId);
+  static Insertable<UserRole> custom({
+    Expression<int>? userId,
+    Expression<int>? roleId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (userId != null) 'user_id': userId,
+      if (roleId != null) 'role_id': roleId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  UserRolesCompanion copyWith(
+      {Value<int>? userId, Value<int>? roleId, Value<int>? rowid}) {
+    return UserRolesCompanion(
+      userId: userId ?? this.userId,
+      roleId: roleId ?? this.roleId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (roleId.present) {
+      map['role_id'] = Variable<int>(roleId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserRolesCompanion(')
+          ..write('userId: $userId, ')
+          ..write('roleId: $roleId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9847,6 +10214,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       CurrencyDenominations(this);
   late final BranchGroups branchGroups = BranchGroups(this);
   late final Branches branches = Branches(this);
+  late final UserRoles userRoles = UserRoles(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -9877,7 +10245,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         currencies,
         currencyDenominations,
         branchGroups,
-        branches
+        branches,
+        userRoles
       ];
 }
 
@@ -13176,22 +13545,26 @@ typedef $RolesProcessedTableManager = ProcessedTableManager<
     Role,
     PrefetchHooks Function({bool userRolesRefs, bool rolePermissionsRefs})>;
 typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
-  Value<int> id,
+  Value<int> userId,
   required String username,
-  required String passwordHash,
+  required String password,
   required String fullNameAr,
   required String fullNameEn,
-  Value<String?> email,
   Value<bool> isActive,
+  Value<int?> branchId,
+  Value<bool> isBiometricEnabled,
+  Value<bool> isDeviceLinked,
 });
 typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
-  Value<int> id,
+  Value<int> userId,
   Value<String> username,
-  Value<String> passwordHash,
+  Value<String> password,
   Value<String> fullNameAr,
   Value<String> fullNameEn,
-  Value<String?> email,
   Value<bool> isActive,
+  Value<int?> branchId,
+  Value<bool> isBiometricEnabled,
+  Value<bool> isDeviceLinked,
 });
 
 final class $UsersReferences
@@ -13201,27 +13574,14 @@ final class $UsersReferences
   static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
           _$AppDatabase db) =>
       MultiTypedResultKey.fromTable(db.userRoles,
-          aliasName: $_aliasNameGenerator(db.users.id, db.userRoles.userId));
+          aliasName:
+              $_aliasNameGenerator(db.users.userId, db.userRoles.userId));
 
   $UserRolesProcessedTableManager get userRolesRefs {
-    final manager = $UserRolesTableManager($_db, $_db.userRoles)
-        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
+    final manager = $UserRolesTableManager($_db, $_db.userRoles).filter(
+        (f) => f.userId.userId.sqlEquals($_itemColumn<int>('user_id')!));
 
     final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-
-  static MultiTypedResultKey<AuditLog, List<AuditLogData>> _auditLogRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.auditLog,
-          aliasName: $_aliasNameGenerator(db.users.id, db.auditLog.userId));
-
-  $AuditLogProcessedTableManager get auditLogRefs {
-    final manager = $AuditLogTableManager($_db, $_db.auditLog)
-        .filter((f) => f.userId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_auditLogRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
@@ -13235,14 +13595,14 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get username => $composableBuilder(
       column: $table.username, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get passwordHash => $composableBuilder(
-      column: $table.passwordHash, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fullNameAr => $composableBuilder(
       column: $table.fullNameAr, builder: (column) => ColumnFilters(column));
@@ -13250,17 +13610,25 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
   ColumnFilters<String> get fullNameEn => $composableBuilder(
       column: $table.fullNameEn, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get branchId => $composableBuilder(
+      column: $table.branchId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked,
+      builder: (column) => ColumnFilters(column));
 
   Expression<bool> userRolesRefs(
       Expression<bool> Function($UserRolesFilterComposer f) f) {
     final $UserRolesFilterComposer composer = $composerBuilder(
         composer: this,
-        getCurrentColumn: (t) => t.id,
+        getCurrentColumn: (t) => t.userId,
         referencedTable: $db.userRoles,
         getReferencedColumn: (t) => t.userId,
         builder: (joinBuilder,
@@ -13269,27 +13637,6 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
             $UserRolesFilterComposer(
               $db: $db,
               $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-
-  Expression<bool> auditLogRefs(
-      Expression<bool> Function($AuditLogFilterComposer f) f) {
-    final $AuditLogFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.auditLog,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $AuditLogFilterComposer(
-              $db: $db,
-              $table: $db.auditLog,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -13307,15 +13654,14 @@ class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get username => $composableBuilder(
       column: $table.username, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get passwordHash => $composableBuilder(
-      column: $table.passwordHash,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get fullNameAr => $composableBuilder(
       column: $table.fullNameAr, builder: (column) => ColumnOrderings(column));
@@ -13323,11 +13669,19 @@ class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
   ColumnOrderings<String> get fullNameEn => $composableBuilder(
       column: $table.fullNameEn, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get branchId => $composableBuilder(
+      column: $table.branchId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
@@ -13338,14 +13692,14 @@ class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
 
   GeneratedColumn<String> get username =>
       $composableBuilder(column: $table.username, builder: (column) => column);
 
-  GeneratedColumn<String> get passwordHash => $composableBuilder(
-      column: $table.passwordHash, builder: (column) => column);
+  GeneratedColumn<String> get password =>
+      $composableBuilder(column: $table.password, builder: (column) => column);
 
   GeneratedColumn<String> get fullNameAr => $composableBuilder(
       column: $table.fullNameAr, builder: (column) => column);
@@ -13353,17 +13707,23 @@ class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
   GeneratedColumn<String> get fullNameEn => $composableBuilder(
       column: $table.fullNameEn, builder: (column) => column);
 
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
-
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get branchId =>
+      $composableBuilder(column: $table.branchId, builder: (column) => column);
+
+  GeneratedColumn<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked, builder: (column) => column);
 
   Expression<T> userRolesRefs<T extends Object>(
       Expression<T> Function($UserRolesAnnotationComposer a) f) {
     final $UserRolesAnnotationComposer composer = $composerBuilder(
         composer: this,
-        getCurrentColumn: (t) => t.id,
+        getCurrentColumn: (t) => t.userId,
         referencedTable: $db.userRoles,
         getReferencedColumn: (t) => t.userId,
         builder: (joinBuilder,
@@ -13372,27 +13732,6 @@ class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
             $UserRolesAnnotationComposer(
               $db: $db,
               $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-
-  Expression<T> auditLogRefs<T extends Object>(
-      Expression<T> Function($AuditLogAnnotationComposer a) f) {
-    final $AuditLogAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.auditLog,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $AuditLogAnnotationComposer(
-              $db: $db,
-              $table: $db.auditLog,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -13413,7 +13752,7 @@ class $UsersTableManager extends RootTableManager<
     $UsersUpdateCompanionBuilder,
     (User, $UsersReferences),
     User,
-    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})> {
+    PrefetchHooks Function({bool userRolesRefs})> {
   $UsersTableManager(_$AppDatabase db, Users table)
       : super(TableManagerState(
           db: db,
@@ -13425,52 +13764,56 @@ class $UsersTableManager extends RootTableManager<
           createComputedFieldComposer: () =>
               $UsersAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
+            Value<int> userId = const Value.absent(),
             Value<String> username = const Value.absent(),
-            Value<String> passwordHash = const Value.absent(),
+            Value<String> password = const Value.absent(),
             Value<String> fullNameAr = const Value.absent(),
             Value<String> fullNameEn = const Value.absent(),
-            Value<String?> email = const Value.absent(),
             Value<bool> isActive = const Value.absent(),
+            Value<int?> branchId = const Value.absent(),
+            Value<bool> isBiometricEnabled = const Value.absent(),
+            Value<bool> isDeviceLinked = const Value.absent(),
           }) =>
               UsersCompanion(
-            id: id,
+            userId: userId,
             username: username,
-            passwordHash: passwordHash,
+            password: password,
             fullNameAr: fullNameAr,
             fullNameEn: fullNameEn,
-            email: email,
             isActive: isActive,
+            branchId: branchId,
+            isBiometricEnabled: isBiometricEnabled,
+            isDeviceLinked: isDeviceLinked,
           ),
           createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
+            Value<int> userId = const Value.absent(),
             required String username,
-            required String passwordHash,
+            required String password,
             required String fullNameAr,
             required String fullNameEn,
-            Value<String?> email = const Value.absent(),
             Value<bool> isActive = const Value.absent(),
+            Value<int?> branchId = const Value.absent(),
+            Value<bool> isBiometricEnabled = const Value.absent(),
+            Value<bool> isDeviceLinked = const Value.absent(),
           }) =>
               UsersCompanion.insert(
-            id: id,
+            userId: userId,
             username: username,
-            passwordHash: passwordHash,
+            password: password,
             fullNameAr: fullNameAr,
             fullNameEn: fullNameEn,
-            email: email,
             isActive: isActive,
+            branchId: branchId,
+            isBiometricEnabled: isBiometricEnabled,
+            isDeviceLinked: isDeviceLinked,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: (
-              {userRolesRefs = false, auditLogRefs = false}) {
+          prefetchHooksCallback: ({userRolesRefs = false}) {
             return PrefetchHooks(
               db: db,
-              explicitlyWatchedTables: [
-                if (userRolesRefs) db.userRoles,
-                if (auditLogRefs) db.auditLog
-              ],
+              explicitlyWatchedTables: [if (userRolesRefs) db.userRoles],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
@@ -13481,20 +13824,9 @@ class $UsersTableManager extends RootTableManager<
                             $UsersReferences._userRolesRefsTable(db),
                         managerFromTypedResult: (p0) =>
                             $UsersReferences(db, table, p0).userRolesRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.userId == item.id),
-                        typedResults: items),
-                  if (auditLogRefs)
-                    await $_getPrefetchedData<User, Users, AuditLogData>(
-                        currentTable: table,
-                        referencedTable:
-                            $UsersReferences._auditLogRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $UsersReferences(db, table, p0).auditLogRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.userId == item.id),
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.userId == item.userId),
                         typedResults: items)
                 ];
               },
@@ -13514,7 +13846,7 @@ typedef $UsersProcessedTableManager = ProcessedTableManager<
     $UsersUpdateCompanionBuilder,
     (User, $UsersReferences),
     User,
-    PrefetchHooks Function({bool userRolesRefs, bool auditLogRefs})>;
+    PrefetchHooks Function({bool userRolesRefs})>;
 typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
   required int userId,
   required int roleId,
@@ -13529,20 +13861,6 @@ typedef $UserRolesUpdateCompanionBuilder = UserRolesCompanion Function({
 final class $UserRolesReferences
     extends BaseReferences<_$AppDatabase, UserRoles, UserRole> {
   $UserRolesReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static Users _userIdTable(_$AppDatabase db) => db.users
-      .createAlias($_aliasNameGenerator(db.userRoles.userId, db.users.id));
-
-  $UsersProcessedTableManager get userId {
-    final $_column = $_itemColumn<int>('user_id')!;
-
-    final manager = $UsersTableManager($_db, $_db.users)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
 
   static Roles _roleIdTable(_$AppDatabase db) => db.roles
       .createAlias($_aliasNameGenerator(db.userRoles.roleId, db.roles.id));
@@ -13567,25 +13885,8 @@ class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $UsersFilterComposer get userId {
-    final $UsersFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersFilterComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
 
   $RolesFilterComposer get roleId {
     final $RolesFilterComposer composer = $composerBuilder(
@@ -13616,25 +13917,8 @@ class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $UsersOrderingComposer get userId {
-    final $UsersOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersOrderingComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
 
   $RolesOrderingComposer get roleId {
     final $RolesOrderingComposer composer = $composerBuilder(
@@ -13665,25 +13949,8 @@ class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  $UsersAnnotationComposer get userId {
-    final $UsersAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersAnnotationComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
 
   $RolesAnnotationComposer get roleId {
     final $RolesAnnotationComposer composer = $composerBuilder(
@@ -13717,7 +13984,7 @@ class $UserRolesTableManager extends RootTableManager<
     $UserRolesUpdateCompanionBuilder,
     (UserRole, $UserRolesReferences),
     UserRole,
-    PrefetchHooks Function({bool userId, bool roleId})> {
+    PrefetchHooks Function({bool roleId})> {
   $UserRolesTableManager(_$AppDatabase db, UserRoles table)
       : super(TableManagerState(
           db: db,
@@ -13752,7 +14019,7 @@ class $UserRolesTableManager extends RootTableManager<
               .map((e) =>
                   (e.readTable(table), $UserRolesReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({userId = false, roleId = false}) {
+          prefetchHooksCallback: ({roleId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -13769,14 +14036,6 @@ class $UserRolesTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic>>(state) {
-                if (userId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.userId,
-                    referencedTable: $UserRolesReferences._userIdTable(db),
-                    referencedColumn: $UserRolesReferences._userIdTable(db).id,
-                  ) as T;
-                }
                 if (roleId) {
                   state = state.withJoin(
                     currentTable: table,
@@ -13807,7 +14066,7 @@ typedef $UserRolesProcessedTableManager = ProcessedTableManager<
     $UserRolesUpdateCompanionBuilder,
     (UserRole, $UserRolesReferences),
     UserRole,
-    PrefetchHooks Function({bool userId, bool roleId})>;
+    PrefetchHooks Function({bool roleId})>;
 typedef $RolePermissionsCreateCompanionBuilder = RolePermissionsCompanion
     Function({
   required int roleId,
@@ -14052,25 +14311,6 @@ typedef $AuditLogUpdateCompanionBuilder = AuditLogCompanion Function({
   Value<String?> details,
 });
 
-final class $AuditLogReferences
-    extends BaseReferences<_$AppDatabase, AuditLog, AuditLogData> {
-  $AuditLogReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static Users _userIdTable(_$AppDatabase db) => db.users
-      .createAlias($_aliasNameGenerator(db.auditLog.userId, db.users.id));
-
-  $UsersProcessedTableManager get userId {
-    final $_column = $_itemColumn<int>('user_id')!;
-
-    final manager = $UsersTableManager($_db, $_db.users)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
 class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
   $AuditLogFilterComposer({
     required super.$db,
@@ -14082,6 +14322,9 @@ class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnFilters(column));
 
@@ -14090,26 +14333,6 @@ class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
 
   ColumnFilters<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnFilters(column));
-
-  $UsersFilterComposer get userId {
-    final $UsersFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersFilterComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
@@ -14123,6 +14346,9 @@ class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnOrderings(column));
 
@@ -14131,26 +14357,6 @@ class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
 
   ColumnOrderings<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnOrderings(column));
-
-  $UsersOrderingComposer get userId {
-    final $UsersOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersOrderingComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
@@ -14164,6 +14370,9 @@ class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
   GeneratedColumn<double> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
 
@@ -14172,26 +14381,6 @@ class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
 
   GeneratedColumn<String> get details =>
       $composableBuilder(column: $table.details, builder: (column) => column);
-
-  $UsersAnnotationComposer get userId {
-    final $UsersAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.users,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UsersAnnotationComposer(
-              $db: $db,
-              $table: $db.users,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 }
 
 class $AuditLogTableManager extends RootTableManager<
@@ -14203,9 +14392,9 @@ class $AuditLogTableManager extends RootTableManager<
     $AuditLogAnnotationComposer,
     $AuditLogCreateCompanionBuilder,
     $AuditLogUpdateCompanionBuilder,
-    (AuditLogData, $AuditLogReferences),
+    (AuditLogData, BaseReferences<_$AppDatabase, AuditLog, AuditLogData>),
     AuditLogData,
-    PrefetchHooks Function({bool userId})> {
+    PrefetchHooks Function()> {
   $AuditLogTableManager(_$AppDatabase db, AuditLog table)
       : super(TableManagerState(
           db: db,
@@ -14245,42 +14434,9 @@ class $AuditLogTableManager extends RootTableManager<
             details: details,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $AuditLogReferences(db, table, e)))
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({userId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (userId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.userId,
-                    referencedTable: $AuditLogReferences._userIdTable(db),
-                    referencedColumn: $AuditLogReferences._userIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
+          prefetchHooksCallback: null,
         ));
 }
 
@@ -14293,9 +14449,9 @@ typedef $AuditLogProcessedTableManager = ProcessedTableManager<
     $AuditLogAnnotationComposer,
     $AuditLogCreateCompanionBuilder,
     $AuditLogUpdateCompanionBuilder,
-    (AuditLogData, $AuditLogReferences),
+    (AuditLogData, BaseReferences<_$AppDatabase, AuditLog, AuditLogData>),
     AuditLogData,
-    PrefetchHooks Function({bool userId})>;
+    PrefetchHooks Function()>;
 typedef $ZonesCreateCompanionBuilder = ZonesCompanion Function({
   Value<int> id,
   required String zoneCode,
@@ -16901,11 +17057,15 @@ typedef $CurrencyDenominationsProcessedTableManager = ProcessedTableManager<
     PrefetchHooks Function({bool currencyCode})>;
 typedef $BranchGroupsCreateCompanionBuilder = BranchGroupsCompanion Function({
   Value<int> id,
-  required String name,
+  required String nameAr,
+  required String nameEn,
+  Value<bool> isActive,
 });
 typedef $BranchGroupsUpdateCompanionBuilder = BranchGroupsCompanion Function({
   Value<int> id,
-  Value<String> name,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<bool> isActive,
 });
 
 final class $BranchGroupsReferences
@@ -16940,8 +17100,14 @@ class $BranchGroupsFilterComposer
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnFilters(column));
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
 
   Expression<bool> branchesRefs(
       Expression<bool> Function($BranchesFilterComposer f) f) {
@@ -16977,8 +17143,14 @@ class $BranchGroupsOrderingComposer
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get name => $composableBuilder(
-      column: $table.name, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
 }
 
 class $BranchGroupsAnnotationComposer
@@ -16993,8 +17165,14 @@ class $BranchGroupsAnnotationComposer
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<String> get name =>
-      $composableBuilder(column: $table.name, builder: (column) => column);
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
 
   Expression<T> branchesRefs<T extends Object>(
       Expression<T> Function($BranchesAnnotationComposer a) f) {
@@ -17042,19 +17220,27 @@ class $BranchGroupsTableManager extends RootTableManager<
               $BranchGroupsAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
           }) =>
               BranchGroupsCompanion(
             id: id,
-            name: name,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            required String name,
+            required String nameAr,
+            required String nameEn,
+            Value<bool> isActive = const Value.absent(),
           }) =>
               BranchGroupsCompanion.insert(
             id: id,
-            name: name,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) =>
@@ -17543,6 +17729,227 @@ typedef $BranchesProcessedTableManager = ProcessedTableManager<
     (Branche, $BranchesReferences),
     Branche,
     PrefetchHooks Function({bool companyId, bool branchGroupId})>;
+typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
+  required int userId,
+  required int roleId,
+  Value<int> rowid,
+});
+typedef $UserRolesUpdateCompanionBuilder = UserRolesCompanion Function({
+  Value<int> userId,
+  Value<int> roleId,
+  Value<int> rowid,
+});
+
+final class $UserRolesReferences
+    extends BaseReferences<_$AppDatabase, UserRoles, UserRole> {
+  $UserRolesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Users _userIdTable(_$AppDatabase db) => db.users
+      .createAlias($_aliasNameGenerator(db.userRoles.userId, db.users.userId));
+
+  $UsersProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $UsersTableManager($_db, $_db.users)
+        .filter((f) => f.userId.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get roleId => $composableBuilder(
+      column: $table.roleId, builder: (column) => ColumnFilters(column));
+
+  $UsersFilterComposer get userId {
+    final $UsersFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersFilterComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get roleId => $composableBuilder(
+      column: $table.roleId, builder: (column) => ColumnOrderings(column));
+
+  $UsersOrderingComposer get userId {
+    final $UsersOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersOrderingComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
+  $UserRolesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get roleId =>
+      $composableBuilder(column: $table.roleId, builder: (column) => column);
+
+  $UsersAnnotationComposer get userId {
+    final $UsersAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersAnnotationComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $UserRolesTableManager extends RootTableManager<
+    _$AppDatabase,
+    UserRoles,
+    UserRole,
+    $UserRolesFilterComposer,
+    $UserRolesOrderingComposer,
+    $UserRolesAnnotationComposer,
+    $UserRolesCreateCompanionBuilder,
+    $UserRolesUpdateCompanionBuilder,
+    (UserRole, $UserRolesReferences),
+    UserRole,
+    PrefetchHooks Function({bool userId})> {
+  $UserRolesTableManager(_$AppDatabase db, UserRoles table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $UserRolesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $UserRolesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $UserRolesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> userId = const Value.absent(),
+            Value<int> roleId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UserRolesCompanion(
+            userId: userId,
+            roleId: roleId,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required int userId,
+            required int roleId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              UserRolesCompanion.insert(
+            userId: userId,
+            roleId: roleId,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $UserRolesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({userId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (userId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.userId,
+                    referencedTable: $UserRolesReferences._userIdTable(db),
+                    referencedColumn:
+                        $UserRolesReferences._userIdTable(db).userId,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $UserRolesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    UserRoles,
+    UserRole,
+    $UserRolesFilterComposer,
+    $UserRolesOrderingComposer,
+    $UserRolesAnnotationComposer,
+    $UserRolesCreateCompanionBuilder,
+    $UserRolesUpdateCompanionBuilder,
+    (UserRole, $UserRolesReferences),
+    UserRole,
+    PrefetchHooks Function({bool userId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -17594,4 +18001,6 @@ class $AppDatabaseManager {
       $BranchGroupsTableManager(_db, _db.branchGroups);
   $BranchesTableManager get branches =>
       $BranchesTableManager(_db, _db.branches);
+  $UserRolesTableManager get userRoles =>
+      $UserRolesTableManager(_db, _db.userRoles);
 }

@@ -1,83 +1,70 @@
-import 'package:drift/drift.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+import 'package:dartz/dartz.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/authentication/domain/repositories/auth_repository.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/repositories/role_management_repository.dart';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
+import 'package:muhaseb_pro/features/system_setup/data/datasources/local/user_management_local_datasource.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
+
 
 class AuthRepositoryImpl implements AuthRepository {
-  final AuthLocalDataSource _localDataSource;
-  final RoleManagementRepository _roleManagementRepository;
+  final IAuthLocalDataSource _localDataSource;
+  final IUserManagementLocalDataSource _userManagementLocalDataSource;
+  final AppDatabase _db;
 
-  AuthRepositoryImpl({
-    required AuthLocalDataSource authLocalDataSource,
-    required RoleManagementRepository roleManagementRepository,
-    required AppDatabase database,
-  })  : _localDataSource = authLocalDataSource,
-        _roleManagementRepository = roleManagementRepository;
-
-  String _hashPassword(String password) {
-    final bytes = utf8.encode(password);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
-  }
+  AuthRepositoryImpl(this._localDataSource, this._userManagementLocalDataSource, this._db);
 
   @override
-  Future<(UserEntity?, String?)> login(String username, String password) async {
+  Future<Either<Failure, UserEntity>> login(String username, String password) async {
     try {
-      final user = await _localDataSource.getUserByUsername(username);
+      final user = await _localDataSource.login(username);
       if (user == null) {
-        return (null, 'Invalid username or password.');
+        return Left(InvalidCredentialsFailure());
       }
-
+      final hashedPassword = sha256.convert(utf8.encode(password)).toString();
+      if (user.password != hashedPassword) {
+        return Left(InvalidCredentialsFailure());
+      }
       if (!user.isActive) {
-        return (null, 'This user account is inactive.');
+        return Left(UserInactiveFailure());
       }
       
-      final hashedPassword = _hashPassword(password);
-      if (user.passwordHash != hashedPassword) {
-        return (null, 'Invalid username or password.');
-      }
-
-      // Fetch roles for the user
-      final roles = await _roleManagementRepository.getRolesForUser(user.id);
-
+      final roles = await _userManagementLocalDataSource.getUserRoles(user.userId);
       final userEntity = UserEntity(
-        userId: user.id,
+        userId: user.userId,
         username: user.username,
-        fullNameEn: user.fullNameEn,
         fullNameAr: user.fullNameAr,
+        fullNameEn: user.fullNameEn,
         isActive: user.isActive,
-        roles: roles, // Assign the fetched roles
+        roles: roles,
       );
-      
-      return (userEntity, null);
 
+      return Right(userEntity);
     } catch (e) {
-      // Log the error
-      return (null, 'An unexpected error occurred.');
+      return Left(CacheFailure(e.toString()));
     }
   }
 
   @override
-  Future<void> logout() async {
-    return;
-  }
-  
-  @override
-  Future<void> seedInitialUser() async {
-    final userCount = await _localDataSource.countUsers();
-    if (userCount == 0) {
-      const adminUser = UsersCompanion(
-        username: Value('admin'),
-        passwordHash: Value('admin'),
-        fullNameAr: Value('المدير العام'),
-        fullNameEn: Value('System Administrator'),
-        isActive: Value(true),
-      );
-      await _localDataSource.insertUser(adminUser);
+  Future<Either<Failure, Unit>> seedUser() async {
+    try {
+      final users = await _db.select(_db.users).get();
+      if (users.isEmpty) {
+        const defaultUser = UserEntity(
+          userId: 1,
+          username: 'admin',
+          fullNameAr: 'المدير',
+          fullNameEn: 'Admin',
+          isActive: true,
+        );
+        await _localDataSource.seedUser(defaultUser, '123456');
+      }
+      return const Right(unit);
+    } catch (e) {
+      return Left(CacheFailure(e.toString()));
     }
   }
 }

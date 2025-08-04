@@ -1,6 +1,5 @@
 -- lib/core/db/schemas/system_setup_schema.drift
 
-IMPORT 'auth_schema.drift';
 
 CREATE TABLE company_info (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -47,11 +46,6 @@ CREATE TABLE roles (
   is_active BOOLEAN NOT NULL
 );
 
-CREATE TABLE user_roles (
-  user_id INT NOT NULL REFERENCES users(id),
-  role_id INT NOT NULL REFERENCES roles(id),
-  PRIMARY KEY (user_id, role_id)
-);
 
 CREATE TABLE role_permissions (
   role_id INT NOT NULL REFERENCES roles(id),
@@ -61,7 +55,7 @@ CREATE TABLE role_permissions (
 
 CREATE TABLE audit_log (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-  user_id INT NOT NULL REFERENCES users(id),
+  user_id INT NOT NULL REFERENCES users(user_id),
   timestamp TIMESTAMP NOT NULL,
   event_action TEXT NOT NULL,
   details TEXT

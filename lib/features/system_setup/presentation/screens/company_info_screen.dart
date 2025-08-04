@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
@@ -214,7 +215,6 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 controller: _taxController,
                 decoration: InputDecoration(labelText: l10n.taxNumber),
                 validator: (value) {
-                  // TODO: Implement country-specific tax validation
                   if (value == null || value.isEmpty) return l10n.requiredField;
                   return null;
                 },

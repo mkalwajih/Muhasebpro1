@@ -1,53 +1,52 @@
-import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'dart:convert';
 import 'package:drift/drift.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart' as db;
+import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
+import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
-abstract class AuthLocalDataSource {
-  Future<db.User?> getUserByUsername(String username);
-  Future<int> insertUser(db.UsersCompanion user);
-  Future<int> countUsers();
+
+abstract class IAuthLocalDataSource {
+  Future<User?> login(String username);
+  Future<void> seedUser(UserEntity user, String password);
+  Future<void> updateUser(UserEntity user, {String? newPassword});
 }
 
-class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-  final db.AppDatabase _database;
+class AuthLocalDataSource implements IAuthLocalDataSource {
+  final AppDatabase _appDatabase;
 
-  AuthLocalDataSourceImpl(this._database);
+  AuthLocalDataSource(this._appDatabase);
 
-  String _hashPassword(String password) {
-    final bytes = utf8.encode(password);
-    final digest = sha256.convert(bytes);
-    return digest.toString();
+  @override
+  Future<User?> login(String username) async {
+    return (_appDatabase.select(_appDatabase.users)..where((u) => u.username.equals(username))).getSingleOrNull();
   }
 
-  // ADD THIS NEW METHOD
-  db.UsersCompanion hashPasswordForUpdate(db.UsersCompanion user) {
-    if (user.passwordHash.present) {
-      final hashedPassword = _hashPassword(user.passwordHash.value);
-      return user.copyWith(passwordHash: Value(hashedPassword));
+  @override
+  Future<void> seedUser(UserEntity user, String password) async {
+    final passwordHash = sha256.convert(utf8.encode(password)).toString();
+    final userCompanion = UsersCompanion(
+      username: Value(user.username),
+      password: Value(passwordHash),
+      fullNameAr: Value(user.fullNameAr),
+      fullNameEn: Value(user.fullNameEn),
+    );
+    await _appDatabase.into(_appDatabase.users).insert(userCompanion);
+  }
+
+  @override
+  Future<void> updateUser(UserEntity user, {String? newPassword}) async {
+    final updates = UsersCompanion(
+      fullNameAr: Value(user.fullNameAr),
+      fullNameEn: Value(user.fullNameEn),
+      isActive: Value(user.isActive),
+    );
+
+    if (newPassword != null) {
+      final passwordHash = sha256.convert(utf8.encode(newPassword)).toString();
+      updates.copyWith(password: Value(passwordHash));
     }
-    return user;
-  }
-
-  @override
-  Future<db.User?> getUserByUsername(String username) async {
-    return (_database.select(_database.users)
-          ..where((u) => u.username.equals(username)))
-        .getSingleOrNull();
-  }
-
-  @override
-  Future<int> insertUser(db.UsersCompanion user) {
-     final hashedPassword = _hashPassword(user.passwordHash.value);
-     final userWithHashedPassword = user.copyWith(passwordHash: Value(hashedPassword));
-     return _database.into(_database.users).insert(userWithHashedPassword);
-  }
-
-  @override
-  Future<int> countUsers() async {
-    final countExp = _database.users.id.count();
-    final query = _database.selectOnly(_database.users)..addColumns([countExp]);
-    final result = await query.getSingle();
-    return result.read(countExp) ?? 0;
+    
+    await (_appDatabase.update(_appDatabase.users)..where((u) => u.userId.equals(user.userId))).write(updates);
   }
 }

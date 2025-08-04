@@ -96,7 +96,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
       title: Text(isEditing ? l10n.editUser : l10n.addNewUser),
       content: rolesAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, st) => Text('Error loading roles: $err'),
+        error: (err, st) => Text('${l10n.error}: $err'),
         data: (allRoles) => Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -105,21 +105,26 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(controller: _usernameController, decoration: InputDecoration(labelText: l10n.username), validator: (v) => v!.isEmpty ? l10n.usernameRequired : null),
-                TextFormField(controller: _nameEnController, decoration: InputDecoration(labelText: l10n.fullNameEn), validator: (v) => v!.isEmpty ? 'Required' : null),
-                TextFormField(controller: _nameArController, decoration: InputDecoration(labelText: l10n.fullNameAr), validator: (v) => v!.isEmpty ? 'Required' : null),
-                TextFormField(controller: _passwordController, decoration: InputDecoration(labelText: l10n.password, hintText: isEditing ? 'Leave blank to keep unchanged' : null), obscureText: true, validator: (v) {
+                const SizedBox(height: 8),
+                TextFormField(controller: _nameEnController, decoration: InputDecoration(labelText: l10n.fullNameEn), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                const SizedBox(height: 8),
+                TextFormField(controller: _nameArController, decoration: InputDecoration(labelText: l10n.fullNameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
+                const SizedBox(height: 8),
+                TextFormField(controller: _passwordController, decoration: InputDecoration(labelText: l10n.password, hintText: isEditing ? l10n.leaveBlankToKeepUnchanged : null), obscureText: true, validator: (v) {
                   if (!isEditing && (v == null || v.isEmpty)) return l10n.passwordRequired;
                   if (v != null && v.isNotEmpty) {
-                    if (v.length < 6) return 'Password must be at least 6 characters';
-                    if (!v.contains(RegExp(r'[0-9]'))) return 'Password must contain a number';
+                    if (v.length < 6) return l10n.passwordLengthError;
+                    if (!v.contains(RegExp(r'[0-9]'))) return l10n.passwordNumberError;
                   }
                   if (v != _confirmPasswordController.text) return l10n.passwordMismatch;
                   return null;
                 }),
+                const SizedBox(height: 8),
                 TextFormField(controller: _confirmPasswordController, decoration: InputDecoration(labelText: l10n.confirmPassword), obscureText: true, validator: (v) {
                   if (v != _passwordController.text) return l10n.passwordMismatch;
                   return null;
                 }),
+                const SizedBox(height: 8),
                 branchesAsync.when(
                   data: (branches) => DropdownButtonFormField<int>(
                     value: _selectedBranchId,
@@ -128,7 +133,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                     onChanged: (val) => setState(() => _selectedBranchId = val),
                   ),
                   loading: () => const SizedBox(),
-                  error: (e, st) => Text('Error loading branches: $e'),
+                  error: (e, st) => Text('${l10n.error}: $e'),
                 ),
                 const Divider(height: 24),
                 SwitchListTile(title: Text(l10n.status), subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive), value: _isActive, onChanged: (val) => setState(() => _isActive = val)),
@@ -157,7 +162,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
         ElevatedButton(onPressed: () => rolesAsync.whenData((roles) => _onSave(roles)), child: Text(l10n.save)),
       ],
     );

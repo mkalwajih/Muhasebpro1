@@ -73,13 +73,13 @@ class _AddEditRoleDialogState extends ConsumerState<AddEditRoleDialog> {
               TextFormField(
                 controller: _nameEnController,
                 decoration: InputDecoration(labelText: l10n.roleNameEn),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.roleNameAr),
-                validator: (v) => v!.isEmpty ? 'Required' : null,
+                validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
@@ -99,7 +99,7 @@ class _AddEditRoleDialogState extends ConsumerState<AddEditRoleDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancel')),
+        TextButton(onPressed: () => Navigator.of(context).pop(), child: Text(l10n.cancel)),
         ElevatedButton(onPressed: _onSave, child: Text(l10n.save)),
       ],
     );
