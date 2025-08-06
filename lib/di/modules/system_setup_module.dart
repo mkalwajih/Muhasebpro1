@@ -101,21 +101,19 @@ final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
 );
 final coaRepositoryProvider = Provider<CoaRepository>(
   (ref) => CoaRepositoryImpl(
+    ref.watch(coaLocalDataSourceProvider),
     ref.watch(appDatabaseProvider),
   ),
 );
 
 // User Management
 final userManagementLocalDataSourceProvider = Provider<UserManagementLocalDataSource>(
-  (ref) => UserManagementLocalDataSourceImpl(
-    database: ref.watch(appDatabaseProvider),
-    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
-  ),
+  (ref) => UserManagementLocalDataSource(ref.watch(appDatabaseProvider)),
 );
 final userManagementRepositoryProvider = Provider<UserManagementRepository>(
   (ref) => UserManagementRepositoryImpl(
-    database: ref.watch(appDatabaseProvider),
-    authLocalDataSource: ref.watch(authLocalDataSourceProvider),
+    ref.watch(userManagementLocalDataSourceProvider),
+    ref.watch(appDatabaseProvider),
   ),
 );
 

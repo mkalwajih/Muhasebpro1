@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 
 class RoleEntity extends Equatable {
@@ -17,6 +18,17 @@ class RoleEntity extends Equatable {
     required this.isActive,
     this.permissions = const [], // Add this line
   });
+
+  factory RoleEntity.fromRole(RoleData role) {
+    return RoleEntity(
+      id: role.id,
+      nameAr: role.nameAr,
+      nameEn: role.nameEn,
+      description: role.description,
+      isActive: role.isActive,
+      permissions: const [], // Permissions will be populated separately
+    );
+  }
 
   @override
   List<Object?> get props => [id, nameAr, nameEn, description, isActive, permissions];

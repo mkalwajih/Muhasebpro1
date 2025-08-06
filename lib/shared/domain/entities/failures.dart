@@ -11,12 +11,22 @@ abstract class Failure extends Equatable {
 
 class ServerFailure extends Failure {
   final String? message;
-  // Removed const from constructor because message is not always const.
   ServerFailure({this.message}) : super(message != null ? [message] : const []);
 }
 
 class CacheFailure extends Failure {
   final String? message;
-  // Removed const from constructor because message is not always const.
   CacheFailure({this.message}) : super(message != null ? [message] : const []);
+}
+
+class InvalidCredentialsFailure extends Failure {
+  InvalidCredentialsFailure({String? message}) : super(message != null ? [message] : const ['Invalid credentials']);
+}
+
+class UserInactiveFailure extends Failure {
+  UserInactiveFailure({String? message}) : super(message != null ? [message] : const ['User is inactive']);
+}
+
+class DataIntegrityFailure extends Failure {
+  DataIntegrityFailure({String? message}) : super(message != null ? [message] : const ['Data integrity issue']);
 }

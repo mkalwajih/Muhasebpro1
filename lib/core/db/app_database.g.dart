@@ -4335,6 +4335,208 @@ class RolesCompanion extends UpdateCompanion<Role> {
   }
 }
 
+class RolePermissions extends Table
+    with TableInfo<RolePermissions, RolePermission> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  RolePermissions(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
+  late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
+      'role_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES roles(id)');
+  static const VerificationMeta _permissionMeta =
+      const VerificationMeta('permission');
+  late final GeneratedColumn<String> permission = GeneratedColumn<String>(
+      'permission', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns => [roleId, permission];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'role_permissions';
+  @override
+  VerificationContext validateIntegrity(Insertable<RolePermission> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('role_id')) {
+      context.handle(_roleIdMeta,
+          roleId.isAcceptableOrUnknown(data['role_id']!, _roleIdMeta));
+    } else if (isInserting) {
+      context.missing(_roleIdMeta);
+    }
+    if (data.containsKey('permission')) {
+      context.handle(
+          _permissionMeta,
+          permission.isAcceptableOrUnknown(
+              data['permission']!, _permissionMeta));
+    } else if (isInserting) {
+      context.missing(_permissionMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {roleId, permission};
+  @override
+  RolePermission map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return RolePermission(
+      roleId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}role_id'])!,
+      permission: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}permission'])!,
+    );
+  }
+
+  @override
+  RolePermissions createAlias(String alias) {
+    return RolePermissions(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints =>
+      const ['PRIMARY KEY(role_id, permission)'];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class RolePermission extends DataClass implements Insertable<RolePermission> {
+  final int roleId;
+  final String permission;
+  const RolePermission({required this.roleId, required this.permission});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['role_id'] = Variable<int>(roleId);
+    map['permission'] = Variable<String>(permission);
+    return map;
+  }
+
+  RolePermissionsCompanion toCompanion(bool nullToAbsent) {
+    return RolePermissionsCompanion(
+      roleId: Value(roleId),
+      permission: Value(permission),
+    );
+  }
+
+  factory RolePermission.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return RolePermission(
+      roleId: serializer.fromJson<int>(json['role_id']),
+      permission: serializer.fromJson<String>(json['permission']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'role_id': serializer.toJson<int>(roleId),
+      'permission': serializer.toJson<String>(permission),
+    };
+  }
+
+  RolePermission copyWith({int? roleId, String? permission}) => RolePermission(
+        roleId: roleId ?? this.roleId,
+        permission: permission ?? this.permission,
+      );
+  RolePermission copyWithCompanion(RolePermissionsCompanion data) {
+    return RolePermission(
+      roleId: data.roleId.present ? data.roleId.value : this.roleId,
+      permission:
+          data.permission.present ? data.permission.value : this.permission,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RolePermission(')
+          ..write('roleId: $roleId, ')
+          ..write('permission: $permission')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(roleId, permission);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is RolePermission &&
+          other.roleId == this.roleId &&
+          other.permission == this.permission);
+}
+
+class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
+  final Value<int> roleId;
+  final Value<String> permission;
+  final Value<int> rowid;
+  const RolePermissionsCompanion({
+    this.roleId = const Value.absent(),
+    this.permission = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  RolePermissionsCompanion.insert({
+    required int roleId,
+    required String permission,
+    this.rowid = const Value.absent(),
+  })  : roleId = Value(roleId),
+        permission = Value(permission);
+  static Insertable<RolePermission> custom({
+    Expression<int>? roleId,
+    Expression<String>? permission,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (roleId != null) 'role_id': roleId,
+      if (permission != null) 'permission': permission,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  RolePermissionsCompanion copyWith(
+      {Value<int>? roleId, Value<String>? permission, Value<int>? rowid}) {
+    return RolePermissionsCompanion(
+      roleId: roleId ?? this.roleId,
+      permission: permission ?? this.permission,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (roleId.present) {
+      map['role_id'] = Variable<int>(roleId.value);
+    }
+    if (permission.present) {
+      map['permission'] = Variable<String>(permission.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RolePermissionsCompanion(')
+          ..write('roleId: $roleId, ')
+          ..write('permission: $permission, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class Users extends Table with TableInfo<Users, User> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -4814,404 +5016,6 @@ class UsersCompanion extends UpdateCompanion<User> {
   }
 }
 
-class UserRoles extends Table with TableInfo<UserRoles, UserRole> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  UserRoles(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
-  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
-      'user_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES users(id)');
-  static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
-  late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
-      'role_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES roles(id)');
-  @override
-  List<GeneratedColumn> get $columns => [userId, roleId];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'user_roles';
-  @override
-  VerificationContext validateIntegrity(Insertable<UserRole> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('user_id')) {
-      context.handle(_userIdMeta,
-          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
-    } else if (isInserting) {
-      context.missing(_userIdMeta);
-    }
-    if (data.containsKey('role_id')) {
-      context.handle(_roleIdMeta,
-          roleId.isAcceptableOrUnknown(data['role_id']!, _roleIdMeta));
-    } else if (isInserting) {
-      context.missing(_roleIdMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {userId, roleId};
-  @override
-  UserRole map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserRole(
-      userId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
-      roleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}role_id'])!,
-    );
-  }
-
-  @override
-  UserRoles createAlias(String alias) {
-    return UserRoles(attachedDatabase, alias);
-  }
-
-  @override
-  List<String> get customConstraints => const ['PRIMARY KEY(user_id, role_id)'];
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class UserRole extends DataClass implements Insertable<UserRole> {
-  final int userId;
-  final int roleId;
-  const UserRole({required this.userId, required this.roleId});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['user_id'] = Variable<int>(userId);
-    map['role_id'] = Variable<int>(roleId);
-    return map;
-  }
-
-  UserRolesCompanion toCompanion(bool nullToAbsent) {
-    return UserRolesCompanion(
-      userId: Value(userId),
-      roleId: Value(roleId),
-    );
-  }
-
-  factory UserRole.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserRole(
-      userId: serializer.fromJson<int>(json['user_id']),
-      roleId: serializer.fromJson<int>(json['role_id']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'user_id': serializer.toJson<int>(userId),
-      'role_id': serializer.toJson<int>(roleId),
-    };
-  }
-
-  UserRole copyWith({int? userId, int? roleId}) => UserRole(
-        userId: userId ?? this.userId,
-        roleId: roleId ?? this.roleId,
-      );
-  UserRole copyWithCompanion(UserRolesCompanion data) {
-    return UserRole(
-      userId: data.userId.present ? data.userId.value : this.userId,
-      roleId: data.roleId.present ? data.roleId.value : this.roleId,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('UserRole(')
-          ..write('userId: $userId, ')
-          ..write('roleId: $roleId')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(userId, roleId);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is UserRole &&
-          other.userId == this.userId &&
-          other.roleId == this.roleId);
-}
-
-class UserRolesCompanion extends UpdateCompanion<UserRole> {
-  final Value<int> userId;
-  final Value<int> roleId;
-  final Value<int> rowid;
-  const UserRolesCompanion({
-    this.userId = const Value.absent(),
-    this.roleId = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  UserRolesCompanion.insert({
-    required int userId,
-    required int roleId,
-    this.rowid = const Value.absent(),
-  })  : userId = Value(userId),
-        roleId = Value(roleId);
-  static Insertable<UserRole> custom({
-    Expression<int>? userId,
-    Expression<int>? roleId,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (userId != null) 'user_id': userId,
-      if (roleId != null) 'role_id': roleId,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  UserRolesCompanion copyWith(
-      {Value<int>? userId, Value<int>? roleId, Value<int>? rowid}) {
-    return UserRolesCompanion(
-      userId: userId ?? this.userId,
-      roleId: roleId ?? this.roleId,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (userId.present) {
-      map['user_id'] = Variable<int>(userId.value);
-    }
-    if (roleId.present) {
-      map['role_id'] = Variable<int>(roleId.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('UserRolesCompanion(')
-          ..write('userId: $userId, ')
-          ..write('roleId: $roleId, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class RolePermissions extends Table
-    with TableInfo<RolePermissions, RolePermission> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  RolePermissions(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _roleIdMeta = const VerificationMeta('roleId');
-  late final GeneratedColumn<int> roleId = GeneratedColumn<int>(
-      'role_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES roles(id)');
-  static const VerificationMeta _permissionMeta =
-      const VerificationMeta('permission');
-  late final GeneratedColumn<String> permission = GeneratedColumn<String>(
-      'permission', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  @override
-  List<GeneratedColumn> get $columns => [roleId, permission];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'role_permissions';
-  @override
-  VerificationContext validateIntegrity(Insertable<RolePermission> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('role_id')) {
-      context.handle(_roleIdMeta,
-          roleId.isAcceptableOrUnknown(data['role_id']!, _roleIdMeta));
-    } else if (isInserting) {
-      context.missing(_roleIdMeta);
-    }
-    if (data.containsKey('permission')) {
-      context.handle(
-          _permissionMeta,
-          permission.isAcceptableOrUnknown(
-              data['permission']!, _permissionMeta));
-    } else if (isInserting) {
-      context.missing(_permissionMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {roleId, permission};
-  @override
-  RolePermission map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return RolePermission(
-      roleId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}role_id'])!,
-      permission: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}permission'])!,
-    );
-  }
-
-  @override
-  RolePermissions createAlias(String alias) {
-    return RolePermissions(attachedDatabase, alias);
-  }
-
-  @override
-  List<String> get customConstraints =>
-      const ['PRIMARY KEY(role_id, permission)'];
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class RolePermission extends DataClass implements Insertable<RolePermission> {
-  final int roleId;
-  final String permission;
-  const RolePermission({required this.roleId, required this.permission});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['role_id'] = Variable<int>(roleId);
-    map['permission'] = Variable<String>(permission);
-    return map;
-  }
-
-  RolePermissionsCompanion toCompanion(bool nullToAbsent) {
-    return RolePermissionsCompanion(
-      roleId: Value(roleId),
-      permission: Value(permission),
-    );
-  }
-
-  factory RolePermission.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return RolePermission(
-      roleId: serializer.fromJson<int>(json['role_id']),
-      permission: serializer.fromJson<String>(json['permission']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'role_id': serializer.toJson<int>(roleId),
-      'permission': serializer.toJson<String>(permission),
-    };
-  }
-
-  RolePermission copyWith({int? roleId, String? permission}) => RolePermission(
-        roleId: roleId ?? this.roleId,
-        permission: permission ?? this.permission,
-      );
-  RolePermission copyWithCompanion(RolePermissionsCompanion data) {
-    return RolePermission(
-      roleId: data.roleId.present ? data.roleId.value : this.roleId,
-      permission:
-          data.permission.present ? data.permission.value : this.permission,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RolePermission(')
-          ..write('roleId: $roleId, ')
-          ..write('permission: $permission')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(roleId, permission);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is RolePermission &&
-          other.roleId == this.roleId &&
-          other.permission == this.permission);
-}
-
-class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
-  final Value<int> roleId;
-  final Value<String> permission;
-  final Value<int> rowid;
-  const RolePermissionsCompanion({
-    this.roleId = const Value.absent(),
-    this.permission = const Value.absent(),
-    this.rowid = const Value.absent(),
-  });
-  RolePermissionsCompanion.insert({
-    required int roleId,
-    required String permission,
-    this.rowid = const Value.absent(),
-  })  : roleId = Value(roleId),
-        permission = Value(permission);
-  static Insertable<RolePermission> custom({
-    Expression<int>? roleId,
-    Expression<String>? permission,
-    Expression<int>? rowid,
-  }) {
-    return RawValuesInsertable({
-      if (roleId != null) 'role_id': roleId,
-      if (permission != null) 'permission': permission,
-      if (rowid != null) 'rowid': rowid,
-    });
-  }
-
-  RolePermissionsCompanion copyWith(
-      {Value<int>? roleId, Value<String>? permission, Value<int>? rowid}) {
-    return RolePermissionsCompanion(
-      roleId: roleId ?? this.roleId,
-      permission: permission ?? this.permission,
-      rowid: rowid ?? this.rowid,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (roleId.present) {
-      map['role_id'] = Variable<int>(roleId.value);
-    }
-    if (permission.present) {
-      map['permission'] = Variable<String>(permission.value);
-    }
-    if (rowid.present) {
-      map['rowid'] = Variable<int>(rowid.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RolePermissionsCompanion(')
-          ..write('roleId: $roleId, ')
-          ..write('permission: $permission, ')
-          ..write('rowid: $rowid')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class AuditLog extends Table with TableInfo<AuditLog, AuditLogData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -5229,7 +5033,7 @@ class AuditLog extends Table with TableInfo<AuditLog, AuditLogData> {
       'user_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES users(id)');
+      $customConstraints: 'NOT NULL REFERENCES users(user_id)');
   static const VerificationMeta _timestampMeta =
       const VerificationMeta('timestamp');
   late final GeneratedColumn<double> timestamp = GeneratedColumn<double>(
@@ -10199,9 +10003,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final FinancialPeriods financialPeriods = FinancialPeriods(this);
   late final Accounts accounts = Accounts(this);
   late final Roles roles = Roles(this);
-  late final Users users = Users(this);
-  late final UserRoles userRoles = UserRoles(this);
   late final RolePermissions rolePermissions = RolePermissions(this);
+  late final Users users = Users(this);
   late final AuditLog auditLog = AuditLog(this);
   late final Zones zones = Zones(this);
   late final Countries countries = Countries(this);
@@ -10232,9 +10035,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         financialPeriods,
         accounts,
         roles,
-        users,
-        userRoles,
         rolePermissions,
+        users,
         auditLog,
         zones,
         countries,
@@ -13252,20 +13054,6 @@ final class $RolesReferences
     extends BaseReferences<_$AppDatabase, Roles, Role> {
   $RolesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.userRoles,
-          aliasName: $_aliasNameGenerator(db.roles.id, db.userRoles.roleId));
-
-  $UserRolesProcessedTableManager get userRolesRefs {
-    final manager = $UserRolesTableManager($_db, $_db.userRoles)
-        .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-
   static MultiTypedResultKey<RolePermissions, List<RolePermission>>
       _rolePermissionsRefsTable(_$AppDatabase db) =>
           MultiTypedResultKey.fromTable(db.rolePermissions,
@@ -13305,27 +13093,6 @@ class $RolesFilterComposer extends Composer<_$AppDatabase, Roles> {
 
   ColumnFilters<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> userRolesRefs(
-      Expression<bool> Function($UserRolesFilterComposer f) f) {
-    final $UserRolesFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.roleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UserRolesFilterComposer(
-              $db: $db,
-              $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
 
   Expression<bool> rolePermissionsRefs(
       Expression<bool> Function($RolePermissionsFilterComposer f) f) {
@@ -13396,27 +13163,6 @@ class $RolesAnnotationComposer extends Composer<_$AppDatabase, Roles> {
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
 
-  Expression<T> userRolesRefs<T extends Object>(
-      Expression<T> Function($UserRolesAnnotationComposer a) f) {
-    final $UserRolesAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.roleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UserRolesAnnotationComposer(
-              $db: $db,
-              $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-
   Expression<T> rolePermissionsRefs<T extends Object>(
       Expression<T> Function($RolePermissionsAnnotationComposer a) f) {
     final $RolePermissionsAnnotationComposer composer = $composerBuilder(
@@ -13450,7 +13196,7 @@ class $RolesTableManager extends RootTableManager<
     $RolesUpdateCompanionBuilder,
     (Role, $RolesReferences),
     Role,
-    PrefetchHooks Function({bool userRolesRefs, bool rolePermissionsRefs})> {
+    PrefetchHooks Function({bool rolePermissionsRefs})> {
   $RolesTableManager(_$AppDatabase db, Roles table)
       : super(TableManagerState(
           db: db,
@@ -13492,28 +13238,15 @@ class $RolesTableManager extends RootTableManager<
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), $RolesReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: (
-              {userRolesRefs = false, rolePermissionsRefs = false}) {
+          prefetchHooksCallback: ({rolePermissionsRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
-                if (userRolesRefs) db.userRoles,
                 if (rolePermissionsRefs) db.rolePermissions
               ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (userRolesRefs)
-                    await $_getPrefetchedData<Role, Roles, UserRole>(
-                        currentTable: table,
-                        referencedTable:
-                            $RolesReferences._userRolesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $RolesReferences(db, table, p0).userRolesRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.roleId == item.id),
-                        typedResults: items),
                   if (rolePermissionsRefs)
                     await $_getPrefetchedData<Role, Roles, RolePermission>(
                         currentTable: table,
@@ -13543,530 +13276,7 @@ typedef $RolesProcessedTableManager = ProcessedTableManager<
     $RolesUpdateCompanionBuilder,
     (Role, $RolesReferences),
     Role,
-    PrefetchHooks Function({bool userRolesRefs, bool rolePermissionsRefs})>;
-typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
-  Value<int> userId,
-  required String username,
-  required String password,
-  required String fullNameAr,
-  required String fullNameEn,
-  Value<bool> isActive,
-  Value<int?> branchId,
-  Value<bool> isBiometricEnabled,
-  Value<bool> isDeviceLinked,
-});
-typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
-  Value<int> userId,
-  Value<String> username,
-  Value<String> password,
-  Value<String> fullNameAr,
-  Value<String> fullNameEn,
-  Value<bool> isActive,
-  Value<int?> branchId,
-  Value<bool> isBiometricEnabled,
-  Value<bool> isDeviceLinked,
-});
-
-final class $UsersReferences
-    extends BaseReferences<_$AppDatabase, Users, User> {
-  $UsersReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.userRoles,
-          aliasName:
-              $_aliasNameGenerator(db.users.userId, db.userRoles.userId));
-
-  $UserRolesProcessedTableManager get userRolesRefs {
-    final manager = $UserRolesTableManager($_db, $_db.userRoles).filter(
-        (f) => f.userId.userId.sqlEquals($_itemColumn<int>('user_id')!));
-
-    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
-  $UsersFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get username => $composableBuilder(
-      column: $table.username, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get fullNameAr => $composableBuilder(
-      column: $table.fullNameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get fullNameEn => $composableBuilder(
-      column: $table.fullNameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get branchId => $composableBuilder(
-      column: $table.branchId, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isBiometricEnabled => $composableBuilder(
-      column: $table.isBiometricEnabled,
-      builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isDeviceLinked => $composableBuilder(
-      column: $table.isDeviceLinked,
-      builder: (column) => ColumnFilters(column));
-
-  Expression<bool> userRolesRefs(
-      Expression<bool> Function($UserRolesFilterComposer f) f) {
-    final $UserRolesFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UserRolesFilterComposer(
-              $db: $db,
-              $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
-  $UsersOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get username => $composableBuilder(
-      column: $table.username, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get password => $composableBuilder(
-      column: $table.password, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get fullNameAr => $composableBuilder(
-      column: $table.fullNameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get fullNameEn => $composableBuilder(
-      column: $table.fullNameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<int> get branchId => $composableBuilder(
-      column: $table.branchId, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isBiometricEnabled => $composableBuilder(
-      column: $table.isBiometricEnabled,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isDeviceLinked => $composableBuilder(
-      column: $table.isDeviceLinked,
-      builder: (column) => ColumnOrderings(column));
-}
-
-class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
-  $UsersAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get userId =>
-      $composableBuilder(column: $table.userId, builder: (column) => column);
-
-  GeneratedColumn<String> get username =>
-      $composableBuilder(column: $table.username, builder: (column) => column);
-
-  GeneratedColumn<String> get password =>
-      $composableBuilder(column: $table.password, builder: (column) => column);
-
-  GeneratedColumn<String> get fullNameAr => $composableBuilder(
-      column: $table.fullNameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get fullNameEn => $composableBuilder(
-      column: $table.fullNameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  GeneratedColumn<int> get branchId =>
-      $composableBuilder(column: $table.branchId, builder: (column) => column);
-
-  GeneratedColumn<bool> get isBiometricEnabled => $composableBuilder(
-      column: $table.isBiometricEnabled, builder: (column) => column);
-
-  GeneratedColumn<bool> get isDeviceLinked => $composableBuilder(
-      column: $table.isDeviceLinked, builder: (column) => column);
-
-  Expression<T> userRolesRefs<T extends Object>(
-      Expression<T> Function($UserRolesAnnotationComposer a) f) {
-    final $UserRolesAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.userId,
-        referencedTable: $db.userRoles,
-        getReferencedColumn: (t) => t.userId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $UserRolesAnnotationComposer(
-              $db: $db,
-              $table: $db.userRoles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $UsersTableManager extends RootTableManager<
-    _$AppDatabase,
-    Users,
-    User,
-    $UsersFilterComposer,
-    $UsersOrderingComposer,
-    $UsersAnnotationComposer,
-    $UsersCreateCompanionBuilder,
-    $UsersUpdateCompanionBuilder,
-    (User, $UsersReferences),
-    User,
-    PrefetchHooks Function({bool userRolesRefs})> {
-  $UsersTableManager(_$AppDatabase db, Users table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $UsersFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $UsersOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $UsersAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> userId = const Value.absent(),
-            Value<String> username = const Value.absent(),
-            Value<String> password = const Value.absent(),
-            Value<String> fullNameAr = const Value.absent(),
-            Value<String> fullNameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-            Value<int?> branchId = const Value.absent(),
-            Value<bool> isBiometricEnabled = const Value.absent(),
-            Value<bool> isDeviceLinked = const Value.absent(),
-          }) =>
-              UsersCompanion(
-            userId: userId,
-            username: username,
-            password: password,
-            fullNameAr: fullNameAr,
-            fullNameEn: fullNameEn,
-            isActive: isActive,
-            branchId: branchId,
-            isBiometricEnabled: isBiometricEnabled,
-            isDeviceLinked: isDeviceLinked,
-          ),
-          createCompanionCallback: ({
-            Value<int> userId = const Value.absent(),
-            required String username,
-            required String password,
-            required String fullNameAr,
-            required String fullNameEn,
-            Value<bool> isActive = const Value.absent(),
-            Value<int?> branchId = const Value.absent(),
-            Value<bool> isBiometricEnabled = const Value.absent(),
-            Value<bool> isDeviceLinked = const Value.absent(),
-          }) =>
-              UsersCompanion.insert(
-            userId: userId,
-            username: username,
-            password: password,
-            fullNameAr: fullNameAr,
-            fullNameEn: fullNameEn,
-            isActive: isActive,
-            branchId: branchId,
-            isBiometricEnabled: isBiometricEnabled,
-            isDeviceLinked: isDeviceLinked,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({userRolesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (userRolesRefs) db.userRoles],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (userRolesRefs)
-                    await $_getPrefetchedData<User, Users, UserRole>(
-                        currentTable: table,
-                        referencedTable:
-                            $UsersReferences._userRolesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $UsersReferences(db, table, p0).userRolesRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.userId == item.userId),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $UsersProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    Users,
-    User,
-    $UsersFilterComposer,
-    $UsersOrderingComposer,
-    $UsersAnnotationComposer,
-    $UsersCreateCompanionBuilder,
-    $UsersUpdateCompanionBuilder,
-    (User, $UsersReferences),
-    User,
-    PrefetchHooks Function({bool userRolesRefs})>;
-typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
-  required int userId,
-  required int roleId,
-  Value<int> rowid,
-});
-typedef $UserRolesUpdateCompanionBuilder = UserRolesCompanion Function({
-  Value<int> userId,
-  Value<int> roleId,
-  Value<int> rowid,
-});
-
-final class $UserRolesReferences
-    extends BaseReferences<_$AppDatabase, UserRoles, UserRole> {
-  $UserRolesReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static Roles _roleIdTable(_$AppDatabase db) => db.roles
-      .createAlias($_aliasNameGenerator(db.userRoles.roleId, db.roles.id));
-
-  $RolesProcessedTableManager get roleId {
-    final $_column = $_itemColumn<int>('role_id')!;
-
-    final manager = $RolesTableManager($_db, $_db.roles)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_roleIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
-  $UserRolesFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnFilters(column));
-
-  $RolesFilterComposer get roleId {
-    final $RolesFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.roleId,
-        referencedTable: $db.roles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $RolesFilterComposer(
-              $db: $db,
-              $table: $db.roles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
-  $UserRolesOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnOrderings(column));
-
-  $RolesOrderingComposer get roleId {
-    final $RolesOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.roleId,
-        referencedTable: $db.roles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $RolesOrderingComposer(
-              $db: $db,
-              $table: $db.roles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
-  $UserRolesAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get userId =>
-      $composableBuilder(column: $table.userId, builder: (column) => column);
-
-  $RolesAnnotationComposer get roleId {
-    final $RolesAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.roleId,
-        referencedTable: $db.roles,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $RolesAnnotationComposer(
-              $db: $db,
-              $table: $db.roles,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $UserRolesTableManager extends RootTableManager<
-    _$AppDatabase,
-    UserRoles,
-    UserRole,
-    $UserRolesFilterComposer,
-    $UserRolesOrderingComposer,
-    $UserRolesAnnotationComposer,
-    $UserRolesCreateCompanionBuilder,
-    $UserRolesUpdateCompanionBuilder,
-    (UserRole, $UserRolesReferences),
-    UserRole,
-    PrefetchHooks Function({bool roleId})> {
-  $UserRolesTableManager(_$AppDatabase db, UserRoles table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $UserRolesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $UserRolesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $UserRolesAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> userId = const Value.absent(),
-            Value<int> roleId = const Value.absent(),
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              UserRolesCompanion(
-            userId: userId,
-            roleId: roleId,
-            rowid: rowid,
-          ),
-          createCompanionCallback: ({
-            required int userId,
-            required int roleId,
-            Value<int> rowid = const Value.absent(),
-          }) =>
-              UserRolesCompanion.insert(
-            userId: userId,
-            roleId: roleId,
-            rowid: rowid,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $UserRolesReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({roleId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (roleId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.roleId,
-                    referencedTable: $UserRolesReferences._roleIdTable(db),
-                    referencedColumn: $UserRolesReferences._roleIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ));
-}
-
-typedef $UserRolesProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    UserRoles,
-    UserRole,
-    $UserRolesFilterComposer,
-    $UserRolesOrderingComposer,
-    $UserRolesAnnotationComposer,
-    $UserRolesCreateCompanionBuilder,
-    $UserRolesUpdateCompanionBuilder,
-    (UserRole, $UserRolesReferences),
-    UserRole,
-    PrefetchHooks Function({bool roleId})>;
+    PrefetchHooks Function({bool rolePermissionsRefs})>;
 typedef $RolePermissionsCreateCompanionBuilder = RolePermissionsCompanion
     Function({
   required int roleId,
@@ -14296,6 +13506,380 @@ typedef $RolePermissionsProcessedTableManager = ProcessedTableManager<
     (RolePermission, $RolePermissionsReferences),
     RolePermission,
     PrefetchHooks Function({bool roleId})>;
+typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
+  Value<int> userId,
+  required String username,
+  required String password,
+  required String fullNameAr,
+  required String fullNameEn,
+  Value<bool> isActive,
+  Value<int?> branchId,
+  Value<bool> isBiometricEnabled,
+  Value<bool> isDeviceLinked,
+});
+typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
+  Value<int> userId,
+  Value<String> username,
+  Value<String> password,
+  Value<String> fullNameAr,
+  Value<String> fullNameEn,
+  Value<bool> isActive,
+  Value<int?> branchId,
+  Value<bool> isBiometricEnabled,
+  Value<bool> isDeviceLinked,
+});
+
+final class $UsersReferences
+    extends BaseReferences<_$AppDatabase, Users, User> {
+  $UsersReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<AuditLog, List<AuditLogData>> _auditLogRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.auditLog,
+          aliasName: $_aliasNameGenerator(db.users.userId, db.auditLog.userId));
+
+  $AuditLogProcessedTableManager get auditLogRefs {
+    final manager = $AuditLogTableManager($_db, $_db.auditLog).filter(
+        (f) => f.userId.userId.sqlEquals($_itemColumn<int>('user_id')!));
+
+    final cache = $_typedResult.readTableOrNull(_auditLogRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.userRoles,
+          aliasName:
+              $_aliasNameGenerator(db.users.userId, db.userRoles.userId));
+
+  $UserRolesProcessedTableManager get userRolesRefs {
+    final manager = $UserRolesTableManager($_db, $_db.userRoles).filter(
+        (f) => f.userId.userId.sqlEquals($_itemColumn<int>('user_id')!));
+
+    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
+  $UsersFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get branchId => $composableBuilder(
+      column: $table.branchId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked,
+      builder: (column) => ColumnFilters(column));
+
+  Expression<bool> auditLogRefs(
+      Expression<bool> Function($AuditLogFilterComposer f) f) {
+    final $AuditLogFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.auditLog,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $AuditLogFilterComposer(
+              $db: $db,
+              $table: $db.auditLog,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> userRolesRefs(
+      Expression<bool> Function($UserRolesFilterComposer f) f) {
+    final $UserRolesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesFilterComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
+  $UsersOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get username => $composableBuilder(
+      column: $table.username, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get password => $composableBuilder(
+      column: $table.password, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get branchId => $composableBuilder(
+      column: $table.branchId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
+  $UsersAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => column);
+
+  GeneratedColumn<String> get password =>
+      $composableBuilder(column: $table.password, builder: (column) => column);
+
+  GeneratedColumn<String> get fullNameAr => $composableBuilder(
+      column: $table.fullNameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get fullNameEn => $composableBuilder(
+      column: $table.fullNameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get branchId =>
+      $composableBuilder(column: $table.branchId, builder: (column) => column);
+
+  GeneratedColumn<bool> get isBiometricEnabled => $composableBuilder(
+      column: $table.isBiometricEnabled, builder: (column) => column);
+
+  GeneratedColumn<bool> get isDeviceLinked => $composableBuilder(
+      column: $table.isDeviceLinked, builder: (column) => column);
+
+  Expression<T> auditLogRefs<T extends Object>(
+      Expression<T> Function($AuditLogAnnotationComposer a) f) {
+    final $AuditLogAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.auditLog,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $AuditLogAnnotationComposer(
+              $db: $db,
+              $table: $db.auditLog,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> userRolesRefs<T extends Object>(
+      Expression<T> Function($UserRolesAnnotationComposer a) f) {
+    final $UserRolesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesAnnotationComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $UsersTableManager extends RootTableManager<
+    _$AppDatabase,
+    Users,
+    User,
+    $UsersFilterComposer,
+    $UsersOrderingComposer,
+    $UsersAnnotationComposer,
+    $UsersCreateCompanionBuilder,
+    $UsersUpdateCompanionBuilder,
+    (User, $UsersReferences),
+    User,
+    PrefetchHooks Function({bool auditLogRefs, bool userRolesRefs})> {
+  $UsersTableManager(_$AppDatabase db, Users table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $UsersFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $UsersOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $UsersAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> userId = const Value.absent(),
+            Value<String> username = const Value.absent(),
+            Value<String> password = const Value.absent(),
+            Value<String> fullNameAr = const Value.absent(),
+            Value<String> fullNameEn = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+            Value<int?> branchId = const Value.absent(),
+            Value<bool> isBiometricEnabled = const Value.absent(),
+            Value<bool> isDeviceLinked = const Value.absent(),
+          }) =>
+              UsersCompanion(
+            userId: userId,
+            username: username,
+            password: password,
+            fullNameAr: fullNameAr,
+            fullNameEn: fullNameEn,
+            isActive: isActive,
+            branchId: branchId,
+            isBiometricEnabled: isBiometricEnabled,
+            isDeviceLinked: isDeviceLinked,
+          ),
+          createCompanionCallback: ({
+            Value<int> userId = const Value.absent(),
+            required String username,
+            required String password,
+            required String fullNameAr,
+            required String fullNameEn,
+            Value<bool> isActive = const Value.absent(),
+            Value<int?> branchId = const Value.absent(),
+            Value<bool> isBiometricEnabled = const Value.absent(),
+            Value<bool> isDeviceLinked = const Value.absent(),
+          }) =>
+              UsersCompanion.insert(
+            userId: userId,
+            username: username,
+            password: password,
+            fullNameAr: fullNameAr,
+            fullNameEn: fullNameEn,
+            isActive: isActive,
+            branchId: branchId,
+            isBiometricEnabled: isBiometricEnabled,
+            isDeviceLinked: isDeviceLinked,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {auditLogRefs = false, userRolesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (auditLogRefs) db.auditLog,
+                if (userRolesRefs) db.userRoles
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (auditLogRefs)
+                    await $_getPrefetchedData<User, Users, AuditLogData>(
+                        currentTable: table,
+                        referencedTable:
+                            $UsersReferences._auditLogRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $UsersReferences(db, table, p0).auditLogRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.userId == item.userId),
+                        typedResults: items),
+                  if (userRolesRefs)
+                    await $_getPrefetchedData<User, Users, UserRole>(
+                        currentTable: table,
+                        referencedTable:
+                            $UsersReferences._userRolesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $UsersReferences(db, table, p0).userRolesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.userId == item.userId),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $UsersProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Users,
+    User,
+    $UsersFilterComposer,
+    $UsersOrderingComposer,
+    $UsersAnnotationComposer,
+    $UsersCreateCompanionBuilder,
+    $UsersUpdateCompanionBuilder,
+    (User, $UsersReferences),
+    User,
+    PrefetchHooks Function({bool auditLogRefs, bool userRolesRefs})>;
 typedef $AuditLogCreateCompanionBuilder = AuditLogCompanion Function({
   Value<int> id,
   required int userId,
@@ -14311,6 +13895,25 @@ typedef $AuditLogUpdateCompanionBuilder = AuditLogCompanion Function({
   Value<String?> details,
 });
 
+final class $AuditLogReferences
+    extends BaseReferences<_$AppDatabase, AuditLog, AuditLogData> {
+  $AuditLogReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Users _userIdTable(_$AppDatabase db) => db.users
+      .createAlias($_aliasNameGenerator(db.auditLog.userId, db.users.userId));
+
+  $UsersProcessedTableManager get userId {
+    final $_column = $_itemColumn<int>('user_id')!;
+
+    final manager = $UsersTableManager($_db, $_db.users)
+        .filter((f) => f.userId.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_userIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
 class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
   $AuditLogFilterComposer({
     required super.$db,
@@ -14322,9 +13925,6 @@ class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
   ColumnFilters<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnFilters(column));
 
@@ -14333,6 +13933,26 @@ class $AuditLogFilterComposer extends Composer<_$AppDatabase, AuditLog> {
 
   ColumnFilters<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnFilters(column));
+
+  $UsersFilterComposer get userId {
+    final $UsersFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersFilterComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
@@ -14346,9 +13966,6 @@ class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
   ColumnOrderings<int> get id => $composableBuilder(
       column: $table.id, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get userId => $composableBuilder(
-      column: $table.userId, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<double> get timestamp => $composableBuilder(
       column: $table.timestamp, builder: (column) => ColumnOrderings(column));
 
@@ -14357,6 +13974,26 @@ class $AuditLogOrderingComposer extends Composer<_$AppDatabase, AuditLog> {
 
   ColumnOrderings<String> get details => $composableBuilder(
       column: $table.details, builder: (column) => ColumnOrderings(column));
+
+  $UsersOrderingComposer get userId {
+    final $UsersOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersOrderingComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
@@ -14370,9 +14007,6 @@ class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
   GeneratedColumn<int> get id =>
       $composableBuilder(column: $table.id, builder: (column) => column);
 
-  GeneratedColumn<int> get userId =>
-      $composableBuilder(column: $table.userId, builder: (column) => column);
-
   GeneratedColumn<double> get timestamp =>
       $composableBuilder(column: $table.timestamp, builder: (column) => column);
 
@@ -14381,6 +14015,26 @@ class $AuditLogAnnotationComposer extends Composer<_$AppDatabase, AuditLog> {
 
   GeneratedColumn<String> get details =>
       $composableBuilder(column: $table.details, builder: (column) => column);
+
+  $UsersAnnotationComposer get userId {
+    final $UsersAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.userId,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.userId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersAnnotationComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $AuditLogTableManager extends RootTableManager<
@@ -14392,9 +14046,9 @@ class $AuditLogTableManager extends RootTableManager<
     $AuditLogAnnotationComposer,
     $AuditLogCreateCompanionBuilder,
     $AuditLogUpdateCompanionBuilder,
-    (AuditLogData, BaseReferences<_$AppDatabase, AuditLog, AuditLogData>),
+    (AuditLogData, $AuditLogReferences),
     AuditLogData,
-    PrefetchHooks Function()> {
+    PrefetchHooks Function({bool userId})> {
   $AuditLogTableManager(_$AppDatabase db, AuditLog table)
       : super(TableManagerState(
           db: db,
@@ -14434,9 +14088,43 @@ class $AuditLogTableManager extends RootTableManager<
             details: details,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .map((e) =>
+                  (e.readTable(table), $AuditLogReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: null,
+          prefetchHooksCallback: ({userId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (userId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.userId,
+                    referencedTable: $AuditLogReferences._userIdTable(db),
+                    referencedColumn:
+                        $AuditLogReferences._userIdTable(db).userId,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
         ));
 }
 
@@ -14449,9 +14137,9 @@ typedef $AuditLogProcessedTableManager = ProcessedTableManager<
     $AuditLogAnnotationComposer,
     $AuditLogCreateCompanionBuilder,
     $AuditLogUpdateCompanionBuilder,
-    (AuditLogData, BaseReferences<_$AppDatabase, AuditLog, AuditLogData>),
+    (AuditLogData, $AuditLogReferences),
     AuditLogData,
-    PrefetchHooks Function()>;
+    PrefetchHooks Function({bool userId})>;
 typedef $ZonesCreateCompanionBuilder = ZonesCompanion Function({
   Value<int> id,
   required String zoneCode,
@@ -17977,11 +17665,9 @@ class $AppDatabaseManager {
   $AccountsTableManager get accounts =>
       $AccountsTableManager(_db, _db.accounts);
   $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
-  $UsersTableManager get users => $UsersTableManager(_db, _db.users);
-  $UserRolesTableManager get userRoles =>
-      $UserRolesTableManager(_db, _db.userRoles);
   $RolePermissionsTableManager get rolePermissions =>
       $RolePermissionsTableManager(_db, _db.rolePermissions);
+  $UsersTableManager get users => $UsersTableManager(_db, _db.users);
   $AuditLogTableManager get auditLog =>
       $AuditLogTableManager(_db, _db.auditLog);
   $ZonesTableManager get zones => $ZonesTableManager(_db, _db.zones);

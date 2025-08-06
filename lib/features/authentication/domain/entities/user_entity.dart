@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 
 class UserEntity extends Equatable {
@@ -23,6 +24,20 @@ class UserEntity extends Equatable {
     this.isDeviceLinked = false,
     this.roles = const [],
   });
+
+  factory UserEntity.fromUser(UserData user, {List<RoleEntity> roles = const []}) {
+    return UserEntity(
+      userId: user.userId,
+      username: user.username,
+      fullNameAr: user.fullNameAr,
+      fullNameEn: user.fullNameEn,
+      isActive: user.isActive,
+      branchId: user.branchId,
+      isBiometricEnabled: user.isBiometricEnabled,
+      isDeviceLinked: user.isDeviceLinked,
+      roles: roles,
+    );
+  }
 
   @override
   List<Object?> get props => [

@@ -4,5 +4,5 @@ import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_
 
 final authLocalDataSourceProvider = Provider<AuthLocalDataSource>((ref) {
   final db = ref.watch(appDatabaseProvider);
-  return AuthLocalDataSourceImpl(db);
+  return AuthLocalDataSource(db);
 });

@@ -2,8 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
-import 'package:muhaseb_pro/shared/data/models/role_model.dart';
-import 'package:muhaseb_pro/shared/data/models/user_model.dart';
 
 abstract class IUserManagementLocalDataSource {
   Future<List<UserEntity>> getAllUsers();
@@ -30,10 +28,10 @@ class UserManagementLocalDataSource implements IUserManagementLocalDataSource {
       final user = row.readTable(_db.users);
       final role = row.readTableOrNull(_db.roles);
       
-      userMap.putIfAbsent(user.userId, () => user.toEntity(roles: []));
+      userMap.putIfAbsent(user.userId, () => UserEntity.fromUser(user, roles: []));
       
       if (role != null) {
-        userMap[user.userId]!.roles.add(role.toEntity());
+        userMap[user.userId]!.roles.add(RoleEntity.fromRole(role));
       }
     }
     return userMap.values.toList();
@@ -46,13 +44,19 @@ class UserManagementLocalDataSource implements IUserManagementLocalDataSource {
     ])..where(_db.userRoles.userId.equals(userId));
 
     final result = await query.get();
-    return result.map((row) => row.readTable(_db.roles).toEntity()).toList();
+    return result.map((row) => RoleEntity.fromRole(row.readTable(_db.roles))).toList();
   }
 
   @override
   Future<void> addUser(UserEntity user, String passwordHash) async {
     await _db.transaction(() async {
-      final companion = UserCompanionMapper.fromEntity(user).copyWith(password: Value(passwordHash));
+      final companion = UsersCompanion(
+        username: Value(user.username),
+        password: Value(passwordHash),
+        fullNameAr: Value(user.fullNameAr),
+        fullNameEn: Value(user.fullNameEn),
+        isActive: Value(user.isActive),
+      );
       final newUserId = await _db.into(_db.users).insert(companion);
       
       for (final role in user.roles) {
@@ -64,11 +68,15 @@ class UserManagementLocalDataSource implements IUserManagementLocalDataSource {
   @override
   Future<void> updateUser(UserEntity user, {String? passwordHash}) async {
     await _db.transaction(() async {
-      var companion = UserCompanionMapper.fromEntity(user);
+      var updates = UsersCompanion(
+        fullNameAr: Value(user.fullNameAr),
+        fullNameEn: Value(user.fullNameEn),
+        isActive: Value(user.isActive),
+      );
       if(passwordHash != null) {
-        companion = companion.copyWith(password: Value(passwordHash));
+        updates = updates.copyWith(password: Value(passwordHash));
       }
-      await (_db.update(_db.users)..where((u) => u.userId.equals(user.userId))).write(companion);
+      await (_db.update(_db.users)..where((u) => u.userId.equals(user.userId))).write(updates);
 
       // Sync roles
       await (_db.delete(_db.userRoles)..where((ur) => ur.userId.equals(user.userId))).go();

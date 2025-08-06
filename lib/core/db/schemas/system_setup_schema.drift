@@ -1,5 +1,6 @@
 -- lib/core/db/schemas/system_setup_schema.drift
 
+IMPORT 'auth_schema.drift';
 
 CREATE TABLE company_info (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
