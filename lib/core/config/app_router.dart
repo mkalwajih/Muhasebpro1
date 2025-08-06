@@ -74,7 +74,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               ),
               GoRoute(
                 path: 'role_permissions',
-                builder: (context, state) => RolePermissionsScreen(role: state.extra! as dynamic),
+                builder: (context, state) =>
+                    RolePermissionsScreen(role: state.extra! as dynamic),
               ),
               GoRoute(
                 path: 'geographical_data',
@@ -88,7 +89,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 path: 'currencies',
                 builder: (context, state) => const CurrenciesScreen(),
               ),
-               GoRoute(
+              GoRoute(
                 path: 'tax',
                 builder: (context, state) => const TaxScreen(),
               ),
@@ -96,23 +97,28 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: 'general_ledger',
-            builder: (context, state) => const PlaceholderScreen(title: 'General Ledger'),
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'General Ledger'),
           ),
           GoRoute(
             path: 'inventory',
-            builder: (context, state) => const PlaceholderScreen(title: 'Inventory'),
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Inventory'),
           ),
           GoRoute(
             path: 'vendors',
-            builder: (context, state) => const PlaceholderScreen(title: 'Vendors'),
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Vendors'),
           ),
           GoRoute(
             path: 'customers',
-            builder: (context, state) => const PlaceholderScreen(title: 'Customers'),
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Customers'),
           ),
-           GoRoute(
+          GoRoute(
             path: 'reports',
-            builder: (context, state) => const PlaceholderScreen(title: 'Reports'),
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Reports'),
           ),
         ],
       ),

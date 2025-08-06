@@ -6,7 +6,7 @@ import 'package:muhaseb_pro/features/system_setup/data/datasources/local/user_ma
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
 import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 
-class UserManagementRepositoryImpl implements IUserManagementRepository {
+class UserManagementRepositoryImpl implements UserManagementRepository {
   final IUserManagementLocalDataSource _localDataSource;
 
   UserManagementRepositoryImpl(this._localDataSource);

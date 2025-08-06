@@ -29,10 +29,12 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/tax_reposi
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/user_management_repository.dart';
 
 // General Parameters
-final generalParametersLocalDataSourceProvider = Provider<GeneralParametersLocalDataSource>(
+final generalParametersLocalDataSourceProvider =
+    Provider<GeneralParametersLocalDataSource>(
   (ref) => GeneralParametersLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
-final generalParametersRepositoryProvider = Provider<GeneralParametersRepository>(
+final generalParametersRepositoryProvider =
+    Provider<GeneralParametersRepository>(
   (ref) => GeneralParametersRepositoryImpl(
     ref.watch(generalParametersLocalDataSourceProvider),
     ref.watch(appDatabaseProvider),
@@ -62,7 +64,8 @@ final branchesRepositoryProvider = Provider<BranchesRepository>(
 );
 
 // Geographical Data
-final geographicalDataLocalDataSourceProvider = Provider<GeographicalDataLocalDataSource>(
+final geographicalDataLocalDataSourceProvider =
+    Provider<GeographicalDataLocalDataSource>(
   (ref) => GeographicalDataLocalDataSourceImpl(ref.watch(appDatabaseProvider)),
 );
 final geographicalDataRepositoryProvider = Provider<GeographicalDataRepository>(
@@ -101,19 +104,18 @@ final coaLocalDataSourceProvider = Provider<CoaLocalDataSource>(
 );
 final coaRepositoryProvider = Provider<CoaRepository>(
   (ref) => CoaRepositoryImpl(
-    ref.watch(coaLocalDataSourceProvider),
     ref.watch(appDatabaseProvider),
   ),
 );
 
 // User Management
-final userManagementLocalDataSourceProvider = Provider<UserManagementLocalDataSource>(
+final userManagementLocalDataSourceProvider =
+    Provider<IUserManagementLocalDataSource>(
   (ref) => UserManagementLocalDataSource(ref.watch(appDatabaseProvider)),
 );
 final userManagementRepositoryProvider = Provider<UserManagementRepository>(
   (ref) => UserManagementRepositoryImpl(
     ref.watch(userManagementLocalDataSourceProvider),
-    ref.watch(appDatabaseProvider),
   ),
 );
 

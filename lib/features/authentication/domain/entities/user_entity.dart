@@ -1,8 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 
-class UserEntity extends Equatable {
+class UserEntity {
   final int userId;
   final String username;
   final String fullNameAr;
@@ -38,19 +37,6 @@ class UserEntity extends Equatable {
       roles: roles,
     );
   }
-
-  @override
-  List<Object?> get props => [
-        userId,
-        username,
-        fullNameAr,
-        fullNameEn,
-        isActive,
-        branchId,
-        isBiometricEnabled,
-        isDeviceLinked,
-        roles,
-      ];
 
   UserEntity copyWith({
     int? userId,
