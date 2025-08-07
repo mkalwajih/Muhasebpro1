@@ -1,6 +1,5 @@
 -- lib/core/db/schemas/branches_schema.drift
 
-IMPORT 'system_setup_schema.drift';
 IMPORT 'branch_groups_schema.drift';
 
 CREATE TABLE branches (

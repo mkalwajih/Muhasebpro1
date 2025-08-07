@@ -4,7 +4,7 @@ IMPORT 'auth_schema.drift';
 
 CREATE TABLE company_info (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-  company_code TEXT NOT NULL,
+  company_code TEXT NOT NULL UNIQUE,
   name_ar TEXT NOT NULL,
   name_en TEXT NOT NULL,
   country_id TEXT,
@@ -28,7 +28,7 @@ CREATE TABLE financial_periods (
 CREATE TABLE accounts (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
   parent_id INT REFERENCES accounts(id),
-  account_code TEXT NOT NULL,
+  account_code TEXT NOT NULL UNIQUE,
   name_ar TEXT NOT NULL,
   name_en TEXT NOT NULL,
   level INT NOT NULL,
@@ -41,8 +41,8 @@ CREATE TABLE accounts (
 
 CREATE TABLE roles (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-  name_ar TEXT NOT NULL,
-  name_en TEXT NOT NULL,
+  name_ar TEXT NOT NULL UNIQUE,
+  name_en TEXT NOT NULL UNIQUE,
   description TEXT,
   is_active BOOLEAN NOT NULL
 );

@@ -12299,26 +12299,6 @@ typedef $CompanyInfoUpdateCompanionBuilder = CompanyInfoCompanion Function({
   Value<String?> remarks,
 });
 
-final class $CompanyInfoReferences
-    extends BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData> {
-  $CompanyInfoReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.branches,
-          aliasName:
-              $_aliasNameGenerator(db.companyInfo.id, db.branches.companyId));
-
-  $BranchesProcessedTableManager get branchesRefs {
-    final manager = $BranchesTableManager($_db, $_db.branches)
-        .filter((f) => f.companyId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
 class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
   $CompanyInfoFilterComposer({
     required super.$db,
@@ -12366,27 +12346,6 @@ class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
 
   ColumnFilters<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> branchesRefs(
-      Expression<bool> Function($BranchesFilterComposer f) f) {
-    final $BranchesFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.branches,
-        getReferencedColumn: (t) => t.companyId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchesFilterComposer(
-              $db: $db,
-              $table: $db.branches,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
 }
 
 class $CompanyInfoOrderingComposer
@@ -12487,27 +12446,6 @@ class $CompanyInfoAnnotationComposer
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
-
-  Expression<T> branchesRefs<T extends Object>(
-      Expression<T> Function($BranchesAnnotationComposer a) f) {
-    final $BranchesAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.branches,
-        getReferencedColumn: (t) => t.companyId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchesAnnotationComposer(
-              $db: $db,
-              $table: $db.branches,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
 }
 
 class $CompanyInfoTableManager extends RootTableManager<
@@ -12519,9 +12457,12 @@ class $CompanyInfoTableManager extends RootTableManager<
     $CompanyInfoAnnotationComposer,
     $CompanyInfoCreateCompanionBuilder,
     $CompanyInfoUpdateCompanionBuilder,
-    (CompanyInfoData, $CompanyInfoReferences),
+    (
+      CompanyInfoData,
+      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
+    ),
     CompanyInfoData,
-    PrefetchHooks Function({bool branchesRefs})> {
+    PrefetchHooks Function()> {
   $CompanyInfoTableManager(_$AppDatabase db, CompanyInfo table)
       : super(TableManagerState(
           db: db,
@@ -12593,32 +12534,9 @@ class $CompanyInfoTableManager extends RootTableManager<
             remarks: remarks,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $CompanyInfoReferences(db, table, e)))
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({branchesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (branchesRefs) db.branches],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (branchesRefs)
-                    await $_getPrefetchedData<CompanyInfoData, CompanyInfo,
-                            Branche>(
-                        currentTable: table,
-                        referencedTable:
-                            $CompanyInfoReferences._branchesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $CompanyInfoReferences(db, table, p0).branchesRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.companyId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
+          prefetchHooksCallback: null,
         ));
 }
 
@@ -12631,9 +12549,12 @@ typedef $CompanyInfoProcessedTableManager = ProcessedTableManager<
     $CompanyInfoAnnotationComposer,
     $CompanyInfoCreateCompanionBuilder,
     $CompanyInfoUpdateCompanionBuilder,
-    (CompanyInfoData, $CompanyInfoReferences),
+    (
+      CompanyInfoData,
+      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
+    ),
     CompanyInfoData,
-    PrefetchHooks Function({bool branchesRefs})>;
+    PrefetchHooks Function()>;
 typedef $FinancialPeriodsCreateCompanionBuilder = FinancialPeriodsCompanion
     Function({
   Value<int> id,
@@ -17005,21 +16926,6 @@ final class $BranchesReferences
     extends BaseReferences<_$AppDatabase, Branches, Branche> {
   $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static CompanyInfo _companyIdTable(_$AppDatabase db) =>
-      db.companyInfo.createAlias(
-          $_aliasNameGenerator(db.branches.companyId, db.companyInfo.id));
-
-  $CompanyInfoProcessedTableManager get companyId {
-    final $_column = $_itemColumn<int>('company_id')!;
-
-    final manager = $CompanyInfoTableManager($_db, $_db.companyInfo)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_companyIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-
   static BranchGroups _branchGroupIdTable(_$AppDatabase db) =>
       db.branchGroups.createAlias(
           $_aliasNameGenerator(db.branches.branchGroupId, db.branchGroups.id));
@@ -17056,6 +16962,9 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
   ColumnFilters<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
+  ColumnFilters<int> get companyId => $composableBuilder(
+      column: $table.companyId, builder: (column) => ColumnFilters(column));
+
   ColumnFilters<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnFilters(column));
 
@@ -17074,26 +16983,6 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
 
   ColumnFilters<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnFilters(column));
-
-  $CompanyInfoFilterComposer get companyId {
-    final $CompanyInfoFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoFilterComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 
   $BranchGroupsFilterComposer get branchGroupId {
     final $BranchGroupsFilterComposer composer = $composerBuilder(
@@ -17136,6 +17025,9 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
   ColumnOrderings<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get companyId => $composableBuilder(
+      column: $table.companyId, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnOrderings(column));
 
@@ -17155,26 +17047,6 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
 
   ColumnOrderings<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnOrderings(column));
-
-  $CompanyInfoOrderingComposer get companyId {
-    final $CompanyInfoOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoOrderingComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 
   $BranchGroupsOrderingComposer get branchGroupId {
     final $BranchGroupsOrderingComposer composer = $composerBuilder(
@@ -17217,6 +17089,9 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
+  GeneratedColumn<int> get companyId =>
+      $composableBuilder(column: $table.companyId, builder: (column) => column);
+
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
 
@@ -17234,26 +17109,6 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
-
-  $CompanyInfoAnnotationComposer get companyId {
-    final $CompanyInfoAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.companyId,
-        referencedTable: $db.companyInfo,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $CompanyInfoAnnotationComposer(
-              $db: $db,
-              $table: $db.companyInfo,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
 
   $BranchGroupsAnnotationComposer get branchGroupId {
     final $BranchGroupsAnnotationComposer composer = $composerBuilder(
@@ -17287,7 +17142,7 @@ class $BranchesTableManager extends RootTableManager<
     $BranchesUpdateCompanionBuilder,
     (Branche, $BranchesReferences),
     Branche,
-    PrefetchHooks Function({bool companyId, bool branchGroupId})> {
+    PrefetchHooks Function({bool branchGroupId})> {
   $BranchesTableManager(_$AppDatabase db, Branches table)
       : super(TableManagerState(
           db: db,
@@ -17358,7 +17213,7 @@ class $BranchesTableManager extends RootTableManager<
               .map((e) =>
                   (e.readTable(table), $BranchesReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({companyId = false, branchGroupId = false}) {
+          prefetchHooksCallback: ({branchGroupId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -17375,15 +17230,6 @@ class $BranchesTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic>>(state) {
-                if (companyId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.companyId,
-                    referencedTable: $BranchesReferences._companyIdTable(db),
-                    referencedColumn:
-                        $BranchesReferences._companyIdTable(db).id,
-                  ) as T;
-                }
                 if (branchGroupId) {
                   state = state.withJoin(
                     currentTable: table,
@@ -17416,7 +17262,7 @@ typedef $BranchesProcessedTableManager = ProcessedTableManager<
     $BranchesUpdateCompanionBuilder,
     (Branche, $BranchesReferences),
     Branche,
-    PrefetchHooks Function({bool companyId, bool branchGroupId})>;
+    PrefetchHooks Function({bool branchGroupId})>;
 typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
   required int userId,
   required int roleId,
