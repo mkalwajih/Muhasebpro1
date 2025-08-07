@@ -2567,6 +2567,311 @@ class TaxTypesCompanion extends UpdateCompanion<TaxType> {
   }
 }
 
+class Roles extends Table with TableInfo<Roles, Role> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Roles(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, nameAr, nameEn, description, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'roles';
+  @override
+  VerificationContext validateIntegrity(Insertable<Role> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Role map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Role(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Roles createAlias(String alias) {
+    return Roles(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Role extends DataClass implements Insertable<Role> {
+  final int id;
+  final String nameAr;
+  final String nameEn;
+  final String? description;
+  final bool isActive;
+  const Role(
+      {required this.id,
+      required this.nameAr,
+      required this.nameEn,
+      this.description,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  RolesCompanion toCompanion(bool nullToAbsent) {
+    return RolesCompanion(
+      id: Value(id),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Role.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Role(
+      id: serializer.fromJson<int>(json['id']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      description: serializer.fromJson<String?>(json['description']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'description': serializer.toJson<String?>(description),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Role copyWith(
+          {int? id,
+          String? nameAr,
+          String? nameEn,
+          Value<String?> description = const Value.absent(),
+          bool? isActive}) =>
+      Role(
+        id: id ?? this.id,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        description: description.present ? description.value : this.description,
+        isActive: isActive ?? this.isActive,
+      );
+  Role copyWithCompanion(RolesCompanion data) {
+    return Role(
+      id: data.id.present ? data.id.value : this.id,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      description:
+          data.description.present ? data.description.value : this.description,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Role(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, nameAr, nameEn, description, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Role &&
+          other.id == this.id &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.description == this.description &&
+          other.isActive == this.isActive);
+}
+
+class RolesCompanion extends UpdateCompanion<Role> {
+  final Value<int> id;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String?> description;
+  final Value<bool> isActive;
+  const RolesCompanion({
+    this.id = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.description = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  RolesCompanion.insert({
+    this.id = const Value.absent(),
+    required String nameAr,
+    required String nameEn,
+    this.description = const Value.absent(),
+    required bool isActive,
+  })  : nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        isActive = Value(isActive);
+  static Insertable<Role> custom({
+    Expression<int>? id,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? description,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (description != null) 'description': description,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  RolesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String?>? description,
+      Value<bool>? isActive}) {
+    return RolesCompanion(
+      id: id ?? this.id,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RolesCompanion(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class CompanyInfo extends Table with TableInfo<CompanyInfo, CompanyInfoData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -2585,7 +2890,7 @@ class CompanyInfo extends Table with TableInfo<CompanyInfo, CompanyInfoData> {
       'company_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -3497,7 +3802,7 @@ class Accounts extends Table with TableInfo<Accounts, Account> {
       'account_code', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
+      $customConstraints: 'NOT NULL UNIQUE');
   static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
   late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
       'name_ar', aliasedName, false,
@@ -4030,311 +4335,6 @@ class AccountsCompanion extends UpdateCompanion<Account> {
   }
 }
 
-class Roles extends Table with TableInfo<Roles, Role> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Roles(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, nameAr, nameEn, description, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'roles';
-  @override
-  VerificationContext validateIntegrity(Insertable<Role> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    } else if (isInserting) {
-      context.missing(_isActiveMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Role map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Role(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description']),
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  Roles createAlias(String alias) {
-    return Roles(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Role extends DataClass implements Insertable<Role> {
-  final int id;
-  final String nameAr;
-  final String nameEn;
-  final String? description;
-  final bool isActive;
-  const Role(
-      {required this.id,
-      required this.nameAr,
-      required this.nameEn,
-      this.description,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    if (!nullToAbsent || description != null) {
-      map['description'] = Variable<String>(description);
-    }
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  RolesCompanion toCompanion(bool nullToAbsent) {
-    return RolesCompanion(
-      id: Value(id),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      description: description == null && nullToAbsent
-          ? const Value.absent()
-          : Value(description),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Role.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Role(
-      id: serializer.fromJson<int>(json['id']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      description: serializer.fromJson<String?>(json['description']),
-      isActive: serializer.fromJson<bool>(json['is_active']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'description': serializer.toJson<String?>(description),
-      'is_active': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Role copyWith(
-          {int? id,
-          String? nameAr,
-          String? nameEn,
-          Value<String?> description = const Value.absent(),
-          bool? isActive}) =>
-      Role(
-        id: id ?? this.id,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        description: description.present ? description.value : this.description,
-        isActive: isActive ?? this.isActive,
-      );
-  Role copyWithCompanion(RolesCompanion data) {
-    return Role(
-      id: data.id.present ? data.id.value : this.id,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      description:
-          data.description.present ? data.description.value : this.description,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Role(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('description: $description, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, nameAr, nameEn, description, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Role &&
-          other.id == this.id &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.description == this.description &&
-          other.isActive == this.isActive);
-}
-
-class RolesCompanion extends UpdateCompanion<Role> {
-  final Value<int> id;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<String?> description;
-  final Value<bool> isActive;
-  const RolesCompanion({
-    this.id = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.description = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  RolesCompanion.insert({
-    this.id = const Value.absent(),
-    required String nameAr,
-    required String nameEn,
-    this.description = const Value.absent(),
-    required bool isActive,
-  })  : nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        isActive = Value(isActive);
-  static Insertable<Role> custom({
-    Expression<int>? id,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<String>? description,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (description != null) 'description': description,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  RolesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<String?>? description,
-      Value<bool>? isActive}) {
-    return RolesCompanion(
-      id: id ?? this.id,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      description: description ?? this.description,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RolesCompanion(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('description: $description, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class RolePermissions extends Table
     with TableInfo<RolePermissions, RolePermission> {
   @override
@@ -4532,6 +4532,873 @@ class RolePermissionsCompanion extends UpdateCompanion<RolePermission> {
           ..write('roleId: $roleId, ')
           ..write('permission: $permission, ')
           ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  BranchGroups(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  @override
+  List<GeneratedColumn> get $columns => [id, nameAr, nameEn, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'branch_groups';
+  @override
+  VerificationContext validateIntegrity(Insertable<BranchGroup> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  BranchGroup map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return BranchGroup(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  BranchGroups createAlias(String alias) {
+    return BranchGroups(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class BranchGroup extends DataClass implements Insertable<BranchGroup> {
+  final int id;
+  final String nameAr;
+  final String nameEn;
+  final bool isActive;
+  const BranchGroup(
+      {required this.id,
+      required this.nameAr,
+      required this.nameEn,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  BranchGroupsCompanion toCompanion(bool nullToAbsent) {
+    return BranchGroupsCompanion(
+      id: Value(id),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory BranchGroup.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return BranchGroup(
+      id: serializer.fromJson<int>(json['id']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  BranchGroup copyWith(
+          {int? id, String? nameAr, String? nameEn, bool? isActive}) =>
+      BranchGroup(
+        id: id ?? this.id,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        isActive: isActive ?? this.isActive,
+      );
+  BranchGroup copyWithCompanion(BranchGroupsCompanion data) {
+    return BranchGroup(
+      id: data.id.present ? data.id.value : this.id,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BranchGroup(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, nameAr, nameEn, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is BranchGroup &&
+          other.id == this.id &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.isActive == this.isActive);
+}
+
+class BranchGroupsCompanion extends UpdateCompanion<BranchGroup> {
+  final Value<int> id;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<bool> isActive;
+  const BranchGroupsCompanion({
+    this.id = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  BranchGroupsCompanion.insert({
+    this.id = const Value.absent(),
+    required String nameAr,
+    required String nameEn,
+    this.isActive = const Value.absent(),
+  })  : nameAr = Value(nameAr),
+        nameEn = Value(nameEn);
+  static Insertable<BranchGroup> custom({
+    Expression<int>? id,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  BranchGroupsCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<bool>? isActive}) {
+    return BranchGroupsCompanion(
+      id: id ?? this.id,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BranchGroupsCompanion(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Branches extends Table with TableInfo<Branches, Branche> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Branches(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _branchCodeMeta =
+      const VerificationMeta('branchCode');
+  late final GeneratedColumn<String> branchCode = GeneratedColumn<String>(
+      'branch_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _companyIdMeta =
+      const VerificationMeta('companyId');
+  late final GeneratedColumn<int> companyId = GeneratedColumn<int>(
+      'company_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL REFERENCES company_info(id)');
+  static const VerificationMeta _branchGroupIdMeta =
+      const VerificationMeta('branchGroupId');
+  late final GeneratedColumn<int> branchGroupId = GeneratedColumn<int>(
+      'branch_group_id', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'REFERENCES branch_groups(id)');
+  static const VerificationMeta _addressMeta =
+      const VerificationMeta('address');
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+      'address', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
+      'phone', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _defaultWarehouseIdMeta =
+      const VerificationMeta('defaultWarehouseId');
+  late final GeneratedColumn<String> defaultWarehouseId =
+      GeneratedColumn<String>('default_warehouse_id', aliasedName, true,
+          type: DriftSqlType.string,
+          requiredDuringInsert: false,
+          $customConstraints: '');
+  static const VerificationMeta _branchStatusMeta =
+      const VerificationMeta('branchStatus');
+  late final GeneratedColumn<bool> branchStatus = GeneratedColumn<bool>(
+      'branch_status', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT TRUE',
+      defaultValue: const CustomExpression('TRUE'));
+  static const VerificationMeta _logoMeta = const VerificationMeta('logo');
+  late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
+      'logo', aliasedName, true,
+      type: DriftSqlType.blob,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _remarksMeta =
+      const VerificationMeta('remarks');
+  late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
+      'remarks', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        branchCode,
+        nameAr,
+        nameEn,
+        companyId,
+        branchGroupId,
+        address,
+        phone,
+        defaultWarehouseId,
+        branchStatus,
+        logo,
+        remarks
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'branches';
+  @override
+  VerificationContext validateIntegrity(Insertable<Branche> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('branch_code')) {
+      context.handle(
+          _branchCodeMeta,
+          branchCode.isAcceptableOrUnknown(
+              data['branch_code']!, _branchCodeMeta));
+    } else if (isInserting) {
+      context.missing(_branchCodeMeta);
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('company_id')) {
+      context.handle(_companyIdMeta,
+          companyId.isAcceptableOrUnknown(data['company_id']!, _companyIdMeta));
+    } else if (isInserting) {
+      context.missing(_companyIdMeta);
+    }
+    if (data.containsKey('branch_group_id')) {
+      context.handle(
+          _branchGroupIdMeta,
+          branchGroupId.isAcceptableOrUnknown(
+              data['branch_group_id']!, _branchGroupIdMeta));
+    }
+    if (data.containsKey('address')) {
+      context.handle(_addressMeta,
+          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
+    }
+    if (data.containsKey('phone')) {
+      context.handle(
+          _phoneMeta, phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta));
+    }
+    if (data.containsKey('default_warehouse_id')) {
+      context.handle(
+          _defaultWarehouseIdMeta,
+          defaultWarehouseId.isAcceptableOrUnknown(
+              data['default_warehouse_id']!, _defaultWarehouseIdMeta));
+    }
+    if (data.containsKey('branch_status')) {
+      context.handle(
+          _branchStatusMeta,
+          branchStatus.isAcceptableOrUnknown(
+              data['branch_status']!, _branchStatusMeta));
+    }
+    if (data.containsKey('logo')) {
+      context.handle(
+          _logoMeta, logo.isAcceptableOrUnknown(data['logo']!, _logoMeta));
+    }
+    if (data.containsKey('remarks')) {
+      context.handle(_remarksMeta,
+          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Branche map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Branche(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      branchCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}branch_code'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      companyId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}company_id'])!,
+      branchGroupId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}branch_group_id']),
+      address: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}address']),
+      phone: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}phone']),
+      defaultWarehouseId: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}default_warehouse_id']),
+      branchStatus: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}branch_status'])!,
+      logo: attachedDatabase.typeMapping
+          .read(DriftSqlType.blob, data['${effectivePrefix}logo']),
+      remarks: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
+    );
+  }
+
+  @override
+  Branches createAlias(String alias) {
+    return Branches(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Branche extends DataClass implements Insertable<Branche> {
+  final int id;
+  final String branchCode;
+  final String nameAr;
+  final String nameEn;
+  final int companyId;
+  final int? branchGroupId;
+  final String? address;
+  final String? phone;
+  final String? defaultWarehouseId;
+  final bool branchStatus;
+  final Uint8List? logo;
+  final String? remarks;
+  const Branche(
+      {required this.id,
+      required this.branchCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.companyId,
+      this.branchGroupId,
+      this.address,
+      this.phone,
+      this.defaultWarehouseId,
+      required this.branchStatus,
+      this.logo,
+      this.remarks});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['branch_code'] = Variable<String>(branchCode);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    map['company_id'] = Variable<int>(companyId);
+    if (!nullToAbsent || branchGroupId != null) {
+      map['branch_group_id'] = Variable<int>(branchGroupId);
+    }
+    if (!nullToAbsent || address != null) {
+      map['address'] = Variable<String>(address);
+    }
+    if (!nullToAbsent || phone != null) {
+      map['phone'] = Variable<String>(phone);
+    }
+    if (!nullToAbsent || defaultWarehouseId != null) {
+      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId);
+    }
+    map['branch_status'] = Variable<bool>(branchStatus);
+    if (!nullToAbsent || logo != null) {
+      map['logo'] = Variable<Uint8List>(logo);
+    }
+    if (!nullToAbsent || remarks != null) {
+      map['remarks'] = Variable<String>(remarks);
+    }
+    return map;
+  }
+
+  BranchesCompanion toCompanion(bool nullToAbsent) {
+    return BranchesCompanion(
+      id: Value(id),
+      branchCode: Value(branchCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      companyId: Value(companyId),
+      branchGroupId: branchGroupId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(branchGroupId),
+      address: address == null && nullToAbsent
+          ? const Value.absent()
+          : Value(address),
+      phone:
+          phone == null && nullToAbsent ? const Value.absent() : Value(phone),
+      defaultWarehouseId: defaultWarehouseId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(defaultWarehouseId),
+      branchStatus: Value(branchStatus),
+      logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
+      remarks: remarks == null && nullToAbsent
+          ? const Value.absent()
+          : Value(remarks),
+    );
+  }
+
+  factory Branche.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Branche(
+      id: serializer.fromJson<int>(json['id']),
+      branchCode: serializer.fromJson<String>(json['branch_code']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      companyId: serializer.fromJson<int>(json['company_id']),
+      branchGroupId: serializer.fromJson<int?>(json['branch_group_id']),
+      address: serializer.fromJson<String?>(json['address']),
+      phone: serializer.fromJson<String?>(json['phone']),
+      defaultWarehouseId:
+          serializer.fromJson<String?>(json['default_warehouse_id']),
+      branchStatus: serializer.fromJson<bool>(json['branch_status']),
+      logo: serializer.fromJson<Uint8List?>(json['logo']),
+      remarks: serializer.fromJson<String?>(json['remarks']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'branch_code': serializer.toJson<String>(branchCode),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'company_id': serializer.toJson<int>(companyId),
+      'branch_group_id': serializer.toJson<int?>(branchGroupId),
+      'address': serializer.toJson<String?>(address),
+      'phone': serializer.toJson<String?>(phone),
+      'default_warehouse_id': serializer.toJson<String?>(defaultWarehouseId),
+      'branch_status': serializer.toJson<bool>(branchStatus),
+      'logo': serializer.toJson<Uint8List?>(logo),
+      'remarks': serializer.toJson<String?>(remarks),
+    };
+  }
+
+  Branche copyWith(
+          {int? id,
+          String? branchCode,
+          String? nameAr,
+          String? nameEn,
+          int? companyId,
+          Value<int?> branchGroupId = const Value.absent(),
+          Value<String?> address = const Value.absent(),
+          Value<String?> phone = const Value.absent(),
+          Value<String?> defaultWarehouseId = const Value.absent(),
+          bool? branchStatus,
+          Value<Uint8List?> logo = const Value.absent(),
+          Value<String?> remarks = const Value.absent()}) =>
+      Branche(
+        id: id ?? this.id,
+        branchCode: branchCode ?? this.branchCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        companyId: companyId ?? this.companyId,
+        branchGroupId:
+            branchGroupId.present ? branchGroupId.value : this.branchGroupId,
+        address: address.present ? address.value : this.address,
+        phone: phone.present ? phone.value : this.phone,
+        defaultWarehouseId: defaultWarehouseId.present
+            ? defaultWarehouseId.value
+            : this.defaultWarehouseId,
+        branchStatus: branchStatus ?? this.branchStatus,
+        logo: logo.present ? logo.value : this.logo,
+        remarks: remarks.present ? remarks.value : this.remarks,
+      );
+  Branche copyWithCompanion(BranchesCompanion data) {
+    return Branche(
+      id: data.id.present ? data.id.value : this.id,
+      branchCode:
+          data.branchCode.present ? data.branchCode.value : this.branchCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      companyId: data.companyId.present ? data.companyId.value : this.companyId,
+      branchGroupId: data.branchGroupId.present
+          ? data.branchGroupId.value
+          : this.branchGroupId,
+      address: data.address.present ? data.address.value : this.address,
+      phone: data.phone.present ? data.phone.value : this.phone,
+      defaultWarehouseId: data.defaultWarehouseId.present
+          ? data.defaultWarehouseId.value
+          : this.defaultWarehouseId,
+      branchStatus: data.branchStatus.present
+          ? data.branchStatus.value
+          : this.branchStatus,
+      logo: data.logo.present ? data.logo.value : this.logo,
+      remarks: data.remarks.present ? data.remarks.value : this.remarks,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Branche(')
+          ..write('id: $id, ')
+          ..write('branchCode: $branchCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('companyId: $companyId, ')
+          ..write('branchGroupId: $branchGroupId, ')
+          ..write('address: $address, ')
+          ..write('phone: $phone, ')
+          ..write('defaultWarehouseId: $defaultWarehouseId, ')
+          ..write('branchStatus: $branchStatus, ')
+          ..write('logo: $logo, ')
+          ..write('remarks: $remarks')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id,
+      branchCode,
+      nameAr,
+      nameEn,
+      companyId,
+      branchGroupId,
+      address,
+      phone,
+      defaultWarehouseId,
+      branchStatus,
+      $driftBlobEquality.hash(logo),
+      remarks);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Branche &&
+          other.id == this.id &&
+          other.branchCode == this.branchCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.companyId == this.companyId &&
+          other.branchGroupId == this.branchGroupId &&
+          other.address == this.address &&
+          other.phone == this.phone &&
+          other.defaultWarehouseId == this.defaultWarehouseId &&
+          other.branchStatus == this.branchStatus &&
+          $driftBlobEquality.equals(other.logo, this.logo) &&
+          other.remarks == this.remarks);
+}
+
+class BranchesCompanion extends UpdateCompanion<Branche> {
+  final Value<int> id;
+  final Value<String> branchCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<int> companyId;
+  final Value<int?> branchGroupId;
+  final Value<String?> address;
+  final Value<String?> phone;
+  final Value<String?> defaultWarehouseId;
+  final Value<bool> branchStatus;
+  final Value<Uint8List?> logo;
+  final Value<String?> remarks;
+  const BranchesCompanion({
+    this.id = const Value.absent(),
+    this.branchCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.companyId = const Value.absent(),
+    this.branchGroupId = const Value.absent(),
+    this.address = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.defaultWarehouseId = const Value.absent(),
+    this.branchStatus = const Value.absent(),
+    this.logo = const Value.absent(),
+    this.remarks = const Value.absent(),
+  });
+  BranchesCompanion.insert({
+    this.id = const Value.absent(),
+    required String branchCode,
+    required String nameAr,
+    required String nameEn,
+    required int companyId,
+    this.branchGroupId = const Value.absent(),
+    this.address = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.defaultWarehouseId = const Value.absent(),
+    this.branchStatus = const Value.absent(),
+    this.logo = const Value.absent(),
+    this.remarks = const Value.absent(),
+  })  : branchCode = Value(branchCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        companyId = Value(companyId);
+  static Insertable<Branche> custom({
+    Expression<int>? id,
+    Expression<String>? branchCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<int>? companyId,
+    Expression<int>? branchGroupId,
+    Expression<String>? address,
+    Expression<String>? phone,
+    Expression<String>? defaultWarehouseId,
+    Expression<bool>? branchStatus,
+    Expression<Uint8List>? logo,
+    Expression<String>? remarks,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (branchCode != null) 'branch_code': branchCode,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (companyId != null) 'company_id': companyId,
+      if (branchGroupId != null) 'branch_group_id': branchGroupId,
+      if (address != null) 'address': address,
+      if (phone != null) 'phone': phone,
+      if (defaultWarehouseId != null)
+        'default_warehouse_id': defaultWarehouseId,
+      if (branchStatus != null) 'branch_status': branchStatus,
+      if (logo != null) 'logo': logo,
+      if (remarks != null) 'remarks': remarks,
+    });
+  }
+
+  BranchesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? branchCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<int>? companyId,
+      Value<int?>? branchGroupId,
+      Value<String?>? address,
+      Value<String?>? phone,
+      Value<String?>? defaultWarehouseId,
+      Value<bool>? branchStatus,
+      Value<Uint8List?>? logo,
+      Value<String?>? remarks}) {
+    return BranchesCompanion(
+      id: id ?? this.id,
+      branchCode: branchCode ?? this.branchCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      companyId: companyId ?? this.companyId,
+      branchGroupId: branchGroupId ?? this.branchGroupId,
+      address: address ?? this.address,
+      phone: phone ?? this.phone,
+      defaultWarehouseId: defaultWarehouseId ?? this.defaultWarehouseId,
+      branchStatus: branchStatus ?? this.branchStatus,
+      logo: logo ?? this.logo,
+      remarks: remarks ?? this.remarks,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (branchCode.present) {
+      map['branch_code'] = Variable<String>(branchCode.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (companyId.present) {
+      map['company_id'] = Variable<int>(companyId.value);
+    }
+    if (branchGroupId.present) {
+      map['branch_group_id'] = Variable<int>(branchGroupId.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (phone.present) {
+      map['phone'] = Variable<String>(phone.value);
+    }
+    if (defaultWarehouseId.present) {
+      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId.value);
+    }
+    if (branchStatus.present) {
+      map['branch_status'] = Variable<bool>(branchStatus.value);
+    }
+    if (logo.present) {
+      map['logo'] = Variable<Uint8List>(logo.value);
+    }
+    if (remarks.present) {
+      map['remarks'] = Variable<String>(remarks.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('BranchesCompanion(')
+          ..write('id: $id, ')
+          ..write('branchCode: $branchCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('companyId: $companyId, ')
+          ..write('branchGroupId: $branchGroupId, ')
+          ..write('address: $address, ')
+          ..write('phone: $phone, ')
+          ..write('defaultWarehouseId: $defaultWarehouseId, ')
+          ..write('branchStatus: $branchStatus, ')
+          ..write('logo: $logo, ')
+          ..write('remarks: $remarks')
           ..write(')'))
         .toString();
   }
@@ -8925,873 +9792,6 @@ class CurrencyDenominationsCompanion
   }
 }
 
-class BranchGroups extends Table with TableInfo<BranchGroups, BranchGroup> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  BranchGroups(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT TRUE',
-      defaultValue: const CustomExpression('TRUE'));
-  @override
-  List<GeneratedColumn> get $columns => [id, nameAr, nameEn, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'branch_groups';
-  @override
-  VerificationContext validateIntegrity(Insertable<BranchGroup> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  BranchGroup map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return BranchGroup(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  BranchGroups createAlias(String alias) {
-    return BranchGroups(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class BranchGroup extends DataClass implements Insertable<BranchGroup> {
-  final int id;
-  final String nameAr;
-  final String nameEn;
-  final bool isActive;
-  const BranchGroup(
-      {required this.id,
-      required this.nameAr,
-      required this.nameEn,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  BranchGroupsCompanion toCompanion(bool nullToAbsent) {
-    return BranchGroupsCompanion(
-      id: Value(id),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory BranchGroup.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return BranchGroup(
-      id: serializer.fromJson<int>(json['id']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      isActive: serializer.fromJson<bool>(json['is_active']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'is_active': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  BranchGroup copyWith(
-          {int? id, String? nameAr, String? nameEn, bool? isActive}) =>
-      BranchGroup(
-        id: id ?? this.id,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        isActive: isActive ?? this.isActive,
-      );
-  BranchGroup copyWithCompanion(BranchGroupsCompanion data) {
-    return BranchGroup(
-      id: data.id.present ? data.id.value : this.id,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BranchGroup(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, nameAr, nameEn, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is BranchGroup &&
-          other.id == this.id &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.isActive == this.isActive);
-}
-
-class BranchGroupsCompanion extends UpdateCompanion<BranchGroup> {
-  final Value<int> id;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<bool> isActive;
-  const BranchGroupsCompanion({
-    this.id = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  BranchGroupsCompanion.insert({
-    this.id = const Value.absent(),
-    required String nameAr,
-    required String nameEn,
-    this.isActive = const Value.absent(),
-  })  : nameAr = Value(nameAr),
-        nameEn = Value(nameEn);
-  static Insertable<BranchGroup> custom({
-    Expression<int>? id,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  BranchGroupsCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<bool>? isActive}) {
-    return BranchGroupsCompanion(
-      id: id ?? this.id,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BranchGroupsCompanion(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class Branches extends Table with TableInfo<Branches, Branche> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Branches(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _branchCodeMeta =
-      const VerificationMeta('branchCode');
-  late final GeneratedColumn<String> branchCode = GeneratedColumn<String>(
-      'branch_code', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  static const VerificationMeta _companyIdMeta =
-      const VerificationMeta('companyId');
-  late final GeneratedColumn<int> companyId = GeneratedColumn<int>(
-      'company_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL REFERENCES company_info(id)');
-  static const VerificationMeta _branchGroupIdMeta =
-      const VerificationMeta('branchGroupId');
-  late final GeneratedColumn<int> branchGroupId = GeneratedColumn<int>(
-      'branch_group_id', aliasedName, true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'REFERENCES branch_groups(id)');
-  static const VerificationMeta _addressMeta =
-      const VerificationMeta('address');
-  late final GeneratedColumn<String> address = GeneratedColumn<String>(
-      'address', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
-  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
-      'phone', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _defaultWarehouseIdMeta =
-      const VerificationMeta('defaultWarehouseId');
-  late final GeneratedColumn<String> defaultWarehouseId =
-      GeneratedColumn<String>('default_warehouse_id', aliasedName, true,
-          type: DriftSqlType.string,
-          requiredDuringInsert: false,
-          $customConstraints: '');
-  static const VerificationMeta _branchStatusMeta =
-      const VerificationMeta('branchStatus');
-  late final GeneratedColumn<bool> branchStatus = GeneratedColumn<bool>(
-      'branch_status', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL DEFAULT TRUE',
-      defaultValue: const CustomExpression('TRUE'));
-  static const VerificationMeta _logoMeta = const VerificationMeta('logo');
-  late final GeneratedColumn<Uint8List> logo = GeneratedColumn<Uint8List>(
-      'logo', aliasedName, true,
-      type: DriftSqlType.blob,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _remarksMeta =
-      const VerificationMeta('remarks');
-  late final GeneratedColumn<String> remarks = GeneratedColumn<String>(
-      'remarks', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        branchCode,
-        nameAr,
-        nameEn,
-        companyId,
-        branchGroupId,
-        address,
-        phone,
-        defaultWarehouseId,
-        branchStatus,
-        logo,
-        remarks
-      ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'branches';
-  @override
-  VerificationContext validateIntegrity(Insertable<Branche> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('branch_code')) {
-      context.handle(
-          _branchCodeMeta,
-          branchCode.isAcceptableOrUnknown(
-              data['branch_code']!, _branchCodeMeta));
-    } else if (isInserting) {
-      context.missing(_branchCodeMeta);
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('company_id')) {
-      context.handle(_companyIdMeta,
-          companyId.isAcceptableOrUnknown(data['company_id']!, _companyIdMeta));
-    } else if (isInserting) {
-      context.missing(_companyIdMeta);
-    }
-    if (data.containsKey('branch_group_id')) {
-      context.handle(
-          _branchGroupIdMeta,
-          branchGroupId.isAcceptableOrUnknown(
-              data['branch_group_id']!, _branchGroupIdMeta));
-    }
-    if (data.containsKey('address')) {
-      context.handle(_addressMeta,
-          address.isAcceptableOrUnknown(data['address']!, _addressMeta));
-    }
-    if (data.containsKey('phone')) {
-      context.handle(
-          _phoneMeta, phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta));
-    }
-    if (data.containsKey('default_warehouse_id')) {
-      context.handle(
-          _defaultWarehouseIdMeta,
-          defaultWarehouseId.isAcceptableOrUnknown(
-              data['default_warehouse_id']!, _defaultWarehouseIdMeta));
-    }
-    if (data.containsKey('branch_status')) {
-      context.handle(
-          _branchStatusMeta,
-          branchStatus.isAcceptableOrUnknown(
-              data['branch_status']!, _branchStatusMeta));
-    }
-    if (data.containsKey('logo')) {
-      context.handle(
-          _logoMeta, logo.isAcceptableOrUnknown(data['logo']!, _logoMeta));
-    }
-    if (data.containsKey('remarks')) {
-      context.handle(_remarksMeta,
-          remarks.isAcceptableOrUnknown(data['remarks']!, _remarksMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Branche map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Branche(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      branchCode: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}branch_code'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      companyId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}company_id'])!,
-      branchGroupId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}branch_group_id']),
-      address: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}address']),
-      phone: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}phone']),
-      defaultWarehouseId: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}default_warehouse_id']),
-      branchStatus: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}branch_status'])!,
-      logo: attachedDatabase.typeMapping
-          .read(DriftSqlType.blob, data['${effectivePrefix}logo']),
-      remarks: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}remarks']),
-    );
-  }
-
-  @override
-  Branches createAlias(String alias) {
-    return Branches(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Branche extends DataClass implements Insertable<Branche> {
-  final int id;
-  final String branchCode;
-  final String nameAr;
-  final String nameEn;
-  final int companyId;
-  final int? branchGroupId;
-  final String? address;
-  final String? phone;
-  final String? defaultWarehouseId;
-  final bool branchStatus;
-  final Uint8List? logo;
-  final String? remarks;
-  const Branche(
-      {required this.id,
-      required this.branchCode,
-      required this.nameAr,
-      required this.nameEn,
-      required this.companyId,
-      this.branchGroupId,
-      this.address,
-      this.phone,
-      this.defaultWarehouseId,
-      required this.branchStatus,
-      this.logo,
-      this.remarks});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['branch_code'] = Variable<String>(branchCode);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    map['company_id'] = Variable<int>(companyId);
-    if (!nullToAbsent || branchGroupId != null) {
-      map['branch_group_id'] = Variable<int>(branchGroupId);
-    }
-    if (!nullToAbsent || address != null) {
-      map['address'] = Variable<String>(address);
-    }
-    if (!nullToAbsent || phone != null) {
-      map['phone'] = Variable<String>(phone);
-    }
-    if (!nullToAbsent || defaultWarehouseId != null) {
-      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId);
-    }
-    map['branch_status'] = Variable<bool>(branchStatus);
-    if (!nullToAbsent || logo != null) {
-      map['logo'] = Variable<Uint8List>(logo);
-    }
-    if (!nullToAbsent || remarks != null) {
-      map['remarks'] = Variable<String>(remarks);
-    }
-    return map;
-  }
-
-  BranchesCompanion toCompanion(bool nullToAbsent) {
-    return BranchesCompanion(
-      id: Value(id),
-      branchCode: Value(branchCode),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      companyId: Value(companyId),
-      branchGroupId: branchGroupId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(branchGroupId),
-      address: address == null && nullToAbsent
-          ? const Value.absent()
-          : Value(address),
-      phone:
-          phone == null && nullToAbsent ? const Value.absent() : Value(phone),
-      defaultWarehouseId: defaultWarehouseId == null && nullToAbsent
-          ? const Value.absent()
-          : Value(defaultWarehouseId),
-      branchStatus: Value(branchStatus),
-      logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
-      remarks: remarks == null && nullToAbsent
-          ? const Value.absent()
-          : Value(remarks),
-    );
-  }
-
-  factory Branche.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Branche(
-      id: serializer.fromJson<int>(json['id']),
-      branchCode: serializer.fromJson<String>(json['branch_code']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      companyId: serializer.fromJson<int>(json['company_id']),
-      branchGroupId: serializer.fromJson<int?>(json['branch_group_id']),
-      address: serializer.fromJson<String?>(json['address']),
-      phone: serializer.fromJson<String?>(json['phone']),
-      defaultWarehouseId:
-          serializer.fromJson<String?>(json['default_warehouse_id']),
-      branchStatus: serializer.fromJson<bool>(json['branch_status']),
-      logo: serializer.fromJson<Uint8List?>(json['logo']),
-      remarks: serializer.fromJson<String?>(json['remarks']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'branch_code': serializer.toJson<String>(branchCode),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'company_id': serializer.toJson<int>(companyId),
-      'branch_group_id': serializer.toJson<int?>(branchGroupId),
-      'address': serializer.toJson<String?>(address),
-      'phone': serializer.toJson<String?>(phone),
-      'default_warehouse_id': serializer.toJson<String?>(defaultWarehouseId),
-      'branch_status': serializer.toJson<bool>(branchStatus),
-      'logo': serializer.toJson<Uint8List?>(logo),
-      'remarks': serializer.toJson<String?>(remarks),
-    };
-  }
-
-  Branche copyWith(
-          {int? id,
-          String? branchCode,
-          String? nameAr,
-          String? nameEn,
-          int? companyId,
-          Value<int?> branchGroupId = const Value.absent(),
-          Value<String?> address = const Value.absent(),
-          Value<String?> phone = const Value.absent(),
-          Value<String?> defaultWarehouseId = const Value.absent(),
-          bool? branchStatus,
-          Value<Uint8List?> logo = const Value.absent(),
-          Value<String?> remarks = const Value.absent()}) =>
-      Branche(
-        id: id ?? this.id,
-        branchCode: branchCode ?? this.branchCode,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        companyId: companyId ?? this.companyId,
-        branchGroupId:
-            branchGroupId.present ? branchGroupId.value : this.branchGroupId,
-        address: address.present ? address.value : this.address,
-        phone: phone.present ? phone.value : this.phone,
-        defaultWarehouseId: defaultWarehouseId.present
-            ? defaultWarehouseId.value
-            : this.defaultWarehouseId,
-        branchStatus: branchStatus ?? this.branchStatus,
-        logo: logo.present ? logo.value : this.logo,
-        remarks: remarks.present ? remarks.value : this.remarks,
-      );
-  Branche copyWithCompanion(BranchesCompanion data) {
-    return Branche(
-      id: data.id.present ? data.id.value : this.id,
-      branchCode:
-          data.branchCode.present ? data.branchCode.value : this.branchCode,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      companyId: data.companyId.present ? data.companyId.value : this.companyId,
-      branchGroupId: data.branchGroupId.present
-          ? data.branchGroupId.value
-          : this.branchGroupId,
-      address: data.address.present ? data.address.value : this.address,
-      phone: data.phone.present ? data.phone.value : this.phone,
-      defaultWarehouseId: data.defaultWarehouseId.present
-          ? data.defaultWarehouseId.value
-          : this.defaultWarehouseId,
-      branchStatus: data.branchStatus.present
-          ? data.branchStatus.value
-          : this.branchStatus,
-      logo: data.logo.present ? data.logo.value : this.logo,
-      remarks: data.remarks.present ? data.remarks.value : this.remarks,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Branche(')
-          ..write('id: $id, ')
-          ..write('branchCode: $branchCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('companyId: $companyId, ')
-          ..write('branchGroupId: $branchGroupId, ')
-          ..write('address: $address, ')
-          ..write('phone: $phone, ')
-          ..write('defaultWarehouseId: $defaultWarehouseId, ')
-          ..write('branchStatus: $branchStatus, ')
-          ..write('logo: $logo, ')
-          ..write('remarks: $remarks')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      id,
-      branchCode,
-      nameAr,
-      nameEn,
-      companyId,
-      branchGroupId,
-      address,
-      phone,
-      defaultWarehouseId,
-      branchStatus,
-      $driftBlobEquality.hash(logo),
-      remarks);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Branche &&
-          other.id == this.id &&
-          other.branchCode == this.branchCode &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.companyId == this.companyId &&
-          other.branchGroupId == this.branchGroupId &&
-          other.address == this.address &&
-          other.phone == this.phone &&
-          other.defaultWarehouseId == this.defaultWarehouseId &&
-          other.branchStatus == this.branchStatus &&
-          $driftBlobEquality.equals(other.logo, this.logo) &&
-          other.remarks == this.remarks);
-}
-
-class BranchesCompanion extends UpdateCompanion<Branche> {
-  final Value<int> id;
-  final Value<String> branchCode;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<int> companyId;
-  final Value<int?> branchGroupId;
-  final Value<String?> address;
-  final Value<String?> phone;
-  final Value<String?> defaultWarehouseId;
-  final Value<bool> branchStatus;
-  final Value<Uint8List?> logo;
-  final Value<String?> remarks;
-  const BranchesCompanion({
-    this.id = const Value.absent(),
-    this.branchCode = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.companyId = const Value.absent(),
-    this.branchGroupId = const Value.absent(),
-    this.address = const Value.absent(),
-    this.phone = const Value.absent(),
-    this.defaultWarehouseId = const Value.absent(),
-    this.branchStatus = const Value.absent(),
-    this.logo = const Value.absent(),
-    this.remarks = const Value.absent(),
-  });
-  BranchesCompanion.insert({
-    this.id = const Value.absent(),
-    required String branchCode,
-    required String nameAr,
-    required String nameEn,
-    required int companyId,
-    this.branchGroupId = const Value.absent(),
-    this.address = const Value.absent(),
-    this.phone = const Value.absent(),
-    this.defaultWarehouseId = const Value.absent(),
-    this.branchStatus = const Value.absent(),
-    this.logo = const Value.absent(),
-    this.remarks = const Value.absent(),
-  })  : branchCode = Value(branchCode),
-        nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        companyId = Value(companyId);
-  static Insertable<Branche> custom({
-    Expression<int>? id,
-    Expression<String>? branchCode,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<int>? companyId,
-    Expression<int>? branchGroupId,
-    Expression<String>? address,
-    Expression<String>? phone,
-    Expression<String>? defaultWarehouseId,
-    Expression<bool>? branchStatus,
-    Expression<Uint8List>? logo,
-    Expression<String>? remarks,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (branchCode != null) 'branch_code': branchCode,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (companyId != null) 'company_id': companyId,
-      if (branchGroupId != null) 'branch_group_id': branchGroupId,
-      if (address != null) 'address': address,
-      if (phone != null) 'phone': phone,
-      if (defaultWarehouseId != null)
-        'default_warehouse_id': defaultWarehouseId,
-      if (branchStatus != null) 'branch_status': branchStatus,
-      if (logo != null) 'logo': logo,
-      if (remarks != null) 'remarks': remarks,
-    });
-  }
-
-  BranchesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? branchCode,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<int>? companyId,
-      Value<int?>? branchGroupId,
-      Value<String?>? address,
-      Value<String?>? phone,
-      Value<String?>? defaultWarehouseId,
-      Value<bool>? branchStatus,
-      Value<Uint8List?>? logo,
-      Value<String?>? remarks}) {
-    return BranchesCompanion(
-      id: id ?? this.id,
-      branchCode: branchCode ?? this.branchCode,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      companyId: companyId ?? this.companyId,
-      branchGroupId: branchGroupId ?? this.branchGroupId,
-      address: address ?? this.address,
-      phone: phone ?? this.phone,
-      defaultWarehouseId: defaultWarehouseId ?? this.defaultWarehouseId,
-      branchStatus: branchStatus ?? this.branchStatus,
-      logo: logo ?? this.logo,
-      remarks: remarks ?? this.remarks,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (branchCode.present) {
-      map['branch_code'] = Variable<String>(branchCode.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (companyId.present) {
-      map['company_id'] = Variable<int>(companyId.value);
-    }
-    if (branchGroupId.present) {
-      map['branch_group_id'] = Variable<int>(branchGroupId.value);
-    }
-    if (address.present) {
-      map['address'] = Variable<String>(address.value);
-    }
-    if (phone.present) {
-      map['phone'] = Variable<String>(phone.value);
-    }
-    if (defaultWarehouseId.present) {
-      map['default_warehouse_id'] = Variable<String>(defaultWarehouseId.value);
-    }
-    if (branchStatus.present) {
-      map['branch_status'] = Variable<bool>(branchStatus.value);
-    }
-    if (logo.present) {
-      map['logo'] = Variable<Uint8List>(logo.value);
-    }
-    if (remarks.present) {
-      map['remarks'] = Variable<String>(remarks.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('BranchesCompanion(')
-          ..write('id: $id, ')
-          ..write('branchCode: $branchCode, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('companyId: $companyId, ')
-          ..write('branchGroupId: $branchGroupId, ')
-          ..write('address: $address, ')
-          ..write('phone: $phone, ')
-          ..write('defaultWarehouseId: $defaultWarehouseId, ')
-          ..write('branchStatus: $branchStatus, ')
-          ..write('logo: $logo, ')
-          ..write('remarks: $remarks')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class UserRoles extends Table with TableInfo<UserRoles, UserRole> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -9999,11 +9999,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final TaxBracket taxBracket = TaxBracket(this);
   late final TaxCalcMethods taxCalcMethods = TaxCalcMethods(this);
   late final TaxTypes taxTypes = TaxTypes(this);
+  late final Roles roles = Roles(this);
   late final CompanyInfo companyInfo = CompanyInfo(this);
   late final FinancialPeriods financialPeriods = FinancialPeriods(this);
   late final Accounts accounts = Accounts(this);
-  late final Roles roles = Roles(this);
   late final RolePermissions rolePermissions = RolePermissions(this);
+  late final BranchGroups branchGroups = BranchGroups(this);
+  late final Branches branches = Branches(this);
   late final Users users = Users(this);
   late final AuditLog auditLog = AuditLog(this);
   late final Zones zones = Zones(this);
@@ -10015,8 +10017,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Currencies currencies = Currencies(this);
   late final CurrencyDenominations currencyDenominations =
       CurrencyDenominations(this);
-  late final BranchGroups branchGroups = BranchGroups(this);
-  late final Branches branches = Branches(this);
   late final UserRoles userRoles = UserRoles(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -10031,11 +10031,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         taxBracket,
         taxCalcMethods,
         taxTypes,
+        roles,
         companyInfo,
         financialPeriods,
         accounts,
-        roles,
         rolePermissions,
+        branchGroups,
+        branches,
         users,
         auditLog,
         zones,
@@ -10046,8 +10048,6 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         systemConfig,
         currencies,
         currencyDenominations,
-        branchGroups,
-        branches,
         userRoles
       ];
 }
@@ -12268,6 +12268,317 @@ typedef $TaxTypesProcessedTableManager = ProcessedTableManager<
     (TaxType, $TaxTypesReferences),
     TaxType,
     PrefetchHooks Function({bool calcMethodCode})>;
+typedef $RolesCreateCompanionBuilder = RolesCompanion Function({
+  Value<int> id,
+  required String nameAr,
+  required String nameEn,
+  Value<String?> description,
+  required bool isActive,
+});
+typedef $RolesUpdateCompanionBuilder = RolesCompanion Function({
+  Value<int> id,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String?> description,
+  Value<bool> isActive,
+});
+
+final class $RolesReferences
+    extends BaseReferences<_$AppDatabase, Roles, Role> {
+  $RolesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<RolePermissions, List<RolePermission>>
+      _rolePermissionsRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.rolePermissions,
+              aliasName:
+                  $_aliasNameGenerator(db.roles.id, db.rolePermissions.roleId));
+
+  $RolePermissionsProcessedTableManager get rolePermissionsRefs {
+    final manager = $RolePermissionsTableManager($_db, $_db.rolePermissions)
+        .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache =
+        $_typedResult.readTableOrNull(_rolePermissionsRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<UserRoles, List<UserRole>> _userRolesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.userRoles,
+          aliasName: $_aliasNameGenerator(db.roles.id, db.userRoles.roleId));
+
+  $UserRolesProcessedTableManager get userRolesRefs {
+    final manager = $UserRolesTableManager($_db, $_db.userRoles)
+        .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_userRolesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $RolesFilterComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> rolePermissionsRefs(
+      Expression<bool> Function($RolePermissionsFilterComposer f) f) {
+    final $RolePermissionsFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.rolePermissions,
+        getReferencedColumn: (t) => t.roleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RolePermissionsFilterComposer(
+              $db: $db,
+              $table: $db.rolePermissions,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<bool> userRolesRefs(
+      Expression<bool> Function($UserRolesFilterComposer f) f) {
+    final $UserRolesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.roleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesFilterComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $RolesOrderingComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+}
+
+class $RolesAnnotationComposer extends Composer<_$AppDatabase, Roles> {
+  $RolesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+      column: $table.description, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  Expression<T> rolePermissionsRefs<T extends Object>(
+      Expression<T> Function($RolePermissionsAnnotationComposer a) f) {
+    final $RolePermissionsAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.rolePermissions,
+        getReferencedColumn: (t) => t.roleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RolePermissionsAnnotationComposer(
+              $db: $db,
+              $table: $db.rolePermissions,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+
+  Expression<T> userRolesRefs<T extends Object>(
+      Expression<T> Function($UserRolesAnnotationComposer a) f) {
+    final $UserRolesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.userRoles,
+        getReferencedColumn: (t) => t.roleId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UserRolesAnnotationComposer(
+              $db: $db,
+              $table: $db.userRoles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $RolesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Roles,
+    Role,
+    $RolesFilterComposer,
+    $RolesOrderingComposer,
+    $RolesAnnotationComposer,
+    $RolesCreateCompanionBuilder,
+    $RolesUpdateCompanionBuilder,
+    (Role, $RolesReferences),
+    Role,
+    PrefetchHooks Function({bool rolePermissionsRefs, bool userRolesRefs})> {
+  $RolesTableManager(_$AppDatabase db, Roles table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $RolesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $RolesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $RolesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String?> description = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              RolesCompanion(
+            id: id,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            description: description,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String nameAr,
+            required String nameEn,
+            Value<String?> description = const Value.absent(),
+            required bool isActive,
+          }) =>
+              RolesCompanion.insert(
+            id: id,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            description: description,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), $RolesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: (
+              {rolePermissionsRefs = false, userRolesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (rolePermissionsRefs) db.rolePermissions,
+                if (userRolesRefs) db.userRoles
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (rolePermissionsRefs)
+                    await $_getPrefetchedData<Role, Roles, RolePermission>(
+                        currentTable: table,
+                        referencedTable:
+                            $RolesReferences._rolePermissionsRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $RolesReferences(db, table, p0).rolePermissionsRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.roleId == item.id),
+                        typedResults: items),
+                  if (userRolesRefs)
+                    await $_getPrefetchedData<Role, Roles, UserRole>(
+                        currentTable: table,
+                        referencedTable:
+                            $RolesReferences._userRolesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $RolesReferences(db, table, p0).userRolesRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.roleId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $RolesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Roles,
+    Role,
+    $RolesFilterComposer,
+    $RolesOrderingComposer,
+    $RolesAnnotationComposer,
+    $RolesCreateCompanionBuilder,
+    $RolesUpdateCompanionBuilder,
+    (Role, $RolesReferences),
+    Role,
+    PrefetchHooks Function({bool rolePermissionsRefs, bool userRolesRefs})>;
 typedef $CompanyInfoCreateCompanionBuilder = CompanyInfoCompanion Function({
   Value<int> id,
   required String companyCode,
@@ -12956,248 +13267,6 @@ typedef $AccountsProcessedTableManager = ProcessedTableManager<
     (Account, BaseReferences<_$AppDatabase, Accounts, Account>),
     Account,
     PrefetchHooks Function()>;
-typedef $RolesCreateCompanionBuilder = RolesCompanion Function({
-  Value<int> id,
-  required String nameAr,
-  required String nameEn,
-  Value<String?> description,
-  required bool isActive,
-});
-typedef $RolesUpdateCompanionBuilder = RolesCompanion Function({
-  Value<int> id,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<String?> description,
-  Value<bool> isActive,
-});
-
-final class $RolesReferences
-    extends BaseReferences<_$AppDatabase, Roles, Role> {
-  $RolesReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<RolePermissions, List<RolePermission>>
-      _rolePermissionsRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.rolePermissions,
-              aliasName:
-                  $_aliasNameGenerator(db.roles.id, db.rolePermissions.roleId));
-
-  $RolePermissionsProcessedTableManager get rolePermissionsRefs {
-    final manager = $RolePermissionsTableManager($_db, $_db.rolePermissions)
-        .filter((f) => f.roleId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache =
-        $_typedResult.readTableOrNull(_rolePermissionsRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $RolesFilterComposer extends Composer<_$AppDatabase, Roles> {
-  $RolesFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> rolePermissionsRefs(
-      Expression<bool> Function($RolePermissionsFilterComposer f) f) {
-    final $RolePermissionsFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.rolePermissions,
-        getReferencedColumn: (t) => t.roleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $RolePermissionsFilterComposer(
-              $db: $db,
-              $table: $db.rolePermissions,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $RolesOrderingComposer extends Composer<_$AppDatabase, Roles> {
-  $RolesOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-}
-
-class $RolesAnnotationComposer extends Composer<_$AppDatabase, Roles> {
-  $RolesAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<String> get description => $composableBuilder(
-      column: $table.description, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  Expression<T> rolePermissionsRefs<T extends Object>(
-      Expression<T> Function($RolePermissionsAnnotationComposer a) f) {
-    final $RolePermissionsAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.rolePermissions,
-        getReferencedColumn: (t) => t.roleId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $RolePermissionsAnnotationComposer(
-              $db: $db,
-              $table: $db.rolePermissions,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $RolesTableManager extends RootTableManager<
-    _$AppDatabase,
-    Roles,
-    Role,
-    $RolesFilterComposer,
-    $RolesOrderingComposer,
-    $RolesAnnotationComposer,
-    $RolesCreateCompanionBuilder,
-    $RolesUpdateCompanionBuilder,
-    (Role, $RolesReferences),
-    Role,
-    PrefetchHooks Function({bool rolePermissionsRefs})> {
-  $RolesTableManager(_$AppDatabase db, Roles table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $RolesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $RolesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $RolesAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<String?> description = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              RolesCompanion(
-            id: id,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            description: description,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String nameAr,
-            required String nameEn,
-            Value<String?> description = const Value.absent(),
-            required bool isActive,
-          }) =>
-              RolesCompanion.insert(
-            id: id,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            description: description,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), $RolesReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({rolePermissionsRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [
-                if (rolePermissionsRefs) db.rolePermissions
-              ],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (rolePermissionsRefs)
-                    await $_getPrefetchedData<Role, Roles, RolePermission>(
-                        currentTable: table,
-                        referencedTable:
-                            $RolesReferences._rolePermissionsRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $RolesReferences(db, table, p0).rolePermissionsRefs,
-                        referencedItemsForCurrentItem: (item,
-                                referencedItems) =>
-                            referencedItems.where((e) => e.roleId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $RolesProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    Roles,
-    Role,
-    $RolesFilterComposer,
-    $RolesOrderingComposer,
-    $RolesAnnotationComposer,
-    $RolesCreateCompanionBuilder,
-    $RolesUpdateCompanionBuilder,
-    (Role, $RolesReferences),
-    Role,
-    PrefetchHooks Function({bool rolePermissionsRefs})>;
 typedef $RolePermissionsCreateCompanionBuilder = RolePermissionsCompanion
     Function({
   required int roleId,
@@ -13427,6 +13496,673 @@ typedef $RolePermissionsProcessedTableManager = ProcessedTableManager<
     (RolePermission, $RolePermissionsReferences),
     RolePermission,
     PrefetchHooks Function({bool roleId})>;
+typedef $BranchGroupsCreateCompanionBuilder = BranchGroupsCompanion Function({
+  Value<int> id,
+  required String nameAr,
+  required String nameEn,
+  Value<bool> isActive,
+});
+typedef $BranchGroupsUpdateCompanionBuilder = BranchGroupsCompanion Function({
+  Value<int> id,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<bool> isActive,
+});
+
+final class $BranchGroupsReferences
+    extends BaseReferences<_$AppDatabase, BranchGroups, BranchGroup> {
+  $BranchGroupsReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.branches,
+          aliasName: $_aliasNameGenerator(
+              db.branchGroups.id, db.branches.branchGroupId));
+
+  $BranchesProcessedTableManager get branchesRefs {
+    final manager = $BranchesTableManager($_db, $_db.branches)
+        .filter((f) => f.branchGroupId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $BranchGroupsFilterComposer
+    extends Composer<_$AppDatabase, BranchGroups> {
+  $BranchGroupsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> branchesRefs(
+      Expression<bool> Function($BranchesFilterComposer f) f) {
+    final $BranchesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.branchGroupId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesFilterComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $BranchGroupsOrderingComposer
+    extends Composer<_$AppDatabase, BranchGroups> {
+  $BranchGroupsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+}
+
+class $BranchGroupsAnnotationComposer
+    extends Composer<_$AppDatabase, BranchGroups> {
+  $BranchGroupsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  Expression<T> branchesRefs<T extends Object>(
+      Expression<T> Function($BranchesAnnotationComposer a) f) {
+    final $BranchesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.branchGroupId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesAnnotationComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $BranchGroupsTableManager extends RootTableManager<
+    _$AppDatabase,
+    BranchGroups,
+    BranchGroup,
+    $BranchGroupsFilterComposer,
+    $BranchGroupsOrderingComposer,
+    $BranchGroupsAnnotationComposer,
+    $BranchGroupsCreateCompanionBuilder,
+    $BranchGroupsUpdateCompanionBuilder,
+    (BranchGroup, $BranchGroupsReferences),
+    BranchGroup,
+    PrefetchHooks Function({bool branchesRefs})> {
+  $BranchGroupsTableManager(_$AppDatabase db, BranchGroups table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $BranchGroupsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $BranchGroupsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $BranchGroupsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              BranchGroupsCompanion(
+            id: id,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String nameAr,
+            required String nameEn,
+            Value<bool> isActive = const Value.absent(),
+          }) =>
+              BranchGroupsCompanion.insert(
+            id: id,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            isActive: isActive,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $BranchGroupsReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({branchesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (branchesRefs) db.branches],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (branchesRefs)
+                    await $_getPrefetchedData<BranchGroup, BranchGroups,
+                            Branche>(
+                        currentTable: table,
+                        referencedTable:
+                            $BranchGroupsReferences._branchesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $BranchGroupsReferences(db, table, p0).branchesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.branchGroupId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $BranchGroupsProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    BranchGroups,
+    BranchGroup,
+    $BranchGroupsFilterComposer,
+    $BranchGroupsOrderingComposer,
+    $BranchGroupsAnnotationComposer,
+    $BranchGroupsCreateCompanionBuilder,
+    $BranchGroupsUpdateCompanionBuilder,
+    (BranchGroup, $BranchGroupsReferences),
+    BranchGroup,
+    PrefetchHooks Function({bool branchesRefs})>;
+typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
+  Value<int> id,
+  required String branchCode,
+  required String nameAr,
+  required String nameEn,
+  required int companyId,
+  Value<int?> branchGroupId,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> defaultWarehouseId,
+  Value<bool> branchStatus,
+  Value<Uint8List?> logo,
+  Value<String?> remarks,
+});
+typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
+  Value<int> id,
+  Value<String> branchCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<int> companyId,
+  Value<int?> branchGroupId,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> defaultWarehouseId,
+  Value<bool> branchStatus,
+  Value<Uint8List?> logo,
+  Value<String?> remarks,
+});
+
+final class $BranchesReferences
+    extends BaseReferences<_$AppDatabase, Branches, Branche> {
+  $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static BranchGroups _branchGroupIdTable(_$AppDatabase db) =>
+      db.branchGroups.createAlias(
+          $_aliasNameGenerator(db.branches.branchGroupId, db.branchGroups.id));
+
+  $BranchGroupsProcessedTableManager? get branchGroupId {
+    final $_column = $_itemColumn<int>('branch_group_id');
+    if ($_column == null) return null;
+    final manager = $BranchGroupsTableManager($_db, $_db.branchGroups)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_branchGroupIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
+  static MultiTypedResultKey<Users, List<User>> _usersRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.users,
+          aliasName: $_aliasNameGenerator(db.branches.id, db.users.branchId));
+
+  $UsersProcessedTableManager get usersRefs {
+    final manager = $UsersTableManager($_db, $_db.users)
+        .filter((f) => f.branchId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_usersRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get branchCode => $composableBuilder(
+      column: $table.branchCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get companyId => $composableBuilder(
+      column: $table.companyId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get address => $composableBuilder(
+      column: $table.address, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get phone => $composableBuilder(
+      column: $table.phone, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get defaultWarehouseId => $composableBuilder(
+      column: $table.defaultWarehouseId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get branchStatus => $composableBuilder(
+      column: $table.branchStatus, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get logo => $composableBuilder(
+      column: $table.logo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
+
+  $BranchGroupsFilterComposer get branchGroupId {
+    final $BranchGroupsFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchGroupId,
+        referencedTable: $db.branchGroups,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchGroupsFilterComposer(
+              $db: $db,
+              $table: $db.branchGroups,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<bool> usersRefs(
+      Expression<bool> Function($UsersFilterComposer f) f) {
+    final $UsersFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.branchId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersFilterComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get branchCode => $composableBuilder(
+      column: $table.branchCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get companyId => $composableBuilder(
+      column: $table.companyId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get address => $composableBuilder(
+      column: $table.address, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get phone => $composableBuilder(
+      column: $table.phone, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get defaultWarehouseId => $composableBuilder(
+      column: $table.defaultWarehouseId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get branchStatus => $composableBuilder(
+      column: $table.branchStatus,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get logo => $composableBuilder(
+      column: $table.logo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
+
+  $BranchGroupsOrderingComposer get branchGroupId {
+    final $BranchGroupsOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchGroupId,
+        referencedTable: $db.branchGroups,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchGroupsOrderingComposer(
+              $db: $db,
+              $table: $db.branchGroups,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
+  $BranchesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get branchCode => $composableBuilder(
+      column: $table.branchCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<int> get companyId =>
+      $composableBuilder(column: $table.companyId, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<String> get phone =>
+      $composableBuilder(column: $table.phone, builder: (column) => column);
+
+  GeneratedColumn<String> get defaultWarehouseId => $composableBuilder(
+      column: $table.defaultWarehouseId, builder: (column) => column);
+
+  GeneratedColumn<bool> get branchStatus => $composableBuilder(
+      column: $table.branchStatus, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get logo =>
+      $composableBuilder(column: $table.logo, builder: (column) => column);
+
+  GeneratedColumn<String> get remarks =>
+      $composableBuilder(column: $table.remarks, builder: (column) => column);
+
+  $BranchGroupsAnnotationComposer get branchGroupId {
+    final $BranchGroupsAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchGroupId,
+        referencedTable: $db.branchGroups,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchGroupsAnnotationComposer(
+              $db: $db,
+              $table: $db.branchGroups,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  Expression<T> usersRefs<T extends Object>(
+      Expression<T> Function($UsersAnnotationComposer a) f) {
+    final $UsersAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.users,
+        getReferencedColumn: (t) => t.branchId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $UsersAnnotationComposer(
+              $db: $db,
+              $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $BranchesTableManager extends RootTableManager<
+    _$AppDatabase,
+    Branches,
+    Branche,
+    $BranchesFilterComposer,
+    $BranchesOrderingComposer,
+    $BranchesAnnotationComposer,
+    $BranchesCreateCompanionBuilder,
+    $BranchesUpdateCompanionBuilder,
+    (Branche, $BranchesReferences),
+    Branche,
+    PrefetchHooks Function({bool branchGroupId, bool usersRefs})> {
+  $BranchesTableManager(_$AppDatabase db, Branches table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $BranchesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $BranchesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $BranchesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> branchCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<int> companyId = const Value.absent(),
+            Value<int?> branchGroupId = const Value.absent(),
+            Value<String?> address = const Value.absent(),
+            Value<String?> phone = const Value.absent(),
+            Value<String?> defaultWarehouseId = const Value.absent(),
+            Value<bool> branchStatus = const Value.absent(),
+            Value<Uint8List?> logo = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+          }) =>
+              BranchesCompanion(
+            id: id,
+            branchCode: branchCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            companyId: companyId,
+            branchGroupId: branchGroupId,
+            address: address,
+            phone: phone,
+            defaultWarehouseId: defaultWarehouseId,
+            branchStatus: branchStatus,
+            logo: logo,
+            remarks: remarks,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String branchCode,
+            required String nameAr,
+            required String nameEn,
+            required int companyId,
+            Value<int?> branchGroupId = const Value.absent(),
+            Value<String?> address = const Value.absent(),
+            Value<String?> phone = const Value.absent(),
+            Value<String?> defaultWarehouseId = const Value.absent(),
+            Value<bool> branchStatus = const Value.absent(),
+            Value<Uint8List?> logo = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+          }) =>
+              BranchesCompanion.insert(
+            id: id,
+            branchCode: branchCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            companyId: companyId,
+            branchGroupId: branchGroupId,
+            address: address,
+            phone: phone,
+            defaultWarehouseId: defaultWarehouseId,
+            branchStatus: branchStatus,
+            logo: logo,
+            remarks: remarks,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $BranchesReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({branchGroupId = false, usersRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (usersRefs) db.users],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (branchGroupId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.branchGroupId,
+                    referencedTable:
+                        $BranchesReferences._branchGroupIdTable(db),
+                    referencedColumn:
+                        $BranchesReferences._branchGroupIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (usersRefs)
+                    await $_getPrefetchedData<Branche, Branches, User>(
+                        currentTable: table,
+                        referencedTable:
+                            $BranchesReferences._usersRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $BranchesReferences(db, table, p0).usersRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.branchId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $BranchesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    Branches,
+    Branche,
+    $BranchesFilterComposer,
+    $BranchesOrderingComposer,
+    $BranchesAnnotationComposer,
+    $BranchesCreateCompanionBuilder,
+    $BranchesUpdateCompanionBuilder,
+    (Branche, $BranchesReferences),
+    Branche,
+    PrefetchHooks Function({bool branchGroupId, bool usersRefs})>;
 typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
   Value<int> userId,
   required String username,
@@ -13453,6 +14189,20 @@ typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
 final class $UsersReferences
     extends BaseReferences<_$AppDatabase, Users, User> {
   $UsersReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static Branches _branchIdTable(_$AppDatabase db) => db.branches
+      .createAlias($_aliasNameGenerator(db.users.branchId, db.branches.id));
+
+  $BranchesProcessedTableManager? get branchId {
+    final $_column = $_itemColumn<int>('branch_id');
+    if ($_column == null) return null;
+    final manager = $BranchesTableManager($_db, $_db.branches)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_branchIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 
   static MultiTypedResultKey<AuditLog, List<AuditLogData>> _auditLogRefsTable(
           _$AppDatabase db) =>
@@ -13510,9 +14260,6 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
   ColumnFilters<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get branchId => $composableBuilder(
-      column: $table.branchId, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<bool> get isBiometricEnabled => $composableBuilder(
       column: $table.isBiometricEnabled,
       builder: (column) => ColumnFilters(column));
@@ -13520,6 +14267,26 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
   ColumnFilters<bool> get isDeviceLinked => $composableBuilder(
       column: $table.isDeviceLinked,
       builder: (column) => ColumnFilters(column));
+
+  $BranchesFilterComposer get branchId {
+    final $BranchesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchId,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesFilterComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 
   Expression<bool> auditLogRefs(
       Expression<bool> Function($AuditLogFilterComposer f) f) {
@@ -13590,9 +14357,6 @@ class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
   ColumnOrderings<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get branchId => $composableBuilder(
-      column: $table.branchId, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<bool> get isBiometricEnabled => $composableBuilder(
       column: $table.isBiometricEnabled,
       builder: (column) => ColumnOrderings(column));
@@ -13600,6 +14364,26 @@ class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
   ColumnOrderings<bool> get isDeviceLinked => $composableBuilder(
       column: $table.isDeviceLinked,
       builder: (column) => ColumnOrderings(column));
+
+  $BranchesOrderingComposer get branchId {
+    final $BranchesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchId,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesOrderingComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
@@ -13628,14 +14412,31 @@ class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
 
-  GeneratedColumn<int> get branchId =>
-      $composableBuilder(column: $table.branchId, builder: (column) => column);
-
   GeneratedColumn<bool> get isBiometricEnabled => $composableBuilder(
       column: $table.isBiometricEnabled, builder: (column) => column);
 
   GeneratedColumn<bool> get isDeviceLinked => $composableBuilder(
       column: $table.isDeviceLinked, builder: (column) => column);
+
+  $BranchesAnnotationComposer get branchId {
+    final $BranchesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.branchId,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesAnnotationComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 
   Expression<T> auditLogRefs<T extends Object>(
       Expression<T> Function($AuditLogAnnotationComposer a) f) {
@@ -13691,7 +14492,8 @@ class $UsersTableManager extends RootTableManager<
     $UsersUpdateCompanionBuilder,
     (User, $UsersReferences),
     User,
-    PrefetchHooks Function({bool auditLogRefs, bool userRolesRefs})> {
+    PrefetchHooks Function(
+        {bool branchId, bool auditLogRefs, bool userRolesRefs})> {
   $UsersTableManager(_$AppDatabase db, Users table)
       : super(TableManagerState(
           db: db,
@@ -13750,14 +14552,37 @@ class $UsersTableManager extends RootTableManager<
               .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
               .toList(),
           prefetchHooksCallback: (
-              {auditLogRefs = false, userRolesRefs = false}) {
+              {branchId = false, auditLogRefs = false, userRolesRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
                 if (auditLogRefs) db.auditLog,
                 if (userRolesRefs) db.userRoles
               ],
-              addJoins: null,
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (branchId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.branchId,
+                    referencedTable: $UsersReferences._branchIdTable(db),
+                    referencedColumn: $UsersReferences._branchIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
               getPrefetchedDataCallback: (items) async {
                 return [
                   if (auditLogRefs)
@@ -13800,7 +14625,8 @@ typedef $UsersProcessedTableManager = ProcessedTableManager<
     $UsersUpdateCompanionBuilder,
     (User, $UsersReferences),
     User,
-    PrefetchHooks Function({bool auditLogRefs, bool userRolesRefs})>;
+    PrefetchHooks Function(
+        {bool branchId, bool auditLogRefs, bool userRolesRefs})>;
 typedef $AuditLogCreateCompanionBuilder = AuditLogCompanion Function({
   Value<int> id,
   required int userId,
@@ -16664,605 +17490,6 @@ typedef $CurrencyDenominationsProcessedTableManager = ProcessedTableManager<
     (CurrencyDenomination, $CurrencyDenominationsReferences),
     CurrencyDenomination,
     PrefetchHooks Function({bool currencyCode})>;
-typedef $BranchGroupsCreateCompanionBuilder = BranchGroupsCompanion Function({
-  Value<int> id,
-  required String nameAr,
-  required String nameEn,
-  Value<bool> isActive,
-});
-typedef $BranchGroupsUpdateCompanionBuilder = BranchGroupsCompanion Function({
-  Value<int> id,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<bool> isActive,
-});
-
-final class $BranchGroupsReferences
-    extends BaseReferences<_$AppDatabase, BranchGroups, BranchGroup> {
-  $BranchGroupsReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
-          _$AppDatabase db) =>
-      MultiTypedResultKey.fromTable(db.branches,
-          aliasName: $_aliasNameGenerator(
-              db.branchGroups.id, db.branches.branchGroupId));
-
-  $BranchesProcessedTableManager get branchesRefs {
-    final manager = $BranchesTableManager($_db, $_db.branches)
-        .filter((f) => f.branchGroupId.id.sqlEquals($_itemColumn<int>('id')!));
-
-    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: cache));
-  }
-}
-
-class $BranchGroupsFilterComposer
-    extends Composer<_$AppDatabase, BranchGroups> {
-  $BranchGroupsFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnFilters(column));
-
-  Expression<bool> branchesRefs(
-      Expression<bool> Function($BranchesFilterComposer f) f) {
-    final $BranchesFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.branches,
-        getReferencedColumn: (t) => t.branchGroupId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchesFilterComposer(
-              $db: $db,
-              $table: $db.branches,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $BranchGroupsOrderingComposer
-    extends Composer<_$AppDatabase, BranchGroups> {
-  $BranchGroupsOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isActive => $composableBuilder(
-      column: $table.isActive, builder: (column) => ColumnOrderings(column));
-}
-
-class $BranchGroupsAnnotationComposer
-    extends Composer<_$AppDatabase, BranchGroups> {
-  $BranchGroupsAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<bool> get isActive =>
-      $composableBuilder(column: $table.isActive, builder: (column) => column);
-
-  Expression<T> branchesRefs<T extends Object>(
-      Expression<T> Function($BranchesAnnotationComposer a) f) {
-    final $BranchesAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.branches,
-        getReferencedColumn: (t) => t.branchGroupId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchesAnnotationComposer(
-              $db: $db,
-              $table: $db.branches,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return f(composer);
-  }
-}
-
-class $BranchGroupsTableManager extends RootTableManager<
-    _$AppDatabase,
-    BranchGroups,
-    BranchGroup,
-    $BranchGroupsFilterComposer,
-    $BranchGroupsOrderingComposer,
-    $BranchGroupsAnnotationComposer,
-    $BranchGroupsCreateCompanionBuilder,
-    $BranchGroupsUpdateCompanionBuilder,
-    (BranchGroup, $BranchGroupsReferences),
-    BranchGroup,
-    PrefetchHooks Function({bool branchesRefs})> {
-  $BranchGroupsTableManager(_$AppDatabase db, BranchGroups table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $BranchGroupsFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $BranchGroupsOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $BranchGroupsAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              BranchGroupsCompanion(
-            id: id,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String nameAr,
-            required String nameEn,
-            Value<bool> isActive = const Value.absent(),
-          }) =>
-              BranchGroupsCompanion.insert(
-            id: id,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            isActive: isActive,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $BranchGroupsReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({branchesRefs = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [if (branchesRefs) db.branches],
-              addJoins: null,
-              getPrefetchedDataCallback: (items) async {
-                return [
-                  if (branchesRefs)
-                    await $_getPrefetchedData<BranchGroup, BranchGroups,
-                            Branche>(
-                        currentTable: table,
-                        referencedTable:
-                            $BranchGroupsReferences._branchesRefsTable(db),
-                        managerFromTypedResult: (p0) =>
-                            $BranchGroupsReferences(db, table, p0).branchesRefs,
-                        referencedItemsForCurrentItem:
-                            (item, referencedItems) => referencedItems
-                                .where((e) => e.branchGroupId == item.id),
-                        typedResults: items)
-                ];
-              },
-            );
-          },
-        ));
-}
-
-typedef $BranchGroupsProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    BranchGroups,
-    BranchGroup,
-    $BranchGroupsFilterComposer,
-    $BranchGroupsOrderingComposer,
-    $BranchGroupsAnnotationComposer,
-    $BranchGroupsCreateCompanionBuilder,
-    $BranchGroupsUpdateCompanionBuilder,
-    (BranchGroup, $BranchGroupsReferences),
-    BranchGroup,
-    PrefetchHooks Function({bool branchesRefs})>;
-typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
-  Value<int> id,
-  required String branchCode,
-  required String nameAr,
-  required String nameEn,
-  required int companyId,
-  Value<int?> branchGroupId,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> defaultWarehouseId,
-  Value<bool> branchStatus,
-  Value<Uint8List?> logo,
-  Value<String?> remarks,
-});
-typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
-  Value<int> id,
-  Value<String> branchCode,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<int> companyId,
-  Value<int?> branchGroupId,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> defaultWarehouseId,
-  Value<bool> branchStatus,
-  Value<Uint8List?> logo,
-  Value<String?> remarks,
-});
-
-final class $BranchesReferences
-    extends BaseReferences<_$AppDatabase, Branches, Branche> {
-  $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
-
-  static BranchGroups _branchGroupIdTable(_$AppDatabase db) =>
-      db.branchGroups.createAlias(
-          $_aliasNameGenerator(db.branches.branchGroupId, db.branchGroups.id));
-
-  $BranchGroupsProcessedTableManager? get branchGroupId {
-    final $_column = $_itemColumn<int>('branch_group_id');
-    if ($_column == null) return null;
-    final manager = $BranchGroupsTableManager($_db, $_db.branchGroups)
-        .filter((f) => f.id.sqlEquals($_column));
-    final item = $_typedResult.readTableOrNull(_branchGroupIdTable($_db));
-    if (item == null) return manager;
-    return ProcessedTableManager(
-        manager.$state.copyWith(prefetchedData: [item]));
-  }
-}
-
-class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<int> get companyId => $composableBuilder(
-      column: $table.companyId, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId,
-      builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnFilters(column));
-
-  $BranchGroupsFilterComposer get branchGroupId {
-    final $BranchGroupsFilterComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.branchGroupId,
-        referencedTable: $db.branchGroups,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchGroupsFilterComposer(
-              $db: $db,
-              $table: $db.branchGroups,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<int> get companyId => $composableBuilder(
-      column: $table.companyId, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnOrderings(column));
-
-  $BranchGroupsOrderingComposer get branchGroupId {
-    final $BranchGroupsOrderingComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.branchGroupId,
-        referencedTable: $db.branchGroups,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchGroupsOrderingComposer(
-              $db: $db,
-              $table: $db.branchGroups,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
-  $BranchesAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get branchCode => $composableBuilder(
-      column: $table.branchCode, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<int> get companyId =>
-      $composableBuilder(column: $table.companyId, builder: (column) => column);
-
-  GeneratedColumn<String> get address =>
-      $composableBuilder(column: $table.address, builder: (column) => column);
-
-  GeneratedColumn<String> get phone =>
-      $composableBuilder(column: $table.phone, builder: (column) => column);
-
-  GeneratedColumn<String> get defaultWarehouseId => $composableBuilder(
-      column: $table.defaultWarehouseId, builder: (column) => column);
-
-  GeneratedColumn<bool> get branchStatus => $composableBuilder(
-      column: $table.branchStatus, builder: (column) => column);
-
-  GeneratedColumn<Uint8List> get logo =>
-      $composableBuilder(column: $table.logo, builder: (column) => column);
-
-  GeneratedColumn<String> get remarks =>
-      $composableBuilder(column: $table.remarks, builder: (column) => column);
-
-  $BranchGroupsAnnotationComposer get branchGroupId {
-    final $BranchGroupsAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.branchGroupId,
-        referencedTable: $db.branchGroups,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $BranchGroupsAnnotationComposer(
-              $db: $db,
-              $table: $db.branchGroups,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
-    return composer;
-  }
-}
-
-class $BranchesTableManager extends RootTableManager<
-    _$AppDatabase,
-    Branches,
-    Branche,
-    $BranchesFilterComposer,
-    $BranchesOrderingComposer,
-    $BranchesAnnotationComposer,
-    $BranchesCreateCompanionBuilder,
-    $BranchesUpdateCompanionBuilder,
-    (Branche, $BranchesReferences),
-    Branche,
-    PrefetchHooks Function({bool branchGroupId})> {
-  $BranchesTableManager(_$AppDatabase db, Branches table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $BranchesFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $BranchesOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $BranchesAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> branchCode = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<int> companyId = const Value.absent(),
-            Value<int?> branchGroupId = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool> branchStatus = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            Value<String?> remarks = const Value.absent(),
-          }) =>
-              BranchesCompanion(
-            id: id,
-            branchCode: branchCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            companyId: companyId,
-            branchGroupId: branchGroupId,
-            address: address,
-            phone: phone,
-            defaultWarehouseId: defaultWarehouseId,
-            branchStatus: branchStatus,
-            logo: logo,
-            remarks: remarks,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String branchCode,
-            required String nameAr,
-            required String nameEn,
-            required int companyId,
-            Value<int?> branchGroupId = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> defaultWarehouseId = const Value.absent(),
-            Value<bool> branchStatus = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            Value<String?> remarks = const Value.absent(),
-          }) =>
-              BranchesCompanion.insert(
-            id: id,
-            branchCode: branchCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            companyId: companyId,
-            branchGroupId: branchGroupId,
-            address: address,
-            phone: phone,
-            defaultWarehouseId: defaultWarehouseId,
-            branchStatus: branchStatus,
-            logo: logo,
-            remarks: remarks,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $BranchesReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: ({branchGroupId = false}) {
-            return PrefetchHooks(
-              db: db,
-              explicitlyWatchedTables: [],
-              addJoins: <
-                  T extends TableManagerState<
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic,
-                      dynamic>>(state) {
-                if (branchGroupId) {
-                  state = state.withJoin(
-                    currentTable: table,
-                    currentColumn: table.branchGroupId,
-                    referencedTable:
-                        $BranchesReferences._branchGroupIdTable(db),
-                    referencedColumn:
-                        $BranchesReferences._branchGroupIdTable(db).id,
-                  ) as T;
-                }
-
-                return state;
-              },
-              getPrefetchedDataCallback: (items) async {
-                return [];
-              },
-            );
-          },
-        ));
-}
-
-typedef $BranchesProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    Branches,
-    Branche,
-    $BranchesFilterComposer,
-    $BranchesOrderingComposer,
-    $BranchesAnnotationComposer,
-    $BranchesCreateCompanionBuilder,
-    $BranchesUpdateCompanionBuilder,
-    (Branche, $BranchesReferences),
-    Branche,
-    PrefetchHooks Function({bool branchGroupId})>;
 typedef $UserRolesCreateCompanionBuilder = UserRolesCompanion Function({
   required int userId,
   required int roleId,
@@ -17291,6 +17518,20 @@ final class $UserRolesReferences
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: [item]));
   }
+
+  static Roles _roleIdTable(_$AppDatabase db) => db.roles
+      .createAlias($_aliasNameGenerator(db.userRoles.roleId, db.roles.id));
+
+  $RolesProcessedTableManager get roleId {
+    final $_column = $_itemColumn<int>('role_id')!;
+
+    final manager = $RolesTableManager($_db, $_db.roles)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_roleIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
 }
 
 class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
@@ -17301,9 +17542,6 @@ class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnFilters<int> get roleId => $composableBuilder(
-      column: $table.roleId, builder: (column) => ColumnFilters(column));
-
   $UsersFilterComposer get userId {
     final $UsersFilterComposer composer = $composerBuilder(
         composer: this,
@@ -17323,6 +17561,26 @@ class $UserRolesFilterComposer extends Composer<_$AppDatabase, UserRoles> {
             ));
     return composer;
   }
+
+  $RolesFilterComposer get roleId {
+    final $RolesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.roleId,
+        referencedTable: $db.roles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RolesFilterComposer(
+              $db: $db,
+              $table: $db.roles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
@@ -17333,9 +17591,6 @@ class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  ColumnOrderings<int> get roleId => $composableBuilder(
-      column: $table.roleId, builder: (column) => ColumnOrderings(column));
-
   $UsersOrderingComposer get userId {
     final $UsersOrderingComposer composer = $composerBuilder(
         composer: this,
@@ -17355,6 +17610,26 @@ class $UserRolesOrderingComposer extends Composer<_$AppDatabase, UserRoles> {
             ));
     return composer;
   }
+
+  $RolesOrderingComposer get roleId {
+    final $RolesOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.roleId,
+        referencedTable: $db.roles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RolesOrderingComposer(
+              $db: $db,
+              $table: $db.roles,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 }
 
 class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
@@ -17365,9 +17640,6 @@ class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
     super.$addJoinBuilderToRootComposer,
     super.$removeJoinBuilderFromRootComposer,
   });
-  GeneratedColumn<int> get roleId =>
-      $composableBuilder(column: $table.roleId, builder: (column) => column);
-
   $UsersAnnotationComposer get userId {
     final $UsersAnnotationComposer composer = $composerBuilder(
         composer: this,
@@ -17380,6 +17652,26 @@ class $UserRolesAnnotationComposer extends Composer<_$AppDatabase, UserRoles> {
             $UsersAnnotationComposer(
               $db: $db,
               $table: $db.users,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+
+  $RolesAnnotationComposer get roleId {
+    final $RolesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.roleId,
+        referencedTable: $db.roles,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $RolesAnnotationComposer(
+              $db: $db,
+              $table: $db.roles,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -17400,7 +17692,7 @@ class $UserRolesTableManager extends RootTableManager<
     $UserRolesUpdateCompanionBuilder,
     (UserRole, $UserRolesReferences),
     UserRole,
-    PrefetchHooks Function({bool userId})> {
+    PrefetchHooks Function({bool userId, bool roleId})> {
   $UserRolesTableManager(_$AppDatabase db, UserRoles table)
       : super(TableManagerState(
           db: db,
@@ -17435,7 +17727,7 @@ class $UserRolesTableManager extends RootTableManager<
               .map((e) =>
                   (e.readTable(table), $UserRolesReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({userId = false}) {
+          prefetchHooksCallback: ({userId = false, roleId = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [],
@@ -17461,6 +17753,14 @@ class $UserRolesTableManager extends RootTableManager<
                         $UserRolesReferences._userIdTable(db).userId,
                   ) as T;
                 }
+                if (roleId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.roleId,
+                    referencedTable: $UserRolesReferences._roleIdTable(db),
+                    referencedColumn: $UserRolesReferences._roleIdTable(db).id,
+                  ) as T;
+                }
 
                 return state;
               },
@@ -17483,7 +17783,7 @@ typedef $UserRolesProcessedTableManager = ProcessedTableManager<
     $UserRolesUpdateCompanionBuilder,
     (UserRole, $UserRolesReferences),
     UserRole,
-    PrefetchHooks Function({bool userId})>;
+    PrefetchHooks Function({bool userId, bool roleId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -17504,15 +17804,19 @@ class $AppDatabaseManager {
       $TaxCalcMethodsTableManager(_db, _db.taxCalcMethods);
   $TaxTypesTableManager get taxTypes =>
       $TaxTypesTableManager(_db, _db.taxTypes);
+  $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
   $CompanyInfoTableManager get companyInfo =>
       $CompanyInfoTableManager(_db, _db.companyInfo);
   $FinancialPeriodsTableManager get financialPeriods =>
       $FinancialPeriodsTableManager(_db, _db.financialPeriods);
   $AccountsTableManager get accounts =>
       $AccountsTableManager(_db, _db.accounts);
-  $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
   $RolePermissionsTableManager get rolePermissions =>
       $RolePermissionsTableManager(_db, _db.rolePermissions);
+  $BranchGroupsTableManager get branchGroups =>
+      $BranchGroupsTableManager(_db, _db.branchGroups);
+  $BranchesTableManager get branches =>
+      $BranchesTableManager(_db, _db.branches);
   $UsersTableManager get users => $UsersTableManager(_db, _db.users);
   $AuditLogTableManager get auditLog =>
       $AuditLogTableManager(_db, _db.auditLog);
@@ -17529,10 +17833,6 @@ class $AppDatabaseManager {
       $CurrenciesTableManager(_db, _db.currencies);
   $CurrencyDenominationsTableManager get currencyDenominations =>
       $CurrencyDenominationsTableManager(_db, _db.currencyDenominations);
-  $BranchGroupsTableManager get branchGroups =>
-      $BranchGroupsTableManager(_db, _db.branchGroups);
-  $BranchesTableManager get branches =>
-      $BranchesTableManager(_db, _db.branches);
   $UserRolesTableManager get userRoles =>
       $UserRolesTableManager(_db, _db.userRoles);
 }
