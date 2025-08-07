@@ -1138,6 +1138,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Branch Group Name (Arabic)'**
   String get branchGroupNameAr;
+
+  /// No description provided for @branchesModule.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branchesModule;
+
+  /// No description provided for @companyInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Company Info'**
+  String get companyInfo;
+
+  /// No description provided for @nameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (English)'**
+  String get nameEn;
+
+  /// No description provided for @nameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Arabic)'**
+  String get nameAr;
+
+  /// No description provided for @accountCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Code'**
+  String get accountCode;
+
+  /// No description provided for @accountNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name (Arabic)'**
+  String get accountNameAr;
+
+  /// No description provided for @accountNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name (English)'**
+  String get accountNameEn;
+
+  /// No description provided for @roleNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Name (English)'**
+  String get roleNameEn;
+
+  /// No description provided for @roleNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Role Name (Arabic)'**
+  String get roleNameAr;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @backupFrequency.
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Frequency'**
+  String get backupFrequency;
+
+  /// No description provided for @cloudBackup.
+  ///
+  /// In en, this message translates to:
+  /// **'Cloud Backup'**
+  String get cloudBackup;
+
+  /// No description provided for @cloudBackupHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint: Cloud backup is important.'**
+  String get cloudBackupHint;
+
+  /// No description provided for @editTaxBracket.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tax Bracket'**
+  String get editTaxBracket;
+
+  /// No description provided for @editTaxCalculationMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tax Calculation Method'**
+  String get editTaxCalculationMethod;
+
+  /// No description provided for @editTaxType.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Tax Type'**
+  String get editTaxType;
+
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

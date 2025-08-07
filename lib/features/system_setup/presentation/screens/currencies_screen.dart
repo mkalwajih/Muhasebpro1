@@ -24,7 +24,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
     ref.listen<AsyncValue<List<CurrencyEntity>>>(currenciesProvider, (previous, next) {
       next.whenData((currencies) {
         if (_selectedCurrency != null) {
-          final newSelected = currencies.firstWhere((c) => c.currencyCode == _selectedCurrency!.currencyCode, orElse: () => currencies.isEmpty ? null : currencies.first);
+          final newSelected = currencies.firstWhere((c) => c.currencyCode == _selectedCurrency!.currencyCode, orElse: () => currencies.isNotEmpty ? currencies.first : _selectedCurrency!);
           if (newSelected != _selectedCurrency) {
             setState(() {
               _selectedCurrency = newSelected;

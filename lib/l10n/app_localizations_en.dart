@@ -529,4 +529,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get branchGroupNameAr => 'Branch Group Name (Arabic)';
+
+  @override
+  String get branchesModule => 'Branches';
+
+  @override
+  String get companyInfo => 'Company Info';
+
+  @override
+  String get nameEn => 'Name (English)';
+
+  @override
+  String get nameAr => 'Name (Arabic)';
+
+  @override
+  String get accountCode => 'Account Code';
+
+  @override
+  String get accountNameAr => 'Account Name (Arabic)';
+
+  @override
+  String get accountNameEn => 'Account Name (English)';
+
+  @override
+  String get roleNameEn => 'Role Name (English)';
+
+  @override
+  String get roleNameAr => 'Role Name (Arabic)';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get backupFrequency => 'Backup Frequency';
+
+  @override
+  String get cloudBackup => 'Cloud Backup';
+
+  @override
+  String get cloudBackupHint => 'Hint: Cloud backup is important.';
+
+  @override
+  String get editTaxBracket => 'Edit Tax Bracket';
+
+  @override
+  String get editTaxCalculationMethod => 'Edit Tax Calculation Method';
+
+  @override
+  String get editTaxType => 'Edit Tax Type';
+
+  @override
+  String get branches => 'Branches';
 }

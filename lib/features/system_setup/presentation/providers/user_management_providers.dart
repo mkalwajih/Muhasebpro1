@@ -16,12 +16,11 @@ class UserManagementNotifier extends StateNotifier<AsyncValue<List<UserEntity>>>
 
   Future<void> fetchUsers() async {
     state = const AsyncLoading();
-    try {
-      final users = await _repository.getAllUsers();
-      state = AsyncData(users);
-    } catch (e, st) {
-      state = AsyncError(e, st);
-    }
+    final result = await _repository.getAllUsers();
+    result.fold(
+      (failure) => state = AsyncError(failure, StackTrace.current), // Map Failure to AsyncError
+      (users) => state = AsyncData(users),
+    );
   }
 
   Future<void> addUser(UserEntity user, String password) async {

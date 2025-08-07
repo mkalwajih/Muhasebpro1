@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/branch_groups_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/repositories/branch_groups_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart';
@@ -18,14 +18,13 @@ final branchGroupsRepositoryProvider = Provider<IBranchGroupsRepository>((ref) {
 
 final branchGroupsProvider = StateNotifierProvider<BranchGroupsNotifier, AsyncValue<List<BranchGroupEntity>>>((ref) {
   final repository = ref.watch(branchGroupsRepositoryProvider);
-  return BranchGroupsNotifier(repository, ref);
+  return BranchGroupsNotifier(repository);
 });
 
 class BranchGroupsNotifier extends StateNotifier<AsyncValue<List<BranchGroupEntity>>> {
   final IBranchGroupsRepository _repository;
-  final Ref _ref;
 
-  BranchGroupsNotifier(this._repository, this._ref) : super(const AsyncLoading()) {
+  BranchGroupsNotifier(this._repository) : super(const AsyncLoading()) {
     getAllBranchGroups();
   }
 
@@ -68,7 +67,7 @@ class BranchGroupsNotifier extends StateNotifier<AsyncValue<List<BranchGroupEnti
       state = state.whenData((value) => value);
       // You can then show a dialog or snackbar with the failure message
       // For simplicity, re-throwing here to be caught by a UI layer if needed
-      throw (failure as CacheFailure).message;
+      throw failure;
     }
   }
 }

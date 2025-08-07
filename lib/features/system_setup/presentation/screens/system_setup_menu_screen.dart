@@ -1,78 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 import 'package:muhaseb_pro/shared/utils/role_checker.dart';
 
-class SystemSetupMenuScreen extends StatelessWidget {
+class SystemSetupMenuScreen extends ConsumerWidget {
   const SystemSetupMenuScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
+    final roleChecker = ref.watch(roleCheckerProvider);
 
     final menuItems = [
-      if (RoleChecker.hasPermission(context, AppPermission.viewCompanyInfo))
+      if (roleChecker.hasPermission(AppPermission.manageCompanyInfo))
         _MenuItem(
           title: l10n.companyInfo,
           icon: Iconsax.building,
           onTap: () => context.go('/dashboard/system_setup/company_info'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewBranches))
+      if (roleChecker.hasPermission(AppPermission.viewBranches))
         _MenuItem(
           title: l10n.branches,
           icon: Iconsax.share,
           onTap: () => context.go('/dashboard/system_setup/branches'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewBranches))
+      if (roleChecker.hasPermission(AppPermission.viewBranches))
         _MenuItem(
           title: l10n.branchGroups,
           icon: Iconsax.shapes,
           onTap: () => context.go('/dashboard/system_setup/branch_groups'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewCOA))
+      if (roleChecker.hasPermission(AppPermission.manageChartOfAccounts))
         _MenuItem(
           title: l10n.chartOfAccounts,
           icon: Iconsax.book_1,
           onTap: () => context.go('/dashboard/system_setup/coa'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewUsers))
+      if (roleChecker.hasPermission(AppPermission.viewUsers))
         _MenuItem(
           title: l10n.userManagement,
           icon: Iconsax.user,
           onTap: () => context.go('/dashboard/system_setup/user_management'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewRoles))
+      if (roleChecker.hasPermission(AppPermission.viewRoles))
         _MenuItem(
           title: l10n.roleManagement,
           icon: Iconsax.security_user,
           onTap: () => context.go('/dashboard/system_setup/role_management'),
         ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewGeographicalData))
-        _MenuItem(
-          title: l10n.geographicalData,
-          icon: Iconsax.map_1,
-          onTap: () => context.go('/dashboard/system_setup/geographical_data'),
-        ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewGeneralParameters))
-        _MenuItem(
-          title: l10n.generalParameters,
-          icon: Iconsax.setting_2,
-          onTap: () => context.go('/dashboard/system_setup/general_parameters'),
-        ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewCurrencies))
-        _MenuItem(
-          title: l10n.currencies,
-          icon: Iconsax.dollar_circle,
-          onTap: () => context.go('/dashboard/system_setup/currencies'),
-        ),
-      if (RoleChecker.hasPermission(context, AppPermission.viewTaxSettings))
-        _MenuItem(
-          title: l10n.taxSettings,
-          icon: Iconsax.receipt_2,
-          onTap: () => context.go('/dashboard/system_setup/tax'),
-        ),
+      // TODO: Add correct permissions for Geographical Data, General Parameters, Currencies, and Tax Settings
+      // if (roleChecker.hasPermission(AppPermission.viewGeographicalData))
+      //   _MenuItem(
+      //     title: l10n.geographicalData,
+      //     icon: Iconsax.map_1,
+      //     onTap: () => context.go('/dashboard/system_setup/geographical_data'),
+      //   ),
+      // if (roleChecker.hasPermission(AppPermission.viewGeneralParameters))
+      //   _MenuItem(
+      //     title: l10n.generalParameters,
+      //     icon: Iconsax.setting_2,
+      //     onTap: () => context.go('/dashboard/system_setup/general_parameters'),
+      //   ),
+      // if (roleChecker.hasPermission(AppPermission.viewCurrencies))
+      //   _MenuItem(
+      //     title: l10n.currencies,
+      //     icon: Iconsax.dollar_circle,
+      //     onTap: () => context.go('/dashboard/system_setup/currencies'),
+      //   ),
+      // if (roleChecker.hasPermission(AppPermission.viewTaxSettings))
+      //   _MenuItem(
+      //     title: l10n.taxSettings,
+      //     icon: Iconsax.receipt_2,
+      //     onTap: () => context.go('/dashboard/system_setup/tax'),
+      //   ),
     ];
     return Scaffold(
       appBar: AppBar(

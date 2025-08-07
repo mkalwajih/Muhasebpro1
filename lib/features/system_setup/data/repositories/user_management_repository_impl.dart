@@ -17,7 +17,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       final users = await _localDataSource.getAllUsers();
       return Right(users);
     } catch (e) {
-      return Left(CacheFailure('Failed to load users: $e'));
+      return Left(CacheFailure(message: 'Failed to load users: $e'));
     }
   }
 
@@ -28,7 +28,7 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       await _localDataSource.addUser(user, passwordHash);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure('Failed to add user: $e'));
+      return Left(CacheFailure(message: 'Failed to add user: $e'));
     }
   }
 
@@ -42,17 +42,16 @@ class UserManagementRepositoryImpl implements UserManagementRepository {
       await _localDataSource.updateUser(user, passwordHash: passwordHash);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure('Failed to update user: $e'));
+      return Left(CacheFailure(message: 'Failed to update user: $e'));
     }
   }
 
-  @override
   Future<Either<Failure, Unit>> deleteUser(int userId) async {
     try {
       await _localDataSource.deleteUser(userId);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure('Failed to delete user: $e'));
+      return Left(CacheFailure(message: 'Failed to delete user: $e'));
     }
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/user_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_user_dialog.dart';
@@ -25,7 +26,17 @@ class UserManagementScreen extends ConsumerWidget {
             itemCount: users.length,
             itemBuilder: (context, index) {
               final user = users[index];
-              final branch = branchesAsync.asData?.value.firstWhere((b) => b.id == user.branchId, orElse: () => null);
+              final branch = branchesAsync.asData?.value.firstWhere(
+                (b) => b.id == user.branchId,
+                orElse: () => const BranchEntity(
+                  id: -1,
+                  branchCode: 'N/A',
+                  nameAr: 'غير متوفر',
+                  nameEn: 'N/A',
+                  companyId: 0,
+                  branchStatus: false,
+                ),
+              );
               
               return Card(
                 margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -35,7 +46,7 @@ class UserManagementScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(locale == 'ar' ? user.fullNameAr : user.fullNameEn),
-                       if (branch != null)
+                       if (branch != null && branch.id != -1)
                         Padding(
                           padding: const EdgeInsets.only(top: 4.0),
                           child: Text(

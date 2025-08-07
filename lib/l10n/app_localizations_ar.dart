@@ -529,4 +529,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get branchGroupNameAr => 'اسم مجموعة الفرع (عربي)';
+
+  @override
+  String get branchesModule => 'الفروع';
+
+  @override
+  String get companyInfo => 'معلومات الشركة';
+
+  @override
+  String get nameEn => 'الاسم (إنجليزي)';
+
+  @override
+  String get nameAr => 'الاسم (عربي)';
+
+  @override
+  String get accountCode => 'رمز الحساب';
+
+  @override
+  String get accountNameAr => 'اسم الحساب (عربي)';
+
+  @override
+  String get accountNameEn => 'اسم الحساب (إنجليزي)';
+
+  @override
+  String get roleNameEn => 'اسم الدور (إنجليزي)';
+
+  @override
+  String get roleNameAr => 'اسم الدور (عربي)';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get backupFrequency => 'تكرار النسخ الاحتياطي';
+
+  @override
+  String get cloudBackup => 'النسخ الاحتياطي السحابي';
+
+  @override
+  String get cloudBackupHint => 'ملاحظة: النسخ الاحتياطي السحابي مهم.';
+
+  @override
+  String get editTaxBracket => 'تعديل الشريحة الضريبية';
+
+  @override
+  String get editTaxCalculationMethod => 'تعديل طريقة حساب الضريبة';
+
+  @override
+  String get editTaxType => 'تعديل نوع الضريبة';
+
+  @override
+  String get branches => 'Branches';
 }

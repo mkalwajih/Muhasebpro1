@@ -173,5 +173,22 @@
   "comingSoon": "Coming Soon!",
   "featureUnderDevelopment": "This feature is currently under development. Please check back later.",
   "branchGroupNameEn": "Branch Group Name (English)",
-  "branchGroupNameAr": "Branch Group Name (Arabic)"
+  "branchGroupNameAr": "Branch Group Name (Arabic)",
+  "branchesModule": "Branches",
+  "companyInfo": "Company Info",
+  "nameEn": "Name (English)",
+  "nameAr": "Name (Arabic)",
+  "accountCode": "Account Code",
+  "accountNameAr": "Account Name (Arabic)",
+  "accountNameEn": "Account Name (English)",
+  "roleNameEn": "Role Name (English)",
+  "roleNameAr": "Role Name (Arabic)",
+  "description": "Description",
+  "backupFrequency": "Backup Frequency",
+  "cloudBackup": "Cloud Backup",
+  "cloudBackupHint": "Hint: Cloud backup is important.",
+  "editTaxBracket": "Edit Tax Bracket",
+  "editTaxCalculationMethod": "Edit Tax Calculation Method",
+  "editTaxType": "Edit Tax Type",
+  "branches": "Branches"
 }

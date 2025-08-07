@@ -1,8 +1,8 @@
-import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart';
 import 'package:muhaseb_pro/shared/data/models/branch_group_model.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
+import 'package:sqlite3/sqlite3.dart';
 
 abstract class IBranchGroupsLocalDataSource {
   Future<List<BranchGroupEntity>> getAllBranchGroups();

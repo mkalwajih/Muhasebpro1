@@ -165,7 +165,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+                    backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                     backgroundImage: _logo != null ? MemoryImage(_logo!) : null,
                     child: _logo == null ? const Icon(Iconsax.building, size: 40) : null,
                   ),

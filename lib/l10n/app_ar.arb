@@ -173,5 +173,21 @@
   "comingSoon": "قريبا!",
   "featureUnderDevelopment": "هذه الميزة قيد التطوير حاليًا. يرجى التحقق لاحقًا.",
   "branchGroupNameEn": "اسم مجموعة الفرع (إنجليزي)",
-  "branchGroupNameAr": "اسم مجموعة الفرع (عربي)"
+  "branchGroupNameAr": "اسم مجموعة الفرع (عربي)",
+  "branchesModule": "الفروع",
+  "companyInfo": "معلومات الشركة",
+  "nameEn": "الاسم (إنجليزي)",
+  "nameAr": "الاسم (عربي)",
+  "accountCode": "رمز الحساب",
+  "accountNameAr": "اسم الحساب (عربي)",
+  "accountNameEn": "اسم الحساب (إنجليزي)",
+  "roleNameEn": "اسم الدور (إنجليزي)",
+  "roleNameAr": "اسم الدور (عربي)",
+  "description": "الوصف",
+  "backupFrequency": "تكرار النسخ الاحتياطي",
+  "cloudBackup": "النسخ الاحتياطي السحابي",
+  "cloudBackupHint": "ملاحظة: النسخ الاحتياطي السحابي مهم.",
+  "editTaxBracket": "تعديل الشريحة الضريبية",
+  "editTaxCalculationMethod": "تعديل طريقة حساب الضريبة",
+  "editTaxType": "تعديل نوع الضريبة"
 }

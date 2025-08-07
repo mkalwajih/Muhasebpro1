@@ -2,6 +2,7 @@ enum AppPermission {
   // System Setup Permissions
   viewSystemSetup,
   manageCompanyInfo,
+  viewBranches,
   manageChartOfAccounts,
   viewUsers,
   manageUsers,

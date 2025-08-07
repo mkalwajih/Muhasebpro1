@@ -16,7 +16,7 @@ class BranchGroupsRepository implements IBranchGroupsRepository {
       final result = await _localDataSource.getAllBranchGroups();
       return Right(result);
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 
@@ -26,9 +26,9 @@ class BranchGroupsRepository implements IBranchGroupsRepository {
       await _localDataSource.addBranchGroup(branchGroup);
       return const Right(unit);
     } on DataIntegrityException catch(e) {
-      return Left(DataIntegrityFailure(e.message ?? 'A group with this name already exists.'));
+      return Left(DataIntegrityFailure(message: e.message ?? 'A group with this name already exists.'));
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 
@@ -38,7 +38,7 @@ class BranchGroupsRepository implements IBranchGroupsRepository {
       await _localDataSource.updateBranchGroup(branchGroup);
       return const Right(unit);
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 
@@ -48,9 +48,9 @@ class BranchGroupsRepository implements IBranchGroupsRepository {
       await _localDataSource.deleteBranchGroup(id);
       return const Right(unit);
     } on DataIntegrityException catch (e) {
-      return Left(DataIntegrityFailure(e.message ?? 'This group is in use and cannot be deleted.'));
+      return Left(DataIntegrityFailure(message: e.message ?? 'This group is in use and cannot be deleted.'));
     } catch (e) {
-      return Left(CacheFailure(e.toString()));
+      return Left(CacheFailure(message: e.toString()));
     }
   }
 }
