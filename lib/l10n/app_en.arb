@@ -171,5 +171,7 @@
   "enableBiometric": "Enable Biometric Authentication",
   "linkToDevice": "Link to Device",
   "comingSoon": "Coming Soon!",
-  "featureUnderDevelopment": "This feature is currently under development. Please check back later."
+  "featureUnderDevelopment": "This feature is currently under development. Please check back later.",
+  "branchGroupNameEn": "Branch Group Name (English)",
+  "branchGroupNameAr": "Branch Group Name (Arabic)"
 }

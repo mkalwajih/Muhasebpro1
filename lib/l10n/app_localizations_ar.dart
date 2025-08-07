@@ -523,4 +523,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get featureUnderDevelopment => 'هذه الميزة قيد التطوير حاليًا. يرجى التحقق لاحقًا.';
+
+  @override
+  String get branchGroupNameEn => 'اسم مجموعة الفرع (إنجليزي)';
+
+  @override
+  String get branchGroupNameAr => 'اسم مجموعة الفرع (عربي)';
 }

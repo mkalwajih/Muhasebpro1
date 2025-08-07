@@ -24,7 +24,7 @@ class UserEntity {
     this.roles = const [],
   });
 
-  factory UserEntity.fromUser(UserData user, {List<RoleEntity> roles = const []}) {
+  factory UserEntity.fromUser(User user, {List<RoleEntity> roles = const []}) {
     return UserEntity(
       userId: user.userId,
       username: user.username,

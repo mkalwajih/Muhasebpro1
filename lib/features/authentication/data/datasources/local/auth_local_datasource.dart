@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
-import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
 
 abstract class IAuthLocalDataSource {

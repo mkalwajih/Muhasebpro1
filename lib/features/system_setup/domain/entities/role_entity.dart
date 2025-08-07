@@ -19,7 +19,7 @@ class RoleEntity extends Equatable {
     this.permissions = const [], // Add this line
   });
 
-  factory RoleEntity.fromRole(RoleData role) {
+  factory RoleEntity.fromRole(Role role) {
     return RoleEntity(
       id: role.id,
       nameAr: role.nameAr,

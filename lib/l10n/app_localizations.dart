@@ -1126,6 +1126,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This feature is currently under development. Please check back later.'**
   String get featureUnderDevelopment;
+
+  /// No description provided for @branchGroupNameEn.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Group Name (English)'**
+  String get branchGroupNameEn;
+
+  /// No description provided for @branchGroupNameAr.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Group Name (Arabic)'**
+  String get branchGroupNameAr;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

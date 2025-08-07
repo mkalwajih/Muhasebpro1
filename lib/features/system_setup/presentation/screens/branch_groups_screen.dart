@@ -77,13 +77,13 @@ class BranchGroupsScreen extends ConsumerWidget {
                 children: [
                   TextFormField(
                     controller: nameEnController,
-                    decoration: InputDecoration(labelText: l10n.nameEn),
+                    decoration: InputDecoration(labelText: l10n.branchGroupNameEn),
                     validator: (v) => v!.isEmpty ? l10n.requiredField : null,
                   ),
                   const SizedBox(height: 8),
                   TextFormField(
                     controller: nameArController,
-                    decoration: InputDecoration(labelText: l10n.nameAr),
+                    decoration: InputDecoration(labelText: l10n.branchGroupNameAr),
                     validator: (v) => v!.isEmpty ? l10n.requiredField : null,
                   ),
                   SwitchListTile(
