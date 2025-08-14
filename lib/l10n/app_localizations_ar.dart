@@ -580,4 +580,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get branches => 'Branches';
+
+  @override
+  String get addNewCompany => 'إضافة شركة جديدة';
+
+  @override
+  String get noCompaniesYet => 'لم يتم إنشاء شركات بعد. أضف شركتك الأولى!';
+
+  @override
+  String get selectCompanyPrompt => 'حدد شركة من القائمة لعرض/تعديل تفاصيلها.';
+
+  @override
+  String get noBranchesYet => 'لم يتم إنشاء فروع بعد. أضف فرعك الأول!';
+
+  @override
+  String get selectBranchPrompt => 'حدد فرعًا من القائمة لعرض/تعديل تفاصيله.';
 }

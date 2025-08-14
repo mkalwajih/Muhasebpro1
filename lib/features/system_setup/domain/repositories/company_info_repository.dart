@@ -5,7 +5,10 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity
 
 abstract class CompanyInfoRepository {
   Future<CompanyInfoEntity?> getCompanyInfo();
-  Future<(bool, String?)> saveCompanyInfo(CompanyInfoEntity info);
+  Future<Either<Failure, bool>> saveCompanyInfo(CompanyInfoEntity info);
   Future<bool> isCompanyCodeUnique(String code, {int? companyId});
   Future<Either<Failure, List<CompanyEntity>>> getAllCompanies();
+  Future<Either<Failure, void>> addCompany(CompanyInfoEntity company);
+  Future<Either<Failure, void>> updateCompany(CompanyInfoEntity company);
+  Future<Either<Failure, void>> deleteCompany(int id);
 }

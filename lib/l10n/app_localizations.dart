@@ -1240,6 +1240,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Branches'**
   String get branches;
+
+  /// No description provided for @addNewCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New Company'**
+  String get addNewCompany;
+
+  /// No description provided for @noCompaniesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No companies created yet. Add your first company!'**
+  String get noCompaniesYet;
+
+  /// No description provided for @selectCompanyPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a company from the list to view/edit its details.'**
+  String get selectCompanyPrompt;
+
+  /// No description provided for @noBranchesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No branches created yet. Add your first branch!'**
+  String get noBranchesYet;
+
+  /// No description provided for @selectBranchPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a branch from the list to view/edit its details.'**
+  String get selectBranchPrompt;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

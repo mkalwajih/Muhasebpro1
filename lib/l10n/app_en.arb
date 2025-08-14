@@ -190,5 +190,10 @@
   "editTaxBracket": "Edit Tax Bracket",
   "editTaxCalculationMethod": "Edit Tax Calculation Method",
   "editTaxType": "Edit Tax Type",
-  "branches": "Branches"
+  "branches": "Branches",
+  "addNewCompany": "Add New Company",
+  "noCompaniesYet": "No companies created yet. Add your first company!",
+  "selectCompanyPrompt": "Select a company from the list to view/edit its details.",
+  "noBranchesYet": "No branches created yet. Add your first branch!",
+  "selectBranchPrompt": "Select a branch from the list to view/edit its details."
 }

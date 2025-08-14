@@ -38,10 +38,10 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   }
 
   @override
-  Future<(bool, String?)> saveCompanyInfo(CompanyInfoEntity info) async {
+  Future<Either<Failure, bool>> saveCompanyInfo(CompanyInfoEntity info) async {
     final isUnique = await isCompanyCodeUnique(info.companyCode, companyId: info.id);
     if (!isUnique) {
-      return (false, 'Company code must be unique.');
+      return Left(DuplicateEntryFailure('Company code must be unique.'));
     }
 
     final companion = CompanyInfoCompanion(
@@ -59,8 +59,14 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       isMainCompany: Value(info.isMainCompany),
       remarks: Value(info.remarks),
     );
-    await localDataSource.upsertCompanyInfo(companion);
-    return (true, null);
+    try {
+      await localDataSource.upsertCompanyInfo(companion);
+      return Right(true);
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure()); // Generic error for now
+    }
   }
 
   @override
@@ -96,6 +102,87 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       return Right(companyEntities);
     } on CacheException {
       return Left(CacheFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> addCompany(CompanyInfoEntity company) async {
+    final isUnique = await isCompanyCodeUnique(company.companyCode);
+    if (!isUnique) {
+      return Left(DuplicateEntryFailure('Company code must be unique.'));
+    }
+    final companion = CompanyInfoCompanion.insert(
+      companyCode: company.companyCode,
+      nameAr: company.nameAr,
+      nameEn: company.nameEn,
+      countryId: Value(company.countryId),
+      taxNumber: Value(company.taxNumber),
+      commercialRegNo: Value(company.commercialRegNo),
+      address: Value(company.address),
+      phone: Value(company.phone),
+      email: Value(company.email),
+      logo: Value(company.logo),
+      isMainCompany: Value(company.isMainCompany),
+      remarks: Value(company.remarks),
+    );
+    try {
+      await localDataSource.addCompany(companion);
+      return const Right(null);
+    } on DataIntegrityException catch (e) {
+       return Left(DataIntegrityFailure(message: e.message));
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> updateCompany(CompanyInfoEntity company) async {
+    final isUnique = await isCompanyCodeUnique(company.companyCode, companyId: company.id);
+    if (!isUnique) {
+      return Left(DuplicateEntryFailure('Company code must be unique.'));
+    }
+    final companion = CompanyInfoCompanion(
+      id: Value(company.id),
+      companyCode: Value(company.companyCode),
+      nameAr: Value(company.nameAr),
+      nameEn: Value(company.nameEn),
+      countryId: Value(company.countryId),
+      taxNumber: Value(company.taxNumber),
+      commercialRegNo: Value(company.commercialRegNo),
+      address: Value(company.address),
+      phone: Value(company.phone),
+      email: Value(company.email),
+      logo: Value(company.logo),
+      isMainCompany: Value(company.isMainCompany),
+      remarks: Value(company.remarks),
+    );
+    try {
+      await localDataSource.updateCompany(companion);
+      return const Right(null);
+    } on DataIntegrityException catch (e) {
+       return Left(DataIntegrityFailure(message: e.message));
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> deleteCompany(int id) async {
+    try {
+      await localDataSource.deleteCompany(id);
+      return const Right(null);
+    } on NotFoundException catch (e) {
+      return Left(NotFoundFailure(message: e.message));
+    } on DataIntegrityException catch (e) {
+      return Left(DataIntegrityFailure(message: e.message));
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
     }
   }
 }

@@ -25,7 +25,7 @@ class BranchesRepositoryImpl implements BranchesRepository {
   }
 
   @override
-  Future<Either<Failure, BranchEntity>> getBranch(String branchCode) async {
+  Future<Either<Failure, BranchEntity?>> getBranch(String branchCode) async {
     try {
       final localBranch = await localDataSource.getBranch(branchCode);
       if (localBranch != null) {
@@ -43,13 +43,15 @@ class BranchesRepositoryImpl implements BranchesRepository {
     try {
       final isUnique = await isBranchCodeUnique(branch.branchCode);
       if (!isUnique) {
-        return Left(CacheFailure(message: 'Branch code must be unique.'));
+        return Left(DuplicateEntryFailure('Branch code must be unique.'));
       }
       final branchModel = BranchModel.fromEntity(branch);
       await localDataSource.addBranch(branchModel);
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
     }
   }
 
@@ -58,13 +60,15 @@ class BranchesRepositoryImpl implements BranchesRepository {
     try {
       final isUnique = await isBranchCodeUnique(branch.branchCode, branchId: branch.id);
       if (!isUnique) {
-        return Left(CacheFailure(message: 'Branch code must be unique.'));
+        return Left(DuplicateEntryFailure('Branch code must be unique.'));
       }
       final branchModel = BranchModel.fromEntity(branch);
       await localDataSource.updateBranch(branchModel);
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
     }
   }
 
@@ -75,6 +79,24 @@ class BranchesRepositoryImpl implements BranchesRepository {
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteBranch(int id) async {
+    try {
+      await localDataSource.deleteBranch(id);
+      return const Right(unit);
+    } on NotFoundException catch (e) {
+      return Left(NotFoundFailure(message: e.message));
+    } on DataIntegrityException catch (e) {
+      return Left(DataIntegrityFailure(message: e.message));
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(ServerFailure());
     }
   }
 

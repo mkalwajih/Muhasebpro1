@@ -189,5 +189,13 @@
   "cloudBackupHint": "ملاحظة: النسخ الاحتياطي السحابي مهم.",
   "editTaxBracket": "تعديل الشريحة الضريبية",
   "editTaxCalculationMethod": "تعديل طريقة حساب الضريبة",
-  "editTaxType": "تعديل نوع الضريبة"
+  "editTaxType": "تعديل نوع الضريبة",
+  "addNewCompany": "إضافة شركة جديدة",
+  "noCompaniesYet": "لم يتم إنشاء شركات بعد. أضف شركتك الأولى!",
+  "selectCompanyPrompt": "حدد شركة من القائمة لعرض/تعديل تفاصيلها.",
+  "noBranchesYet": "لم يتم إنشاء فروع بعد. أضف فرعك الأول!",
+  "selectBranchPrompt": "حدد فرعًا من القائمة لعرض/تعديل تفاصيله.",
+  "branchStatusUpdated": "تم تحديث حالة الفرع.",
+  "branchDeletedSuccessfully": "تم حذف الفرع {branchName} بنجاح.",
+  "notProvided": "غير متوفر"
 }

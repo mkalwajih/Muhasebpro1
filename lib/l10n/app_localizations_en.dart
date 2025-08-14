@@ -580,4 +580,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get branches => 'Branches';
+
+  @override
+  String get addNewCompany => 'Add New Company';
+
+  @override
+  String get noCompaniesYet => 'No companies created yet. Add your first company!';
+
+  @override
+  String get selectCompanyPrompt => 'Select a company from the list to view/edit its details.';
+
+  @override
+  String get noBranchesYet => 'No branches created yet. Add your first branch!';
+
+  @override
+  String get selectBranchPrompt => 'Select a branch from the list to view/edit its details.';
 }
