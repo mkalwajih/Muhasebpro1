@@ -1,419 +1,70 @@
 Analyzing Muhasebpro1...                                        
 
-  error • The property 'asData' can't be unconditionally accessed because the receiver can be 'null' • lib/core/config/app_router.dart:26:41 • unchecked_use_of_nullable_value
-  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/system_setup/data/datasources/local/coa_local_datasource.dart;' • lib/di/modules/system_setup_module.dart:5:8 • uri_does_not_exist
-  error • Unterminated string literal • lib/di/modules/system_setup_module.dart:5:98 • unterminated_string_literal
-  error • Expected to find ';' • lib/di/modules/system_setup_module.dart:6:1 • expected_token
-  error • Unterminated string literal • lib/di/modules/system_setup_module.dart:6:2 • unterminated_string_literal
-  error • The name 'CoaLocalDataSource' isn't a type, so it can't be used as a type argument • lib/di/modules/system_setup_module.dart:97:45 • non_type_as_type_argument
-  error • The function 'CoaLocalDataSourceImpl' isn't defined • lib/di/modules/system_setup_module.dart:98:12 • undefined_function
-  error • The returned type 'UserManagementRepositoryImpl' isn't returnable from a 'UserManagementRepository' function, as required by the closure's context • lib/di/modules/system_setup_module.dart:114:12 • return_of_invalid_type_from_closure
-  error • Too many positional arguments: 1 expected, but 2 found • lib/di/modules/system_setup_module.dart:116:5 • extra_positional_arguments
-warning • Unused import: 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart' • lib/features/authentication/data/datasources/local/auth_local_datasource.dart:6:8 • unused_import
-  error • Undefined class 'UserData' • lib/features/authentication/domain/entities/user_entity.dart:28:31 • undefined_class
-  error • A value of type 'Future<Either<Failure, UserEntity>>' can't be returned from the method 'call' because it has a return type of 'Future<(UserEntity?, String?)>' • lib/features/authentication/domain/usecases/login_usecase.dart:10:12 • return_of_invalid_type
-  error • The getter 'systemSetup' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:9:32 • undefined_getter
-  error • The getter 'generalLedger' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:15:32 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:21:32 • undefined_getter
-  error • The getter 'vendors' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:27:32 • undefined_getter
-  error • The getter 'customers' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:33:32 • undefined_getter
-  error • The getter 'reports' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:39:32 • undefined_getter
-  error • The getter 'welcome' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/screens/dashboard_screen.dart:27:29 • undefined_getter
-  error • The getter 'logout' isn't defined for the type 'AppLocalizations' • lib/features/dashboard/presentation/screens/dashboard_screen.dart:35:27 • undefined_getter
-warning • Unused import: 'package:drift/drift.dart' • lib/features/system_setup/data/datasources/local/branch_groups_local_datasource.dart:1:8 • unused_import
-   info • The imported package 'sqlite3' isn't a dependency of the importing package • lib/features/system_setup/data/datasources/local/branch_groups_local_datasource.dart:6:8 • depend_on_referenced_packages
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/datasources/local/branch_groups_local_datasource.dart:33:38 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/datasources/local/branch_groups_local_datasource.dart:51:39 • extra_positional_arguments_could_be_named
-   info • Use 'const' literals as arguments to constructors of '@immutable' classes • lib/features/system_setup/data/datasources/local/user_management_local_datasource.dart:31:79 • prefer_const_literals_to_create_immutables
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:19:32 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:29:40 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:31:32 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:41:32 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:51:40 • extra_positional_arguments_could_be_named
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/branch_groups_repository_impl.dart:53:32 • extra_positional_arguments_could_be_named
-  error • Classes and mixins can only implement other classes and mixins • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:9:47 • implements_non_class
-warning • The method doesn't override an inherited method • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:15:45 • override_on_non_overriding_member
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:20:32 • extra_positional_arguments_could_be_named
-warning • The method doesn't override an inherited method • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:25:33 • override_on_non_overriding_member
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:31:32 • extra_positional_arguments_could_be_named
-warning • The method doesn't override an inherited method • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:36:33 • override_on_non_overriding_member
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:45:32 • extra_positional_arguments_could_be_named
-warning • The method doesn't override an inherited method • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:50:33 • override_on_non_overriding_member
-  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/repositories/user_management_repository_impl.dart:55:32 • extra_positional_arguments_could_be_named
-  error • Undefined class 'RoleData' • lib/features/system_setup/domain/entities/role_entity.dart:22:31 • undefined_class
-  error • Undefined name 'appDatabaseProvider' • lib/features/system_setup/presentation/providers/branch_groups_providers.dart:10:24 • undefined_identifier
-warning • The value of the field '_ref' isn't used • lib/features/system_setup/presentation/providers/branch_groups_providers.dart:26:13 • unused_field
-  error • The type 'String?' of the thrown expression must be assignable to 'Object' • lib/features/system_setup/presentation/providers/branch_groups_providers.dart:71:13 • throw_of_invalid_type
-warning • The declaration 'copyWith' isn't referenced • lib/features/system_setup/presentation/providers/currencies_providers.dart:66:18 • unused_element
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:80:65 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:81:57 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:86:65 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:87:57 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:90:38 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:99:87 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:118:32 • undefined_getter
-  error • The getter 'confirmDeletion' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:131:26 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:134:90 • undefined_getter
-  error • The getter 'delete' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:138:30 • undefined_getter
-  error • The getter 'deactivateBranchConfirmationTitle' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:16:26 • undefined_getter
-  error • The getter 'deactivateBranchConfirmationMessage' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:17:28 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:21:30 • undefined_getter
-  error • The getter 'deactivate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:29:30 • undefined_getter
-  error • The getter 'branches' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:43:26 • undefined_getter
-  error • The getter 'deactivate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:70:57 • undefined_getter
-  error • The getter 'error' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:79:66 • undefined_getter
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/coa_screen.dart:18:26 • undefined_getter
-  error • The getter 'addNewAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/coa_screen.dart:65:23 • undefined_getter
-  error • The getter 'saveSuccess' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:126:41 • undefined_getter
-  error • The getter 'saveFailed' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:132:44 • undefined_getter
-  error • The getter 'companyInfo' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:153:26 • undefined_getter
-   info • 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre • lib/features/system_setup/presentation/screens/company_info_screen.dart:168:68 • deprecated_member_use
-  error • The getter 'companyCode' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:183:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:184:57 • undefined_getter
-  error • The getter 'companyNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:189:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:190:57 • undefined_getter
-  error • The getter 'companyNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:195:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:196:57 • undefined_getter
-  error • The getter 'country' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:202:63 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:208:62 • undefined_getter
-  error • The getter 'taxNumber' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:216:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:218:67 • undefined_getter
-  error • The getter 'commercialRegNo' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:225:61 • undefined_getter
-  error • The getter 'address' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:230:61 • undefined_getter
-  error • The getter 'phone' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:235:61 • undefined_getter
-  error • The getter 'email' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:240:61 • undefined_getter
-  error • The getter 'remarks' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:245:61 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:259:83 • undefined_getter
-  error • The returned type 'CurrencyEntity?' isn't returnable from a 'CurrencyEntity' function, as required by the closure's context • lib/features/system_setup/presentation/screens/currencies_screen.dart:27:125 • return_of_invalid_type_from_closure
-  error • The getter 'currencies' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:43:26 • undefined_getter
-  error • The getter 'addNewCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:47:27 • undefined_getter
-  error • The getter 'editCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:52:27 • undefined_getter
-  error • The getter 'selectCurrencyPrompt' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:83:43 • undefined_getter
-  error • The getter 'addNewDenomination' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:120:61 • undefined_getter
-  error • The getter 'editDenomination' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:120:87 • undefined_getter
-  error • The getter 'value' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:127:110 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:127:190 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:129:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:129:156 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:131:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:131:156 • undefined_getter
-  error • The getter 'type' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:135:69 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:148:91 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:168:36 • undefined_getter
-  error • The getter 'generalParameters' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:45:28 • undefined_getter
-  error • The getter 'resetToDefaults' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:49:29 • undefined_getter
-  error • The getter 'confirmReset' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:54:38 • undefined_getter
-  error • The getter 'confirmResetMessage' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:55:40 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:59:42 • undefined_getter
-  error • The getter 'reset' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:63:42 • undefined_getter
-  error • The getter 'general' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:78:30 • undefined_getter
-  error • The getter 'accounting' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:79:30 • undefined_getter
-  error • The getter 'security' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:80:30 • undefined_getter
-  error • The getter 'ui' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:81:30 • undefined_getter
-  error • The getter 'backup' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:82:30 • undefined_getter
-  error • The getter 'saveSuccess' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:128:47 • undefined_getter
-  error • The getter 'saveFailed' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:132:44 • undefined_getter
-  error • The getter 'cannotChangeAccountSettings' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:134:39 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/general_parameters_screen.dart:142:28 • undefined_getter
-  error • Target of URI doesn't exist: 'package.muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:4:8 • uri_does_not_exist
-  error • The getter 'geographicalData' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:28:26 • undefined_getter
-  error • The getter 'zones' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:35:25 • undefined_getter
-  error • Undefined name 'zonesProvider' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:36:23 • undefined_identifier
-  error • The getter 'countries' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:51:25 • undefined_getter
-  error • The method 'countriesProvider' isn't defined for the type '_GeographicalDataScreenState' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:52:47 • undefined_method
-  error • The getter 'governorates' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:67:25 • undefined_getter
-  error • The method 'governoratesProvider' isn't defined for the type '_GeographicalDataScreenState' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:68:50 • undefined_method
-  error • The getter 'cities' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:82:25 • undefined_getter
-  error • The method 'citiesProvider' isn't defined for the type '_GeographicalDataScreenState' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:83:54 • undefined_method
-  error • The getter 'regions' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:96:25 • undefined_getter
-  error • The method 'regionsProvider' isn't defined for the type '_GeographicalDataScreenState' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:97:47 • undefined_method
-  error • The getter 'selectParentPrompt' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:138:46 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:198:36 • undefined_getter
-  error • The getter 'selectParentPrompt' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:198:50 • undefined_getter
-  error • The getter 'confirmDeletion' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:210:26 • undefined_getter
-  error • The getter 'confirmDeleteMessage' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:211:28 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:213:90 • undefined_getter
-  error • The getter 'delete' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:217:30 • undefined_getter
-  error • Undefined name 'zonesProvider' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:228:26 • undefined_identifier
-  error • The method 'countriesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:231:27 • undefined_method
-  error • The method 'governoratesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:234:27 • undefined_method
-  error • The method 'citiesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:237:27 • undefined_method
-  error • The method 'regionsProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:240:27 • undefined_method
-  error • The getter 'deleteFailed' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:255:33 • undefined_getter
-  error • The getter 'addNewZone' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:277:50 • undefined_getter
-  error • The getter 'editZone' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:277:68 • undefined_getter
-  error • The getter 'addNewCountry' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:278:53 • undefined_getter
-  error • The getter 'editCountry' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:278:74 • undefined_getter
-  error • The getter 'addNewGovernorate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:279:57 • undefined_getter
-  error • The getter 'editGovernorate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:279:82 • undefined_getter
-  error • The getter 'addNewCity' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:280:50 • undefined_getter
-  error • The getter 'editCity' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:280:68 • undefined_getter
-  error • The getter 'addNewRegion' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:281:52 • undefined_getter
-  error • The getter 'editRegion' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:281:72 • undefined_getter
-  error • The getter 'code' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:297:109 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:297:152 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:299:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:299:156 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:301:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:301:156 • undefined_getter
-  error • The getter 'nationalityAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:304:120 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:304:172 • undefined_getter
-  error • The getter 'nationalityEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:306:120 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:306:172 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:310:42 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:322:87 • undefined_getter
-  error • The getter 'selectParentPrompt' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:331:91 • undefined_getter
-  error • Undefined name 'zonesProvider' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:339:49 • undefined_identifier
-  error • The method 'countriesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:344:49 • undefined_method
-  error • The method 'governoratesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:349:49 • undefined_method
-  error • The method 'citiesProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:354:49 • undefined_method
-  error • The method 'regionsProvider' isn't defined for the type '_GeoColumn' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:359:49 • undefined_method
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/geographical_data_screen.dart:370:32 • undefined_getter
-  error • The getter 'roleManagement' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/role_management_screen.dart:19:26 • undefined_getter
-  error • The getter 'addNewRole' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/role_management_screen.dart:65:23 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/role_permissions_screen.dart:44:27 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:16:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:16:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:16:46 • extra_positional_arguments
-  error • There's no constant named 'viewCompanyInfo' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:16:60 • undefined_enum_constant
-  error • The getter 'companyInfo' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:18:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:22:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:22:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:22:46 • extra_positional_arguments
-  error • There's no constant named 'viewBranches' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:22:60 • undefined_enum_constant
-  error • The getter 'branches' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:24:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:28:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:28:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:28:46 • extra_positional_arguments
-  error • There's no constant named 'viewBranches' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:28:60 • undefined_enum_constant
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:34:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:34:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:34:46 • extra_positional_arguments
-  error • There's no constant named 'viewCOA' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:34:60 • undefined_enum_constant
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:36:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:40:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:40:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:40:46 • extra_positional_arguments
-  error • The getter 'userManagement' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:42:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:46:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:46:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:46:46 • extra_positional_arguments
-  error • The getter 'roleManagement' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:48:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:52:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:52:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:52:46 • extra_positional_arguments
-  error • There's no constant named 'viewGeographicalData' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:52:60 • undefined_enum_constant
-  error • The getter 'geographicalData' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:54:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:58:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:58:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:58:46 • extra_positional_arguments
-  error • There's no constant named 'viewGeneralParameters' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:58:60 • undefined_enum_constant
-  error • The getter 'generalParameters' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:60:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:64:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:64:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:64:46 • extra_positional_arguments
-  error • There's no constant named 'viewCurrencies' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:64:60 • undefined_enum_constant
-  error • The getter 'currencies' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:66:23 • undefined_getter
-  error • Instance member 'hasPermission' can't be accessed using static access • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:70:23 • static_access_to_instance_member
-  error • The argument type 'BuildContext' can't be assigned to the parameter type 'AppPermission'.  • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:70:37 • argument_type_not_assignable
-  error • Too many positional arguments: 1 expected, but 2 found • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:70:46 • extra_positional_arguments
-  error • There's no constant named 'viewTaxSettings' in 'AppPermission' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:70:60 • undefined_enum_constant
-  error • The getter 'taxSettings' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:72:23 • undefined_getter
-  error • The getter 'systemSetup' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:79:26 • undefined_getter
-  error • The getter 'taxSettings' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/tax_screen.dart:17:28 • undefined_getter
-  error • The getter 'taxBrackets' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/tax_screen.dart:20:30 • undefined_getter
-  error • The getter 'taxTypes' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/tax_screen.dart:21:30 • undefined_getter
-  error • The getter 'taxCalculationMethods' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/tax_screen.dart:22:30 • undefined_getter
-  error • The getter 'userManagement' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/user_management_screen.dart:20:26 • undefined_getter
-  error • The returned type 'Null' isn't returnable from a 'BranchEntity' function, as required by the closure's context • lib/features/system_setup/presentation/screens/user_management_screen.dart:28:113 • return_of_invalid_type_from_closure
-  error • The getter 'userIsActive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/user_management_screen.dart:64:54 • undefined_getter
-  error • The getter 'userIsInactive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/user_management_screen.dart:64:74 • undefined_getter
-  error • The getter 'addNewUser' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/user_management_screen.dart:88:23 • undefined_getter
-  error • The getter 'accountNumberType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/accounting_params_view.dart:25:19 • undefined_getter
-  error • The getter 'accountNumberLength' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/accounting_params_view.dart:46:29 • undefined_getter
-  error • The getter 'costCenterPolicy' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/accounting_params_view.dart:74:29 • undefined_getter
-  error • The getter 'projectPolicy' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/accounting_params_view.dart:95:29 • undefined_getter
-  error • The getter 'addNewAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:98:55 • undefined_getter
-  error • The getter 'editAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:98:76 • undefined_getter
-  error • The getter 'accountCode' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:107:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:108:53 • undefined_getter
-  error • The getter 'accountNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:112:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:113:53 • undefined_getter
-  error • The getter 'accountNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:117:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:118:53 • undefined_getter
-  error • The getter 'noParent' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:141:42 • undefined_getter
-  error • The getter 'parentAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:152:65 • undefined_getter
-  error • The getter 'nature' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:165:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:166:53 • undefined_getter
-  error • The getter 'reportType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:175:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:176:53 • undefined_getter
-  error • The getter 'detailAccountType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:191:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:192:66 • undefined_getter
-  error • The getter 'cashFlowType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:203:61 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:206:34 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:216:61 • undefined_getter
-  error • The getter 'addNewBranch' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:113:48 • undefined_getter
-  error • The getter 'editBranch' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:113:68 • undefined_getter
-  error • The getter 'branchCode' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:122:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:124:61 • undefined_getter
-  error • The getter 'branchNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:129:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:131:61 • undefined_getter
-  error • The getter 'branchNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:136:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:138:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:153:46 • undefined_getter
-  error • The getter 'error' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:156:55 • undefined_getter
-  error • The getter 'branchGroup' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:162:63 • undefined_getter
-  error • The getter 'error' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:171:56 • undefined_getter
-  error • The getter 'defaultWarehouse' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:179:37 • undefined_getter
-  error • The getter 'address' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:189:61 • undefined_getter
-  error • The getter 'phone' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:194:61 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:199:34 • undefined_getter
-  error • The getter 'logo' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:210:29 • undefined_getter
-  error • The getter 'remarks' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:221:61 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:230:28 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:234:28 • undefined_getter
-  error • The getter 'editCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:103:36 • undefined_getter
-  error • The getter 'addNewCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:103:56 • undefined_getter
-  error • The getter 'currencyCode' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:113:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:114:53 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:119:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:120:53 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:125:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:126:53 • undefined_getter
-  error • The getter 'fractionNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:131:61 • undefined_getter
-  error • The getter 'fractionNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:136:61 • undefined_getter
-  error • The getter 'exchangeRate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:141:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:144:53 • undefined_getter
-  error • The getter 'decimalPlaces' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:149:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:152:53 • undefined_getter
-  error • The getter 'baseCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:155:34 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:161:34 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:171:83 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:172:61 • undefined_getter
-  error • The getter 'addNewRole' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:66:52 • undefined_getter
-  error • The getter 'editRole' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:66:70 • undefined_getter
-  error • The getter 'roleNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:75:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:76:53 • undefined_getter
-  error • The getter 'roleNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:81:61 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:82:53 • undefined_getter
-  error • The getter 'description' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:87:61 • undefined_getter
-  error • The getter 'status' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:91:34 • undefined_getter
-  error • The getter 'userIsActive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:92:49 • undefined_getter
-  error • The getter 'userIsInactive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:92:69 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:102:83 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_role_dialog.dart:103:61 • undefined_getter
-  error • The getter 'editUser' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:96:36 • undefined_getter
-  error • The getter 'addNewUser' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:96:52 • undefined_getter
-  error • The getter 'error' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:99:42 • undefined_getter
-  error • The getter 'username' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:107:108 • undefined_getter
-  error • The getter 'usernameRequired' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:107:155 • undefined_getter
-  error • The getter 'fullNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:109:106 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:109:155 • undefined_getter
-  error • The getter 'fullNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:111:106 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:111:155 • undefined_getter
-  error • The getter 'password' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:113:108 • undefined_getter
-  error • The getter 'passwordRequired' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:114:75 • undefined_getter
-  error • The getter 'passwordMismatch' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:119:73 • undefined_getter
-  error • The getter 'confirmPassword' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:123:115 • undefined_getter
-  error • The getter 'passwordMismatch' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:124:66 • undefined_getter
-  error • The getter 'error' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:136:50 • undefined_getter
-  error • The getter 'status' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:139:49 • undefined_getter
-  error • The getter 'userIsActive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:139:90 • undefined_getter
-  error • The getter 'userIsInactive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:139:110 • undefined_getter
-  error • The getter 'enableBiometric' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:140:49 • undefined_getter
-  error • The getter 'linkToDevice' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:141:49 • undefined_getter
-  error • The getter 'roleManagement' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:143:27 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:165:83 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/add_edit_user_dialog.dart:166:106 • undefined_getter
-  error • The getter 'backupFrequency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/backup_params_view.dart:26:29 • undefined_getter
-  error • The getter 'cloudBackup' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/backup_params_view.dart:45:28 • undefined_getter
-  error • The getter 'cloudBackupHint' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/backup_params_view.dart:46:31 • undefined_getter
-  error • The getter 'currencyCode' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:27:32 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:28:32 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:29:32 • undefined_getter
-  error • The getter 'fractionNameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:30:32 • undefined_getter
-  error • The getter 'fractionNameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:31:32 • undefined_getter
-  error • The getter 'exchangeRate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:32:32 • undefined_getter
-  error • The getter 'decimalPlaces' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:33:32 • undefined_getter
-  error • The getter 'baseCurrency' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:34:32 • undefined_getter
-  error • The getter 'active' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:35:32 • undefined_getter
-  error • The getter 'denominations' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:42:25 • undefined_getter
-  error • The getter 'addNewDenomination' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:46:31 • undefined_getter
-  error • The getter 'value' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:85:37 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:86:37 • undefined_getter
-  error • The getter 'type' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:87:37 • undefined_getter
-  error • The getter 'actions' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/currency_detail_view.dart:88:37 • undefined_getter
-  error • The getter 'language' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/general_params_view.dart:20:55 • undefined_getter
-  error • The getter 'dateFormat' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/general_params_view.dart:33:55 • undefined_getter
-  error • The getter 'calendarType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/general_params_view.dart:46:55 • undefined_getter
-  error • The getter 'passwordMinLength' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:27:29 • undefined_getter
-  error • The getter 'autoLockTimeout' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:51:29 • undefined_getter
-  error • The getter 'inMinutes' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:52:30 • undefined_getter
-  error • The getter 'useVAT' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:74:28 • undefined_getter
-  error • The getter 'useTDS' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:79:28 • undefined_getter
-  error • The getter 'useEInvoice' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:84:28 • undefined_getter
-  error • The getter 'priceIncludesTax' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/security_params_view.dart:90:30 • undefined_getter
-  error • The getter 'addNewTaxBracket' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:37:23 • undefined_getter
-  error • The getter 'addNewTaxBracket' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:58:56 • undefined_getter
-  error • The getter 'editTaxBracket' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:58:80 • undefined_getter
-  error • The getter 'code' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:65:109 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:65:152 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:66:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:66:156 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:67:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:67:156 • undefined_getter
-  error • The getter 'taxRate' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:68:109 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:68:191 • undefined_getter
-  error • The getter 'isDefault' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:70:42 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:79:91 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_brackets_view.dart:98:36 • undefined_getter
-  error • The getter 'addNewTaxCalculationMethod' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:36:23 • undefined_getter
-  error • The getter 'addNewTaxCalculationMethod' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:56:55 • undefined_getter
-  error • The getter 'editTaxCalculationMethod' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:56:89 • undefined_getter
-  error • The getter 'code' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:63:109 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:63:152 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:64:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:64:156 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:65:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:65:156 • undefined_getter
-  error • The getter 'category' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:68:69 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:83:91 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_calc_methods_view.dart:101:36 • undefined_getter
-  error • The getter 'addNewTaxType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:37:23 • undefined_getter
-  error • The getter 'addNewTaxType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:64:53 • undefined_getter
-  error • The getter 'editTaxType' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:64:74 • undefined_getter
-  error • The getter 'code' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:71:109 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:71:152 • undefined_getter
-  error • The getter 'nameEn' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:73:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:73:156 • undefined_getter
-  error • The getter 'nameAr' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:75:111 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:75:156 • undefined_getter
-  error • The getter 'calculationMethod' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:79:69 • undefined_getter
-  error • The getter 'salesAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:93:71 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:96:63 • undefined_getter
-  error • The getter 'purchasesAccount' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:103:71 • undefined_getter
-  error • The getter 'requiredField' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:106:62 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:114:91 • undefined_getter
-  error • The getter 'save' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/tax_types_view.dart:134:36 • undefined_getter
-  error • The getter 'uiTheme' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:24:28 • undefined_getter
-  error • The getter 'dark' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:25:70 • undefined_getter
-  error • The getter 'light' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:25:82 • undefined_getter
-  error • The getter 'fontSize' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:37:29 • undefined_getter
-  error • Undefined class 'RoleData' • lib/shared/data/models/role_model.dart:4:27 • undefined_class
-  error • Undefined name 'id' • lib/shared/data/models/role_model.dart:7:11 • undefined_identifier
-  error • Undefined name 'nameAr' • lib/shared/data/models/role_model.dart:8:15 • undefined_identifier
-  error • Undefined name 'nameEn' • lib/shared/data/models/role_model.dart:9:15 • undefined_identifier
-  error • Undefined name 'description' • lib/shared/data/models/role_model.dart:10:20 • undefined_identifier
-  error • Undefined name 'isActive' • lib/shared/data/models/role_model.dart:11:17 • undefined_identifier
-  error • Undefined class 'UserData' • lib/shared/data/models/user_model.dart:5:27 • undefined_class
-  error • Undefined name 'userId' • lib/shared/data/models/user_model.dart:8:15 • undefined_identifier
-  error • Undefined name 'username' • lib/shared/data/models/user_model.dart:9:17 • undefined_identifier
-  error • Undefined name 'fullNameAr' • lib/shared/data/models/user_model.dart:10:19 • undefined_identifier
-  error • Undefined name 'fullNameEn' • lib/shared/data/models/user_model.dart:11:19 • undefined_identifier
-  error • Undefined name 'isActive' • lib/shared/data/models/user_model.dart:12:17 • undefined_identifier
-  error • Invalid constant value • lib/shared/domain/entities/failures.dart:23:80 • invalid_constant
-  error • Invalid constant value • lib/shared/domain/entities/failures.dart:27:74 • invalid_constant
-  error • Invalid constant value • lib/shared/domain/entities/failures.dart:31:75 • invalid_constant
-  error • The getter 'comingSoon' isn't defined for the type 'AppLocalizations' • lib/shared/presentation/widgets/placeholder_screen.dart:27:20 • undefined_getter
-  error • The getter 'featureUnderDevelopment' isn't defined for the type 'AppLocalizations' • lib/shared/presentation/widgets/placeholder_screen.dart:32:20 • undefined_getter
+  error • Target of URI doesn't exist: 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart;' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:4:8 • uri_does_not_exist
+  error • Unterminated string literal • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:4:84 • unterminated_string_literal
+  error • Expected to find ';' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:5:1 • expected_token
+  error • Unterminated string literal • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:5:2 • unterminated_string_literal
+  error • Undefined class 'BranchEntity' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:11:26 • undefined_class
+  error • Undefined class 'BranchEntity' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:12:29 • undefined_class
+  error • Undefined class 'BranchEntity' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:39:26 • undefined_class
+  error • Undefined class 'BranchEntity' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:45:29 • undefined_class
+  error • The method 'NotFoundException' isn't defined for the type 'BranchesLocalDataSourceImpl' • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:63:15 • undefined_method
+  error • The name 'SqliteException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:65:10 • non_type_in_catch_clause
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/datasources/local/branches_local_datasource.dart:67:38 • extra_positional_arguments_could_be_named
+  error • The method 'isNot' isn't defined for the type 'GeneratedColumn' • lib/features/system_setup/data/datasources/local/company_info_local_datasource.dart:45:70 • undefined_method
+  error • The method 'NotFoundException' isn't defined for the type 'CompanyInfoLocalDataSourceImpl' • lib/features/system_setup/data/datasources/local/company_info_local_datasource.dart:55:13 • undefined_method
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/system_setup/data/datasources/local/company_info_local_datasource.dart:58:36 • extra_positional_arguments_could_be_named
+  error • The method 'DuplicateEntryFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/data/repositories/branches_repository_impl.dart:46:21 • undefined_method
+  error • The method 'DuplicateEntryFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/data/repositories/branches_repository_impl.dart:63:21 • undefined_method
+  error • The name 'NotFoundException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/data/repositories/branches_repository_impl.dart:92:10 • non_type_in_catch_clause
+  error • The method 'NotFoundFailure' isn't defined for the type 'BranchesRepositoryImpl' • lib/features/system_setup/data/repositories/branches_repository_impl.dart:93:19 • undefined_method
+warning • Dead code: This on-catch block won't be executed because 'DataIntegrityException' is a subtype of 'InvalidType' and hence will have been caught already • lib/features/system_setup/data/repositories/branches_repository_impl.dart:94:7 • dead_code_on_catch_subtype
+  error • The method 'DuplicateEntryFailure' isn't defined for the type 'CompanyInfoRepositoryImpl' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:44:19 • undefined_method
+  error • The method 'upsertCompanyInfo' isn't defined for the type 'CompanyInfoLocalDataSource' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:63:29 • undefined_method
+   info • Use 'const' with the constructor to improve performance • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:64:14 • prefer_const_constructors
+  error • The method 'DuplicateEntryFailure' isn't defined for the type 'CompanyInfoRepositoryImpl' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:112:19 • undefined_method
+  error • The argument type 'Value<bool>' can't be assigned to the parameter type 'bool'.  • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:125:22 • argument_type_not_assignable
+  error • The method 'DuplicateEntryFailure' isn't defined for the type 'CompanyInfoRepositoryImpl' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:144:19 • undefined_method
+  error • The name 'NotFoundException' isn't a type and can't be used in an on-catch clause • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:178:10 • non_type_in_catch_clause
+  error • The method 'NotFoundFailure' isn't defined for the type 'CompanyInfoRepositoryImpl' • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:179:19 • undefined_method
+warning • Dead code: This on-catch block won't be executed because 'DataIntegrityException' is a subtype of 'InvalidType' and hence will have been caught already • lib/features/system_setup/data/repositories/company_info_repository_impl.dart:180:7 • dead_code_on_catch_subtype
+  error • The name 'GetAllBranchesUseCase' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:15:48 • non_type_as_type_argument
+  error • The function 'GetAllBranchesUseCase' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:16:14 • undefined_function
+  error • The name 'GetBranchUseCase' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:18:43 • non_type_as_type_argument
+  error • The function 'GetBranchUseCase' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:19:14 • undefined_function
+  error • The name 'AddBranchUseCase' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:21:43 • non_type_as_type_argument
+  error • The function 'AddBranchUseCase' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:22:14 • undefined_function
+  error • The name 'UpdateBranchUseCase' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:24:46 • non_type_as_type_argument
+  error • The function 'UpdateBranchUseCase' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:25:14 • undefined_function
+  error • The name 'DeactivateBranchUseCase' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/branches_providers.dart:27:50 • non_type_as_type_argument
+  error • The function 'DeactivateBranchUseCase' isn't defined • lib/features/system_setup/presentation/providers/branches_providers.dart:28:14 • undefined_function
+  error • Undefined class 'GetAllBranchesUseCase' • lib/features/system_setup/presentation/providers/branches_providers.dart:46:9 • undefined_class
+  error • Undefined class 'AddBranchUseCase' • lib/features/system_setup/presentation/providers/branches_providers.dart:47:9 • undefined_class
+  error • Undefined class 'UpdateBranchUseCase' • lib/features/system_setup/presentation/providers/branches_providers.dart:48:9 • undefined_class
+  error • Undefined class 'DeactivateBranchUseCase' • lib/features/system_setup/presentation/providers/branches_providers.dart:49:9 • undefined_class
+  error • The method 'GetAllBranchesParams' isn't defined for the type 'BranchesNotifier' • lib/features/system_setup/presentation/providers/branches_providers.dart:64:42 • undefined_method
+  error • A value of type 'Either<Failure, void>' can't be returned from the method 'deleteBranch' because it has a return type of 'Future<Either<Failure, Unit>>' • lib/features/system_setup/presentation/providers/branches_providers.dart:104:12 • return_of_invalid_type
+  error • The name 'Either' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/company_info_providers.dart:68:10 • non_type_as_type_argument
+  error • The name 'Either' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/company_info_providers.dart:77:10 • non_type_as_type_argument
+  error • The name 'Either' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/company_info_providers.dart:86:10 • non_type_as_type_argument
+  error • The name 'Either' isn't a type, so it can't be used as a type argument • lib/features/system_setup/presentation/providers/company_info_providers.dart:131:10 • non_type_as_type_argument
+  error • This expression has a type of 'void' so its value can't be used • lib/features/system_setup/presentation/providers/company_info_providers.dart:136:13 • use_of_void_result
+warning • Unused import: 'package:muhaseb_pro/shared/domain/entities/failures.dart' • lib/features/system_setup/presentation/screens/branches_screen.dart:8:8 • unused_import
+  error • The getter 'message' isn't defined for the type 'Failure' • lib/features/system_setup/presentation/screens/branches_screen.dart:73:63 • undefined_getter
+  error • The getter 'branchStatusUpdated' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:74:95 • undefined_getter
+  error • The getter 'message' isn't defined for the type 'Failure' • lib/features/system_setup/presentation/screens/branches_screen.dart:106:57 • undefined_getter
+  error • The method 'branchDeletedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:108:84 • undefined_method
+  error • The getter 'notProvided' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:217:83 • undefined_getter
+  error • The getter 'notProvided' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:220:65 • undefined_getter
+  error • The getter 'notProvided' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:223:63 • undefined_getter
+  error • The getter 'notProvided' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:226:76 • undefined_getter
+  error • The getter 'inactive' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:229:83 • undefined_getter
+  error • The getter 'notProvided' isn't defined for the type 'AppLocalizations' • lib/features/system_setup/presentation/screens/branches_screen.dart:232:65 • undefined_getter
+warning • Unused import: 'package:muhaseb_pro/shared/domain/entities/failures.dart' • lib/features/system_setup/presentation/screens/company_info_screen.dart:12:8 • unused_import
+  error • The method 'fold' can't be unconditionally invoked because the receiver can be 'null' • lib/features/system_setup/presentation/screens/company_info_screen.dart:187:20 • unchecked_use_of_nullable_value
+  error • The method 'fold' can't be unconditionally invoked because the receiver can be 'null' • lib/features/system_setup/presentation/screens/company_info_screen.dart:195:20 • unchecked_use_of_nullable_value
+warning • The '!' will have no effect because the receiver can't be null • lib/features/system_setup/presentation/screens/company_info_screen.dart:229:76 • unnecessary_non_null_assertion
+  error • The method 'fold' can't be unconditionally invoked because the receiver can be 'null' • lib/features/system_setup/presentation/screens/company_info_screen.dart:230:18 • unchecked_use_of_nullable_value
+  error • Undefined name 'companiesListProvider' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:109:43 • undefined_identifier
 
+66 issues found. (ran in 5.4s)
