@@ -67,4 +67,3 @@ warning • The '!' will have no effect because the receiver can't be null • l
   error • The method 'fold' can't be unconditionally invoked because the receiver can be 'null' • lib/features/system_setup/presentation/screens/company_info_screen.dart:230:18 • unchecked_use_of_nullable_value
   error • Undefined name 'companiesListProvider' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:109:43 • undefined_identifier
 
-66 issues found. (ran in 5.4s)
