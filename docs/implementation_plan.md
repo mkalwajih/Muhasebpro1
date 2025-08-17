@@ -1,99 +1,144 @@
-# MuhasebPro Official Implementation Plan
+# MuhasebPro: Official Implementation Plan
 
-**Warning:** This document is the single source of truth for all development. It must be followed **EXACTLY** when adding or modifying any feature. It overrides all previous reports, tickets, plans, or assumptions.
-
----
-
-## 1. Golden Rule: Plan, Analyze, and Verify Before Coding
-
-The biggest risks to this project are regressions, compilation errors, and inconsistent code. Rushing to code is the primary cause of instability. Therefore, a rigorous pre-flight check is mandatory before writing any new implementation logic.
-
-1.  **Analyze the Request**: What is the core business objective of the feature?
-2.  **Full-Project Code Search**: Before assuming a feature is new, perform a global search for keywords related to the feature across the entire `lib/` directory. This prevents duplicate logic.
-3.  **Identify All Touchpoints**: Create a definitive list of every file that will be created or modified. This includes:
-    *   **Schema**: `lib/core/db/schemas/`
-    *   **Data Layer**: `lib/features/.../data/` (Datasources, Repositories)
-    *   **Domain Layer**: `lib/features/.../domain/` (Entities, Use Cases, Repository Interfaces)
-    *   **Presentation Layer**: `lib/features/.../presentation/` (Providers, Screens, Widgets)
-    *   **Routing**: `lib/core/config/app_router.dart`
-    *   **Localization**: `lib/l10n/app_en.arb` & `app_ar.arb`
-4.  **Plan for Extension, Not Duplication**: If any part of the feature exists, the plan must be to **extend** it. Never create a parallel, competing implementation.
+**Version:** 2.0
+**Status:** Active
+**Effective Date:** 2023-10-27
 
 ---
 
-## 2. Core Architectural Principles (Non-Negotiable)
+## Introduction
 
-These principles are the foundation of MuhasebPro and must be respected in all contributions.
-
-*   **Offline-First via Drift**: All data operations must go through the local Drift database.
-*   **Feature-Driven Architecture**: Code must be organized within the `lib/features/` directory, following the `data`, `domain`, `presentation` structure.
-*   **State Management with Riverpod**: All UI state is managed by Riverpod providers.
-*   **Bilingual (Arabic & English)**: Every user-facing string **must** be added to both `app_en.arb` and `app_ar.arb` simultaneously.
-*   **Role-Based Access Control (RBAC)**: Feature access is gated by user roles.
-*   **Responsive UI**: UIs must adapt to both mobile and tablet form factors.
+This document is the single source of truth for the development lifecycle of the MuhasebPro application. It provides a structured, step-by-step methodology to ensure that all development is consistent, high-quality, and aligned with the project's architectural principles. Adherence to this plan is mandatory for all contributions to minimize regressions, maintain code clarity, and streamline the development process.
 
 ---
 
-## 3. The "Analyze, Implement, Verify" (AIV) Workflow
+## 0. Guiding Principles
 
-This workflow is designed to be a tight, iterative loop that catches errors immediately. **Each top-level step must be completed before moving to the next.**
+These principles are the foundation of our development philosophy and must inform every implementation decision.
 
-### **Step 1: Schema & Data Layer (`.drift` -> Repository)**
+-   **Architectural Integrity**: Always adhere to the established offline-first, feature-driven architecture using Drift and Riverpod. Do not introduce alternative patterns without formal review.
+-   **Code Reuse over Duplication**: Before writing new code, thoroughly search the existing codebase for logic that can be extended or reused.
+-   **Incremental Implementation & Verification**: Build and verify features in small, logical increments (Data -> Domain -> Presentation). This catches errors early and reduces complexity.
+-   **UI/UX Consistency**: Ensure all new UI components are responsive and align with the established visual design and user experience patterns defined in `lib/core/theme/app_theme.dart`.
+-   **Bilingual Support by Default**: Every user-facing string must be implemented with localization support for English and Arabic from the outset.
+-   **Performance by Design**: Write efficient queries and build performant widgets. Be mindful of resource consumption.
+-   **Security First**: Treat all data as sensitive. Follow best practices for data handling and validation.
+-   **Disciplined Version Control**: Use feature branches for all development and submit Pull Requests for review. Never commit directly to `main` or `develop`.
 
-1.  **Define/Update Schema**: Modify the `.drift` file in `lib/core/db/schemas/`.
-2.  **Generate Code**: Run `dart run build_runner build --delete-conflicting-outputs`. This is the **only** time `build_runner` should be run.
-3.  **Implement Local Datasource**: Write the raw Drift queries in the `..._local_datasource.dart` file.
-4.  **Implement Repository**: Implement the repository interface in `..._repository_impl.dart`. This includes mapping data to entities and handling exceptions.
-5.  **IMMEDIATE VERIFICATION**: Run `flutter analyze` now. **Do not proceed if there are any analysis errors.** Fix them before moving on.
+---
 
-### **Step 2: Domain Layer (Entity -> Use Case)**
+## 1. Phase 1: Pre-Implementation Analysis
 
-1.  **Define Entities**: Create the clean business objects.
-2.  **Define Repository Interface**: Define the abstract methods in the repository interface.
-3.  **Implement Use Cases**: Create a separate `UseCase` file for each specific user action.
-4.  **IMMEDIATE VERIFICATION**: Run `flutter analyze` again. **Do not proceed if there are any errors.**
+No code should be written before this phase is complete. This "measure twice, cut once" approach is critical for project stability.
 
-### **Step 3: Presentation, Localization & Routing**
+### 1.1. Understand the Requirements
+-   Clearly define the business objective of the feature or bug fix.
+-   Review any relevant user stories, mockups, or requirements documents.
+-   Identify all acceptance criteria.
 
-1.  **Add Localization Keys**: Add **all** required user-facing strings to **both** `app_en.arb` and `app_ar.arb`.
-2.  **Regenerate Localizations**: Run `flutter gen-l10n`. This ensures the UI code will find the keys.
-3.  **Implement Providers**: Create the Riverpod providers that connect the UI to the domain layer's use cases.
-4.  **Implement UI**: Build the screens and widgets. Ensure the UI only interacts with providers.
-5.  **Register Route**: Add the new screen to the `app_router.dart`.
-6.  **IMMEDIATE VERIFICATION**: Run `flutter analyze` again. Fix any issues.
+### 1.2. Audit the Existing Codebase
+-   Perform a full-project keyword search for the feature to identify any existing, related logic.
+-   Review existing reports in the `docs/` folder to understand previous implementation details and avoid repeating mistakes.
+-   Analyze the database schema in `lib/core/db/schemas/` to see if existing tables can be leveraged.
 
-### **Step 4: Full System Validation**
+### 1.3. Define the Implementation Scope (Touchpoint Analysis)
+-   Create a checklist of every file that will be created or modified. This list must be exhaustive:
+    -   **Schema**: Which `.drift` files need changes?
+    -   **Data Layer**: Datasources, Repositories, Models.
+    -   **Domain Layer**: Entities, Use Cases, Repository Interfaces.
+    -   **Presentation Layer**: Riverpod Providers, Screens, Widgets.
+    -   **Routing**: `lib/core/config/app_router.dart`.
+    -   **Localization**: `lib/l10n/app_en.arb`, `lib/l10n/app_ar.arb`.
+    -   **Dependency Injection**: Any new providers to be registered?
 
-1.  **Run the App**: Launch the application on a simulator or device.
+---
+
+## 2. Phase 2: The AIV (Analyze → Implement → Verify) Workflow
+
+This is the core, iterative cycle for building a feature. Complete each sub-step fully before proceeding to the next.
+
+### AIV-S: Schema & Data Layer
+1.  **Analyze**: Define or update the table structure in the relevant `.drift` file (`lib/core/db/schemas/`).
+2.  **Implement**:
+    -   Run the build runner to update the generated database code: `dart run build_runner build --delete-conflicting-outputs`.
+    -   Implement the required methods in the local datasource (`..._local_datasource.dart`), writing the necessary Drift queries.
+    -   Implement the repository interface (`..._repository_impl.dart`), handling data mapping (to entities) and exceptions.
+3.  **Verify**:
+    -   Run `flutter analyze` to ensure there are no static analysis errors.
+    -   (Optional but Recommended) Write unit tests for the repository implementation to verify mapping and error handling logic.
+
+### AIV-D: Domain Layer
+1.  **Analyze**:
+    -   Define the clean business objects (Entities) that the UI will interact with.
+    -   Define the abstract methods (the "contract") in the repository interface file (`.../domain/repositories/....dart`).
+2.  **Implement**:
+    -   Create concrete `UseCase` classes for each specific user action (e.g., `AddBranch`, `GetUser`). Each use case should perform one single, focused task.
+3.  **Verify**:
+    -   Run `flutter analyze`.
+    -   Write unit tests for each use case to validate its business logic.
+
+### AIV-P: Presentation, Localization & Routing
+1.  **Analyze**:
+    -   Plan the widget tree structure for the new screen(s).
+    -   Determine the specific state management needs and plan the Riverpod providers accordingly.
+2.  **Implement**:
+    -   Add all user-facing strings to **both** `app_en.arb` and `app_ar.arb`.
+    -   Run `flutter gen-l10n` to generate the localization files.
+    -   Create the Riverpod providers that connect the UI to the domain layer's use cases.
+    -   Build the screens and widgets, ensuring they are responsive and only interact with providers, not repositories directly.
+    -   Register the new screen's route in `lib/core/config/app_router.dart`.
+3.  **Verify**:
+    -   Run `flutter analyze`.
+    -   (Optional but Recommended) Write widget tests to verify UI rendering and user interactions.
+
+---
+
+## 3. Phase 3: Full System Validation
+
+After the AIV cycle is complete, the feature must be validated in a running application.
+
+1.  **Launch the App**: Run the application on both a mobile emulator/device and a tablet emulator/device.
 2.  **Functional Testing**:
-    *   Navigate to the new feature. Does it load without crashing?
-    *   Test all success paths (e.g., saving a form with valid data).
-    *   Test all failure paths (e.g., saving a form with invalid data, simulating database errors).
-    *   Verify that all UI text is displayed correctly.
-3.  **Language Testing**:
-    *   Switch the device language between English and Arabic.
-    *   Navigate back to the feature. Does the UI correctly display all localized strings? Are there any `"key_not_found"` errors?
-4.  **Final Analysis**: Run `flutter analyze` one last time to guarantee a zero-issue state before committing.
+    -   **Success Path**: Test the feature's primary workflow with valid data. Ensure it behaves as expected.
+    -   **Failure Path**: Test for graceful error handling (e.g., submitting a form with invalid data, simulating network/database errors).
+    -   **Navigation**: Ensure all navigation pathways to and from the new screen work correctly.
+3.  **Bilingual & UI Verification**:
+    -   Switch the device language between English and Arabic.
+    -   Navigate to the feature in both languages and confirm that:
+        -   All text is correctly localized.
+        -   The UI layout adapts correctly to text direction (LTR/RTL).
+        -   There are no visual overflows or alignment issues.
 
 ---
 
-## 4. Implementation Report
+## 4. Phase 4: Implementation Report
 
-After completing an implementation, provide a clear and concise report in the following format:
+Upon completion of all phases, document the work in a clear and concise report using the following template. This report should be included in the Pull Request description.
 
-```
+```markdown
 **Implementation Report**
 
 **1. Feature Implemented:**
-   - [Name of the feature]
+   - A clear, one-sentence description of the feature or fix.
 
-**2. Files Modified/Created:**
-   - (List all files as per the plan)
+**2. Touchpoint Analysis (Files Modified/Created):**
+   - `lib/core/db/schemas/updated_schema.drift`
+   - `lib/features/system_setup/data/datasources/local/new_feature_local_datasource.dart`
+   - `lib/features/system_setup/data/repositories/new_feature_repository_impl.dart`
+   - `lib/features/system_setup/domain/entities/new_feature_entity.dart`
+   - `lib/features/system_setup/domain/repositories/new_feature_repository.dart`
+   - `lib/features/system_setup/domain/usecases/do_something_usecase.dart`
+   - `lib/features/system_setup/presentation/providers/new_feature_providers.dart`
+   - `lib/features/system_setup/presentation/screens/new_feature_screen.dart`
+   - `lib/core/config/app_router.dart`
+   - `lib/l10n/app_en.arb`
+   - `lib/l10n/app_ar.arb`
 
 **3. Verification Checklist:**
-   - [x] **Analysis**: `flutter analyze` was run at the end of each major step (Data, Domain, Presentation).
-   - [x] **No Regressions**: Verified that existing features still work as expected.
-   - [x] **Localization**: All new strings were added to both `app_en.arb` and `app_ar.arb`, and `flutter gen-l10n` was run.
-   - [x] **Functionality**: The feature was tested on a device/simulator and works as expected, including error states.
+   - [x] **Static Analysis**: `flutter analyze` passes with zero issues.
+   - [x] **Unit Tests**: All new domain and data layer logic is covered by unit tests.
+   - [x] **Widget Tests**: Critical UI components are covered by widget tests.
+   - [x] **Functionality**: The feature was manually tested on a device/simulator and works as expected (including error states).
    - [x] **Bilingual Test**: The UI was visually checked and confirmed to display correctly in both English and Arabic.
+   - [x] **Responsiveness**: The UI was checked on both mobile and tablet form factors.
 ```
