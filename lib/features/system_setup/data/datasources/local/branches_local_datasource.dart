@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/data/models/branch_model.dart';
-import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart
-';
+import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
+import 'package:sqlite3/sqlite3.dart';
 
 abstract class BranchesLocalDataSource {
   Future<List<BranchModel>> getAllBranches({bool includeInactive = false});
@@ -55,16 +55,14 @@ class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
 
   @override
   Future<void> deleteBranch(int id) async {
-    // TODO: Implement actual check for linked transactions.
-    // For now, it will throw an error if the branch is the main company's branch or has associated data due to foreign key constraints.
     try {
       final deletedRows = await (database.delete(database.branches)..where((tbl) => tbl.id.equals(id))).go();
       if (deletedRows == 0) {
-        throw NotFoundException('Branch not found.');
+        throw NotFoundException(message: 'Branch not found.');
       }
     } on SqliteException catch (e) {
       if (e.message.contains('FOREIGN KEY constraint failed')) {
-        throw DataIntegrityException('Cannot delete branch: linked transactions or data exist.');
+        throw DataIntegrityException(message: 'Cannot delete branch: linked transactions or data exist.');
       }
       rethrow;
     }

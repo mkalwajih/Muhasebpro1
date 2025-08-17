@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
-
 abstract class CompanyInfoLocalDataSource {
   Future<CompanyInfoData?> getCompanyInfo(); // Retrieves the main company
   Future<List<CompanyInfoData>> getAllCompanies();
@@ -42,7 +41,7 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
     // If the updated company is set as main, ensure no other company is main
     if (info.isMainCompany.value == true) {
       await (db.update(db.companyInfo)
-            ..where((tbl) => tbl.isMainCompany.equals(true) & tbl.id.isNot(info.id.value)))
+            ..where((tbl) => tbl.isMainCompany.equals(true) & tbl.id.isNotValue(info.id.value)))
           .write(const CompanyInfoCompanion(isMainCompany: Value(false)));
     }
     await db.update(db.companyInfo).replace(info);
@@ -52,10 +51,10 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
   Future<void> deleteCompany(int id) async {
     final company = await (db.select(db.companyInfo)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
     if (company == null) {
-      throw NotFoundException('Company not found.');
+      throw NotFoundException(message: 'Company not found.');
     }
     if (company.isMainCompany) {
-      throw DataIntegrityException('Cannot delete the main company.');
+      throw DataIntegrityException(message: 'Cannot delete the main company.');
     }
 
     // TODO: Add checks for linked branches or transactions before deletion
