@@ -2,6 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
+
 abstract class CompanyInfoLocalDataSource {
   Future<CompanyInfoData?> getCompanyInfo(); // Retrieves the main company
   Future<List<CompanyInfoData>> getAllCompanies();
@@ -27,24 +28,25 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
 
   @override
   Future<void> addCompany(CompanyInfoCompanion info) async {
-    // If the new company is set as main, ensure no other company is main
-    if (info.isMainCompany.value == true) {
-      await (db.update(db.companyInfo)
-            ..where((tbl) => tbl.isMainCompany.equals(true)))
-          .write(const CompanyInfoCompanion(isMainCompany: Value(false)));
-    }
-    await db.into(db.companyInfo).insert(info);
+    await db.transaction(() async {
+      if (info.isMainCompany.value == true) {
+        await (db.update(db.companyInfo)..where((tbl) => tbl.isMainCompany.equals(true)))
+            .write(const CompanyInfoCompanion(isMainCompany: Value(false)));
+      }
+      await db.into(db.companyInfo).insert(info);
+    });
   }
 
   @override
   Future<void> updateCompany(CompanyInfoCompanion info) async {
-    // If the updated company is set as main, ensure no other company is main
-    if (info.isMainCompany.value == true) {
-      await (db.update(db.companyInfo)
-            ..where((tbl) => tbl.isMainCompany.equals(true) & tbl.id.isNotValue(info.id.value)))
-          .write(const CompanyInfoCompanion(isMainCompany: Value(false)));
-    }
-    await db.update(db.companyInfo).replace(info);
+     await db.transaction(() async {
+      if (info.isMainCompany.value == true) {
+        await (db.update(db.companyInfo)
+              ..where((tbl) => tbl.isMainCompany.equals(true) & tbl.id.isNotValue(info.id.value)))
+            .write(const CompanyInfoCompanion(isMainCompany: Value(false)));
+      }
+      await db.update(db.companyInfo).replace(info);
+    });
   }
 
   @override
@@ -58,9 +60,6 @@ class CompanyInfoLocalDataSourceImpl implements CompanyInfoLocalDataSource {
     }
 
     // TODO: Add checks for linked branches or transactions before deletion
-    // For now, assume no linked data blocks deletion.
-    // In a real scenario, you'd check foreign key relationships.
-
     final deletedRows = await (db.delete(db.companyInfo)..where((tbl) => tbl.id.equals(id))).go();
     if (deletedRows == 0) {
       throw Exception('Failed to delete company.');

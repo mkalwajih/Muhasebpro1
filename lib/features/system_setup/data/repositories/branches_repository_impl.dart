@@ -28,11 +28,7 @@ class BranchesRepositoryImpl implements BranchesRepository {
   Future<Either<Failure, BranchEntity?>> getBranch(String branchCode) async {
     try {
       final localBranch = await localDataSource.getBranch(branchCode);
-      if (localBranch != null) {
-        return Right(localBranch);
-      } else {
-        return Left(CacheFailure());
-      }
+      return Right(localBranch);
     } on CacheException {
       return Left(CacheFailure());
     }
@@ -43,15 +39,15 @@ class BranchesRepositoryImpl implements BranchesRepository {
     try {
       final isUnique = await isBranchCodeUnique(branch.branchCode);
       if (!isUnique) {
-        return Left(DuplicateEntryFailure('Branch code must be unique.'));
+        return Left(DuplicateEntryFailure(message: 'Branch code must be unique.'));
       }
       final branchModel = BranchModel.fromEntity(branch);
       await localDataSource.addBranch(branchModel);
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
-    } catch (e) {
-      return Left(ServerFailure());
+    } catch(e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -60,15 +56,15 @@ class BranchesRepositoryImpl implements BranchesRepository {
     try {
       final isUnique = await isBranchCodeUnique(branch.branchCode, branchId: branch.id);
       if (!isUnique) {
-        return Left(DuplicateEntryFailure('Branch code must be unique.'));
+        return Left(DuplicateEntryFailure(message: 'Branch code must be unique.'));
       }
       final branchModel = BranchModel.fromEntity(branch);
       await localDataSource.updateBranch(branchModel);
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
-    } catch (e) {
-      return Left(ServerFailure());
+    } catch(e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -79,8 +75,8 @@ class BranchesRepositoryImpl implements BranchesRepository {
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
-    } catch (e) {
-      return Left(ServerFailure());
+    } catch(e) {
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
@@ -96,7 +92,7 @@ class BranchesRepositoryImpl implements BranchesRepository {
     } on CacheException {
       return Left(CacheFailure());
     } catch (e) {
-      return Left(ServerFailure());
+      return Left(ServerFailure(message: e.toString()));
     }
   }
 
