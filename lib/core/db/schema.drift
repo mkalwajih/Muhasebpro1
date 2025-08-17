@@ -9,4 +9,3 @@ IMPORT 'schemas/tax_schema.drift';
 IMPORT 'schemas/chart_of_accounts_schema.drift';
 IMPORT 'schemas/branches_schema.drift';
 IMPORT 'schemas/branch_groups_schema.drift';
-IMPORT 'schemas/financial_periods_schema.drift'; // Added this line

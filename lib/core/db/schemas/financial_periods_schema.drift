@@ -1,9 +1,0 @@
-CREATE TABLE financial_periods (
-  period_code TEXT NOT NULL PRIMARY KEY,
-  fiscal_year INTEGER NOT NULL,
-  period_type TEXT NOT NULL, /* ENUM: Monthly, Quarterly, Custom */
-  period_number INTEGER, /* For custom periods, or 1-12 for monthly, 1-4 for quarterly */
-  start_date INTEGER NOT NULL, /* Stored as Unix timestamp */
-  end_date INTEGER NOT NULL, /* Stored as Unix timestamp */
-  status TEXT NOT NULL DEFAULT 'Open' /* ENUM: Open, Closed, Locked */
-);
