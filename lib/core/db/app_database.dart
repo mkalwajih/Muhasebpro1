@@ -13,7 +13,7 @@ part 'app_database.g.dart';
     'schemas/geographical_data_schema.drift',
     'schemas/system_setup_schema.drift',
     'schemas/tax_schema.drift',
-    'schemas/chart_of_accounts_schema.drift', // Added this line
+    'schemas/chart_of_accounts_schema.drift',
   },
 )
 class AppDatabase extends _$AppDatabase {
