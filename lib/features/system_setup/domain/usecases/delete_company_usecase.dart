@@ -3,13 +3,13 @@ import 'package:muhaseb_pro/features/system_setup/domain/repositories/company_in
 import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 
-class DeleteCompanyUseCase implements UseCase<void, int> {
+class DeleteCompanyUseCase extends UseCase<void, int> {
   final CompanyInfoRepository repository;
 
   DeleteCompanyUseCase(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(int companyId) async {
-    return await repository.deleteCompany(companyId);
+  Future<Either<Failure, void>> call(int params) async {
+    return await repository.deleteCompany(params);
   }
 }

@@ -197,5 +197,13 @@
   "selectBranchPrompt": "حدد فرعًا من القائمة لعرض/تعديل تفاصيله.",
   "branchStatusUpdated": "تم تحديث حالة الفرع.",
   "branchDeletedSuccessfully": "تم حذف الفرع {branchName} بنجاح.",
-  "notProvided": "غير متوفر"
+  "@branchDeletedSuccessfully": {
+    "placeholders": {
+      "branchName": {
+        "type": "String"
+      }
+    }
+  },
+  "notProvided": "غير متوفر",
+  "inactive": "غير نشط"
 }

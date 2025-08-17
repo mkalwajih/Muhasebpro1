@@ -595,4 +595,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectBranchPrompt => 'Select a branch from the list to view/edit its details.';
+
+  @override
+  String get branchStatusUpdated => 'Branch status updated successfully.';
+
+  @override
+  String branchDeletedSuccessfully(String branchName) {
+    return 'Branch $branchName deleted successfully.';
+  }
+
+  @override
+  String get notProvided => 'Not Provided';
+
+  @override
+  String get inactive => 'Inactive';
 }

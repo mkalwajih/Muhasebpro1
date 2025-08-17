@@ -595,4 +595,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get selectBranchPrompt => 'حدد فرعًا من القائمة لعرض/تعديل تفاصيله.';
+
+  @override
+  String get branchStatusUpdated => 'تم تحديث حالة الفرع.';
+
+  @override
+  String branchDeletedSuccessfully(String branchName) {
+    return 'تم حذف الفرع $branchName بنجاح.';
+  }
+
+  @override
+  String get notProvided => 'غير متوفر';
+
+  @override
+  String get inactive => 'غير نشط';
 }

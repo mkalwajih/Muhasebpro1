@@ -5,7 +5,6 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
-import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 
 class BranchesScreen extends ConsumerStatefulWidget {
   const BranchesScreen({super.key});
@@ -70,7 +69,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
               Navigator.of(context).pop();
               final result = await ref.read(branchesProvider.notifier).deactivateBranch(branch.branchCode);
               result.fold(
-                (failure) => _showErrorSnackbar(l10n, failure.message ?? l10n.saveFailed),
+                (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.saveFailed),
                 (_) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchStatusUpdated), backgroundColor: Colors.green)),
               );
             },
@@ -103,9 +102,9 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
       try {
         final result = await ref.read(branchesProvider.notifier).deleteBranch(branch.id!); // Assuming ID is not null for existing
         result.fold(
-          (failure) => _showErrorSnackbar(l10n, failure.message ?? l10n.deleteFailed),
+          (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.deleteFailed),
           (_) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(branch.nameEn)), backgroundColor: Colors.green));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn)), backgroundColor: Colors.green));
             setState(() => _selectedBranch = null);
           },
         );

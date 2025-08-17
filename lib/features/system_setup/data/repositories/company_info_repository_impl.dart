@@ -12,7 +12,6 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   final CompanyInfoLocalDataSource localDataSource;
   final AppDatabase _database;
 
-
   CompanyInfoRepositoryImpl(this.localDataSource, this._database);
 
   @override
@@ -41,7 +40,7 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   Future<Either<Failure, bool>> saveCompanyInfo(CompanyInfoEntity info) async {
     final isUnique = await isCompanyCodeUnique(info.companyCode, companyId: info.id);
     if (!isUnique) {
-      return Left(DuplicateEntryFailure('Company code must be unique.'));
+      return Left(DuplicateEntryFailure(message: 'Company code must be unique.'));
     }
 
     final companion = CompanyInfoCompanion(
@@ -60,8 +59,8 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       remarks: Value(info.remarks),
     );
     try {
-      await localDataSource.upsertCompanyInfo(companion);
-      return Right(true);
+      await localDataSource.updateCompany(companion);
+      return const Right(true);
     } on CacheException {
       return Left(CacheFailure());
     } catch (e) {
@@ -109,7 +108,7 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   Future<Either<Failure, void>> addCompany(CompanyInfoEntity company) async {
     final isUnique = await isCompanyCodeUnique(company.companyCode);
     if (!isUnique) {
-      return Left(DuplicateEntryFailure('Company code must be unique.'));
+      return Left(DuplicateEntryFailure(message: 'Company code must be unique.'));
     }
     final companion = CompanyInfoCompanion.insert(
       companyCode: company.companyCode,
@@ -122,7 +121,7 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
       phone: Value(company.phone),
       email: Value(company.email),
       logo: Value(company.logo),
-      isMainCompany: Value(company.isMainCompany),
+      isMainCompany: company.isMainCompany,
       remarks: Value(company.remarks),
     );
     try {
@@ -141,7 +140,7 @@ class CompanyInfoRepositoryImpl implements CompanyInfoRepository {
   Future<Either<Failure, void>> updateCompany(CompanyInfoEntity company) async {
     final isUnique = await isCompanyCodeUnique(company.companyCode, companyId: company.id);
     if (!isUnique) {
-      return Left(DuplicateEntryFailure('Company code must be unique.'));
+      return Left(DuplicateEntryFailure(message: 'Company code must be unique.'));
     }
     final companion = CompanyInfoCompanion(
       id: Value(company.id),

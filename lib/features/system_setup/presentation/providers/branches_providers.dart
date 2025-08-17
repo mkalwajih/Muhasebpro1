@@ -9,7 +9,6 @@ import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_all_branch
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/get_branch.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/usecases/update_branch.dart';
 import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
-import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 
 // Use Case Providers
 final getAllBranchesUseCaseProvider = Provider<GetAllBranchesUseCase>(
@@ -101,7 +100,7 @@ class BranchesNotifier extends StateNotifier<AsyncValue<List<BranchEntity>>> {
       (failure) {},
       (_) => _fetchBranches(),
     );
-    return result;
+    return result.map((_) => unit);
   }
 }
 

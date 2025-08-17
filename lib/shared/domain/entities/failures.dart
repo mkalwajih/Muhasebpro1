@@ -30,3 +30,11 @@ class UserInactiveFailure extends Failure {
 class DataIntegrityFailure extends Failure {
   DataIntegrityFailure({String? message}) : super(message != null ? [message] : const ['Data integrity issue']);
 }
+
+class DuplicateEntryFailure extends Failure {
+  DuplicateEntryFailure({String? message}) : super(message != null ? [message] : const ['Duplicate entry']);
+}
+
+class NotFoundFailure extends Failure {
+  NotFoundFailure({String? message}) : super(message != null ? [message] : const ['Not found']);
+}

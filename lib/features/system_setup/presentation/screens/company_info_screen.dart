@@ -9,7 +9,6 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_e
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
-import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 
 class CompanyInfoScreen extends ConsumerStatefulWidget {
   const CompanyInfoScreen({super.key});
@@ -54,6 +53,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   }
 
   @override
+  @mustCallSuper
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Listen to companies list and select the first one if none is selected
@@ -183,20 +183,18 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
 
         if (_selectedCompany == null || _selectedCompany!.id == 0) {
           // Add new company
-          await ref.read(companiesProvider.notifier).addCompany(companyToSave).then((result) {
-            result.fold(
-              (failure) => _showErrorSnackbar(l10n, failure.message ?? l10n.saveFailed),
-              (_) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)),
-            );
-          });
+          final result = await ref.read(companiesProvider.notifier).addCompany(companyToSave);
+          result.fold(
+            (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.saveFailed),
+            (_) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)),
+          );
         } else {
           // Update existing company
-          await ref.read(companiesProvider.notifier).updateCompany(companyToSave).then((result) {
-            result.fold(
-              (failure) => _showErrorSnackbar(l10n, failure.message ?? l10n.saveFailed),
-              (_) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)),
-            );
-          });
+          final result = await ref.read(companiesProvider.notifier).updateCompany(companyToSave);
+          result.fold(
+            (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.saveFailed),
+            (_) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)),
+          );
         }
       } catch (e) {
         _showErrorSnackbar(l10n, '${l10n.saveFailed}: ${e.toString()}');
@@ -226,15 +224,14 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     if (confirm == true) {
       setState(() => _isLoading = true);
       try {
-        await ref.read(companiesProvider.notifier).deleteCompany(company.id!).then((result) {
-          result.fold(
-            (failure) => _showErrorSnackbar(l10n, failure.message ?? l10n.deleteFailed),
-            (_) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${company.nameEn} ${l10n.delete} ${l10n.saveSuccess}'), backgroundColor: Colors.green));
-              _clearForm();
-            },
-          );
-        });
+        final result = await ref.read(companiesProvider.notifier).deleteCompany(company.id!);
+        result.fold(
+          (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.deleteFailed),
+          (_) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${company.nameEn} ${l10n.delete} ${l10n.saveSuccess}'), backgroundColor: Colors.green));
+            _clearForm();
+          },
+        );
       } catch (e) {
         _showErrorSnackbar(l10n, '${l10n.deleteFailed}: ${e.toString()}');
       } finally {

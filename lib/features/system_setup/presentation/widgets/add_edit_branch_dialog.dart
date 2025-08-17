@@ -106,7 +106,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final companiesAsyncValue = ref.watch(companiesListProvider);
+    final companiesAsyncValue = ref.watch(companiesProvider);
     final branchGroupsAsyncValue = ref.watch(branchGroupsProvider);
 
     return AlertDialog(

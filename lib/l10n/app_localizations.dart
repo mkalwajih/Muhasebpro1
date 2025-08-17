@@ -1270,6 +1270,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select a branch from the list to view/edit its details.'**
   String get selectBranchPrompt;
+
+  /// No description provided for @branchStatusUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch status updated successfully.'**
+  String get branchStatusUpdated;
+
+  /// No description provided for @branchDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch {branchName} deleted successfully.'**
+  String branchDeletedSuccessfully(String branchName);
+
+  /// No description provided for @notProvided.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Provided'**
+  String get notProvided;
+
+  /// No description provided for @inactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get inactive;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

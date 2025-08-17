@@ -195,5 +195,16 @@
   "noCompaniesYet": "No companies created yet. Add your first company!",
   "selectCompanyPrompt": "Select a company from the list to view/edit its details.",
   "noBranchesYet": "No branches created yet. Add your first branch!",
-  "selectBranchPrompt": "Select a branch from the list to view/edit its details."
+  "selectBranchPrompt": "Select a branch from the list to view/edit its details.",
+  "branchStatusUpdated": "Branch status updated successfully.",
+  "branchDeletedSuccessfully": "Branch {branchName} deleted successfully.",
+  "@branchDeletedSuccessfully": {
+    "placeholders": {
+      "branchName": {
+        "type": "String"
+      }
+    }
+  },
+  "notProvided": "Not Provided",
+  "inactive": "Inactive"
 }
