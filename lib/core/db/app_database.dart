@@ -14,13 +14,15 @@ part 'app_database.g.dart';
     'schemas/system_setup_schema.drift',
     'schemas/tax_schema.drift',
     'schemas/chart_of_accounts_schema.drift',
+    // The main schema.drift file now imports financial_periods_schema.drift
+    // so no direct include is needed here. This file is correct.
   },
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   @override
-  int get schemaVersion => 13;
+  int get schemaVersion => 14; // Incremented schema version
 
   @override
   MigrationStrategy get migration {

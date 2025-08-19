@@ -8,6 +8,7 @@ import 'package:muhaseb_pro/features/system_setup/presentation/screens/branches_
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/coa_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/company_info_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/currencies_screen.dart';
+import 'package:muhaseb_pro/features/system_setup/presentation/screens/financial_periods_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/general_parameters_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/geographical_data_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/role_management_screen.dart';
@@ -91,6 +92,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'tax',
                 builder: (context, state) => const TaxScreen(),
+              ),
+              GoRoute(
+                path: 'financial_periods',
+                builder: (context, state) => const FinancialPeriodsScreen(),
               ),
             ],
           ),

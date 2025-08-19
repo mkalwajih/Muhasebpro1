@@ -609,4 +609,130 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get inactive => 'Inactive';
+
+  @override
+  String get systemPeriods => 'System Periods';
+
+  @override
+  String get fiscalYear => 'Fiscal Year';
+
+  @override
+  String get periodsType => 'Periods Type';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get quarterly => 'Quarterly';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get numberOfPeriods => 'Number of Periods';
+
+  @override
+  String get periodCode => 'Period Code';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get endDate => 'End Date';
+
+  @override
+  String get closed => 'Closed';
+
+  @override
+  String get locked => 'Locked';
+
+  @override
+  String get generatePeriods => 'Generate Periods';
+
+  @override
+  String get lockPeriod => 'Lock Period';
+
+  @override
+  String get newPeriodOverlap => 'New period overlaps with existing periods.';
+
+  @override
+  String get periodDatesCannotBeModifiedWithTransactions => 'Period dates cannot be modified if transactions exist.';
+
+  @override
+  String get cannotDeleteClosedLockedPeriod => 'Cannot delete a closed or locked period.';
+
+  @override
+  String get cannotDeletePeriodWithTransactions => 'Cannot delete period with existing transactions.';
+
+  @override
+  String get periodAlreadyLocked => 'Period is already locked.';
+
+  @override
+  String get periodCodeRequiredForUpdate => 'Period code is required for update.';
+
+  @override
+  String get financialPeriodNotFound => 'Financial period not found.';
+
+  @override
+  String get financialPeriodAlreadyExists => 'Financial period with this code already exists.';
+
+  @override
+  String get invalidPeriodType => 'Invalid period type.';
+
+  @override
+  String get numberOfPeriodsRequiredForCustom => 'Number of periods is required for Custom type.';
+
+  @override
+  String get updatedPeriodOverlap => 'Updated period overlaps with other periods.';
+
+  @override
+  String get cannotLockPeriodUnfinalizedTransactions => 'Cannot lock period with unfinalized transactions.';
+
+  @override
+  String get noRowsAffectedUpdate => 'No rows affected during update. Period might not exist.';
+
+  @override
+  String get noRowsAffectedDelete => 'No rows affected during delete. Period might not exist.';
+
+  @override
+  String get financialPeriodsTitle => 'Financial Periods';
+
+  @override
+  String get noFinancialPeriodsYet => 'No financial periods created yet. Add or generate your first periods!';
+
+  @override
+  String get addFinancialPeriodButton => 'Add Financial Period';
+
+  @override
+  String get generateFinancialPeriodsButton => 'Generate Financial Periods';
+
+  @override
+  String get addFinancialPeriod => 'Add Financial Period';
+
+  @override
+  String get editFinancialPeriod => 'Edit Financial Period';
+
+  @override
+  String get periodName => 'Period Name';
+
+  @override
+  String get periodNameRequired => 'Period name is required';
+
+  @override
+  String get isLocked => 'Is Locked';
+
+  @override
+  String get unlocked => 'Unlocked';
+
+  @override
+  String get generateFinancialPeriods => 'Generate Financial Periods';
+
+  @override
+  String get startYear => 'Start Year';
+
+  @override
+  String get invalidYear => 'Please enter a valid year';
+
+  @override
+  String get invalidNumberOfYears => 'Please enter a valid number of years';
 }

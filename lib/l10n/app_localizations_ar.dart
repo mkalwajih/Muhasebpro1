@@ -579,7 +579,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editTaxType => 'تعديل نوع الضريبة';
 
   @override
-  String get branches => 'Branches';
+  String get branches => 'الفروع';
 
   @override
   String get addNewCompany => 'إضافة شركة جديدة';
@@ -609,4 +609,130 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get inactive => 'غير نشط';
+
+  @override
+  String get systemPeriods => 'System Periods';
+
+  @override
+  String get fiscalYear => 'Fiscal Year';
+
+  @override
+  String get periodsType => 'Periods Type';
+
+  @override
+  String get monthly => 'Monthly';
+
+  @override
+  String get quarterly => 'Quarterly';
+
+  @override
+  String get custom => 'Custom';
+
+  @override
+  String get numberOfPeriods => 'Number of Periods';
+
+  @override
+  String get periodCode => 'Period Code';
+
+  @override
+  String get startDate => 'تاريخ البدء';
+
+  @override
+  String get endDate => 'تاريخ الانتهاء';
+
+  @override
+  String get closed => 'Closed';
+
+  @override
+  String get locked => 'Locked';
+
+  @override
+  String get generatePeriods => 'Generate Periods';
+
+  @override
+  String get lockPeriod => 'Lock Period';
+
+  @override
+  String get newPeriodOverlap => 'New period overlaps with existing periods.';
+
+  @override
+  String get periodDatesCannotBeModifiedWithTransactions => 'Period dates cannot be modified if transactions exist.';
+
+  @override
+  String get cannotDeleteClosedLockedPeriod => 'Cannot delete a closed or locked period.';
+
+  @override
+  String get cannotDeletePeriodWithTransactions => 'Cannot delete period with existing transactions.';
+
+  @override
+  String get periodAlreadyLocked => 'Period is already locked.';
+
+  @override
+  String get periodCodeRequiredForUpdate => 'Period code is required for update.';
+
+  @override
+  String get financialPeriodNotFound => 'Financial period not found.';
+
+  @override
+  String get financialPeriodAlreadyExists => 'Financial period with this code already exists.';
+
+  @override
+  String get invalidPeriodType => 'Invalid period type.';
+
+  @override
+  String get numberOfPeriodsRequiredForCustom => 'Number of periods is required for Custom type.';
+
+  @override
+  String get updatedPeriodOverlap => 'Updated period overlaps with other periods.';
+
+  @override
+  String get cannotLockPeriodUnfinalizedTransactions => 'Cannot lock period with unfinalized transactions.';
+
+  @override
+  String get noRowsAffectedUpdate => 'No rows affected during update. Period might not exist.';
+
+  @override
+  String get noRowsAffectedDelete => 'No rows affected during delete. Period might not exist.';
+
+  @override
+  String get financialPeriodsTitle => 'الفترات المالية';
+
+  @override
+  String get noFinancialPeriodsYet => 'لم يتم إنشاء فترات مالية بعد. أضف أو أنشئ فتراتك الأولى!';
+
+  @override
+  String get addFinancialPeriodButton => 'إضافة فترة مالية';
+
+  @override
+  String get generateFinancialPeriodsButton => 'إنشاء فترات مالية';
+
+  @override
+  String get addFinancialPeriod => 'إضافة فترة مالية';
+
+  @override
+  String get editFinancialPeriod => 'تعديل فترة مالية';
+
+  @override
+  String get periodName => 'اسم الفترة';
+
+  @override
+  String get periodNameRequired => 'اسم الفترة مطلوب';
+
+  @override
+  String get isLocked => 'مؤمن';
+
+  @override
+  String get unlocked => 'غير مؤمن';
+
+  @override
+  String get generateFinancialPeriods => 'إنشاء الفترات المالية';
+
+  @override
+  String get startYear => 'سنة البدء';
+
+  @override
+  String get invalidYear => 'الرجاء إدخال سنة صالحة';
+
+  @override
+  String get invalidNumberOfYears => 'الرجاء إدخال عدد صحيح من السنوات';
 }

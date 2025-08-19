@@ -1294,6 +1294,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Inactive'**
   String get inactive;
+
+  /// No description provided for @systemPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'System Periods'**
+  String get systemPeriods;
+
+  /// No description provided for @fiscalYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiscal Year'**
+  String get fiscalYear;
+
+  /// No description provided for @periodsType.
+  ///
+  /// In en, this message translates to:
+  /// **'Periods Type'**
+  String get periodsType;
+
+  /// No description provided for @monthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthly;
+
+  /// No description provided for @quarterly.
+  ///
+  /// In en, this message translates to:
+  /// **'Quarterly'**
+  String get quarterly;
+
+  /// No description provided for @custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get custom;
+
+  /// No description provided for @numberOfPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of Periods'**
+  String get numberOfPeriods;
+
+  /// No description provided for @periodCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Period Code'**
+  String get periodCode;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @closed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get closed;
+
+  /// No description provided for @locked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get locked;
+
+  /// No description provided for @generatePeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Periods'**
+  String get generatePeriods;
+
+  /// No description provided for @lockPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock Period'**
+  String get lockPeriod;
+
+  /// No description provided for @newPeriodOverlap.
+  ///
+  /// In en, this message translates to:
+  /// **'New period overlaps with existing periods.'**
+  String get newPeriodOverlap;
+
+  /// No description provided for @periodDatesCannotBeModifiedWithTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Period dates cannot be modified if transactions exist.'**
+  String get periodDatesCannotBeModifiedWithTransactions;
+
+  /// No description provided for @cannotDeleteClosedLockedPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot delete a closed or locked period.'**
+  String get cannotDeleteClosedLockedPeriod;
+
+  /// No description provided for @cannotDeletePeriodWithTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot delete period with existing transactions.'**
+  String get cannotDeletePeriodWithTransactions;
+
+  /// No description provided for @periodAlreadyLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Period is already locked.'**
+  String get periodAlreadyLocked;
+
+  /// No description provided for @periodCodeRequiredForUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Period code is required for update.'**
+  String get periodCodeRequiredForUpdate;
+
+  /// No description provided for @financialPeriodNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial period not found.'**
+  String get financialPeriodNotFound;
+
+  /// No description provided for @financialPeriodAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial period with this code already exists.'**
+  String get financialPeriodAlreadyExists;
+
+  /// No description provided for @invalidPeriodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid period type.'**
+  String get invalidPeriodType;
+
+  /// No description provided for @numberOfPeriodsRequiredForCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of periods is required for Custom type.'**
+  String get numberOfPeriodsRequiredForCustom;
+
+  /// No description provided for @updatedPeriodOverlap.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated period overlaps with other periods.'**
+  String get updatedPeriodOverlap;
+
+  /// No description provided for @cannotLockPeriodUnfinalizedTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot lock period with unfinalized transactions.'**
+  String get cannotLockPeriodUnfinalizedTransactions;
+
+  /// No description provided for @noRowsAffectedUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'No rows affected during update. Period might not exist.'**
+  String get noRowsAffectedUpdate;
+
+  /// No description provided for @noRowsAffectedDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'No rows affected during delete. Period might not exist.'**
+  String get noRowsAffectedDelete;
+
+  /// No description provided for @financialPeriodsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial Periods'**
+  String get financialPeriodsTitle;
+
+  /// No description provided for @noFinancialPeriodsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No financial periods created yet. Add or generate your first periods!'**
+  String get noFinancialPeriodsYet;
+
+  /// No description provided for @addFinancialPeriodButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Financial Period'**
+  String get addFinancialPeriodButton;
+
+  /// No description provided for @generateFinancialPeriodsButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Financial Periods'**
+  String get generateFinancialPeriodsButton;
+
+  /// No description provided for @addFinancialPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Financial Period'**
+  String get addFinancialPeriod;
+
+  /// No description provided for @editFinancialPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Financial Period'**
+  String get editFinancialPeriod;
+
+  /// No description provided for @periodName.
+  ///
+  /// In en, this message translates to:
+  /// **'Period Name'**
+  String get periodName;
+
+  /// No description provided for @periodNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Period name is required'**
+  String get periodNameRequired;
+
+  /// No description provided for @isLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Locked'**
+  String get isLocked;
+
+  /// No description provided for @unlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get unlocked;
+
+  /// No description provided for @generateFinancialPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Financial Periods'**
+  String get generateFinancialPeriods;
+
+  /// No description provided for @startYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Year'**
+  String get startYear;
+
+  /// No description provided for @invalidYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid year'**
+  String get invalidYear;
+
+  /// No description provided for @invalidNumberOfYears.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid number of years'**
+  String get invalidNumberOfYears;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

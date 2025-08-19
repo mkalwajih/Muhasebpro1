@@ -1,0 +1,30 @@
+{
+  "ar": [
+    "systemPeriods",
+    "fiscalYear",
+    "periodsType",
+    "monthly",
+    "quarterly",
+    "custom",
+    "numberOfPeriods",
+    "periodCode",
+    "closed",
+    "locked",
+    "generatePeriods",
+    "lockPeriod",
+    "newPeriodOverlap",
+    "periodDatesCannotBeModifiedWithTransactions",
+    "cannotDeleteClosedLockedPeriod",
+    "cannotDeletePeriodWithTransactions",
+    "periodAlreadyLocked",
+    "periodCodeRequiredForUpdate",
+    "financialPeriodNotFound",
+    "financialPeriodAlreadyExists",
+    "invalidPeriodType",
+    "numberOfPeriodsRequiredForCustom",
+    "updatedPeriodOverlap",
+    "cannotLockPeriodUnfinalizedTransactions",
+    "noRowsAffectedUpdate",
+    "noRowsAffectedDelete"
+  ]
+}

@@ -190,6 +190,7 @@
   "editTaxBracket": "تعديل الشريحة الضريبية",
   "editTaxCalculationMethod": "تعديل طريقة حساب الضريبة",
   "editTaxType": "تعديل نوع الضريبة",
+  "branches": "الفروع",
   "addNewCompany": "إضافة شركة جديدة",
   "noCompaniesYet": "لم يتم إنشاء شركات بعد. أضف شركتك الأولى!",
   "selectCompanyPrompt": "حدد شركة من القائمة لعرض/تعديل تفاصيلها.",
@@ -205,5 +206,22 @@
     }
   },
   "notProvided": "غير متوفر",
-  "inactive": "غير نشط"
+  "inactive": "غير نشط",
+  "financialPeriodsTitle": "الفترات المالية",
+  "noFinancialPeriodsYet": "لم يتم إنشاء فترات مالية بعد. أضف أو أنشئ فتراتك الأولى!",
+  "addFinancialPeriodButton": "إضافة فترة مالية",
+  "generateFinancialPeriodsButton": "إنشاء فترات مالية",
+  "addFinancialPeriod": "إضافة فترة مالية",
+  "editFinancialPeriod": "تعديل فترة مالية",
+  "periodName": "اسم الفترة",
+  "periodNameRequired": "اسم الفترة مطلوب",
+  "startDate": "تاريخ البدء",
+  "endDate": "تاريخ الانتهاء",
+  "isLocked": "مؤمن",
+  "unlocked": "غير مؤمن",
+  "generateFinancialPeriods": "إنشاء الفترات المالية",
+  "startYear": "سنة البدء",
+  "invalidYear": "الرجاء إدخال سنة صالحة",
+  "numberOfYears": "عدد السنوات",
+  "invalidNumberOfYears": "الرجاء إدخال عدد صحيح من السنوات"
 }
