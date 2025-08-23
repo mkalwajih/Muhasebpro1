@@ -9,13 +9,12 @@ part 'app_database.g.dart';
     'schemas/branch_groups_schema.drift',
     'schemas/branches_schema.drift',
     'schemas/currencies_schema.drift',
+    'schemas/financial_periods_schema.drift', // Explicitly included now
     'schemas/general_parameters_schema.drift',
     'schemas/geographical_data_schema.drift',
     'schemas/system_setup_schema.drift',
     'schemas/tax_schema.drift',
     'schemas/chart_of_accounts_schema.drift',
-    // The main schema.drift file now imports financial_periods_schema.drift
-    // so no direct include is needed here. This file is correct.
   },
 )
 class AppDatabase extends _$AppDatabase {

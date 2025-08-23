@@ -8815,6 +8815,454 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   }
 }
 
+class FinancialPeriods extends Table
+    with TableInfo<FinancialPeriods, FinancialPeriod> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  FinancialPeriods(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _periodCodeMeta =
+      const VerificationMeta('periodCode');
+  late final GeneratedColumn<String> periodCode = GeneratedColumn<String>(
+      'period_code', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _fiscalYearMeta =
+      const VerificationMeta('fiscalYear');
+  late final GeneratedColumn<int> fiscalYear = GeneratedColumn<int>(
+      'fiscal_year', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _periodTypeMeta =
+      const VerificationMeta('periodType');
+  late final GeneratedColumn<String> periodType = GeneratedColumn<String>(
+      'period_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _periodNumberMeta =
+      const VerificationMeta('periodNumber');
+  late final GeneratedColumn<int> periodNumber = GeneratedColumn<int>(
+      'period_number', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _startDateMeta =
+      const VerificationMeta('startDate');
+  late final GeneratedColumn<int> startDate = GeneratedColumn<int>(
+      'start_date', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _endDateMeta =
+      const VerificationMeta('endDate');
+  late final GeneratedColumn<int> endDate = GeneratedColumn<int>(
+      'end_date', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isLockedMeta =
+      const VerificationMeta('isLocked');
+  late final GeneratedColumn<bool> isLocked = GeneratedColumn<bool>(
+      'is_locked', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        periodCode,
+        fiscalYear,
+        periodType,
+        periodNumber,
+        startDate,
+        endDate,
+        isLocked
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'financial_periods';
+  @override
+  VerificationContext validateIntegrity(Insertable<FinancialPeriod> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('period_code')) {
+      context.handle(
+          _periodCodeMeta,
+          periodCode.isAcceptableOrUnknown(
+              data['period_code']!, _periodCodeMeta));
+    } else if (isInserting) {
+      context.missing(_periodCodeMeta);
+    }
+    if (data.containsKey('fiscal_year')) {
+      context.handle(
+          _fiscalYearMeta,
+          fiscalYear.isAcceptableOrUnknown(
+              data['fiscal_year']!, _fiscalYearMeta));
+    } else if (isInserting) {
+      context.missing(_fiscalYearMeta);
+    }
+    if (data.containsKey('period_type')) {
+      context.handle(
+          _periodTypeMeta,
+          periodType.isAcceptableOrUnknown(
+              data['period_type']!, _periodTypeMeta));
+    } else if (isInserting) {
+      context.missing(_periodTypeMeta);
+    }
+    if (data.containsKey('period_number')) {
+      context.handle(
+          _periodNumberMeta,
+          periodNumber.isAcceptableOrUnknown(
+              data['period_number']!, _periodNumberMeta));
+    }
+    if (data.containsKey('start_date')) {
+      context.handle(_startDateMeta,
+          startDate.isAcceptableOrUnknown(data['start_date']!, _startDateMeta));
+    } else if (isInserting) {
+      context.missing(_startDateMeta);
+    }
+    if (data.containsKey('end_date')) {
+      context.handle(_endDateMeta,
+          endDate.isAcceptableOrUnknown(data['end_date']!, _endDateMeta));
+    } else if (isInserting) {
+      context.missing(_endDateMeta);
+    }
+    if (data.containsKey('is_locked')) {
+      context.handle(_isLockedMeta,
+          isLocked.isAcceptableOrUnknown(data['is_locked']!, _isLockedMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  FinancialPeriod map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return FinancialPeriod(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      periodCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}period_code'])!,
+      fiscalYear: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}fiscal_year'])!,
+      periodType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}period_type'])!,
+      periodNumber: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}period_number']),
+      startDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}start_date'])!,
+      endDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}end_date'])!,
+      isLocked: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_locked'])!,
+    );
+  }
+
+  @override
+  FinancialPeriods createAlias(String alias) {
+    return FinancialPeriods(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
+  final int id;
+  final String periodCode;
+  final int fiscalYear;
+  final String periodType;
+
+  /// ENUM: Monthly, Quarterly, Custom
+  final int? periodNumber;
+
+  /// For custom periods, or 1-12 for monthly, 1-4 for quarterly
+  final int startDate;
+
+  /// Stored as Unix timestamp
+  final int endDate;
+
+  /// Stored as Unix timestamp
+  final bool isLocked;
+  const FinancialPeriod(
+      {required this.id,
+      required this.periodCode,
+      required this.fiscalYear,
+      required this.periodType,
+      this.periodNumber,
+      required this.startDate,
+      required this.endDate,
+      required this.isLocked});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['period_code'] = Variable<String>(periodCode);
+    map['fiscal_year'] = Variable<int>(fiscalYear);
+    map['period_type'] = Variable<String>(periodType);
+    if (!nullToAbsent || periodNumber != null) {
+      map['period_number'] = Variable<int>(periodNumber);
+    }
+    map['start_date'] = Variable<int>(startDate);
+    map['end_date'] = Variable<int>(endDate);
+    map['is_locked'] = Variable<bool>(isLocked);
+    return map;
+  }
+
+  FinancialPeriodsCompanion toCompanion(bool nullToAbsent) {
+    return FinancialPeriodsCompanion(
+      id: Value(id),
+      periodCode: Value(periodCode),
+      fiscalYear: Value(fiscalYear),
+      periodType: Value(periodType),
+      periodNumber: periodNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(periodNumber),
+      startDate: Value(startDate),
+      endDate: Value(endDate),
+      isLocked: Value(isLocked),
+    );
+  }
+
+  factory FinancialPeriod.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return FinancialPeriod(
+      id: serializer.fromJson<int>(json['id']),
+      periodCode: serializer.fromJson<String>(json['period_code']),
+      fiscalYear: serializer.fromJson<int>(json['fiscal_year']),
+      periodType: serializer.fromJson<String>(json['period_type']),
+      periodNumber: serializer.fromJson<int?>(json['period_number']),
+      startDate: serializer.fromJson<int>(json['start_date']),
+      endDate: serializer.fromJson<int>(json['end_date']),
+      isLocked: serializer.fromJson<bool>(json['is_locked']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'period_code': serializer.toJson<String>(periodCode),
+      'fiscal_year': serializer.toJson<int>(fiscalYear),
+      'period_type': serializer.toJson<String>(periodType),
+      'period_number': serializer.toJson<int?>(periodNumber),
+      'start_date': serializer.toJson<int>(startDate),
+      'end_date': serializer.toJson<int>(endDate),
+      'is_locked': serializer.toJson<bool>(isLocked),
+    };
+  }
+
+  FinancialPeriod copyWith(
+          {int? id,
+          String? periodCode,
+          int? fiscalYear,
+          String? periodType,
+          Value<int?> periodNumber = const Value.absent(),
+          int? startDate,
+          int? endDate,
+          bool? isLocked}) =>
+      FinancialPeriod(
+        id: id ?? this.id,
+        periodCode: periodCode ?? this.periodCode,
+        fiscalYear: fiscalYear ?? this.fiscalYear,
+        periodType: periodType ?? this.periodType,
+        periodNumber:
+            periodNumber.present ? periodNumber.value : this.periodNumber,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+        isLocked: isLocked ?? this.isLocked,
+      );
+  FinancialPeriod copyWithCompanion(FinancialPeriodsCompanion data) {
+    return FinancialPeriod(
+      id: data.id.present ? data.id.value : this.id,
+      periodCode:
+          data.periodCode.present ? data.periodCode.value : this.periodCode,
+      fiscalYear:
+          data.fiscalYear.present ? data.fiscalYear.value : this.fiscalYear,
+      periodType:
+          data.periodType.present ? data.periodType.value : this.periodType,
+      periodNumber: data.periodNumber.present
+          ? data.periodNumber.value
+          : this.periodNumber,
+      startDate: data.startDate.present ? data.startDate.value : this.startDate,
+      endDate: data.endDate.present ? data.endDate.value : this.endDate,
+      isLocked: data.isLocked.present ? data.isLocked.value : this.isLocked,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FinancialPeriod(')
+          ..write('id: $id, ')
+          ..write('periodCode: $periodCode, ')
+          ..write('fiscalYear: $fiscalYear, ')
+          ..write('periodType: $periodType, ')
+          ..write('periodNumber: $periodNumber, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('isLocked: $isLocked')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, periodCode, fiscalYear, periodType,
+      periodNumber, startDate, endDate, isLocked);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is FinancialPeriod &&
+          other.id == this.id &&
+          other.periodCode == this.periodCode &&
+          other.fiscalYear == this.fiscalYear &&
+          other.periodType == this.periodType &&
+          other.periodNumber == this.periodNumber &&
+          other.startDate == this.startDate &&
+          other.endDate == this.endDate &&
+          other.isLocked == this.isLocked);
+}
+
+class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
+  final Value<int> id;
+  final Value<String> periodCode;
+  final Value<int> fiscalYear;
+  final Value<String> periodType;
+  final Value<int?> periodNumber;
+  final Value<int> startDate;
+  final Value<int> endDate;
+  final Value<bool> isLocked;
+  const FinancialPeriodsCompanion({
+    this.id = const Value.absent(),
+    this.periodCode = const Value.absent(),
+    this.fiscalYear = const Value.absent(),
+    this.periodType = const Value.absent(),
+    this.periodNumber = const Value.absent(),
+    this.startDate = const Value.absent(),
+    this.endDate = const Value.absent(),
+    this.isLocked = const Value.absent(),
+  });
+  FinancialPeriodsCompanion.insert({
+    this.id = const Value.absent(),
+    required String periodCode,
+    required int fiscalYear,
+    required String periodType,
+    this.periodNumber = const Value.absent(),
+    required int startDate,
+    required int endDate,
+    this.isLocked = const Value.absent(),
+  })  : periodCode = Value(periodCode),
+        fiscalYear = Value(fiscalYear),
+        periodType = Value(periodType),
+        startDate = Value(startDate),
+        endDate = Value(endDate);
+  static Insertable<FinancialPeriod> custom({
+    Expression<int>? id,
+    Expression<String>? periodCode,
+    Expression<int>? fiscalYear,
+    Expression<String>? periodType,
+    Expression<int>? periodNumber,
+    Expression<int>? startDate,
+    Expression<int>? endDate,
+    Expression<bool>? isLocked,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (periodCode != null) 'period_code': periodCode,
+      if (fiscalYear != null) 'fiscal_year': fiscalYear,
+      if (periodType != null) 'period_type': periodType,
+      if (periodNumber != null) 'period_number': periodNumber,
+      if (startDate != null) 'start_date': startDate,
+      if (endDate != null) 'end_date': endDate,
+      if (isLocked != null) 'is_locked': isLocked,
+    });
+  }
+
+  FinancialPeriodsCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? periodCode,
+      Value<int>? fiscalYear,
+      Value<String>? periodType,
+      Value<int?>? periodNumber,
+      Value<int>? startDate,
+      Value<int>? endDate,
+      Value<bool>? isLocked}) {
+    return FinancialPeriodsCompanion(
+      id: id ?? this.id,
+      periodCode: periodCode ?? this.periodCode,
+      fiscalYear: fiscalYear ?? this.fiscalYear,
+      periodType: periodType ?? this.periodType,
+      periodNumber: periodNumber ?? this.periodNumber,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      isLocked: isLocked ?? this.isLocked,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (periodCode.present) {
+      map['period_code'] = Variable<String>(periodCode.value);
+    }
+    if (fiscalYear.present) {
+      map['fiscal_year'] = Variable<int>(fiscalYear.value);
+    }
+    if (periodType.present) {
+      map['period_type'] = Variable<String>(periodType.value);
+    }
+    if (periodNumber.present) {
+      map['period_number'] = Variable<int>(periodNumber.value);
+    }
+    if (startDate.present) {
+      map['start_date'] = Variable<int>(startDate.value);
+    }
+    if (endDate.present) {
+      map['end_date'] = Variable<int>(endDate.value);
+    }
+    if (isLocked.present) {
+      map['is_locked'] = Variable<bool>(isLocked.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FinancialPeriodsCompanion(')
+          ..write('id: $id, ')
+          ..write('periodCode: $periodCode, ')
+          ..write('fiscalYear: $fiscalYear, ')
+          ..write('periodType: $periodType, ')
+          ..write('periodNumber: $periodNumber, ')
+          ..write('startDate: $startDate, ')
+          ..write('endDate: $endDate, ')
+          ..write('isLocked: $isLocked')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class Currencies extends Table with TableInfo<Currencies, Currency> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -10014,6 +10462,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final Cities cities = Cities(this);
   late final Regions regions = Regions(this);
   late final SystemConfig systemConfig = SystemConfig(this);
+  late final FinancialPeriods financialPeriods = FinancialPeriods(this);
   late final Currencies currencies = Currencies(this);
   late final CurrencyDenominations currencyDenominations =
       CurrencyDenominations(this);
@@ -10046,6 +10495,7 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         cities,
         regions,
         systemConfig,
+        financialPeriods,
         currencies,
         currencyDenominations,
         userRoles
@@ -16840,6 +17290,219 @@ typedef $SystemConfigProcessedTableManager = ProcessedTableManager<
     ),
     SystemConfigData,
     PrefetchHooks Function()>;
+typedef $FinancialPeriodsCreateCompanionBuilder = FinancialPeriodsCompanion
+    Function({
+  Value<int> id,
+  required String periodCode,
+  required int fiscalYear,
+  required String periodType,
+  Value<int?> periodNumber,
+  required int startDate,
+  required int endDate,
+  Value<bool> isLocked,
+});
+typedef $FinancialPeriodsUpdateCompanionBuilder = FinancialPeriodsCompanion
+    Function({
+  Value<int> id,
+  Value<String> periodCode,
+  Value<int> fiscalYear,
+  Value<String> periodType,
+  Value<int?> periodNumber,
+  Value<int> startDate,
+  Value<int> endDate,
+  Value<bool> isLocked,
+});
+
+class $FinancialPeriodsFilterComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get periodCode => $composableBuilder(
+      column: $table.periodCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get fiscalYear => $composableBuilder(
+      column: $table.fiscalYear, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get periodType => $composableBuilder(
+      column: $table.periodType, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get periodNumber => $composableBuilder(
+      column: $table.periodNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isLocked => $composableBuilder(
+      column: $table.isLocked, builder: (column) => ColumnFilters(column));
+}
+
+class $FinancialPeriodsOrderingComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get periodCode => $composableBuilder(
+      column: $table.periodCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get fiscalYear => $composableBuilder(
+      column: $table.fiscalYear, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get periodType => $composableBuilder(
+      column: $table.periodType, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get periodNumber => $composableBuilder(
+      column: $table.periodNumber,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isLocked => $composableBuilder(
+      column: $table.isLocked, builder: (column) => ColumnOrderings(column));
+}
+
+class $FinancialPeriodsAnnotationComposer
+    extends Composer<_$AppDatabase, FinancialPeriods> {
+  $FinancialPeriodsAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get periodCode => $composableBuilder(
+      column: $table.periodCode, builder: (column) => column);
+
+  GeneratedColumn<int> get fiscalYear => $composableBuilder(
+      column: $table.fiscalYear, builder: (column) => column);
+
+  GeneratedColumn<String> get periodType => $composableBuilder(
+      column: $table.periodType, builder: (column) => column);
+
+  GeneratedColumn<int> get periodNumber => $composableBuilder(
+      column: $table.periodNumber, builder: (column) => column);
+
+  GeneratedColumn<int> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<int> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<bool> get isLocked =>
+      $composableBuilder(column: $table.isLocked, builder: (column) => column);
+}
+
+class $FinancialPeriodsTableManager extends RootTableManager<
+    _$AppDatabase,
+    FinancialPeriods,
+    FinancialPeriod,
+    $FinancialPeriodsFilterComposer,
+    $FinancialPeriodsOrderingComposer,
+    $FinancialPeriodsAnnotationComposer,
+    $FinancialPeriodsCreateCompanionBuilder,
+    $FinancialPeriodsUpdateCompanionBuilder,
+    (
+      FinancialPeriod,
+      BaseReferences<_$AppDatabase, FinancialPeriods, FinancialPeriod>
+    ),
+    FinancialPeriod,
+    PrefetchHooks Function()> {
+  $FinancialPeriodsTableManager(_$AppDatabase db, FinancialPeriods table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $FinancialPeriodsFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $FinancialPeriodsOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $FinancialPeriodsAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> periodCode = const Value.absent(),
+            Value<int> fiscalYear = const Value.absent(),
+            Value<String> periodType = const Value.absent(),
+            Value<int?> periodNumber = const Value.absent(),
+            Value<int> startDate = const Value.absent(),
+            Value<int> endDate = const Value.absent(),
+            Value<bool> isLocked = const Value.absent(),
+          }) =>
+              FinancialPeriodsCompanion(
+            id: id,
+            periodCode: periodCode,
+            fiscalYear: fiscalYear,
+            periodType: periodType,
+            periodNumber: periodNumber,
+            startDate: startDate,
+            endDate: endDate,
+            isLocked: isLocked,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String periodCode,
+            required int fiscalYear,
+            required String periodType,
+            Value<int?> periodNumber = const Value.absent(),
+            required int startDate,
+            required int endDate,
+            Value<bool> isLocked = const Value.absent(),
+          }) =>
+              FinancialPeriodsCompanion.insert(
+            id: id,
+            periodCode: periodCode,
+            fiscalYear: fiscalYear,
+            periodType: periodType,
+            periodNumber: periodNumber,
+            startDate: startDate,
+            endDate: endDate,
+            isLocked: isLocked,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $FinancialPeriodsProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    FinancialPeriods,
+    FinancialPeriod,
+    $FinancialPeriodsFilterComposer,
+    $FinancialPeriodsOrderingComposer,
+    $FinancialPeriodsAnnotationComposer,
+    $FinancialPeriodsCreateCompanionBuilder,
+    $FinancialPeriodsUpdateCompanionBuilder,
+    (
+      FinancialPeriod,
+      BaseReferences<_$AppDatabase, FinancialPeriods, FinancialPeriod>
+    ),
+    FinancialPeriod,
+    PrefetchHooks Function()>;
 typedef $CurrenciesCreateCompanionBuilder = CurrenciesCompanion Function({
   required String currencyCode,
   required String nameAr,
@@ -17829,6 +18492,8 @@ class $AppDatabaseManager {
   $RegionsTableManager get regions => $RegionsTableManager(_db, _db.regions);
   $SystemConfigTableManager get systemConfig =>
       $SystemConfigTableManager(_db, _db.systemConfig);
+  $FinancialPeriodsTableManager get financialPeriods =>
+      $FinancialPeriodsTableManager(_db, _db.financialPeriods);
   $CurrenciesTableManager get currencies =>
       $CurrenciesTableManager(_db, _db.currencies);
   $CurrencyDenominationsTableManager get currencyDenominations =>
