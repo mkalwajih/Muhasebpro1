@@ -750,4 +750,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invalidNumberOfYears => 'الرجاء إدخال عدد صحيح من السنوات';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get loginTitle => 'محاسب برو';
+
+  @override
+  String get loginSubtitle => 'سجل الدخول إلى حسابك';
+
+  @override
+  String get invalidCredentials => 'اسم المستخدم أو كلمة المرور غير صحيحة';
+
+  @override
+  String get userInactive => 'هذا الحساب غير نشط';
+
+  @override
+  String get loginSuccess => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get loginFailed => 'فشل تسجيل الدخول';
+
+  @override
+  String get forgotPassword => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get rememberMe => 'تذكرني';
 }

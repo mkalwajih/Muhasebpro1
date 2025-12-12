@@ -223,5 +223,14 @@
   "startYear": "سنة البدء",
   "invalidYear": "الرجاء إدخال سنة صالحة",
   "numberOfYears": "عدد السنوات",
-  "invalidNumberOfYears": "الرجاء إدخال عدد صحيح من السنوات"
+  "invalidNumberOfYears": "الرجاء إدخال عدد صحيح من السنوات",
+  "login": "تسجيل الدخول",
+  "loginTitle": "محاسب برو",
+  "loginSubtitle": "سجل الدخول إلى حسابك",
+  "invalidCredentials": "اسم المستخدم أو كلمة المرور غير صحيحة",
+  "userInactive": "هذا الحساب غير نشط",
+  "loginSuccess": "تم تسجيل الدخول بنجاح",
+  "loginFailed": "فشل تسجيل الدخول",
+  "forgotPassword": "هل نسيت كلمة المرور؟",
+  "rememberMe": "تذكرني"
 }

@@ -755,4 +755,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidNumberOfYears => 'Please enter a valid number of years';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get loginTitle => 'MuhasebPro';
+
+  @override
+  String get loginSubtitle => 'Sign in to your account';
+
+  @override
+  String get invalidCredentials => 'Invalid username or password';
+
+  @override
+  String get userInactive => 'This account is inactive';
+
+  @override
+  String get loginSuccess => 'Login successful';
+
+  @override
+  String get loginFailed => 'Login failed';
+
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get rememberMe => 'Remember me';
 }

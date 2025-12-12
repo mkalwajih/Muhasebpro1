@@ -248,5 +248,14 @@
   "generateFinancialPeriods": "Generate Financial Periods",
   "startYear": "Start Year",
   "invalidYear": "Please enter a valid year",
-  "invalidNumberOfYears": "Please enter a valid number of years"
+  "invalidNumberOfYears": "Please enter a valid number of years",
+  "login": "Login",
+  "loginTitle": "MuhasebPro",
+  "loginSubtitle": "Sign in to your account",
+  "invalidCredentials": "Invalid username or password",
+  "userInactive": "This account is inactive",
+  "loginSuccess": "Login successful",
+  "loginFailed": "Login failed",
+  "forgotPassword": "Forgot Password?",
+  "rememberMe": "Remember me"
 }
