@@ -33,9 +33,17 @@ The application runs as a Flutter web app:
 - Multi-language support (English/Arabic) via Flutter localization
 
 ## Default Login
-The application seeds a default admin user on first run. Check the auth seeding logic for default credentials.
+The application seeds a default admin user on first run:
+- **Username**: admin
+- **Password**: 123456
 
 ## Recent Changes
+- December 2025: Implemented complete login screen
+  - Full login form with username/password validation
+  - Loading states and error handling
+  - Localized error messages (English/Arabic)
+  - Password visibility toggle
+  - Professional UI with gradient background and card design
 - December 2025: Configured for Replit environment
   - Fixed duplicate FinancialPeriods schema definition
   - Removed direct sqlite3 package imports (use Drift only)
