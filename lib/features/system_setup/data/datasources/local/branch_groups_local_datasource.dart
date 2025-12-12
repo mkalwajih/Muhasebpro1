@@ -1,8 +1,8 @@
+import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart';
 import 'package:muhaseb_pro/shared/data/models/branch_group_model.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
-import 'package:sqlite3/sqlite3.dart';
 
 abstract class IBranchGroupsLocalDataSource {
   Future<List<BranchGroupEntity>> getAllBranchGroups();
@@ -27,8 +27,13 @@ class BranchGroupsLocalDataSource implements IBranchGroupsLocalDataSource {
     try {
       final companion = BranchGroupCompanionMapper.fromEntity(branchGroup);
       await _appDatabase.into(_appDatabase.branchGroups).insert(companion);
-    } on SqliteException catch (e) {
-      if (e.extendedResultCode == 2067) { // SQLITE_CONSTRAINT_UNIQUE
+    } on DriftWrappedException catch (e) {
+      if (e.toString().contains('UNIQUE constraint')) {
+        throw DataIntegrityException(message: 'A group with this name already exists.');
+      }
+      rethrow;
+    } catch (e) {
+      if (e.toString().contains('UNIQUE constraint')) {
         throw DataIntegrityException(message: 'A group with this name already exists.');
       }
       rethrow;
@@ -45,8 +50,13 @@ class BranchGroupsLocalDataSource implements IBranchGroupsLocalDataSource {
   Future<void> deleteBranchGroup(int id) async {
      try {
       await (_appDatabase.delete(_appDatabase.branchGroups)..where((tbl) => tbl.id.equals(id))).go();
-    } on SqliteException catch (e) {
-       if (e.extendedResultCode == 1811) { // SQLITE_CONSTRAINT_FOREIGNKEY
+    } on DriftWrappedException catch (e) {
+       if (e.toString().contains('FOREIGN KEY constraint')) {
+         throw DataIntegrityException(message: 'Cannot delete this group as it is associated with one or more branches.');
+       }
+       rethrow;
+    } catch (e) {
+       if (e.toString().contains('FOREIGN KEY constraint')) {
          throw DataIntegrityException(message: 'Cannot delete this group as it is associated with one or more branches.');
        }
        rethrow;

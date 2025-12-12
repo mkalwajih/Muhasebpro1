@@ -18,13 +18,6 @@ CREATE TABLE company_info (
   remarks TEXT
 );
 
-CREATE TABLE financial_periods (
-  id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
-  start_date TIMESTAMP NOT NULL,
-  end_date TIMESTAMP NOT NULL,
-  is_closed BOOLEAN NOT NULL DEFAULT FALSE
-);
-
 CREATE TABLE accounts (
   id INT NOT NULL PRIMARY KEY AUTOINCREMENT,
   parent_id INT REFERENCES accounts(id),

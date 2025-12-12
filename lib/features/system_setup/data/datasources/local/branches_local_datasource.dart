@@ -3,7 +3,6 @@ import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/shared/data/models/branch_model.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
-import 'package:sqlite3/sqlite3.dart';
 
 abstract class BranchesLocalDataSource {
   Future<List<BranchModel>> getAllBranches({bool includeInactive = false});
@@ -60,8 +59,13 @@ class BranchesLocalDataSourceImpl implements BranchesLocalDataSource {
       if (deletedRows == 0) {
         throw NotFoundException(message: 'Branch not found.');
       }
-    } on SqliteException catch (e) {
-      if (e.message.contains('FOREIGN KEY constraint failed')) {
+    } on DriftWrappedException catch (e) {
+      if (e.toString().contains('FOREIGN KEY constraint')) {
+        throw DataIntegrityException(message: 'Cannot delete branch: linked transactions or data exist.');
+      }
+      rethrow;
+    } catch (e) {
+      if (e.toString().contains('FOREIGN KEY constraint')) {
         throw DataIntegrityException(message: 'Cannot delete branch: linked transactions or data exist.');
       }
       rethrow;

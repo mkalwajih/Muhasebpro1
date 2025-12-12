@@ -30,9 +30,10 @@ class FinancialPeriodsLocalDataSourceImpl implements FinancialPeriodsLocalDataSo
   Future<void> addFinancialPeriod(FinancialPeriodsCompanion period) async {
     try {
       await db.into(db.financialPeriods).insert(period);
-    } on DriftAlreadyExistsException {
-      throw DuplicateEntryException(message: 'Financial period with this code already exists.');
     } catch (e) {
+      if (e.toString().contains('UNIQUE constraint')) {
+        throw DuplicateEntryException(message: 'Financial period with this code already exists.');
+      }
       throw CacheException(message: 'Error adding financial period: ${e.toString()}');
     }
   }

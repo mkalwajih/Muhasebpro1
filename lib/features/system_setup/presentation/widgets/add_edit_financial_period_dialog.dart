@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../domain/entities/financial_period_entity.dart';
+import '../../domain/entities/financial_period_entity.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/financial_periods_providers.dart';
 
@@ -21,7 +21,10 @@ class AddEditFinancialPeriodDialog extends ConsumerStatefulWidget {
 
 class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialPeriodDialog> {
   final _formKey = GlobalKey<FormState>();
-  late TextEditingController _periodNameController;
+  late TextEditingController _periodCodeController;
+  late TextEditingController _fiscalYearController;
+  late String _periodType;
+  late TextEditingController _periodNumberController;
   late DateTime _startDate;
   late DateTime _endDate;
   late bool _isLocked;
@@ -29,7 +32,10 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
   @override
   void initState() {
     super.initState();
-    _periodNameController = TextEditingController(text: widget.period?.periodName ?? '');
+    _periodCodeController = TextEditingController(text: widget.period?.periodCode ?? '');
+    _fiscalYearController = TextEditingController(text: widget.period?.fiscalYear.toString() ?? DateTime.now().year.toString());
+    _periodType = widget.period?.periodType ?? 'Monthly';
+    _periodNumberController = TextEditingController(text: widget.period?.periodNumber?.toString() ?? '1');
     _startDate = widget.period?.startDate ?? DateTime.now();
     _endDate = widget.period?.endDate ?? DateTime.now();
     _isLocked = widget.period?.isLocked ?? false;
@@ -37,7 +43,9 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
 
   @override
   void dispose() {
-    _periodNameController.dispose();
+    _periodCodeController.dispose();
+    _fiscalYearController.dispose();
+    _periodNumberController.dispose();
     super.dispose();
   }
 
@@ -63,7 +71,10 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
     if (_formKey.currentState!.validate()) {
       final period = FinancialPeriodEntity(
         id: widget.period?.id,
-        periodName: _periodNameController.text,
+        periodCode: _periodCodeController.text,
+        fiscalYear: int.parse(_fiscalYearController.text),
+        periodType: _periodType,
+        periodNumber: int.tryParse(_periodNumberController.text),
         startDate: _startDate,
         endDate: _endDate,
         isLocked: _isLocked,
@@ -81,7 +92,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.period == null ? widget.appLocalizations.addFinancialPeriod : widget.appLocalizations.editFinancialPeriod),
+      title: Text(widget.period == null ? widget.appLocalizations.addNew : widget.appLocalizations.save),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -89,14 +100,44 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormField(
-                controller: _periodNameController,
-                decoration: InputDecoration(labelText: widget.appLocalizations.periodName),
+                controller: _periodCodeController,
+                decoration: InputDecoration(labelText: widget.appLocalizations.periodCode),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return widget.appLocalizations.periodNameRequired;
+                    return widget.appLocalizations.requiredField;
                   }
                   return null;
                 },
+              ),
+              TextFormField(
+                controller: _fiscalYearController,
+                decoration: InputDecoration(labelText: widget.appLocalizations.fiscalYear),
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || int.tryParse(value) == null) {
+                    return widget.appLocalizations.requiredField;
+                  }
+                  return null;
+                },
+              ),
+              DropdownButtonFormField<String>(
+                value: _periodType,
+                decoration: InputDecoration(labelText: widget.appLocalizations.periodsType),
+                items: [
+                  DropdownMenuItem(value: 'Monthly', child: Text(widget.appLocalizations.monthly)),
+                  DropdownMenuItem(value: 'Quarterly', child: Text(widget.appLocalizations.quarterly)),
+                  DropdownMenuItem(value: 'Custom', child: Text(widget.appLocalizations.custom)),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _periodType = value ?? 'Monthly';
+                  });
+                },
+              ),
+              TextFormField(
+                controller: _periodNumberController,
+                decoration: InputDecoration(labelText: widget.appLocalizations.numberOfPeriods),
+                keyboardType: TextInputType.number,
               ),
               ListTile(
                 title: Text('${widget.appLocalizations.startDate}: ${_startDate.toLocal().toString().split(' ')[0]}'),
@@ -110,7 +151,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
               ),
               Row(
                 children: [
-                  Text(widget.appLocalizations.isLocked),
+                  Text(widget.appLocalizations.locked),
                   Switch(
                     value: _isLocked,
                     onChanged: (value) {
@@ -173,7 +214,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(widget.appLocalizations.generateFinancialPeriods),
+      title: Text(widget.appLocalizations.generatePeriods),
       content: Form(
         key: _formKey,
         child: Column(
@@ -181,11 +222,11 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
           children: [
             TextFormField(
               initialValue: _startYear.toString(),
-              decoration: InputDecoration(labelText: widget.appLocalizations.startYear),
+              decoration: InputDecoration(labelText: widget.appLocalizations.fiscalYear),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || int.tryParse(value) == null) {
-                  return widget.appLocalizations.invalidYear;
+                  return widget.appLocalizations.requiredField;
                 }
                 _startYear = int.parse(value);
                 return null;
@@ -193,11 +234,11 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
             ),
             TextFormField(
               initialValue: _numberOfYears.toString(),
-              decoration: InputDecoration(labelText: widget.appLocalizations.numberOfYears),
+              decoration: InputDecoration(labelText: widget.appLocalizations.numberOfPeriods),
               keyboardType: TextInputType.number,
               validator: (value) {
                 if (value == null || int.tryParse(value) == null || int.parse(value) <= 0) {
-                  return widget.appLocalizations.invalidNumberOfYears;
+                  return widget.appLocalizations.requiredField;
                 }
                 _numberOfYears = int.parse(value);
                 return null;
@@ -213,7 +254,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
         ),
         ElevatedButton(
           onPressed: _generatePeriods,
-          child: Text(widget.appLocalizations.generate),
+          child: Text(widget.appLocalizations.save),
         ),
       ],
     );

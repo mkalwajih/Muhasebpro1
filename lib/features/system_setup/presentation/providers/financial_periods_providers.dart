@@ -1,5 +1,6 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/di/database_provider.dart';
 import 'package:muhaseb_pro/features/system_setup/data/datasources/local/financial_periods_local_datasource.dart';
 import 'package:muhaseb_pro/features/system_setup/data/repositories/financial_periods_repository_impl.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/financial_periods_repository.dart';
@@ -91,9 +92,9 @@ class FinancialPeriodsNotifier extends StateNotifier<AsyncValue<List<FinancialPe
   Future<void> loadPeriods() async {
     state = const AsyncValue.loading();
     final result = await _getFinancialPeriods(NoParams());
-    state = result.when(
-      left: (failure) => AsyncValue.error(failure, StackTrace.current),
-      right: (periods) => AsyncValue.data(periods),
+    state = result.fold(
+      (failure) => AsyncValue.error(failure, StackTrace.current),
+      (periods) => AsyncValue.data(periods),
     );
   }
 
@@ -128,7 +129,7 @@ class FinancialPeriodsNotifier extends StateNotifier<AsyncValue<List<FinancialPe
     return result;
   }
 
-  Future<Either<Failure, List<FinancialPeriodEntity>>> generateFinancialPeriods(int startYear, int numberOfYears) async {
+  Future<Either<Failure, void>> generateFinancialPeriods(int startYear, int numberOfYears) async {
     state = const AsyncValue.loading(); // Show loading during generation
     final params = GenerateFinancialPeriodsParams(
       startYear: startYear,

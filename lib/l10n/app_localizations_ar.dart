@@ -114,7 +114,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deactivateBranchConfirmationTitle => 'إلغاء تنشيط الفرع';
 
   @override
-  String get deactivateBranchConfirmationMessage => 'هل أنت متأكد أنك تريد إلغاء تنشيط هذا الفرع؟';
+  String get deactivateBranchConfirmationMessage =>
+      'هل أنت متأكد أنك تريد إلغاء تنشيط هذا الفرع؟';
 
   @override
   String get deactivate => 'إلغاء التنشيط';
@@ -201,7 +202,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get confirmReset => 'تأكيد إعادة التعيين';
 
   @override
-  String get confirmResetMessage => 'هل أنت متأكد أنك تريد إعادة تعيين جميع الإعدادات العامة إلى قيمها الافتراضية؟';
+  String get confirmResetMessage =>
+      'هل أنت متأكد أنك تريد إعادة تعيين جميع الإعدادات العامة إلى قيمها الافتراضية؟';
 
   @override
   String get reset => 'إعادة تعيين';
@@ -222,7 +224,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get backup => 'النسخ الاحتياطي';
 
   @override
-  String get cannotChangeAccountSettings => 'لا يمكن تغيير إعدادات الحسابات أثناء وجود المعاملات';
+  String get cannotChangeAccountSettings =>
+      'لا يمكن تغيير إعدادات الحسابات أثناء وجود المعاملات';
 
   @override
   String get geographicalData => 'البيانات الجغرافية';
@@ -522,7 +525,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get comingSoon => 'قريبا!';
 
   @override
-  String get featureUnderDevelopment => 'هذه الميزة قيد التطوير حاليًا. يرجى التحقق لاحقًا.';
+  String get featureUnderDevelopment =>
+      'هذه الميزة قيد التطوير حاليًا. يرجى التحقق لاحقًا.';
 
   @override
   String get branchGroupNameEn => 'اسم مجموعة الفرع (إنجليزي)';
@@ -656,49 +660,60 @@ class AppLocalizationsAr extends AppLocalizations {
   String get newPeriodOverlap => 'New period overlaps with existing periods.';
 
   @override
-  String get periodDatesCannotBeModifiedWithTransactions => 'Period dates cannot be modified if transactions exist.';
+  String get periodDatesCannotBeModifiedWithTransactions =>
+      'Period dates cannot be modified if transactions exist.';
 
   @override
-  String get cannotDeleteClosedLockedPeriod => 'Cannot delete a closed or locked period.';
+  String get cannotDeleteClosedLockedPeriod =>
+      'Cannot delete a closed or locked period.';
 
   @override
-  String get cannotDeletePeriodWithTransactions => 'Cannot delete period with existing transactions.';
+  String get cannotDeletePeriodWithTransactions =>
+      'Cannot delete period with existing transactions.';
 
   @override
   String get periodAlreadyLocked => 'Period is already locked.';
 
   @override
-  String get periodCodeRequiredForUpdate => 'Period code is required for update.';
+  String get periodCodeRequiredForUpdate =>
+      'Period code is required for update.';
 
   @override
   String get financialPeriodNotFound => 'Financial period not found.';
 
   @override
-  String get financialPeriodAlreadyExists => 'Financial period with this code already exists.';
+  String get financialPeriodAlreadyExists =>
+      'Financial period with this code already exists.';
 
   @override
   String get invalidPeriodType => 'Invalid period type.';
 
   @override
-  String get numberOfPeriodsRequiredForCustom => 'Number of periods is required for Custom type.';
+  String get numberOfPeriodsRequiredForCustom =>
+      'Number of periods is required for Custom type.';
 
   @override
-  String get updatedPeriodOverlap => 'Updated period overlaps with other periods.';
+  String get updatedPeriodOverlap =>
+      'Updated period overlaps with other periods.';
 
   @override
-  String get cannotLockPeriodUnfinalizedTransactions => 'Cannot lock period with unfinalized transactions.';
+  String get cannotLockPeriodUnfinalizedTransactions =>
+      'Cannot lock period with unfinalized transactions.';
 
   @override
-  String get noRowsAffectedUpdate => 'No rows affected during update. Period might not exist.';
+  String get noRowsAffectedUpdate =>
+      'No rows affected during update. Period might not exist.';
 
   @override
-  String get noRowsAffectedDelete => 'No rows affected during delete. Period might not exist.';
+  String get noRowsAffectedDelete =>
+      'No rows affected during delete. Period might not exist.';
 
   @override
   String get financialPeriodsTitle => 'الفترات المالية';
 
   @override
-  String get noFinancialPeriodsYet => 'لم يتم إنشاء فترات مالية بعد. أضف أو أنشئ فتراتك الأولى!';
+  String get noFinancialPeriodsYet =>
+      'لم يتم إنشاء فترات مالية بعد. أضف أو أنشئ فتراتك الأولى!';
 
   @override
   String get addFinancialPeriodButton => 'إضافة فترة مالية';
