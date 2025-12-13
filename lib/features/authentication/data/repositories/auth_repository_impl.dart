@@ -66,6 +66,43 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<(UserEntity?, String?)> register(UserEntity user, String password) async {
+    try {
+      final existing = await _localDataSource.login(user.username);
+      if (existing != null) return (null, 'User already exists');
+
+      await _localDataSource.seedUser(user, password);
+
+      final created = await _localDataSource.login(user.username);
+      if (created == null) return (null, 'Failed to create user');
+
+      final roles = await _userManagementLocalDataSource.getUserRoles(created.userId);
+      final userEntity = UserEntity.fromUser(created, roles: roles);
+      return (userEntity, null);
+    } catch (e) {
+      return (null, e.toString());
+    }
+  }
+
+  @override
+  Future<(bool, String?)> resetPassword(String username, String newPassword) async {
+    try {
+      final user = await _localDataSource.login(username);
+      if (user == null) return (false, 'User not found');
+
+      final hashed = sha256.convert(utf8.encode(newPassword)).toString();
+      final roles = await _userManagementLocalDataSource.getUserRoles(user.userId);
+      final userEntity = UserEntity.fromUser(user, roles: roles);
+
+      await _localDataSource.updateUser(userEntity, newPassword: newPassword);
+
+      return (true, null);
+    } catch (e) {
+      return (false, e.toString());
+    }
+  }
+
+  @override
   Future<void> logout() async {
     // Implement logout logic here
   }

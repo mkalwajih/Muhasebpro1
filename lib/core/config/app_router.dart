@@ -17,6 +17,8 @@ import 'package:muhaseb_pro/features/system_setup/presentation/screens/system_se
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/tax_screen.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_management_screen.dart';
 import 'package:muhaseb_pro/shared/presentation/widgets/placeholder_screen.dart';
+import 'package:muhaseb_pro/features/authentication/presentation/screens/register_screen.dart';
+import 'package:muhaseb_pro/features/authentication/presentation/screens/forgot_password_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -39,6 +41,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginScreen(),
+      ),
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => const RegisterScreen(),
+      ),
+      GoRoute(
+        path: '/forgot-password',
+        builder: (context, state) => const ForgotPasswordScreen(),
       ),
       GoRoute(
         path: '/dashboard',

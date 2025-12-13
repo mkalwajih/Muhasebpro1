@@ -232,5 +232,6 @@
   "loginSuccess": "تم تسجيل الدخول بنجاح",
   "loginFailed": "فشل تسجيل الدخول",
   "forgotPassword": "هل نسيت كلمة المرور؟",
+  "resetPassword": "إعادة تعيين كلمة المرور",
   "rememberMe": "تذكرني"
 }

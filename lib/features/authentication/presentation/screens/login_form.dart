@@ -114,6 +114,20 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                             : Text(loc.welcome),
                       ),
                     ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () => context.go('/register'),
+                          child: Text(loc.addNewUser),
+                        ),
+                        TextButton(
+                          onPressed: () => context.go('/forgot-password'),
+                          child: Text(loc.forgotPassword),
+                        ),
+                      ],
+                    ),
                     if (state.error != null) ...[
                       const SizedBox(height: 12),
                       Text(state.error!, style: const TextStyle(color: Colors.red)),

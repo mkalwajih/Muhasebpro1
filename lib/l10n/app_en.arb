@@ -257,5 +257,6 @@
   "loginSuccess": "Login successful",
   "loginFailed": "Login failed",
   "forgotPassword": "Forgot Password?",
+  "resetPassword": "Reset Password",
   "rememberMe": "Remember me"
 }

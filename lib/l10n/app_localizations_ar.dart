@@ -776,5 +776,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get forgotPassword => 'هل نسيت كلمة المرور؟';
 
   @override
+  String get resetPassword => 'إعادة تعيين كلمة المرور';
+
+  @override
   String get rememberMe => 'تذكرني';
 }
