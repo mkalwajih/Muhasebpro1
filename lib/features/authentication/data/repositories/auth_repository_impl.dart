@@ -49,6 +49,9 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> seedInitialUser() async {
     try {
+      // Debug log for seeding timings
+      // ignore: avoid_print
+      print('[AuthRepository] seedInitialUser: start');
       final users = await _db.select(_db.users).get();
       if (users.isEmpty) {
         const defaultUser = UserEntity(
@@ -60,8 +63,11 @@ class AuthRepositoryImpl implements AuthRepository {
         );
         await _localDataSource.seedUser(defaultUser, '123456');
       }
+      // ignore: avoid_print
+      print('[AuthRepository] seedInitialUser: completed');
     } catch (e) {
-      // Handle exception
+      // ignore: avoid_print
+      print('[AuthRepository] seedInitialUser: failed: $e');
     }
   }
 

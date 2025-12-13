@@ -9,8 +9,17 @@ QueryExecutor connect() {
   return LazyDatabase(() async {
     applyWorkaroundToOpenSqlite3OnOldAndroidVersions();
 
+    // Debug log for database connection initiation
+    // ignore: avoid_print
+    print('[AppDatabase] connect: getting application documents directory');
+
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'muhasebpro.sqlite'));
+
+    // Debug log before creating database in background
+    // ignore: avoid_print
+    print('[AppDatabase] connect: creating NativeDatabase (background) at ${file.path}');
+
     return NativeDatabase.createInBackground(file);
   });
 }
