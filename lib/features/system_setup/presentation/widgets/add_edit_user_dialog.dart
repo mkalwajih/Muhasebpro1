@@ -127,7 +127,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                 const SizedBox(height: 8),
                 branchesAsync.when(
                   data: (branches) => DropdownButtonFormField<int>(
-                    value: _selectedBranchId,
+                    initialValue: _selectedBranchId,
                     decoration: InputDecoration(labelText: l10n.branch),
                     items: branches.map((branch) => DropdownMenuItem(value: branch.id, child: Text(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn))).toList(),
                     onChanged: (val) => setState(() => _selectedBranchId = val),

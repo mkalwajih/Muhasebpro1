@@ -17,6 +17,8 @@ class CustomHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
     
     def guess_type(self, path):
+        if path.endswith('drift_worker.js'):
+            return 'application/javascript'
         if path.endswith('.wasm'):
             return 'application/wasm'
         if path.endswith('.js'):

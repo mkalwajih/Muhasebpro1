@@ -204,7 +204,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     }
   }
 
-  Future<void> _onDelete(AppLocalizations l10n, CompanyEntity company) async {
+  Future<void> _onDelete(AppLocalizations l10n, CompanyInfoEntity company) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -224,7 +224,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     if (confirm == true) {
       setState(() => _isLoading = true);
       try {
-        final result = await ref.read(companiesProvider.notifier).deleteCompany(company.id!);
+        final result = await ref.read(companiesProvider.notifier).deleteCompany(company.id);
         result.fold(
           (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.deleteFailed),
           (_) {
@@ -269,7 +269,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
             IconButton(
               icon: const Icon(Icons.delete_forever, color: Colors.redAccent),
               tooltip: l10n.delete, // Re-use existing localization key
-              onPressed: _isLoading ? null : () => _onDelete(l10n, _selectedCompany! as CompanyEntity),
+              onPressed: _isLoading ? null : () => _onDelete(l10n, _selectedCompany!),
             ),
         ],
       ),
@@ -351,7 +351,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         const SizedBox(height: 16),
                         allCountriesAsync.when(
                           data: (countries) => DropdownButtonFormField<int>(
-                            value: _countryId,
+                            initialValue: _countryId,
                             decoration: InputDecoration(labelText: l10n.country),
                             items: countries.map((country) => DropdownMenuItem(
                               value: country.id,

@@ -96,7 +96,6 @@ class AuthRepositoryImpl implements AuthRepository {
       final user = await _localDataSource.login(username);
       if (user == null) return (false, 'User not found');
 
-      final hashed = sha256.convert(utf8.encode(newPassword)).toString();
       final roles = await _userManagementLocalDataSource.getUserRoles(user.userId);
       final userEntity = UserEntity.fromUser(user, roles: roles);
 

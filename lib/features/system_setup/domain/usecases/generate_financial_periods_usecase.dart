@@ -28,7 +28,7 @@ class GenerateFinancialPeriodsUseCase implements UseCase<void, GenerateFinancial
         final startDate = DateTime(year, i, 1);
         final endDate = DateTime(year, i + 1, 0); // Last day of the month
         generatedPeriods.add(FinancialPeriodEntity(
-          periodCode: '${year}-M${i.toString().padLeft(2, '0')}',
+          periodCode: '$year-M${i.toString().padLeft(2, '0')}',
           fiscalYear: year,
           periodType: 'Monthly',
           periodNumber: i,

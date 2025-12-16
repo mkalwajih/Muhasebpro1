@@ -104,7 +104,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
         result.fold(
           (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.deleteFailed),
           (_) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn)), backgroundColor: Colors.green));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(l10n.branchName(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn))), backgroundColor: Colors.green));
             setState(() => _selectedBranch = null);
           },
         );
@@ -153,10 +153,10 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                     final branch = branches[index];
                     final isSelected = _selectedBranch?.id == branch.id;
                     return ListTile(
-                      title: Text(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn),
+                      title: Text(l10n.branchName(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn)),
                       subtitle: Text(branch.branchCode),
                       selected: isSelected,
-                      onTap: () => _selectBranch(branch),
+                    onTap: () => _selectBranch(branch),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

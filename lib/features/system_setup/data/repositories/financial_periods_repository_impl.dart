@@ -89,12 +89,6 @@ class FinancialPeriodsRepositoryImpl implements FinancialPeriodsRepository {
 
   @override
   Future<Either<Failure, void>> updateFinancialPeriod(FinancialPeriodEntity period) async {
-    // Business rule: Period dates cannot be modified if transactions exist.
-    // TODO: Implement actual transaction check when transaction table is available.
-    // if (await _hasTransactions(period.periodCode)) {
-    //   return Left(DataIntegrityFailure(message: 'Cannot modify period dates with existing transactions.'));
-    // }
-
     final hasOverlap = await _checkPeriodOverlap(period.startDate, period.endDate, excludePeriodCode: period.periodCode);
     if (hasOverlap) {
       return Left(DataIntegrityFailure(message: 'Updated period overlaps with other periods.'));
@@ -114,11 +108,6 @@ class FinancialPeriodsRepositoryImpl implements FinancialPeriodsRepository {
 
   @override
   Future<Either<Failure, void>> toggleLockFinancialPeriod(String periodCode, bool isLocked) async {
-    // Business rule: Cannot lock if transactions exist and are not finalized.
-    // TODO: Implement actual transaction finalization check when transaction table is available.
-    // if (!await _areTransactionsFinalized(periodCode)) {
-    //   return Left(DataIntegrityFailure(message: 'Cannot lock period with unfinalized transactions.'));
-    // }
     try {
       await localDataSource.lockFinancialPeriod(periodCode, isLocked);
       return const Right(null);
@@ -135,11 +124,6 @@ class FinancialPeriodsRepositoryImpl implements FinancialPeriodsRepository {
 
   @override
   Future<Either<Failure, void>> deleteFinancialPeriod(String periodCode) async {
-    // Business rule: Cannot delete if transactions exist.
-    // TODO: Implement actual transaction check when transaction table is available.
-    // if (await _hasTransactions(periodCode)) {
-    //   return Left(DataIntegrityFailure(message: 'Cannot delete period with existing transactions.'));
-    // }
     try {
       await localDataSource.deleteFinancialPeriod(periodCode);
       return const Right(null);
@@ -173,29 +157,5 @@ class FinancialPeriodsRepositoryImpl implements FinancialPeriodsRepository {
       }
     }
     return false;
-  }
-
-  // Placeholder for actual transaction checks. These will require a dedicated transactions table.
-  Future<bool> _hasTransactions(String periodCode) async {
-    // This method would query the transactions table to see if any transactions
-    // fall within the date range of the given financial period.
-    // Example (conceptual):
-    // final count = await (_database.transactions.filter(
-    //   (t) => t.transactionDate.isBetween(period.startDate, period.endDate)
-    // ).count().get();
-    // return count > 0;
-    return Future.value(false); // Currently, no transaction table, so always false
-  }
-
-  Future<bool> _areTransactionsFinalized(String periodCode) async {
-    // This method would check if all transactions within the period are finalized.
-    // This might involve a 'status' column in the transactions table.
-    // Example (conceptual):
-    // final unfinalizedCount = await (_database.transactions.filter(
-    //   (t) => t.transactionDate.isBetween(period.startDate, period.endDate) &
-    //          t.status.equals('unfinalized')
-    // ).count().get();
-    // return unfinalizedCount == 0;
-    return Future.value(true); // Currently, no transaction table, so always true
   }
 }

@@ -133,7 +133,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                   flatten(accounts);
 
                   return DropdownButtonFormField<int?>(
-                    value: _parentId,
+                    initialValue: _parentId,
                     onChanged: (val) => setState(() => _parentId = val),
                     items: [
                       DropdownMenuItem<int?>(
@@ -156,7 +156,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 error: (e, st) => Text('Error loading accounts: ${e.toString()}'), // Localize error
               ),
               DropdownButtonFormField<String>(
-                value: _nature,
+                initialValue: _nature,
                 onChanged: (val) => setState(() => _nature = val!),
                 items: const [
                   DropdownMenuItem(value: 'Debit', child: Text('Debit')),
@@ -166,7 +166,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String>(
-                value: _reportType,
+                initialValue: _reportType,
                 onChanged: (val) => setState(() => _reportType = val!),
                 items: const [
                   DropdownMenuItem(value: 'Balance Sheet', child: Text('Balance Sheet')),
@@ -176,7 +176,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String>(
-                value: _detailAccountType,
+                initialValue: _detailAccountType,
                 onChanged: (val) => setState(() => _detailAccountType = val!),
                 items: const [
                   DropdownMenuItem(value: 'General', child: Text('General')),
@@ -192,7 +192,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                  validator: (v) => v == null || v.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String?>(
-                value: _cashFlowType,
+                initialValue: _cashFlowType,
                 onChanged: (val) => setState(() => _cashFlowType = val),
                 items: const [
                    DropdownMenuItem(value: null, child: Text('None')),

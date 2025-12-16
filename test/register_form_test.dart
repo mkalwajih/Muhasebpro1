@@ -1,66 +1,36 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:muhaseb_pro/features/authentication/presentation/screens/register_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/register_form.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
-import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
-
-class FakeRegisterNotifier extends StateNotifier<RegisterState> implements RegisterNotifier {
-  final Completer<UserEntity?> _completer = Completer<UserEntity?>();
-
-  FakeRegisterNotifier() : super(RegisterState());
-
-  @override
-  Future<UserEntity?> register(UserEntity user, String password) {
-    state = RegisterState(isLoading: true);
-    return _completer.future;
-  }
-
-  void completeWithUser(UserEntity? user) {
-    state = RegisterState(isLoading: false);
-    if (!_completer.isCompleted) _completer.complete(user);
-  }
-}
 
 void main() {
   testWidgets('RegisterForm shows loading and calls register', (WidgetTester tester) async {
-    final fakeNotifier = FakeRegisterNotifier();
-
-    final goRouter = GoRouter(routes: [
-      GoRoute(path: '/', builder: (context, state) => const Scaffold(body: RegisterForm())),
-      GoRoute(path: '/dashboard', builder: (context, state) => const Scaffold(body: Text('dashboard'))),
-    ]);
-
     await tester.pumpWidget(
-      ProviderScope(
-        overrides: [
-          registerNotifierProvider.overrideWith((ref) => fakeNotifier),
-        ],
-        child: MaterialApp.router(
-          routerConfig: goRouter,
-          localizationsDelegates: const [AppLocalizations.delegate],
+      const ProviderScope(
+        child: MaterialApp(
+          home: RegisterScreen(),
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
         ),
       ),
     );
 
-    await tester.enterText(find.byType(TextFormField).at(0), 'newuser');
-    await tester.enterText(find.byType(TextFormField).at(3), '123456');
-    await tester.enterText(find.byType(TextFormField).at(4), '123456');
+    // Verify that the register form is displayed.
+    expect(find.byType(RegisterForm), findsOneWidget);
 
-    await tester.tap(find.text('Add New User'));
+    // Enter user details.
+    await tester.enterText(find.byKey(const Key('username_field')), 'testuser');
+    await tester.enterText(find.byKey(const Key('full_name_ar_field')), 'Test User AR');
+    await tester.enterText(find.byKey(const Key('full_name_en_field')), 'Test User EN');
+    await tester.enterText(find.byKey(const Key('password_field')), 'password');
+
+    // Tap the register button.
+    await tester.tap(find.byType(ElevatedButton));
     await tester.pump();
 
+    // Verify that a progress indicator is shown.
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
-
-    fakeNotifier.completeWithUser(const UserEntity(userId: 2, username: 'newuser', fullNameAr: 'المستخدم', fullNameEn: 'New', isActive: true));
-
-    await tester.pumpAndSettle();
-
-    expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 }

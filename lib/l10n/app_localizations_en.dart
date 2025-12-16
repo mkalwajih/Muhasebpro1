@@ -383,6 +383,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get branchCode => 'Branch Code';
 
   @override
+  String branchName(String name) {
+    return '$name';
+  }
+
+  @override
   String get branchNameEn => 'Branch Name (English)';
 
   @override
@@ -718,7 +723,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noFinancialPeriodsYet =>
-      'No financial periods created yet. Add or generate your first periods!';
+      'No financial periods created yet. Add or generate your first periods! ';
 
   @override
   String get addFinancialPeriodButton => 'Add Financial Period';
@@ -785,4 +790,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberMe => 'Remember me';
+
+  @override
+  String get registrationSuccess => 'Registration successful';
+
+  @override
+  String get fullNameArRequired => 'Full name in Arabic is required';
+
+  @override
+  String get fullNameEnRequired => 'Full name in English is required';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account? Login';
+
+  @override
+  String get passwordResetSuccess => 'Password reset successfully';
+
+  @override
+  String get backToLogin => 'Back to Login';
+
+  @override
+  String get newPassword => 'New Password';
 }

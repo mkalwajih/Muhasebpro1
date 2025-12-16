@@ -68,6 +68,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      key: const Key('username_field'),
                       controller: _usernameController,
                       decoration: InputDecoration(
                         labelText: loc.username,
@@ -83,6 +84,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
+                      key: const Key('password_field'),
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(

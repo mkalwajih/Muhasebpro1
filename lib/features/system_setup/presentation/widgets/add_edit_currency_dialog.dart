@@ -96,7 +96,10 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     final isEditing = widget.currencyToEdit != null;
 
     return AlertDialog(

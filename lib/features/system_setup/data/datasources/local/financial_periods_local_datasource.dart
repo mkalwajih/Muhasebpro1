@@ -40,16 +40,13 @@ class FinancialPeriodsLocalDataSourceImpl implements FinancialPeriodsLocalDataSo
 
   @override
   Future<void> updateFinancialPeriod(FinancialPeriodsCompanion period) async {
-    if (period.periodCode.value == null) {
-      throw NotFoundException(message: 'Period code is required for update.');
-    }
-    final existingPeriod = await getFinancialPeriodByCode(period.periodCode.value!);
+    final existingPeriod = await getFinancialPeriodByCode(period.periodCode.value);
     if (existingPeriod == null) {
       throw NotFoundException(message: 'Financial period not found.');
     }
 
     try {
-      final rowsAffected = await db.update(db.financialPeriods).replace(period);
+      final rowsAffected = await (db.update(db.financialPeriods)..where((t) => t.id.equals(existingPeriod.id))).write(period);
       if (rowsAffected == 0) {
         throw CacheException(message: 'No rows affected during update. Period might not exist.');
       }

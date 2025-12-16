@@ -131,7 +131,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
                       TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
-                        value: type,
+                        initialValue: type,
                         decoration: InputDecoration(labelText: l10n.type),
                         items: ['Banknote', 'Coin'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
                         onChanged: (value) {

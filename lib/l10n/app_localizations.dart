@@ -836,6 +836,12 @@ abstract class AppLocalizations {
   /// **'Branch Code'**
   String get branchCode;
 
+  /// No description provided for @branchName.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}'**
+  String branchName(String name);
+
   /// No description provided for @branchNameEn.
   ///
   /// In en, this message translates to:
@@ -1475,7 +1481,7 @@ abstract class AppLocalizations {
   /// No description provided for @noFinancialPeriodsYet.
   ///
   /// In en, this message translates to:
-  /// **'No financial periods created yet. Add or generate your first periods!'**
+  /// **'No financial periods created yet. Add or generate your first periods! '**
   String get noFinancialPeriodsYet;
 
   /// No description provided for @addFinancialPeriodButton.
@@ -1609,6 +1615,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember me'**
   String get rememberMe;
+
+  /// No description provided for @registrationSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration successful'**
+  String get registrationSuccess;
+
+  /// No description provided for @fullNameArRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name in Arabic is required'**
+  String get fullNameArRequired;
+
+  /// No description provided for @fullNameEnRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name in English is required'**
+  String get fullNameEnRequired;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Login'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successfully'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @backToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to Login'**
+  String get backToLogin;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPassword;
 }
 
 class _AppLocalizationsDelegate

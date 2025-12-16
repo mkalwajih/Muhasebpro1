@@ -123,6 +123,14 @@
   "addNewBranch": "Add New Branch",
   "editBranch": "Edit Branch",
   "branchCode": "Branch Code",
+  "branchName": "{name}",
+  "@branchName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "branchNameEn": "Branch Name (English)",
   "branchNameAr": "Branch Name (Arabic)",
   "branchGroup": "Branch Group",
@@ -236,7 +244,7 @@
   "noRowsAffectedUpdate": "No rows affected during update. Period might not exist.",
   "noRowsAffectedDelete": "No rows affected during delete. Period might not exist.",
   "financialPeriodsTitle": "Financial Periods",
-  "noFinancialPeriodsYet": "No financial periods created yet. Add or generate your first periods!",
+  "noFinancialPeriodsYet": "No financial periods created yet. Add or generate your first periods! ",
   "addFinancialPeriodButton": "Add Financial Period",
   "generateFinancialPeriodsButton": "Generate Financial Periods",
   "addFinancialPeriod": "Add Financial Period",
@@ -258,5 +266,12 @@
   "loginFailed": "Login failed",
   "forgotPassword": "Forgot Password?",
   "resetPassword": "Reset Password",
-  "rememberMe": "Remember me"
+  "rememberMe": "Remember me",
+  "registrationSuccess": "Registration successful",
+  "fullNameArRequired": "Full name in Arabic is required",
+  "fullNameEnRequired": "Full name in English is required",
+  "alreadyHaveAccount": "Already have an account? Login",
+  "passwordResetSuccess": "Password reset successfully",
+  "backToLogin": "Back to Login",
+  "newPassword": "New Password"
 }

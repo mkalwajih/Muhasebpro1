@@ -381,6 +381,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get branchCode => 'رمز الفرع';
 
   @override
+  String branchName(String name) {
+    return '$name';
+  }
+
+  @override
   String get branchNameEn => 'اسم الفرع (إنجليزي)';
 
   @override
@@ -780,4 +785,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get rememberMe => 'تذكرني';
+
+  @override
+  String get registrationSuccess => 'تم التسجيل بنجاح';
+
+  @override
+  String get fullNameArRequired => 'الاسم الكامل باللغة العربية مطلوب';
+
+  @override
+  String get fullNameEnRequired => 'الاسم الكامل باللغة الإنجليزية مطلوب';
+
+  @override
+  String get alreadyHaveAccount => 'لديك حساب بالفعل؟ تسجيل الدخول';
+
+  @override
+  String get passwordResetSuccess => 'تم إعادة تعيين كلمة المرور بنجاح';
+
+  @override
+  String get backToLogin => 'العودة إلى تسجيل الدخول';
+
+  @override
+  String get newPassword => 'كلمة المرور الجديدة';
 }

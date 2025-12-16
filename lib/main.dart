@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/app/app.dart';
-
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 
 void main() async {
-  // Ensure widgets are initialized before running the app
+  // 1. Initialize Flutter
   WidgetsFlutterBinding.ensureInitialized();
-  
-  // Create a provider container to use providers outside the widget tree
+
+  // 2. Create the Provider Container
   final container = ProviderContainer();
 
   // Run the app immediately to avoid blocking the UI thread on Android.

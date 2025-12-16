@@ -15,35 +15,37 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _newPasswordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  bool _obscure = true;
 
   @override
   void dispose() {
     _usernameController.dispose();
     _newPasswordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final username = _usernameController.text.trim();
-    final newPassword = _newPasswordController.text;
-    final state = ref.read(resetPasswordNotifierProvider);
-    final success = await ref.read(resetPasswordNotifierProvider.notifier).reset(username, newPassword);
-
     final loc = AppLocalizations.of(context)!;
+
+    final success = await ref
+        .read(resetPasswordNotifierProvider.notifier)
+        .reset(_usernameController.text.trim(), _newPasswordController.text);
 
     if (success) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(loc.saveSuccess)));
-        context.go('/login');
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(loc.passwordResetSuccess)));
+        context.go('/');
       }
     } else {
-      final err = state.error ?? loc.saveFailed;
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(err)));
+      final error = ref.read(resetPasswordNotifierProvider).error;
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(error ?? loc.error)),
+        );
+      }
     }
   }
 
@@ -56,7 +58,7 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 480),
+          constraints: const BoxConstraints(maxWidth: 450),
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -66,34 +68,63 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
+                      key: const Key('username_field'),
                       controller: _usernameController,
-                      decoration: InputDecoration(labelText: loc.username),
-                      validator: (v) => v == null || v.isEmpty ? loc.usernameRequired : null,
+                      decoration: InputDecoration(
+                        labelText: loc.username,
+                        hintText: loc.username,
+                      ),
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return loc.usernameRequired;
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 12),
                     TextFormField(
+                      key: const Key('new_password_field'),
                       controller: _newPasswordController,
-                      obscureText: _obscure,
-                      decoration: InputDecoration(labelText: loc.password),
-                      validator: (v) {
-                        if (v == null || v.isEmpty) return loc.passwordRequired;
-                        if (v.length < 6) return loc.passwordLengthError;
+                      decoration: InputDecoration(
+                        labelText: loc.newPassword,
+                        hintText: loc.newPassword,
+                      ),
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (_) => _submit(),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return loc.passwordRequired;
+                        }
+                        if (value.length < 6) {
+                          return loc.passwordLengthError;
+                        }
                         return null;
                       },
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: state.isLoading ? null : _submit,
+                        child: state.isLoading
+                            ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(strokeWidth: 2),
+                              )
+                            : Text(loc.resetPassword),
+                      ),
                     ),
                     const SizedBox(height: 12),
-                    TextFormField(
-                      controller: _confirmPasswordController,
-                      obscureText: _obscure,
-                      decoration: InputDecoration(labelText: loc.confirmPassword),
-                      validator: (v) {
-                        if (v == null || v.isEmpty) return loc.passwordRequired;
-                        if (v != _newPasswordController.text) return loc.passwordMismatch;
-                        return null;
-                      },
+                    TextButton(
+                      onPressed: () => context.go('/'),
+                      child: Text(loc.backToLogin),
                     ),
-                    const SizedBox(height: 16),
-                    ElevatedButton(onPressed: state.isLoading ? null : _submit, child: state.isLoading ? const CircularProgressIndicator() : Text(loc.save)),
+                    if (state.error != null) ...[
+                      const SizedBox(height: 12),
+                      Text(state.error!, style: const TextStyle(color: Colors.red)),
+                    ]
                   ],
                 ),
               ),

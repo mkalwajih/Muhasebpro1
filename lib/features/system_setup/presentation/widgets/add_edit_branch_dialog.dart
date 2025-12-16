@@ -75,6 +75,14 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
+      if (_selectedCompanyId == null) {
+        // Handle case where no company is selected
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(AppLocalizations.of(context)!.selectCompanyPrompt), backgroundColor: Theme.of(context).colorScheme.error),
+        );
+        return;
+      }
+
       final branchEntity = BranchEntity(
         id: widget.branch?.id,
         branchCode: _branchCodeController.text,
@@ -140,12 +148,12 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               companiesAsyncValue.when(
                 data: (companies) => DropdownButtonFormField<int>(
-                  value: _selectedCompanyId,
+                  initialValue: _selectedCompanyId,
                   decoration: InputDecoration(labelText: l10n.company),
                   items: companies.map((CompanyEntity company) {
                     return DropdownMenuItem<int>(
                       value: company.id,
-                      child: Text(company.nameEn),
+                      child: Text(l10n.branchName(l10n.localeName == 'ar' ? company.nameAr : company.nameEn)),
                     );
                   }).toList(),
                   onChanged: (value) => setState(() => _selectedCompanyId = value),
@@ -158,11 +166,11 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               branchGroupsAsyncValue.when(
                 data: (groups) => DropdownButtonFormField<int>(
-                  value:_selectedBranchGroupId,
+                  initialValue:_selectedBranchGroupId,
                   decoration: InputDecoration(labelText: l10n.branchGroup),
                   items: groups
                     .map((group) => DropdownMenuItem<int>(
-                        value: group.id, child: Text(l10n.localeName == 'ar' ? group.nameAr : group.nameEn)))
+                        value: group.id, child: Text(l10n.branchName(l10n.localeName == 'ar' ? group.nameAr : group.nameEn))))
                     .toList(),
                   onChanged: (value) =>
                       setState(() => _selectedBranchGroupId = value),
@@ -174,7 +182,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               Tooltip(
                 message: l10n.warehouseTooltip,
                 child: DropdownButtonFormField<int>(
-                  value: null,
+                  initialValue: null,
                   decoration: InputDecoration(
                     labelText: l10n.defaultWarehouse,
                     enabled: false, // Disabled

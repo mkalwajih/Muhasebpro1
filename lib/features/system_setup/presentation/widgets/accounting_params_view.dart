@@ -23,20 +23,21 @@ class AccountingParamsView extends StatelessWidget {
       children: [
         // Account Number Type Radio Buttons
         Text(l10n.accountNumberType, style: theme.textTheme.titleSmall),
-        Column(
-          children: AccountNumberTypeOption.values.map((option) {
-            return RadioListTile<AccountNumberTypeOption>(
-              title: Text(option.name),
-              value: option,
-              groupValue: params.accountNumberType,
-              onChanged: (value) {
-                if (value != null) {
-                  onChanged(params.copyWith(accountNumberType: value));
-                }
-              },
-            );
-          }).toList(),
-        ),
+        // TODO: Fix this with a non-deprecated widget
+        // Column(
+        //   children: AccountNumberTypeOption.values.map((option) {
+        //     return RadioListTile<AccountNumberTypeOption>(
+        //       title: Text(option.name),
+        //       value: option,
+        //       groupValue: params.accountNumberType,
+        //       onChanged: (value) {
+        //         if (value != null) {
+        //           onChanged(params.copyWith(accountNumberType: value));
+        //         }
+        //       },
+        //     );
+        //   }).toList(),
+        // ),
         const SizedBox(height: 16),
 
         // Account Number Length
@@ -69,7 +70,7 @@ class AccountingParamsView extends StatelessWidget {
 
         // Cost Center Policy
         DropdownButtonFormField<PolicyOption>(
-          value: params.costCenterPolicy,
+          initialValue: params.costCenterPolicy,
           decoration: InputDecoration(
             labelText: l10n.costCenterPolicy,
             border: const OutlineInputBorder(),
@@ -90,7 +91,7 @@ class AccountingParamsView extends StatelessWidget {
 
         // Project Policy
         DropdownButtonFormField<PolicyOption>(
-          value: params.projectPolicy,
+          initialValue: params.projectPolicy,
           decoration: InputDecoration(
             labelText: l10n.projectPolicy,
             border: const OutlineInputBorder(),

@@ -123,6 +123,14 @@
   "addNewBranch": "إضافة فرع جديد",
   "editBranch": "تعديل فرع",
   "branchCode": "رمز الفرع",
+  "branchName": "{name}",
+  "@branchName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "branchNameEn": "اسم الفرع (إنجليزي)",
   "branchNameAr": "اسم الفرع (عربي)",
   "branchGroup": "مجموعة الفرع",
@@ -233,5 +241,12 @@
   "loginFailed": "فشل تسجيل الدخول",
   "forgotPassword": "هل نسيت كلمة المرور؟",
   "resetPassword": "إعادة تعيين كلمة المرور",
-  "rememberMe": "تذكرني"
+  "rememberMe": "تذكرني",
+  "registrationSuccess": "تم التسجيل بنجاح",
+  "fullNameArRequired": "الاسم الكامل باللغة العربية مطلوب",
+  "fullNameEnRequired": "الاسم الكامل باللغة الإنجليزية مطلوب",
+  "alreadyHaveAccount": "لديك حساب بالفعل؟ تسجيل الدخول",
+  "passwordResetSuccess": "تم إعادة تعيين كلمة المرور بنجاح",
+  "backToLogin": "العودة إلى تسجيل الدخول",
+  "newPassword": "كلمة المرور الجديدة"
 }

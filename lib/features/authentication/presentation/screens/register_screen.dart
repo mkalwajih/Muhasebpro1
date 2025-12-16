@@ -1,16 +1,32 @@
+
 import 'package:flutter/material.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/register_form.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends ConsumerWidget {
   const RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: Text(loc.addNewUser)),
-      body: const Center(child: RegisterForm()),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              colorScheme.primary.withAlpha(25),
+              colorScheme.surface,
+              colorScheme.primaryContainer.withAlpha(51),
+            ],
+          ),
+        ),
+        child: const SafeArea(child: RegisterForm()),
+      ),
     );
   }
 }
