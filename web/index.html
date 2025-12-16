@@ -1,38 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="myapp">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flutter Web Project">
   <link rel="icon" type="image/png" href="favicon.png"/>
-
-  <title>myapp</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Flutter Project</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    .flutter-logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      color: #1a1a2e;
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+    p {
+      color: #4a4a6a;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .info-box {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 24px;
+      text-align: left;
+    }
+    .info-box h3 {
+      color: #1a1a2e;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+    .info-box ul {
+      color: #4a4a6a;
+      font-size: 14px;
+      padding-left: 20px;
+    }
+    .info-box li {
+      margin-bottom: 8px;
+    }
+    code {
+      background: #e9ecef;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <div class="container">
+    <svg class="flutter-logo" viewBox="0 0 256 317" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="a" x1="4%" y1="27%" x2="75%" y2="52%">
+          <stop offset="0%" stop-color="#1389FD"/>
+          <stop offset="100%" stop-color="#02539A"/>
+        </linearGradient>
+      </defs>
+      <g fill="none">
+        <polygon fill="#02539A" points="157.67 0 0 157.67 48.8 206.47 255.27 0"/>
+        <polygon fill="url(#a)" points="156.57 145.4 72.27 229.7 121.07 278.5 121.07 278.5 169.87 229.7 254.17 145.4"/>
+        <polygon fill="#45D1FD" points="121.07 278.5 169.87 229.7 255.27 316.77 157.67 316.77" opacity=".85"/>
+      </g>
+    </svg>
+    <h1>Flutter Web Project</h1>
+    <p>This is a Flutter application configured for web deployment. The project source code is ready and available in this repository.</p>
+    <div class="info-box">
+      <h3>Project Structure</h3>
+      <ul>
+        <li><code>lib/</code> - Dart source code</li>
+        <li><code>web/</code> - Web platform files</li>
+        <li><code>assets/</code> - Project assets</li>
+        <li><code>pubspec.yaml</code> - Dependencies</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <h3>To Build &amp; Run</h3>
+      <ul>
+        <li>Install Flutter SDK locally</li>
+        <li>Run <code>flutter pub get</code></li>
+        <li>Run <code>flutter build web</code></li>
+        <li>Deploy the <code>build/web</code> folder</li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>

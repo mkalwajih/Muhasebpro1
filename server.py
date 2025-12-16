@@ -4,7 +4,7 @@ import socketserver
 import os
 
 PORT = 5000
-DIRECTORY = "build/web"
+DIRECTORY = "web"
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
