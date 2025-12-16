@@ -1,114 +1,489 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Flutter Web Project">
+  <meta name="description" content="Login - Professional Application">
   <link rel="icon" type="image/png" href="favicon.png"/>
-  <title>Flutter Project</title>
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+    
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --border: #e2e8f0;
+      --background: #f8fafc;
+      --white: #ffffff;
+      --error: #ef4444;
+      --success: #22c55e;
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .container {
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      max-width: 600px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      text-align: center;
+    
+    body[dir="rtl"] {
+      font-family: 'Cairo', 'Inter', sans-serif;
     }
-    .flutter-logo {
-      width: 80px;
-      height: 80px;
+    
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+    }
+    
+    .language-switcher {
+      display: flex;
+      justify-content: flex-end;
       margin-bottom: 24px;
     }
-    h1 {
-      color: #1a1a2e;
-      font-size: 28px;
-      margin-bottom: 16px;
-    }
-    p {
-      color: #4a4a6a;
-      font-size: 16px;
-      line-height: 1.6;
-      margin-bottom: 16px;
-    }
-    .info-box {
-      background: #f8f9fa;
+    
+    .lang-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 20px;
-      margin-top: 24px;
-      text-align: left;
-    }
-    .info-box h3 {
-      color: #1a1a2e;
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
-    .info-box ul {
-      color: #4a4a6a;
+      cursor: pointer;
       font-size: 14px;
-      padding-left: 20px;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
-    .info-box li {
+    
+    .lang-btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+    }
+    
+    .lang-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .login-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo-container {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .logo {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .logo svg {
+      width: 32px;
+      height: 32px;
+      fill: white;
+    }
+    
+    .login-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
       margin-bottom: 8px;
     }
-    code {
-      background: #e9ecef;
-      padding: 2px 6px;
-      border-radius: 4px;
+    
+    .login-subtitle {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+    
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-muted);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    body[dir="rtl"] .password-toggle {
+      right: auto;
+      left: 14px;
+    }
+    
+    .password-toggle:hover {
+      color: var(--text-secondary);
+    }
+    
+    .password-toggle svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    
+    .remember-me input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+    
+    .remember-me span {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .forgot-password {
+      font-size: 14px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    
+    .forgot-password:hover {
+      color: var(--primary-hover);
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--primary);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    .login-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+    
+    .login-btn:active {
+      transform: translateY(0);
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 28px 0;
+      gap: 16px;
+    }
+    
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    
+    .divider-text {
       font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    
+    .social-login {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .social-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    
+    .social-btn:hover {
+      background: var(--background);
+      border-color: var(--text-muted);
+    }
+    
+    .social-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .signup-link {
+      text-align: center;
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+    
+    .signup-link a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 28px 24px;
+      }
+      
+      .social-login {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <svg class="flutter-logo" viewBox="0 0 256 317" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="a" x1="4%" y1="27%" x2="75%" y2="52%">
-          <stop offset="0%" stop-color="#1389FD"/>
-          <stop offset="100%" stop-color="#02539A"/>
-        </linearGradient>
-      </defs>
-      <g fill="none">
-        <polygon fill="#02539A" points="157.67 0 0 157.67 48.8 206.47 255.27 0"/>
-        <polygon fill="url(#a)" points="156.57 145.4 72.27 229.7 121.07 278.5 121.07 278.5 169.87 229.7 254.17 145.4"/>
-        <polygon fill="#45D1FD" points="121.07 278.5 169.87 229.7 255.27 316.77 157.67 316.77" opacity=".85"/>
-      </g>
-    </svg>
-    <h1>Flutter Web Project</h1>
-    <p>This is a Flutter application configured for web deployment. The project source code is ready and available in this repository.</p>
-    <div class="info-box">
-      <h3>Project Structure</h3>
-      <ul>
-        <li><code>lib/</code> - Dart source code</li>
-        <li><code>web/</code> - Web platform files</li>
-        <li><code>assets/</code> - Project assets</li>
-        <li><code>pubspec.yaml</code> - Dependencies</li>
-      </ul>
+  <div class="login-container">
+    <div class="language-switcher">
+      <button class="lang-btn" id="langToggle" onclick="toggleLanguage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span id="langText">العربية</span>
+      </button>
     </div>
-    <div class="info-box">
-      <h3>To Build &amp; Run</h3>
-      <ul>
-        <li>Install Flutter SDK locally</li>
-        <li>Run <code>flutter pub get</code></li>
-        <li>Run <code>flutter build web</code></li>
-        <li>Deploy the <code>build/web</code> folder</li>
-      </ul>
+    
+    <div class="login-card">
+      <div class="logo-container">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h1 class="login-title" data-en="Welcome back" data-ar="مرحباً بعودتك">Welcome back</h1>
+        <p class="login-subtitle" data-en="Sign in to your account to continue" data-ar="سجل الدخول إلى حسابك للمتابعة">Sign in to your account to continue</p>
+      </div>
+      
+      <form id="loginForm" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+          <input type="email" class="form-input" id="email" data-placeholder-en="Enter your email" data-placeholder-ar="أدخل بريدك الإلكتروني" placeholder="Enter your email" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label" data-en="Password" data-ar="كلمة المرور">Password</label>
+          <div class="password-container">
+            <input type="password" class="form-input" id="password" data-placeholder-en="Enter your password" data-placeholder-ar="أدخل كلمة المرور" placeholder="Enter your password" required>
+            <button type="button" class="password-toggle" onclick="togglePassword()">
+              <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember">
+            <span data-en="Remember me" data-ar="تذكرني">Remember me</span>
+          </label>
+          <a href="#" class="forgot-password" data-en="Forgot password?" data-ar="نسيت كلمة المرور؟">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="login-btn" data-en="Sign In" data-ar="تسجيل الدخول">Sign In</button>
+      </form>
+      
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text" data-en="Or continue with" data-ar="أو المتابعة باستخدام">Or continue with</span>
+        <div class="divider-line"></div>
+      </div>
+      
+      <div class="social-login">
+        <button type="button" class="social-btn">
+          <svg viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Google
+        </button>
+        <button type="button" class="social-btn">
+          <svg viewBox="0 0 24 24" fill="#1877F2">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </button>
+      </div>
+      
+      <p class="signup-link" data-en="Don't have an account?" data-ar="ليس لديك حساب؟">
+        <span data-en="Don't have an account?" data-ar="ليس لديك حساب؟">Don't have an account?</span>
+        <a href="#" data-en="Sign up" data-ar="إنشاء حساب">Sign up</a>
+      </p>
     </div>
   </div>
+  
+  <script>
+    let currentLang = 'en';
+    
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      updateLanguage();
+      localStorage.setItem('preferredLang', currentLang);
+    }
+    
+    function updateLanguage() {
+      const body = document.body;
+      const html = document.documentElement;
+      
+      if (currentLang === 'ar') {
+        body.setAttribute('dir', 'rtl');
+        html.setAttribute('lang', 'ar');
+        document.getElementById('langText').textContent = 'English';
+      } else {
+        body.setAttribute('dir', 'ltr');
+        html.setAttribute('lang', 'en');
+        document.getElementById('langText').textContent = 'العربية';
+      }
+      
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) {
+          if (el.tagName === 'INPUT') {
+            el.placeholder = text;
+          } else {
+            el.textContent = text;
+          }
+        }
+      });
+      
+      document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+        const placeholder = el.getAttribute(`data-placeholder-${currentLang}`);
+        if (placeholder) {
+          el.placeholder = placeholder;
+        }
+      });
+    }
+    
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        eyeIcon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      } else {
+        passwordInput.type = 'password';
+        eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      }
+    }
+    
+    function handleSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      console.log('Login attempt:', { email });
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedLang = localStorage.getItem('preferredLang');
+      if (savedLang) {
+        currentLang = savedLang;
+        updateLanguage();
+      }
+    });
+  </script>
 </body>
 </html>
