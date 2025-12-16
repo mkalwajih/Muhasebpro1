@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 import 'package:muhaseb_pro/shared/utils/role_checker.dart';
+import 'package:muhaseb_pro/l10n/locale_provider.dart';
 
 class SystemSetupMenuScreen extends ConsumerWidget {
   const SystemSetupMenuScreen({super.key});
@@ -51,35 +52,36 @@ class SystemSetupMenuScreen extends ConsumerWidget {
           icon: Iconsax.security_user,
           onTap: () => context.go('/dashboard/system_setup/role_management'),
         ),
-      // TODO: Add correct permissions for Geographical Data, General Parameters, Currencies, and Tax Settings
-      // if (roleChecker.hasPermission(AppPermission.viewGeographicalData))
-      //   _MenuItem(
-      //     title: l10n.geographicalData,
-      //     icon: Iconsax.map_1,
-      //     onTap: () => context.go('/dashboard/system_setup/geographical_data'),
-      //   ),
-      // if (roleChecker.hasPermission(AppPermission.viewGeneralParameters))
-      //   _MenuItem(
-      //     title: l10n.generalParameters,
-      //     icon: Iconsax.setting_2,
-      //     onTap: () => context.go('/dashboard/system_setup/general_parameters'),
-      //   ),
-      // if (roleChecker.hasPermission(AppPermission.viewCurrencies))
-      //   _MenuItem(
-      //     title: l10n.currencies,
-      //     icon: Iconsax.dollar_circle,
-      //     onTap: () => context.go('/dashboard/system_setup/currencies'),
-      //   ),
-      // if (roleChecker.hasPermission(AppPermission.viewTaxSettings))
-      //   _MenuItem(
-      //     title: l10n.taxSettings,
-      //     icon: Iconsax.receipt_2,
-      //     onTap: () => context.go('/dashboard/system_setup/tax'),
-      //   ),
     ];
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.systemSetup),
+        actions: [
+          Consumer(
+            builder: (context, ref, child) {
+              final currentLocale = ref.watch(localeProvider);
+              return DropdownButton<Locale>(
+                value: currentLocale,
+                icon: const Icon(Icons.language),
+                onChanged: (Locale? newLocale) {
+                  if (newLocale != null) {
+                    ref.read(localeProvider.notifier).state = newLocale;
+                  }
+                },
+                items: const [
+                  DropdownMenuItem(
+                    value: Locale('en'),
+                    child: Text('English'),
+                  ),
+                  DropdownMenuItem(
+                    value: Locale('ar'),
+                    child: Text('العربية'),
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
