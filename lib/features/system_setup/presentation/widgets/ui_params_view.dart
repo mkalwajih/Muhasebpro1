@@ -32,7 +32,6 @@ class UiParamsView extends StatelessWidget {
 
         // Font Size
         DropdownButtonFormField<FontSizeOption>(
-          value: params.fontSize,
           decoration: InputDecoration(
             labelText: l10n.fontSize,
             border: const OutlineInputBorder(),

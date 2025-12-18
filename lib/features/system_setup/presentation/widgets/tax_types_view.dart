@@ -75,7 +75,6 @@ class TaxTypesView extends ConsumerWidget {
                       TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
                       const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
-                        value: calcMethod,
                         decoration: InputDecoration(labelText: l10n.calculationMethod),
                         items: ['Sales', 'Purchases', 'All'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
                         onChanged: (value) {
@@ -89,7 +88,6 @@ class TaxTypesView extends ConsumerWidget {
                       if (showSales) ...[
                         const SizedBox(height: 8),
                         DropdownButtonFormField<String>(
-                          value: salesAccountId,
                           decoration: InputDecoration(labelText: l10n.salesAccount),
                           items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
                           onChanged: (value) => setDialogState(() => salesAccountId = value),
@@ -99,7 +97,6 @@ class TaxTypesView extends ConsumerWidget {
                       if (showPurchases) ...[
                         const SizedBox(height: 8),
                         DropdownButtonFormField<String>(
-                          value: purchasesAccountId,
                           decoration: InputDecoration(labelText: l10n.purchasesAccount),
                           items: accounts.map((e) => DropdownMenuItem(value: e.accountCode, child: Text(e.nameEn))).toList(),
                           onChanged: (value) => setDialogState(() => purchasesAccountId = value),

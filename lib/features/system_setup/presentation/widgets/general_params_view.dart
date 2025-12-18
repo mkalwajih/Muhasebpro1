@@ -16,7 +16,6 @@ class GeneralParamsView extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         DropdownButtonFormField<LanguageOption>(
-          value: params.language,
           decoration: InputDecoration(labelText: l10n.language),
           items: LanguageOption.values
               .map((e) => DropdownMenuItem(
@@ -29,7 +28,6 @@ class GeneralParamsView extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<DateFormatOption>(
-          value: params.dateFormat,
           decoration: InputDecoration(labelText: l10n.dateFormat),
           items: DateFormatOption.values
               .map((e) => DropdownMenuItem(
@@ -42,7 +40,6 @@ class GeneralParamsView extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         DropdownButtonFormField<CalendarTypeOption>(
-          value: params.calendarType,
           decoration: InputDecoration(labelText: l10n.calendarType),
           items: CalendarTypeOption.values
               .map((e) => DropdownMenuItem(

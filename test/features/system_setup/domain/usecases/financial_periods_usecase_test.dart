@@ -51,7 +51,7 @@ void main() {
       when(mockRepository.getFinancialPeriods())
           .thenAnswer((_) async => Right([tFinancialPeriod]));
 
-      final result = await getFinancialPeriodsUseCase(NoParams());
+      final result = await getFinancialPeriodsUseCase(const NoParams());
 
       expect(result, Right([tFinancialPeriod]));
       verify(mockRepository.getFinancialPeriods());
@@ -62,7 +62,7 @@ void main() {
       when(mockRepository.getFinancialPeriods())
           .thenAnswer((_) async => Left(ServerFailure(message: 'Server Error')));
 
-      final result = await getFinancialPeriodsUseCase(NoParams());
+      final result = await getFinancialPeriodsUseCase(const NoParams());
 
       expect(result, Left(ServerFailure(message: 'Server Error')));
       verify(mockRepository.getFinancialPeriods());

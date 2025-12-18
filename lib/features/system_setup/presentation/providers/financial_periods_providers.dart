@@ -91,7 +91,7 @@ class FinancialPeriodsNotifier extends StateNotifier<AsyncValue<List<FinancialPe
 
   Future<void> loadPeriods() async {
     state = const AsyncValue.loading();
-    final result = await _getFinancialPeriods(NoParams());
+    final result = await _getFinancialPeriods(const NoParams());
     state = result.fold(
       (failure) => AsyncValue.error(failure, StackTrace.current),
       (periods) => AsyncValue.data(periods),

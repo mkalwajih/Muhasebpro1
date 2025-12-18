@@ -21,7 +21,6 @@ class BackupParamsView extends StatelessWidget {
       children: [
         // Backup Frequency
         DropdownButtonFormField<BackupFrequencyOption>(
-          value: params.backupFrequency,
           decoration: InputDecoration(
             labelText: l10n.backupFrequency,
             border: const OutlineInputBorder(),

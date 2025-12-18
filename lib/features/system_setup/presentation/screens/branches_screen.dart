@@ -32,7 +32,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
   late final TextEditingController _addressController;
   late final TextEditingController _phoneController;
   late final TextEditingController _remarksController;
-  
+
   int? _companyId;
   int? _branchGroupId;
   String? _defaultWarehouseId;
@@ -270,7 +270,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                 padding: const EdgeInsets.all(16.0),
                 children: [
                   if (_selectedBranch == null && _logo == null)
-                    Center(child: Text("l10n.selectOrCreateBranch"))
+                    Center(child: Text(l10n.selectOrCreateBranch))
                   else
                   Column(
                     children: [
@@ -295,7 +295,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) return l10n.requiredField;
                       final isDuplicate = ref.read(branchesProvider).value?.any((branch) => branch.branchCode == value && branch.id != _selectedBranch?.id) ?? false;
-                      if (isDuplicate) return "l10n.branchCodeExists";
+                      if (isDuplicate) return l10n.branchCodeExists;
                       return null;
                     },
                   ),
@@ -314,7 +314,6 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                   const SizedBox(height: 16),
                   companiesAsync.when(
                     data: (companies) => DropdownButtonFormField<int>(
-                      value: _companyId,
                       decoration: InputDecoration(labelText: l10n.company),
                       items: companies.map((CompanyEntity company) {
                         return DropdownMenuItem<int>(
@@ -331,7 +330,6 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                   const SizedBox(height: 16),
                   branchGroupsAsync.when(
                     data: (branchGroups) => DropdownButtonFormField<int>(
-                      value: _branchGroupId,
                       decoration: InputDecoration(labelText: l10n.branchGroup),
                       items: branchGroups.map((BranchGroupEntity group) {
                         return DropdownMenuItem<int>(
@@ -363,7 +361,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                   ),
                   const SizedBox(height: 16),
                   SwitchListTile(
-                    title: Text("l10n.branchStatus"),
+                    title: Text(l10n.branchStatus),
                     value: _branchStatus,
                     onChanged: (value) => setState(() => _branchStatus = value),
                   ),
