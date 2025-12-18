@@ -70,14 +70,14 @@ class AccountingParamsView extends StatelessWidget {
 
         // Cost Center Policy
         DropdownButtonFormField<PolicyOption>(
-          initialValue: params.costCenterPolicy,
+          value: params.costCenterPolicy,
           decoration: InputDecoration(
             labelText: l10n.costCenterPolicy,
             border: const OutlineInputBorder(),
           ),
           items: PolicyOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<PolicyOption>(
+                    value: e,
                     child: Text(e.name),
                   ))
               .toList(),
@@ -91,14 +91,14 @@ class AccountingParamsView extends StatelessWidget {
 
         // Project Policy
         DropdownButtonFormField<PolicyOption>(
-          initialValue: params.projectPolicy,
+          value: params.projectPolicy,
           decoration: InputDecoration(
             labelText: l10n.projectPolicy,
             border: const OutlineInputBorder(),
           ),
           items: PolicyOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<PolicyOption>(
+                    value: e,
                     child: Text(e.name),
                   ))
               .toList(),

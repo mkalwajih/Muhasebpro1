@@ -26,8 +26,8 @@ class BackupParamsView extends StatelessWidget {
             border: const OutlineInputBorder(),
           ),
           items: BackupFrequencyOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<BackupFrequencyOption>(
+                    value: e,
                     child: Text(e.name),
                   ))
               .toList(),
@@ -43,7 +43,7 @@ class BackupParamsView extends StatelessWidget {
         CheckboxListTile(
           title: Text(l10n.cloudBackup),
           subtitle: Text(l10n.cloudBackupHint),
-          initialValue: params.cloudBackup,
+          value: params.cloudBackup,
           onChanged: (value) => onChanged(params.copyWith(cloudBackup: value)),
         ),
       ],

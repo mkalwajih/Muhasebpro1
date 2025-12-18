@@ -23,7 +23,7 @@ class UiParamsView extends StatelessWidget {
         SwitchListTile(
           title: Text(l10n.uiTheme),
           subtitle: Text(params.uiTheme == UIThemeOption.dark ? l10n.dark : l10n.light),
-          initialValue: params.uiTheme == UIThemeOption.dark,
+          value: params.uiTheme == UIThemeOption.dark,
           onChanged: (isDark) {
             onChanged(params.copyWith(uiTheme: isDark ? UIThemeOption.dark : UIThemeOption.light));
           },
@@ -37,8 +37,8 @@ class UiParamsView extends StatelessWidget {
             border: const OutlineInputBorder(),
           ),
           items: FontSizeOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<FontSizeOption>(
+                    value: e,
                     child: Text(e.name),
                   ))
               .toList(),

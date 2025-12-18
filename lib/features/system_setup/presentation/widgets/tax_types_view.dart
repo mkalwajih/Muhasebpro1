@@ -76,7 +76,7 @@ class TaxTypesView extends ConsumerWidget {
                       const SizedBox(height: 8),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(labelText: l10n.calculationMethod),
-                        items: ['Sales', 'Purchases', 'All'].map((e) => DropdownMenuItem(initialValue: e, child: Text(e))).toList(),
+                        items: ['Sales', 'Purchases', 'All'].map((e) => DropdownMenuItem<String>(value: e, child: Text(e))).toList(),
                         onChanged: (value) {
                           if (value != null) {
                             setDialogState(() {
@@ -89,7 +89,7 @@ class TaxTypesView extends ConsumerWidget {
                         const SizedBox(height: 8),
                         DropdownButtonFormField<String>(
                           decoration: InputDecoration(labelText: l10n.salesAccount),
-                          items: accounts.map((e) => DropdownMenuItem(initialValue: e.accountCode, child: Text(e.nameEn))).toList(),
+                          items: accounts.map((e) => DropdownMenuItem<String>(value: e.accountCode, child: Text(e.nameEn))).toList(),
                           onChanged: (value) => setDialogState(() => salesAccountId = value),
                            validator: (v) => v == null ? l10n.requiredField : null,
                         ),
@@ -98,7 +98,7 @@ class TaxTypesView extends ConsumerWidget {
                         const SizedBox(height: 8),
                         DropdownButtonFormField<String>(
                           decoration: InputDecoration(labelText: l10n.purchasesAccount),
-                          items: accounts.map((e) => DropdownMenuItem(initialValue: e.accountCode, child: Text(e.nameEn))).toList(),
+                          items: accounts.map((e) => DropdownMenuItem<String>(value: e.accountCode, child: Text(e.nameEn))).toList(),
                           onChanged: (value) => setDialogState(() => purchasesAccountId = value),
                           validator: (v) => v == null ? l10n.requiredField : null,
                         ),

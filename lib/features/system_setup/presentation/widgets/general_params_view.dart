@@ -18,8 +18,8 @@ class GeneralParamsView extends StatelessWidget {
         DropdownButtonFormField<LanguageOption>(
           decoration: InputDecoration(labelText: l10n.language),
           items: LanguageOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<LanguageOption>(
+                    value: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),
@@ -30,8 +30,8 @@ class GeneralParamsView extends StatelessWidget {
         DropdownButtonFormField<DateFormatOption>(
           decoration: InputDecoration(labelText: l10n.dateFormat),
           items: DateFormatOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<DateFormatOption>(
+                    value: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),
@@ -42,8 +42,8 @@ class GeneralParamsView extends StatelessWidget {
         DropdownButtonFormField<CalendarTypeOption>(
           decoration: InputDecoration(labelText: l10n.calendarType),
           items: CalendarTypeOption.values
-              .map((e) => DropdownMenuItem(
-                    initialValue: e,
+              .map((e) => DropdownMenuItem<CalendarTypeOption>(
+                    value: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),
