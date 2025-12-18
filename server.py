@@ -4,7 +4,8 @@ import socketserver
 import os
 
 PORT = 5000
-DIRECTORY = "web"
+# Serve build/web if it exists (Flutter build output), otherwise fall back to web/
+DIRECTORY = "build/web" if os.path.isdir("build/web") else "web"
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
