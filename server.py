@@ -4,12 +4,8 @@ import socketserver
 import os
 
 PORT = 5000
-import os.path
-# Use absolute path to check for build/web
-abs_build_web = os.path.abspath("build/web")
-abs_web = os.path.abspath("web")
-DIRECTORY = abs_build_web if os.path.isdir(abs_build_web) else abs_web
-print(f"DEBUG: Serving from {DIRECTORY}", flush=True)
+# Try build/web first, fallback to web/
+DIRECTORY = os.path.abspath("build/web") if os.path.isdir("build/web") else os.path.abspath("web")
 
 class CustomHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -34,5 +30,5 @@ class ReusableTCPServer(socketserver.TCPServer):
     allow_reuse_address = True
 
 with ReusableTCPServer(("0.0.0.0", PORT), CustomHandler) as httpd:
-    print(f"Serving Flutter Web at http://0.0.0.0:{PORT}")
+    print(f"Serving Flutter Web from {DIRECTORY}")
     httpd.serve_forever()

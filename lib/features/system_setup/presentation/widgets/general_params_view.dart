@@ -19,7 +19,7 @@ class GeneralParamsView extends StatelessWidget {
           decoration: InputDecoration(labelText: l10n.language),
           items: LanguageOption.values
               .map((e) => DropdownMenuItem(
-                    value: e,
+                    initialValue: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),
@@ -31,7 +31,7 @@ class GeneralParamsView extends StatelessWidget {
           decoration: InputDecoration(labelText: l10n.dateFormat),
           items: DateFormatOption.values
               .map((e) => DropdownMenuItem(
-                    value: e,
+                    initialValue: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),
@@ -43,7 +43,7 @@ class GeneralParamsView extends StatelessWidget {
           decoration: InputDecoration(labelText: l10n.calendarType),
           items: CalendarTypeOption.values
               .map((e) => DropdownMenuItem(
-                    value: e,
+                    initialValue: e,
                     child: Text(e.toString().split('.').last),
                   ))
               .toList(),

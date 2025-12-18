@@ -394,7 +394,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         const SizedBox(height: 16),
                         CheckboxListTile(
                           title: Text(l10n.mainCompany),
-                          initialValue: _isMainCompany,
+                          value: _isMainCompany,
                           onChanged: (bool? value) => setState(() => _isMainCompany = value ?? false),
                         ),
                         const SizedBox(height: 32),

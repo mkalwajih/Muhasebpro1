@@ -65,7 +65,7 @@ class TaxCalcMethodsView extends ConsumerWidget {
                       TextFormField(controller: nameArController, decoration: InputDecoration(labelText: l10n.nameAr), validator: (v) => v!.isEmpty ? l10n.requiredField : null),
                       DropdownButtonFormField<String>(
                         decoration: InputDecoration(labelText: l10n.category),
-                        items: ['Taxable', 'Exempted', 'ZeroTax'].map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                        items: ['Taxable', 'Exempted', 'ZeroTax'].map((e) => DropdownMenuItem(initialValue: e, child: Text(e))).toList(),
                         onChanged: (value) {
                           if (value != null) {
                             setDialogState(() {

@@ -153,7 +153,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
                 children: [
                   Text(widget.appLocalizations.locked),
                   Switch(
-                    initialValue: _isLocked,
+                    value: _isLocked,
                     onChanged: (value) {
                       setState(() {
                         _isLocked = value;
@@ -221,7 +221,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              initialValue: _startYear.toString(),
+              value: _startYear.toString(),
               decoration: InputDecoration(labelText: widget.appLocalizations.fiscalYear),
               keyboardType: TextInputType.number,
               validator: (value) {
@@ -233,7 +233,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
               },
             ),
             TextFormField(
-              initialValue: _numberOfYears.toString(),
+              value: _numberOfYears.toString(),
               decoration: InputDecoration(labelText: widget.appLocalizations.numberOfPeriods),
               keyboardType: TextInputType.number,
               validator: (value) {

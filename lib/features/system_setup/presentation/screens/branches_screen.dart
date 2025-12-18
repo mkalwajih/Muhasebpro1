@@ -317,7 +317,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                       decoration: InputDecoration(labelText: l10n.company),
                       items: companies.map((CompanyEntity company) {
                         return DropdownMenuItem<int>(
-                          value: company.id,
+                          initialValue: company.id,
                           child: Text(l10n.localeName == 'ar' ? company.nameAr : company.nameEn),
                         );
                       }).toList(),
@@ -333,7 +333,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                       decoration: InputDecoration(labelText: l10n.branchGroup),
                       items: branchGroups.map((BranchGroupEntity group) {
                         return DropdownMenuItem<int>(
-                          value: group.id,
+                          initialValue: group.id,
                           child: Text(l10n.localeName == 'ar' ? group.nameAr : group.nameEn),
                         );
                       }).toList(),

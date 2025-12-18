@@ -205,7 +205,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               SwitchListTile(
                 title: Text(l10n.active),
-                initialValue: _branchStatus,
+                value: _branchStatus,
                 onChanged: (value) {
                   setState(() {
                     _branchStatus = value;

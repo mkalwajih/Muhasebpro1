@@ -61,7 +61,7 @@ class SystemSetupMenuScreen extends ConsumerWidget {
             builder: (context, ref, child) {
               final currentLocale = ref.watch(localeProvider);
               return DropdownButton<Locale>(
-                value: currentLocale,
+                initialValue: currentLocale,
                 icon: const Icon(Icons.language),
                 onChanged: (Locale? newLocale) {
                   if (newLocale != null) {
@@ -70,7 +70,7 @@ class SystemSetupMenuScreen extends ConsumerWidget {
                 },
                 items: const [
                   DropdownMenuItem(
-                    value: Locale('en'),
+                    initialValue: Locale('en'),
                     child: Text('English'),
                   ),
                   DropdownMenuItem(

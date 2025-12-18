@@ -149,15 +149,15 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                   error: (e, st) => Text('${l10n.error}: $e'),
                 ),
                 const Divider(height: 24),
-                SwitchListTile(title: Text(l10n.status), subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive), initialValue: _isActive, onChanged: (val) => setState(() => _isActive = val)),
-                SwitchListTile(title: Text(l10n.enableBiometric), initialValue: _isBiometricEnabled, onChanged: (val) => setState(() => _isBiometricEnabled = val)),
-                SwitchListTile(title: Text(l10n.linkToDevice), initialValue: _isDeviceLinked, onChanged: (val) => setState(() => _isDeviceLinked = val)),
+                SwitchListTile(title: Text(l10n.status), subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive), value: _isActive, onChanged: (val) => setState(() => _isActive = val)),
+                SwitchListTile(title: Text(l10n.enableBiometric), value: _isBiometricEnabled, onChanged: (val) => setState(() => _isBiometricEnabled = val)),
+                SwitchListTile(title: Text(l10n.linkToDevice), value: _isDeviceLinked, onChanged: (val) => setState(() => _isDeviceLinked = val)),
                 const Divider(height: 24),
                 Text(l10n.roleManagement, style: Theme.of(context).textTheme.titleMedium),
                 ...allRoles.map((role) {
                   return CheckboxListTile(
                     title: Text(l10n.localeName == 'ar' ? role.nameAr : role.nameEn),
-                    initialValue: _selectedRoleIds.contains(role.id),
+                    value: _selectedRoleIds.contains(role.id),
                     onChanged: (bool? selected) {
                       setState(() {
                         if (selected == true) {

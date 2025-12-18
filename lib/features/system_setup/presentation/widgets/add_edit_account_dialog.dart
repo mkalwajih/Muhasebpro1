@@ -145,7 +145,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                           (widget.accountToEdit == null ||
                               (acc.id != widget.accountToEdit!.id &&
                                   !_isDescendant(acc, widget.accountToEdit)))).map((acc) => DropdownMenuItem<int?>(
-                        initialValue: acc.id,
+                        value: acc.id,
                         child: Text('${'--' * acc.level} ${acc.getLocalizedName(l10n.localeName)}'),
                       )),
                     ],
@@ -204,7 +204,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               ),
                SwitchListTile(
                 title: Text(l10n.active),
-                initialValue: _isActive,
+                value: _isActive,
                 onChanged: (value) => setState(() => _isActive = value),
               ),
             ],
