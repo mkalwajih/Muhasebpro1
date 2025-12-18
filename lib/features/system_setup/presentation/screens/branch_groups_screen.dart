@@ -88,7 +88,7 @@ class BranchGroupsScreen extends ConsumerWidget {
                   ),
                   SwitchListTile(
                     title: Text(l10n.active),
-                    initialValue: isActive,
+                    value: isActive,
                     onChanged: (val) => setState(() => isActive = val),
                   )
                 ],

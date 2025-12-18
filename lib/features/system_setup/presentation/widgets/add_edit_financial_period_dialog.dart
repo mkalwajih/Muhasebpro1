@@ -221,7 +221,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
           mainAxisSize: MainAxisSize.min,
           children: [
             TextFormField(
-              value: _startYear.toString(),
+              initialValue: _startYear.toString(),
               decoration: InputDecoration(labelText: widget.appLocalizations.fiscalYear),
               keyboardType: TextInputType.number,
               validator: (value) {
@@ -233,7 +233,7 @@ class _GenerateFinancialPeriodsDialogState extends ConsumerState<GenerateFinanci
               },
             ),
             TextFormField(
-              value: _numberOfYears.toString(),
+              initialValue: _numberOfYears.toString(),
               decoration: InputDecoration(labelText: widget.appLocalizations.numberOfPeriods),
               keyboardType: TextInputType.number,
               validator: (value) {

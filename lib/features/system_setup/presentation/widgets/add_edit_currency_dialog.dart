@@ -156,13 +156,13 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
               ),
               SwitchListTile(
                 title: Text(l10n.baseCurrency),
-                initialValue: _isBaseCurrency,
+                value: _isBaseCurrency,
                 onChanged: (value) => setState(() => _isBaseCurrency = value),
                 contentPadding: EdgeInsets.zero,
               ),
               SwitchListTile(
                 title: Text(l10n.active),
-                initialValue: _isActive,
+                value: _isActive,
                 onChanged: (value) => setState(() => _isActive = value),
                 contentPadding: EdgeInsets.zero,
               ),

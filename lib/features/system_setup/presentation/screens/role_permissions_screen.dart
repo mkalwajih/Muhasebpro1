@@ -51,7 +51,7 @@ class _RolePermissionsScreenState extends ConsumerState<RolePermissionsScreen> {
           final permission = allPermissions[index];
           return CheckboxListTile(
             title: Text(permission.name),
-            initialValue: _selectedPermissions.contains(permission),
+            value: _selectedPermissions.contains(permission),
             onChanged: (selected) {
               setState(() {
                 if (selected == true) {

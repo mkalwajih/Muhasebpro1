@@ -308,7 +308,7 @@ class _GeoColumn extends ConsumerWidget {
                       const SizedBox(height: 8),
                       SwitchListTile(
                         title: Text(l10n.active),
-                        initialValue: isActive,
+                        value: isActive,
                         contentPadding: EdgeInsets.zero,
                         onChanged: (val) => setState(() => isActive = val),
                       )
