@@ -1657,6 +1657,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New Password'**
   String get newPassword;
+
+  /// No description provided for @selectOrCreateBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a branch or create a new one'**
+  String get selectOrCreateBranch;
+
+  /// No description provided for @branchCodeExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch code already exists'**
+  String get branchCodeExists;
+
+  /// No description provided for @branchStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch Status'**
+  String get branchStatus;
+
+  /// No description provided for @usernameExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Username already exists'**
+  String get usernameExists;
+
+  /// No description provided for @invalidPhoneNumberFormat.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid phone number format'**
+  String get invalidPhoneNumberFormat;
 }
 
 class _AppLocalizationsDelegate

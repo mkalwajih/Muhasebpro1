@@ -811,4 +811,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newPassword => 'New Password';
+
+  @override
+  String get selectOrCreateBranch => 'Select a branch or create a new one';
+
+  @override
+  String get branchCodeExists => 'Branch code already exists';
+
+  @override
+  String get branchStatus => 'Branch Status';
+
+  @override
+  String get usernameExists => 'Username already exists';
+
+  @override
+  String get invalidPhoneNumberFormat => 'Invalid phone number format';
 }

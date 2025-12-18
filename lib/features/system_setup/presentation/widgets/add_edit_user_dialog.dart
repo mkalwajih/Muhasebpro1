@@ -59,7 +59,20 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
   void _onSave(List<RoleEntity> allRoles) {
     if (_formKey.currentState!.validate()) {
       final notifier = ref.read(userManagementProvider.notifier);
-      
+      final users = ref.read(userManagementProvider).value ?? [];
+      final l10n = AppLocalizations.of(context)!;
+
+      final isDuplicateUsername = users.any((user) => 
+          user.username.toLowerCase() == _usernameController.text.toLowerCase() && 
+          user.userId != widget.userToEdit?.userId);
+
+      if (isDuplicateUsername) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(l10n.usernameExists), backgroundColor: Theme.of(context).colorScheme.error),
+        );
+        return;
+      }
+
       final selectedRoles = allRoles.where((role) => _selectedRoleIds.contains(role.id)).toList();
 
       final user = UserEntity(

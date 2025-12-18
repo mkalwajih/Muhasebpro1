@@ -25,6 +25,11 @@
     "updatedPeriodOverlap",
     "cannotLockPeriodUnfinalizedTransactions",
     "noRowsAffectedUpdate",
-    "noRowsAffectedDelete"
+    "noRowsAffectedDelete",
+    "selectOrCreateBranch",
+    "branchCodeExists",
+    "branchStatus",
+    "usernameExists",
+    "invalidPhoneNumberFormat"
   ]
 }

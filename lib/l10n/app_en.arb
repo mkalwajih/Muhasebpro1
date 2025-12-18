@@ -1,3 +1,4 @@
+
 {
   "@@locale": "en",
   "branch": "Branch",
@@ -273,5 +274,10 @@
   "alreadyHaveAccount": "Already have an account? Login",
   "passwordResetSuccess": "Password reset successfully",
   "backToLogin": "Back to Login",
-  "newPassword": "New Password"
+  "newPassword": "New Password",
+  "selectOrCreateBranch": "Select a branch or create a new one",
+  "branchCodeExists": "Branch code already exists",
+  "branchStatus": "Branch Status",
+  "usernameExists": "Username already exists",
+  "invalidPhoneNumberFormat": "Invalid phone number format"
 }

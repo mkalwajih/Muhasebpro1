@@ -53,32 +53,6 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   }
 
   @override
-  @mustCallSuper
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Listen to companies list and select the first one if none is selected
-    ref.listen<AsyncValue<List<CompanyEntity>>>(companiesProvider, (previous, next) {
-      next.whenData((companies) {
-        if (companies.isNotEmpty && _selectedCompany == null) {
-          _selectCompany(companies.first);
-        } else if (companies.isEmpty) {
-          _clearForm();
-          setState(() => _selectedCompany = null);
-        } else if (_selectedCompany != null) {
-          // Update selected company if it changed in the list (e.g., after save)
-          final updatedCompany = companies.firstWhere(
-            (c) => c.id == _selectedCompany!.id,
-            orElse: () => companies.first, // Fallback if selected company was deleted
-          );
-          if (updatedCompany != _selectedCompany) {
-            _selectCompany(updatedCompany);
-          }
-        }
-      });
-    });
-  }
-
-  @override
   void dispose() {
     _companyCodeController.dispose();
     _nameArController.dispose();
@@ -252,6 +226,26 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     final l10n = AppLocalizations.of(context)!;
     final companiesAsync = ref.watch(companiesProvider);
     final allCountriesAsync = ref.watch(countriesProvider(0)); // Dummy parent ID to get all countries
+    
+    ref.listen<AsyncValue<List<CompanyEntity>>>(companiesProvider, (previous, next) {
+      next.whenData((companies) {
+        if (companies.isNotEmpty && _selectedCompany == null) {
+          _selectCompany(companies.first);
+        } else if (companies.isEmpty) {
+          _clearForm();
+          setState(() => _selectedCompany = null);
+        } else if (_selectedCompany != null) {
+          // Update selected company if it changed in the list (e.g., after save)
+          final updatedCompany = companies.firstWhere(
+            (c) => c.id == _selectedCompany!.id,
+            orElse: () => companies.first, // Fallback if selected company was deleted
+          );
+          if (updatedCompany != _selectedCompany) {
+            _selectCompany(updatedCompany);
+          }
+        }
+      });
+    });
 
     return Scaffold(
       appBar: AppBar(

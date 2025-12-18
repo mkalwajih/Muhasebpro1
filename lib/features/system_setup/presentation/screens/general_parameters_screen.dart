@@ -20,13 +20,13 @@ class GeneralParametersScreen extends ConsumerStatefulWidget {
 class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScreen> {
   final _formKey = GlobalKey<FormState>();
   late GeneralParametersEntity _params;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _params = ref.watch(generalParametersProvider).asData?.value ??
+   @override
+  void initState() {
+    super.initState();
+    _params = ref.read(generalParametersProvider).asData?.value ?? 
         GeneralParametersEntity.defaults();
   }
+
 
   @override
   Widget build(BuildContext context) {
