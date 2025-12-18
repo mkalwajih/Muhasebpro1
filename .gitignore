@@ -57,3 +57,4 @@ ENV/
 web/drift_worker.js
 *.hprof
 *.hprof
+.env
