@@ -133,7 +133,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                   flatten(accounts);
 
                   return DropdownButtonFormField<int?>(
-                    initialValue: _parentId,
+                    value: _parentId,
                     onChanged: (val) => setState(() => _parentId = val),
                     items: [
                       DropdownMenuItem<int?>(
@@ -145,7 +145,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                           (widget.accountToEdit == null ||
                               (acc.id != widget.accountToEdit!.id &&
                                   !_isDescendant(acc, widget.accountToEdit)))).map((acc) => DropdownMenuItem<int?>(
-                        value: acc.id,
+                        initialValue: acc.id,
                         child: Text('${'--' * acc.level} ${acc.getLocalizedName(l10n.localeName)}'),
                       )),
                     ],
@@ -156,7 +156,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 error: (e, st) => Text('Error loading accounts: ${e.toString()}'), // Localize error
               ),
               DropdownButtonFormField<String>(
-                initialValue: _nature,
+                value: _nature,
                 onChanged: (val) => setState(() => _nature = val!),
                 items: const [
                   DropdownMenuItem(value: 'Debit', child: Text('Debit')),
@@ -166,7 +166,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String>(
-                initialValue: _reportType,
+                value: _reportType,
                 onChanged: (val) => setState(() => _reportType = val!),
                 items: const [
                   DropdownMenuItem(value: 'Balance Sheet', child: Text('Balance Sheet')),
@@ -176,7 +176,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String>(
-                initialValue: _detailAccountType,
+                value: _detailAccountType,
                 onChanged: (val) => setState(() => _detailAccountType = val!),
                 items: const [
                   DropdownMenuItem(value: 'General', child: Text('General')),
@@ -192,7 +192,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
                  validator: (v) => v == null || v.isEmpty ? l10n.requiredField : null,
               ),
               DropdownButtonFormField<String?>(
-                initialValue: _cashFlowType,
+                value: _cashFlowType,
                 onChanged: (val) => setState(() => _cashFlowType = val),
                 items: const [
                    DropdownMenuItem(value: null, child: Text('None')),
@@ -204,7 +204,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
               ),
                SwitchListTile(
                 title: Text(l10n.active),
-                value: _isActive,
+                initialValue: _isActive,
                 onChanged: (value) => setState(() => _isActive = value),
               ),
             ],

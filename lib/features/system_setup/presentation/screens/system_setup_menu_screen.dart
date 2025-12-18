@@ -74,7 +74,7 @@ class SystemSetupMenuScreen extends ConsumerWidget {
                     child: Text('English'),
                   ),
                   DropdownMenuItem(
-                    value: Locale('ar'),
+                    initialValue: Locale('ar'),
                     child: Text('العربية'),
                   ),
                 ],

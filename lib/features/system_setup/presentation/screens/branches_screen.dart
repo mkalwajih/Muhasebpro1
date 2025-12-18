@@ -362,7 +362,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                   const SizedBox(height: 16),
                   SwitchListTile(
                     title: Text(l10n.branchStatus),
-                    value: _branchStatus,
+                    initialValue: _branchStatus,
                     onChanged: (value) => setState(() => _branchStatus = value),
                   ),
                   const SizedBox(height: 24),

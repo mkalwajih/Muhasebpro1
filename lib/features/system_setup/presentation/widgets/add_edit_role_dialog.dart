@@ -90,7 +90,7 @@ class _AddEditRoleDialogState extends ConsumerState<AddEditRoleDialog> {
               SwitchListTile(
                 title: Text(l10n.status),
                 subtitle: Text(_isActive ? l10n.userIsActive : l10n.userIsInactive),
-                value: _isActive,
+                initialValue: _isActive,
                 onChanged: (val) => setState(() => _isActive = val),
                 contentPadding: EdgeInsets.zero,
               ),

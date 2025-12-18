@@ -68,7 +68,7 @@ class TaxBracketsView extends ConsumerWidget {
                       TextFormField(controller: rateController, decoration: InputDecoration(labelText: l10n.taxRate), keyboardType: TextInputType.number, validator: (v) => v!.isEmpty ? l10n.requiredField : null),
                       SwitchListTile(
                         title: Text(l10n.isDefault),
-                        value: isDefault,
+                        initialValue: isDefault,
                         onChanged: (val) => setDialogState(() => isDefault = val),
                       )
                     ],

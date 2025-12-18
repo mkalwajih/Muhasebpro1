@@ -28,7 +28,7 @@ class AccountingParamsView extends StatelessWidget {
         //   children: AccountNumberTypeOption.values.map((option) {
         //     return RadioListTile<AccountNumberTypeOption>(
         //       title: Text(option.name),
-        //       value: option,
+        //       initialValue: option,
         //       groupValue: params.accountNumberType,
         //       onChanged: (value) {
         //         if (value != null) {
@@ -70,14 +70,14 @@ class AccountingParamsView extends StatelessWidget {
 
         // Cost Center Policy
         DropdownButtonFormField<PolicyOption>(
-          initialValue: params.costCenterPolicy,
+          value: params.costCenterPolicy,
           decoration: InputDecoration(
             labelText: l10n.costCenterPolicy,
             border: const OutlineInputBorder(),
           ),
           items: PolicyOption.values
               .map((e) => DropdownMenuItem(
-                    value: e,
+                    initialValue: e,
                     child: Text(e.name),
                   ))
               .toList(),
@@ -91,14 +91,14 @@ class AccountingParamsView extends StatelessWidget {
 
         // Project Policy
         DropdownButtonFormField<PolicyOption>(
-          initialValue: params.projectPolicy,
+          value: params.projectPolicy,
           decoration: InputDecoration(
             labelText: l10n.projectPolicy,
             border: const OutlineInputBorder(),
           ),
           items: PolicyOption.values
               .map((e) => DropdownMenuItem(
-                    value: e,
+                    initialValue: e,
                     child: Text(e.name),
                   ))
               .toList(),

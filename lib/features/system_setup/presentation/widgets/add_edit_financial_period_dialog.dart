@@ -121,7 +121,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
                 },
               ),
               DropdownButtonFormField<String>(
-                initialValue: _periodType,
+                value: _periodType,
                 decoration: InputDecoration(labelText: widget.appLocalizations.periodsType),
                 items: [
                   DropdownMenuItem(value: 'Monthly', child: Text(widget.appLocalizations.monthly)),
@@ -153,7 +153,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
                 children: [
                   Text(widget.appLocalizations.locked),
                   Switch(
-                    value: _isLocked,
+                    initialValue: _isLocked,
                     onChanged: (value) {
                       setState(() {
                         _isLocked = value;

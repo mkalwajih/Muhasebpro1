@@ -72,23 +72,23 @@ class SecurityParamsView extends StatelessWidget {
         
         CheckboxListTile(
           title: Text(l10n.useVAT),
-          value: params.useVAT,
+          initialValue: params.useVAT,
           onChanged: (value) => onChanged(params.copyWith(useVAT: value)),
         ),
         CheckboxListTile(
           title: Text(l10n.useTDS),
-          value: params.useTDS,
+          initialValue: params.useTDS,
           onChanged: (value) => onChanged(params.copyWith(useTDS: value)),
         ),
         CheckboxListTile(
           title: Text(l10n.useEInvoice),
-          value: params.useEInvoice,
+          initialValue: params.useEInvoice,
           onChanged: (value) => onChanged(params.copyWith(useEInvoice: value)),
         ),
         if (params.useVAT)
           CheckboxListTile(
             title: Text(l10n.priceIncludesTax),
-            value: params.priceIncludesTax,
+            initialValue: params.priceIncludesTax,
             onChanged: (value) => onChanged(params.copyWith(priceIncludesTax: value)),
           ),
       ],
