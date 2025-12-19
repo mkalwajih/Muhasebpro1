@@ -4,14 +4,16 @@ import '../../domain/entities/document_type_entity.dart';
 
 class DocumentTypeListItem extends StatelessWidget {
   final DocumentTypeEntity documentType;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final bool canModify;
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   const DocumentTypeListItem({
     super.key,
     required this.documentType,
-    required this.onEdit,
-    required this.onDelete,
+    required this.canModify,
+    this.onEdit,
+    this.onDelete,
   });
 
   @override
@@ -123,40 +125,41 @@ class DocumentTypeListItem extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             // Actions
-            PopupMenuButton<String>(
-              onSelected: (value) {
-                switch (value) {
-                  case 'edit':
-                    onEdit();
-                    break;
-                  case 'delete':
-                    onDelete();
-                    break;
-                }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: 'edit',
-                  child: Row(
-                    children: [
-                      const Icon(Icons.edit, size: 20),
-                      const SizedBox(width: 8),
-                      Text(l10n.edit),
-                    ],
+            if (canModify)
+              PopupMenuButton<String>(
+                onSelected: (value) {
+                  switch (value) {
+                    case 'edit':
+                      onEdit?.call();
+                      break;
+                    case 'delete':
+                      onDelete?.call();
+                      break;
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: 'edit',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.edit, size: 20),
+                        const SizedBox(width: 8),
+                        Text(l10n.edit),
+                      ],
+                    ),
                   ),
-                ),
-                PopupMenuItem(
-                  value: 'delete',
-                  child: Row(
-                    children: [
-                      const Icon(Icons.delete, size: 20, color: Colors.red),
-                      const SizedBox(width: 8),
-                      Text(l10n.delete, style: const TextStyle(color: Colors.red)),
-                    ],
+                  PopupMenuItem(
+                    value: 'delete',
+                    child: Row(
+                      children: [
+                        const Icon(Icons.delete, size: 20, color: Colors.red),
+                        const SizedBox(width: 8),
+                        Text(l10n.delete, style: const TextStyle(color: Colors.red)),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                ],
+              ),
           ],
         ),
         isThreeLine: true,

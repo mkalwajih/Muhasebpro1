@@ -299,5 +299,6 @@
   "searchDocumentTypes": "البحث في أنواع المستندات...",
   "searchDescriptionCoding": "البحث في ترميز البيانات...",
   "selectAccount": "اختر حساب",
-  "noAccountSelected": "لم يتم اختيار حساب"
+  "noAccountSelected": "لم يتم اختيار حساب",
+  "accessDenied": "تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة."
 }

@@ -10,8 +10,10 @@ enum AppPermission {
   manageRoles,
   managePermissions,
 
-  // General Ledger Permissions (Examples)
+  // General Ledger Permissions
   viewGeneralLedger,
+  manageGLSetup,
+  viewGLSetup,
   createJournalVoucher,
   postJournalVoucher,
 

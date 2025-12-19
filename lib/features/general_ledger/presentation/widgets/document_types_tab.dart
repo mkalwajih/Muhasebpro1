@@ -11,7 +11,12 @@ import 'document_type_form_dialog.dart';
 import 'document_type_list_item.dart';
 
 class DocumentTypesTab extends ConsumerWidget {
-  const DocumentTypesTab({super.key});
+  final bool canModify;
+  
+  const DocumentTypesTab({
+    super.key,
+    required this.canModify,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,16 +58,17 @@ class DocumentTypesTab extends ConsumerWidget {
                     final documentType = documentTypes[index];
                     return DocumentTypeListItem(
                       documentType: documentType,
-                      onEdit: () => _showDocumentTypeDialog(
+                      canModify: canModify,
+                      onEdit: canModify ? () => _showDocumentTypeDialog(
                         context,
                         ref,
                         documentType: documentType,
-                      ),
-                      onDelete: () => _showDeleteConfirmation(
+                      ) : null,
+                      onDelete: canModify ? () => _showDeleteConfirmation(
                         context,
                         ref,
                         documentType,
-                      ),
+                      ) : null,
                     );
                   },
                 );
@@ -76,11 +82,11 @@ class DocumentTypesTab extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: canModify ? FloatingActionButton(
         onPressed: () => _showDocumentTypeDialog(context, ref),
         child: const Icon(Icons.add),
         tooltip: l10n.addDocumentType,
-      ),
+      ) : null,
     );
   }
 

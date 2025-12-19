@@ -4,14 +4,16 @@ import '../../domain/entities/description_coding_entity.dart';
 
 class DescriptionCodingListItem extends StatelessWidget {
   final DescriptionCodingEntity descriptionCoding;
-  final VoidCallback onEdit;
-  final VoidCallback onDelete;
+  final bool canModify;
+  final VoidCallback? onEdit;
+  final VoidCallback? onDelete;
 
   const DescriptionCodingListItem({
     super.key,
     required this.descriptionCoding,
-    required this.onEdit,
-    required this.onDelete,
+    required this.canModify,
+    this.onEdit,
+    this.onDelete,
   });
 
   @override
@@ -84,14 +86,14 @@ class DescriptionCodingListItem extends StatelessWidget {
             ],
           ],
         ),
-        trailing: PopupMenuButton<String>(
+        trailing: canModify ? PopupMenuButton<String>(
           onSelected: (value) {
             switch (value) {
               case 'edit':
-                onEdit();
+                onEdit?.call();
                 break;
               case 'delete':
-                onDelete();
+                onDelete?.call();
                 break;
             }
           },
@@ -117,7 +119,7 @@ class DescriptionCodingListItem extends StatelessWidget {
               ),
             ),
           ],
-        ),
+        ) : null,
         isThreeLine: true,
       ),
     );

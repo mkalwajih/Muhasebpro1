@@ -11,7 +11,12 @@ import 'description_coding_form_dialog.dart';
 import 'description_coding_list_item.dart';
 
 class DescriptionCodingTab extends ConsumerWidget {
-  const DescriptionCodingTab({super.key});
+  final bool canModify;
+  
+  const DescriptionCodingTab({
+    super.key,
+    required this.canModify,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,16 +58,17 @@ class DescriptionCodingTab extends ConsumerWidget {
                     final coding = descriptionCoding[index];
                     return DescriptionCodingListItem(
                       descriptionCoding: coding,
-                      onEdit: () => _showDescriptionCodingDialog(
+                      canModify: canModify,
+                      onEdit: canModify ? () => _showDescriptionCodingDialog(
                         context,
                         ref,
                         descriptionCoding: coding,
-                      ),
-                      onDelete: () => _showDeleteConfirmation(
+                      ) : null,
+                      onDelete: canModify ? () => _showDeleteConfirmation(
                         context,
                         ref,
                         coding,
-                      ),
+                      ) : null,
                     );
                   },
                 );
@@ -76,11 +82,11 @@ class DescriptionCodingTab extends ConsumerWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: canModify ? FloatingActionButton(
         onPressed: () => _showDescriptionCodingDialog(context, ref),
         child: const Icon(Icons.add),
         tooltip: l10n.addDescriptionCoding,
-      ),
+      ) : null,
     );
   }
 

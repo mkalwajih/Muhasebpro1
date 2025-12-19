@@ -330,5 +330,6 @@
   "searchDocumentTypes": "Search document types...",
   "searchDescriptionCoding": "Search description coding...",
   "selectAccount": "Select Account",
-  "noAccountSelected": "No account selected"
+  "noAccountSelected": "No account selected",
+  "accessDenied": "Access denied. You don't have permission to view this page."
 }

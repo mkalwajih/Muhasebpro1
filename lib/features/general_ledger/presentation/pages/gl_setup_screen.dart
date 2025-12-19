@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../../../../shared/utils/app_permissions.dart';
+import '../../../../shared/utils/role_checker.dart';
+import '../../../../shared/presentation/widgets/custom_error_widget.dart';
 import '../widgets/document_types_tab.dart';
 import '../widgets/description_coding_tab.dart';
 
@@ -32,6 +35,25 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final isRTL = Directionality.of(context) == TextDirection.rtl;
+    final roleChecker = ref.watch(roleCheckerProvider);
+
+    // Check permissions
+    final canView = roleChecker.hasPermission(AppPermission.viewGLSetup);
+    final canModify = roleChecker.hasPermission(AppPermission.manageGLSetup);
+
+    if (!canView) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(l10n.glSetupConfiguration),
+          backgroundColor: theme.colorScheme.surface,
+          foregroundColor: theme.colorScheme.onSurface,
+        ),
+        body: CustomErrorWidget(
+          message: l10n.accessDenied,
+          onRetry: () => Navigator.of(context).pop(),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -58,9 +80,9 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          DocumentTypesTab(),
-          DescriptionCodingTab(),
+        children: [
+          DocumentTypesTab(canModify: canModify),
+          DescriptionCodingTab(canModify: canModify),
         ],
       ),
     );
