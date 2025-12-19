@@ -300,5 +300,11 @@
   "searchDescriptionCoding": "البحث في ترميز البيانات...",
   "selectAccount": "اختر حساب",
   "noAccountSelected": "لم يتم اختيار حساب",
-  "accessDenied": "تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة."
+  "accessDenied": "تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة.",
+  "searchAccounts": "البحث في الحسابات...",
+  "noAccountsYet": "لم يتم إنشاء حسابات بعد.",
+  "noAccountsFound": "لم يتم العثور على حسابات تطابق بحثك.",
+  "level": "المستوى",
+  "nature": "الطبيعة",
+  "type": "النوع"
 }

@@ -331,5 +331,11 @@
   "searchDescriptionCoding": "Search description coding...",
   "selectAccount": "Select Account",
   "noAccountSelected": "No account selected",
-  "accessDenied": "Access denied. You don't have permission to view this page."
+  "accessDenied": "Access denied. You don't have permission to view this page.",
+  "searchAccounts": "Search accounts...",
+  "noAccountsYet": "No accounts created yet.",
+  "noAccountsFound": "No accounts found matching your search.",
+  "level": "Level",
+  "nature": "Nature",
+  "type": "Type"
 }

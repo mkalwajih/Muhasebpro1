@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/presentation/widgets/custom_text_field.dart';
+import '../../../system_setup/domain/entities/account_entity.dart';
 import '../../domain/entities/description_coding_entity.dart';
+import 'account_selector_dialog.dart';
 
-class DescriptionCodingFormDialog extends StatefulWidget {
+class DescriptionCodingFormDialog extends ConsumerStatefulWidget {
   final DescriptionCodingEntity? descriptionCoding;
   final Function(DescriptionCodingEntity) onSave;
 
@@ -14,15 +17,16 @@ class DescriptionCodingFormDialog extends StatefulWidget {
   });
 
   @override
-  State<DescriptionCodingFormDialog> createState() => _DescriptionCodingFormDialogState();
+  ConsumerState<DescriptionCodingFormDialog> createState() => _DescriptionCodingFormDialogState();
 }
 
-class _DescriptionCodingFormDialogState extends State<DescriptionCodingFormDialog> {
+class _DescriptionCodingFormDialogState extends ConsumerState<DescriptionCodingFormDialog> {
   final _formKey = GlobalKey<FormState>();
   final _descCodeController = TextEditingController();
   final _descriptionArController = TextEditingController();
   final _descriptionEnController = TextEditingController();
   final _linkedAccountController = TextEditingController();
+  AccountEntity? _selectedAccount;
 
   @override
   void initState() {
@@ -31,7 +35,10 @@ class _DescriptionCodingFormDialogState extends State<DescriptionCodingFormDialo
       _descCodeController.text = widget.descriptionCoding!.descCode;
       _descriptionArController.text = widget.descriptionCoding!.descriptionAr;
       _descriptionEnController.text = widget.descriptionCoding!.descriptionEn;
-      _linkedAccountController.text = widget.descriptionCoding!.linkedAccountId ?? '';
+      if (widget.descriptionCoding!.linkedAccountId != null) {
+        _linkedAccountController.text = 'Account ID: ${widget.descriptionCoding!.linkedAccountId}';
+        // TODO: Fetch actual account details to display proper name
+      }
     }
   }
 
@@ -143,6 +150,7 @@ class _DescriptionCodingFormDialogState extends State<DescriptionCodingFormDialo
                       onPressed: () {
                         setState(() {
                           _linkedAccountController.clear();
+                          _selectedAccount = null;
                         });
                       },
                       tooltip: l10n.clear,
@@ -175,12 +183,17 @@ class _DescriptionCodingFormDialogState extends State<DescriptionCodingFormDialo
   }
 
   void _selectAccount() {
-    // TODO: Implement account selection dialog
-    // For now, show a placeholder message
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.selectAccount),
-        backgroundColor: Colors.blue,
+    showDialog(
+      context: context,
+      builder: (context) => AccountSelectorDialog(
+        selectedAccountId: _selectedAccount?.id.toString(),
+        onAccountSelected: (account) {
+          setState(() {
+            _selectedAccount = account;
+            _linkedAccountController.text = 
+                '${account.accountCode} - ${account.getLocalizedName(Localizations.localeOf(context).languageCode)}';
+          });
+        },
       ),
     );
   }
@@ -191,9 +204,7 @@ class _DescriptionCodingFormDialogState extends State<DescriptionCodingFormDialo
         descCode: _descCodeController.text.trim(),
         descriptionAr: _descriptionArController.text.trim(),
         descriptionEn: _descriptionEnController.text.trim(),
-        linkedAccountId: _linkedAccountController.text.trim().isEmpty 
-            ? null 
-            : _linkedAccountController.text.trim(),
+        linkedAccountId: _selectedAccount?.id.toString(),
         createdAt: widget.descriptionCoding?.createdAt ?? DateTime.now(),
         updatedAt: DateTime.now(),
       );
