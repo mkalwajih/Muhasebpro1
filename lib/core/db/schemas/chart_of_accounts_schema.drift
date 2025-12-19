@@ -36,5 +36,6 @@ CREATE TABLE chart_of_accounts (
   classification_code TEXT REFERENCES classifications(class_code),
   report_type_code TEXT REFERENCES report_types(report_code),
   parent_account_id INTEGER REFERENCES chart_of_accounts(id),
+  is_parent BOOLEAN NOT NULL DEFAULT FALSE,
   is_active BOOLEAN NOT NULL DEFAULT TRUE
 );

@@ -1,6 +1,7 @@
 CREATE TABLE financial_periods (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   period_code TEXT NOT NULL UNIQUE,
+  period_name TEXT,
   fiscal_year INTEGER NOT NULL,
   period_type TEXT NOT NULL,
   period_number INTEGER,

@@ -8,6 +8,7 @@ class AccountEntity extends Equatable {
   final String nameAr;
   final String nameEn;
   final int level;
+  final bool isParent;
   final bool isActive;
   
   // Critical fields for financial reporting and subsystem integration.
@@ -25,6 +26,7 @@ class AccountEntity extends Equatable {
     required this.nameAr,
     required this.nameEn,
     required this.level,
+    required this.isParent,
     required this.isActive,
     required this.nature,
     required this.reportType,
@@ -44,6 +46,7 @@ class AccountEntity extends Equatable {
         nameAr,
         nameEn,
         level,
+        isParent,
         isActive,
         nature,
         reportType,

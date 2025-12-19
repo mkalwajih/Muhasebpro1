@@ -11,7 +11,9 @@ CREATE TABLE users (
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     branch_id INTEGER REFERENCES branches(id), -- Can be null for system-wide users
     is_biometric_enabled BOOLEAN NOT NULL DEFAULT FALSE,
-    is_device_linked BOOLEAN NOT NULL DEFAULT FALSE
+    is_device_linked BOOLEAN NOT NULL DEFAULT FALSE,
+    last_login INTEGER, -- Timestamp of last successful login
+    failed_login_attempts INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE user_roles (

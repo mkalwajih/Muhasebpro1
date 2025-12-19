@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 class FinancialPeriodEntity extends Equatable {
   final int? id;
   final String periodCode;
+  final String? periodName;
   final int fiscalYear;
   final String periodType; // 'Monthly', 'Quarterly', 'Custom'
   final int? periodNumber; // 1-12 for Monthly, 1-4 for Quarterly, or custom for Custom
@@ -13,6 +14,7 @@ class FinancialPeriodEntity extends Equatable {
   const FinancialPeriodEntity({
     this.id,
     required this.periodCode,
+    this.periodName,
     required this.fiscalYear,
     required this.periodType,
     this.periodNumber,
@@ -25,6 +27,7 @@ class FinancialPeriodEntity extends Equatable {
   List<Object?> get props => [
         id,
         periodCode,
+        periodName,
         fiscalYear,
         periodType,
         periodNumber,
@@ -36,6 +39,7 @@ class FinancialPeriodEntity extends Equatable {
   FinancialPeriodEntity copyWith({
     int? id,
     String? periodCode,
+    String? periodName,
     int? fiscalYear,
     String? periodType,
     int? periodNumber,
@@ -46,6 +50,7 @@ class FinancialPeriodEntity extends Equatable {
     return FinancialPeriodEntity(
       id: id ?? this.id,
       periodCode: periodCode ?? this.periodCode,
+      periodName: periodName ?? this.periodName,
       fiscalYear: fiscalYear ?? this.fiscalYear,
       periodType: periodType ?? this.periodType,
       periodNumber: periodNumber ?? this.periodNumber,
