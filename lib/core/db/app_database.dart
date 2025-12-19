@@ -30,7 +30,10 @@ class AppDatabase extends _$AppDatabase {
         await m.createAll();
       },
       onUpgrade: (m, from, to) async {
-        await m.createAll();
+        // CRITICAL FIX: Removed 'await m.createAll();' from onUpgrade.
+        // This function must contain specific migration steps (e.g., m.addColumn)
+        // for each schema version change (from -> to) to prevent data loss.
+        // The current implementation is a placeholder for future specific migrations.
       },
     );
   }

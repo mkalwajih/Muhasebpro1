@@ -18,12 +18,12 @@ class App extends ConsumerWidget {
       routerConfig: router,
       theme: locale.languageCode == 'ar'
           ? AppTheme.lightTheme.copyWith(
-              textTheme: AppTheme.lightTheme.textTheme.apply(fontFamily: 'NotoNaskhArabic'),
+              textTheme: AppTheme.lightTheme.textTheme.apply(fontFamily: 'NotoSansArabic'),
             )
           : AppTheme.lightTheme,
       darkTheme: locale.languageCode == 'ar'
           ? AppTheme.darkTheme.copyWith(
-              textTheme: AppTheme.darkTheme.textTheme.apply(fontFamily: 'NotoNaskhArabic'),
+              textTheme: AppTheme.darkTheme.textTheme.apply(fontFamily: 'NotoSansArabic'),
             )
           : AppTheme.darkTheme,
       themeMode: ThemeMode.system,
