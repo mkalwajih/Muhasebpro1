@@ -15,13 +15,14 @@ part 'app_database.g.dart';
     'schemas/system_setup_schema.drift',
     'schemas/tax_schema.drift',
     'schemas/chart_of_accounts_schema.drift',
+    'schemas/gl_setup_schema.drift',
   },
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   @override
-  int get schemaVersion => 14; // Incremented schema version
+  int get schemaVersion => 15; // Incremented for GL Setup schema
 
   @override
   MigrationStrategy get migration {
