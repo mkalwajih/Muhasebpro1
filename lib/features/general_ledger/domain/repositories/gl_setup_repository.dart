@@ -18,6 +18,7 @@ abstract class GLSetupRepository {
   Future<Either<Failure, List<DescriptionCodingEntity>>> getAllDescriptionCoding();
   Future<Either<Failure, List<DescriptionCodingEntity>>> getDescriptionCodingByAccount(String? accountId);
   Future<Either<Failure, DescriptionCodingEntity?>> getDescriptionCodingByCode(String code);
+  Future<Either<Failure, bool>> isDescriptionCodingUsedInTransactions(String code);
   Future<Either<Failure, void>> createDescriptionCoding(DescriptionCodingEntity descriptionCoding);
   Future<Either<Failure, void>> updateDescriptionCoding(DescriptionCodingEntity descriptionCoding);
   Future<Either<Failure, void>> deleteDescriptionCoding(String code);

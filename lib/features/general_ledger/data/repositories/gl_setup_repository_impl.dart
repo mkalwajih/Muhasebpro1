@@ -140,6 +140,18 @@ class GLSetupRepositoryImpl implements GLSetupRepository {
   }
 
   @override
+  Future<Either<Failure, bool>> isDescriptionCodingUsedInTransactions(String code) async {
+    try {
+      final isUsed = await localDataSource.isDescriptionCodingUsedInTransactions(code);
+      return Right(isUsed);
+    } on CacheException catch (e) {
+      return Left(CacheFailure(message: e.message));
+    } catch (e) {
+      return Left(CacheFailure(message: 'Unexpected error: $e'));
+    }
+  }
+
+  @override
   Future<Either<Failure, void>> createDescriptionCoding(DescriptionCodingEntity descriptionCoding) async {
     try {
       final model = DescriptionCodingModel.fromEntity(descriptionCoding);

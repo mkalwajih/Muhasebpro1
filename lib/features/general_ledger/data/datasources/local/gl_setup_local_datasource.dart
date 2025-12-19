@@ -16,6 +16,7 @@ abstract class GLSetupLocalDataSource {
   Future<List<DescriptionCodingModel>> getAllDescriptionCoding();
   Future<List<DescriptionCodingModel>> getDescriptionCodingByAccount(String? accountId);
   Future<DescriptionCodingModel?> getDescriptionCodingByCode(String code);
+  Future<bool> isDescriptionCodingUsedInTransactions(String code);
   Future<void> createDescriptionCoding(DescriptionCodingModel descriptionCoding);
   Future<void> updateDescriptionCoding(DescriptionCodingModel descriptionCoding);
   Future<void> deleteDescriptionCoding(String code);
@@ -132,6 +133,17 @@ class GLSetupLocalDataSourceImpl implements GLSetupLocalDataSource {
       return _descriptionCoding.where((dc) => dc.descCode == code).firstOrNull;
     } catch (e) {
       throw CacheException(message: 'Failed to get description coding: $e');
+    }
+  }
+
+  @override
+  Future<bool> isDescriptionCodingUsedInTransactions(String code) async {
+    try {
+      // TODO: Implement check against voucher tables when they are created
+      // For now, return false as no voucher tables exist yet
+      return false;
+    } catch (e) {
+      throw CacheException(message: 'Failed to check description coding usage: $e');
     }
   }
 

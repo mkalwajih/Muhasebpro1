@@ -294,6 +294,7 @@
   "descriptionCodingCreatedSuccessfully": "تم إنشاء ترميز البيان بنجاح",
   "descriptionCodingUpdatedSuccessfully": "تم تحديث ترميز البيان بنجاح",
   "descriptionCodingDeletedSuccessfully": "تم حذف ترميز البيان بنجاح",
+  "failedToDeleteDescriptionCoding": "فشل في حذف ترميز البيان",
   "noDocumentTypesYet": "لم يتم إنشاء أنواع مستندات بعد. أضف نوع المستند الأول!",
   "noDescriptionCodingYet": "لم يتم إنشاء ترميز بيانات بعد. أضف ترميز البيان الأول!",
   "searchDocumentTypes": "البحث في أنواع المستندات...",

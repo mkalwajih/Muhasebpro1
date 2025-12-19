@@ -145,13 +145,24 @@ class DescriptionCodingTab extends ConsumerWidget {
             onPressed: () async {
               Navigator.of(context).pop();
               
-              // TODO: Implement delete functionality when use case is created
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.descriptionCodingDeletedSuccessfully),
-                  backgroundColor: Colors.green,
-                ),
-              );
+              final success = await ref.read(descriptionCodingProvider.notifier)
+                  .deleteDescriptionCoding(descriptionCoding.descCode);
+              
+              if (success) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.descriptionCodingDeletedSuccessfully),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(l10n.failedToDeleteDescriptionCoding),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              }
             },
             child: Text(l10n.yes),
           ),

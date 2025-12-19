@@ -325,6 +325,7 @@
   "descriptionCodingCreatedSuccessfully": "Description coding created successfully",
   "descriptionCodingUpdatedSuccessfully": "Description coding updated successfully",
   "descriptionCodingDeletedSuccessfully": "Description coding deleted successfully",
+  "failedToDeleteDescriptionCoding": "Failed to delete description coding",
   "noDocumentTypesYet": "No document types created yet. Add your first document type!",
   "noDescriptionCodingYet": "No description coding created yet. Add your first description coding!",
   "searchDocumentTypes": "Search document types...",

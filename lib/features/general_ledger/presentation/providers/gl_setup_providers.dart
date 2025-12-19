@@ -10,6 +10,7 @@ import '../../domain/usecases/document_types/update_document_type_usecase.dart';
 import '../../domain/usecases/document_types/delete_document_type_usecase.dart';
 import '../../domain/usecases/description_coding/get_all_description_coding_usecase.dart';
 import '../../domain/usecases/description_coding/create_description_coding_usecase.dart';
+import '../../domain/usecases/description_coding/delete_description_coding_usecase.dart';
 import '../../../../../shared/domain/interfaces/usecase.dart';
 
 // Data Source Provider
@@ -54,6 +55,11 @@ final createDescriptionCodingUseCaseProvider = Provider<CreateDescriptionCodingU
   return CreateDescriptionCodingUseCase(repository);
 });
 
+final deleteDescriptionCodingUseCaseProvider = Provider<DeleteDescriptionCodingUseCase>((ref) {
+  final repository = ref.watch(glSetupRepositoryProvider);
+  return DeleteDescriptionCodingUseCase(repository);
+});
+
 // State Providers for Document Types
 final documentTypesProvider = StateNotifierProvider<DocumentTypesNotifier, AsyncValue<List<DocumentTypeEntity>>>((ref) {
   final getAllUseCase = ref.watch(getAllDocumentTypesUseCaseProvider);
@@ -73,10 +79,12 @@ final documentTypesProvider = StateNotifierProvider<DocumentTypesNotifier, Async
 final descriptionCodingProvider = StateNotifierProvider<DescriptionCodingNotifier, AsyncValue<List<DescriptionCodingEntity>>>((ref) {
   final getAllUseCase = ref.watch(getAllDescriptionCodingUseCaseProvider);
   final createUseCase = ref.watch(createDescriptionCodingUseCaseProvider);
+  final deleteUseCase = ref.watch(deleteDescriptionCodingUseCaseProvider);
   
   return DescriptionCodingNotifier(
     getAllUseCase: getAllUseCase,
     createUseCase: createUseCase,
+    deleteUseCase: deleteUseCase,
   );
 });
 
@@ -200,10 +208,12 @@ class DocumentTypesNotifier extends StateNotifier<AsyncValue<List<DocumentTypeEn
 class DescriptionCodingNotifier extends StateNotifier<AsyncValue<List<DescriptionCodingEntity>>> {
   final GetAllDescriptionCodingUseCase getAllUseCase;
   final CreateDescriptionCodingUseCase createUseCase;
+  final DeleteDescriptionCodingUseCase deleteUseCase;
 
   DescriptionCodingNotifier({
     required this.getAllUseCase,
     required this.createUseCase,
+    required this.deleteUseCase,
   }) : super(const AsyncValue.loading()) {
     loadDescriptionCoding();
   }
@@ -219,6 +229,20 @@ class DescriptionCodingNotifier extends StateNotifier<AsyncValue<List<Descriptio
 
   Future<bool> createDescriptionCoding(DescriptionCodingEntity descriptionCoding) async {
     final result = await createUseCase(CreateDescriptionCodingParams(descriptionCoding: descriptionCoding));
+    return result.fold(
+      (failure) {
+        state = AsyncValue.error(failure, StackTrace.current);
+        return false;
+      },
+      (_) {
+        loadDescriptionCoding(); // Refresh the list
+        return true;
+      },
+    );
+  }
+
+  Future<bool> deleteDescriptionCoding(String descCode) async {
+    final result = await deleteUseCase(DeleteDescriptionCodingParams(descCode: descCode));
     return result.fold(
       (failure) {
         state = AsyncValue.error(failure, StackTrace.current);
