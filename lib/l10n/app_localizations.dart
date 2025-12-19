@@ -1687,6 +1687,354 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid phone number format'**
   String get invalidPhoneNumberFormat;
+
+  /// No description provided for @glSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'GL Setup'**
+  String get glSetup;
+
+  /// No description provided for @glSetupConfiguration.
+  ///
+  /// In en, this message translates to:
+  /// **'General Ledger Setup & Configuration'**
+  String get glSetupConfiguration;
+
+  /// No description provided for @documentTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Types'**
+  String get documentTypes;
+
+  /// No description provided for @descriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Description Coding'**
+  String get descriptionCoding;
+
+  /// No description provided for @docTypeCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Type Code'**
+  String get docTypeCode;
+
+  /// No description provided for @nameArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (Arabic)'**
+  String get nameArabic;
+
+  /// No description provided for @nameEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Name (English)'**
+  String get nameEnglish;
+
+  /// No description provided for @sequenceMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence Method'**
+  String get sequenceMethod;
+
+  /// No description provided for @sequenceBehavior.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence Behavior'**
+  String get sequenceBehavior;
+
+  /// No description provided for @specific.
+  ///
+  /// In en, this message translates to:
+  /// **'Specific'**
+  String get specific;
+
+  /// No description provided for @autoUnchangeable.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Unchangeable'**
+  String get autoUnchangeable;
+
+  /// No description provided for @autoChangeable.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-Changeable'**
+  String get autoChangeable;
+
+  /// No description provided for @manual.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual'**
+  String get manual;
+
+  /// No description provided for @descCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Description Code'**
+  String get descCode;
+
+  /// No description provided for @descriptionArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Arabic)'**
+  String get descriptionArabic;
+
+  /// No description provided for @descriptionEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (English)'**
+  String get descriptionEnglish;
+
+  /// No description provided for @linkedAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Linked Account'**
+  String get linkedAccount;
+
+  /// No description provided for @addDocumentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Document Type'**
+  String get addDocumentType;
+
+  /// No description provided for @editDocumentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Document Type'**
+  String get editDocumentType;
+
+  /// No description provided for @addDescriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Description Coding'**
+  String get addDescriptionCoding;
+
+  /// No description provided for @editDescriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Description Coding'**
+  String get editDescriptionCoding;
+
+  /// No description provided for @documentTypeCodeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type code is required'**
+  String get documentTypeCodeRequired;
+
+  /// No description provided for @documentTypeCodeTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type code must not exceed 10 characters'**
+  String get documentTypeCodeTooLong;
+
+  /// No description provided for @nameArabicRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic name is required'**
+  String get nameArabicRequired;
+
+  /// No description provided for @nameArabicTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic name must not exceed 50 characters'**
+  String get nameArabicTooLong;
+
+  /// No description provided for @nameEnglishRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'English name is required'**
+  String get nameEnglishRequired;
+
+  /// No description provided for @nameEnglishTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'English name must not exceed 50 characters'**
+  String get nameEnglishTooLong;
+
+  /// No description provided for @descriptionCodeRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Description code is required'**
+  String get descriptionCodeRequired;
+
+  /// No description provided for @descriptionCodeTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Description code must not exceed 10 characters'**
+  String get descriptionCodeTooLong;
+
+  /// No description provided for @descriptionArabicRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic description is required'**
+  String get descriptionArabicRequired;
+
+  /// No description provided for @descriptionArabicTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic description must not exceed 250 characters'**
+  String get descriptionArabicTooLong;
+
+  /// No description provided for @descriptionEnglishRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'English description is required'**
+  String get descriptionEnglishRequired;
+
+  /// No description provided for @descriptionEnglishTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'English description must not exceed 250 characters'**
+  String get descriptionEnglishTooLong;
+
+  /// No description provided for @documentTypeAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type with this code already exists'**
+  String get documentTypeAlreadyExists;
+
+  /// No description provided for @descriptionCodingAlreadyExists.
+  ///
+  /// In en, this message translates to:
+  /// **'Description coding with this code already exists'**
+  String get descriptionCodingAlreadyExists;
+
+  /// No description provided for @documentTypeNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type not found'**
+  String get documentTypeNotFound;
+
+  /// No description provided for @descriptionCodingNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Description coding not found'**
+  String get descriptionCodingNotFound;
+
+  /// No description provided for @cannotDeleteDocumentTypeInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot delete document type as it is used in transactions'**
+  String get cannotDeleteDocumentTypeInUse;
+
+  /// No description provided for @documentTypeCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type created successfully'**
+  String get documentTypeCreatedSuccessfully;
+
+  /// No description provided for @documentTypeUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type updated successfully'**
+  String get documentTypeUpdatedSuccessfully;
+
+  /// No description provided for @documentTypeDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Document type deleted successfully'**
+  String get documentTypeDeletedSuccessfully;
+
+  /// No description provided for @descriptionCodingCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Description coding created successfully'**
+  String get descriptionCodingCreatedSuccessfully;
+
+  /// No description provided for @descriptionCodingUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Description coding updated successfully'**
+  String get descriptionCodingUpdatedSuccessfully;
+
+  /// No description provided for @descriptionCodingDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Description coding deleted successfully'**
+  String get descriptionCodingDeletedSuccessfully;
+
+  /// No description provided for @failedToDeleteDescriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete description coding'**
+  String get failedToDeleteDescriptionCoding;
+
+  /// No description provided for @noDocumentTypesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No document types created yet. Add your first document type!'**
+  String get noDocumentTypesYet;
+
+  /// No description provided for @noDescriptionCodingYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No description coding created yet. Add your first description coding!'**
+  String get noDescriptionCodingYet;
+
+  /// No description provided for @searchDocumentTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Search document types...'**
+  String get searchDocumentTypes;
+
+  /// No description provided for @searchDescriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Search description coding...'**
+  String get searchDescriptionCoding;
+
+  /// No description provided for @selectAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Account'**
+  String get selectAccount;
+
+  /// No description provided for @noAccountSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No account selected'**
+  String get noAccountSelected;
+
+  /// No description provided for @accessDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Access denied. You don\'t have permission to view this page.'**
+  String get accessDenied;
+
+  /// No description provided for @searchAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Search accounts...'**
+  String get searchAccounts;
+
+  /// No description provided for @noAccountsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts created yet.'**
+  String get noAccountsYet;
+
+  /// No description provided for @noAccountsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No accounts found matching your search.'**
+  String get noAccountsFound;
+
+  /// No description provided for @level.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get level;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
 }
 
 class _AppLocalizationsDelegate

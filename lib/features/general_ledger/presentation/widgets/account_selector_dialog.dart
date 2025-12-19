@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/presentation/widgets/custom_search_field.dart';
 import '../../../../shared/presentation/widgets/loading_widget.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
 import '../../../system_setup/domain/entities/account_entity.dart';
 import '../../../system_setup/presentation/providers/coa_providers.dart';
 
@@ -23,13 +22,6 @@ class AccountSelectorDialog extends ConsumerStatefulWidget {
 
 class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
   String _searchQuery = '';
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +57,11 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
 
             // Search Field
             CustomSearchField(
-              controller: _searchController,
+              value: _searchQuery,
               hintText: l10n.searchAccounts,
               onChanged: (value) {
                 setState(() {
-                  _searchQuery = value.toLowerCase();
+                  _searchQuery = value;
                 });
               },
             ),
@@ -167,9 +159,8 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                   );
                 },
                 loading: () => const LoadingWidget(),
-                error: (error, stack) => CustomErrorWidget(
-                  error: error.toString(),
-                  onRetry: () => ref.refresh(coaProvider),
+                error: (error, stack) => ErrorWidget(
+                  error.toString(),
                 ),
               ),
             ),
@@ -184,13 +175,18 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
       return accounts.where((account) => !account.isParent && account.isActive).toList();
     }
 
-    return accounts.where((account) {
-      if (account.isParent || !account.isActive) return false;
-      
-      final searchLower = _searchQuery.toLowerCase();
-      return account.accountCode.toLowerCase().contains(searchLower) ||
-             account.nameAr.toLowerCase().contains(searchLower) ||
-             account.nameEn.toLowerCase().contains(searchLower);
-    }).toList();
+    final searchLower = _searchQuery.toLowerCase();
+    List<AccountEntity> results = [];
+    for (var account in accounts) {
+        if (account.accountCode.toLowerCase().contains(searchLower) ||
+            account.nameAr.toLowerCase().contains(searchLower) ||
+            account.nameEn.toLowerCase().contains(searchLower)) {
+            if (!account.isParent && account.isActive) {
+              results.add(account);
+            }
+        }
+    }
+    return results.toList();
+
   }
 }

@@ -289,7 +289,6 @@
   "nameEnglish": "Name (English)",
   "sequenceMethod": "Sequence Method",
   "sequenceBehavior": "Sequence Behavior",
-  "general": "General",
   "specific": "Specific",
   "autoUnchangeable": "Auto-Unchangeable",
   "autoChangeable": "Auto-Changeable",
@@ -337,6 +336,6 @@
   "noAccountsYet": "No accounts created yet.",
   "noAccountsFound": "No accounts found matching your search.",
   "level": "Level",
-  "nature": "Nature",
-  "type": "Type"
+  "edit": "Edit",
+  "clear": "Clear"
 }

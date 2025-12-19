@@ -42,7 +42,7 @@ class DocumentTypeModel extends DocumentTypeEntity {
   }
 
   /// Convert to Drift insertable
-  Insertable toDrift() {
+  Insertable<dynamic> toDrift() {
     return DocumentTypesCompanion(
       docTypeCode: Value(docTypeCode),
       nameAr: Value(nameAr),
@@ -71,7 +71,7 @@ class DocumentTypeModel extends DocumentTypeEntity {
 }
 
 // Temporary companion class until drift generates the actual one
-class DocumentTypesCompanion {
+class DocumentTypesCompanion implements Insertable<dynamic> {
   final Value<String> docTypeCode;
   final Value<String> nameAr;
   final Value<String> nameEn;
@@ -91,4 +91,9 @@ class DocumentTypesCompanion {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    return {};
+  }
 }

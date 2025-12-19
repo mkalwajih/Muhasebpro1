@@ -116,7 +116,6 @@
   "projectPolicy": "سياسة المشروع",
   "noParent": "لا يوجد أصل",
   "parentAccount": "الحساب الأصل",
-  "nature": "الطبيعة",
   "reportType": "نوع التقرير",
   "detailAccountType": "نوع الحساب التفصيلي",
   "cashFlowType": "نوع التدفق النقدي",
@@ -258,7 +257,6 @@
   "nameEnglish": "الاسم إنجليزي",
   "sequenceMethod": "طريقة الترقيم",
   "sequenceBehavior": "سلوك الترقيم",
-  "general": "عام",
   "specific": "خاص",
   "autoUnchangeable": "تلقائي غير قابل للتغيير",
   "autoChangeable": "تلقائي قابل للتغيير",
@@ -307,5 +305,6 @@
   "noAccountsFound": "لم يتم العثور على حسابات تطابق بحثك.",
   "level": "المستوى",
   "nature": "الطبيعة",
-  "type": "النوع"
+  "edit": "تعديل",
+  "clear": "مسح"
 }

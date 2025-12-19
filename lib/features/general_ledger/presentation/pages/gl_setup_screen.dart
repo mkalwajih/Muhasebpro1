@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/utils/app_permissions.dart';
-import '../../../../shared/utils/role_checker.dart';
-import '../../../../shared/presentation/widgets/custom_error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart';
 import '../widgets/document_types_tab.dart';
 import '../widgets/description_coding_tab.dart';
+import '../../../../shared/utils/role_checker.dart';
 
 class GLSetupScreen extends ConsumerStatefulWidget {
   const GLSetupScreen({super.key});
@@ -34,7 +34,6 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isRTL = Directionality.of(context) == TextDirection.rtl;
     final roleChecker = ref.watch(roleCheckerProvider);
 
     // Check permissions
@@ -48,9 +47,8 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: CustomErrorWidget(
-          message: l10n.accessDenied,
-          onRetry: () => Navigator.of(context).pop(),
+        body: ErrorWidget(
+          l10n.accessDenied,
         ),
       );
     }

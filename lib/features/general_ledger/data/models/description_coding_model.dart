@@ -36,7 +36,7 @@ class DescriptionCodingModel extends DescriptionCodingEntity {
   }
 
   /// Convert to Drift insertable
-  Insertable toDrift() {
+  Insertable<dynamic> toDrift() {
     return DescriptionCodingCompanion(
       descCode: Value(descCode),
       descriptionAr: Value(descriptionAr),
@@ -61,7 +61,7 @@ class DescriptionCodingModel extends DescriptionCodingEntity {
 }
 
 // Temporary companion class until drift generates the actual one
-class DescriptionCodingCompanion {
+class DescriptionCodingCompanion implements Insertable<dynamic> {
   final Value<String> descCode;
   final Value<String> descriptionAr;
   final Value<String> descriptionEn;
@@ -77,4 +77,9 @@ class DescriptionCodingCompanion {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    return {};
+  }
 }

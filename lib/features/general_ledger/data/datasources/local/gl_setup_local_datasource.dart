@@ -88,8 +88,9 @@ class GLSetupLocalDataSourceImpl implements GLSetupLocalDataSource {
   @override
   Future<void> deleteDocumentType(String code) async {
     try {
-      final removed = _documentTypes.removeWhere((dt) => dt.docTypeCode == code);
-      if (removed == 0) {
+      final initialLength = _documentTypes.length;
+      _documentTypes.removeWhere((dt) => dt.docTypeCode == code);
+      if (_documentTypes.length == initialLength) {
         throw CacheException(message: 'Document type not found');
       }
     } catch (e) {
@@ -177,8 +178,9 @@ class GLSetupLocalDataSourceImpl implements GLSetupLocalDataSource {
   @override
   Future<void> deleteDescriptionCoding(String code) async {
     try {
-      final removed = _descriptionCoding.removeWhere((dc) => dc.descCode == code);
-      if (removed == 0) {
+      final initialLength = _descriptionCoding.length;
+      _descriptionCoding.removeWhere((dc) => dc.descCode == code);
+      if (_descriptionCoding.length == initialLength) {
         throw CacheException(message: 'Description coding not found');
       }
     } catch (e) {
