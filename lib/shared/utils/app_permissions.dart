@@ -14,8 +14,12 @@ enum AppPermission {
   viewGeneralLedger,
   manageGLSetup,
   viewGLSetup,
-  createJournalVoucher,
-  postJournalVoucher,
+  viewJournalVouchers,
+  createJournalVouchers,
+  editJournalVouchers,
+  deleteJournalVouchers,
+  postJournalVouchers,
+  reverseJournalVouchers,
 
   // Inventory Permissions (Examples)
   viewInventory,

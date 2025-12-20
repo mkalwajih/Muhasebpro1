@@ -337,5 +337,69 @@
   "noAccountsFound": "No accounts found matching your search.",
   "level": "Level",
   "edit": "Edit",
-  "clear": "Clear"
+  "clear": "Clear",
+  "journalVouchers": "Journal Vouchers",
+  "addNew": "Add New",
+  "viewList": "View List",
+  "search": "Search",
+  "filter": "Filter",
+  "voucherSavedSuccessfully": "Voucher saved successfully",
+  "searchQuery": "Search Query",
+  "enterSearchTerm": "Enter search term",
+  "cancel": "Cancel",
+  "filterOptions": "Filter Options",
+  "apply": "Apply",
+  "all": "All",
+  "draft": "Draft",
+  "posted": "Posted",
+  "reversed": "Reversed",
+  "status": "Status",
+  "searchVouchers": "Search vouchers...",
+  "noVouchersFound": "No vouchers found",
+  "createFirstVoucher": "Create your first voucher!",
+  "confirmPost": "Confirm Post",
+  "confirmPostVoucher": "Are you sure you want to post voucher {voucherName}?",
+  "@confirmPostVoucher": {
+    "placeholders": {
+      "voucherName": {
+        "type": "String"
+      }
+    }
+  },
+  "post": "Post",
+  "voucherPostedSuccessfully": "Voucher posted successfully",
+  "confirmDelete": "Confirm Delete",
+  "confirmDeleteVoucher": "Are you sure you want to delete voucher {voucherName}?",
+  "@confirmDeleteVoucher": {
+    "placeholders": {
+      "voucherName": {
+        "type": "String"
+      }
+    }
+  },
+  "delete": "Delete",
+  "voucherDeletedSuccessfully": "Voucher deleted successfully",
+  "debit": "Debit",
+  "credit": "Credit",
+  "reference": "Reference",
+  "reversing": "Reversing",
+  "periodic": "Periodic",
+  "documentType": "Document Type",
+  "date": "Date",
+  "branch": "Branch",
+  "description": "Description",
+  "referenceCode": "Reference Code",
+  "pleaseSelectDocumentType": "Please select a document type",
+  "pleaseSelectBranch": "Please select a branch",
+  "pleaseEnterDescription": "Please enter a description",
+  "journalEntries": "Journal Entries",
+  "addLine": "Add Line",
+  "noEntriesAdded": "No entries added yet",
+  "addFirstEntry": "Add your first journal entry",
+  "addJournalEntry": "Add Journal Entry",
+  "add": "Add",
+  "totalDebit": "Total Debit",
+  "totalCredit": "Total Credit",
+  "difference": "Difference",
+  "save": "Save"
 }

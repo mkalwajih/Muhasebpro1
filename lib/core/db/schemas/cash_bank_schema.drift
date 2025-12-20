@@ -1,0 +1,182 @@
+-- Cash & Bank Management Schema
+-- Bank reconciliation and cash deposit confirmation
+
+-- Cash and Bank Accounts (extends ChartOfAccounts for cash/bank specific features)
+CREATE TABLE CashBankAccounts (
+    AccountId TEXT NOT NULL PRIMARY KEY,
+    AccountType TEXT NOT NULL CHECK (AccountType IN ('Cash', 'Bank')),
+    BankName TEXT,
+    AccountNumber TEXT,
+    IBANNumber TEXT,
+    SwiftCode TEXT,
+    BranchName TEXT,
+    ContactPerson TEXT,
+    ContactPhone TEXT,
+    IsActive INTEGER NOT NULL DEFAULT 1,
+    CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId)
+);
+
+-- Bank Reconciliation table
+CREATE TABLE BankReconciliations (
+    ReconciliationId TEXT NOT NULL PRIMARY KEY,
+    BankAccountId TEXT NOT NULL,
+    StatementDate INTEGER NOT NULL, -- Unix timestamp
+    StatementBalance REAL NOT NULL,
+    SystemBalance REAL NOT NULL,
+    Difference REAL NOT NULL,
+    Status TEXT NOT NULL DEFAULT 'In Progress' CHECK (Status IN ('In Progress', 'Completed')),
+    Notes TEXT,
+    CreatedBy TEXT NOT NULL,
+    CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    CompletedAt INTEGER,
+    CompletedBy TEXT,
+    FOREIGN KEY (BankAccountId) REFERENCES CashBankAccounts(AccountId),
+    FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
+    FOREIGN KEY (CompletedBy) REFERENCES Users(UserId)
+);
+
+-- Bank Reconciliation Items (cleared transactions)
+CREATE TABLE BankReconciliationItems (
+    ItemId TEXT NOT NULL PRIMARY KEY,
+    ReconciliationId TEXT NOT NULL,
+    VoucherId TEXT NOT NULL,
+    VoucherType TEXT NOT NULL CHECK (VoucherType IN ('Journal', 'Payment', 'Receipt')),
+    TransactionDate INTEGER NOT NULL,
+    Amount REAL NOT NULL,
+    Description TEXT,
+    IsCleared INTEGER NOT NULL DEFAULT 0,
+    ClearedDate INTEGER,
+    CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    FOREIGN KEY (ReconciliationId) REFERENCES BankReconciliations(ReconciliationId) ON DELETE CASCADE
+);
+
+-- Bank Reconciliation Adjustments (for bank fees, interest, etc.)
+CREATE TABLE BankReconciliationAdjustments (
+    AdjustmentId TEXT NOT NULL PRIMARY KEY,
+    ReconciliationId TEXT NOT NULL,
+    JournalVoucherId TEXT NOT NULL, -- Generated adjustment voucher
+    AdjustmentType TEXT NOT NULL CHECK (AdjustmentType IN ('Bank Fee', 'Interest', 'Other')),
+    Amount REAL NOT NULL,
+    Description TEXT NOT NULL,
+    CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    FOREIGN KEY (ReconciliationId) REFERENCES BankReconciliations(ReconciliationId) ON DELETE CASCADE,
+    FOREIGN KEY (JournalVoucherId) REFERENCES JournalVouchers(VoucherId)
+);
+
+-- Cash Deposit Confirmations
+CREATE TABLE CashDepositConfirmations (
+    DepositId TEXT NOT NULL PRIMARY KEY,
+    CashAccountId TEXT NOT NULL, -- Source cash account
+    BankAccountId TEXT NOT NULL, -- Destination bank account
+    Amount REAL NOT NULL,
+    DepositDate INTEGER NOT NULL,
+    Status TEXT NOT NULL DEFAULT 'Pending' CHECK (Status IN ('Pending', 'Confirmed', 'Returned')),
+    InitialVoucherId TEXT NOT NULL, -- Payment voucher moving cash to "Cash Under Collection"
+    FinalVoucherId TEXT, -- Journal voucher moving from "Cash Under Collection" to bank
+    DepositSlipNumber TEXT,
+    Notes TEXT,
+    CreatedBy TEXT NOT NULL,
+    CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    ConfirmedAt INTEGER,
+    ConfirmedBy TEXT,
+    FOREIGN KEY (CashAccountId) REFERENCES CashBankAccounts(AccountId),
+    FOREIGN KEY (BankAccountId) REFERENCES CashBankAccounts(AccountId),
+    FOREIGN KEY (InitialVoucherId) REFERENCES PaymentVouchers(VoucherId),
+    FOREIGN KEY (FinalVoucherId) REFERENCES JournalVouchers(VoucherId),
+    FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
+    FOREIGN KEY (ConfirmedBy) REFERENCES Users(UserId)
+);
+
+-- Account Balances (for quick balance lookups)
+CREATE TABLE AccountBalances (
+    AccountId TEXT NOT NULL,
+    PeriodId TEXT NOT NULL,
+    OpeningBalance REAL NOT NULL DEFAULT 0.0,
+    DebitMovements REAL NOT NULL DEFAULT 0.0,
+    CreditMovements REAL NOT NULL DEFAULT 0.0,
+    ClosingBalance REAL NOT NULL DEFAULT 0.0,
+    LastUpdated INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    PRIMARY KEY (AccountId, PeriodId),
+    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId),
+    FOREIGN KEY (PeriodId) REFERENCES FinancialPeriods(PeriodId)
+);
+
+-- Indexes for performance
+CREATE INDEX idx_cash_bank_accounts_type ON CashBankAccounts(AccountType);
+CREATE INDEX idx_cash_bank_accounts_active ON CashBankAccounts(IsActive);
+CREATE INDEX idx_bank_reconciliations_account_date ON BankReconciliations(BankAccountId, StatementDate);
+CREATE INDEX idx_bank_reconciliations_status ON BankReconciliations(Status);
+CREATE INDEX idx_bank_reconciliation_items_voucher ON BankReconciliationItems(VoucherId);
+CREATE INDEX idx_bank_reconciliation_items_cleared ON BankReconciliationItems(IsCleared);
+CREATE INDEX idx_cash_deposits_status ON CashDepositConfirmations(Status);
+CREATE INDEX idx_cash_deposits_date ON CashDepositConfirmations(DepositDate);
+CREATE INDEX idx_account_balances_account ON AccountBalances(AccountId);
+
+-- Triggers for timestamp updates
+CREATE TRIGGER update_cash_bank_accounts_timestamp 
+    AFTER UPDATE ON CashBankAccounts
+    BEGIN
+        UPDATE CashBankAccounts SET UpdatedAt = strftime('%s', 'now') WHERE AccountId = NEW.AccountId;
+    END;
+
+CREATE TRIGGER update_bank_reconciliations_timestamp 
+    AFTER UPDATE ON BankReconciliations
+    BEGIN
+        UPDATE BankReconciliations SET UpdatedAt = strftime('%s', 'now') WHERE ReconciliationId = NEW.ReconciliationId;
+    END;
+
+CREATE TRIGGER update_bank_reconciliation_items_timestamp 
+    AFTER UPDATE ON BankReconciliationItems
+    BEGIN
+        UPDATE BankReconciliationItems SET UpdatedAt = strftime('%s', 'now') WHERE ItemId = NEW.ItemId;
+    END;
+
+CREATE TRIGGER update_bank_reconciliation_adjustments_timestamp 
+    AFTER UPDATE ON BankReconciliationAdjustments
+    BEGIN
+        UPDATE BankReconciliationAdjustments SET UpdatedAt = strftime('%s', 'now') WHERE AdjustmentId = NEW.AdjustmentId;
+    END;
+
+CREATE TRIGGER update_cash_deposit_confirmations_timestamp 
+    AFTER UPDATE ON CashDepositConfirmations
+    BEGIN
+        UPDATE CashDepositConfirmations SET UpdatedAt = strftime('%s', 'now') WHERE DepositId = NEW.DepositId;
+    END;
+
+-- Trigger to update account balances when vouchers are posted
+CREATE TRIGGER update_account_balance_on_journal_post
+    AFTER UPDATE OF Status ON JournalVouchers
+    WHEN NEW.Status = 'Posted' AND OLD.Status = 'Draft'
+    BEGIN
+        -- Update debit movements
+        UPDATE AccountBalances 
+        SET DebitMovements = DebitMovements + (
+            SELECT COALESCE(SUM(Debit), 0) 
+            FROM JournalVoucherLines 
+            WHERE VoucherId = NEW.VoucherId AND AccountId = AccountBalances.AccountId
+        ),
+        ClosingBalance = OpeningBalance + DebitMovements - CreditMovements,
+        LastUpdated = strftime('%s', 'now')
+        WHERE AccountId IN (
+            SELECT DISTINCT AccountId FROM JournalVoucherLines WHERE VoucherId = NEW.VoucherId
+        );
+        
+        -- Update credit movements
+        UPDATE AccountBalances 
+        SET CreditMovements = CreditMovements + (
+            SELECT COALESCE(SUM(Credit), 0) 
+            FROM JournalVoucherLines 
+            WHERE VoucherId = NEW.VoucherId AND AccountId = AccountBalances.AccountId
+        ),
+        ClosingBalance = OpeningBalance + DebitMovements - CreditMovements,
+        LastUpdated = strftime('%s', 'now')
+        WHERE AccountId IN (
+            SELECT DISTINCT AccountId FROM JournalVoucherLines WHERE VoucherId = NEW.VoucherId
+        );
+    END;

@@ -306,5 +306,69 @@
   "level": "المستوى",
   "nature": "الطبيعة",
   "edit": "تعديل",
-  "clear": "مسح"
+  "clear": "مسح",
+  "journalVouchers": "قيود اليومية",
+  "addNew": "إضافة جديد",
+  "viewList": "عرض القائمة",
+  "search": "بحث",
+  "filter": "تصفية",
+  "voucherSavedSuccessfully": "تم حفظ القيد بنجاح",
+  "searchQuery": "استعلام البحث",
+  "enterSearchTerm": "أدخل مصطلح البحث",
+  "cancel": "إلغاء",
+  "filterOptions": "خيارات التصفية",
+  "apply": "تطبيق",
+  "all": "الكل",
+  "draft": "مسودة",
+  "posted": "مرحل",
+  "reversed": "معكوس",
+  "status": "الحالة",
+  "searchVouchers": "البحث في القيود...",
+  "noVouchersFound": "لم يتم العثور على قيود",
+  "createFirstVoucher": "أنشئ قيدك الأول!",
+  "confirmPost": "تأكيد الترحيل",
+  "confirmPostVoucher": "هل أنت متأكد من ترحيل القيد {voucherName}؟",
+  "@confirmPostVoucher": {
+    "placeholders": {
+      "voucherName": {
+        "type": "String"
+      }
+    }
+  },
+  "post": "ترحيل",
+  "voucherPostedSuccessfully": "تم ترحيل القيد بنجاح",
+  "confirmDelete": "تأكيد الحذف",
+  "confirmDeleteVoucher": "هل أنت متأكد من حذف القيد {voucherName}؟",
+  "@confirmDeleteVoucher": {
+    "placeholders": {
+      "voucherName": {
+        "type": "String"
+      }
+    }
+  },
+  "delete": "حذف",
+  "voucherDeletedSuccessfully": "تم حذف القيد بنجاح",
+  "debit": "مدين",
+  "credit": "دائن",
+  "reference": "المرجع",
+  "reversing": "عكسي",
+  "periodic": "دوري",
+  "documentType": "نوع المستند",
+  "date": "التاريخ",
+  "branch": "الفرع",
+  "description": "البيان",
+  "referenceCode": "الرقم المرجعي",
+  "pleaseSelectDocumentType": "يرجى اختيار نوع المستند",
+  "pleaseSelectBranch": "يرجى اختيار الفرع",
+  "pleaseEnterDescription": "يرجى إدخال البيان",
+  "journalEntries": "قيود اليومية",
+  "addLine": "إضافة سطر",
+  "noEntriesAdded": "لم يتم إضافة قيود بعد",
+  "addFirstEntry": "أضف قيدك الأول",
+  "addJournalEntry": "إضافة قيد يومية",
+  "add": "إضافة",
+  "totalDebit": "إجمالي المدين",
+  "totalCredit": "إجمالي الدائن",
+  "difference": "الفرق",
+  "save": "حفظ"
 }
