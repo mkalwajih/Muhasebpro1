@@ -11,6 +11,7 @@ class BranchEntity extends Equatable {
   final String? address;
   final String? phone;
   final String? defaultWarehouseId;
+  final bool isMainBranch;
   final bool branchStatus;
   final Uint8List? logo;
   final String? remarks;
@@ -25,6 +26,7 @@ class BranchEntity extends Equatable {
     this.address,
     this.phone,
     this.defaultWarehouseId,
+    this.isMainBranch = false,
     required this.branchStatus,
     this.logo,
     this.remarks,
@@ -41,6 +43,7 @@ class BranchEntity extends Equatable {
         address,
         phone,
         defaultWarehouseId,
+        isMainBranch,
         branchStatus,
         logo,
         remarks,

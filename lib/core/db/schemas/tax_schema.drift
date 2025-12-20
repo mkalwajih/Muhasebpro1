@@ -5,6 +5,7 @@ CREATE TABLE tax_bracket (
     name_ar TEXT NOT NULL,
     name_en TEXT NOT NULL,
     tax_rate REAL NOT NULL,
+    is_compound BOOLEAN NOT NULL DEFAULT FALSE,
     is_default BOOLEAN NOT NULL DEFAULT FALSE
 );
 

@@ -2,6 +2,7 @@ CREATE TABLE currencies (
   currency_code TEXT NOT NULL PRIMARY KEY,
   name_ar TEXT NOT NULL,
   name_en TEXT NOT NULL,
+  symbol TEXT NOT NULL,
   fraction_name_ar TEXT NOT NULL,
   fraction_name_en TEXT NOT NULL,
   exchange_rate REAL NOT NULL,

@@ -6,6 +6,7 @@ class TaxBracketEntity extends Equatable {
   final String nameAr;
   final String nameEn;
   final double taxRate;
+  final bool isCompound;
   final bool isDefault;
 
   const TaxBracketEntity({
@@ -13,11 +14,12 @@ class TaxBracketEntity extends Equatable {
     required this.nameAr,
     required this.nameEn,
     required this.taxRate,
+    required this.isCompound,
     required this.isDefault,
   });
 
   @override
-  List<Object?> get props => [bracketCode, nameAr, nameEn, taxRate, isDefault];
+  List<Object?> get props => [bracketCode, nameAr, nameEn, taxRate, isCompound, isDefault];
 }
 
 class TaxTypeEntity extends Equatable {

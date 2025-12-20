@@ -3,6 +3,7 @@
 CREATE TABLE system_config (
   id INT NOT NULL PRIMARY KEY,
   language TEXT NOT NULL,
+  default_currency_code TEXT NOT NULL,
   date_format TEXT NOT NULL,
   calendar_type TEXT NOT NULL,
   account_number_type TEXT NOT NULL,

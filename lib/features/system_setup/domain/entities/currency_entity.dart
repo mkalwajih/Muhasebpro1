@@ -4,6 +4,7 @@ class CurrencyEntity extends Equatable {
   final String currencyCode;
   final String nameAr;
   final String nameEn;
+  final String symbol;
   final String fractionNameAr;
   final String fractionNameEn;
   final double exchangeRate;
@@ -18,6 +19,7 @@ class CurrencyEntity extends Equatable {
     required this.currencyCode,
     required this.nameAr,
     required this.nameEn,
+    required this.symbol,
     required this.fractionNameAr,
     required this.fractionNameEn,
     required this.exchangeRate,
@@ -33,6 +35,7 @@ class CurrencyEntity extends Equatable {
     String? currencyCode,
     String? nameAr,
     String? nameEn,
+    String? symbol,
     String? fractionNameAr,
     String? fractionNameEn,
     double? exchangeRate,
@@ -47,6 +50,7 @@ class CurrencyEntity extends Equatable {
       currencyCode: currencyCode ?? this.currencyCode,
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
+      symbol: symbol ?? this.symbol,
       fractionNameAr: fractionNameAr ?? this.fractionNameAr,
       fractionNameEn: fractionNameEn ?? this.fractionNameEn,
       exchangeRate: exchangeRate ?? this.exchangeRate,
@@ -64,6 +68,7 @@ class CurrencyEntity extends Equatable {
         currencyCode,
         nameAr,
         nameEn,
+        symbol,
         fractionNameAr,
         fractionNameEn,
         exchangeRate,

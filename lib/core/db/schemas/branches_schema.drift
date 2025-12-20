@@ -12,6 +12,7 @@ CREATE TABLE branches (
   address TEXT,
   phone TEXT,
   default_warehouse_id TEXT,
+  is_main_branch BOOLEAN NOT NULL DEFAULT FALSE,
   branch_status BOOLEAN NOT NULL DEFAULT TRUE,
   logo BLOB,
   remarks TEXT
