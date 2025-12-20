@@ -20,6 +20,12 @@ enum AppPermission {
   deleteJournalVouchers,
   postJournalVouchers,
   reverseJournalVouchers,
+  viewPaymentVouchers,
+  createPaymentVouchers,
+  editPaymentVouchers,
+  deletePaymentVouchers,
+  postPaymentVouchers,
+  reversePaymentVouchers,
 
   // Inventory Permissions (Examples)
   viewInventory,
