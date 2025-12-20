@@ -421,5 +421,16 @@
   "totalAmount": "Total Amount",
   "paymentFrom": "Payment From",
   "line": "line",
-  "lines": "lines"
+  "lines": "lines",
+  "receiptVouchers": "Receipt Vouchers",
+  "searchReceiptVouchers": "Search receipt vouchers...",
+  "receiptToAccount": "Receipt To Account",
+  "pleaseSelectReceiptAccount": "Please select a receipt account",
+  "receiptMethod": "Receipt Method",
+  "payer": "Payer",
+  "receiptLines": "Receipt Lines",
+  "noReceiptLinesAdded": "No receipt lines added yet",
+  "addFirstReceiptLine": "Add your first receipt line",
+  "addReceiptLine": "Add Receipt Line",
+  "receiptTo": "Receipt To"
 }

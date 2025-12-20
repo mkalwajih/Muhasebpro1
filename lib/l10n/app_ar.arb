@@ -390,5 +390,16 @@
   "totalAmount": "المبلغ الإجمالي",
   "paymentFrom": "الدفع من",
   "line": "بند",
-  "lines": "بنود"
+  "lines": "بنود",
+  "receiptVouchers": "سندات القبض",
+  "searchReceiptVouchers": "البحث في سندات القبض...",
+  "receiptToAccount": "القبض إلى حساب",
+  "pleaseSelectReceiptAccount": "يرجى اختيار حساب القبض",
+  "receiptMethod": "طريقة القبض",
+  "payer": "الدافع",
+  "receiptLines": "بنود القبض",
+  "noReceiptLinesAdded": "لم يتم إضافة بنود قبض بعد",
+  "addFirstReceiptLine": "أضف بند القبض الأول",
+  "addReceiptLine": "إضافة بند قبض",
+  "receiptTo": "القبض إلى"
 }
