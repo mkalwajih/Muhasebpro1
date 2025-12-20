@@ -24,6 +24,7 @@ import 'package:muhaseb_pro/features/general_ledger/presentation/pages/journal_v
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/payment_vouchers_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/cash_bank_management_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/financial_reports_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -138,6 +139,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'cash_bank_management',
                 builder: (context, state) => const CashBankManagementScreen(),
+              ),
+              GoRoute(
+                path: 'financial_reports',
+                builder: (context, state) => const FinancialReportsScreen(),
               ),
             ],
           ),
