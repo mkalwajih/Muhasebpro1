@@ -821,4 +821,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invalidPhoneNumberFormat => 'Invalid phone number format';
+
+  @override
+  String get symbol => 'الرمز';
+
+  @override
+  String get isCompound => 'مركب';
 }

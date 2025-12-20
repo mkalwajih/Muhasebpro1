@@ -1687,6 +1687,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid phone number format'**
   String get invalidPhoneNumberFormat;
+
+  /// No description provided for @symbol.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbol'**
+  String get symbol;
+
+  /// No description provided for @isCompound.
+  ///
+  /// In en, this message translates to:
+  /// **'Is Compound'**
+  String get isCompound;
 }
 
 class _AppLocalizationsDelegate

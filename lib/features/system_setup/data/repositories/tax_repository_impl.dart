@@ -18,6 +18,7 @@ class TaxRepositoryImpl implements TaxRepository {
               nameAr: e.nameAr,
               nameEn: e.nameEn,
               taxRate: e.taxRate,
+              isCompound: false, // Default value, as it is not in the database
               isDefault: e.isDefault,
             ))
         .toList();

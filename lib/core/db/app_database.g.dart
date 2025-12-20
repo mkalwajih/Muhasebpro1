@@ -1099,6 +1099,14 @@ class ChartOfAccounts extends Table
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       $customConstraints: 'REFERENCES chart_of_accounts(id)');
+  static const VerificationMeta _isParentMeta =
+      const VerificationMeta('isParent');
+  late final GeneratedColumn<bool> isParent = GeneratedColumn<bool>(
+      'is_parent', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   static const VerificationMeta _isActiveMeta =
       const VerificationMeta('isActive');
   late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
@@ -1118,6 +1126,7 @@ class ChartOfAccounts extends Table
         classificationCode,
         reportTypeCode,
         parentAccountId,
+        isParent,
         isActive
       ];
   @override
@@ -1189,6 +1198,10 @@ class ChartOfAccounts extends Table
           parentAccountId.isAcceptableOrUnknown(
               data['parent_account_id']!, _parentAccountIdMeta));
     }
+    if (data.containsKey('is_parent')) {
+      context.handle(_isParentMeta,
+          isParent.isAcceptableOrUnknown(data['is_parent']!, _isParentMeta));
+    }
     if (data.containsKey('is_active')) {
       context.handle(_isActiveMeta,
           isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
@@ -1220,6 +1233,8 @@ class ChartOfAccounts extends Table
           DriftSqlType.string, data['${effectivePrefix}report_type_code']),
       parentAccountId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}parent_account_id']),
+      isParent: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_parent'])!,
       isActive: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
     );
@@ -1244,6 +1259,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
   final String? classificationCode;
   final String? reportTypeCode;
   final int? parentAccountId;
+  final bool isParent;
   final bool isActive;
   const ChartOfAccount(
       {required this.id,
@@ -1255,6 +1271,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
       this.classificationCode,
       this.reportTypeCode,
       this.parentAccountId,
+      required this.isParent,
       required this.isActive});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1276,6 +1293,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
     if (!nullToAbsent || parentAccountId != null) {
       map['parent_account_id'] = Variable<int>(parentAccountId);
     }
+    map['is_parent'] = Variable<bool>(isParent);
     map['is_active'] = Variable<bool>(isActive);
     return map;
   }
@@ -1299,6 +1317,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
       parentAccountId: parentAccountId == null && nullToAbsent
           ? const Value.absent()
           : Value(parentAccountId),
+      isParent: Value(isParent),
       isActive: Value(isActive),
     );
   }
@@ -1318,6 +1337,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
           serializer.fromJson<String?>(json['classification_code']),
       reportTypeCode: serializer.fromJson<String?>(json['report_type_code']),
       parentAccountId: serializer.fromJson<int?>(json['parent_account_id']),
+      isParent: serializer.fromJson<bool>(json['is_parent']),
       isActive: serializer.fromJson<bool>(json['is_active']),
     );
   }
@@ -1334,6 +1354,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
       'classification_code': serializer.toJson<String?>(classificationCode),
       'report_type_code': serializer.toJson<String?>(reportTypeCode),
       'parent_account_id': serializer.toJson<int?>(parentAccountId),
+      'is_parent': serializer.toJson<bool>(isParent),
       'is_active': serializer.toJson<bool>(isActive),
     };
   }
@@ -1348,6 +1369,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
           Value<String?> classificationCode = const Value.absent(),
           Value<String?> reportTypeCode = const Value.absent(),
           Value<int?> parentAccountId = const Value.absent(),
+          bool? isParent,
           bool? isActive}) =>
       ChartOfAccount(
         id: id ?? this.id,
@@ -1366,6 +1388,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
         parentAccountId: parentAccountId.present
             ? parentAccountId.value
             : this.parentAccountId,
+        isParent: isParent ?? this.isParent,
         isActive: isActive ?? this.isActive,
       );
   ChartOfAccount copyWithCompanion(ChartOfAccountsCompanion data) {
@@ -1394,6 +1417,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
       parentAccountId: data.parentAccountId.present
           ? data.parentAccountId.value
           : this.parentAccountId,
+      isParent: data.isParent.present ? data.isParent.value : this.isParent,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
     );
   }
@@ -1410,6 +1434,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
           ..write('classificationCode: $classificationCode, ')
           ..write('reportTypeCode: $reportTypeCode, ')
           ..write('parentAccountId: $parentAccountId, ')
+          ..write('isParent: $isParent, ')
           ..write('isActive: $isActive')
           ..write(')'))
         .toString();
@@ -1426,6 +1451,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
       classificationCode,
       reportTypeCode,
       parentAccountId,
+      isParent,
       isActive);
   @override
   bool operator ==(Object other) =>
@@ -1440,6 +1466,7 @@ class ChartOfAccount extends DataClass implements Insertable<ChartOfAccount> {
           other.classificationCode == this.classificationCode &&
           other.reportTypeCode == this.reportTypeCode &&
           other.parentAccountId == this.parentAccountId &&
+          other.isParent == this.isParent &&
           other.isActive == this.isActive);
 }
 
@@ -1453,6 +1480,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
   final Value<String?> classificationCode;
   final Value<String?> reportTypeCode;
   final Value<int?> parentAccountId;
+  final Value<bool> isParent;
   final Value<bool> isActive;
   const ChartOfAccountsCompanion({
     this.id = const Value.absent(),
@@ -1464,6 +1492,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
     this.classificationCode = const Value.absent(),
     this.reportTypeCode = const Value.absent(),
     this.parentAccountId = const Value.absent(),
+    this.isParent = const Value.absent(),
     this.isActive = const Value.absent(),
   });
   ChartOfAccountsCompanion.insert({
@@ -1476,6 +1505,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
     this.classificationCode = const Value.absent(),
     this.reportTypeCode = const Value.absent(),
     this.parentAccountId = const Value.absent(),
+    this.isParent = const Value.absent(),
     this.isActive = const Value.absent(),
   })  : accountCode = Value(accountCode),
         accountNameAr = Value(accountNameAr),
@@ -1491,6 +1521,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
     Expression<String>? classificationCode,
     Expression<String>? reportTypeCode,
     Expression<int>? parentAccountId,
+    Expression<bool>? isParent,
     Expression<bool>? isActive,
   }) {
     return RawValuesInsertable({
@@ -1503,6 +1534,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
       if (classificationCode != null) 'classification_code': classificationCode,
       if (reportTypeCode != null) 'report_type_code': reportTypeCode,
       if (parentAccountId != null) 'parent_account_id': parentAccountId,
+      if (isParent != null) 'is_parent': isParent,
       if (isActive != null) 'is_active': isActive,
     });
   }
@@ -1517,6 +1549,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
       Value<String?>? classificationCode,
       Value<String?>? reportTypeCode,
       Value<int?>? parentAccountId,
+      Value<bool>? isParent,
       Value<bool>? isActive}) {
     return ChartOfAccountsCompanion(
       id: id ?? this.id,
@@ -1528,6 +1561,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
       classificationCode: classificationCode ?? this.classificationCode,
       reportTypeCode: reportTypeCode ?? this.reportTypeCode,
       parentAccountId: parentAccountId ?? this.parentAccountId,
+      isParent: isParent ?? this.isParent,
       isActive: isActive ?? this.isActive,
     );
   }
@@ -1562,6 +1596,9 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
     if (parentAccountId.present) {
       map['parent_account_id'] = Variable<int>(parentAccountId.value);
     }
+    if (isParent.present) {
+      map['is_parent'] = Variable<bool>(isParent.value);
+    }
     if (isActive.present) {
       map['is_active'] = Variable<bool>(isActive.value);
     }
@@ -1580,6 +1617,7 @@ class ChartOfAccountsCompanion extends UpdateCompanion<ChartOfAccount> {
           ..write('classificationCode: $classificationCode, ')
           ..write('reportTypeCode: $reportTypeCode, ')
           ..write('parentAccountId: $parentAccountId, ')
+          ..write('isParent: $isParent, ')
           ..write('isActive: $isActive')
           ..write(')'))
         .toString();
@@ -1617,6 +1655,14 @@ class TaxBracket extends Table with TableInfo<TaxBracket, TaxBracketData> {
       type: DriftSqlType.double,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
+  static const VerificationMeta _isCompoundMeta =
+      const VerificationMeta('isCompound');
+  late final GeneratedColumn<bool> isCompound = GeneratedColumn<bool>(
+      'is_compound', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   static const VerificationMeta _isDefaultMeta =
       const VerificationMeta('isDefault');
   late final GeneratedColumn<bool> isDefault = GeneratedColumn<bool>(
@@ -1627,7 +1673,7 @@ class TaxBracket extends Table with TableInfo<TaxBracket, TaxBracketData> {
       defaultValue: const CustomExpression('FALSE'));
   @override
   List<GeneratedColumn> get $columns =>
-      [bracketCode, nameAr, nameEn, taxRate, isDefault];
+      [bracketCode, nameAr, nameEn, taxRate, isCompound, isDefault];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1664,6 +1710,12 @@ class TaxBracket extends Table with TableInfo<TaxBracket, TaxBracketData> {
     } else if (isInserting) {
       context.missing(_taxRateMeta);
     }
+    if (data.containsKey('is_compound')) {
+      context.handle(
+          _isCompoundMeta,
+          isCompound.isAcceptableOrUnknown(
+              data['is_compound']!, _isCompoundMeta));
+    }
     if (data.containsKey('is_default')) {
       context.handle(_isDefaultMeta,
           isDefault.isAcceptableOrUnknown(data['is_default']!, _isDefaultMeta));
@@ -1685,6 +1737,8 @@ class TaxBracket extends Table with TableInfo<TaxBracket, TaxBracketData> {
           .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
       taxRate: attachedDatabase.typeMapping
           .read(DriftSqlType.double, data['${effectivePrefix}tax_rate'])!,
+      isCompound: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_compound'])!,
       isDefault: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_default'])!,
     );
@@ -1704,12 +1758,14 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
   final String nameAr;
   final String nameEn;
   final double taxRate;
+  final bool isCompound;
   final bool isDefault;
   const TaxBracketData(
       {required this.bracketCode,
       required this.nameAr,
       required this.nameEn,
       required this.taxRate,
+      required this.isCompound,
       required this.isDefault});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1718,6 +1774,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
     map['name_ar'] = Variable<String>(nameAr);
     map['name_en'] = Variable<String>(nameEn);
     map['tax_rate'] = Variable<double>(taxRate);
+    map['is_compound'] = Variable<bool>(isCompound);
     map['is_default'] = Variable<bool>(isDefault);
     return map;
   }
@@ -1728,6 +1785,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
       taxRate: Value(taxRate),
+      isCompound: Value(isCompound),
       isDefault: Value(isDefault),
     );
   }
@@ -1740,6 +1798,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
       nameAr: serializer.fromJson<String>(json['name_ar']),
       nameEn: serializer.fromJson<String>(json['name_en']),
       taxRate: serializer.fromJson<double>(json['tax_rate']),
+      isCompound: serializer.fromJson<bool>(json['is_compound']),
       isDefault: serializer.fromJson<bool>(json['is_default']),
     );
   }
@@ -1751,6 +1810,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
       'name_ar': serializer.toJson<String>(nameAr),
       'name_en': serializer.toJson<String>(nameEn),
       'tax_rate': serializer.toJson<double>(taxRate),
+      'is_compound': serializer.toJson<bool>(isCompound),
       'is_default': serializer.toJson<bool>(isDefault),
     };
   }
@@ -1760,12 +1820,14 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
           String? nameAr,
           String? nameEn,
           double? taxRate,
+          bool? isCompound,
           bool? isDefault}) =>
       TaxBracketData(
         bracketCode: bracketCode ?? this.bracketCode,
         nameAr: nameAr ?? this.nameAr,
         nameEn: nameEn ?? this.nameEn,
         taxRate: taxRate ?? this.taxRate,
+        isCompound: isCompound ?? this.isCompound,
         isDefault: isDefault ?? this.isDefault,
       );
   TaxBracketData copyWithCompanion(TaxBracketCompanion data) {
@@ -1775,6 +1837,8 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
       taxRate: data.taxRate.present ? data.taxRate.value : this.taxRate,
+      isCompound:
+          data.isCompound.present ? data.isCompound.value : this.isCompound,
       isDefault: data.isDefault.present ? data.isDefault.value : this.isDefault,
     );
   }
@@ -1786,6 +1850,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
           ..write('taxRate: $taxRate, ')
+          ..write('isCompound: $isCompound, ')
           ..write('isDefault: $isDefault')
           ..write(')'))
         .toString();
@@ -1793,7 +1858,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
 
   @override
   int get hashCode =>
-      Object.hash(bracketCode, nameAr, nameEn, taxRate, isDefault);
+      Object.hash(bracketCode, nameAr, nameEn, taxRate, isCompound, isDefault);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1802,6 +1867,7 @@ class TaxBracketData extends DataClass implements Insertable<TaxBracketData> {
           other.nameAr == this.nameAr &&
           other.nameEn == this.nameEn &&
           other.taxRate == this.taxRate &&
+          other.isCompound == this.isCompound &&
           other.isDefault == this.isDefault);
 }
 
@@ -1810,6 +1876,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
   final Value<String> nameAr;
   final Value<String> nameEn;
   final Value<double> taxRate;
+  final Value<bool> isCompound;
   final Value<bool> isDefault;
   final Value<int> rowid;
   const TaxBracketCompanion({
@@ -1817,6 +1884,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
     this.nameAr = const Value.absent(),
     this.nameEn = const Value.absent(),
     this.taxRate = const Value.absent(),
+    this.isCompound = const Value.absent(),
     this.isDefault = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1825,6 +1893,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
     required String nameAr,
     required String nameEn,
     required double taxRate,
+    this.isCompound = const Value.absent(),
     this.isDefault = const Value.absent(),
     this.rowid = const Value.absent(),
   })  : bracketCode = Value(bracketCode),
@@ -1836,6 +1905,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
     Expression<String>? nameAr,
     Expression<String>? nameEn,
     Expression<double>? taxRate,
+    Expression<bool>? isCompound,
     Expression<bool>? isDefault,
     Expression<int>? rowid,
   }) {
@@ -1844,6 +1914,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
       if (nameAr != null) 'name_ar': nameAr,
       if (nameEn != null) 'name_en': nameEn,
       if (taxRate != null) 'tax_rate': taxRate,
+      if (isCompound != null) 'is_compound': isCompound,
       if (isDefault != null) 'is_default': isDefault,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1854,6 +1925,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
       Value<String>? nameAr,
       Value<String>? nameEn,
       Value<double>? taxRate,
+      Value<bool>? isCompound,
       Value<bool>? isDefault,
       Value<int>? rowid}) {
     return TaxBracketCompanion(
@@ -1861,6 +1933,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
       taxRate: taxRate ?? this.taxRate,
+      isCompound: isCompound ?? this.isCompound,
       isDefault: isDefault ?? this.isDefault,
       rowid: rowid ?? this.rowid,
     );
@@ -1881,6 +1954,9 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
     if (taxRate.present) {
       map['tax_rate'] = Variable<double>(taxRate.value);
     }
+    if (isCompound.present) {
+      map['is_compound'] = Variable<bool>(isCompound.value);
+    }
     if (isDefault.present) {
       map['is_default'] = Variable<bool>(isDefault.value);
     }
@@ -1897,6 +1973,7 @@ class TaxBracketCompanion extends UpdateCompanion<TaxBracketData> {
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
           ..write('taxRate: $taxRate, ')
+          ..write('isCompound: $isCompound, ')
           ..write('isDefault: $isDefault, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -4599,6 +4676,14 @@ class Branches extends Table with TableInfo<Branches, Branche> {
           type: DriftSqlType.string,
           requiredDuringInsert: false,
           $customConstraints: '');
+  static const VerificationMeta _isMainBranchMeta =
+      const VerificationMeta('isMainBranch');
+  late final GeneratedColumn<bool> isMainBranch = GeneratedColumn<bool>(
+      'is_main_branch', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT FALSE',
+      defaultValue: const CustomExpression('FALSE'));
   static const VerificationMeta _branchStatusMeta =
       const VerificationMeta('branchStatus');
   late final GeneratedColumn<bool> branchStatus = GeneratedColumn<bool>(
@@ -4631,6 +4716,7 @@ class Branches extends Table with TableInfo<Branches, Branche> {
         address,
         phone,
         defaultWarehouseId,
+        isMainBranch,
         branchStatus,
         logo,
         remarks
@@ -4694,6 +4780,12 @@ class Branches extends Table with TableInfo<Branches, Branche> {
           defaultWarehouseId.isAcceptableOrUnknown(
               data['default_warehouse_id']!, _defaultWarehouseIdMeta));
     }
+    if (data.containsKey('is_main_branch')) {
+      context.handle(
+          _isMainBranchMeta,
+          isMainBranch.isAcceptableOrUnknown(
+              data['is_main_branch']!, _isMainBranchMeta));
+    }
     if (data.containsKey('branch_status')) {
       context.handle(
           _branchStatusMeta,
@@ -4735,6 +4827,8 @@ class Branches extends Table with TableInfo<Branches, Branche> {
           .read(DriftSqlType.string, data['${effectivePrefix}phone']),
       defaultWarehouseId: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}default_warehouse_id']),
+      isMainBranch: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_main_branch'])!,
       branchStatus: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}branch_status'])!,
       logo: attachedDatabase.typeMapping
@@ -4763,6 +4857,7 @@ class Branche extends DataClass implements Insertable<Branche> {
   final String? address;
   final String? phone;
   final String? defaultWarehouseId;
+  final bool isMainBranch;
   final bool branchStatus;
   final Uint8List? logo;
   final String? remarks;
@@ -4776,6 +4871,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       this.address,
       this.phone,
       this.defaultWarehouseId,
+      required this.isMainBranch,
       required this.branchStatus,
       this.logo,
       this.remarks});
@@ -4799,6 +4895,7 @@ class Branche extends DataClass implements Insertable<Branche> {
     if (!nullToAbsent || defaultWarehouseId != null) {
       map['default_warehouse_id'] = Variable<String>(defaultWarehouseId);
     }
+    map['is_main_branch'] = Variable<bool>(isMainBranch);
     map['branch_status'] = Variable<bool>(branchStatus);
     if (!nullToAbsent || logo != null) {
       map['logo'] = Variable<Uint8List>(logo);
@@ -4827,6 +4924,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       defaultWarehouseId: defaultWarehouseId == null && nullToAbsent
           ? const Value.absent()
           : Value(defaultWarehouseId),
+      isMainBranch: Value(isMainBranch),
       branchStatus: Value(branchStatus),
       logo: logo == null && nullToAbsent ? const Value.absent() : Value(logo),
       remarks: remarks == null && nullToAbsent
@@ -4849,6 +4947,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       phone: serializer.fromJson<String?>(json['phone']),
       defaultWarehouseId:
           serializer.fromJson<String?>(json['default_warehouse_id']),
+      isMainBranch: serializer.fromJson<bool>(json['is_main_branch']),
       branchStatus: serializer.fromJson<bool>(json['branch_status']),
       logo: serializer.fromJson<Uint8List?>(json['logo']),
       remarks: serializer.fromJson<String?>(json['remarks']),
@@ -4867,6 +4966,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       'address': serializer.toJson<String?>(address),
       'phone': serializer.toJson<String?>(phone),
       'default_warehouse_id': serializer.toJson<String?>(defaultWarehouseId),
+      'is_main_branch': serializer.toJson<bool>(isMainBranch),
       'branch_status': serializer.toJson<bool>(branchStatus),
       'logo': serializer.toJson<Uint8List?>(logo),
       'remarks': serializer.toJson<String?>(remarks),
@@ -4883,6 +4983,7 @@ class Branche extends DataClass implements Insertable<Branche> {
           Value<String?> address = const Value.absent(),
           Value<String?> phone = const Value.absent(),
           Value<String?> defaultWarehouseId = const Value.absent(),
+          bool? isMainBranch,
           bool? branchStatus,
           Value<Uint8List?> logo = const Value.absent(),
           Value<String?> remarks = const Value.absent()}) =>
@@ -4899,6 +5000,7 @@ class Branche extends DataClass implements Insertable<Branche> {
         defaultWarehouseId: defaultWarehouseId.present
             ? defaultWarehouseId.value
             : this.defaultWarehouseId,
+        isMainBranch: isMainBranch ?? this.isMainBranch,
         branchStatus: branchStatus ?? this.branchStatus,
         logo: logo.present ? logo.value : this.logo,
         remarks: remarks.present ? remarks.value : this.remarks,
@@ -4919,6 +5021,9 @@ class Branche extends DataClass implements Insertable<Branche> {
       defaultWarehouseId: data.defaultWarehouseId.present
           ? data.defaultWarehouseId.value
           : this.defaultWarehouseId,
+      isMainBranch: data.isMainBranch.present
+          ? data.isMainBranch.value
+          : this.isMainBranch,
       branchStatus: data.branchStatus.present
           ? data.branchStatus.value
           : this.branchStatus,
@@ -4939,6 +5044,7 @@ class Branche extends DataClass implements Insertable<Branche> {
           ..write('address: $address, ')
           ..write('phone: $phone, ')
           ..write('defaultWarehouseId: $defaultWarehouseId, ')
+          ..write('isMainBranch: $isMainBranch, ')
           ..write('branchStatus: $branchStatus, ')
           ..write('logo: $logo, ')
           ..write('remarks: $remarks')
@@ -4957,6 +5063,7 @@ class Branche extends DataClass implements Insertable<Branche> {
       address,
       phone,
       defaultWarehouseId,
+      isMainBranch,
       branchStatus,
       $driftBlobEquality.hash(logo),
       remarks);
@@ -4973,6 +5080,7 @@ class Branche extends DataClass implements Insertable<Branche> {
           other.address == this.address &&
           other.phone == this.phone &&
           other.defaultWarehouseId == this.defaultWarehouseId &&
+          other.isMainBranch == this.isMainBranch &&
           other.branchStatus == this.branchStatus &&
           $driftBlobEquality.equals(other.logo, this.logo) &&
           other.remarks == this.remarks);
@@ -4988,6 +5096,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
   final Value<String?> address;
   final Value<String?> phone;
   final Value<String?> defaultWarehouseId;
+  final Value<bool> isMainBranch;
   final Value<bool> branchStatus;
   final Value<Uint8List?> logo;
   final Value<String?> remarks;
@@ -5001,6 +5110,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     this.address = const Value.absent(),
     this.phone = const Value.absent(),
     this.defaultWarehouseId = const Value.absent(),
+    this.isMainBranch = const Value.absent(),
     this.branchStatus = const Value.absent(),
     this.logo = const Value.absent(),
     this.remarks = const Value.absent(),
@@ -5015,6 +5125,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     this.address = const Value.absent(),
     this.phone = const Value.absent(),
     this.defaultWarehouseId = const Value.absent(),
+    this.isMainBranch = const Value.absent(),
     this.branchStatus = const Value.absent(),
     this.logo = const Value.absent(),
     this.remarks = const Value.absent(),
@@ -5032,6 +5143,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     Expression<String>? address,
     Expression<String>? phone,
     Expression<String>? defaultWarehouseId,
+    Expression<bool>? isMainBranch,
     Expression<bool>? branchStatus,
     Expression<Uint8List>? logo,
     Expression<String>? remarks,
@@ -5047,6 +5159,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       if (phone != null) 'phone': phone,
       if (defaultWarehouseId != null)
         'default_warehouse_id': defaultWarehouseId,
+      if (isMainBranch != null) 'is_main_branch': isMainBranch,
       if (branchStatus != null) 'branch_status': branchStatus,
       if (logo != null) 'logo': logo,
       if (remarks != null) 'remarks': remarks,
@@ -5063,6 +5176,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       Value<String?>? address,
       Value<String?>? phone,
       Value<String?>? defaultWarehouseId,
+      Value<bool>? isMainBranch,
       Value<bool>? branchStatus,
       Value<Uint8List?>? logo,
       Value<String?>? remarks}) {
@@ -5076,6 +5190,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
       address: address ?? this.address,
       phone: phone ?? this.phone,
       defaultWarehouseId: defaultWarehouseId ?? this.defaultWarehouseId,
+      isMainBranch: isMainBranch ?? this.isMainBranch,
       branchStatus: branchStatus ?? this.branchStatus,
       logo: logo ?? this.logo,
       remarks: remarks ?? this.remarks,
@@ -5112,6 +5227,9 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
     if (defaultWarehouseId.present) {
       map['default_warehouse_id'] = Variable<String>(defaultWarehouseId.value);
     }
+    if (isMainBranch.present) {
+      map['is_main_branch'] = Variable<bool>(isMainBranch.value);
+    }
     if (branchStatus.present) {
       map['branch_status'] = Variable<bool>(branchStatus.value);
     }
@@ -5136,6 +5254,7 @@ class BranchesCompanion extends UpdateCompanion<Branche> {
           ..write('address: $address, ')
           ..write('phone: $phone, ')
           ..write('defaultWarehouseId: $defaultWarehouseId, ')
+          ..write('isMainBranch: $isMainBranch, ')
           ..write('branchStatus: $branchStatus, ')
           ..write('logo: $logo, ')
           ..write('remarks: $remarks')
@@ -5215,6 +5334,21 @@ class Users extends Table with TableInfo<Users, User> {
       requiredDuringInsert: false,
       $customConstraints: 'NOT NULL DEFAULT FALSE',
       defaultValue: const CustomExpression('FALSE'));
+  static const VerificationMeta _lastLoginMeta =
+      const VerificationMeta('lastLogin');
+  late final GeneratedColumn<int> lastLogin = GeneratedColumn<int>(
+      'last_login', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _failedLoginAttemptsMeta =
+      const VerificationMeta('failedLoginAttempts');
+  late final GeneratedColumn<int> failedLoginAttempts = GeneratedColumn<int>(
+      'failed_login_attempts', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT 0',
+      defaultValue: const CustomExpression('0'));
   @override
   List<GeneratedColumn> get $columns => [
         userId,
@@ -5225,7 +5359,9 @@ class Users extends Table with TableInfo<Users, User> {
         isActive,
         branchId,
         isBiometricEnabled,
-        isDeviceLinked
+        isDeviceLinked,
+        lastLogin,
+        failedLoginAttempts
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -5289,6 +5425,16 @@ class Users extends Table with TableInfo<Users, User> {
           isDeviceLinked.isAcceptableOrUnknown(
               data['is_device_linked']!, _isDeviceLinkedMeta));
     }
+    if (data.containsKey('last_login')) {
+      context.handle(_lastLoginMeta,
+          lastLogin.isAcceptableOrUnknown(data['last_login']!, _lastLoginMeta));
+    }
+    if (data.containsKey('failed_login_attempts')) {
+      context.handle(
+          _failedLoginAttemptsMeta,
+          failedLoginAttempts.isAcceptableOrUnknown(
+              data['failed_login_attempts']!, _failedLoginAttemptsMeta));
+    }
     return context;
   }
 
@@ -5316,6 +5462,10 @@ class Users extends Table with TableInfo<Users, User> {
           DriftSqlType.bool, data['${effectivePrefix}is_biometric_enabled'])!,
       isDeviceLinked: attachedDatabase.typeMapping
           .read(DriftSqlType.bool, data['${effectivePrefix}is_device_linked'])!,
+      lastLogin: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}last_login']),
+      failedLoginAttempts: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}failed_login_attempts'])!,
     );
   }
 
@@ -5340,6 +5490,10 @@ class User extends DataClass implements Insertable<User> {
   /// Can be null for system-wide users
   final bool isBiometricEnabled;
   final bool isDeviceLinked;
+  final int? lastLogin;
+
+  /// Timestamp of last successful login
+  final int failedLoginAttempts;
   const User(
       {required this.userId,
       required this.username,
@@ -5349,7 +5503,9 @@ class User extends DataClass implements Insertable<User> {
       required this.isActive,
       this.branchId,
       required this.isBiometricEnabled,
-      required this.isDeviceLinked});
+      required this.isDeviceLinked,
+      this.lastLogin,
+      required this.failedLoginAttempts});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -5364,6 +5520,10 @@ class User extends DataClass implements Insertable<User> {
     }
     map['is_biometric_enabled'] = Variable<bool>(isBiometricEnabled);
     map['is_device_linked'] = Variable<bool>(isDeviceLinked);
+    if (!nullToAbsent || lastLogin != null) {
+      map['last_login'] = Variable<int>(lastLogin);
+    }
+    map['failed_login_attempts'] = Variable<int>(failedLoginAttempts);
     return map;
   }
 
@@ -5380,6 +5540,10 @@ class User extends DataClass implements Insertable<User> {
           : Value(branchId),
       isBiometricEnabled: Value(isBiometricEnabled),
       isDeviceLinked: Value(isDeviceLinked),
+      lastLogin: lastLogin == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastLogin),
+      failedLoginAttempts: Value(failedLoginAttempts),
     );
   }
 
@@ -5397,6 +5561,9 @@ class User extends DataClass implements Insertable<User> {
       isBiometricEnabled:
           serializer.fromJson<bool>(json['is_biometric_enabled']),
       isDeviceLinked: serializer.fromJson<bool>(json['is_device_linked']),
+      lastLogin: serializer.fromJson<int?>(json['last_login']),
+      failedLoginAttempts:
+          serializer.fromJson<int>(json['failed_login_attempts']),
     );
   }
   @override
@@ -5412,6 +5579,8 @@ class User extends DataClass implements Insertable<User> {
       'branch_id': serializer.toJson<int?>(branchId),
       'is_biometric_enabled': serializer.toJson<bool>(isBiometricEnabled),
       'is_device_linked': serializer.toJson<bool>(isDeviceLinked),
+      'last_login': serializer.toJson<int?>(lastLogin),
+      'failed_login_attempts': serializer.toJson<int>(failedLoginAttempts),
     };
   }
 
@@ -5424,7 +5593,9 @@ class User extends DataClass implements Insertable<User> {
           bool? isActive,
           Value<int?> branchId = const Value.absent(),
           bool? isBiometricEnabled,
-          bool? isDeviceLinked}) =>
+          bool? isDeviceLinked,
+          Value<int?> lastLogin = const Value.absent(),
+          int? failedLoginAttempts}) =>
       User(
         userId: userId ?? this.userId,
         username: username ?? this.username,
@@ -5435,6 +5606,8 @@ class User extends DataClass implements Insertable<User> {
         branchId: branchId.present ? branchId.value : this.branchId,
         isBiometricEnabled: isBiometricEnabled ?? this.isBiometricEnabled,
         isDeviceLinked: isDeviceLinked ?? this.isDeviceLinked,
+        lastLogin: lastLogin.present ? lastLogin.value : this.lastLogin,
+        failedLoginAttempts: failedLoginAttempts ?? this.failedLoginAttempts,
       );
   User copyWithCompanion(UsersCompanion data) {
     return User(
@@ -5453,6 +5626,10 @@ class User extends DataClass implements Insertable<User> {
       isDeviceLinked: data.isDeviceLinked.present
           ? data.isDeviceLinked.value
           : this.isDeviceLinked,
+      lastLogin: data.lastLogin.present ? data.lastLogin.value : this.lastLogin,
+      failedLoginAttempts: data.failedLoginAttempts.present
+          ? data.failedLoginAttempts.value
+          : this.failedLoginAttempts,
     );
   }
 
@@ -5467,14 +5644,26 @@ class User extends DataClass implements Insertable<User> {
           ..write('isActive: $isActive, ')
           ..write('branchId: $branchId, ')
           ..write('isBiometricEnabled: $isBiometricEnabled, ')
-          ..write('isDeviceLinked: $isDeviceLinked')
+          ..write('isDeviceLinked: $isDeviceLinked, ')
+          ..write('lastLogin: $lastLogin, ')
+          ..write('failedLoginAttempts: $failedLoginAttempts')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(userId, username, password, fullNameAr,
-      fullNameEn, isActive, branchId, isBiometricEnabled, isDeviceLinked);
+  int get hashCode => Object.hash(
+      userId,
+      username,
+      password,
+      fullNameAr,
+      fullNameEn,
+      isActive,
+      branchId,
+      isBiometricEnabled,
+      isDeviceLinked,
+      lastLogin,
+      failedLoginAttempts);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -5487,7 +5676,9 @@ class User extends DataClass implements Insertable<User> {
           other.isActive == this.isActive &&
           other.branchId == this.branchId &&
           other.isBiometricEnabled == this.isBiometricEnabled &&
-          other.isDeviceLinked == this.isDeviceLinked);
+          other.isDeviceLinked == this.isDeviceLinked &&
+          other.lastLogin == this.lastLogin &&
+          other.failedLoginAttempts == this.failedLoginAttempts);
 }
 
 class UsersCompanion extends UpdateCompanion<User> {
@@ -5500,6 +5691,8 @@ class UsersCompanion extends UpdateCompanion<User> {
   final Value<int?> branchId;
   final Value<bool> isBiometricEnabled;
   final Value<bool> isDeviceLinked;
+  final Value<int?> lastLogin;
+  final Value<int> failedLoginAttempts;
   const UsersCompanion({
     this.userId = const Value.absent(),
     this.username = const Value.absent(),
@@ -5510,6 +5703,8 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.branchId = const Value.absent(),
     this.isBiometricEnabled = const Value.absent(),
     this.isDeviceLinked = const Value.absent(),
+    this.lastLogin = const Value.absent(),
+    this.failedLoginAttempts = const Value.absent(),
   });
   UsersCompanion.insert({
     this.userId = const Value.absent(),
@@ -5521,6 +5716,8 @@ class UsersCompanion extends UpdateCompanion<User> {
     this.branchId = const Value.absent(),
     this.isBiometricEnabled = const Value.absent(),
     this.isDeviceLinked = const Value.absent(),
+    this.lastLogin = const Value.absent(),
+    this.failedLoginAttempts = const Value.absent(),
   })  : username = Value(username),
         password = Value(password),
         fullNameAr = Value(fullNameAr),
@@ -5535,6 +5732,8 @@ class UsersCompanion extends UpdateCompanion<User> {
     Expression<int>? branchId,
     Expression<bool>? isBiometricEnabled,
     Expression<bool>? isDeviceLinked,
+    Expression<int>? lastLogin,
+    Expression<int>? failedLoginAttempts,
   }) {
     return RawValuesInsertable({
       if (userId != null) 'user_id': userId,
@@ -5547,6 +5746,9 @@ class UsersCompanion extends UpdateCompanion<User> {
       if (isBiometricEnabled != null)
         'is_biometric_enabled': isBiometricEnabled,
       if (isDeviceLinked != null) 'is_device_linked': isDeviceLinked,
+      if (lastLogin != null) 'last_login': lastLogin,
+      if (failedLoginAttempts != null)
+        'failed_login_attempts': failedLoginAttempts,
     });
   }
 
@@ -5559,7 +5761,9 @@ class UsersCompanion extends UpdateCompanion<User> {
       Value<bool>? isActive,
       Value<int?>? branchId,
       Value<bool>? isBiometricEnabled,
-      Value<bool>? isDeviceLinked}) {
+      Value<bool>? isDeviceLinked,
+      Value<int?>? lastLogin,
+      Value<int>? failedLoginAttempts}) {
     return UsersCompanion(
       userId: userId ?? this.userId,
       username: username ?? this.username,
@@ -5570,6 +5774,8 @@ class UsersCompanion extends UpdateCompanion<User> {
       branchId: branchId ?? this.branchId,
       isBiometricEnabled: isBiometricEnabled ?? this.isBiometricEnabled,
       isDeviceLinked: isDeviceLinked ?? this.isDeviceLinked,
+      lastLogin: lastLogin ?? this.lastLogin,
+      failedLoginAttempts: failedLoginAttempts ?? this.failedLoginAttempts,
     );
   }
 
@@ -5603,6 +5809,12 @@ class UsersCompanion extends UpdateCompanion<User> {
     if (isDeviceLinked.present) {
       map['is_device_linked'] = Variable<bool>(isDeviceLinked.value);
     }
+    if (lastLogin.present) {
+      map['last_login'] = Variable<int>(lastLogin.value);
+    }
+    if (failedLoginAttempts.present) {
+      map['failed_login_attempts'] = Variable<int>(failedLoginAttempts.value);
+    }
     return map;
   }
 
@@ -5617,7 +5829,9 @@ class UsersCompanion extends UpdateCompanion<User> {
           ..write('isActive: $isActive, ')
           ..write('branchId: $branchId, ')
           ..write('isBiometricEnabled: $isBiometricEnabled, ')
-          ..write('isDeviceLinked: $isDeviceLinked')
+          ..write('isDeviceLinked: $isDeviceLinked, ')
+          ..write('lastLogin: $lastLogin, ')
+          ..write('failedLoginAttempts: $failedLoginAttempts')
           ..write(')'))
         .toString();
   }
@@ -7694,6 +7908,13 @@ class SystemConfig extends Table
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
+  static const VerificationMeta _defaultCurrencyCodeMeta =
+      const VerificationMeta('defaultCurrencyCode');
+  late final GeneratedColumn<String> defaultCurrencyCode =
+      GeneratedColumn<String>('default_currency_code', aliasedName, false,
+          type: DriftSqlType.string,
+          requiredDuringInsert: true,
+          $customConstraints: 'NOT NULL');
   static const VerificationMeta _dateFormatMeta =
       const VerificationMeta('dateFormat');
   late final GeneratedColumn<String> dateFormat = GeneratedColumn<String>(
@@ -7808,6 +8029,7 @@ class SystemConfig extends Table
   List<GeneratedColumn> get $columns => [
         id,
         language,
+        defaultCurrencyCode,
         dateFormat,
         calendarType,
         accountNumberType,
@@ -7843,6 +8065,14 @@ class SystemConfig extends Table
           language.isAcceptableOrUnknown(data['language']!, _languageMeta));
     } else if (isInserting) {
       context.missing(_languageMeta);
+    }
+    if (data.containsKey('default_currency_code')) {
+      context.handle(
+          _defaultCurrencyCodeMeta,
+          defaultCurrencyCode.isAcceptableOrUnknown(
+              data['default_currency_code']!, _defaultCurrencyCodeMeta));
+    } else if (isInserting) {
+      context.missing(_defaultCurrencyCodeMeta);
     }
     if (data.containsKey('date_format')) {
       context.handle(
@@ -7977,6 +8207,9 @@ class SystemConfig extends Table
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       language: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}language'])!,
+      defaultCurrencyCode: attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}default_currency_code'])!,
       dateFormat: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}date_format'])!,
       calendarType: attachedDatabase.typeMapping
@@ -8025,6 +8258,7 @@ class SystemConfigData extends DataClass
     implements Insertable<SystemConfigData> {
   final int id;
   final String language;
+  final String defaultCurrencyCode;
   final String dateFormat;
   final String calendarType;
   final String accountNumberType;
@@ -8044,6 +8278,7 @@ class SystemConfigData extends DataClass
   const SystemConfigData(
       {required this.id,
       required this.language,
+      required this.defaultCurrencyCode,
       required this.dateFormat,
       required this.calendarType,
       required this.accountNumberType,
@@ -8065,6 +8300,7 @@ class SystemConfigData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['language'] = Variable<String>(language);
+    map['default_currency_code'] = Variable<String>(defaultCurrencyCode);
     map['date_format'] = Variable<String>(dateFormat);
     map['calendar_type'] = Variable<String>(calendarType);
     map['account_number_type'] = Variable<String>(accountNumberType);
@@ -8088,6 +8324,7 @@ class SystemConfigData extends DataClass
     return SystemConfigCompanion(
       id: Value(id),
       language: Value(language),
+      defaultCurrencyCode: Value(defaultCurrencyCode),
       dateFormat: Value(dateFormat),
       calendarType: Value(calendarType),
       accountNumberType: Value(accountNumberType),
@@ -8113,6 +8350,8 @@ class SystemConfigData extends DataClass
     return SystemConfigData(
       id: serializer.fromJson<int>(json['id']),
       language: serializer.fromJson<String>(json['language']),
+      defaultCurrencyCode:
+          serializer.fromJson<String>(json['default_currency_code']),
       dateFormat: serializer.fromJson<String>(json['date_format']),
       calendarType: serializer.fromJson<String>(json['calendar_type']),
       accountNumberType:
@@ -8139,6 +8378,7 @@ class SystemConfigData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'language': serializer.toJson<String>(language),
+      'default_currency_code': serializer.toJson<String>(defaultCurrencyCode),
       'date_format': serializer.toJson<String>(dateFormat),
       'calendar_type': serializer.toJson<String>(calendarType),
       'account_number_type': serializer.toJson<String>(accountNumberType),
@@ -8161,6 +8401,7 @@ class SystemConfigData extends DataClass
   SystemConfigData copyWith(
           {int? id,
           String? language,
+          String? defaultCurrencyCode,
           String? dateFormat,
           String? calendarType,
           String? accountNumberType,
@@ -8180,6 +8421,7 @@ class SystemConfigData extends DataClass
       SystemConfigData(
         id: id ?? this.id,
         language: language ?? this.language,
+        defaultCurrencyCode: defaultCurrencyCode ?? this.defaultCurrencyCode,
         dateFormat: dateFormat ?? this.dateFormat,
         calendarType: calendarType ?? this.calendarType,
         accountNumberType: accountNumberType ?? this.accountNumberType,
@@ -8201,6 +8443,9 @@ class SystemConfigData extends DataClass
     return SystemConfigData(
       id: data.id.present ? data.id.value : this.id,
       language: data.language.present ? data.language.value : this.language,
+      defaultCurrencyCode: data.defaultCurrencyCode.present
+          ? data.defaultCurrencyCode.value
+          : this.defaultCurrencyCode,
       dateFormat:
           data.dateFormat.present ? data.dateFormat.value : this.dateFormat,
       calendarType: data.calendarType.present
@@ -8246,6 +8491,7 @@ class SystemConfigData extends DataClass
     return (StringBuffer('SystemConfigData(')
           ..write('id: $id, ')
           ..write('language: $language, ')
+          ..write('defaultCurrencyCode: $defaultCurrencyCode, ')
           ..write('dateFormat: $dateFormat, ')
           ..write('calendarType: $calendarType, ')
           ..write('accountNumberType: $accountNumberType, ')
@@ -8270,6 +8516,7 @@ class SystemConfigData extends DataClass
   int get hashCode => Object.hash(
       id,
       language,
+      defaultCurrencyCode,
       dateFormat,
       calendarType,
       accountNumberType,
@@ -8292,6 +8539,7 @@ class SystemConfigData extends DataClass
       (other is SystemConfigData &&
           other.id == this.id &&
           other.language == this.language &&
+          other.defaultCurrencyCode == this.defaultCurrencyCode &&
           other.dateFormat == this.dateFormat &&
           other.calendarType == this.calendarType &&
           other.accountNumberType == this.accountNumberType &&
@@ -8313,6 +8561,7 @@ class SystemConfigData extends DataClass
 class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   final Value<int> id;
   final Value<String> language;
+  final Value<String> defaultCurrencyCode;
   final Value<String> dateFormat;
   final Value<String> calendarType;
   final Value<String> accountNumberType;
@@ -8332,6 +8581,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   const SystemConfigCompanion({
     this.id = const Value.absent(),
     this.language = const Value.absent(),
+    this.defaultCurrencyCode = const Value.absent(),
     this.dateFormat = const Value.absent(),
     this.calendarType = const Value.absent(),
     this.accountNumberType = const Value.absent(),
@@ -8352,6 +8602,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   SystemConfigCompanion.insert({
     this.id = const Value.absent(),
     required String language,
+    required String defaultCurrencyCode,
     required String dateFormat,
     required String calendarType,
     required String accountNumberType,
@@ -8369,6 +8620,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
     required String uiTheme,
     required String fontSize,
   })  : language = Value(language),
+        defaultCurrencyCode = Value(defaultCurrencyCode),
         dateFormat = Value(dateFormat),
         calendarType = Value(calendarType),
         accountNumberType = Value(accountNumberType),
@@ -8388,6 +8640,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   static Insertable<SystemConfigData> custom({
     Expression<int>? id,
     Expression<String>? language,
+    Expression<String>? defaultCurrencyCode,
     Expression<String>? dateFormat,
     Expression<String>? calendarType,
     Expression<String>? accountNumberType,
@@ -8408,6 +8661,8 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (language != null) 'language': language,
+      if (defaultCurrencyCode != null)
+        'default_currency_code': defaultCurrencyCode,
       if (dateFormat != null) 'date_format': dateFormat,
       if (calendarType != null) 'calendar_type': calendarType,
       if (accountNumberType != null) 'account_number_type': accountNumberType,
@@ -8431,6 +8686,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
   SystemConfigCompanion copyWith(
       {Value<int>? id,
       Value<String>? language,
+      Value<String>? defaultCurrencyCode,
       Value<String>? dateFormat,
       Value<String>? calendarType,
       Value<String>? accountNumberType,
@@ -8450,6 +8706,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
     return SystemConfigCompanion(
       id: id ?? this.id,
       language: language ?? this.language,
+      defaultCurrencyCode: defaultCurrencyCode ?? this.defaultCurrencyCode,
       dateFormat: dateFormat ?? this.dateFormat,
       calendarType: calendarType ?? this.calendarType,
       accountNumberType: accountNumberType ?? this.accountNumberType,
@@ -8477,6 +8734,10 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
     }
     if (language.present) {
       map['language'] = Variable<String>(language.value);
+    }
+    if (defaultCurrencyCode.present) {
+      map['default_currency_code'] =
+          Variable<String>(defaultCurrencyCode.value);
     }
     if (dateFormat.present) {
       map['date_format'] = Variable<String>(dateFormat.value);
@@ -8534,6 +8795,7 @@ class SystemConfigCompanion extends UpdateCompanion<SystemConfigData> {
     return (StringBuffer('SystemConfigCompanion(')
           ..write('id: $id, ')
           ..write('language: $language, ')
+          ..write('defaultCurrencyCode: $defaultCurrencyCode, ')
           ..write('dateFormat: $dateFormat, ')
           ..write('calendarType: $calendarType, ')
           ..write('accountNumberType: $accountNumberType, ')
@@ -8575,6 +8837,13 @@ class FinancialPeriods extends Table
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _periodNameMeta =
+      const VerificationMeta('periodName');
+  late final GeneratedColumn<String> periodName = GeneratedColumn<String>(
+      'period_name', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
   static const VerificationMeta _fiscalYearMeta =
       const VerificationMeta('fiscalYear');
   late final GeneratedColumn<int> fiscalYear = GeneratedColumn<int>(
@@ -8622,6 +8891,7 @@ class FinancialPeriods extends Table
   List<GeneratedColumn> get $columns => [
         id,
         periodCode,
+        periodName,
         fiscalYear,
         periodType,
         periodNumber,
@@ -8649,6 +8919,12 @@ class FinancialPeriods extends Table
               data['period_code']!, _periodCodeMeta));
     } else if (isInserting) {
       context.missing(_periodCodeMeta);
+    }
+    if (data.containsKey('period_name')) {
+      context.handle(
+          _periodNameMeta,
+          periodName.isAcceptableOrUnknown(
+              data['period_name']!, _periodNameMeta));
     }
     if (data.containsKey('fiscal_year')) {
       context.handle(
@@ -8701,6 +8977,8 @@ class FinancialPeriods extends Table
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       periodCode: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}period_code'])!,
+      periodName: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}period_name']),
       fiscalYear: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}fiscal_year'])!,
       periodType: attachedDatabase.typeMapping
@@ -8728,6 +9006,7 @@ class FinancialPeriods extends Table
 class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   final int id;
   final String periodCode;
+  final String? periodName;
   final int fiscalYear;
   final String periodType;
   final int? periodNumber;
@@ -8737,6 +9016,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   const FinancialPeriod(
       {required this.id,
       required this.periodCode,
+      this.periodName,
       required this.fiscalYear,
       required this.periodType,
       this.periodNumber,
@@ -8748,6 +9028,9 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['period_code'] = Variable<String>(periodCode);
+    if (!nullToAbsent || periodName != null) {
+      map['period_name'] = Variable<String>(periodName);
+    }
     map['fiscal_year'] = Variable<int>(fiscalYear);
     map['period_type'] = Variable<String>(periodType);
     if (!nullToAbsent || periodNumber != null) {
@@ -8763,6 +9046,9 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     return FinancialPeriodsCompanion(
       id: Value(id),
       periodCode: Value(periodCode),
+      periodName: periodName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(periodName),
       fiscalYear: Value(fiscalYear),
       periodType: Value(periodType),
       periodNumber: periodNumber == null && nullToAbsent
@@ -8780,6 +9066,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     return FinancialPeriod(
       id: serializer.fromJson<int>(json['id']),
       periodCode: serializer.fromJson<String>(json['period_code']),
+      periodName: serializer.fromJson<String?>(json['period_name']),
       fiscalYear: serializer.fromJson<int>(json['fiscal_year']),
       periodType: serializer.fromJson<String>(json['period_type']),
       periodNumber: serializer.fromJson<int?>(json['period_number']),
@@ -8794,6 +9081,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'period_code': serializer.toJson<String>(periodCode),
+      'period_name': serializer.toJson<String?>(periodName),
       'fiscal_year': serializer.toJson<int>(fiscalYear),
       'period_type': serializer.toJson<String>(periodType),
       'period_number': serializer.toJson<int?>(periodNumber),
@@ -8806,6 +9094,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   FinancialPeriod copyWith(
           {int? id,
           String? periodCode,
+          Value<String?> periodName = const Value.absent(),
           int? fiscalYear,
           String? periodType,
           Value<int?> periodNumber = const Value.absent(),
@@ -8815,6 +9104,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
       FinancialPeriod(
         id: id ?? this.id,
         periodCode: periodCode ?? this.periodCode,
+        periodName: periodName.present ? periodName.value : this.periodName,
         fiscalYear: fiscalYear ?? this.fiscalYear,
         periodType: periodType ?? this.periodType,
         periodNumber:
@@ -8828,6 +9118,8 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
       id: data.id.present ? data.id.value : this.id,
       periodCode:
           data.periodCode.present ? data.periodCode.value : this.periodCode,
+      periodName:
+          data.periodName.present ? data.periodName.value : this.periodName,
       fiscalYear:
           data.fiscalYear.present ? data.fiscalYear.value : this.fiscalYear,
       periodType:
@@ -8846,6 +9138,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
     return (StringBuffer('FinancialPeriod(')
           ..write('id: $id, ')
           ..write('periodCode: $periodCode, ')
+          ..write('periodName: $periodName, ')
           ..write('fiscalYear: $fiscalYear, ')
           ..write('periodType: $periodType, ')
           ..write('periodNumber: $periodNumber, ')
@@ -8857,14 +9150,15 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
   }
 
   @override
-  int get hashCode => Object.hash(id, periodCode, fiscalYear, periodType,
-      periodNumber, startDate, endDate, isLocked);
+  int get hashCode => Object.hash(id, periodCode, periodName, fiscalYear,
+      periodType, periodNumber, startDate, endDate, isLocked);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is FinancialPeriod &&
           other.id == this.id &&
           other.periodCode == this.periodCode &&
+          other.periodName == this.periodName &&
           other.fiscalYear == this.fiscalYear &&
           other.periodType == this.periodType &&
           other.periodNumber == this.periodNumber &&
@@ -8876,6 +9170,7 @@ class FinancialPeriod extends DataClass implements Insertable<FinancialPeriod> {
 class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   final Value<int> id;
   final Value<String> periodCode;
+  final Value<String?> periodName;
   final Value<int> fiscalYear;
   final Value<String> periodType;
   final Value<int?> periodNumber;
@@ -8885,6 +9180,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   const FinancialPeriodsCompanion({
     this.id = const Value.absent(),
     this.periodCode = const Value.absent(),
+    this.periodName = const Value.absent(),
     this.fiscalYear = const Value.absent(),
     this.periodType = const Value.absent(),
     this.periodNumber = const Value.absent(),
@@ -8895,6 +9191,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   FinancialPeriodsCompanion.insert({
     this.id = const Value.absent(),
     required String periodCode,
+    this.periodName = const Value.absent(),
     required int fiscalYear,
     required String periodType,
     this.periodNumber = const Value.absent(),
@@ -8909,6 +9206,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   static Insertable<FinancialPeriod> custom({
     Expression<int>? id,
     Expression<String>? periodCode,
+    Expression<String>? periodName,
     Expression<int>? fiscalYear,
     Expression<String>? periodType,
     Expression<int>? periodNumber,
@@ -8919,6 +9217,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (periodCode != null) 'period_code': periodCode,
+      if (periodName != null) 'period_name': periodName,
       if (fiscalYear != null) 'fiscal_year': fiscalYear,
       if (periodType != null) 'period_type': periodType,
       if (periodNumber != null) 'period_number': periodNumber,
@@ -8931,6 +9230,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
   FinancialPeriodsCompanion copyWith(
       {Value<int>? id,
       Value<String>? periodCode,
+      Value<String?>? periodName,
       Value<int>? fiscalYear,
       Value<String>? periodType,
       Value<int?>? periodNumber,
@@ -8940,6 +9240,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
     return FinancialPeriodsCompanion(
       id: id ?? this.id,
       periodCode: periodCode ?? this.periodCode,
+      periodName: periodName ?? this.periodName,
       fiscalYear: fiscalYear ?? this.fiscalYear,
       periodType: periodType ?? this.periodType,
       periodNumber: periodNumber ?? this.periodNumber,
@@ -8957,6 +9258,9 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
     }
     if (periodCode.present) {
       map['period_code'] = Variable<String>(periodCode.value);
+    }
+    if (periodName.present) {
+      map['period_name'] = Variable<String>(periodName.value);
     }
     if (fiscalYear.present) {
       map['fiscal_year'] = Variable<int>(fiscalYear.value);
@@ -8984,6 +9288,7 @@ class FinancialPeriodsCompanion extends UpdateCompanion<FinancialPeriod> {
     return (StringBuffer('FinancialPeriodsCompanion(')
           ..write('id: $id, ')
           ..write('periodCode: $periodCode, ')
+          ..write('periodName: $periodName, ')
           ..write('fiscalYear: $fiscalYear, ')
           ..write('periodType: $periodType, ')
           ..write('periodNumber: $periodNumber, ')
@@ -9016,6 +9321,12 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
   static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
   late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
       'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _symbolMeta = const VerificationMeta('symbol');
+  late final GeneratedColumn<String> symbol = GeneratedColumn<String>(
+      'symbol', aliasedName, false,
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL');
@@ -9081,6 +9392,7 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
         currencyCode,
         nameAr,
         nameEn,
+        symbol,
         fractionNameAr,
         fractionNameEn,
         exchangeRate,
@@ -9119,6 +9431,12 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
           nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
     } else if (isInserting) {
       context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('symbol')) {
+      context.handle(_symbolMeta,
+          symbol.isAcceptableOrUnknown(data['symbol']!, _symbolMeta));
+    } else if (isInserting) {
+      context.missing(_symbolMeta);
     }
     if (data.containsKey('fraction_name_ar')) {
       context.handle(
@@ -9191,6 +9509,8 @@ class Currencies extends Table with TableInfo<Currencies, Currency> {
           .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
       nameEn: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      symbol: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}symbol'])!,
       fractionNameAr: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}fraction_name_ar'])!,
       fractionNameEn: attachedDatabase.typeMapping.read(
@@ -9223,6 +9543,7 @@ class Currency extends DataClass implements Insertable<Currency> {
   final String currencyCode;
   final String nameAr;
   final String nameEn;
+  final String symbol;
   final String fractionNameAr;
   final String fractionNameEn;
   final double exchangeRate;
@@ -9235,6 +9556,7 @@ class Currency extends DataClass implements Insertable<Currency> {
       {required this.currencyCode,
       required this.nameAr,
       required this.nameEn,
+      required this.symbol,
       required this.fractionNameAr,
       required this.fractionNameEn,
       required this.exchangeRate,
@@ -9249,6 +9571,7 @@ class Currency extends DataClass implements Insertable<Currency> {
     map['currency_code'] = Variable<String>(currencyCode);
     map['name_ar'] = Variable<String>(nameAr);
     map['name_en'] = Variable<String>(nameEn);
+    map['symbol'] = Variable<String>(symbol);
     map['fraction_name_ar'] = Variable<String>(fractionNameAr);
     map['fraction_name_en'] = Variable<String>(fractionNameEn);
     map['exchange_rate'] = Variable<double>(exchangeRate);
@@ -9269,6 +9592,7 @@ class Currency extends DataClass implements Insertable<Currency> {
       currencyCode: Value(currencyCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
+      symbol: Value(symbol),
       fractionNameAr: Value(fractionNameAr),
       fractionNameEn: Value(fractionNameEn),
       exchangeRate: Value(exchangeRate),
@@ -9291,6 +9615,7 @@ class Currency extends DataClass implements Insertable<Currency> {
       currencyCode: serializer.fromJson<String>(json['currency_code']),
       nameAr: serializer.fromJson<String>(json['name_ar']),
       nameEn: serializer.fromJson<String>(json['name_en']),
+      symbol: serializer.fromJson<String>(json['symbol']),
       fractionNameAr: serializer.fromJson<String>(json['fraction_name_ar']),
       fractionNameEn: serializer.fromJson<String>(json['fraction_name_en']),
       exchangeRate: serializer.fromJson<double>(json['exchange_rate']),
@@ -9308,6 +9633,7 @@ class Currency extends DataClass implements Insertable<Currency> {
       'currency_code': serializer.toJson<String>(currencyCode),
       'name_ar': serializer.toJson<String>(nameAr),
       'name_en': serializer.toJson<String>(nameEn),
+      'symbol': serializer.toJson<String>(symbol),
       'fraction_name_ar': serializer.toJson<String>(fractionNameAr),
       'fraction_name_en': serializer.toJson<String>(fractionNameEn),
       'exchange_rate': serializer.toJson<double>(exchangeRate),
@@ -9323,6 +9649,7 @@ class Currency extends DataClass implements Insertable<Currency> {
           {String? currencyCode,
           String? nameAr,
           String? nameEn,
+          String? symbol,
           String? fractionNameAr,
           String? fractionNameEn,
           double? exchangeRate,
@@ -9335,6 +9662,7 @@ class Currency extends DataClass implements Insertable<Currency> {
         currencyCode: currencyCode ?? this.currencyCode,
         nameAr: nameAr ?? this.nameAr,
         nameEn: nameEn ?? this.nameEn,
+        symbol: symbol ?? this.symbol,
         fractionNameAr: fractionNameAr ?? this.fractionNameAr,
         fractionNameEn: fractionNameEn ?? this.fractionNameEn,
         exchangeRate: exchangeRate ?? this.exchangeRate,
@@ -9353,6 +9681,7 @@ class Currency extends DataClass implements Insertable<Currency> {
           : this.currencyCode,
       nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
       nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      symbol: data.symbol.present ? data.symbol.value : this.symbol,
       fractionNameAr: data.fractionNameAr.present
           ? data.fractionNameAr.value
           : this.fractionNameAr,
@@ -9384,6 +9713,7 @@ class Currency extends DataClass implements Insertable<Currency> {
           ..write('currencyCode: $currencyCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
+          ..write('symbol: $symbol, ')
           ..write('fractionNameAr: $fractionNameAr, ')
           ..write('fractionNameEn: $fractionNameEn, ')
           ..write('exchangeRate: $exchangeRate, ')
@@ -9401,6 +9731,7 @@ class Currency extends DataClass implements Insertable<Currency> {
       currencyCode,
       nameAr,
       nameEn,
+      symbol,
       fractionNameAr,
       fractionNameEn,
       exchangeRate,
@@ -9416,6 +9747,7 @@ class Currency extends DataClass implements Insertable<Currency> {
           other.currencyCode == this.currencyCode &&
           other.nameAr == this.nameAr &&
           other.nameEn == this.nameEn &&
+          other.symbol == this.symbol &&
           other.fractionNameAr == this.fractionNameAr &&
           other.fractionNameEn == this.fractionNameEn &&
           other.exchangeRate == this.exchangeRate &&
@@ -9430,6 +9762,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
   final Value<String> currencyCode;
   final Value<String> nameAr;
   final Value<String> nameEn;
+  final Value<String> symbol;
   final Value<String> fractionNameAr;
   final Value<String> fractionNameEn;
   final Value<double> exchangeRate;
@@ -9443,6 +9776,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
     this.currencyCode = const Value.absent(),
     this.nameAr = const Value.absent(),
     this.nameEn = const Value.absent(),
+    this.symbol = const Value.absent(),
     this.fractionNameAr = const Value.absent(),
     this.fractionNameEn = const Value.absent(),
     this.exchangeRate = const Value.absent(),
@@ -9457,6 +9791,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
     required String currencyCode,
     required String nameAr,
     required String nameEn,
+    required String symbol,
     required String fractionNameAr,
     required String fractionNameEn,
     required double exchangeRate,
@@ -9469,6 +9804,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
   })  : currencyCode = Value(currencyCode),
         nameAr = Value(nameAr),
         nameEn = Value(nameEn),
+        symbol = Value(symbol),
         fractionNameAr = Value(fractionNameAr),
         fractionNameEn = Value(fractionNameEn),
         exchangeRate = Value(exchangeRate),
@@ -9478,6 +9814,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
     Expression<String>? currencyCode,
     Expression<String>? nameAr,
     Expression<String>? nameEn,
+    Expression<String>? symbol,
     Expression<String>? fractionNameAr,
     Expression<String>? fractionNameEn,
     Expression<double>? exchangeRate,
@@ -9492,6 +9829,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
       if (currencyCode != null) 'currency_code': currencyCode,
       if (nameAr != null) 'name_ar': nameAr,
       if (nameEn != null) 'name_en': nameEn,
+      if (symbol != null) 'symbol': symbol,
       if (fractionNameAr != null) 'fraction_name_ar': fractionNameAr,
       if (fractionNameEn != null) 'fraction_name_en': fractionNameEn,
       if (exchangeRate != null) 'exchange_rate': exchangeRate,
@@ -9508,6 +9846,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
       {Value<String>? currencyCode,
       Value<String>? nameAr,
       Value<String>? nameEn,
+      Value<String>? symbol,
       Value<String>? fractionNameAr,
       Value<String>? fractionNameEn,
       Value<double>? exchangeRate,
@@ -9521,6 +9860,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
       currencyCode: currencyCode ?? this.currencyCode,
       nameAr: nameAr ?? this.nameAr,
       nameEn: nameEn ?? this.nameEn,
+      symbol: symbol ?? this.symbol,
       fractionNameAr: fractionNameAr ?? this.fractionNameAr,
       fractionNameEn: fractionNameEn ?? this.fractionNameEn,
       exchangeRate: exchangeRate ?? this.exchangeRate,
@@ -9544,6 +9884,9 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
     }
     if (nameEn.present) {
       map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (symbol.present) {
+      map['symbol'] = Variable<String>(symbol.value);
     }
     if (fractionNameAr.present) {
       map['fraction_name_ar'] = Variable<String>(fractionNameAr.value);
@@ -9581,6 +9924,7 @@ class CurrenciesCompanion extends UpdateCompanion<Currency> {
           ..write('currencyCode: $currencyCode, ')
           ..write('nameAr: $nameAr, ')
           ..write('nameEn: $nameEn, ')
+          ..write('symbol: $symbol, ')
           ..write('fractionNameAr: $fractionNameAr, ')
           ..write('fractionNameEn: $fractionNameEn, ')
           ..write('exchangeRate: $exchangeRate, ')
@@ -11178,6 +11522,7 @@ typedef $ChartOfAccountsCreateCompanionBuilder = ChartOfAccountsCompanion
   Value<String?> classificationCode,
   Value<String?> reportTypeCode,
   Value<int?> parentAccountId,
+  Value<bool> isParent,
   Value<bool> isActive,
 });
 typedef $ChartOfAccountsUpdateCompanionBuilder = ChartOfAccountsCompanion
@@ -11191,6 +11536,7 @@ typedef $ChartOfAccountsUpdateCompanionBuilder = ChartOfAccountsCompanion
   Value<String?> classificationCode,
   Value<String?> reportTypeCode,
   Value<int?> parentAccountId,
+  Value<bool> isParent,
   Value<bool> isActive,
 });
 
@@ -11283,6 +11629,9 @@ class $ChartOfAccountsFilterComposer
   ColumnFilters<int> get parentAccountId => $composableBuilder(
       column: $table.parentAccountId,
       builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isParent => $composableBuilder(
+      column: $table.isParent, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnFilters(column));
@@ -11395,6 +11744,9 @@ class $ChartOfAccountsOrderingComposer
       column: $table.parentAccountId,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isParent => $composableBuilder(
+      column: $table.isParent, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<bool> get isActive => $composableBuilder(
       column: $table.isActive, builder: (column) => ColumnOrderings(column));
 
@@ -11502,6 +11854,9 @@ class $ChartOfAccountsAnnotationComposer
 
   GeneratedColumn<int> get parentAccountId => $composableBuilder(
       column: $table.parentAccountId, builder: (column) => column);
+
+  GeneratedColumn<bool> get isParent =>
+      $composableBuilder(column: $table.isParent, builder: (column) => column);
 
   GeneratedColumn<bool> get isActive =>
       $composableBuilder(column: $table.isActive, builder: (column) => column);
@@ -11623,6 +11978,7 @@ class $ChartOfAccountsTableManager extends RootTableManager<
             Value<String?> classificationCode = const Value.absent(),
             Value<String?> reportTypeCode = const Value.absent(),
             Value<int?> parentAccountId = const Value.absent(),
+            Value<bool> isParent = const Value.absent(),
             Value<bool> isActive = const Value.absent(),
           }) =>
               ChartOfAccountsCompanion(
@@ -11635,6 +11991,7 @@ class $ChartOfAccountsTableManager extends RootTableManager<
             classificationCode: classificationCode,
             reportTypeCode: reportTypeCode,
             parentAccountId: parentAccountId,
+            isParent: isParent,
             isActive: isActive,
           ),
           createCompanionCallback: ({
@@ -11647,6 +12004,7 @@ class $ChartOfAccountsTableManager extends RootTableManager<
             Value<String?> classificationCode = const Value.absent(),
             Value<String?> reportTypeCode = const Value.absent(),
             Value<int?> parentAccountId = const Value.absent(),
+            Value<bool> isParent = const Value.absent(),
             Value<bool> isActive = const Value.absent(),
           }) =>
               ChartOfAccountsCompanion.insert(
@@ -11659,6 +12017,7 @@ class $ChartOfAccountsTableManager extends RootTableManager<
             classificationCode: classificationCode,
             reportTypeCode: reportTypeCode,
             parentAccountId: parentAccountId,
+            isParent: isParent,
             isActive: isActive,
           ),
           withReferenceMapper: (p0) => p0
@@ -11764,6 +12123,7 @@ typedef $TaxBracketCreateCompanionBuilder = TaxBracketCompanion Function({
   required String nameAr,
   required String nameEn,
   required double taxRate,
+  Value<bool> isCompound,
   Value<bool> isDefault,
   Value<int> rowid,
 });
@@ -11772,6 +12132,7 @@ typedef $TaxBracketUpdateCompanionBuilder = TaxBracketCompanion Function({
   Value<String> nameAr,
   Value<String> nameEn,
   Value<double> taxRate,
+  Value<bool> isCompound,
   Value<bool> isDefault,
   Value<int> rowid,
 });
@@ -11795,6 +12156,9 @@ class $TaxBracketFilterComposer extends Composer<_$AppDatabase, TaxBracket> {
 
   ColumnFilters<double> get taxRate => $composableBuilder(
       column: $table.taxRate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isCompound => $composableBuilder(
+      column: $table.isCompound, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get isDefault => $composableBuilder(
       column: $table.isDefault, builder: (column) => ColumnFilters(column));
@@ -11820,6 +12184,9 @@ class $TaxBracketOrderingComposer extends Composer<_$AppDatabase, TaxBracket> {
   ColumnOrderings<double> get taxRate => $composableBuilder(
       column: $table.taxRate, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isCompound => $composableBuilder(
+      column: $table.isCompound, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<bool> get isDefault => $composableBuilder(
       column: $table.isDefault, builder: (column) => ColumnOrderings(column));
 }
@@ -11844,6 +12211,9 @@ class $TaxBracketAnnotationComposer
 
   GeneratedColumn<double> get taxRate =>
       $composableBuilder(column: $table.taxRate, builder: (column) => column);
+
+  GeneratedColumn<bool> get isCompound => $composableBuilder(
+      column: $table.isCompound, builder: (column) => column);
 
   GeneratedColumn<bool> get isDefault =>
       $composableBuilder(column: $table.isDefault, builder: (column) => column);
@@ -11876,6 +12246,7 @@ class $TaxBracketTableManager extends RootTableManager<
             Value<String> nameAr = const Value.absent(),
             Value<String> nameEn = const Value.absent(),
             Value<double> taxRate = const Value.absent(),
+            Value<bool> isCompound = const Value.absent(),
             Value<bool> isDefault = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
@@ -11884,6 +12255,7 @@ class $TaxBracketTableManager extends RootTableManager<
             nameAr: nameAr,
             nameEn: nameEn,
             taxRate: taxRate,
+            isCompound: isCompound,
             isDefault: isDefault,
             rowid: rowid,
           ),
@@ -11892,6 +12264,7 @@ class $TaxBracketTableManager extends RootTableManager<
             required String nameAr,
             required String nameEn,
             required double taxRate,
+            Value<bool> isCompound = const Value.absent(),
             Value<bool> isDefault = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
@@ -11900,6 +12273,7 @@ class $TaxBracketTableManager extends RootTableManager<
             nameAr: nameAr,
             nameEn: nameEn,
             taxRate: taxRate,
+            isCompound: isCompound,
             isDefault: isDefault,
             rowid: rowid,
           ),
@@ -13763,6 +14137,7 @@ typedef $BranchesCreateCompanionBuilder = BranchesCompanion Function({
   Value<String?> address,
   Value<String?> phone,
   Value<String?> defaultWarehouseId,
+  Value<bool> isMainBranch,
   Value<bool> branchStatus,
   Value<Uint8List?> logo,
   Value<String?> remarks,
@@ -13777,6 +14152,7 @@ typedef $BranchesUpdateCompanionBuilder = BranchesCompanion Function({
   Value<String?> address,
   Value<String?> phone,
   Value<String?> defaultWarehouseId,
+  Value<bool> isMainBranch,
   Value<bool> branchStatus,
   Value<Uint8List?> logo,
   Value<String?> remarks,
@@ -13848,6 +14224,9 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
   ColumnFilters<String> get defaultWarehouseId => $composableBuilder(
       column: $table.defaultWarehouseId,
       builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isMainBranch => $composableBuilder(
+      column: $table.isMainBranch, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<bool> get branchStatus => $composableBuilder(
       column: $table.branchStatus, builder: (column) => ColumnFilters(column));
@@ -13933,6 +14312,10 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
       column: $table.defaultWarehouseId,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<bool> get isMainBranch => $composableBuilder(
+      column: $table.isMainBranch,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<bool> get branchStatus => $composableBuilder(
       column: $table.branchStatus,
       builder: (column) => ColumnOrderings(column));
@@ -13995,6 +14378,9 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
 
   GeneratedColumn<String> get defaultWarehouseId => $composableBuilder(
       column: $table.defaultWarehouseId, builder: (column) => column);
+
+  GeneratedColumn<bool> get isMainBranch => $composableBuilder(
+      column: $table.isMainBranch, builder: (column) => column);
 
   GeneratedColumn<bool> get branchStatus => $composableBuilder(
       column: $table.branchStatus, builder: (column) => column);
@@ -14079,6 +14465,7 @@ class $BranchesTableManager extends RootTableManager<
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> defaultWarehouseId = const Value.absent(),
+            Value<bool> isMainBranch = const Value.absent(),
             Value<bool> branchStatus = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
             Value<String?> remarks = const Value.absent(),
@@ -14093,6 +14480,7 @@ class $BranchesTableManager extends RootTableManager<
             address: address,
             phone: phone,
             defaultWarehouseId: defaultWarehouseId,
+            isMainBranch: isMainBranch,
             branchStatus: branchStatus,
             logo: logo,
             remarks: remarks,
@@ -14107,6 +14495,7 @@ class $BranchesTableManager extends RootTableManager<
             Value<String?> address = const Value.absent(),
             Value<String?> phone = const Value.absent(),
             Value<String?> defaultWarehouseId = const Value.absent(),
+            Value<bool> isMainBranch = const Value.absent(),
             Value<bool> branchStatus = const Value.absent(),
             Value<Uint8List?> logo = const Value.absent(),
             Value<String?> remarks = const Value.absent(),
@@ -14121,6 +14510,7 @@ class $BranchesTableManager extends RootTableManager<
             address: address,
             phone: phone,
             defaultWarehouseId: defaultWarehouseId,
+            isMainBranch: isMainBranch,
             branchStatus: branchStatus,
             logo: logo,
             remarks: remarks,
@@ -14201,6 +14591,8 @@ typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
   Value<int?> branchId,
   Value<bool> isBiometricEnabled,
   Value<bool> isDeviceLinked,
+  Value<int?> lastLogin,
+  Value<int> failedLoginAttempts,
 });
 typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
   Value<int> userId,
@@ -14212,6 +14604,8 @@ typedef $UsersUpdateCompanionBuilder = UsersCompanion Function({
   Value<int?> branchId,
   Value<bool> isBiometricEnabled,
   Value<bool> isDeviceLinked,
+  Value<int?> lastLogin,
+  Value<int> failedLoginAttempts,
 });
 
 final class $UsersReferences
@@ -14294,6 +14688,13 @@ class $UsersFilterComposer extends Composer<_$AppDatabase, Users> {
 
   ColumnFilters<bool> get isDeviceLinked => $composableBuilder(
       column: $table.isDeviceLinked,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get lastLogin => $composableBuilder(
+      column: $table.lastLogin, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get failedLoginAttempts => $composableBuilder(
+      column: $table.failedLoginAttempts,
       builder: (column) => ColumnFilters(column));
 
   $BranchesFilterComposer get branchId {
@@ -14393,6 +14794,13 @@ class $UsersOrderingComposer extends Composer<_$AppDatabase, Users> {
       column: $table.isDeviceLinked,
       builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get lastLogin => $composableBuilder(
+      column: $table.lastLogin, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get failedLoginAttempts => $composableBuilder(
+      column: $table.failedLoginAttempts,
+      builder: (column) => ColumnOrderings(column));
+
   $BranchesOrderingComposer get branchId {
     final $BranchesOrderingComposer composer = $composerBuilder(
         composer: this,
@@ -14445,6 +14853,12 @@ class $UsersAnnotationComposer extends Composer<_$AppDatabase, Users> {
 
   GeneratedColumn<bool> get isDeviceLinked => $composableBuilder(
       column: $table.isDeviceLinked, builder: (column) => column);
+
+  GeneratedColumn<int> get lastLogin =>
+      $composableBuilder(column: $table.lastLogin, builder: (column) => column);
+
+  GeneratedColumn<int> get failedLoginAttempts => $composableBuilder(
+      column: $table.failedLoginAttempts, builder: (column) => column);
 
   $BranchesAnnotationComposer get branchId {
     final $BranchesAnnotationComposer composer = $composerBuilder(
@@ -14542,6 +14956,8 @@ class $UsersTableManager extends RootTableManager<
             Value<int?> branchId = const Value.absent(),
             Value<bool> isBiometricEnabled = const Value.absent(),
             Value<bool> isDeviceLinked = const Value.absent(),
+            Value<int?> lastLogin = const Value.absent(),
+            Value<int> failedLoginAttempts = const Value.absent(),
           }) =>
               UsersCompanion(
             userId: userId,
@@ -14553,6 +14969,8 @@ class $UsersTableManager extends RootTableManager<
             branchId: branchId,
             isBiometricEnabled: isBiometricEnabled,
             isDeviceLinked: isDeviceLinked,
+            lastLogin: lastLogin,
+            failedLoginAttempts: failedLoginAttempts,
           ),
           createCompanionCallback: ({
             Value<int> userId = const Value.absent(),
@@ -14564,6 +14982,8 @@ class $UsersTableManager extends RootTableManager<
             Value<int?> branchId = const Value.absent(),
             Value<bool> isBiometricEnabled = const Value.absent(),
             Value<bool> isDeviceLinked = const Value.absent(),
+            Value<int?> lastLogin = const Value.absent(),
+            Value<int> failedLoginAttempts = const Value.absent(),
           }) =>
               UsersCompanion.insert(
             userId: userId,
@@ -14575,6 +14995,8 @@ class $UsersTableManager extends RootTableManager<
             branchId: branchId,
             isBiometricEnabled: isBiometricEnabled,
             isDeviceLinked: isDeviceLinked,
+            lastLogin: lastLogin,
+            failedLoginAttempts: failedLoginAttempts,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), $UsersReferences(db, table, e)))
@@ -16495,6 +16917,7 @@ typedef $RegionsProcessedTableManager = ProcessedTableManager<
 typedef $SystemConfigCreateCompanionBuilder = SystemConfigCompanion Function({
   Value<int> id,
   required String language,
+  required String defaultCurrencyCode,
   required String dateFormat,
   required String calendarType,
   required String accountNumberType,
@@ -16515,6 +16938,7 @@ typedef $SystemConfigCreateCompanionBuilder = SystemConfigCompanion Function({
 typedef $SystemConfigUpdateCompanionBuilder = SystemConfigCompanion Function({
   Value<int> id,
   Value<String> language,
+  Value<String> defaultCurrencyCode,
   Value<String> dateFormat,
   Value<String> calendarType,
   Value<String> accountNumberType,
@@ -16547,6 +16971,10 @@ class $SystemConfigFilterComposer
 
   ColumnFilters<String> get language => $composableBuilder(
       column: $table.language, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get defaultCurrencyCode => $composableBuilder(
+      column: $table.defaultCurrencyCode,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get dateFormat => $composableBuilder(
       column: $table.dateFormat, builder: (column) => ColumnFilters(column));
@@ -16618,6 +17046,10 @@ class $SystemConfigOrderingComposer
 
   ColumnOrderings<String> get language => $composableBuilder(
       column: $table.language, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get defaultCurrencyCode => $composableBuilder(
+      column: $table.defaultCurrencyCode,
+      builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get dateFormat => $composableBuilder(
       column: $table.dateFormat, builder: (column) => ColumnOrderings(column));
@@ -16691,6 +17123,9 @@ class $SystemConfigAnnotationComposer
 
   GeneratedColumn<String> get language =>
       $composableBuilder(column: $table.language, builder: (column) => column);
+
+  GeneratedColumn<String> get defaultCurrencyCode => $composableBuilder(
+      column: $table.defaultCurrencyCode, builder: (column) => column);
 
   GeneratedColumn<String> get dateFormat => $composableBuilder(
       column: $table.dateFormat, builder: (column) => column);
@@ -16769,6 +17204,7 @@ class $SystemConfigTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> language = const Value.absent(),
+            Value<String> defaultCurrencyCode = const Value.absent(),
             Value<String> dateFormat = const Value.absent(),
             Value<String> calendarType = const Value.absent(),
             Value<String> accountNumberType = const Value.absent(),
@@ -16789,6 +17225,7 @@ class $SystemConfigTableManager extends RootTableManager<
               SystemConfigCompanion(
             id: id,
             language: language,
+            defaultCurrencyCode: defaultCurrencyCode,
             dateFormat: dateFormat,
             calendarType: calendarType,
             accountNumberType: accountNumberType,
@@ -16809,6 +17246,7 @@ class $SystemConfigTableManager extends RootTableManager<
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String language,
+            required String defaultCurrencyCode,
             required String dateFormat,
             required String calendarType,
             required String accountNumberType,
@@ -16829,6 +17267,7 @@ class $SystemConfigTableManager extends RootTableManager<
               SystemConfigCompanion.insert(
             id: id,
             language: language,
+            defaultCurrencyCode: defaultCurrencyCode,
             dateFormat: dateFormat,
             calendarType: calendarType,
             accountNumberType: accountNumberType,
@@ -16872,6 +17311,7 @@ typedef $FinancialPeriodsCreateCompanionBuilder = FinancialPeriodsCompanion
     Function({
   Value<int> id,
   required String periodCode,
+  Value<String?> periodName,
   required int fiscalYear,
   required String periodType,
   Value<int?> periodNumber,
@@ -16883,6 +17323,7 @@ typedef $FinancialPeriodsUpdateCompanionBuilder = FinancialPeriodsCompanion
     Function({
   Value<int> id,
   Value<String> periodCode,
+  Value<String?> periodName,
   Value<int> fiscalYear,
   Value<String> periodType,
   Value<int?> periodNumber,
@@ -16905,6 +17346,9 @@ class $FinancialPeriodsFilterComposer
 
   ColumnFilters<String> get periodCode => $composableBuilder(
       column: $table.periodCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get periodName => $composableBuilder(
+      column: $table.periodName, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get fiscalYear => $composableBuilder(
       column: $table.fiscalYear, builder: (column) => ColumnFilters(column));
@@ -16940,6 +17384,9 @@ class $FinancialPeriodsOrderingComposer
   ColumnOrderings<String> get periodCode => $composableBuilder(
       column: $table.periodCode, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get periodName => $composableBuilder(
+      column: $table.periodName, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get fiscalYear => $composableBuilder(
       column: $table.fiscalYear, builder: (column) => ColumnOrderings(column));
 
@@ -16974,6 +17421,9 @@ class $FinancialPeriodsAnnotationComposer
 
   GeneratedColumn<String> get periodCode => $composableBuilder(
       column: $table.periodCode, builder: (column) => column);
+
+  GeneratedColumn<String> get periodName => $composableBuilder(
+      column: $table.periodName, builder: (column) => column);
 
   GeneratedColumn<int> get fiscalYear => $composableBuilder(
       column: $table.fiscalYear, builder: (column) => column);
@@ -17022,6 +17472,7 @@ class $FinancialPeriodsTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> periodCode = const Value.absent(),
+            Value<String?> periodName = const Value.absent(),
             Value<int> fiscalYear = const Value.absent(),
             Value<String> periodType = const Value.absent(),
             Value<int?> periodNumber = const Value.absent(),
@@ -17032,6 +17483,7 @@ class $FinancialPeriodsTableManager extends RootTableManager<
               FinancialPeriodsCompanion(
             id: id,
             periodCode: periodCode,
+            periodName: periodName,
             fiscalYear: fiscalYear,
             periodType: periodType,
             periodNumber: periodNumber,
@@ -17042,6 +17494,7 @@ class $FinancialPeriodsTableManager extends RootTableManager<
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String periodCode,
+            Value<String?> periodName = const Value.absent(),
             required int fiscalYear,
             required String periodType,
             Value<int?> periodNumber = const Value.absent(),
@@ -17052,6 +17505,7 @@ class $FinancialPeriodsTableManager extends RootTableManager<
               FinancialPeriodsCompanion.insert(
             id: id,
             periodCode: periodCode,
+            periodName: periodName,
             fiscalYear: fiscalYear,
             periodType: periodType,
             periodNumber: periodNumber,
@@ -17085,6 +17539,7 @@ typedef $CurrenciesCreateCompanionBuilder = CurrenciesCompanion Function({
   required String currencyCode,
   required String nameAr,
   required String nameEn,
+  required String symbol,
   required String fractionNameAr,
   required String fractionNameEn,
   required double exchangeRate,
@@ -17099,6 +17554,7 @@ typedef $CurrenciesUpdateCompanionBuilder = CurrenciesCompanion Function({
   Value<String> currencyCode,
   Value<String> nameAr,
   Value<String> nameEn,
+  Value<String> symbol,
   Value<String> fractionNameAr,
   Value<String> fractionNameEn,
   Value<double> exchangeRate,
@@ -17149,6 +17605,9 @@ class $CurrenciesFilterComposer extends Composer<_$AppDatabase, Currencies> {
 
   ColumnFilters<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get symbol => $composableBuilder(
+      column: $table.symbol, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get fractionNameAr => $composableBuilder(
       column: $table.fractionNameAr,
@@ -17217,6 +17676,9 @@ class $CurrenciesOrderingComposer extends Composer<_$AppDatabase, Currencies> {
   ColumnOrderings<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get symbol => $composableBuilder(
+      column: $table.symbol, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get fractionNameAr => $composableBuilder(
       column: $table.fractionNameAr,
       builder: (column) => ColumnOrderings(column));
@@ -17266,6 +17728,9 @@ class $CurrenciesAnnotationComposer
 
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get symbol =>
+      $composableBuilder(column: $table.symbol, builder: (column) => column);
 
   GeneratedColumn<String> get fractionNameAr => $composableBuilder(
       column: $table.fractionNameAr, builder: (column) => column);
@@ -17339,6 +17804,7 @@ class $CurrenciesTableManager extends RootTableManager<
             Value<String> currencyCode = const Value.absent(),
             Value<String> nameAr = const Value.absent(),
             Value<String> nameEn = const Value.absent(),
+            Value<String> symbol = const Value.absent(),
             Value<String> fractionNameAr = const Value.absent(),
             Value<String> fractionNameEn = const Value.absent(),
             Value<double> exchangeRate = const Value.absent(),
@@ -17353,6 +17819,7 @@ class $CurrenciesTableManager extends RootTableManager<
             currencyCode: currencyCode,
             nameAr: nameAr,
             nameEn: nameEn,
+            symbol: symbol,
             fractionNameAr: fractionNameAr,
             fractionNameEn: fractionNameEn,
             exchangeRate: exchangeRate,
@@ -17367,6 +17834,7 @@ class $CurrenciesTableManager extends RootTableManager<
             required String currencyCode,
             required String nameAr,
             required String nameEn,
+            required String symbol,
             required String fractionNameAr,
             required String fractionNameEn,
             required double exchangeRate,
@@ -17381,6 +17849,7 @@ class $CurrenciesTableManager extends RootTableManager<
             currencyCode: currencyCode,
             nameAr: nameAr,
             nameEn: nameEn,
+            symbol: symbol,
             fractionNameAr: fractionNameAr,
             fractionNameEn: fractionNameEn,
             exchangeRate: exchangeRate,

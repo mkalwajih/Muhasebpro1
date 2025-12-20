@@ -20,6 +20,7 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
   late final TextEditingController _codeController;
   late final TextEditingController _nameEnController;
   late final TextEditingController _nameArController;
+  late final TextEditingController _symbolController; // Added controller for symbol
   late final TextEditingController _fractionEnController;
   late final TextEditingController _fractionArController;
   late final TextEditingController _exchangeRateController;
@@ -36,6 +37,7 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
     _codeController = TextEditingController(text: currency?.currencyCode ?? '');
     _nameEnController = TextEditingController(text: currency?.nameEn ?? '');
     _nameArController = TextEditingController(text: currency?.nameAr ?? '');
+    _symbolController = TextEditingController(text: currency?.symbol ?? ''); // Initialize symbol controller
     _fractionEnController = TextEditingController(text: currency?.fractionNameEn ?? '');
     _fractionArController = TextEditingController(text: currency?.fractionNameAr ?? '');
     _exchangeRateController = TextEditingController(text: currency?.exchangeRate.toString() ?? '1.0');
@@ -50,6 +52,7 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
     _codeController.dispose();
     _nameEnController.dispose();
     _nameArController.dispose();
+    _symbolController.dispose(); // Dispose symbol controller
     _fractionEnController.dispose();
     _fractionArController.dispose();
     _exchangeRateController.dispose();
@@ -66,6 +69,7 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
       currencyCode: _codeController.text.toUpperCase(),
       nameEn: _nameEnController.text,
       nameAr: _nameArController.text,
+      symbol: _symbolController.text, // Pass symbol to constructor
       fractionNameEn: _fractionEnController.text,
       fractionNameAr: _fractionArController.text,
       exchangeRate: double.tryParse(_exchangeRateController.text) ?? 1.0,
@@ -126,6 +130,12 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
               TextFormField(
                 controller: _nameArController,
                 decoration: InputDecoration(labelText: l10n.nameAr, border: const OutlineInputBorder()),
+                validator: (v) => v!.isEmpty ? l10n.requiredField : null,
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: _symbolController, // Add TextFormField for symbol
+                decoration: InputDecoration(labelText: l10n.symbol, border: const OutlineInputBorder()),
                 validator: (v) => v!.isEmpty ? l10n.requiredField : null,
               ),
               const SizedBox(height: 12),

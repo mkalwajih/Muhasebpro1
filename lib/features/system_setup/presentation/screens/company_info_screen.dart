@@ -345,7 +345,6 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         const SizedBox(height: 16),
                         allCountriesAsync.when(
                           data: (countries) => DropdownButtonFormField<int>(
-                            value: _countryId,
                             decoration: InputDecoration(labelText: l10n.country),
                             items: countries.map((country) => DropdownMenuItem(
                               value: country.id,

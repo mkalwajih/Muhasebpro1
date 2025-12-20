@@ -48,6 +48,7 @@ class TaxBracketsView extends ConsumerWidget {
     final nameArController = TextEditingController(text: bracketToEdit?.nameAr ?? '');
     final rateController = TextEditingController(text: bracketToEdit?.taxRate.toString() ?? '');
     bool isDefault = bracketToEdit?.isDefault ?? false;
+    bool isCompound = bracketToEdit?.isCompound ?? false; // Added isCompound
 
     showDialog(
       context: context,
@@ -70,7 +71,12 @@ class TaxBracketsView extends ConsumerWidget {
                         title: Text(l10n.isDefault),
                         value: isDefault,
                         onChanged: (val) => setDialogState(() => isDefault = val),
-                      )
+                      ),
+                      SwitchListTile(
+                        title: Text(l10n.isCompound), // Added SwitchListTile for isCompound
+                        value: isCompound,
+                        onChanged: (val) => setDialogState(() => isCompound = val),
+                      ),
                     ],
                   ),
                 ),
@@ -85,6 +91,7 @@ class TaxBracketsView extends ConsumerWidget {
                         nameEn: nameEnController.text,
                         nameAr: nameArController.text,
                         taxRate: double.parse(rateController.text),
+                        isCompound: isCompound, // Pass isCompound to constructor
                         isDefault: isDefault,
                       );
                       if (bracketToEdit == null) {

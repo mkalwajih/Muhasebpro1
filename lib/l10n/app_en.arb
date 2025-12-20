@@ -279,5 +279,7 @@
   "branchCodeExists": "Branch code already exists",
   "branchStatus": "Branch Status",
   "usernameExists": "Username already exists",
-  "invalidPhoneNumberFormat": "Invalid phone number format"
+  "invalidPhoneNumberFormat": "Invalid phone number format",
+  "symbol": "Symbol",
+  "isCompound": "Is Compound"
 }

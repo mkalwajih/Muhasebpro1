@@ -826,4 +826,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidPhoneNumberFormat => 'Invalid phone number format';
+
+  @override
+  String get symbol => 'Symbol';
+
+  @override
+  String get isCompound => 'Is Compound';
 }

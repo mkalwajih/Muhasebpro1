@@ -20,6 +20,7 @@ class CoaRepositoryImpl implements CoaRepository {
       nameEn: acc.nameEn,
       level: acc.level,
       isActive: acc.isActive,
+      isParent: true,
       nature: acc.nature,
       reportType: acc.reportType,
       cashFlowType: acc.cashFlowType ?? '',

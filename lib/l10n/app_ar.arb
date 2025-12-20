@@ -248,5 +248,7 @@
   "alreadyHaveAccount": "لديك حساب بالفعل؟ تسجيل الدخول",
   "passwordResetSuccess": "تم إعادة تعيين كلمة المرور بنجاح",
   "backToLogin": "العودة إلى تسجيل الدخول",
-  "newPassword": "كلمة المرور الجديدة"
+  "newPassword": "كلمة المرور الجديدة",
+  "symbol": "الرمز",
+  "isCompound": "مركب"
 }
