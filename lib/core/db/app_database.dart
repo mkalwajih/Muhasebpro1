@@ -21,6 +21,9 @@ part 'app_database.g.dart';
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
+  // New constructor for testing and web migration
+  AppDatabase.forTesting(QueryExecutor e) : super(e);
+
   @override
   int get schemaVersion => 15; // Incremented for GL Setup schema
 
