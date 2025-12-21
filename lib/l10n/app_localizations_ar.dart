@@ -827,4 +827,185 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get isCompound => 'مركب';
+  String get glSetup => 'إعداد الأستاذ العام';
+
+  @override
+  String get glSetupConfiguration => 'إعداد وتكوين الأستاذ العام';
+
+  @override
+  String get documentTypes => 'أنواع المستندات';
+
+  @override
+  String get descriptionCoding => 'ترميز البيانات';
+
+  @override
+  String get docTypeCode => 'رمز النوع';
+
+  @override
+  String get nameArabic => 'الاسم عربي';
+
+  @override
+  String get nameEnglish => 'الاسم إنجليزي';
+
+  @override
+  String get sequenceMethod => 'طريقة الترقيم';
+
+  @override
+  String get sequenceBehavior => 'سلوك الترقيم';
+
+  @override
+  String get specific => 'خاص';
+
+  @override
+  String get autoUnchangeable => 'تلقائي غير قابل للتغيير';
+
+  @override
+  String get autoChangeable => 'تلقائي قابل للتغيير';
+
+  @override
+  String get manual => 'يدوي';
+
+  @override
+  String get descCode => 'رمز البيان';
+
+  @override
+  String get descriptionArabic => 'البيان عربي';
+
+  @override
+  String get descriptionEnglish => 'البيان إنجليزي';
+
+  @override
+  String get linkedAccount => 'الحساب المرتبط';
+
+  @override
+  String get addDocumentType => 'إضافة نوع مستند';
+
+  @override
+  String get editDocumentType => 'تعديل نوع مستند';
+
+  @override
+  String get addDescriptionCoding => 'إضافة ترميز بيان';
+
+  @override
+  String get editDescriptionCoding => 'تعديل ترميز بيان';
+
+  @override
+  String get documentTypeCodeRequired => 'رمز نوع المستند مطلوب';
+
+  @override
+  String get documentTypeCodeTooLong =>
+      'رمز نوع المستند يجب ألا يتجاوز 10 أحرف';
+
+  @override
+  String get nameArabicRequired => 'الاسم العربي مطلوب';
+
+  @override
+  String get nameArabicTooLong => 'الاسم العربي يجب ألا يتجاوز 50 حرف';
+
+  @override
+  String get nameEnglishRequired => 'الاسم الإنجليزي مطلوب';
+
+  @override
+  String get nameEnglishTooLong => 'الاسم الإنجليزي يجب ألا يتجاوز 50 حرف';
+
+  @override
+  String get descriptionCodeRequired => 'رمز البيان مطلوب';
+
+  @override
+  String get descriptionCodeTooLong => 'رمز البيان يجب ألا يتجاوز 10 أحرف';
+
+  @override
+  String get descriptionArabicRequired => 'البيان العربي مطلوب';
+
+  @override
+  String get descriptionArabicTooLong => 'البيان العربي يجب ألا يتجاوز 250 حرف';
+
+  @override
+  String get descriptionEnglishRequired => 'البيان الإنجليزي مطلوب';
+
+  @override
+  String get descriptionEnglishTooLong =>
+      'البيان الإنجليزي يجب ألا يتجاوز 250 حرف';
+
+  @override
+  String get documentTypeAlreadyExists => 'نوع المستند بهذا الرمز موجود بالفعل';
+
+  @override
+  String get descriptionCodingAlreadyExists =>
+      'ترميز البيان بهذا الرمز موجود بالفعل';
+
+  @override
+  String get documentTypeNotFound => 'نوع المستند غير موجود';
+
+  @override
+  String get descriptionCodingNotFound => 'ترميز البيان غير موجود';
+
+  @override
+  String get cannotDeleteDocumentTypeInUse =>
+      'لا يمكن حذف نوع المستند لأنه مستخدم في المعاملات';
+
+  @override
+  String get documentTypeCreatedSuccessfully => 'تم إنشاء نوع المستند بنجاح';
+
+  @override
+  String get documentTypeUpdatedSuccessfully => 'تم تحديث نوع المستند بنجاح';
+
+  @override
+  String get documentTypeDeletedSuccessfully => 'تم حذف نوع المستند بنجاح';
+
+  @override
+  String get descriptionCodingCreatedSuccessfully =>
+      'تم إنشاء ترميز البيان بنجاح';
+
+  @override
+  String get descriptionCodingUpdatedSuccessfully =>
+      'تم تحديث ترميز البيان بنجاح';
+
+  @override
+  String get descriptionCodingDeletedSuccessfully =>
+      'تم حذف ترميز البيان بنجاح';
+
+  @override
+  String get failedToDeleteDescriptionCoding => 'فشل في حذف ترميز البيان';
+
+  @override
+  String get noDocumentTypesYet =>
+      'لم يتم إنشاء أنواع مستندات بعد. أضف نوع المستند الأول!';
+
+  @override
+  String get noDescriptionCodingYet =>
+      'لم يتم إنشاء ترميز بيانات بعد. أضف ترميز البيان الأول!';
+
+  @override
+  String get searchDocumentTypes => 'البحث في أنواع المستندات...';
+
+  @override
+  String get searchDescriptionCoding => 'البحث في ترميز البيانات...';
+
+  @override
+  String get selectAccount => 'اختر حساب';
+
+  @override
+  String get noAccountSelected => 'لم يتم اختيار حساب';
+
+  @override
+  String get accessDenied => 'تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة.';
+
+  @override
+  String get searchAccounts => 'البحث في الحسابات...';
+
+  @override
+  String get noAccountsYet => 'لم يتم إنشاء حسابات بعد.';
+
+  @override
+  String get noAccountsFound => 'لم يتم العثور على حسابات تطابق بحثك.';
+
+  @override
+  String get level => 'المستوى';
+
+  @override
+  String get edit => 'تعديل';
+
+  @override
+  String get clear => 'مسح';
 }

@@ -11,6 +11,7 @@ class CoaRepositoryImpl implements CoaRepository {
   @override
   Future<List<AccountEntity>> getChartOfAccounts() async {
     final allAccounts = await database.select(database.accounts).get();
+    final allAccountIds = allAccounts.map((a) => a.id).toSet();
     
     final accountMap = {for (var acc in allAccounts) acc.id: AccountEntity(
       id: acc.id,
@@ -20,7 +21,7 @@ class CoaRepositoryImpl implements CoaRepository {
       nameEn: acc.nameEn,
       level: acc.level,
       isActive: acc.isActive,
-      isParent: true,
+      isParent: allAccounts.any((a) => a.parentId == acc.id),
       nature: acc.nature,
       reportType: acc.reportType,
       cashFlowType: acc.cashFlowType ?? '',

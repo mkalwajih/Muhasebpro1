@@ -19,6 +19,12 @@ import 'package:muhaseb_pro/features/system_setup/presentation/screens/user_mana
 import 'package:muhaseb_pro/shared/presentation/widgets/placeholder_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/register_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/forgot_password_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/gl_setup_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/journal_vouchers_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/payment_vouchers_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/cash_bank_management_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/financial_reports_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -113,6 +119,32 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: 'general_ledger',
             builder: (context, state) =>
                 const PlaceholderScreen(title: 'General Ledger'),
+            routes: [
+              GoRoute(
+                path: 'setup',
+                builder: (context, state) => const GLSetupScreen(),
+              ),
+              GoRoute(
+                path: 'journal_vouchers',
+                builder: (context, state) => const JournalVouchersScreen(),
+              ),
+              GoRoute(
+                path: 'payment_vouchers',
+                builder: (context, state) => const PaymentVouchersScreen(),
+              ),
+              GoRoute(
+                path: 'receipt_vouchers',
+                builder: (context, state) => const ReceiptVouchersScreen(),
+              ),
+              GoRoute(
+                path: 'cash_bank_management',
+                builder: (context, state) => const CashBankManagementScreen(),
+              ),
+              GoRoute(
+                path: 'financial_reports',
+                builder: (context, state) => const FinancialReportsScreen(),
+              ),
+            ],
           ),
           GoRoute(
             path: 'inventory',

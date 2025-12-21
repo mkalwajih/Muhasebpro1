@@ -10,3 +10,7 @@ IMPORT 'schemas/chart_of_accounts_schema.drift';
 IMPORT 'schemas/branches_schema.drift';             -- Depends on system_setup_schema.drift (company_info)
 IMPORT 'schemas/branch_groups_schema.drift';
 IMPORT 'schemas/financial_periods_schema.drift';
+IMPORT 'schemas/gl_setup_schema.drift';             -- General Ledger setup tables
+IMPORT 'schemas/journal_vouchers_schema.drift';     -- Journal, Payment, Receipt vouchers
+IMPORT 'schemas/cash_bank_schema.drift';            -- Cash & Bank management
+IMPORT 'schemas/transaction_requests_schema.drift'; -- Transaction requests & approvals

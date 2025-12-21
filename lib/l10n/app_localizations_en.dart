@@ -832,4 +832,193 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get isCompound => 'Is Compound';
+  String get glSetup => 'GL Setup';
+
+  @override
+  String get glSetupConfiguration => 'General Ledger Setup & Configuration';
+
+  @override
+  String get documentTypes => 'Document Types';
+
+  @override
+  String get descriptionCoding => 'Description Coding';
+
+  @override
+  String get docTypeCode => 'Type Code';
+
+  @override
+  String get nameArabic => 'Name (Arabic)';
+
+  @override
+  String get nameEnglish => 'Name (English)';
+
+  @override
+  String get sequenceMethod => 'Sequence Method';
+
+  @override
+  String get sequenceBehavior => 'Sequence Behavior';
+
+  @override
+  String get specific => 'Specific';
+
+  @override
+  String get autoUnchangeable => 'Auto-Unchangeable';
+
+  @override
+  String get autoChangeable => 'Auto-Changeable';
+
+  @override
+  String get manual => 'Manual';
+
+  @override
+  String get descCode => 'Description Code';
+
+  @override
+  String get descriptionArabic => 'Description (Arabic)';
+
+  @override
+  String get descriptionEnglish => 'Description (English)';
+
+  @override
+  String get linkedAccount => 'Linked Account';
+
+  @override
+  String get addDocumentType => 'Add Document Type';
+
+  @override
+  String get editDocumentType => 'Edit Document Type';
+
+  @override
+  String get addDescriptionCoding => 'Add Description Coding';
+
+  @override
+  String get editDescriptionCoding => 'Edit Description Coding';
+
+  @override
+  String get documentTypeCodeRequired => 'Document type code is required';
+
+  @override
+  String get documentTypeCodeTooLong =>
+      'Document type code must not exceed 10 characters';
+
+  @override
+  String get nameArabicRequired => 'Arabic name is required';
+
+  @override
+  String get nameArabicTooLong => 'Arabic name must not exceed 50 characters';
+
+  @override
+  String get nameEnglishRequired => 'English name is required';
+
+  @override
+  String get nameEnglishTooLong => 'English name must not exceed 50 characters';
+
+  @override
+  String get descriptionCodeRequired => 'Description code is required';
+
+  @override
+  String get descriptionCodeTooLong =>
+      'Description code must not exceed 10 characters';
+
+  @override
+  String get descriptionArabicRequired => 'Arabic description is required';
+
+  @override
+  String get descriptionArabicTooLong =>
+      'Arabic description must not exceed 250 characters';
+
+  @override
+  String get descriptionEnglishRequired => 'English description is required';
+
+  @override
+  String get descriptionEnglishTooLong =>
+      'English description must not exceed 250 characters';
+
+  @override
+  String get documentTypeAlreadyExists =>
+      'Document type with this code already exists';
+
+  @override
+  String get descriptionCodingAlreadyExists =>
+      'Description coding with this code already exists';
+
+  @override
+  String get documentTypeNotFound => 'Document type not found';
+
+  @override
+  String get descriptionCodingNotFound => 'Description coding not found';
+
+  @override
+  String get cannotDeleteDocumentTypeInUse =>
+      'Cannot delete document type as it is used in transactions';
+
+  @override
+  String get documentTypeCreatedSuccessfully =>
+      'Document type created successfully';
+
+  @override
+  String get documentTypeUpdatedSuccessfully =>
+      'Document type updated successfully';
+
+  @override
+  String get documentTypeDeletedSuccessfully =>
+      'Document type deleted successfully';
+
+  @override
+  String get descriptionCodingCreatedSuccessfully =>
+      'Description coding created successfully';
+
+  @override
+  String get descriptionCodingUpdatedSuccessfully =>
+      'Description coding updated successfully';
+
+  @override
+  String get descriptionCodingDeletedSuccessfully =>
+      'Description coding deleted successfully';
+
+  @override
+  String get failedToDeleteDescriptionCoding =>
+      'Failed to delete description coding';
+
+  @override
+  String get noDocumentTypesYet =>
+      'No document types created yet. Add your first document type!';
+
+  @override
+  String get noDescriptionCodingYet =>
+      'No description coding created yet. Add your first description coding!';
+
+  @override
+  String get searchDocumentTypes => 'Search document types...';
+
+  @override
+  String get searchDescriptionCoding => 'Search description coding...';
+
+  @override
+  String get selectAccount => 'Select Account';
+
+  @override
+  String get noAccountSelected => 'No account selected';
+
+  @override
+  String get accessDenied =>
+      'Access denied. You don\'t have permission to view this page.';
+
+  @override
+  String get searchAccounts => 'Search accounts...';
+
+  @override
+  String get noAccountsYet => 'No accounts created yet.';
+
+  @override
+  String get noAccountsFound => 'No accounts found matching your search.';
+
+  @override
+  String get level => 'Level';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get clear => 'Clear';
 }

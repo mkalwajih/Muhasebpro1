@@ -74,6 +74,7 @@ class _AddEditAccountDialogState extends ConsumerState<AddEditAccountDialog> {
         level: widget.accountToEdit?.level ?? 1, // Preserve existing level or set default for new accounts
         isParent: false, // Set a default value
         isActive: _isActive,
+        isParent: widget.accountToEdit?.isParent ?? false,
         // Add new properties
         nature: _nature,
         reportType: _reportType,

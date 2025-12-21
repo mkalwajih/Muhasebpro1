@@ -10,10 +10,28 @@ enum AppPermission {
   manageRoles,
   managePermissions,
 
-  // General Ledger Permissions (Examples)
+  // General Ledger Permissions
   viewGeneralLedger,
-  createJournalVoucher,
-  postJournalVoucher,
+  manageGLSetup,
+  viewGLSetup,
+  viewJournalVouchers,
+  createJournalVouchers,
+  editJournalVouchers,
+  deleteJournalVouchers,
+  postJournalVouchers,
+  reverseJournalVouchers,
+  viewPaymentVouchers,
+  createPaymentVouchers,
+  editPaymentVouchers,
+  deletePaymentVouchers,
+  postPaymentVouchers,
+  reversePaymentVouchers,
+  viewReceiptVouchers,
+  createReceiptVouchers,
+  editReceiptVouchers,
+  deleteReceiptVouchers,
+  postReceiptVouchers,
+  reverseReceiptVouchers,
 
   // Inventory Permissions (Examples)
   viewInventory,
