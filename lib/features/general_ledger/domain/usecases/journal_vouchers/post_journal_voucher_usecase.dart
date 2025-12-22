@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../../../core/error/failures.dart';
-import '../../../../../core/usecases/usecase.dart';
+import '../../../../../shared/domain/entities/failures.dart';
+import '../../../../../shared/domain/interfaces/usecase.dart';
 import '../../entities/journal_voucher_entity.dart';
 import '../../repositories/journal_voucher_repository.dart';
 import '../../services/posting_service.dart';
@@ -23,7 +23,7 @@ class PostJournalVoucherUseCase implements UseCase<JournalVoucherEntity, PostJou
       if (voucherResult.isLeft()) {
         return voucherResult.fold(
           (failure) => Left(failure),
-          (_) => const Left(NotFoundFailure('Journal voucher not found')),
+          (_) => Left(NotFoundFailure(message: 'Journal voucher not found')),
         );
       }
 
@@ -34,13 +34,13 @@ class PostJournalVoucherUseCase implements UseCase<JournalVoucherEntity, PostJou
       if (canPostResult.isLeft()) {
         return canPostResult.fold(
           (failure) => Left(failure),
-          (_) => const Left(ValidationFailure('Cannot check posting eligibility')),
+          (_) => Left(ValidationFailure(message: 'Cannot check posting eligibility')),
         );
       }
 
       final canPost = canPostResult.getOrElse(() => false);
       if (!canPost) {
-        return const Left(ValidationFailure('Voucher cannot be posted'));
+        return Left(ValidationFailure(message: 'Voucher cannot be posted'));
       }
 
       // Post the voucher using the posting service
@@ -54,7 +54,7 @@ class PostJournalVoucherUseCase implements UseCase<JournalVoucherEntity, PostJou
         (postedVoucher) => Right(postedVoucher),
       );
     } catch (e) {
-      return Left(ServerFailure('Failed to post journal voucher: $e'));
+      return Left(ServerFailure(message: 'Failed to post journal voucher: $e'));
     }
   }
 }

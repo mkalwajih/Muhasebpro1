@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 import '../entities/journal_voucher_entity.dart';
 
 /// Repository interface for Journal Voucher operations

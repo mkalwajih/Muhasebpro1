@@ -38,3 +38,7 @@ class DuplicateEntryFailure extends Failure {
 class NotFoundFailure extends Failure {
   NotFoundFailure({String? message}) : super(message != null ? [message] : const ['Not found']);
 }
+
+class ValidationFailure extends Failure {
+  ValidationFailure({String? message}) : super(message != null ? [message] : const []);
+}

@@ -1,6 +1,7 @@
 -- lib/core/db/schemas/branches_schema.drift
 
 IMPORT 'branch_groups_schema.drift';
+IMPORT 'system_setup_schema.drift';
 
 CREATE TABLE branches (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

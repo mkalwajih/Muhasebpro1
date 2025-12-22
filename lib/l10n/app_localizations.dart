@@ -1699,6 +1699,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Is Compound'**
   String get isCompound;
+
   /// No description provided for @glSetup.
   ///
   /// In en, this message translates to:
@@ -2046,6 +2047,1770 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear'**
   String get clear;
+
+  /// No description provided for @journalVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Vouchers'**
+  String get journalVouchers;
+
+  /// No description provided for @viewList.
+  ///
+  /// In en, this message translates to:
+  /// **'View List'**
+  String get viewList;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// No description provided for @voucherSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher saved successfully'**
+  String get voucherSavedSuccessfully;
+
+  /// No description provided for @searchQuery.
+  ///
+  /// In en, this message translates to:
+  /// **'Search Query'**
+  String get searchQuery;
+
+  /// No description provided for @enterSearchTerm.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter search term'**
+  String get enterSearchTerm;
+
+  /// No description provided for @filterOptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Options'**
+  String get filterOptions;
+
+  /// No description provided for @apply.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @draft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get draft;
+
+  /// No description provided for @posted.
+  ///
+  /// In en, this message translates to:
+  /// **'Posted'**
+  String get posted;
+
+  /// No description provided for @reversed.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversed'**
+  String get reversed;
+
+  /// No description provided for @searchVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search vouchers...'**
+  String get searchVouchers;
+
+  /// No description provided for @noVouchersFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No vouchers found'**
+  String get noVouchersFound;
+
+  /// No description provided for @createFirstVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first voucher!'**
+  String get createFirstVoucher;
+
+  /// No description provided for @confirmPost.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Post'**
+  String get confirmPost;
+
+  /// No description provided for @confirmPostVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to post voucher {voucherName}?'**
+  String confirmPostVoucher(String voucherName);
+
+  /// No description provided for @post.
+  ///
+  /// In en, this message translates to:
+  /// **'Post'**
+  String get post;
+
+  /// No description provided for @voucherPostedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher posted successfully'**
+  String get voucherPostedSuccessfully;
+
+  /// No description provided for @confirmDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Delete'**
+  String get confirmDelete;
+
+  /// No description provided for @confirmDeleteVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete voucher {voucherName}?'**
+  String confirmDeleteVoucher(String voucherName);
+
+  /// No description provided for @voucherDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher deleted successfully'**
+  String get voucherDeletedSuccessfully;
+
+  /// No description provided for @debit.
+  ///
+  /// In en, this message translates to:
+  /// **'Debit'**
+  String get debit;
+
+  /// No description provided for @credit.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit'**
+  String get credit;
+
+  /// No description provided for @reference.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference'**
+  String get reference;
+
+  /// No description provided for @reversing.
+  ///
+  /// In en, this message translates to:
+  /// **'Reversing'**
+  String get reversing;
+
+  /// No description provided for @periodic.
+  ///
+  /// In en, this message translates to:
+  /// **'Periodic'**
+  String get periodic;
+
+  /// No description provided for @documentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Document Type'**
+  String get documentType;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @referenceCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference Code'**
+  String get referenceCode;
+
+  /// No description provided for @pleaseSelectDocumentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a document type'**
+  String get pleaseSelectDocumentType;
+
+  /// No description provided for @pleaseSelectBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a branch'**
+  String get pleaseSelectBranch;
+
+  /// No description provided for @pleaseEnterDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter description'**
+  String get pleaseEnterDescription;
+
+  /// No description provided for @journalEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Entries'**
+  String get journalEntries;
+
+  /// No description provided for @addLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Line'**
+  String get addLine;
+
+  /// No description provided for @noEntriesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'No entries added yet'**
+  String get noEntriesAdded;
+
+  /// No description provided for @addFirstEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first journal entry'**
+  String get addFirstEntry;
+
+  /// No description provided for @addJournalEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Journal Entry'**
+  String get addJournalEntry;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @totalDebit.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Debit'**
+  String get totalDebit;
+
+  /// No description provided for @totalCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Credit'**
+  String get totalCredit;
+
+  /// No description provided for @difference.
+  ///
+  /// In en, this message translates to:
+  /// **'Difference'**
+  String get difference;
+
+  /// No description provided for @paymentVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Vouchers'**
+  String get paymentVouchers;
+
+  /// No description provided for @searchPaymentVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search payment vouchers...'**
+  String get searchPaymentVouchers;
+
+  /// No description provided for @paymentFromAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment From Account'**
+  String get paymentFromAccount;
+
+  /// No description provided for @pleaseSelectPaymentAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a payment account'**
+  String get pleaseSelectPaymentAccount;
+
+  /// No description provided for @paymentMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Method'**
+  String get paymentMethod;
+
+  /// No description provided for @cash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get cash;
+
+  /// No description provided for @check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get check;
+
+  /// No description provided for @bankTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Transfer'**
+  String get bankTransfer;
+
+  /// No description provided for @creditCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Card'**
+  String get creditCard;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @checkNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Number'**
+  String get checkNumber;
+
+  /// No description provided for @beneficiary.
+  ///
+  /// In en, this message translates to:
+  /// **'Beneficiary'**
+  String get beneficiary;
+
+  /// No description provided for @paymentLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Lines'**
+  String get paymentLines;
+
+  /// No description provided for @noPaymentLinesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'No payment lines added yet'**
+  String get noPaymentLinesAdded;
+
+  /// No description provided for @addFirstPaymentLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first payment line'**
+  String get addFirstPaymentLine;
+
+  /// No description provided for @addPaymentLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Payment Line'**
+  String get addPaymentLine;
+
+  /// No description provided for @totalAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Amount'**
+  String get totalAmount;
+
+  /// No description provided for @paymentFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment From'**
+  String get paymentFrom;
+
+  /// No description provided for @line.
+  ///
+  /// In en, this message translates to:
+  /// **'line'**
+  String get line;
+
+  /// No description provided for @lines.
+  ///
+  /// In en, this message translates to:
+  /// **'lines'**
+  String get lines;
+
+  /// No description provided for @receiptVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Vouchers'**
+  String get receiptVouchers;
+
+  /// No description provided for @searchReceiptVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Search receipt vouchers...'**
+  String get searchReceiptVouchers;
+
+  /// No description provided for @receiptToAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt To Account'**
+  String get receiptToAccount;
+
+  /// No description provided for @pleaseSelectReceiptAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a receipt account'**
+  String get pleaseSelectReceiptAccount;
+
+  /// No description provided for @receiptMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Method'**
+  String get receiptMethod;
+
+  /// No description provided for @payer.
+  ///
+  /// In en, this message translates to:
+  /// **'Payer'**
+  String get payer;
+
+  /// No description provided for @receiptLines.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Lines'**
+  String get receiptLines;
+
+  /// No description provided for @noReceiptLinesAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'No receipt lines added yet'**
+  String get noReceiptLinesAdded;
+
+  /// No description provided for @addFirstReceiptLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first receipt line'**
+  String get addFirstReceiptLine;
+
+  /// No description provided for @addReceiptLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Receipt Line'**
+  String get addReceiptLine;
+
+  /// No description provided for @receiptTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt To'**
+  String get receiptTo;
+
+  /// No description provided for @cashBankManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash & Bank Management'**
+  String get cashBankManagement;
+
+  /// No description provided for @bankReconciliation.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Reconciliation'**
+  String get bankReconciliation;
+
+  /// No description provided for @cashDeposits.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Deposits'**
+  String get cashDeposits;
+
+  /// No description provided for @bankStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Statements'**
+  String get bankStatements;
+
+  /// No description provided for @adjustmentEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment Entries'**
+  String get adjustmentEntries;
+
+  /// No description provided for @bankAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Account'**
+  String get bankAccount;
+
+  /// No description provided for @reconciliationDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation Date'**
+  String get reconciliationDate;
+
+  /// No description provided for @bankStatementBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Statement Balance'**
+  String get bankStatementBalance;
+
+  /// No description provided for @bookBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Balance'**
+  String get bookBalance;
+
+  /// No description provided for @adjustedBankBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjusted Bank Balance'**
+  String get adjustedBankBalance;
+
+  /// No description provided for @outstandingDeposits.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Deposits'**
+  String get outstandingDeposits;
+
+  /// No description provided for @outstandingChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding Checks'**
+  String get outstandingChecks;
+
+  /// No description provided for @addOutstandingDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Outstanding Deposit'**
+  String get addOutstandingDeposit;
+
+  /// No description provided for @addOutstandingCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Outstanding Check'**
+  String get addOutstandingCheck;
+
+  /// No description provided for @reconciled.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciled'**
+  String get reconciled;
+
+  /// No description provided for @notReconciled.
+  ///
+  /// In en, this message translates to:
+  /// **'Not Reconciled'**
+  String get notReconciled;
+
+  /// No description provided for @saveReconciliation.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Reconciliation'**
+  String get saveReconciliation;
+
+  /// No description provided for @reconciliationNotBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation is not balanced'**
+  String get reconciliationNotBalanced;
+
+  /// No description provided for @reconciliationSavedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconciliation saved successfully'**
+  String get reconciliationSavedSuccessfully;
+
+  /// No description provided for @noOutstandingDeposits.
+  ///
+  /// In en, this message translates to:
+  /// **'No outstanding deposits'**
+  String get noOutstandingDeposits;
+
+  /// No description provided for @noOutstandingChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'No outstanding checks'**
+  String get noOutstandingChecks;
+
+  /// No description provided for @newDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'New Deposit'**
+  String get newDeposit;
+
+  /// No description provided for @noDepositsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No deposits found'**
+  String get noDepositsFound;
+
+  /// No description provided for @createFirstDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first deposit'**
+  String get createFirstDeposit;
+
+  /// No description provided for @fromAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From Account'**
+  String get fromAccount;
+
+  /// No description provided for @toAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'To Account'**
+  String get toAccount;
+
+  /// No description provided for @depositSlipNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit Slip Number'**
+  String get depositSlipNumber;
+
+  /// No description provided for @bankConfirmationNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Confirmation Number'**
+  String get bankConfirmationNumber;
+
+  /// No description provided for @submit.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit'**
+  String get submit;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @confirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirmed'**
+  String get confirmed;
+
+  /// No description provided for @cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get cancelled;
+
+  /// No description provided for @depositSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit submitted successfully'**
+  String get depositSubmittedSuccessfully;
+
+  /// No description provided for @confirmDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Deposit'**
+  String get confirmDeposit;
+
+  /// No description provided for @confirmDepositMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the bank confirmation number to confirm this deposit'**
+  String get confirmDepositMessage;
+
+  /// No description provided for @depositConfirmedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit confirmed successfully'**
+  String get depositConfirmedSuccessfully;
+
+  /// No description provided for @editDepositNotImplemented.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit deposit functionality not implemented yet'**
+  String get editDepositNotImplemented;
+
+  /// No description provided for @confirmDeleteDeposit.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this deposit?'**
+  String get confirmDeleteDeposit;
+
+  /// No description provided for @depositDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit deleted successfully'**
+  String get depositDeletedSuccessfully;
+
+  /// No description provided for @importStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Import Statement'**
+  String get importStatement;
+
+  /// No description provided for @fromDate.
+  ///
+  /// In en, this message translates to:
+  /// **'From Date'**
+  String get fromDate;
+
+  /// No description provided for @toDate.
+  ///
+  /// In en, this message translates to:
+  /// **'To Date'**
+  String get toDate;
+
+  /// No description provided for @noStatementsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No statements found'**
+  String get noStatementsFound;
+
+  /// No description provided for @importFirstStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Import your first statement'**
+  String get importFirstStatement;
+
+  /// No description provided for @openingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Balance'**
+  String get openingBalance;
+
+  /// No description provided for @closingBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing Balance'**
+  String get closingBalance;
+
+  /// No description provided for @transactions.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions'**
+  String get transactions;
+
+  /// No description provided for @reconcile.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconcile'**
+  String get reconcile;
+
+  /// No description provided for @viewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get viewDetails;
+
+  /// No description provided for @statementReconciledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Statement reconciled successfully'**
+  String get statementReconciledSuccessfully;
+
+  /// No description provided for @statementDetailsNotImplemented.
+  ///
+  /// In en, this message translates to:
+  /// **'Statement details not implemented yet'**
+  String get statementDetailsNotImplemented;
+
+  /// No description provided for @statementsFiltered.
+  ///
+  /// In en, this message translates to:
+  /// **'Statements filtered'**
+  String get statementsFiltered;
+
+  /// No description provided for @import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get import;
+
+  /// No description provided for @adjustmentType.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment Type'**
+  String get adjustmentType;
+
+  /// No description provided for @bankCharges.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank Charges'**
+  String get bankCharges;
+
+  /// No description provided for @interestEarned.
+  ///
+  /// In en, this message translates to:
+  /// **'Interest Earned'**
+  String get interestEarned;
+
+  /// No description provided for @errorCorrection.
+  ///
+  /// In en, this message translates to:
+  /// **'Error Correction'**
+  String get errorCorrection;
+
+  /// No description provided for @newAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'New Adjustment'**
+  String get newAdjustment;
+
+  /// No description provided for @noAdjustmentsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No adjustments found'**
+  String get noAdjustmentsFound;
+
+  /// No description provided for @createFirstAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first adjustment'**
+  String get createFirstAdjustment;
+
+  /// No description provided for @account.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get account;
+
+  /// No description provided for @contraAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Contra Account'**
+  String get contraAccount;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @approvedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved By'**
+  String get approvedBy;
+
+  /// No description provided for @approve.
+  ///
+  /// In en, this message translates to:
+  /// **'Approve'**
+  String get approve;
+
+  /// No description provided for @rejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejected'**
+  String get rejected;
+
+  /// No description provided for @adjustmentSubmittedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment submitted successfully'**
+  String get adjustmentSubmittedSuccessfully;
+
+  /// No description provided for @adjustmentApprovedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment approved successfully'**
+  String get adjustmentApprovedSuccessfully;
+
+  /// No description provided for @editAdjustmentNotImplemented.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit adjustment functionality not implemented yet'**
+  String get editAdjustmentNotImplemented;
+
+  /// No description provided for @confirmDeleteAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this adjustment?'**
+  String get confirmDeleteAdjustment;
+
+  /// No description provided for @adjustmentDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment deleted successfully'**
+  String get adjustmentDeletedSuccessfully;
+
+  /// No description provided for @cashBankManagementHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage cash and bank operations including reconciliation, deposits, and adjustments.'**
+  String get cashBankManagementHelp;
+
+  /// No description provided for @bankReconciliationHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare bank statements with book records to identify discrepancies.'**
+  String get bankReconciliationHelp;
+
+  /// No description provided for @cashDepositsHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Track and confirm cash deposits to bank accounts.'**
+  String get cashDepositsHelp;
+
+  /// No description provided for @bankStatementsHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Import and review bank statements for reconciliation.'**
+  String get bankStatementsHelp;
+
+  /// No description provided for @adjustmentEntriesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Create adjustment entries for bank charges, interest, and corrections.'**
+  String get adjustmentEntriesHelp;
+
+  /// No description provided for @dataRefreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'Data refreshed'**
+  String get dataRefreshed;
+
+  /// No description provided for @help.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get help;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
+
+  /// No description provided for @financialReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial Reports'**
+  String get financialReports;
+
+  /// No description provided for @selectReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Report'**
+  String get selectReport;
+
+  /// No description provided for @trialBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial Balance'**
+  String get trialBalance;
+
+  /// No description provided for @trialBalanceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'List of all accounts with their debit and credit balances'**
+  String get trialBalanceDescription;
+
+  /// No description provided for @incomeStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Income Statement'**
+  String get incomeStatement;
+
+  /// No description provided for @incomeStatementDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Revenue and expenses for a specific period'**
+  String get incomeStatementDescription;
+
+  /// No description provided for @balanceSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Sheet'**
+  String get balanceSheet;
+
+  /// No description provided for @balanceSheetDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Assets, liabilities, and equity at a specific date'**
+  String get balanceSheetDescription;
+
+  /// No description provided for @cashFlowStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Flow Statement'**
+  String get cashFlowStatement;
+
+  /// No description provided for @cashFlowDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash inflows and outflows for a specific period'**
+  String get cashFlowDescription;
+
+  /// No description provided for @accountStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Statement'**
+  String get accountStatement;
+
+  /// No description provided for @accountStatementDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed transactions for a specific account'**
+  String get accountStatementDescription;
+
+  /// No description provided for @generalLedgerReport.
+  ///
+  /// In en, this message translates to:
+  /// **'General Ledger'**
+  String get generalLedgerReport;
+
+  /// No description provided for @generalLedgerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete transaction history for all accounts'**
+  String get generalLedgerDescription;
+
+  /// No description provided for @asOfDate.
+  ///
+  /// In en, this message translates to:
+  /// **'As of Date'**
+  String get asOfDate;
+
+  /// No description provided for @asOf.
+  ///
+  /// In en, this message translates to:
+  /// **'As of'**
+  String get asOf;
+
+  /// No description provided for @allBranches.
+  ///
+  /// In en, this message translates to:
+  /// **'All Branches'**
+  String get allBranches;
+
+  /// No description provided for @showZeroBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Zero Balances'**
+  String get showZeroBalances;
+
+  /// No description provided for @accountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Name'**
+  String get accountName;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @trialBalanceIsBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial Balance is Balanced'**
+  String get trialBalanceIsBalanced;
+
+  /// No description provided for @trialBalanceNotBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Trial Balance is Not Balanced'**
+  String get trialBalanceNotBalanced;
+
+  /// No description provided for @balanceSheetIsBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Sheet is Balanced'**
+  String get balanceSheetIsBalanced;
+
+  /// No description provided for @balanceSheetNotBalanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance Sheet is Not Balanced'**
+  String get balanceSheetNotBalanced;
+
+  /// No description provided for @export.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get export;
+
+  /// No description provided for @print.
+  ///
+  /// In en, this message translates to:
+  /// **'Print'**
+  String get print;
+
+  /// No description provided for @exportReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Report'**
+  String get exportReport;
+
+  /// No description provided for @exportToPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to PDF'**
+  String get exportToPdf;
+
+  /// No description provided for @exportToExcel.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to Excel'**
+  String get exportToExcel;
+
+  /// No description provided for @exportToCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Export to CSV'**
+  String get exportToCsv;
+
+  /// No description provided for @reportRefreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'Report refreshed'**
+  String get reportRefreshed;
+
+  /// No description provided for @reportExportedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Report exported to {format} successfully'**
+  String reportExportedSuccessfully(String format);
+
+  /// No description provided for @reportSentToPrinter.
+  ///
+  /// In en, this message translates to:
+  /// **'Report sent to printer'**
+  String get reportSentToPrinter;
+
+  /// No description provided for @selectAccountToViewStatement.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an account to view its statement'**
+  String get selectAccountToViewStatement;
+
+  /// No description provided for @selectAccountToViewLedger.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an account to view its ledger'**
+  String get selectAccountToViewLedger;
+
+  /// No description provided for @cashFlowReportComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash Flow Report coming soon'**
+  String get cashFlowReportComingSoon;
+
+  /// No description provided for @accountStatementComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Statement coming soon'**
+  String get accountStatementComingSoon;
+
+  /// No description provided for @generalLedgerComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'General Ledger Report coming soon'**
+  String get generalLedgerComingSoon;
+
+  /// No description provided for @transactionRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction Requests'**
+  String get transactionRequests;
+
+  /// No description provided for @allRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'All Requests'**
+  String get allRequests;
+
+  /// No description provided for @pendingApprovals.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Approvals'**
+  String get pendingApprovals;
+
+  /// No description provided for @myRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'My Requests'**
+  String get myRequests;
+
+  /// No description provided for @createRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Request'**
+  String get createRequest;
+
+  /// No description provided for @editRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Request'**
+  String get editRequest;
+
+  /// No description provided for @requestType.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Type'**
+  String get requestType;
+
+  /// No description provided for @requestDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Details'**
+  String get requestDetails;
+
+  /// No description provided for @requester.
+  ///
+  /// In en, this message translates to:
+  /// **'Requester'**
+  String get requester;
+
+  /// No description provided for @requestDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Date'**
+  String get requestDate;
+
+  /// No description provided for @approver.
+  ///
+  /// In en, this message translates to:
+  /// **'Approver'**
+  String get approver;
+
+  /// No description provided for @approvalDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Approval Date'**
+  String get approvalDate;
+
+  /// No description provided for @rejectionReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Rejection Reason'**
+  String get rejectionReason;
+
+  /// No description provided for @requestNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Request Number'**
+  String get requestNumber;
+
+  /// No description provided for @adjustmentEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment Entry'**
+  String get adjustmentEntry;
+
+  /// No description provided for @pendingApproval.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending Approval'**
+  String get pendingApproval;
+
+  /// No description provided for @approved.
+  ///
+  /// In en, this message translates to:
+  /// **'Approved'**
+  String get approved;
+
+  /// No description provided for @reject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get reject;
+
+  /// No description provided for @pleaseEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter amount'**
+  String get pleaseEnterAmount;
+
+  /// No description provided for @pleaseEnterValidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter valid amount'**
+  String get pleaseEnterValidAmount;
+
+  /// No description provided for @requestCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request created successfully'**
+  String get requestCreatedSuccessfully;
+
+  /// No description provided for @requestUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request updated successfully'**
+  String get requestUpdatedSuccessfully;
+
+  /// No description provided for @requestApprovedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request approved successfully'**
+  String get requestApprovedSuccessfully;
+
+  /// No description provided for @requestRejectedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request rejected successfully'**
+  String get requestRejectedSuccessfully;
+
+  /// No description provided for @failedToLoadRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load requests'**
+  String get failedToLoadRequests;
+
+  /// No description provided for @failedToLoadPendingApprovals.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load pending approvals'**
+  String get failedToLoadPendingApprovals;
+
+  /// No description provided for @noRequestsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No requests found'**
+  String get noRequestsFound;
+
+  /// No description provided for @youHaveNotCreatedAnyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not created any requests yet'**
+  String get youHaveNotCreatedAnyRequests;
+
+  /// No description provided for @noTransactionRequestsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No transaction requests found'**
+  String get noTransactionRequestsFound;
+
+  /// No description provided for @noPendingApprovals.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending approvals'**
+  String get noPendingApprovals;
+
+  /// No description provided for @allRequestsHaveBeenProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'All requests have been processed'**
+  String get allRequestsHaveBeenProcessed;
+
+  /// No description provided for @rejectRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject Request'**
+  String get rejectRequest;
+
+  /// No description provided for @pleaseProvideRejectionReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Please provide rejection reason'**
+  String get pleaseProvideRejectionReason;
+
+  /// No description provided for @reviewPostingClosing.
+  ///
+  /// In en, this message translates to:
+  /// **'Review, Posting & Closing'**
+  String get reviewPostingClosing;
+
+  /// No description provided for @postingBatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Posting Batches'**
+  String get postingBatches;
+
+  /// No description provided for @periodClosing.
+  ///
+  /// In en, this message translates to:
+  /// **'Period Closing'**
+  String get periodClosing;
+
+  /// No description provided for @auditTrail.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit Trail'**
+  String get auditTrail;
+
+  /// No description provided for @createBatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Batch'**
+  String get createBatch;
+
+  /// No description provided for @startPosting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Posting'**
+  String get startPosting;
+
+  /// No description provided for @noPostingBatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No posting batches'**
+  String get noPostingBatches;
+
+  /// No description provided for @createBatchToStartPosting.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a batch to start posting vouchers'**
+  String get createBatchToStartPosting;
+
+  /// No description provided for @totalVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Vouchers'**
+  String get totalVouchers;
+
+  /// No description provided for @processed.
+  ///
+  /// In en, this message translates to:
+  /// **'Processed'**
+  String get processed;
+
+  /// No description provided for @failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get failed;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// No description provided for @completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get completed;
+
+  /// No description provided for @complete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete'**
+  String get complete;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @startingBatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting batch'**
+  String get startingBatch;
+
+  /// No description provided for @cancellingBatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelling batch'**
+  String get cancellingBatch;
+
+  /// No description provided for @batchDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch Details'**
+  String get batchDetails;
+
+  /// No description provided for @createdBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Created By'**
+  String get createdBy;
+
+  /// No description provided for @createdAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Created At'**
+  String get createdAt;
+
+  /// No description provided for @startedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Started At'**
+  String get startedAt;
+
+  /// No description provided for @completedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed At'**
+  String get completedAt;
+
+  /// No description provided for @createPostingBatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Posting Batch'**
+  String get createPostingBatch;
+
+  /// No description provided for @selectVouchersToInclude.
+  ///
+  /// In en, this message translates to:
+  /// **'Select vouchers to include in this batch'**
+  String get selectVouchersToInclude;
+
+  /// No description provided for @batchCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch created successfully'**
+  String get batchCreatedSuccessfully;
+
+  /// No description provided for @startBatchPosting.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Batch Posting'**
+  String get startBatchPosting;
+
+  /// No description provided for @confirmStartBatchPosting.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to start batch posting? This action cannot be undone.'**
+  String get confirmStartBatchPosting;
+
+  /// No description provided for @batchPostingStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch posting started'**
+  String get batchPostingStarted;
+
+  /// No description provided for @createPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Period'**
+  String get createPeriod;
+
+  /// No description provided for @runChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Run Checks'**
+  String get runChecks;
+
+  /// No description provided for @noPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'No periods'**
+  String get noPeriods;
+
+  /// No description provided for @createPeriodToStartClosing.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a period to start closing process'**
+  String get createPeriodToStartClosing;
+
+  /// No description provided for @checks.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks'**
+  String get checks;
+
+  /// No description provided for @closedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed Date'**
+  String get closedDate;
+
+  /// No description provided for @checksCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks Completed'**
+  String get checksCompleted;
+
+  /// No description provided for @failedChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed Checks'**
+  String get failedChecks;
+
+  /// No description provided for @closePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Close Period'**
+  String get closePeriod;
+
+  /// No description provided for @reopenPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen Period'**
+  String get reopenPeriod;
+
+  /// No description provided for @open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get open;
+
+  /// No description provided for @yearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Yearly'**
+  String get yearly;
+
+  /// No description provided for @periodType.
+  ///
+  /// In en, this message translates to:
+  /// **'Period Type'**
+  String get periodType;
+
+  /// No description provided for @periodCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Period created successfully'**
+  String get periodCreatedSuccessfully;
+
+  /// No description provided for @preClosingChecks.
+  ///
+  /// In en, this message translates to:
+  /// **'Pre-closing Checks'**
+  String get preClosingChecks;
+
+  /// No description provided for @checksRunSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks run successfully'**
+  String get checksRunSuccessfully;
+
+  /// No description provided for @confirmClosePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to close this period? This action cannot be undone.'**
+  String get confirmClosePeriod;
+
+  /// No description provided for @periodClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Period closed:'**
+  String get periodClosed;
+
+  /// No description provided for @periodReopened.
+  ///
+  /// In en, this message translates to:
+  /// **'Period reopened:'**
+  String get periodReopened;
+
+  /// No description provided for @runningChecksFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Running checks for'**
+  String get runningChecksFor;
+
+  /// No description provided for @periodDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Period Details'**
+  String get periodDetails;
+
+  /// No description provided for @closedBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed By'**
+  String get closedBy;
+
+  /// No description provided for @closingDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing Date'**
+  String get closingDate;
+
+  /// No description provided for @searchAuditTrail.
+  ///
+  /// In en, this message translates to:
+  /// **'Search audit trail'**
+  String get searchAuditTrail;
+
+  /// No description provided for @noAuditEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'No audit entries'**
+  String get noAuditEntries;
+
+  /// No description provided for @auditTrailWillAppearHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit trail entries will appear here'**
+  String get auditTrailWillAppearHere;
+
+  /// No description provided for @user.
+  ///
+  /// In en, this message translates to:
+  /// **'User'**
+  String get user;
+
+  /// No description provided for @module.
+  ///
+  /// In en, this message translates to:
+  /// **'Module'**
+  String get module;
+
+  /// No description provided for @entityId.
+  ///
+  /// In en, this message translates to:
+  /// **'Entity ID'**
+  String get entityId;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
+
+  /// No description provided for @filterAuditTrail.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Audit Trail'**
+  String get filterAuditTrail;
+
+  /// No description provided for @dateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Date Range'**
+  String get dateRange;
+
+  /// No description provided for @filtersApplied.
+  ///
+  /// In en, this message translates to:
+  /// **'Filters applied'**
+  String get filtersApplied;
+
+  /// No description provided for @auditEntryDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Audit Entry Details'**
+  String get auditEntryDetails;
+
+  /// No description provided for @timestamp.
+  ///
+  /// In en, this message translates to:
+  /// **'Timestamp'**
+  String get timestamp;
+
+  /// No description provided for @ipAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'IP Address'**
+  String get ipAddress;
+
+  /// No description provided for @changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes'**
+  String get changes;
+
+  /// No description provided for @enhancedCOAFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **'Enhanced COA Features'**
+  String get enhancedCOAFeatures;
+
+  /// No description provided for @accountStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Statements'**
+  String get accountStatements;
+
+  /// No description provided for @openingBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Balances'**
+  String get openingBalances;
+
+  /// No description provided for @hierarchyManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Hierarchy Management'**
+  String get hierarchyManagement;
 }
 
 class _AppLocalizationsDelegate

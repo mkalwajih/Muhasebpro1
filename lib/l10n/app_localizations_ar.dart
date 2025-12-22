@@ -567,7 +567,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get roleNameAr => 'اسم الدور (عربي)';
 
   @override
-  String get description => 'الوصف';
+  String get description => 'البيان';
 
   @override
   String get backupFrequency => 'تكرار النسخ الاحتياطي';
@@ -827,6 +827,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get isCompound => 'مركب';
+
+  @override
   String get glSetup => 'إعداد الأستاذ العام';
 
   @override
@@ -983,7 +985,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchDescriptionCoding => 'البحث في ترميز البيانات...';
 
   @override
-  String get selectAccount => 'اختر حساب';
+  String get selectAccount => 'اختر الحساب';
 
   @override
   String get noAccountSelected => 'لم يتم اختيار حساب';
@@ -1008,4 +1010,908 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clear => 'مسح';
+
+  @override
+  String get journalVouchers => 'قيود اليومية';
+
+  @override
+  String get viewList => 'عرض القائمة';
+
+  @override
+  String get search => 'بحث';
+
+  @override
+  String get filter => 'تصفية';
+
+  @override
+  String get voucherSavedSuccessfully => 'تم حفظ القيد بنجاح';
+
+  @override
+  String get searchQuery => 'استعلام البحث';
+
+  @override
+  String get enterSearchTerm => 'أدخل مصطلح البحث';
+
+  @override
+  String get filterOptions => 'خيارات التصفية';
+
+  @override
+  String get apply => 'تطبيق';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get draft => 'مسودة';
+
+  @override
+  String get posted => 'مرحل';
+
+  @override
+  String get reversed => 'معكوس';
+
+  @override
+  String get searchVouchers => 'البحث في القيود...';
+
+  @override
+  String get noVouchersFound => 'لم يتم العثور على قيود';
+
+  @override
+  String get createFirstVoucher => 'أنشئ قيدك الأول!';
+
+  @override
+  String get confirmPost => 'تأكيد الترحيل';
+
+  @override
+  String confirmPostVoucher(String voucherName) {
+    return 'هل أنت متأكد من ترحيل القيد $voucherName؟';
+  }
+
+  @override
+  String get post => 'ترحيل';
+
+  @override
+  String get voucherPostedSuccessfully => 'تم ترحيل القيد بنجاح';
+
+  @override
+  String get confirmDelete => 'تأكيد الحذف';
+
+  @override
+  String confirmDeleteVoucher(String voucherName) {
+    return 'هل أنت متأكد من حذف القيد $voucherName؟';
+  }
+
+  @override
+  String get voucherDeletedSuccessfully => 'تم حذف القيد بنجاح';
+
+  @override
+  String get debit => 'مدين';
+
+  @override
+  String get credit => 'دائن';
+
+  @override
+  String get reference => 'المرجع';
+
+  @override
+  String get reversing => 'عكسي';
+
+  @override
+  String get periodic => 'دوري';
+
+  @override
+  String get documentType => 'نوع المستند';
+
+  @override
+  String get date => 'التاريخ';
+
+  @override
+  String get referenceCode => 'الرقم المرجعي';
+
+  @override
+  String get pleaseSelectDocumentType => 'يرجى اختيار نوع المستند';
+
+  @override
+  String get pleaseSelectBranch => 'يرجى اختيار الفرع';
+
+  @override
+  String get pleaseEnterDescription => 'يرجى إدخال البيان';
+
+  @override
+  String get journalEntries => 'قيود اليومية';
+
+  @override
+  String get addLine => 'إضافة سطر';
+
+  @override
+  String get noEntriesAdded => 'لم يتم إضافة قيود بعد';
+
+  @override
+  String get addFirstEntry => 'أضف قيدك الأول';
+
+  @override
+  String get addJournalEntry => 'إضافة قيد يومية';
+
+  @override
+  String get add => 'إضافة';
+
+  @override
+  String get totalDebit => 'إجمالي المدين';
+
+  @override
+  String get totalCredit => 'إجمالي الدائن';
+
+  @override
+  String get difference => 'الفرق';
+
+  @override
+  String get paymentVouchers => 'سندات الدفع';
+
+  @override
+  String get searchPaymentVouchers => 'البحث في سندات الدفع...';
+
+  @override
+  String get paymentFromAccount => 'الدفع من حساب';
+
+  @override
+  String get pleaseSelectPaymentAccount => 'يرجى اختيار حساب الدفع';
+
+  @override
+  String get paymentMethod => 'طريقة الدفع';
+
+  @override
+  String get cash => 'نقدي';
+
+  @override
+  String get check => 'شيك';
+
+  @override
+  String get bankTransfer => 'تحويل بنكي';
+
+  @override
+  String get creditCard => 'بطاقة ائتمان';
+
+  @override
+  String get other => 'أخرى';
+
+  @override
+  String get checkNumber => 'رقم الشيك';
+
+  @override
+  String get beneficiary => 'المستفيد';
+
+  @override
+  String get paymentLines => 'بنود الدفع';
+
+  @override
+  String get noPaymentLinesAdded => 'لم يتم إضافة بنود دفع بعد';
+
+  @override
+  String get addFirstPaymentLine => 'أضف بند الدفع الأول';
+
+  @override
+  String get addPaymentLine => 'إضافة بند دفع';
+
+  @override
+  String get totalAmount => 'المبلغ الإجمالي';
+
+  @override
+  String get paymentFrom => 'الدفع من';
+
+  @override
+  String get line => 'بند';
+
+  @override
+  String get lines => 'بنود';
+
+  @override
+  String get receiptVouchers => 'سندات القبض';
+
+  @override
+  String get searchReceiptVouchers => 'البحث في سندات القبض...';
+
+  @override
+  String get receiptToAccount => 'القبض إلى حساب';
+
+  @override
+  String get pleaseSelectReceiptAccount => 'يرجى اختيار حساب القبض';
+
+  @override
+  String get receiptMethod => 'طريقة القبض';
+
+  @override
+  String get payer => 'الدافع';
+
+  @override
+  String get receiptLines => 'بنود القبض';
+
+  @override
+  String get noReceiptLinesAdded => 'لم يتم إضافة بنود قبض بعد';
+
+  @override
+  String get addFirstReceiptLine => 'أضف بند القبض الأول';
+
+  @override
+  String get addReceiptLine => 'إضافة بند قبض';
+
+  @override
+  String get receiptTo => 'القبض إلى';
+
+  @override
+  String get cashBankManagement => 'إدارة النقد والبنوك';
+
+  @override
+  String get bankReconciliation => 'تسوية البنك';
+
+  @override
+  String get cashDeposits => 'الودائع النقدية';
+
+  @override
+  String get bankStatements => 'كشوف البنك';
+
+  @override
+  String get adjustmentEntries => 'قيود التسوية';
+
+  @override
+  String get bankAccount => 'الحساب البنكي';
+
+  @override
+  String get reconciliationDate => 'تاريخ التسوية';
+
+  @override
+  String get bankStatementBalance => 'رصيد كشف البنك';
+
+  @override
+  String get bookBalance => 'رصيد الدفاتر';
+
+  @override
+  String get adjustedBankBalance => 'الرصيد البنكي المعدل';
+
+  @override
+  String get outstandingDeposits => 'الودائع المعلقة';
+
+  @override
+  String get outstandingChecks => 'الشيكات المعلقة';
+
+  @override
+  String get addOutstandingDeposit => 'إضافة وديعة معلقة';
+
+  @override
+  String get addOutstandingCheck => 'إضافة شيك معلق';
+
+  @override
+  String get reconciled => 'مسوى';
+
+  @override
+  String get notReconciled => 'غير مسوى';
+
+  @override
+  String get saveReconciliation => 'حفظ التسوية';
+
+  @override
+  String get reconciliationNotBalanced => 'التسوية غير متوازنة';
+
+  @override
+  String get reconciliationSavedSuccessfully => 'تم حفظ التسوية بنجاح';
+
+  @override
+  String get noOutstandingDeposits => 'لا توجد ودائع معلقة';
+
+  @override
+  String get noOutstandingChecks => 'لا توجد شيكات معلقة';
+
+  @override
+  String get newDeposit => 'وديعة جديدة';
+
+  @override
+  String get noDepositsFound => 'لم يتم العثور على ودائع';
+
+  @override
+  String get createFirstDeposit => 'أنشئ وديعتك الأولى';
+
+  @override
+  String get fromAccount => 'من حساب';
+
+  @override
+  String get toAccount => 'إلى حساب';
+
+  @override
+  String get depositSlipNumber => 'رقم إيصال الإيداع';
+
+  @override
+  String get bankConfirmationNumber => 'رقم تأكيد البنك';
+
+  @override
+  String get submit => 'إرسال';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get confirmed => 'مؤكد';
+
+  @override
+  String get cancelled => 'ملغى';
+
+  @override
+  String get depositSubmittedSuccessfully => 'تم إرسال الوديعة بنجاح';
+
+  @override
+  String get confirmDeposit => 'تأكيد الوديعة';
+
+  @override
+  String get confirmDepositMessage =>
+      'يرجى إدخال رقم تأكيد البنك لتأكيد هذه الوديعة';
+
+  @override
+  String get depositConfirmedSuccessfully => 'تم تأكيد الوديعة بنجاح';
+
+  @override
+  String get editDepositNotImplemented => 'وظيفة تعديل الوديعة غير مطبقة بعد';
+
+  @override
+  String get confirmDeleteDeposit => 'هل أنت متأكد من حذف هذه الوديعة؟';
+
+  @override
+  String get depositDeletedSuccessfully => 'تم حذف الوديعة بنجاح';
+
+  @override
+  String get importStatement => 'استيراد كشف';
+
+  @override
+  String get fromDate => 'من تاريخ';
+
+  @override
+  String get toDate => 'إلى تاريخ';
+
+  @override
+  String get noStatementsFound => 'لم يتم العثور على كشوف';
+
+  @override
+  String get importFirstStatement => 'استورد كشفك الأول';
+
+  @override
+  String get openingBalance => 'الرصيد الافتتاحي';
+
+  @override
+  String get closingBalance => 'الرصيد الختامي';
+
+  @override
+  String get transactions => 'المعاملات';
+
+  @override
+  String get reconcile => 'تسوية';
+
+  @override
+  String get viewDetails => 'عرض التفاصيل';
+
+  @override
+  String get statementReconciledSuccessfully => 'تم تسوية الكشف بنجاح';
+
+  @override
+  String get statementDetailsNotImplemented => 'تفاصيل الكشف غير مطبقة بعد';
+
+  @override
+  String get statementsFiltered => 'تم تصفية الكشوف';
+
+  @override
+  String get import => 'استيراد';
+
+  @override
+  String get adjustmentType => 'نوع التسوية';
+
+  @override
+  String get bankCharges => 'رسوم البنك';
+
+  @override
+  String get interestEarned => 'فوائد مكتسبة';
+
+  @override
+  String get errorCorrection => 'تصحيح خطأ';
+
+  @override
+  String get newAdjustment => 'تسوية جديدة';
+
+  @override
+  String get noAdjustmentsFound => 'لم يتم العثور على تسويات';
+
+  @override
+  String get createFirstAdjustment => 'أنشئ تسويتك الأولى';
+
+  @override
+  String get account => 'الحساب';
+
+  @override
+  String get contraAccount => 'الحساب المقابل';
+
+  @override
+  String get notes => 'ملاحظات';
+
+  @override
+  String get approvedBy => 'اعتمد بواسطة';
+
+  @override
+  String get approve => 'اعتماد';
+
+  @override
+  String get rejected => 'مرفوض';
+
+  @override
+  String get adjustmentSubmittedSuccessfully => 'تم إرسال التسوية بنجاح';
+
+  @override
+  String get adjustmentApprovedSuccessfully => 'تم اعتماد التسوية بنجاح';
+
+  @override
+  String get editAdjustmentNotImplemented =>
+      'وظيفة تعديل التسوية غير مطبقة بعد';
+
+  @override
+  String get confirmDeleteAdjustment => 'هل أنت متأكد من حذف هذه التسوية؟';
+
+  @override
+  String get adjustmentDeletedSuccessfully => 'تم حذف التسوية بنجاح';
+
+  @override
+  String get cashBankManagementHelp =>
+      'إدارة عمليات النقد والبنوك بما في ذلك التسوية والودائع والتعديلات.';
+
+  @override
+  String get bankReconciliationHelp =>
+      'مقارنة كشوف البنك مع سجلات الدفاتر لتحديد الاختلافات.';
+
+  @override
+  String get cashDepositsHelp =>
+      'تتبع وتأكيد الودائع النقدية في الحسابات البنكية.';
+
+  @override
+  String get bankStatementsHelp => 'استيراد ومراجعة كشوف البنك للتسوية.';
+
+  @override
+  String get adjustmentEntriesHelp =>
+      'إنشاء قيود تسوية لرسوم البنك والفوائد والتصحيحات.';
+
+  @override
+  String get dataRefreshed => 'تم تحديث البيانات';
+
+  @override
+  String get help => 'مساعدة';
+
+  @override
+  String get close => 'إغلاق';
+
+  @override
+  String get refresh => 'تحديث';
+
+  @override
+  String get financialReports => 'التقارير المالية';
+
+  @override
+  String get selectReport => 'اختر التقرير';
+
+  @override
+  String get trialBalance => 'ميزان المراجعة';
+
+  @override
+  String get trialBalanceDescription =>
+      'قائمة بجميع الحسابات مع أرصدتها المدينة والدائنة';
+
+  @override
+  String get incomeStatement => 'قائمة الدخل';
+
+  @override
+  String get incomeStatementDescription => 'الإيرادات والمصروفات لفترة محددة';
+
+  @override
+  String get balanceSheet => 'الميزانية العمومية';
+
+  @override
+  String get balanceSheetDescription =>
+      'الأصول والخصوم وحقوق الملكية في تاريخ محدد';
+
+  @override
+  String get cashFlowStatement => 'قائمة التدفقات النقدية';
+
+  @override
+  String get cashFlowDescription =>
+      'التدفقات النقدية الداخلة والخارجة لفترة محددة';
+
+  @override
+  String get accountStatement => 'كشف حساب';
+
+  @override
+  String get accountStatementDescription => 'المعاملات التفصيلية لحساب محدد';
+
+  @override
+  String get generalLedgerReport => 'دفتر الأستاذ العام';
+
+  @override
+  String get generalLedgerDescription =>
+      'تاريخ المعاملات الكامل لجميع الحسابات';
+
+  @override
+  String get asOfDate => 'كما في تاريخ';
+
+  @override
+  String get asOf => 'كما في';
+
+  @override
+  String get allBranches => 'جميع الفروع';
+
+  @override
+  String get showZeroBalances => 'إظهار الأرصدة الصفرية';
+
+  @override
+  String get accountName => 'اسم الحساب';
+
+  @override
+  String get total => 'المجموع';
+
+  @override
+  String get trialBalanceIsBalanced => 'ميزان المراجعة متوازن';
+
+  @override
+  String get trialBalanceNotBalanced => 'ميزان المراجعة غير متوازن';
+
+  @override
+  String get balanceSheetIsBalanced => 'الميزانية العمومية متوازنة';
+
+  @override
+  String get balanceSheetNotBalanced => 'الميزانية العمومية غير متوازنة';
+
+  @override
+  String get export => 'تصدير';
+
+  @override
+  String get print => 'طباعة';
+
+  @override
+  String get exportReport => 'تصدير التقرير';
+
+  @override
+  String get exportToPdf => 'تصدير إلى PDF';
+
+  @override
+  String get exportToExcel => 'تصدير إلى Excel';
+
+  @override
+  String get exportToCsv => 'تصدير إلى CSV';
+
+  @override
+  String get reportRefreshed => 'تم تحديث التقرير';
+
+  @override
+  String reportExportedSuccessfully(String format) {
+    return 'تم تصدير التقرير إلى $format بنجاح';
+  }
+
+  @override
+  String get reportSentToPrinter => 'تم إرسال التقرير إلى الطابعة';
+
+  @override
+  String get selectAccountToViewStatement => 'اختر حساباً لعرض كشفه';
+
+  @override
+  String get selectAccountToViewLedger => 'اختر حساباً لعرض دفتر أستاذه';
+
+  @override
+  String get cashFlowReportComingSoon => 'تقرير التدفقات النقدية قريباً';
+
+  @override
+  String get accountStatementComingSoon => 'كشف الحساب قريباً';
+
+  @override
+  String get generalLedgerComingSoon => 'تقرير دفتر الأستاذ العام قريباً';
+
+  @override
+  String get transactionRequests => 'Transaction Requests';
+
+  @override
+  String get allRequests => 'All Requests';
+
+  @override
+  String get pendingApprovals => 'Pending Approvals';
+
+  @override
+  String get myRequests => 'My Requests';
+
+  @override
+  String get createRequest => 'Create Request';
+
+  @override
+  String get editRequest => 'Edit Request';
+
+  @override
+  String get requestType => 'Request Type';
+
+  @override
+  String get requestDetails => 'Request Details';
+
+  @override
+  String get requester => 'Requester';
+
+  @override
+  String get requestDate => 'Request Date';
+
+  @override
+  String get approver => 'Approver';
+
+  @override
+  String get approvalDate => 'Approval Date';
+
+  @override
+  String get rejectionReason => 'Rejection Reason';
+
+  @override
+  String get requestNumber => 'Request Number';
+
+  @override
+  String get adjustmentEntry => 'Adjustment Entry';
+
+  @override
+  String get pendingApproval => 'Pending Approval';
+
+  @override
+  String get approved => 'Approved';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get pleaseEnterAmount => 'Please enter amount';
+
+  @override
+  String get pleaseEnterValidAmount => 'Please enter valid amount';
+
+  @override
+  String get requestCreatedSuccessfully => 'Request created successfully';
+
+  @override
+  String get requestUpdatedSuccessfully => 'Request updated successfully';
+
+  @override
+  String get requestApprovedSuccessfully => 'Request approved successfully';
+
+  @override
+  String get requestRejectedSuccessfully => 'Request rejected successfully';
+
+  @override
+  String get failedToLoadRequests => 'Failed to load requests';
+
+  @override
+  String get failedToLoadPendingApprovals => 'Failed to load pending approvals';
+
+  @override
+  String get noRequestsFound => 'No requests found';
+
+  @override
+  String get youHaveNotCreatedAnyRequests =>
+      'You have not created any requests yet';
+
+  @override
+  String get noTransactionRequestsFound => 'No transaction requests found';
+
+  @override
+  String get noPendingApprovals => 'No pending approvals';
+
+  @override
+  String get allRequestsHaveBeenProcessed => 'All requests have been processed';
+
+  @override
+  String get rejectRequest => 'Reject Request';
+
+  @override
+  String get pleaseProvideRejectionReason => 'Please provide rejection reason';
+
+  @override
+  String get reviewPostingClosing => 'Review, Posting & Closing';
+
+  @override
+  String get postingBatches => 'Posting Batches';
+
+  @override
+  String get periodClosing => 'Period Closing';
+
+  @override
+  String get auditTrail => 'Audit Trail';
+
+  @override
+  String get createBatch => 'Create Batch';
+
+  @override
+  String get startPosting => 'Start Posting';
+
+  @override
+  String get noPostingBatches => 'No posting batches';
+
+  @override
+  String get createBatchToStartPosting =>
+      'Create a batch to start posting vouchers';
+
+  @override
+  String get totalVouchers => 'Total Vouchers';
+
+  @override
+  String get processed => 'Processed';
+
+  @override
+  String get failed => 'Failed';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get startingBatch => 'Starting batch';
+
+  @override
+  String get cancellingBatch => 'Cancelling batch';
+
+  @override
+  String get batchDetails => 'Batch Details';
+
+  @override
+  String get createdBy => 'Created By';
+
+  @override
+  String get createdAt => 'Created At';
+
+  @override
+  String get startedAt => 'Started At';
+
+  @override
+  String get completedAt => 'Completed At';
+
+  @override
+  String get createPostingBatch => 'Create Posting Batch';
+
+  @override
+  String get selectVouchersToInclude =>
+      'Select vouchers to include in this batch';
+
+  @override
+  String get batchCreatedSuccessfully => 'Batch created successfully';
+
+  @override
+  String get startBatchPosting => 'Start Batch Posting';
+
+  @override
+  String get confirmStartBatchPosting =>
+      'Are you sure you want to start batch posting? This action cannot be undone.';
+
+  @override
+  String get batchPostingStarted => 'Batch posting started';
+
+  @override
+  String get createPeriod => 'Create Period';
+
+  @override
+  String get runChecks => 'Run Checks';
+
+  @override
+  String get noPeriods => 'No periods';
+
+  @override
+  String get createPeriodToStartClosing =>
+      'Create a period to start closing process';
+
+  @override
+  String get checks => 'Checks';
+
+  @override
+  String get closedDate => 'Closed Date';
+
+  @override
+  String get checksCompleted => 'Checks Completed';
+
+  @override
+  String get failedChecks => 'Failed Checks';
+
+  @override
+  String get closePeriod => 'Close Period';
+
+  @override
+  String get reopenPeriod => 'Reopen Period';
+
+  @override
+  String get open => 'Open';
+
+  @override
+  String get yearly => 'Yearly';
+
+  @override
+  String get periodType => 'Period Type';
+
+  @override
+  String get periodCreatedSuccessfully => 'Period created successfully';
+
+  @override
+  String get preClosingChecks => 'Pre-closing Checks';
+
+  @override
+  String get checksRunSuccessfully => 'Checks run successfully';
+
+  @override
+  String get confirmClosePeriod =>
+      'Are you sure you want to close this period? This action cannot be undone.';
+
+  @override
+  String get periodClosed => 'Period closed:';
+
+  @override
+  String get periodReopened => 'Period reopened:';
+
+  @override
+  String get runningChecksFor => 'Running checks for';
+
+  @override
+  String get periodDetails => 'Period Details';
+
+  @override
+  String get closedBy => 'Closed By';
+
+  @override
+  String get closingDate => 'Closing Date';
+
+  @override
+  String get searchAuditTrail => 'Search audit trail';
+
+  @override
+  String get noAuditEntries => 'No audit entries';
+
+  @override
+  String get auditTrailWillAppearHere => 'Audit trail entries will appear here';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get module => 'Module';
+
+  @override
+  String get entityId => 'Entity ID';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get filterAuditTrail => 'Filter Audit Trail';
+
+  @override
+  String get dateRange => 'Date Range';
+
+  @override
+  String get filtersApplied => 'Filters applied';
+
+  @override
+  String get auditEntryDetails => 'Audit Entry Details';
+
+  @override
+  String get timestamp => 'Timestamp';
+
+  @override
+  String get ipAddress => 'IP Address';
+
+  @override
+  String get changes => 'Changes';
+
+  @override
+  String get enhancedCOAFeatures => 'Enhanced COA Features';
+
+  @override
+  String get accountStatements => 'Account Statements';
+
+  @override
+  String get openingBalances => 'Opening Balances';
+
+  @override
+  String get hierarchyManagement => 'Hierarchy Management';
 }

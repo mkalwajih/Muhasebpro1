@@ -1,5 +1,8 @@
 -- Transaction Requests & Approvals Schema
 -- Workflow for transaction and account creation requests
+IMPORT 'auth_schema.drift';
+IMPORT 'branches_schema.drift';
+IMPORT 'chart_of_accounts_schema.drift';
 
 -- Transaction Requests table
 CREATE TABLE TransactionRequests (
@@ -21,11 +24,11 @@ CREATE TABLE TransactionRequests (
     BranchId TEXT NOT NULL,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (RequestedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (ApprovedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (RejectedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (UsedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (BranchId) REFERENCES Branches(BranchId)
+    FOREIGN KEY (RequestedBy) REFERENCES users(username),
+    FOREIGN KEY (ApprovedBy) REFERENCES users(username),
+    FOREIGN KEY (RejectedBy) REFERENCES users(username),
+    FOREIGN KEY (UsedBy) REFERENCES users(username),
+    FOREIGN KEY (BranchId) REFERENCES Branches(branch_code)
 );
 
 -- Transaction Request Line Items (for detailed breakdown)
@@ -40,7 +43,7 @@ CREATE TABLE TransactionRequestLines (
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     FOREIGN KEY (RequestId) REFERENCES TransactionRequests(RequestId) ON DELETE CASCADE,
-    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId),
+    FOREIGN KEY (AccountId) REFERENCES chart_of_accounts(account_code),
     UNIQUE(RequestId, LineNumber)
 );
 
@@ -70,13 +73,13 @@ CREATE TABLE NewAccountRequests (
     BranchId TEXT NOT NULL,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (ParentAccountId) REFERENCES ChartOfAccounts(AccountId),
-    FOREIGN KEY (RequestedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (ApprovedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (RejectedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (FinalizedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (FinalAccountId) REFERENCES ChartOfAccounts(AccountId),
-    FOREIGN KEY (BranchId) REFERENCES Branches(BranchId)
+    FOREIGN KEY (ParentAccountId) REFERENCES chart_of_accounts(account_code),
+    FOREIGN KEY (RequestedBy) REFERENCES users(username),
+    FOREIGN KEY (ApprovedBy) REFERENCES users(username),
+    FOREIGN KEY (RejectedBy) REFERENCES users(username),
+    FOREIGN KEY (FinalizedBy) REFERENCES users(username),
+    FOREIGN KEY (FinalAccountId) REFERENCES chart_of_accounts(account_code),
+    FOREIGN KEY (BranchId) REFERENCES Branches(branch_code)
 );
 
 -- Request Approval Workflow table (for audit trail)
@@ -84,14 +87,14 @@ CREATE TABLE RequestApprovalWorkflow (
     WorkflowId TEXT NOT NULL PRIMARY KEY,
     RequestId TEXT NOT NULL,
     RequestType TEXT NOT NULL CHECK (RequestType IN ('Transaction', 'Account')),
-    Action TEXT NOT NULL CHECK (Action IN ('Created', 'Submitted', 'Approved', 'Rejected', 'Used', 'Finalized')),
+    workflow_action TEXT NOT NULL CHECK (workflow_action IN ('Created', 'Submitted', 'Approved', 'Rejected', 'Used', 'Finalized')),
     ActionBy TEXT NOT NULL,
     ActionDate INTEGER NOT NULL,
     Comments TEXT,
     PreviousStatus TEXT,
     NewStatus TEXT,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (ActionBy) REFERENCES Users(UserId)
+    FOREIGN KEY (ActionBy) REFERENCES users(username)
 );
 
 -- Request Attachments table
@@ -105,7 +108,7 @@ CREATE TABLE RequestAttachments (
     FilePath TEXT NOT NULL,
     UploadedBy TEXT NOT NULL,
     UploadedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (UploadedBy) REFERENCES Users(UserId)
+    FOREIGN KEY (UploadedBy) REFERENCES users(username)
 );
 
 -- Posting Batches table (for batch posting functionality)
@@ -123,7 +126,7 @@ CREATE TABLE PostingBatches (
     ErrorLog TEXT,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (StartedBy) REFERENCES Users(UserId)
+    FOREIGN KEY (StartedBy) REFERENCES users(username)
 );
 
 -- Posting Batch Items table
@@ -195,7 +198,7 @@ CREATE TRIGGER transaction_request_workflow_trigger
             WorkflowId,
             RequestId,
             RequestType,
-            Action,
+            workflow_action,
             ActionBy,
             ActionDate,
             PreviousStatus,
@@ -226,7 +229,7 @@ CREATE TRIGGER account_request_workflow_trigger
             WorkflowId,
             RequestId,
             RequestType,
-            Action,
+            workflow_action,
             ActionBy,
             ActionDate,
             PreviousStatus,

@@ -1,6 +1,12 @@
 -- Cash & Bank Management Schema
 -- Bank reconciliation and cash deposit confirmation
 
+IMPORT 'system_setup_schema.drift';
+IMPORT 'auth_schema.drift';
+IMPORT 'journal_vouchers_schema.drift';
+IMPORT 'chart_of_accounts_schema.drift';
+IMPORT 'financial_periods_schema.drift';
+
 -- Cash and Bank Accounts (extends ChartOfAccounts for cash/bank specific features)
 CREATE TABLE CashBankAccounts (
     AccountId TEXT NOT NULL PRIMARY KEY,

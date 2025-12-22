@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import '../../../../core/error/failures.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 import '../entities/journal_voucher_entity.dart';
 import '../entities/payment_voucher_entity.dart';
 import '../entities/receipt_voucher_entity.dart';

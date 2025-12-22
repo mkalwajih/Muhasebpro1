@@ -832,6 +832,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get isCompound => 'Is Compound';
+
+  @override
   String get glSetup => 'GL Setup';
 
   @override
@@ -1021,4 +1023,921 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clear => 'Clear';
+
+  @override
+  String get journalVouchers => 'Journal Vouchers';
+
+  @override
+  String get viewList => 'View List';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get voucherSavedSuccessfully => 'Voucher saved successfully';
+
+  @override
+  String get searchQuery => 'Search Query';
+
+  @override
+  String get enterSearchTerm => 'Enter search term';
+
+  @override
+  String get filterOptions => 'Filter Options';
+
+  @override
+  String get apply => 'Apply';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get draft => 'Draft';
+
+  @override
+  String get posted => 'Posted';
+
+  @override
+  String get reversed => 'Reversed';
+
+  @override
+  String get searchVouchers => 'Search vouchers...';
+
+  @override
+  String get noVouchersFound => 'No vouchers found';
+
+  @override
+  String get createFirstVoucher => 'Create your first voucher!';
+
+  @override
+  String get confirmPost => 'Confirm Post';
+
+  @override
+  String confirmPostVoucher(String voucherName) {
+    return 'Are you sure you want to post voucher $voucherName?';
+  }
+
+  @override
+  String get post => 'Post';
+
+  @override
+  String get voucherPostedSuccessfully => 'Voucher posted successfully';
+
+  @override
+  String get confirmDelete => 'Confirm Delete';
+
+  @override
+  String confirmDeleteVoucher(String voucherName) {
+    return 'Are you sure you want to delete voucher $voucherName?';
+  }
+
+  @override
+  String get voucherDeletedSuccessfully => 'Voucher deleted successfully';
+
+  @override
+  String get debit => 'Debit';
+
+  @override
+  String get credit => 'Credit';
+
+  @override
+  String get reference => 'Reference';
+
+  @override
+  String get reversing => 'Reversing';
+
+  @override
+  String get periodic => 'Periodic';
+
+  @override
+  String get documentType => 'Document Type';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get referenceCode => 'Reference Code';
+
+  @override
+  String get pleaseSelectDocumentType => 'Please select a document type';
+
+  @override
+  String get pleaseSelectBranch => 'Please select a branch';
+
+  @override
+  String get pleaseEnterDescription => 'Please enter description';
+
+  @override
+  String get journalEntries => 'Journal Entries';
+
+  @override
+  String get addLine => 'Add Line';
+
+  @override
+  String get noEntriesAdded => 'No entries added yet';
+
+  @override
+  String get addFirstEntry => 'Add your first journal entry';
+
+  @override
+  String get addJournalEntry => 'Add Journal Entry';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get totalDebit => 'Total Debit';
+
+  @override
+  String get totalCredit => 'Total Credit';
+
+  @override
+  String get difference => 'Difference';
+
+  @override
+  String get paymentVouchers => 'Payment Vouchers';
+
+  @override
+  String get searchPaymentVouchers => 'Search payment vouchers...';
+
+  @override
+  String get paymentFromAccount => 'Payment From Account';
+
+  @override
+  String get pleaseSelectPaymentAccount => 'Please select a payment account';
+
+  @override
+  String get paymentMethod => 'Payment Method';
+
+  @override
+  String get cash => 'Cash';
+
+  @override
+  String get check => 'Check';
+
+  @override
+  String get bankTransfer => 'Bank Transfer';
+
+  @override
+  String get creditCard => 'Credit Card';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get checkNumber => 'Check Number';
+
+  @override
+  String get beneficiary => 'Beneficiary';
+
+  @override
+  String get paymentLines => 'Payment Lines';
+
+  @override
+  String get noPaymentLinesAdded => 'No payment lines added yet';
+
+  @override
+  String get addFirstPaymentLine => 'Add your first payment line';
+
+  @override
+  String get addPaymentLine => 'Add Payment Line';
+
+  @override
+  String get totalAmount => 'Total Amount';
+
+  @override
+  String get paymentFrom => 'Payment From';
+
+  @override
+  String get line => 'line';
+
+  @override
+  String get lines => 'lines';
+
+  @override
+  String get receiptVouchers => 'Receipt Vouchers';
+
+  @override
+  String get searchReceiptVouchers => 'Search receipt vouchers...';
+
+  @override
+  String get receiptToAccount => 'Receipt To Account';
+
+  @override
+  String get pleaseSelectReceiptAccount => 'Please select a receipt account';
+
+  @override
+  String get receiptMethod => 'Receipt Method';
+
+  @override
+  String get payer => 'Payer';
+
+  @override
+  String get receiptLines => 'Receipt Lines';
+
+  @override
+  String get noReceiptLinesAdded => 'No receipt lines added yet';
+
+  @override
+  String get addFirstReceiptLine => 'Add your first receipt line';
+
+  @override
+  String get addReceiptLine => 'Add Receipt Line';
+
+  @override
+  String get receiptTo => 'Receipt To';
+
+  @override
+  String get cashBankManagement => 'Cash & Bank Management';
+
+  @override
+  String get bankReconciliation => 'Bank Reconciliation';
+
+  @override
+  String get cashDeposits => 'Cash Deposits';
+
+  @override
+  String get bankStatements => 'Bank Statements';
+
+  @override
+  String get adjustmentEntries => 'Adjustment Entries';
+
+  @override
+  String get bankAccount => 'Bank Account';
+
+  @override
+  String get reconciliationDate => 'Reconciliation Date';
+
+  @override
+  String get bankStatementBalance => 'Bank Statement Balance';
+
+  @override
+  String get bookBalance => 'Book Balance';
+
+  @override
+  String get adjustedBankBalance => 'Adjusted Bank Balance';
+
+  @override
+  String get outstandingDeposits => 'Outstanding Deposits';
+
+  @override
+  String get outstandingChecks => 'Outstanding Checks';
+
+  @override
+  String get addOutstandingDeposit => 'Add Outstanding Deposit';
+
+  @override
+  String get addOutstandingCheck => 'Add Outstanding Check';
+
+  @override
+  String get reconciled => 'Reconciled';
+
+  @override
+  String get notReconciled => 'Not Reconciled';
+
+  @override
+  String get saveReconciliation => 'Save Reconciliation';
+
+  @override
+  String get reconciliationNotBalanced => 'Reconciliation is not balanced';
+
+  @override
+  String get reconciliationSavedSuccessfully =>
+      'Reconciliation saved successfully';
+
+  @override
+  String get noOutstandingDeposits => 'No outstanding deposits';
+
+  @override
+  String get noOutstandingChecks => 'No outstanding checks';
+
+  @override
+  String get newDeposit => 'New Deposit';
+
+  @override
+  String get noDepositsFound => 'No deposits found';
+
+  @override
+  String get createFirstDeposit => 'Create your first deposit';
+
+  @override
+  String get fromAccount => 'From Account';
+
+  @override
+  String get toAccount => 'To Account';
+
+  @override
+  String get depositSlipNumber => 'Deposit Slip Number';
+
+  @override
+  String get bankConfirmationNumber => 'Bank Confirmation Number';
+
+  @override
+  String get submit => 'Submit';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get confirmed => 'Confirmed';
+
+  @override
+  String get cancelled => 'Cancelled';
+
+  @override
+  String get depositSubmittedSuccessfully => 'Deposit submitted successfully';
+
+  @override
+  String get confirmDeposit => 'Confirm Deposit';
+
+  @override
+  String get confirmDepositMessage =>
+      'Please enter the bank confirmation number to confirm this deposit';
+
+  @override
+  String get depositConfirmedSuccessfully => 'Deposit confirmed successfully';
+
+  @override
+  String get editDepositNotImplemented =>
+      'Edit deposit functionality not implemented yet';
+
+  @override
+  String get confirmDeleteDeposit =>
+      'Are you sure you want to delete this deposit?';
+
+  @override
+  String get depositDeletedSuccessfully => 'Deposit deleted successfully';
+
+  @override
+  String get importStatement => 'Import Statement';
+
+  @override
+  String get fromDate => 'From Date';
+
+  @override
+  String get toDate => 'To Date';
+
+  @override
+  String get noStatementsFound => 'No statements found';
+
+  @override
+  String get importFirstStatement => 'Import your first statement';
+
+  @override
+  String get openingBalance => 'Opening Balance';
+
+  @override
+  String get closingBalance => 'Closing Balance';
+
+  @override
+  String get transactions => 'Transactions';
+
+  @override
+  String get reconcile => 'Reconcile';
+
+  @override
+  String get viewDetails => 'View Details';
+
+  @override
+  String get statementReconciledSuccessfully =>
+      'Statement reconciled successfully';
+
+  @override
+  String get statementDetailsNotImplemented =>
+      'Statement details not implemented yet';
+
+  @override
+  String get statementsFiltered => 'Statements filtered';
+
+  @override
+  String get import => 'Import';
+
+  @override
+  String get adjustmentType => 'Adjustment Type';
+
+  @override
+  String get bankCharges => 'Bank Charges';
+
+  @override
+  String get interestEarned => 'Interest Earned';
+
+  @override
+  String get errorCorrection => 'Error Correction';
+
+  @override
+  String get newAdjustment => 'New Adjustment';
+
+  @override
+  String get noAdjustmentsFound => 'No adjustments found';
+
+  @override
+  String get createFirstAdjustment => 'Create your first adjustment';
+
+  @override
+  String get account => 'Account';
+
+  @override
+  String get contraAccount => 'Contra Account';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get approvedBy => 'Approved By';
+
+  @override
+  String get approve => 'Approve';
+
+  @override
+  String get rejected => 'Rejected';
+
+  @override
+  String get adjustmentSubmittedSuccessfully =>
+      'Adjustment submitted successfully';
+
+  @override
+  String get adjustmentApprovedSuccessfully =>
+      'Adjustment approved successfully';
+
+  @override
+  String get editAdjustmentNotImplemented =>
+      'Edit adjustment functionality not implemented yet';
+
+  @override
+  String get confirmDeleteAdjustment =>
+      'Are you sure you want to delete this adjustment?';
+
+  @override
+  String get adjustmentDeletedSuccessfully => 'Adjustment deleted successfully';
+
+  @override
+  String get cashBankManagementHelp =>
+      'Manage cash and bank operations including reconciliation, deposits, and adjustments.';
+
+  @override
+  String get bankReconciliationHelp =>
+      'Compare bank statements with book records to identify discrepancies.';
+
+  @override
+  String get cashDepositsHelp =>
+      'Track and confirm cash deposits to bank accounts.';
+
+  @override
+  String get bankStatementsHelp =>
+      'Import and review bank statements for reconciliation.';
+
+  @override
+  String get adjustmentEntriesHelp =>
+      'Create adjustment entries for bank charges, interest, and corrections.';
+
+  @override
+  String get dataRefreshed => 'Data refreshed';
+
+  @override
+  String get help => 'Help';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get refresh => 'Refresh';
+
+  @override
+  String get financialReports => 'Financial Reports';
+
+  @override
+  String get selectReport => 'Select Report';
+
+  @override
+  String get trialBalance => 'Trial Balance';
+
+  @override
+  String get trialBalanceDescription =>
+      'List of all accounts with their debit and credit balances';
+
+  @override
+  String get incomeStatement => 'Income Statement';
+
+  @override
+  String get incomeStatementDescription =>
+      'Revenue and expenses for a specific period';
+
+  @override
+  String get balanceSheet => 'Balance Sheet';
+
+  @override
+  String get balanceSheetDescription =>
+      'Assets, liabilities, and equity at a specific date';
+
+  @override
+  String get cashFlowStatement => 'Cash Flow Statement';
+
+  @override
+  String get cashFlowDescription =>
+      'Cash inflows and outflows for a specific period';
+
+  @override
+  String get accountStatement => 'Account Statement';
+
+  @override
+  String get accountStatementDescription =>
+      'Detailed transactions for a specific account';
+
+  @override
+  String get generalLedgerReport => 'General Ledger';
+
+  @override
+  String get generalLedgerDescription =>
+      'Complete transaction history for all accounts';
+
+  @override
+  String get asOfDate => 'As of Date';
+
+  @override
+  String get asOf => 'As of';
+
+  @override
+  String get allBranches => 'All Branches';
+
+  @override
+  String get showZeroBalances => 'Show Zero Balances';
+
+  @override
+  String get accountName => 'Account Name';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get trialBalanceIsBalanced => 'Trial Balance is Balanced';
+
+  @override
+  String get trialBalanceNotBalanced => 'Trial Balance is Not Balanced';
+
+  @override
+  String get balanceSheetIsBalanced => 'Balance Sheet is Balanced';
+
+  @override
+  String get balanceSheetNotBalanced => 'Balance Sheet is Not Balanced';
+
+  @override
+  String get export => 'Export';
+
+  @override
+  String get print => 'Print';
+
+  @override
+  String get exportReport => 'Export Report';
+
+  @override
+  String get exportToPdf => 'Export to PDF';
+
+  @override
+  String get exportToExcel => 'Export to Excel';
+
+  @override
+  String get exportToCsv => 'Export to CSV';
+
+  @override
+  String get reportRefreshed => 'Report refreshed';
+
+  @override
+  String reportExportedSuccessfully(String format) {
+    return 'Report exported to $format successfully';
+  }
+
+  @override
+  String get reportSentToPrinter => 'Report sent to printer';
+
+  @override
+  String get selectAccountToViewStatement =>
+      'Select an account to view its statement';
+
+  @override
+  String get selectAccountToViewLedger =>
+      'Select an account to view its ledger';
+
+  @override
+  String get cashFlowReportComingSoon => 'Cash Flow Report coming soon';
+
+  @override
+  String get accountStatementComingSoon => 'Account Statement coming soon';
+
+  @override
+  String get generalLedgerComingSoon => 'General Ledger Report coming soon';
+
+  @override
+  String get transactionRequests => 'Transaction Requests';
+
+  @override
+  String get allRequests => 'All Requests';
+
+  @override
+  String get pendingApprovals => 'Pending Approvals';
+
+  @override
+  String get myRequests => 'My Requests';
+
+  @override
+  String get createRequest => 'Create Request';
+
+  @override
+  String get editRequest => 'Edit Request';
+
+  @override
+  String get requestType => 'Request Type';
+
+  @override
+  String get requestDetails => 'Request Details';
+
+  @override
+  String get requester => 'Requester';
+
+  @override
+  String get requestDate => 'Request Date';
+
+  @override
+  String get approver => 'Approver';
+
+  @override
+  String get approvalDate => 'Approval Date';
+
+  @override
+  String get rejectionReason => 'Rejection Reason';
+
+  @override
+  String get requestNumber => 'Request Number';
+
+  @override
+  String get adjustmentEntry => 'Adjustment Entry';
+
+  @override
+  String get pendingApproval => 'Pending Approval';
+
+  @override
+  String get approved => 'Approved';
+
+  @override
+  String get reject => 'Reject';
+
+  @override
+  String get pleaseEnterAmount => 'Please enter amount';
+
+  @override
+  String get pleaseEnterValidAmount => 'Please enter valid amount';
+
+  @override
+  String get requestCreatedSuccessfully => 'Request created successfully';
+
+  @override
+  String get requestUpdatedSuccessfully => 'Request updated successfully';
+
+  @override
+  String get requestApprovedSuccessfully => 'Request approved successfully';
+
+  @override
+  String get requestRejectedSuccessfully => 'Request rejected successfully';
+
+  @override
+  String get failedToLoadRequests => 'Failed to load requests';
+
+  @override
+  String get failedToLoadPendingApprovals => 'Failed to load pending approvals';
+
+  @override
+  String get noRequestsFound => 'No requests found';
+
+  @override
+  String get youHaveNotCreatedAnyRequests =>
+      'You have not created any requests yet';
+
+  @override
+  String get noTransactionRequestsFound => 'No transaction requests found';
+
+  @override
+  String get noPendingApprovals => 'No pending approvals';
+
+  @override
+  String get allRequestsHaveBeenProcessed => 'All requests have been processed';
+
+  @override
+  String get rejectRequest => 'Reject Request';
+
+  @override
+  String get pleaseProvideRejectionReason => 'Please provide rejection reason';
+
+  @override
+  String get reviewPostingClosing => 'Review, Posting & Closing';
+
+  @override
+  String get postingBatches => 'Posting Batches';
+
+  @override
+  String get periodClosing => 'Period Closing';
+
+  @override
+  String get auditTrail => 'Audit Trail';
+
+  @override
+  String get createBatch => 'Create Batch';
+
+  @override
+  String get startPosting => 'Start Posting';
+
+  @override
+  String get noPostingBatches => 'No posting batches';
+
+  @override
+  String get createBatchToStartPosting =>
+      'Create a batch to start posting vouchers';
+
+  @override
+  String get totalVouchers => 'Total Vouchers';
+
+  @override
+  String get processed => 'Processed';
+
+  @override
+  String get failed => 'Failed';
+
+  @override
+  String get inProgress => 'In Progress';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get complete => 'Complete';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get startingBatch => 'Starting batch';
+
+  @override
+  String get cancellingBatch => 'Cancelling batch';
+
+  @override
+  String get batchDetails => 'Batch Details';
+
+  @override
+  String get createdBy => 'Created By';
+
+  @override
+  String get createdAt => 'Created At';
+
+  @override
+  String get startedAt => 'Started At';
+
+  @override
+  String get completedAt => 'Completed At';
+
+  @override
+  String get createPostingBatch => 'Create Posting Batch';
+
+  @override
+  String get selectVouchersToInclude =>
+      'Select vouchers to include in this batch';
+
+  @override
+  String get batchCreatedSuccessfully => 'Batch created successfully';
+
+  @override
+  String get startBatchPosting => 'Start Batch Posting';
+
+  @override
+  String get confirmStartBatchPosting =>
+      'Are you sure you want to start batch posting? This action cannot be undone.';
+
+  @override
+  String get batchPostingStarted => 'Batch posting started';
+
+  @override
+  String get createPeriod => 'Create Period';
+
+  @override
+  String get runChecks => 'Run Checks';
+
+  @override
+  String get noPeriods => 'No periods';
+
+  @override
+  String get createPeriodToStartClosing =>
+      'Create a period to start closing process';
+
+  @override
+  String get checks => 'Checks';
+
+  @override
+  String get closedDate => 'Closed Date';
+
+  @override
+  String get checksCompleted => 'Checks Completed';
+
+  @override
+  String get failedChecks => 'Failed Checks';
+
+  @override
+  String get closePeriod => 'Close Period';
+
+  @override
+  String get reopenPeriod => 'Reopen Period';
+
+  @override
+  String get open => 'Open';
+
+  @override
+  String get yearly => 'Yearly';
+
+  @override
+  String get periodType => 'Period Type';
+
+  @override
+  String get periodCreatedSuccessfully => 'Period created successfully';
+
+  @override
+  String get preClosingChecks => 'Pre-closing Checks';
+
+  @override
+  String get checksRunSuccessfully => 'Checks run successfully';
+
+  @override
+  String get confirmClosePeriod =>
+      'Are you sure you want to close this period? This action cannot be undone.';
+
+  @override
+  String get periodClosed => 'Period closed:';
+
+  @override
+  String get periodReopened => 'Period reopened:';
+
+  @override
+  String get runningChecksFor => 'Running checks for';
+
+  @override
+  String get periodDetails => 'Period Details';
+
+  @override
+  String get closedBy => 'Closed By';
+
+  @override
+  String get closingDate => 'Closing Date';
+
+  @override
+  String get searchAuditTrail => 'Search audit trail';
+
+  @override
+  String get noAuditEntries => 'No audit entries';
+
+  @override
+  String get auditTrailWillAppearHere => 'Audit trail entries will appear here';
+
+  @override
+  String get user => 'User';
+
+  @override
+  String get module => 'Module';
+
+  @override
+  String get entityId => 'Entity ID';
+
+  @override
+  String get action => 'Action';
+
+  @override
+  String get filterAuditTrail => 'Filter Audit Trail';
+
+  @override
+  String get dateRange => 'Date Range';
+
+  @override
+  String get filtersApplied => 'Filters applied';
+
+  @override
+  String get auditEntryDetails => 'Audit Entry Details';
+
+  @override
+  String get timestamp => 'Timestamp';
+
+  @override
+  String get ipAddress => 'IP Address';
+
+  @override
+  String get changes => 'Changes';
+
+  @override
+  String get enhancedCOAFeatures => 'Enhanced COA Features';
+
+  @override
+  String get accountStatements => 'Account Statements';
+
+  @override
+  String get openingBalances => 'Opening Balances';
+
+  @override
+  String get hierarchyManagement => 'Hierarchy Management';
 }

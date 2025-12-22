@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import '../../../../../core/error/failures.dart';
-import '../../../../../core/usecases/usecase.dart';
+import '../../../../../shared/domain/entities/failures.dart';
+import '../../../../../shared/domain/interfaces/usecase.dart';
 import '../../entities/journal_voucher_entity.dart';
 import '../../repositories/journal_voucher_repository.dart';
 
@@ -30,7 +30,7 @@ class GetAllJournalVouchersUseCase implements UseCase<List<JournalVoucherEntity>
         (vouchers) => Right(vouchers),
       );
     } catch (e) {
-      return Left(ServerFailure('Failed to get journal vouchers: $e'));
+      return Left(ServerFailure(message: 'Failed to get journal vouchers: $e'));
     }
   }
 }

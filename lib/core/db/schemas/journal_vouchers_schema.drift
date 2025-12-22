@@ -1,5 +1,10 @@
 -- Journal Vouchers Schema
 -- Core voucher system for general ledger transactions
+IMPORT 'gl_setup_schema.drift';
+IMPORT 'branches_schema.drift';
+IMPORT 'auth_schema.drift';
+IMPORT 'chart_of_accounts_schema.drift';
+IMPORT 'currencies_schema.drift';
 
 -- Journal Voucher Header table
 CREATE TABLE JournalVouchers (
@@ -22,11 +27,11 @@ CREATE TABLE JournalVouchers (
     CreatedBy TEXT NOT NULL,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (BranchId) REFERENCES Branches(BranchId),
+    FOREIGN KEY (BranchId) REFERENCES Branches(branch_code),
     FOREIGN KEY (DocTypeCode) REFERENCES DocumentTypes(DocTypeCode),
-    FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (PostedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (ReversedBy) REFERENCES Users(UserId)
+    FOREIGN KEY (CreatedBy) REFERENCES users(username),
+    FOREIGN KEY (PostedBy) REFERENCES users(username),
+    FOREIGN KEY (ReversedBy) REFERENCES users(username)
 );
 
 -- Journal Voucher Line Items table
@@ -42,14 +47,13 @@ CREATE TABLE JournalVoucherLines (
     ForeignDebit REAL NOT NULL DEFAULT 0.0,
     ForeignCredit REAL NOT NULL DEFAULT 0.0,
     Description TEXT,
-    CostCenterId TEXT,
+    -- CostCenterId TEXT, -- TODO: Uncomment when cost_centers_schema.drift is available
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     FOREIGN KEY (VoucherId) REFERENCES JournalVouchers(VoucherId) ON DELETE CASCADE,
-    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId),
-    FOREIGN KEY (CurrencyCode) REFERENCES Currencies(CurrencyCode),
-    FOREIGN KEY (CostCenterId) REFERENCES CostCenters(CostCenterId),
-    UNIQUE(VoucherId, LineNumber)
+    FOREIGN KEY (AccountId) REFERENCES chart_of_accounts(account_code),
+    FOREIGN KEY (CurrencyCode) REFERENCES currencies(currency_code)
+    -- FOREIGN KEY (CostCenterId) REFERENCES CostCenters(CostCenterId) -- TODO: Uncomment when cost_centers_schema.drift is available
 );
 
 -- Payment Vouchers table
@@ -72,12 +76,12 @@ CREATE TABLE PaymentVouchers (
     CreatedBy TEXT NOT NULL,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (BranchId) REFERENCES Branches(BranchId),
+    FOREIGN KEY (BranchId) REFERENCES Branches(branch_code),
     FOREIGN KEY (DocTypeCode) REFERENCES DocumentTypes(DocTypeCode),
-    FOREIGN KEY (PaymentFromAccountId) REFERENCES ChartOfAccounts(AccountId),
+    FOREIGN KEY (PaymentFromAccountId) REFERENCES chart_of_accounts(account_code),
     FOREIGN KEY (JournalVoucherId) REFERENCES JournalVouchers(VoucherId),
-    FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (PostedBy) REFERENCES Users(UserId)
+    FOREIGN KEY (CreatedBy) REFERENCES users(username),
+    FOREIGN KEY (PostedBy) REFERENCES users(username)
 );
 
 -- Payment Voucher Line Items table
@@ -91,8 +95,7 @@ CREATE TABLE PaymentVoucherLines (
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     FOREIGN KEY (VoucherId) REFERENCES PaymentVouchers(VoucherId) ON DELETE CASCADE,
-    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId),
-    UNIQUE(VoucherId, LineNumber)
+    FOREIGN KEY (AccountId) REFERENCES chart_of_accounts(account_code)
 );
 
 -- Receipt Vouchers table
@@ -114,12 +117,12 @@ CREATE TABLE ReceiptVouchers (
     CreatedBy TEXT NOT NULL,
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-    FOREIGN KEY (BranchId) REFERENCES Branches(BranchId),
+    FOREIGN KEY (BranchId) REFERENCES Branches(branch_code),
     FOREIGN KEY (DocTypeCode) REFERENCES DocumentTypes(DocTypeCode),
-    FOREIGN KEY (ReceiptToAccountId) REFERENCES ChartOfAccounts(AccountId),
+    FOREIGN KEY (ReceiptToAccountId) REFERENCES chart_of_accounts(account_code),
     FOREIGN KEY (JournalVoucherId) REFERENCES JournalVouchers(VoucherId),
-    FOREIGN KEY (CreatedBy) REFERENCES Users(UserId),
-    FOREIGN KEY (PostedBy) REFERENCES Users(UserId)
+    FOREIGN KEY (CreatedBy) REFERENCES users(username),
+    FOREIGN KEY (PostedBy) REFERENCES users(username)
 );
 
 -- Receipt Voucher Line Items table
@@ -133,8 +136,7 @@ CREATE TABLE ReceiptVoucherLines (
     CreatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     UpdatedAt INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     FOREIGN KEY (VoucherId) REFERENCES ReceiptVouchers(VoucherId) ON DELETE CASCADE,
-    FOREIGN KEY (AccountId) REFERENCES ChartOfAccounts(AccountId),
-    UNIQUE(VoucherId, LineNumber)
+    FOREIGN KEY (AccountId) REFERENCES chart_of_accounts(account_code)
 );
 
 -- Indexes for performance

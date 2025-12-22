@@ -3,6 +3,834 @@
 part of 'app_database.dart';
 
 // ignore_for_file: type=lint
+class DocumentTypes extends Table with TableInfo<DocumentTypes, DocumentType> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  DocumentTypes(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _docTypeCodeMeta =
+      const VerificationMeta('docTypeCode');
+  late final GeneratedColumn<String> docTypeCode = GeneratedColumn<String>(
+      'DocTypeCode', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'NameAr', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'NameEn', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _sequenceMethodMeta =
+      const VerificationMeta('sequenceMethod');
+  late final GeneratedColumn<String> sequenceMethod = GeneratedColumn<String>(
+      'SequenceMethod', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints:
+          'NOT NULL CHECK (SequenceMethod IN (\'General\', \'Specific\'))');
+  static const VerificationMeta _sequenceBehaviorMeta =
+      const VerificationMeta('sequenceBehavior');
+  late final GeneratedColumn<String> sequenceBehavior = GeneratedColumn<String>(
+      'SequenceBehavior', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints:
+          'NOT NULL CHECK (SequenceBehavior IN (\'Auto-Unchangeable\', \'Auto-Changeable\', \'Manual\'))');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<int> isActive = GeneratedColumn<int>(
+      'IsActive', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT 1',
+      defaultValue: const CustomExpression('1'));
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+      'CreatedAt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+      'UpdatedAt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        docTypeCode,
+        nameAr,
+        nameEn,
+        sequenceMethod,
+        sequenceBehavior,
+        isActive,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'DocumentTypes';
+  @override
+  VerificationContext validateIntegrity(Insertable<DocumentType> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('DocTypeCode')) {
+      context.handle(
+          _docTypeCodeMeta,
+          docTypeCode.isAcceptableOrUnknown(
+              data['DocTypeCode']!, _docTypeCodeMeta));
+    } else if (isInserting) {
+      context.missing(_docTypeCodeMeta);
+    }
+    if (data.containsKey('NameAr')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['NameAr']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('NameEn')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['NameEn']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('SequenceMethod')) {
+      context.handle(
+          _sequenceMethodMeta,
+          sequenceMethod.isAcceptableOrUnknown(
+              data['SequenceMethod']!, _sequenceMethodMeta));
+    } else if (isInserting) {
+      context.missing(_sequenceMethodMeta);
+    }
+    if (data.containsKey('SequenceBehavior')) {
+      context.handle(
+          _sequenceBehaviorMeta,
+          sequenceBehavior.isAcceptableOrUnknown(
+              data['SequenceBehavior']!, _sequenceBehaviorMeta));
+    } else if (isInserting) {
+      context.missing(_sequenceBehaviorMeta);
+    }
+    if (data.containsKey('IsActive')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['IsActive']!, _isActiveMeta));
+    }
+    if (data.containsKey('CreatedAt')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['CreatedAt']!, _createdAtMeta));
+    }
+    if (data.containsKey('UpdatedAt')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['UpdatedAt']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {docTypeCode};
+  @override
+  DocumentType map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DocumentType(
+      docTypeCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}DocTypeCode'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}NameAr'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}NameEn'])!,
+      sequenceMethod: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}SequenceMethod'])!,
+      sequenceBehavior: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}SequenceBehavior'])!,
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}IsActive'])!,
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}CreatedAt'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}UpdatedAt'])!,
+    );
+  }
+
+  @override
+  DocumentTypes createAlias(String alias) {
+    return DocumentTypes(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class DocumentType extends DataClass implements Insertable<DocumentType> {
+  final String docTypeCode;
+  final String nameAr;
+  final String nameEn;
+  final String sequenceMethod;
+  final String sequenceBehavior;
+  final int isActive;
+  final int createdAt;
+  final int updatedAt;
+  const DocumentType(
+      {required this.docTypeCode,
+      required this.nameAr,
+      required this.nameEn,
+      required this.sequenceMethod,
+      required this.sequenceBehavior,
+      required this.isActive,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['DocTypeCode'] = Variable<String>(docTypeCode);
+    map['NameAr'] = Variable<String>(nameAr);
+    map['NameEn'] = Variable<String>(nameEn);
+    map['SequenceMethod'] = Variable<String>(sequenceMethod);
+    map['SequenceBehavior'] = Variable<String>(sequenceBehavior);
+    map['IsActive'] = Variable<int>(isActive);
+    map['CreatedAt'] = Variable<int>(createdAt);
+    map['UpdatedAt'] = Variable<int>(updatedAt);
+    return map;
+  }
+
+  DocumentTypesCompanion toCompanion(bool nullToAbsent) {
+    return DocumentTypesCompanion(
+      docTypeCode: Value(docTypeCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      sequenceMethod: Value(sequenceMethod),
+      sequenceBehavior: Value(sequenceBehavior),
+      isActive: Value(isActive),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory DocumentType.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DocumentType(
+      docTypeCode: serializer.fromJson<String>(json['DocTypeCode']),
+      nameAr: serializer.fromJson<String>(json['NameAr']),
+      nameEn: serializer.fromJson<String>(json['NameEn']),
+      sequenceMethod: serializer.fromJson<String>(json['SequenceMethod']),
+      sequenceBehavior: serializer.fromJson<String>(json['SequenceBehavior']),
+      isActive: serializer.fromJson<int>(json['IsActive']),
+      createdAt: serializer.fromJson<int>(json['CreatedAt']),
+      updatedAt: serializer.fromJson<int>(json['UpdatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'DocTypeCode': serializer.toJson<String>(docTypeCode),
+      'NameAr': serializer.toJson<String>(nameAr),
+      'NameEn': serializer.toJson<String>(nameEn),
+      'SequenceMethod': serializer.toJson<String>(sequenceMethod),
+      'SequenceBehavior': serializer.toJson<String>(sequenceBehavior),
+      'IsActive': serializer.toJson<int>(isActive),
+      'CreatedAt': serializer.toJson<int>(createdAt),
+      'UpdatedAt': serializer.toJson<int>(updatedAt),
+    };
+  }
+
+  DocumentType copyWith(
+          {String? docTypeCode,
+          String? nameAr,
+          String? nameEn,
+          String? sequenceMethod,
+          String? sequenceBehavior,
+          int? isActive,
+          int? createdAt,
+          int? updatedAt}) =>
+      DocumentType(
+        docTypeCode: docTypeCode ?? this.docTypeCode,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        sequenceMethod: sequenceMethod ?? this.sequenceMethod,
+        sequenceBehavior: sequenceBehavior ?? this.sequenceBehavior,
+        isActive: isActive ?? this.isActive,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  DocumentType copyWithCompanion(DocumentTypesCompanion data) {
+    return DocumentType(
+      docTypeCode:
+          data.docTypeCode.present ? data.docTypeCode.value : this.docTypeCode,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      sequenceMethod: data.sequenceMethod.present
+          ? data.sequenceMethod.value
+          : this.sequenceMethod,
+      sequenceBehavior: data.sequenceBehavior.present
+          ? data.sequenceBehavior.value
+          : this.sequenceBehavior,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumentType(')
+          ..write('docTypeCode: $docTypeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('sequenceMethod: $sequenceMethod, ')
+          ..write('sequenceBehavior: $sequenceBehavior, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(docTypeCode, nameAr, nameEn, sequenceMethod,
+      sequenceBehavior, isActive, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DocumentType &&
+          other.docTypeCode == this.docTypeCode &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.sequenceMethod == this.sequenceMethod &&
+          other.sequenceBehavior == this.sequenceBehavior &&
+          other.isActive == this.isActive &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class DocumentTypesCompanion extends UpdateCompanion<DocumentType> {
+  final Value<String> docTypeCode;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String> sequenceMethod;
+  final Value<String> sequenceBehavior;
+  final Value<int> isActive;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int> rowid;
+  const DocumentTypesCompanion({
+    this.docTypeCode = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.sequenceMethod = const Value.absent(),
+    this.sequenceBehavior = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DocumentTypesCompanion.insert({
+    required String docTypeCode,
+    required String nameAr,
+    required String nameEn,
+    required String sequenceMethod,
+    required String sequenceBehavior,
+    this.isActive = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : docTypeCode = Value(docTypeCode),
+        nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        sequenceMethod = Value(sequenceMethod),
+        sequenceBehavior = Value(sequenceBehavior);
+  static Insertable<DocumentType> custom({
+    Expression<String>? docTypeCode,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? sequenceMethod,
+    Expression<String>? sequenceBehavior,
+    Expression<int>? isActive,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (docTypeCode != null) 'DocTypeCode': docTypeCode,
+      if (nameAr != null) 'NameAr': nameAr,
+      if (nameEn != null) 'NameEn': nameEn,
+      if (sequenceMethod != null) 'SequenceMethod': sequenceMethod,
+      if (sequenceBehavior != null) 'SequenceBehavior': sequenceBehavior,
+      if (isActive != null) 'IsActive': isActive,
+      if (createdAt != null) 'CreatedAt': createdAt,
+      if (updatedAt != null) 'UpdatedAt': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DocumentTypesCompanion copyWith(
+      {Value<String>? docTypeCode,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String>? sequenceMethod,
+      Value<String>? sequenceBehavior,
+      Value<int>? isActive,
+      Value<int>? createdAt,
+      Value<int>? updatedAt,
+      Value<int>? rowid}) {
+    return DocumentTypesCompanion(
+      docTypeCode: docTypeCode ?? this.docTypeCode,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      sequenceMethod: sequenceMethod ?? this.sequenceMethod,
+      sequenceBehavior: sequenceBehavior ?? this.sequenceBehavior,
+      isActive: isActive ?? this.isActive,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (docTypeCode.present) {
+      map['DocTypeCode'] = Variable<String>(docTypeCode.value);
+    }
+    if (nameAr.present) {
+      map['NameAr'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['NameEn'] = Variable<String>(nameEn.value);
+    }
+    if (sequenceMethod.present) {
+      map['SequenceMethod'] = Variable<String>(sequenceMethod.value);
+    }
+    if (sequenceBehavior.present) {
+      map['SequenceBehavior'] = Variable<String>(sequenceBehavior.value);
+    }
+    if (isActive.present) {
+      map['IsActive'] = Variable<int>(isActive.value);
+    }
+    if (createdAt.present) {
+      map['CreatedAt'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['UpdatedAt'] = Variable<int>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumentTypesCompanion(')
+          ..write('docTypeCode: $docTypeCode, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('sequenceMethod: $sequenceMethod, ')
+          ..write('sequenceBehavior: $sequenceBehavior, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class DescriptionCoding extends Table
+    with TableInfo<DescriptionCoding, DescriptionCodingData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  DescriptionCoding(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _descCodeMeta =
+      const VerificationMeta('descCode');
+  late final GeneratedColumn<String> descCode = GeneratedColumn<String>(
+      'DescCode', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL PRIMARY KEY');
+  static const VerificationMeta _descriptionArMeta =
+      const VerificationMeta('descriptionAr');
+  late final GeneratedColumn<String> descriptionAr = GeneratedColumn<String>(
+      'DescriptionAr', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _descriptionEnMeta =
+      const VerificationMeta('descriptionEn');
+  late final GeneratedColumn<String> descriptionEn = GeneratedColumn<String>(
+      'DescriptionEn', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  static const VerificationMeta _linkedAccountIdMeta =
+      const VerificationMeta('linkedAccountId');
+  late final GeneratedColumn<String> linkedAccountId = GeneratedColumn<String>(
+      'LinkedAccountId', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+      'CreatedAt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  static const VerificationMeta _updatedAtMeta =
+      const VerificationMeta('updatedAt');
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+      'UpdatedAt', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL DEFAULT (strftime(\'%s\', \'now\'))',
+      defaultValue: const CustomExpression('strftime(\'%s\', \'now\')'));
+  @override
+  List<GeneratedColumn> get $columns => [
+        descCode,
+        descriptionAr,
+        descriptionEn,
+        linkedAccountId,
+        createdAt,
+        updatedAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'DescriptionCoding';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<DescriptionCodingData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('DescCode')) {
+      context.handle(_descCodeMeta,
+          descCode.isAcceptableOrUnknown(data['DescCode']!, _descCodeMeta));
+    } else if (isInserting) {
+      context.missing(_descCodeMeta);
+    }
+    if (data.containsKey('DescriptionAr')) {
+      context.handle(
+          _descriptionArMeta,
+          descriptionAr.isAcceptableOrUnknown(
+              data['DescriptionAr']!, _descriptionArMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionArMeta);
+    }
+    if (data.containsKey('DescriptionEn')) {
+      context.handle(
+          _descriptionEnMeta,
+          descriptionEn.isAcceptableOrUnknown(
+              data['DescriptionEn']!, _descriptionEnMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionEnMeta);
+    }
+    if (data.containsKey('LinkedAccountId')) {
+      context.handle(
+          _linkedAccountIdMeta,
+          linkedAccountId.isAcceptableOrUnknown(
+              data['LinkedAccountId']!, _linkedAccountIdMeta));
+    }
+    if (data.containsKey('CreatedAt')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['CreatedAt']!, _createdAtMeta));
+    }
+    if (data.containsKey('UpdatedAt')) {
+      context.handle(_updatedAtMeta,
+          updatedAt.isAcceptableOrUnknown(data['UpdatedAt']!, _updatedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {descCode};
+  @override
+  DescriptionCodingData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DescriptionCodingData(
+      descCode: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}DescCode'])!,
+      descriptionAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}DescriptionAr'])!,
+      descriptionEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}DescriptionEn'])!,
+      linkedAccountId: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}LinkedAccountId']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}CreatedAt'])!,
+      updatedAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}UpdatedAt'])!,
+    );
+  }
+
+  @override
+  DescriptionCoding createAlias(String alias) {
+    return DescriptionCoding(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints => const [
+        'FOREIGN KEY(LinkedAccountId)REFERENCES ChartOfAccounts(AccountId)'
+      ];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class DescriptionCodingData extends DataClass
+    implements Insertable<DescriptionCodingData> {
+  final String descCode;
+  final String descriptionAr;
+  final String descriptionEn;
+  final String? linkedAccountId;
+  final int createdAt;
+  final int updatedAt;
+  const DescriptionCodingData(
+      {required this.descCode,
+      required this.descriptionAr,
+      required this.descriptionEn,
+      this.linkedAccountId,
+      required this.createdAt,
+      required this.updatedAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['DescCode'] = Variable<String>(descCode);
+    map['DescriptionAr'] = Variable<String>(descriptionAr);
+    map['DescriptionEn'] = Variable<String>(descriptionEn);
+    if (!nullToAbsent || linkedAccountId != null) {
+      map['LinkedAccountId'] = Variable<String>(linkedAccountId);
+    }
+    map['CreatedAt'] = Variable<int>(createdAt);
+    map['UpdatedAt'] = Variable<int>(updatedAt);
+    return map;
+  }
+
+  DescriptionCodingCompanion toCompanion(bool nullToAbsent) {
+    return DescriptionCodingCompanion(
+      descCode: Value(descCode),
+      descriptionAr: Value(descriptionAr),
+      descriptionEn: Value(descriptionEn),
+      linkedAccountId: linkedAccountId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(linkedAccountId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory DescriptionCodingData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DescriptionCodingData(
+      descCode: serializer.fromJson<String>(json['DescCode']),
+      descriptionAr: serializer.fromJson<String>(json['DescriptionAr']),
+      descriptionEn: serializer.fromJson<String>(json['DescriptionEn']),
+      linkedAccountId: serializer.fromJson<String?>(json['LinkedAccountId']),
+      createdAt: serializer.fromJson<int>(json['CreatedAt']),
+      updatedAt: serializer.fromJson<int>(json['UpdatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'DescCode': serializer.toJson<String>(descCode),
+      'DescriptionAr': serializer.toJson<String>(descriptionAr),
+      'DescriptionEn': serializer.toJson<String>(descriptionEn),
+      'LinkedAccountId': serializer.toJson<String?>(linkedAccountId),
+      'CreatedAt': serializer.toJson<int>(createdAt),
+      'UpdatedAt': serializer.toJson<int>(updatedAt),
+    };
+  }
+
+  DescriptionCodingData copyWith(
+          {String? descCode,
+          String? descriptionAr,
+          String? descriptionEn,
+          Value<String?> linkedAccountId = const Value.absent(),
+          int? createdAt,
+          int? updatedAt}) =>
+      DescriptionCodingData(
+        descCode: descCode ?? this.descCode,
+        descriptionAr: descriptionAr ?? this.descriptionAr,
+        descriptionEn: descriptionEn ?? this.descriptionEn,
+        linkedAccountId: linkedAccountId.present
+            ? linkedAccountId.value
+            : this.linkedAccountId,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+  DescriptionCodingData copyWithCompanion(DescriptionCodingCompanion data) {
+    return DescriptionCodingData(
+      descCode: data.descCode.present ? data.descCode.value : this.descCode,
+      descriptionAr: data.descriptionAr.present
+          ? data.descriptionAr.value
+          : this.descriptionAr,
+      descriptionEn: data.descriptionEn.present
+          ? data.descriptionEn.value
+          : this.descriptionEn,
+      linkedAccountId: data.linkedAccountId.present
+          ? data.linkedAccountId.value
+          : this.linkedAccountId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DescriptionCodingData(')
+          ..write('descCode: $descCode, ')
+          ..write('descriptionAr: $descriptionAr, ')
+          ..write('descriptionEn: $descriptionEn, ')
+          ..write('linkedAccountId: $linkedAccountId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(descCode, descriptionAr, descriptionEn,
+      linkedAccountId, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DescriptionCodingData &&
+          other.descCode == this.descCode &&
+          other.descriptionAr == this.descriptionAr &&
+          other.descriptionEn == this.descriptionEn &&
+          other.linkedAccountId == this.linkedAccountId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class DescriptionCodingCompanion
+    extends UpdateCompanion<DescriptionCodingData> {
+  final Value<String> descCode;
+  final Value<String> descriptionAr;
+  final Value<String> descriptionEn;
+  final Value<String?> linkedAccountId;
+  final Value<int> createdAt;
+  final Value<int> updatedAt;
+  final Value<int> rowid;
+  const DescriptionCodingCompanion({
+    this.descCode = const Value.absent(),
+    this.descriptionAr = const Value.absent(),
+    this.descriptionEn = const Value.absent(),
+    this.linkedAccountId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DescriptionCodingCompanion.insert({
+    required String descCode,
+    required String descriptionAr,
+    required String descriptionEn,
+    this.linkedAccountId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+    this.rowid = const Value.absent(),
+  })  : descCode = Value(descCode),
+        descriptionAr = Value(descriptionAr),
+        descriptionEn = Value(descriptionEn);
+  static Insertable<DescriptionCodingData> custom({
+    Expression<String>? descCode,
+    Expression<String>? descriptionAr,
+    Expression<String>? descriptionEn,
+    Expression<String>? linkedAccountId,
+    Expression<int>? createdAt,
+    Expression<int>? updatedAt,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (descCode != null) 'DescCode': descCode,
+      if (descriptionAr != null) 'DescriptionAr': descriptionAr,
+      if (descriptionEn != null) 'DescriptionEn': descriptionEn,
+      if (linkedAccountId != null) 'LinkedAccountId': linkedAccountId,
+      if (createdAt != null) 'CreatedAt': createdAt,
+      if (updatedAt != null) 'UpdatedAt': updatedAt,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DescriptionCodingCompanion copyWith(
+      {Value<String>? descCode,
+      Value<String>? descriptionAr,
+      Value<String>? descriptionEn,
+      Value<String?>? linkedAccountId,
+      Value<int>? createdAt,
+      Value<int>? updatedAt,
+      Value<int>? rowid}) {
+    return DescriptionCodingCompanion(
+      descCode: descCode ?? this.descCode,
+      descriptionAr: descriptionAr ?? this.descriptionAr,
+      descriptionEn: descriptionEn ?? this.descriptionEn,
+      linkedAccountId: linkedAccountId ?? this.linkedAccountId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (descCode.present) {
+      map['DescCode'] = Variable<String>(descCode.value);
+    }
+    if (descriptionAr.present) {
+      map['DescriptionAr'] = Variable<String>(descriptionAr.value);
+    }
+    if (descriptionEn.present) {
+      map['DescriptionEn'] = Variable<String>(descriptionEn.value);
+    }
+    if (linkedAccountId.present) {
+      map['LinkedAccountId'] = Variable<String>(linkedAccountId.value);
+    }
+    if (createdAt.present) {
+      map['CreatedAt'] = Variable<int>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['UpdatedAt'] = Variable<int>(updatedAt.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DescriptionCodingCompanion(')
+          ..write('descCode: $descCode, ')
+          ..write('descriptionAr: $descriptionAr, ')
+          ..write('descriptionEn: $descriptionEn, ')
+          ..write('linkedAccountId: $linkedAccountId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class AccountTypes extends Table with TableInfo<AccountTypes, AccountType> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -2644,311 +3472,6 @@ class TaxTypesCompanion extends UpdateCompanion<TaxType> {
   }
 }
 
-class Roles extends Table with TableInfo<Roles, Role> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Roles(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
-  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
-  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
-      'name_ar', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL UNIQUE');
-  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
-  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
-      'name_en', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL UNIQUE');
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, true,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      $customConstraints: '');
-  static const VerificationMeta _isActiveMeta =
-      const VerificationMeta('isActive');
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
-      'is_active', aliasedName, false,
-      type: DriftSqlType.bool,
-      requiredDuringInsert: true,
-      $customConstraints: 'NOT NULL');
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, nameAr, nameEn, description, isActive];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'roles';
-  @override
-  VerificationContext validateIntegrity(Insertable<Role> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name_ar')) {
-      context.handle(_nameArMeta,
-          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
-    } else if (isInserting) {
-      context.missing(_nameArMeta);
-    }
-    if (data.containsKey('name_en')) {
-      context.handle(_nameEnMeta,
-          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
-    } else if (isInserting) {
-      context.missing(_nameEnMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    }
-    if (data.containsKey('is_active')) {
-      context.handle(_isActiveMeta,
-          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
-    } else if (isInserting) {
-      context.missing(_isActiveMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Role map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Role(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      nameAr: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
-      nameEn: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description']),
-      isActive: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
-    );
-  }
-
-  @override
-  Roles createAlias(String alias) {
-    return Roles(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Role extends DataClass implements Insertable<Role> {
-  final int id;
-  final String nameAr;
-  final String nameEn;
-  final String? description;
-  final bool isActive;
-  const Role(
-      {required this.id,
-      required this.nameAr,
-      required this.nameEn,
-      this.description,
-      required this.isActive});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name_ar'] = Variable<String>(nameAr);
-    map['name_en'] = Variable<String>(nameEn);
-    if (!nullToAbsent || description != null) {
-      map['description'] = Variable<String>(description);
-    }
-    map['is_active'] = Variable<bool>(isActive);
-    return map;
-  }
-
-  RolesCompanion toCompanion(bool nullToAbsent) {
-    return RolesCompanion(
-      id: Value(id),
-      nameAr: Value(nameAr),
-      nameEn: Value(nameEn),
-      description: description == null && nullToAbsent
-          ? const Value.absent()
-          : Value(description),
-      isActive: Value(isActive),
-    );
-  }
-
-  factory Role.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Role(
-      id: serializer.fromJson<int>(json['id']),
-      nameAr: serializer.fromJson<String>(json['name_ar']),
-      nameEn: serializer.fromJson<String>(json['name_en']),
-      description: serializer.fromJson<String?>(json['description']),
-      isActive: serializer.fromJson<bool>(json['is_active']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name_ar': serializer.toJson<String>(nameAr),
-      'name_en': serializer.toJson<String>(nameEn),
-      'description': serializer.toJson<String?>(description),
-      'is_active': serializer.toJson<bool>(isActive),
-    };
-  }
-
-  Role copyWith(
-          {int? id,
-          String? nameAr,
-          String? nameEn,
-          Value<String?> description = const Value.absent(),
-          bool? isActive}) =>
-      Role(
-        id: id ?? this.id,
-        nameAr: nameAr ?? this.nameAr,
-        nameEn: nameEn ?? this.nameEn,
-        description: description.present ? description.value : this.description,
-        isActive: isActive ?? this.isActive,
-      );
-  Role copyWithCompanion(RolesCompanion data) {
-    return Role(
-      id: data.id.present ? data.id.value : this.id,
-      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
-      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
-      description:
-          data.description.present ? data.description.value : this.description,
-      isActive: data.isActive.present ? data.isActive.value : this.isActive,
-    );
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('Role(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('description: $description, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, nameAr, nameEn, description, isActive);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is Role &&
-          other.id == this.id &&
-          other.nameAr == this.nameAr &&
-          other.nameEn == this.nameEn &&
-          other.description == this.description &&
-          other.isActive == this.isActive);
-}
-
-class RolesCompanion extends UpdateCompanion<Role> {
-  final Value<int> id;
-  final Value<String> nameAr;
-  final Value<String> nameEn;
-  final Value<String?> description;
-  final Value<bool> isActive;
-  const RolesCompanion({
-    this.id = const Value.absent(),
-    this.nameAr = const Value.absent(),
-    this.nameEn = const Value.absent(),
-    this.description = const Value.absent(),
-    this.isActive = const Value.absent(),
-  });
-  RolesCompanion.insert({
-    this.id = const Value.absent(),
-    required String nameAr,
-    required String nameEn,
-    this.description = const Value.absent(),
-    required bool isActive,
-  })  : nameAr = Value(nameAr),
-        nameEn = Value(nameEn),
-        isActive = Value(isActive);
-  static Insertable<Role> custom({
-    Expression<int>? id,
-    Expression<String>? nameAr,
-    Expression<String>? nameEn,
-    Expression<String>? description,
-    Expression<bool>? isActive,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (nameAr != null) 'name_ar': nameAr,
-      if (nameEn != null) 'name_en': nameEn,
-      if (description != null) 'description': description,
-      if (isActive != null) 'is_active': isActive,
-    });
-  }
-
-  RolesCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? nameAr,
-      Value<String>? nameEn,
-      Value<String?>? description,
-      Value<bool>? isActive}) {
-    return RolesCompanion(
-      id: id ?? this.id,
-      nameAr: nameAr ?? this.nameAr,
-      nameEn: nameEn ?? this.nameEn,
-      description: description ?? this.description,
-      isActive: isActive ?? this.isActive,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (nameAr.present) {
-      map['name_ar'] = Variable<String>(nameAr.value);
-    }
-    if (nameEn.present) {
-      map['name_en'] = Variable<String>(nameEn.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (isActive.present) {
-      map['is_active'] = Variable<bool>(isActive.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('RolesCompanion(')
-          ..write('id: $id, ')
-          ..write('nameAr: $nameAr, ')
-          ..write('nameEn: $nameEn, ')
-          ..write('description: $description, ')
-          ..write('isActive: $isActive')
-          ..write(')'))
-        .toString();
-  }
-}
-
 class CompanyInfo extends Table with TableInfo<CompanyInfo, CompanyInfoData> {
   @override
   final GeneratedDatabase attachedDatabase;
@@ -3589,6 +4112,311 @@ class CompanyInfoCompanion extends UpdateCompanion<CompanyInfoData> {
           ..write('logo: $logo, ')
           ..write('isMainCompany: $isMainCompany, ')
           ..write('remarks: $remarks')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class Roles extends Table with TableInfo<Roles, Role> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  Roles(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT');
+  static const VerificationMeta _nameArMeta = const VerificationMeta('nameAr');
+  late final GeneratedColumn<String> nameAr = GeneratedColumn<String>(
+      'name_ar', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _nameEnMeta = const VerificationMeta('nameEn');
+  late final GeneratedColumn<String> nameEn = GeneratedColumn<String>(
+      'name_en', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL UNIQUE');
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, true,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      $customConstraints: '');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, nameAr, nameEn, description, isActive];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'roles';
+  @override
+  VerificationContext validateIntegrity(Insertable<Role> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name_ar')) {
+      context.handle(_nameArMeta,
+          nameAr.isAcceptableOrUnknown(data['name_ar']!, _nameArMeta));
+    } else if (isInserting) {
+      context.missing(_nameArMeta);
+    }
+    if (data.containsKey('name_en')) {
+      context.handle(_nameEnMeta,
+          nameEn.isAcceptableOrUnknown(data['name_en']!, _nameEnMeta));
+    } else if (isInserting) {
+      context.missing(_nameEnMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+    } else if (isInserting) {
+      context.missing(_isActiveMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Role map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Role(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      nameAr: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_ar'])!,
+      nameEn: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name_en'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description']),
+      isActive: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}is_active'])!,
+    );
+  }
+
+  @override
+  Roles createAlias(String alias) {
+    return Roles(attachedDatabase, alias);
+  }
+
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class Role extends DataClass implements Insertable<Role> {
+  final int id;
+  final String nameAr;
+  final String nameEn;
+  final String? description;
+  final bool isActive;
+  const Role(
+      {required this.id,
+      required this.nameAr,
+      required this.nameEn,
+      this.description,
+      required this.isActive});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name_ar'] = Variable<String>(nameAr);
+    map['name_en'] = Variable<String>(nameEn);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    return map;
+  }
+
+  RolesCompanion toCompanion(bool nullToAbsent) {
+    return RolesCompanion(
+      id: Value(id),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      isActive: Value(isActive),
+    );
+  }
+
+  factory Role.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Role(
+      id: serializer.fromJson<int>(json['id']),
+      nameAr: serializer.fromJson<String>(json['name_ar']),
+      nameEn: serializer.fromJson<String>(json['name_en']),
+      description: serializer.fromJson<String?>(json['description']),
+      isActive: serializer.fromJson<bool>(json['is_active']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name_ar': serializer.toJson<String>(nameAr),
+      'name_en': serializer.toJson<String>(nameEn),
+      'description': serializer.toJson<String?>(description),
+      'is_active': serializer.toJson<bool>(isActive),
+    };
+  }
+
+  Role copyWith(
+          {int? id,
+          String? nameAr,
+          String? nameEn,
+          Value<String?> description = const Value.absent(),
+          bool? isActive}) =>
+      Role(
+        id: id ?? this.id,
+        nameAr: nameAr ?? this.nameAr,
+        nameEn: nameEn ?? this.nameEn,
+        description: description.present ? description.value : this.description,
+        isActive: isActive ?? this.isActive,
+      );
+  Role copyWithCompanion(RolesCompanion data) {
+    return Role(
+      id: data.id.present ? data.id.value : this.id,
+      nameAr: data.nameAr.present ? data.nameAr.value : this.nameAr,
+      nameEn: data.nameEn.present ? data.nameEn.value : this.nameEn,
+      description:
+          data.description.present ? data.description.value : this.description,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Role(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, nameAr, nameEn, description, isActive);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Role &&
+          other.id == this.id &&
+          other.nameAr == this.nameAr &&
+          other.nameEn == this.nameEn &&
+          other.description == this.description &&
+          other.isActive == this.isActive);
+}
+
+class RolesCompanion extends UpdateCompanion<Role> {
+  final Value<int> id;
+  final Value<String> nameAr;
+  final Value<String> nameEn;
+  final Value<String?> description;
+  final Value<bool> isActive;
+  const RolesCompanion({
+    this.id = const Value.absent(),
+    this.nameAr = const Value.absent(),
+    this.nameEn = const Value.absent(),
+    this.description = const Value.absent(),
+    this.isActive = const Value.absent(),
+  });
+  RolesCompanion.insert({
+    this.id = const Value.absent(),
+    required String nameAr,
+    required String nameEn,
+    this.description = const Value.absent(),
+    required bool isActive,
+  })  : nameAr = Value(nameAr),
+        nameEn = Value(nameEn),
+        isActive = Value(isActive);
+  static Insertable<Role> custom({
+    Expression<int>? id,
+    Expression<String>? nameAr,
+    Expression<String>? nameEn,
+    Expression<String>? description,
+    Expression<bool>? isActive,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (nameAr != null) 'name_ar': nameAr,
+      if (nameEn != null) 'name_en': nameEn,
+      if (description != null) 'description': description,
+      if (isActive != null) 'is_active': isActive,
+    });
+  }
+
+  RolesCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? nameAr,
+      Value<String>? nameEn,
+      Value<String?>? description,
+      Value<bool>? isActive}) {
+    return RolesCompanion(
+      id: id ?? this.id,
+      nameAr: nameAr ?? this.nameAr,
+      nameEn: nameEn ?? this.nameEn,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (nameAr.present) {
+      map['name_ar'] = Variable<String>(nameAr.value);
+    }
+    if (nameEn.present) {
+      map['name_en'] = Variable<String>(nameEn.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('RolesCompanion(')
+          ..write('id: $id, ')
+          ..write('nameAr: $nameAr, ')
+          ..write('nameEn: $nameEn, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive')
           ..write(')'))
         .toString();
   }
@@ -10515,6 +11343,19 @@ class UserRolesCompanion extends UpdateCompanion<UserRole> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
+  late final DocumentTypes documentTypes = DocumentTypes(this);
+  late final DescriptionCoding descriptionCoding = DescriptionCoding(this);
+  late final Index idxDocumentTypesActive = Index('idx_document_types_active',
+      'CREATE INDEX idx_document_types_active ON DocumentTypes (IsActive)');
+  late final Index idxDescriptionCodingAccount = Index(
+      'idx_description_coding_account',
+      'CREATE INDEX idx_description_coding_account ON DescriptionCoding (LinkedAccountId)');
+  late final Trigger updateDocumentTypesTimestamp = Trigger(
+      'CREATE TRIGGER update_document_types_timestamp AFTER UPDATE ON DocumentTypes BEGIN UPDATE DocumentTypes SET UpdatedAt = strftime(\'%s\', \'now\') WHERE DocTypeCode = NEW.DocTypeCode;END',
+      'update_document_types_timestamp');
+  late final Trigger updateDescriptionCodingTimestamp = Trigger(
+      'CREATE TRIGGER update_description_coding_timestamp AFTER UPDATE ON DescriptionCoding BEGIN UPDATE DescriptionCoding SET UpdatedAt = strftime(\'%s\', \'now\') WHERE DescCode = NEW.DescCode;END',
+      'update_description_coding_timestamp');
   late final AccountTypes accountTypes = AccountTypes(this);
   late final AccountGroups accountGroups = AccountGroups(this);
   late final Classifications classifications = Classifications(this);
@@ -10523,8 +11364,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final TaxBracket taxBracket = TaxBracket(this);
   late final TaxCalcMethods taxCalcMethods = TaxCalcMethods(this);
   late final TaxTypes taxTypes = TaxTypes(this);
-  late final Roles roles = Roles(this);
   late final CompanyInfo companyInfo = CompanyInfo(this);
+  late final Roles roles = Roles(this);
   late final Accounts accounts = Accounts(this);
   late final RolePermissions rolePermissions = RolePermissions(this);
   late final BranchGroups branchGroups = BranchGroups(this);
@@ -10547,6 +11388,12 @@ abstract class _$AppDatabase extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
+        documentTypes,
+        descriptionCoding,
+        idxDocumentTypesActive,
+        idxDescriptionCodingAccount,
+        updateDocumentTypesTimestamp,
+        updateDescriptionCodingTimestamp,
         accountTypes,
         accountGroups,
         classifications,
@@ -10555,8 +11402,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         taxBracket,
         taxCalcMethods,
         taxTypes,
-        roles,
         companyInfo,
+        roles,
         accounts,
         rolePermissions,
         branchGroups,
@@ -10574,8 +11421,433 @@ abstract class _$AppDatabase extends GeneratedDatabase {
         currencyDenominations,
         userRoles
       ];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
+        [
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('DocumentTypes',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('DocumentTypes', kind: UpdateKind.update),
+            ],
+          ),
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('DescriptionCoding',
+                limitUpdateKind: UpdateKind.update),
+            result: [
+              TableUpdate('DescriptionCoding', kind: UpdateKind.update),
+            ],
+          ),
+        ],
+      );
 }
 
+typedef $DocumentTypesCreateCompanionBuilder = DocumentTypesCompanion Function({
+  required String docTypeCode,
+  required String nameAr,
+  required String nameEn,
+  required String sequenceMethod,
+  required String sequenceBehavior,
+  Value<int> isActive,
+  Value<int> createdAt,
+  Value<int> updatedAt,
+  Value<int> rowid,
+});
+typedef $DocumentTypesUpdateCompanionBuilder = DocumentTypesCompanion Function({
+  Value<String> docTypeCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String> sequenceMethod,
+  Value<String> sequenceBehavior,
+  Value<int> isActive,
+  Value<int> createdAt,
+  Value<int> updatedAt,
+  Value<int> rowid,
+});
+
+class $DocumentTypesFilterComposer
+    extends Composer<_$AppDatabase, DocumentTypes> {
+  $DocumentTypesFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get docTypeCode => $composableBuilder(
+      column: $table.docTypeCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sequenceMethod => $composableBuilder(
+      column: $table.sequenceMethod,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get sequenceBehavior => $composableBuilder(
+      column: $table.sequenceBehavior,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $DocumentTypesOrderingComposer
+    extends Composer<_$AppDatabase, DocumentTypes> {
+  $DocumentTypesOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get docTypeCode => $composableBuilder(
+      column: $table.docTypeCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sequenceMethod => $composableBuilder(
+      column: $table.sequenceMethod,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get sequenceBehavior => $composableBuilder(
+      column: $table.sequenceBehavior,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $DocumentTypesAnnotationComposer
+    extends Composer<_$AppDatabase, DocumentTypes> {
+  $DocumentTypesAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get docTypeCode => $composableBuilder(
+      column: $table.docTypeCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get sequenceMethod => $composableBuilder(
+      column: $table.sequenceMethod, builder: (column) => column);
+
+  GeneratedColumn<String> get sequenceBehavior => $composableBuilder(
+      column: $table.sequenceBehavior, builder: (column) => column);
+
+  GeneratedColumn<int> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $DocumentTypesTableManager extends RootTableManager<
+    _$AppDatabase,
+    DocumentTypes,
+    DocumentType,
+    $DocumentTypesFilterComposer,
+    $DocumentTypesOrderingComposer,
+    $DocumentTypesAnnotationComposer,
+    $DocumentTypesCreateCompanionBuilder,
+    $DocumentTypesUpdateCompanionBuilder,
+    (DocumentType, BaseReferences<_$AppDatabase, DocumentTypes, DocumentType>),
+    DocumentType,
+    PrefetchHooks Function()> {
+  $DocumentTypesTableManager(_$AppDatabase db, DocumentTypes table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $DocumentTypesFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $DocumentTypesOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $DocumentTypesAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> docTypeCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String> sequenceMethod = const Value.absent(),
+            Value<String> sequenceBehavior = const Value.absent(),
+            Value<int> isActive = const Value.absent(),
+            Value<int> createdAt = const Value.absent(),
+            Value<int> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DocumentTypesCompanion(
+            docTypeCode: docTypeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            sequenceMethod: sequenceMethod,
+            sequenceBehavior: sequenceBehavior,
+            isActive: isActive,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String docTypeCode,
+            required String nameAr,
+            required String nameEn,
+            required String sequenceMethod,
+            required String sequenceBehavior,
+            Value<int> isActive = const Value.absent(),
+            Value<int> createdAt = const Value.absent(),
+            Value<int> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DocumentTypesCompanion.insert(
+            docTypeCode: docTypeCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            sequenceMethod: sequenceMethod,
+            sequenceBehavior: sequenceBehavior,
+            isActive: isActive,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $DocumentTypesProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    DocumentTypes,
+    DocumentType,
+    $DocumentTypesFilterComposer,
+    $DocumentTypesOrderingComposer,
+    $DocumentTypesAnnotationComposer,
+    $DocumentTypesCreateCompanionBuilder,
+    $DocumentTypesUpdateCompanionBuilder,
+    (DocumentType, BaseReferences<_$AppDatabase, DocumentTypes, DocumentType>),
+    DocumentType,
+    PrefetchHooks Function()>;
+typedef $DescriptionCodingCreateCompanionBuilder = DescriptionCodingCompanion
+    Function({
+  required String descCode,
+  required String descriptionAr,
+  required String descriptionEn,
+  Value<String?> linkedAccountId,
+  Value<int> createdAt,
+  Value<int> updatedAt,
+  Value<int> rowid,
+});
+typedef $DescriptionCodingUpdateCompanionBuilder = DescriptionCodingCompanion
+    Function({
+  Value<String> descCode,
+  Value<String> descriptionAr,
+  Value<String> descriptionEn,
+  Value<String?> linkedAccountId,
+  Value<int> createdAt,
+  Value<int> updatedAt,
+  Value<int> rowid,
+});
+
+class $DescriptionCodingFilterComposer
+    extends Composer<_$AppDatabase, DescriptionCoding> {
+  $DescriptionCodingFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get descCode => $composableBuilder(
+      column: $table.descCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get descriptionAr => $composableBuilder(
+      column: $table.descriptionAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get descriptionEn => $composableBuilder(
+      column: $table.descriptionEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get linkedAccountId => $composableBuilder(
+      column: $table.linkedAccountId,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $DescriptionCodingOrderingComposer
+    extends Composer<_$AppDatabase, DescriptionCoding> {
+  $DescriptionCodingOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get descCode => $composableBuilder(
+      column: $table.descCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get descriptionAr => $composableBuilder(
+      column: $table.descriptionAr,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get descriptionEn => $composableBuilder(
+      column: $table.descriptionEn,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get linkedAccountId => $composableBuilder(
+      column: $table.linkedAccountId,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get updatedAt => $composableBuilder(
+      column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $DescriptionCodingAnnotationComposer
+    extends Composer<_$AppDatabase, DescriptionCoding> {
+  $DescriptionCodingAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get descCode =>
+      $composableBuilder(column: $table.descCode, builder: (column) => column);
+
+  GeneratedColumn<String> get descriptionAr => $composableBuilder(
+      column: $table.descriptionAr, builder: (column) => column);
+
+  GeneratedColumn<String> get descriptionEn => $composableBuilder(
+      column: $table.descriptionEn, builder: (column) => column);
+
+  GeneratedColumn<String> get linkedAccountId => $composableBuilder(
+      column: $table.linkedAccountId, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<int> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $DescriptionCodingTableManager extends RootTableManager<
+    _$AppDatabase,
+    DescriptionCoding,
+    DescriptionCodingData,
+    $DescriptionCodingFilterComposer,
+    $DescriptionCodingOrderingComposer,
+    $DescriptionCodingAnnotationComposer,
+    $DescriptionCodingCreateCompanionBuilder,
+    $DescriptionCodingUpdateCompanionBuilder,
+    (
+      DescriptionCodingData,
+      BaseReferences<_$AppDatabase, DescriptionCoding, DescriptionCodingData>
+    ),
+    DescriptionCodingData,
+    PrefetchHooks Function()> {
+  $DescriptionCodingTableManager(_$AppDatabase db, DescriptionCoding table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $DescriptionCodingFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $DescriptionCodingOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $DescriptionCodingAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<String> descCode = const Value.absent(),
+            Value<String> descriptionAr = const Value.absent(),
+            Value<String> descriptionEn = const Value.absent(),
+            Value<String?> linkedAccountId = const Value.absent(),
+            Value<int> createdAt = const Value.absent(),
+            Value<int> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DescriptionCodingCompanion(
+            descCode: descCode,
+            descriptionAr: descriptionAr,
+            descriptionEn: descriptionEn,
+            linkedAccountId: linkedAccountId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          createCompanionCallback: ({
+            required String descCode,
+            required String descriptionAr,
+            required String descriptionEn,
+            Value<String?> linkedAccountId = const Value.absent(),
+            Value<int> createdAt = const Value.absent(),
+            Value<int> updatedAt = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              DescriptionCodingCompanion.insert(
+            descCode: descCode,
+            descriptionAr: descriptionAr,
+            descriptionEn: descriptionEn,
+            linkedAccountId: linkedAccountId,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            rowid: rowid,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $DescriptionCodingProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    DescriptionCoding,
+    DescriptionCodingData,
+    $DescriptionCodingFilterComposer,
+    $DescriptionCodingOrderingComposer,
+    $DescriptionCodingAnnotationComposer,
+    $DescriptionCodingCreateCompanionBuilder,
+    $DescriptionCodingUpdateCompanionBuilder,
+    (
+      DescriptionCodingData,
+      BaseReferences<_$AppDatabase, DescriptionCoding, DescriptionCodingData>
+    ),
+    DescriptionCodingData,
+    PrefetchHooks Function()>;
 typedef $AccountTypesCreateCompanionBuilder = AccountTypesCompanion Function({
   required String typeCode,
   required String nameAr,
@@ -12822,6 +14094,372 @@ typedef $TaxTypesProcessedTableManager = ProcessedTableManager<
     (TaxType, $TaxTypesReferences),
     TaxType,
     PrefetchHooks Function({bool calcMethodCode})>;
+typedef $CompanyInfoCreateCompanionBuilder = CompanyInfoCompanion Function({
+  Value<int> id,
+  required String companyCode,
+  required String nameAr,
+  required String nameEn,
+  Value<String?> countryId,
+  Value<String?> taxNumber,
+  Value<String?> commercialRegNo,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<Uint8List?> logo,
+  required bool isMainCompany,
+  Value<String?> remarks,
+});
+typedef $CompanyInfoUpdateCompanionBuilder = CompanyInfoCompanion Function({
+  Value<int> id,
+  Value<String> companyCode,
+  Value<String> nameAr,
+  Value<String> nameEn,
+  Value<String?> countryId,
+  Value<String?> taxNumber,
+  Value<String?> commercialRegNo,
+  Value<String?> address,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<Uint8List?> logo,
+  Value<bool> isMainCompany,
+  Value<String?> remarks,
+});
+
+final class $CompanyInfoReferences
+    extends BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData> {
+  $CompanyInfoReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<Branches, List<Branche>> _branchesRefsTable(
+          _$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.branches,
+          aliasName:
+              $_aliasNameGenerator(db.companyInfo.id, db.branches.companyId));
+
+  $BranchesProcessedTableManager get branchesRefs {
+    final manager = $BranchesTableManager($_db, $_db.branches)
+        .filter((f) => f.companyId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_branchesRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get countryId => $composableBuilder(
+      column: $table.countryId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get taxNumber => $composableBuilder(
+      column: $table.taxNumber, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get address => $composableBuilder(
+      column: $table.address, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get phone => $composableBuilder(
+      column: $table.phone, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get logo => $composableBuilder(
+      column: $table.logo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isMainCompany => $composableBuilder(
+      column: $table.isMainCompany, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> branchesRefs(
+      Expression<bool> Function($BranchesFilterComposer f) f) {
+    final $BranchesFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.companyId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesFilterComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CompanyInfoOrderingComposer
+    extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameAr => $composableBuilder(
+      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get nameEn => $composableBuilder(
+      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get countryId => $composableBuilder(
+      column: $table.countryId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get taxNumber => $composableBuilder(
+      column: $table.taxNumber, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get address => $composableBuilder(
+      column: $table.address, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get phone => $composableBuilder(
+      column: $table.phone, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get logo => $composableBuilder(
+      column: $table.logo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isMainCompany => $composableBuilder(
+      column: $table.isMainCompany,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get remarks => $composableBuilder(
+      column: $table.remarks, builder: (column) => ColumnOrderings(column));
+}
+
+class $CompanyInfoAnnotationComposer
+    extends Composer<_$AppDatabase, CompanyInfo> {
+  $CompanyInfoAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get companyCode => $composableBuilder(
+      column: $table.companyCode, builder: (column) => column);
+
+  GeneratedColumn<String> get nameAr =>
+      $composableBuilder(column: $table.nameAr, builder: (column) => column);
+
+  GeneratedColumn<String> get nameEn =>
+      $composableBuilder(column: $table.nameEn, builder: (column) => column);
+
+  GeneratedColumn<String> get countryId =>
+      $composableBuilder(column: $table.countryId, builder: (column) => column);
+
+  GeneratedColumn<String> get taxNumber =>
+      $composableBuilder(column: $table.taxNumber, builder: (column) => column);
+
+  GeneratedColumn<String> get commercialRegNo => $composableBuilder(
+      column: $table.commercialRegNo, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<String> get phone =>
+      $composableBuilder(column: $table.phone, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get logo =>
+      $composableBuilder(column: $table.logo, builder: (column) => column);
+
+  GeneratedColumn<bool> get isMainCompany => $composableBuilder(
+      column: $table.isMainCompany, builder: (column) => column);
+
+  GeneratedColumn<String> get remarks =>
+      $composableBuilder(column: $table.remarks, builder: (column) => column);
+
+  Expression<T> branchesRefs<T extends Object>(
+      Expression<T> Function($BranchesAnnotationComposer a) f) {
+    final $BranchesAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.branches,
+        getReferencedColumn: (t) => t.companyId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $BranchesAnnotationComposer(
+              $db: $db,
+              $table: $db.branches,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $CompanyInfoTableManager extends RootTableManager<
+    _$AppDatabase,
+    CompanyInfo,
+    CompanyInfoData,
+    $CompanyInfoFilterComposer,
+    $CompanyInfoOrderingComposer,
+    $CompanyInfoAnnotationComposer,
+    $CompanyInfoCreateCompanionBuilder,
+    $CompanyInfoUpdateCompanionBuilder,
+    (CompanyInfoData, $CompanyInfoReferences),
+    CompanyInfoData,
+    PrefetchHooks Function({bool branchesRefs})> {
+  $CompanyInfoTableManager(_$AppDatabase db, CompanyInfo table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $CompanyInfoFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $CompanyInfoOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $CompanyInfoAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> companyCode = const Value.absent(),
+            Value<String> nameAr = const Value.absent(),
+            Value<String> nameEn = const Value.absent(),
+            Value<String?> countryId = const Value.absent(),
+            Value<String?> taxNumber = const Value.absent(),
+            Value<String?> commercialRegNo = const Value.absent(),
+            Value<String?> address = const Value.absent(),
+            Value<String?> phone = const Value.absent(),
+            Value<String?> email = const Value.absent(),
+            Value<Uint8List?> logo = const Value.absent(),
+            Value<bool> isMainCompany = const Value.absent(),
+            Value<String?> remarks = const Value.absent(),
+          }) =>
+              CompanyInfoCompanion(
+            id: id,
+            companyCode: companyCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            countryId: countryId,
+            taxNumber: taxNumber,
+            commercialRegNo: commercialRegNo,
+            address: address,
+            phone: phone,
+            email: email,
+            logo: logo,
+            isMainCompany: isMainCompany,
+            remarks: remarks,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String companyCode,
+            required String nameAr,
+            required String nameEn,
+            Value<String?> countryId = const Value.absent(),
+            Value<String?> taxNumber = const Value.absent(),
+            Value<String?> commercialRegNo = const Value.absent(),
+            Value<String?> address = const Value.absent(),
+            Value<String?> phone = const Value.absent(),
+            Value<String?> email = const Value.absent(),
+            Value<Uint8List?> logo = const Value.absent(),
+            required bool isMainCompany,
+            Value<String?> remarks = const Value.absent(),
+          }) =>
+              CompanyInfoCompanion.insert(
+            id: id,
+            companyCode: companyCode,
+            nameAr: nameAr,
+            nameEn: nameEn,
+            countryId: countryId,
+            taxNumber: taxNumber,
+            commercialRegNo: commercialRegNo,
+            address: address,
+            phone: phone,
+            email: email,
+            logo: logo,
+            isMainCompany: isMainCompany,
+            remarks: remarks,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) =>
+                  (e.readTable(table), $CompanyInfoReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({branchesRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (branchesRefs) db.branches],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (branchesRefs)
+                    await $_getPrefetchedData<CompanyInfoData, CompanyInfo,
+                            Branche>(
+                        currentTable: table,
+                        referencedTable:
+                            $CompanyInfoReferences._branchesRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $CompanyInfoReferences(db, table, p0).branchesRefs,
+                        referencedItemsForCurrentItem:
+                            (item, referencedItems) => referencedItems
+                                .where((e) => e.companyId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $CompanyInfoProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    CompanyInfo,
+    CompanyInfoData,
+    $CompanyInfoFilterComposer,
+    $CompanyInfoOrderingComposer,
+    $CompanyInfoAnnotationComposer,
+    $CompanyInfoCreateCompanionBuilder,
+    $CompanyInfoUpdateCompanionBuilder,
+    (CompanyInfoData, $CompanyInfoReferences),
+    CompanyInfoData,
+    PrefetchHooks Function({bool branchesRefs})>;
 typedef $RolesCreateCompanionBuilder = RolesCompanion Function({
   Value<int> id,
   required String nameAr,
@@ -13133,293 +14771,6 @@ typedef $RolesProcessedTableManager = ProcessedTableManager<
     (Role, $RolesReferences),
     Role,
     PrefetchHooks Function({bool rolePermissionsRefs, bool userRolesRefs})>;
-typedef $CompanyInfoCreateCompanionBuilder = CompanyInfoCompanion Function({
-  Value<int> id,
-  required String companyCode,
-  required String nameAr,
-  required String nameEn,
-  Value<String?> countryId,
-  Value<String?> taxNumber,
-  Value<String?> commercialRegNo,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> email,
-  Value<Uint8List?> logo,
-  required bool isMainCompany,
-  Value<String?> remarks,
-});
-typedef $CompanyInfoUpdateCompanionBuilder = CompanyInfoCompanion Function({
-  Value<int> id,
-  Value<String> companyCode,
-  Value<String> nameAr,
-  Value<String> nameEn,
-  Value<String?> countryId,
-  Value<String?> taxNumber,
-  Value<String?> commercialRegNo,
-  Value<String?> address,
-  Value<String?> phone,
-  Value<String?> email,
-  Value<Uint8List?> logo,
-  Value<bool> isMainCompany,
-  Value<String?> remarks,
-});
-
-class $CompanyInfoFilterComposer extends Composer<_$AppDatabase, CompanyInfo> {
-  $CompanyInfoFilterComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnFilters<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get companyCode => $composableBuilder(
-      column: $table.companyCode, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get countryId => $composableBuilder(
-      column: $table.countryId, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get taxNumber => $composableBuilder(
-      column: $table.taxNumber, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get commercialRegNo => $composableBuilder(
-      column: $table.commercialRegNo,
-      builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<bool> get isMainCompany => $composableBuilder(
-      column: $table.isMainCompany, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnFilters(column));
-}
-
-class $CompanyInfoOrderingComposer
-    extends Composer<_$AppDatabase, CompanyInfo> {
-  $CompanyInfoOrderingComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  ColumnOrderings<int> get id => $composableBuilder(
-      column: $table.id, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get companyCode => $composableBuilder(
-      column: $table.companyCode, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameAr => $composableBuilder(
-      column: $table.nameAr, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get nameEn => $composableBuilder(
-      column: $table.nameEn, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get countryId => $composableBuilder(
-      column: $table.countryId, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get taxNumber => $composableBuilder(
-      column: $table.taxNumber, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get commercialRegNo => $composableBuilder(
-      column: $table.commercialRegNo,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get address => $composableBuilder(
-      column: $table.address, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get phone => $composableBuilder(
-      column: $table.phone, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<Uint8List> get logo => $composableBuilder(
-      column: $table.logo, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<bool> get isMainCompany => $composableBuilder(
-      column: $table.isMainCompany,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get remarks => $composableBuilder(
-      column: $table.remarks, builder: (column) => ColumnOrderings(column));
-}
-
-class $CompanyInfoAnnotationComposer
-    extends Composer<_$AppDatabase, CompanyInfo> {
-  $CompanyInfoAnnotationComposer({
-    required super.$db,
-    required super.$table,
-    super.joinBuilder,
-    super.$addJoinBuilderToRootComposer,
-    super.$removeJoinBuilderFromRootComposer,
-  });
-  GeneratedColumn<int> get id =>
-      $composableBuilder(column: $table.id, builder: (column) => column);
-
-  GeneratedColumn<String> get companyCode => $composableBuilder(
-      column: $table.companyCode, builder: (column) => column);
-
-  GeneratedColumn<String> get nameAr =>
-      $composableBuilder(column: $table.nameAr, builder: (column) => column);
-
-  GeneratedColumn<String> get nameEn =>
-      $composableBuilder(column: $table.nameEn, builder: (column) => column);
-
-  GeneratedColumn<String> get countryId =>
-      $composableBuilder(column: $table.countryId, builder: (column) => column);
-
-  GeneratedColumn<String> get taxNumber =>
-      $composableBuilder(column: $table.taxNumber, builder: (column) => column);
-
-  GeneratedColumn<String> get commercialRegNo => $composableBuilder(
-      column: $table.commercialRegNo, builder: (column) => column);
-
-  GeneratedColumn<String> get address =>
-      $composableBuilder(column: $table.address, builder: (column) => column);
-
-  GeneratedColumn<String> get phone =>
-      $composableBuilder(column: $table.phone, builder: (column) => column);
-
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
-
-  GeneratedColumn<Uint8List> get logo =>
-      $composableBuilder(column: $table.logo, builder: (column) => column);
-
-  GeneratedColumn<bool> get isMainCompany => $composableBuilder(
-      column: $table.isMainCompany, builder: (column) => column);
-
-  GeneratedColumn<String> get remarks =>
-      $composableBuilder(column: $table.remarks, builder: (column) => column);
-}
-
-class $CompanyInfoTableManager extends RootTableManager<
-    _$AppDatabase,
-    CompanyInfo,
-    CompanyInfoData,
-    $CompanyInfoFilterComposer,
-    $CompanyInfoOrderingComposer,
-    $CompanyInfoAnnotationComposer,
-    $CompanyInfoCreateCompanionBuilder,
-    $CompanyInfoUpdateCompanionBuilder,
-    (
-      CompanyInfoData,
-      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
-    ),
-    CompanyInfoData,
-    PrefetchHooks Function()> {
-  $CompanyInfoTableManager(_$AppDatabase db, CompanyInfo table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          createFilteringComposer: () =>
-              $CompanyInfoFilterComposer($db: db, $table: table),
-          createOrderingComposer: () =>
-              $CompanyInfoOrderingComposer($db: db, $table: table),
-          createComputedFieldComposer: () =>
-              $CompanyInfoAnnotationComposer($db: db, $table: table),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> companyCode = const Value.absent(),
-            Value<String> nameAr = const Value.absent(),
-            Value<String> nameEn = const Value.absent(),
-            Value<String?> countryId = const Value.absent(),
-            Value<String?> taxNumber = const Value.absent(),
-            Value<String?> commercialRegNo = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> email = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            Value<bool> isMainCompany = const Value.absent(),
-            Value<String?> remarks = const Value.absent(),
-          }) =>
-              CompanyInfoCompanion(
-            id: id,
-            companyCode: companyCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            countryId: countryId,
-            taxNumber: taxNumber,
-            commercialRegNo: commercialRegNo,
-            address: address,
-            phone: phone,
-            email: email,
-            logo: logo,
-            isMainCompany: isMainCompany,
-            remarks: remarks,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String companyCode,
-            required String nameAr,
-            required String nameEn,
-            Value<String?> countryId = const Value.absent(),
-            Value<String?> taxNumber = const Value.absent(),
-            Value<String?> commercialRegNo = const Value.absent(),
-            Value<String?> address = const Value.absent(),
-            Value<String?> phone = const Value.absent(),
-            Value<String?> email = const Value.absent(),
-            Value<Uint8List?> logo = const Value.absent(),
-            required bool isMainCompany,
-            Value<String?> remarks = const Value.absent(),
-          }) =>
-              CompanyInfoCompanion.insert(
-            id: id,
-            companyCode: companyCode,
-            nameAr: nameAr,
-            nameEn: nameEn,
-            countryId: countryId,
-            taxNumber: taxNumber,
-            commercialRegNo: commercialRegNo,
-            address: address,
-            phone: phone,
-            email: email,
-            logo: logo,
-            isMainCompany: isMainCompany,
-            remarks: remarks,
-          ),
-          withReferenceMapper: (p0) => p0
-              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
-              .toList(),
-          prefetchHooksCallback: null,
-        ));
-}
-
-typedef $CompanyInfoProcessedTableManager = ProcessedTableManager<
-    _$AppDatabase,
-    CompanyInfo,
-    CompanyInfoData,
-    $CompanyInfoFilterComposer,
-    $CompanyInfoOrderingComposer,
-    $CompanyInfoAnnotationComposer,
-    $CompanyInfoCreateCompanionBuilder,
-    $CompanyInfoUpdateCompanionBuilder,
-    (
-      CompanyInfoData,
-      BaseReferences<_$AppDatabase, CompanyInfo, CompanyInfoData>
-    ),
-    CompanyInfoData,
-    PrefetchHooks Function()>;
 typedef $AccountsCreateCompanionBuilder = AccountsCompanion Function({
   Value<int> id,
   Value<int?> parentId,
@@ -14162,6 +15513,21 @@ final class $BranchesReferences
     extends BaseReferences<_$AppDatabase, Branches, Branche> {
   $BranchesReferences(super.$_db, super.$_table, super.$_typedResult);
 
+  static CompanyInfo _companyIdTable(_$AppDatabase db) =>
+      db.companyInfo.createAlias(
+          $_aliasNameGenerator(db.branches.companyId, db.companyInfo.id));
+
+  $CompanyInfoProcessedTableManager get companyId {
+    final $_column = $_itemColumn<int>('company_id')!;
+
+    final manager = $CompanyInfoTableManager($_db, $_db.companyInfo)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_companyIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+
   static BranchGroups _branchGroupIdTable(_$AppDatabase db) =>
       db.branchGroups.createAlias(
           $_aliasNameGenerator(db.branches.branchGroupId, db.branchGroups.id));
@@ -14212,9 +15578,6 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
   ColumnFilters<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get companyId => $composableBuilder(
-      column: $table.companyId, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnFilters(column));
 
@@ -14236,6 +15599,26 @@ class $BranchesFilterComposer extends Composer<_$AppDatabase, Branches> {
 
   ColumnFilters<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnFilters(column));
+
+  $CompanyInfoFilterComposer get companyId {
+    final $CompanyInfoFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.companyId,
+        referencedTable: $db.companyInfo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CompanyInfoFilterComposer(
+              $db: $db,
+              $table: $db.companyInfo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 
   $BranchGroupsFilterComposer get branchGroupId {
     final $BranchGroupsFilterComposer composer = $composerBuilder(
@@ -14299,9 +15682,6 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
   ColumnOrderings<String> get nameEn => $composableBuilder(
       column: $table.nameEn, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get companyId => $composableBuilder(
-      column: $table.companyId, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<String> get address => $composableBuilder(
       column: $table.address, builder: (column) => ColumnOrderings(column));
 
@@ -14325,6 +15705,26 @@ class $BranchesOrderingComposer extends Composer<_$AppDatabase, Branches> {
 
   ColumnOrderings<String> get remarks => $composableBuilder(
       column: $table.remarks, builder: (column) => ColumnOrderings(column));
+
+  $CompanyInfoOrderingComposer get companyId {
+    final $CompanyInfoOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.companyId,
+        referencedTable: $db.companyInfo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CompanyInfoOrderingComposer(
+              $db: $db,
+              $table: $db.companyInfo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 
   $BranchGroupsOrderingComposer get branchGroupId {
     final $BranchGroupsOrderingComposer composer = $composerBuilder(
@@ -14367,9 +15767,6 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
   GeneratedColumn<String> get nameEn =>
       $composableBuilder(column: $table.nameEn, builder: (column) => column);
 
-  GeneratedColumn<int> get companyId =>
-      $composableBuilder(column: $table.companyId, builder: (column) => column);
-
   GeneratedColumn<String> get address =>
       $composableBuilder(column: $table.address, builder: (column) => column);
 
@@ -14390,6 +15787,26 @@ class $BranchesAnnotationComposer extends Composer<_$AppDatabase, Branches> {
 
   GeneratedColumn<String> get remarks =>
       $composableBuilder(column: $table.remarks, builder: (column) => column);
+
+  $CompanyInfoAnnotationComposer get companyId {
+    final $CompanyInfoAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.companyId,
+        referencedTable: $db.companyInfo,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $CompanyInfoAnnotationComposer(
+              $db: $db,
+              $table: $db.companyInfo,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
 
   $BranchGroupsAnnotationComposer get branchGroupId {
     final $BranchGroupsAnnotationComposer composer = $composerBuilder(
@@ -14444,7 +15861,8 @@ class $BranchesTableManager extends RootTableManager<
     $BranchesUpdateCompanionBuilder,
     (Branche, $BranchesReferences),
     Branche,
-    PrefetchHooks Function({bool branchGroupId, bool usersRefs})> {
+    PrefetchHooks Function(
+        {bool companyId, bool branchGroupId, bool usersRefs})> {
   $BranchesTableManager(_$AppDatabase db, Branches table)
       : super(TableManagerState(
           db: db,
@@ -14519,7 +15937,8 @@ class $BranchesTableManager extends RootTableManager<
               .map((e) =>
                   (e.readTable(table), $BranchesReferences(db, table, e)))
               .toList(),
-          prefetchHooksCallback: ({branchGroupId = false, usersRefs = false}) {
+          prefetchHooksCallback: (
+              {companyId = false, branchGroupId = false, usersRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [if (usersRefs) db.users],
@@ -14536,6 +15955,15 @@ class $BranchesTableManager extends RootTableManager<
                       dynamic,
                       dynamic,
                       dynamic>>(state) {
+                if (companyId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.companyId,
+                    referencedTable: $BranchesReferences._companyIdTable(db),
+                    referencedColumn:
+                        $BranchesReferences._companyIdTable(db).id,
+                  ) as T;
+                }
                 if (branchGroupId) {
                   state = state.withJoin(
                     currentTable: table,
@@ -14580,7 +16008,8 @@ typedef $BranchesProcessedTableManager = ProcessedTableManager<
     $BranchesUpdateCompanionBuilder,
     (Branche, $BranchesReferences),
     Branche,
-    PrefetchHooks Function({bool branchGroupId, bool usersRefs})>;
+    PrefetchHooks Function(
+        {bool companyId, bool branchGroupId, bool usersRefs})>;
 typedef $UsersCreateCompanionBuilder = UsersCompanion Function({
   Value<int> userId,
   required String username,
@@ -18498,6 +19927,10 @@ typedef $UserRolesProcessedTableManager = ProcessedTableManager<
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
+  $DocumentTypesTableManager get documentTypes =>
+      $DocumentTypesTableManager(_db, _db.documentTypes);
+  $DescriptionCodingTableManager get descriptionCoding =>
+      $DescriptionCodingTableManager(_db, _db.descriptionCoding);
   $AccountTypesTableManager get accountTypes =>
       $AccountTypesTableManager(_db, _db.accountTypes);
   $AccountGroupsTableManager get accountGroups =>
@@ -18514,9 +19947,9 @@ class $AppDatabaseManager {
       $TaxCalcMethodsTableManager(_db, _db.taxCalcMethods);
   $TaxTypesTableManager get taxTypes =>
       $TaxTypesTableManager(_db, _db.taxTypes);
-  $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
   $CompanyInfoTableManager get companyInfo =>
       $CompanyInfoTableManager(_db, _db.companyInfo);
+  $RolesTableManager get roles => $RolesTableManager(_db, _db.roles);
   $AccountsTableManager get accounts =>
       $AccountsTableManager(_db, _db.accounts);
   $RolePermissionsTableManager get rolePermissions =>

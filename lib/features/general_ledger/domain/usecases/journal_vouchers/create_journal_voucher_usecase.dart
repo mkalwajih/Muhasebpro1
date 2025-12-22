@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import '../../../../../core/error/failures.dart';
-import '../../../../../core/usecases/usecase.dart';
+import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
+import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 import '../../entities/journal_voucher_entity.dart';
+import '../../entities/voucher_base_entity.dart';
 import '../../repositories/journal_voucher_repository.dart';
 import '../../services/posting_service.dart';
 
@@ -28,7 +29,7 @@ class CreateJournalVoucherUseCase implements UseCase<JournalVoucherEntity, Creat
         if (docNumberResult.isLeft()) {
           return docNumberResult.fold(
             (failure) => Left(failure),
-            (_) => const Left(ServerFailure('Failed to generate document number')),
+            (_) => Left(ServerFailure(message: 'Failed to generate document number')),
           );
         }
         docNo = docNumberResult.getOrElse(() => '');
@@ -57,7 +58,7 @@ class CreateJournalVoucherUseCase implements UseCase<JournalVoucherEntity, Creat
 
       // Validate the voucher
       if (!voucher.isValid) {
-        return const Left(ValidationFailure('Invalid journal voucher data'));
+        return Left(ValidationFailure(message: 'Invalid journal voucher data'));
       }
 
       // Validate financial period
@@ -65,7 +66,7 @@ class CreateJournalVoucherUseCase implements UseCase<JournalVoucherEntity, Creat
       if (periodValidation.isLeft()) {
         return periodValidation.fold(
           (failure) => Left(failure),
-          (_) => const Left(ValidationFailure('Invalid financial period')),
+          (_) => Left(ValidationFailure(message: 'Invalid financial period')),
         );
       }
 
@@ -76,7 +77,7 @@ class CreateJournalVoucherUseCase implements UseCase<JournalVoucherEntity, Creat
         (createdVoucher) => Right(createdVoucher),
       );
     } catch (e) {
-      return Left(ServerFailure('Failed to create journal voucher: $e'));
+      return Left(ServerFailure(message: 'Failed to create journal voucher: $e'));
     }
   }
 }

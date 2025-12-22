@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/utils/app_permissions.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
 import '../../../../shared/utils/role_checker.dart';
 import '../widgets/journal_vouchers/journal_voucher_list.dart';
 import '../widgets/journal_vouchers/journal_voucher_form.dart';
 import '../../domain/entities/journal_voucher_entity.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart'; // Keep this import for ErrorWidget
 
 class JournalVouchersScreen extends ConsumerStatefulWidget {
   const JournalVouchersScreen({super.key});
@@ -38,8 +38,8 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: CustomErrorWidget(
+          message: l10n.accessDenied,
         ),
       );
     }
@@ -86,7 +86,7 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               onCancelled: () => _switchToListMode(),
             )
           : JournalVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher),
+              onVoucherSelected: (voucher) => _editVoucher(voucher as JournalVoucherEntity),
               canEdit: canEdit,
               canPost: canPost,
             ),

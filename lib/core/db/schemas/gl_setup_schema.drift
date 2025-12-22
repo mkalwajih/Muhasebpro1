@@ -1,6 +1,8 @@
 -- General Ledger Setup Schema
 -- Document Types and Description Coding tables
 
+IMPORT 'chart_of_accounts_schema.drift';
+
 -- Document Types table for GL voucher categorization
 CREATE TABLE DocumentTypes (
     DocTypeCode TEXT NOT NULL PRIMARY KEY,

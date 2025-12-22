@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/adjustment_entry_entity.dart';
+import '../../../domain/entities/adjustment_entry_entity.dart';
 
 class AdjustmentEntriesTab extends ConsumerStatefulWidget {
   const AdjustmentEntriesTab({

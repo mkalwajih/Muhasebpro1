@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/bank_reconciliation_entity.dart';
+import '../../../../domain/entities/bank_reconciliation_entity.dart';
 
 class BankReconciliationTab extends ConsumerStatefulWidget {
   const BankReconciliationTab({
@@ -106,7 +106,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -166,7 +166,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                           decoration: InputDecoration(
                             labelText: l10n.bankStatementBalance,
                             border: const OutlineInputBorder(),
-                            prefixText: '\$ ',
+                            prefixText: 'l10n.symbol ',
                           ),
                           keyboardType: TextInputType.number,
                           enabled: widget.canManage,
@@ -250,7 +250,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   Widget _buildBalanceSummary() {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
     
     final adjustedBankBalance = _calculateAdjustedBankBalance();
     final difference = adjustedBankBalance - _bookBalance;
@@ -370,7 +370,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
 
     return Card(
       child: Column(
@@ -404,7 +404,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                           ? ReconciliationItemType.deposit
                           : ReconciliationItemType.check,
                     ),
-                    tooltip: l10n.addItem,
+                    tooltip: l10n.add,
                   ),
               ],
             ),
@@ -444,7 +444,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                             value: item.isCleared,
                             onChanged: widget.canManage ? (value) {
                               setState(() {
-                                item.isCleared = value ?? false;
+                                items[index] = item.copyWith(isCleared: value ?? false);
                               });
                             } : null,
                           ),
