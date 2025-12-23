@@ -625,5 +625,17 @@
   "startStocktaking": "بدء الجرد",
   "createReservation": "إنشاء حجز",
   "stocktakingInfo": "الجرد يقارن العد الفعلي مع سجلات النظام ويعدل الفروقات",
-  "reservationInfo": "الحجوزات تمنع استخدام المخزون المخصص في أماكن أخرى"
+  "reservationInfo": "الحجوزات تمنع استخدام المخزون المخصص في أماكن أخرى",
+
+  "inventoryReports": "تقارير المخزون",
+  "inventoryBalancesReport": "تقرير أرصدة المخزون",
+  "inventoryBalancesReportDesc": "مستويات وقيم المخزون الحالية",
+  "itemTransactionReport": "تقرير حركة الصنف",
+  "itemTransactionReportDesc": "سجل تفصيلي لحركة الأصناف",
+  "inventoryValuationReport": "تقرير تقييم المخزون",
+  "inventoryValuationReportDesc": "ملخص مالي لقيمة المخزون",
+  "staleInventoryReport": "تقرير الأصناف الراكدة",
+  "staleInventoryReportDesc": "الأصناف غير المتحركة لإدارة التقادم",
+  "lowStockReport": "تقرير الأصناف تحت حد الطلب",
+  "lowStockReportDesc": "الأصناف التي انخفضت عن حد إعادة الطلب"
 }

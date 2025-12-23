@@ -783,5 +783,17 @@
   "startStocktaking": "Start Stocktaking",
   "createReservation": "Create Reservation",
   "stocktakingInfo": "Stocktaking compares physical counts with system records and adjusts discrepancies",
-  "reservationInfo": "Reservations prevent allocated stock from being used elsewhere"
+  "reservationInfo": "Reservations prevent allocated stock from being used elsewhere",
+
+  "inventoryReports": "Inventory Reports",
+  "inventoryBalancesReport": "Inventory Balances Report",
+  "inventoryBalancesReportDesc": "Current stock levels and values",
+  "itemTransactionReport": "Item Transaction Report",
+  "itemTransactionReportDesc": "Detailed movement history for items",
+  "inventoryValuationReport": "Inventory Valuation Report",
+  "inventoryValuationReportDesc": "Financial summary of inventory value",
+  "staleInventoryReport": "Stale Inventory Report",
+  "staleInventoryReportDesc": "Non-moving items for obsolescence management",
+  "lowStockReport": "Low Stock Report",
+  "lowStockReportDesc": "Items below reorder level"
 }
