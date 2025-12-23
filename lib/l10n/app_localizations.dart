@@ -599,7 +599,7 @@ abstract class AppLocalizations {
   /// No description provided for @deleteFailed.
   ///
   /// In en, this message translates to:
-  /// **'Deletion Failed'**
+  /// **'Delete failed'**
   String get deleteFailed;
 
   /// No description provided for @addNewZone.
@@ -3811,6 +3811,570 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hierarchy Management'**
   String get hierarchyManagement;
+
+  /// No description provided for @documentTypesAndDescriptionCoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Document types and description coding'**
+  String get documentTypesAndDescriptionCoding;
+
+  /// No description provided for @createAndManageJournalVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Create and manage journal vouchers'**
+  String get createAndManageJournalVouchers;
+
+  /// No description provided for @managePaymentVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage payment vouchers'**
+  String get managePaymentVouchers;
+
+  /// No description provided for @manageReceiptVouchers.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage receipt vouchers'**
+  String get manageReceiptVouchers;
+
+  /// No description provided for @manageCashAndBankAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage cash and bank accounts'**
+  String get manageCashAndBankAccounts;
+
+  /// No description provided for @viewFinancialReportsAndStatements.
+  ///
+  /// In en, this message translates to:
+  /// **'View financial reports and statements'**
+  String get viewFinancialReportsAndStatements;
+
+  /// No description provided for @manageTransactionRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage transaction requests'**
+  String get manageTransactionRequests;
+
+  /// No description provided for @reviewPostAndClosePeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Review, post and close periods'**
+  String get reviewPostAndClosePeriods;
+
+  /// No description provided for @inventorySetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Setup'**
+  String get inventorySetup;
+
+  /// No description provided for @inventoryVariables.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Variables'**
+  String get inventoryVariables;
+
+  /// No description provided for @warehouses.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouses'**
+  String get warehouses;
+
+  /// No description provided for @itemGroups.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Groups'**
+  String get itemGroups;
+
+  /// No description provided for @defaultCostingMethod.
+  ///
+  /// In en, this message translates to:
+  /// **'Default Costing Method'**
+  String get defaultCostingMethod;
+
+  /// No description provided for @allowItemLevelOverride.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Item-Level Override'**
+  String get allowItemLevelOverride;
+
+  /// No description provided for @allowItemLevelOverrideDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow items to override the default costing method'**
+  String get allowItemLevelOverrideDesc;
+
+  /// No description provided for @enableMultipleWarehouses.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Multiple Warehouses'**
+  String get enableMultipleWarehouses;
+
+  /// No description provided for @enableMultipleWarehousesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable management of multiple warehouse locations'**
+  String get enableMultipleWarehousesDesc;
+
+  /// No description provided for @enableExpiryDateTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Expiry Date Tracking'**
+  String get enableExpiryDateTracking;
+
+  /// No description provided for @enableExpiryDateTrackingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track expiry dates for items'**
+  String get enableExpiryDateTrackingDesc;
+
+  /// No description provided for @enableBatchTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Batch Tracking'**
+  String get enableBatchTracking;
+
+  /// No description provided for @enableBatchTrackingDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Track batch numbers for items'**
+  String get enableBatchTrackingDesc;
+
+  /// No description provided for @saveSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Settings'**
+  String get saveSettings;
+
+  /// No description provided for @noWarehousesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Warehouses Found'**
+  String get noWarehousesFound;
+
+  /// No description provided for @addWarehouseToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a warehouse to get started'**
+  String get addWarehouseToGetStarted;
+
+  /// No description provided for @addWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Warehouse'**
+  String get addWarehouse;
+
+  /// No description provided for @editWarehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Warehouse'**
+  String get editWarehouse;
+
+  /// No description provided for @warehouseCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouse Code'**
+  String get warehouseCode;
+
+  /// No description provided for @inventoryAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Account'**
+  String get inventoryAccount;
+
+  /// No description provided for @deleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted successfully'**
+  String get deleteSuccess;
+
+  /// No description provided for @noItemGroupsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Item Groups Found'**
+  String get noItemGroupsFound;
+
+  /// No description provided for @addItemGroupToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an item group to get started'**
+  String get addItemGroupToGetStarted;
+
+  /// No description provided for @addItemGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item Group'**
+  String get addItemGroup;
+
+  /// No description provided for @items.
+  ///
+  /// In en, this message translates to:
+  /// **'Items'**
+  String get items;
+
+  /// No description provided for @noItemsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Items Found'**
+  String get noItemsFound;
+
+  /// No description provided for @addItemToGetStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an item to get started'**
+  String get addItemToGetStarted;
+
+  /// No description provided for @addItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get addItem;
+
+  /// No description provided for @editItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Item'**
+  String get editItem;
+
+  /// No description provided for @itemCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Code'**
+  String get itemCode;
+
+  /// No description provided for @barcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get barcode;
+
+  /// No description provided for @basicData.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Data'**
+  String get basicData;
+
+  /// No description provided for @classification.
+  ///
+  /// In en, this message translates to:
+  /// **'Classification'**
+  String get classification;
+
+  /// No description provided for @costAndPrices.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost & Prices'**
+  String get costAndPrices;
+
+  /// No description provided for @itemType.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Type'**
+  String get itemType;
+
+  /// No description provided for @itemGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Group'**
+  String get itemGroup;
+
+  /// No description provided for @baseUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Base Unit'**
+  String get baseUnit;
+
+  /// No description provided for @costPrice.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost Price'**
+  String get costPrice;
+
+  /// No description provided for @invalidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get invalidNumber;
+
+  /// No description provided for @openingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening Stock'**
+  String get openingStock;
+
+  /// No description provided for @openingStockInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening stock is a one-time operation to set initial inventory levels'**
+  String get openingStockInfo;
+
+  /// No description provided for @noOpeningStockEntries.
+  ///
+  /// In en, this message translates to:
+  /// **'No opening stock entries'**
+  String get noOpeningStockEntries;
+
+  /// No description provided for @clickAddToStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Click add to start entering opening stock'**
+  String get clickAddToStart;
+
+  /// No description provided for @addEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Entry'**
+  String get addEntry;
+
+  /// No description provided for @addOpeningStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Opening Stock'**
+  String get addOpeningStock;
+
+  /// No description provided for @item.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get item;
+
+  /// No description provided for @warehouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouse'**
+  String get warehouse;
+
+  /// No description provided for @quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantity;
+
+  /// No description provided for @unitCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Unit Cost'**
+  String get unitCost;
+
+  /// No description provided for @totalCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Cost'**
+  String get totalCost;
+
+  /// No description provided for @openingStockSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening stock saved successfully'**
+  String get openingStockSaved;
+
+  /// No description provided for @stockOperations.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Operations'**
+  String get stockOperations;
+
+  /// No description provided for @incomingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming Stock'**
+  String get incomingStock;
+
+  /// No description provided for @outgoingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Outgoing Stock'**
+  String get outgoingStock;
+
+  /// No description provided for @transfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfers'**
+  String get transfers;
+
+  /// No description provided for @incomingStockOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming Stock Orders'**
+  String get incomingStockOrders;
+
+  /// No description provided for @outgoingStockOrders.
+  ///
+  /// In en, this message translates to:
+  /// **'Outgoing Stock Orders'**
+  String get outgoingStockOrders;
+
+  /// No description provided for @warehouseTransfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Warehouse Transfers'**
+  String get warehouseTransfers;
+
+  /// No description provided for @manageIncomingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage incoming stock orders'**
+  String get manageIncomingStock;
+
+  /// No description provided for @manageOutgoingStock.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage outgoing stock orders'**
+  String get manageOutgoingStock;
+
+  /// No description provided for @manageWarehouseTransfers.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage warehouse transfers'**
+  String get manageWarehouseTransfers;
+
+  /// No description provided for @createIncomingOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Incoming Order'**
+  String get createIncomingOrder;
+
+  /// No description provided for @createOutgoingOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Outgoing Order'**
+  String get createOutgoingOrder;
+
+  /// No description provided for @createTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Transfer'**
+  String get createTransfer;
+
+  /// No description provided for @inventoryControl.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Control'**
+  String get inventoryControl;
+
+  /// No description provided for @stocktaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Stocktaking'**
+  String get stocktaking;
+
+  /// No description provided for @reservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations'**
+  String get reservations;
+
+  /// No description provided for @stocktakingSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Stocktaking Sessions'**
+  String get stocktakingSessions;
+
+  /// No description provided for @stockReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Reservations'**
+  String get stockReservations;
+
+  /// No description provided for @manageStocktaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage physical inventory counts and adjustments'**
+  String get manageStocktaking;
+
+  /// No description provided for @manageReservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserve stock for specific purposes'**
+  String get manageReservations;
+
+  /// No description provided for @startStocktaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Stocktaking'**
+  String get startStocktaking;
+
+  /// No description provided for @createReservation.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Reservation'**
+  String get createReservation;
+
+  /// No description provided for @stocktakingInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Stocktaking compares physical counts with system records and adjusts discrepancies'**
+  String get stocktakingInfo;
+
+  /// No description provided for @reservationInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Reservations prevent allocated stock from being used elsewhere'**
+  String get reservationInfo;
+
+  /// No description provided for @inventoryReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Reports'**
+  String get inventoryReports;
+
+  /// No description provided for @inventoryBalancesReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Balances Report'**
+  String get inventoryBalancesReport;
+
+  /// No description provided for @inventoryBalancesReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Current stock levels and values'**
+  String get inventoryBalancesReportDesc;
+
+  /// No description provided for @itemTransactionReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Item Transaction Report'**
+  String get itemTransactionReport;
+
+  /// No description provided for @itemTransactionReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed movement history for items'**
+  String get itemTransactionReportDesc;
+
+  /// No description provided for @inventoryValuationReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventory Valuation Report'**
+  String get inventoryValuationReport;
+
+  /// No description provided for @inventoryValuationReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Financial summary of inventory value'**
+  String get inventoryValuationReportDesc;
+
+  /// No description provided for @staleInventoryReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Stale Inventory Report'**
+  String get staleInventoryReport;
+
+  /// No description provided for @staleInventoryReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Non-moving items for obsolescence management'**
+  String get staleInventoryReportDesc;
+
+  /// No description provided for @lowStockReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Low Stock Report'**
+  String get lowStockReport;
+
+  /// No description provided for @lowStockReportDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Items below reorder level'**
+  String get lowStockReportDesc;
 }
 
 class _AppLocalizationsDelegate

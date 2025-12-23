@@ -263,7 +263,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get delete => 'Delete';
 
   @override
-  String get deleteFailed => 'Deletion Failed';
+  String get deleteFailed => 'Delete failed';
 
   @override
   String get addNewZone => 'Add New Zone';
@@ -1940,4 +1940,297 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hierarchyManagement => 'Hierarchy Management';
+
+  @override
+  String get documentTypesAndDescriptionCoding =>
+      'Document types and description coding';
+
+  @override
+  String get createAndManageJournalVouchers =>
+      'Create and manage journal vouchers';
+
+  @override
+  String get managePaymentVouchers => 'Manage payment vouchers';
+
+  @override
+  String get manageReceiptVouchers => 'Manage receipt vouchers';
+
+  @override
+  String get manageCashAndBankAccounts => 'Manage cash and bank accounts';
+
+  @override
+  String get viewFinancialReportsAndStatements =>
+      'View financial reports and statements';
+
+  @override
+  String get manageTransactionRequests => 'Manage transaction requests';
+
+  @override
+  String get reviewPostAndClosePeriods => 'Review, post and close periods';
+
+  @override
+  String get inventorySetup => 'Inventory Setup';
+
+  @override
+  String get inventoryVariables => 'Inventory Variables';
+
+  @override
+  String get warehouses => 'Warehouses';
+
+  @override
+  String get itemGroups => 'Item Groups';
+
+  @override
+  String get defaultCostingMethod => 'Default Costing Method';
+
+  @override
+  String get allowItemLevelOverride => 'Allow Item-Level Override';
+
+  @override
+  String get allowItemLevelOverrideDesc =>
+      'Allow items to override the default costing method';
+
+  @override
+  String get enableMultipleWarehouses => 'Enable Multiple Warehouses';
+
+  @override
+  String get enableMultipleWarehousesDesc =>
+      'Enable management of multiple warehouse locations';
+
+  @override
+  String get enableExpiryDateTracking => 'Enable Expiry Date Tracking';
+
+  @override
+  String get enableExpiryDateTrackingDesc => 'Track expiry dates for items';
+
+  @override
+  String get enableBatchTracking => 'Enable Batch Tracking';
+
+  @override
+  String get enableBatchTrackingDesc => 'Track batch numbers for items';
+
+  @override
+  String get saveSettings => 'Save Settings';
+
+  @override
+  String get noWarehousesFound => 'No Warehouses Found';
+
+  @override
+  String get addWarehouseToGetStarted => 'Add a warehouse to get started';
+
+  @override
+  String get addWarehouse => 'Add Warehouse';
+
+  @override
+  String get editWarehouse => 'Edit Warehouse';
+
+  @override
+  String get warehouseCode => 'Warehouse Code';
+
+  @override
+  String get inventoryAccount => 'Inventory Account';
+
+  @override
+  String get deleteSuccess => 'Deleted successfully';
+
+  @override
+  String get noItemGroupsFound => 'No Item Groups Found';
+
+  @override
+  String get addItemGroupToGetStarted => 'Add an item group to get started';
+
+  @override
+  String get addItemGroup => 'Add Item Group';
+
+  @override
+  String get items => 'Items';
+
+  @override
+  String get noItemsFound => 'No Items Found';
+
+  @override
+  String get addItemToGetStarted => 'Add an item to get started';
+
+  @override
+  String get addItem => 'Add Item';
+
+  @override
+  String get editItem => 'Edit Item';
+
+  @override
+  String get itemCode => 'Item Code';
+
+  @override
+  String get barcode => 'Barcode';
+
+  @override
+  String get basicData => 'Basic Data';
+
+  @override
+  String get classification => 'Classification';
+
+  @override
+  String get costAndPrices => 'Cost & Prices';
+
+  @override
+  String get itemType => 'Item Type';
+
+  @override
+  String get itemGroup => 'Item Group';
+
+  @override
+  String get baseUnit => 'Base Unit';
+
+  @override
+  String get costPrice => 'Cost Price';
+
+  @override
+  String get invalidNumber => 'Invalid number';
+
+  @override
+  String get openingStock => 'Opening Stock';
+
+  @override
+  String get openingStockInfo =>
+      'Opening stock is a one-time operation to set initial inventory levels';
+
+  @override
+  String get noOpeningStockEntries => 'No opening stock entries';
+
+  @override
+  String get clickAddToStart => 'Click add to start entering opening stock';
+
+  @override
+  String get addEntry => 'Add Entry';
+
+  @override
+  String get addOpeningStock => 'Add Opening Stock';
+
+  @override
+  String get item => 'Item';
+
+  @override
+  String get warehouse => 'Warehouse';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get unitCost => 'Unit Cost';
+
+  @override
+  String get totalCost => 'Total Cost';
+
+  @override
+  String get openingStockSaved => 'Opening stock saved successfully';
+
+  @override
+  String get stockOperations => 'Stock Operations';
+
+  @override
+  String get incomingStock => 'Incoming Stock';
+
+  @override
+  String get outgoingStock => 'Outgoing Stock';
+
+  @override
+  String get transfers => 'Transfers';
+
+  @override
+  String get incomingStockOrders => 'Incoming Stock Orders';
+
+  @override
+  String get outgoingStockOrders => 'Outgoing Stock Orders';
+
+  @override
+  String get warehouseTransfers => 'Warehouse Transfers';
+
+  @override
+  String get manageIncomingStock => 'Manage incoming stock orders';
+
+  @override
+  String get manageOutgoingStock => 'Manage outgoing stock orders';
+
+  @override
+  String get manageWarehouseTransfers => 'Manage warehouse transfers';
+
+  @override
+  String get createIncomingOrder => 'Create Incoming Order';
+
+  @override
+  String get createOutgoingOrder => 'Create Outgoing Order';
+
+  @override
+  String get createTransfer => 'Create Transfer';
+
+  @override
+  String get inventoryControl => 'Inventory Control';
+
+  @override
+  String get stocktaking => 'Stocktaking';
+
+  @override
+  String get reservations => 'Reservations';
+
+  @override
+  String get stocktakingSessions => 'Stocktaking Sessions';
+
+  @override
+  String get stockReservations => 'Stock Reservations';
+
+  @override
+  String get manageStocktaking =>
+      'Manage physical inventory counts and adjustments';
+
+  @override
+  String get manageReservations => 'Reserve stock for specific purposes';
+
+  @override
+  String get startStocktaking => 'Start Stocktaking';
+
+  @override
+  String get createReservation => 'Create Reservation';
+
+  @override
+  String get stocktakingInfo =>
+      'Stocktaking compares physical counts with system records and adjusts discrepancies';
+
+  @override
+  String get reservationInfo =>
+      'Reservations prevent allocated stock from being used elsewhere';
+
+  @override
+  String get inventoryReports => 'Inventory Reports';
+
+  @override
+  String get inventoryBalancesReport => 'Inventory Balances Report';
+
+  @override
+  String get inventoryBalancesReportDesc => 'Current stock levels and values';
+
+  @override
+  String get itemTransactionReport => 'Item Transaction Report';
+
+  @override
+  String get itemTransactionReportDesc => 'Detailed movement history for items';
+
+  @override
+  String get inventoryValuationReport => 'Inventory Valuation Report';
+
+  @override
+  String get inventoryValuationReportDesc =>
+      'Financial summary of inventory value';
+
+  @override
+  String get staleInventoryReport => 'Stale Inventory Report';
+
+  @override
+  String get staleInventoryReportDesc =>
+      'Non-moving items for obsolescence management';
+
+  @override
+  String get lowStockReport => 'Low Stock Report';
+
+  @override
+  String get lowStockReportDesc => 'Items below reorder level';
 }

@@ -567,7 +567,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get roleNameAr => 'اسم الدور (عربي)';
 
   @override
-  String get description => 'البيان';
+  String get description => 'الوصف';
 
   @override
   String get backupFrequency => 'تكرار النسخ الاحتياطي';
@@ -1914,4 +1914,294 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hierarchyManagement => 'Hierarchy Management';
+
+  @override
+  String get documentTypesAndDescriptionCoding =>
+      'أنواع المستندات وترميز الوصف';
+
+  @override
+  String get createAndManageJournalVouchers => 'إنشاء وإدارة سندات القيد';
+
+  @override
+  String get managePaymentVouchers => 'إدارة سندات الصرف';
+
+  @override
+  String get manageReceiptVouchers => 'إدارة سندات القبض';
+
+  @override
+  String get manageCashAndBankAccounts => 'إدارة حسابات النقدية والبنوك';
+
+  @override
+  String get viewFinancialReportsAndStatements =>
+      'عرض التقارير والقوائم المالية';
+
+  @override
+  String get manageTransactionRequests => 'إدارة طلبات العمليات';
+
+  @override
+  String get reviewPostAndClosePeriods => 'مراجعة وترحيل وإغلاق الفترات';
+
+  @override
+  String get inventorySetup => 'إعداد المخزون';
+
+  @override
+  String get inventoryVariables => 'متغيرات المخزون';
+
+  @override
+  String get warehouses => 'المستودعات';
+
+  @override
+  String get itemGroups => 'مجموعات الأصناف';
+
+  @override
+  String get defaultCostingMethod => 'طريقة التكلفة الافتراضية';
+
+  @override
+  String get allowItemLevelOverride => 'السماح بتجاوز على مستوى الصنف';
+
+  @override
+  String get allowItemLevelOverrideDesc =>
+      'السماح للأصناف بتجاوز طريقة التكلفة الافتراضية';
+
+  @override
+  String get enableMultipleWarehouses => 'تفعيل المستودعات المتعددة';
+
+  @override
+  String get enableMultipleWarehousesDesc =>
+      'تفعيل إدارة مواقع مستودعات متعددة';
+
+  @override
+  String get enableExpiryDateTracking => 'تفعيل تتبع تاريخ الصلاحية';
+
+  @override
+  String get enableExpiryDateTrackingDesc => 'تتبع تواريخ الصلاحية للأصناف';
+
+  @override
+  String get enableBatchTracking => 'تفعيل تتبع الدفعات';
+
+  @override
+  String get enableBatchTrackingDesc => 'تتبع أرقام الدفعات للأصناف';
+
+  @override
+  String get saveSettings => 'حفظ الإعدادات';
+
+  @override
+  String get noWarehousesFound => 'لا توجد مستودعات';
+
+  @override
+  String get addWarehouseToGetStarted => 'أضف مستودعاً للبدء';
+
+  @override
+  String get addWarehouse => 'إضافة مستودع';
+
+  @override
+  String get editWarehouse => 'تعديل مستودع';
+
+  @override
+  String get warehouseCode => 'رمز المستودع';
+
+  @override
+  String get inventoryAccount => 'حساب المخزون';
+
+  @override
+  String get deleteSuccess => 'تم الحذف بنجاح';
+
+  @override
+  String get noItemGroupsFound => 'لا توجد مجموعات أصناف';
+
+  @override
+  String get addItemGroupToGetStarted => 'أضف مجموعة أصناف للبدء';
+
+  @override
+  String get addItemGroup => 'إضافة مجموعة أصناف';
+
+  @override
+  String get items => 'الأصناف';
+
+  @override
+  String get noItemsFound => 'لا توجد أصناف';
+
+  @override
+  String get addItemToGetStarted => 'أضف صنفاً للبدء';
+
+  @override
+  String get addItem => 'إضافة صنف';
+
+  @override
+  String get editItem => 'تعديل صنف';
+
+  @override
+  String get itemCode => 'رمز الصنف';
+
+  @override
+  String get barcode => 'الباركود';
+
+  @override
+  String get basicData => 'بيانات أساسية';
+
+  @override
+  String get classification => 'التصنيف';
+
+  @override
+  String get costAndPrices => 'التكلفة والأسعار';
+
+  @override
+  String get itemType => 'نوع الصنف';
+
+  @override
+  String get itemGroup => 'مجموعة الأصناف';
+
+  @override
+  String get baseUnit => 'الوحدة الأساسية';
+
+  @override
+  String get costPrice => 'سعر التكلفة';
+
+  @override
+  String get invalidNumber => 'رقم غير صحيح';
+
+  @override
+  String get openingStock => 'رصيد افتتاحي';
+
+  @override
+  String get openingStockInfo =>
+      'الرصيد الافتتاحي عملية لمرة واحدة لتحديد مستويات المخزون الأولية';
+
+  @override
+  String get noOpeningStockEntries => 'لا توجد قيود رصيد افتتاحي';
+
+  @override
+  String get clickAddToStart =>
+      'انقر على إضافة للبدء في إدخال الرصيد الافتتاحي';
+
+  @override
+  String get addEntry => 'إضافة قيد';
+
+  @override
+  String get addOpeningStock => 'إضافة رصيد افتتاحي';
+
+  @override
+  String get item => 'الصنف';
+
+  @override
+  String get warehouse => 'المستودع';
+
+  @override
+  String get quantity => 'الكمية';
+
+  @override
+  String get unitCost => 'تكلفة الوحدة';
+
+  @override
+  String get totalCost => 'التكلفة الإجمالية';
+
+  @override
+  String get openingStockSaved => 'تم حفظ الرصيد الافتتاحي بنجاح';
+
+  @override
+  String get stockOperations => 'عمليات المخزون';
+
+  @override
+  String get incomingStock => 'إدخال مخزني';
+
+  @override
+  String get outgoingStock => 'إخراج مخزني';
+
+  @override
+  String get transfers => 'التحويلات';
+
+  @override
+  String get incomingStockOrders => 'سندات الإدخال المخزني';
+
+  @override
+  String get outgoingStockOrders => 'سندات الإخراج المخزني';
+
+  @override
+  String get warehouseTransfers => 'التحويلات المخزنية';
+
+  @override
+  String get manageIncomingStock => 'إدارة سندات الإدخال المخزني';
+
+  @override
+  String get manageOutgoingStock => 'إدارة سندات الإخراج المخزني';
+
+  @override
+  String get manageWarehouseTransfers => 'إدارة التحويلات المخزنية';
+
+  @override
+  String get createIncomingOrder => 'إنشاء سند إدخال';
+
+  @override
+  String get createOutgoingOrder => 'إنشاء سند إخراج';
+
+  @override
+  String get createTransfer => 'إنشاء تحويل';
+
+  @override
+  String get inventoryControl => 'مراقبة المخزون';
+
+  @override
+  String get stocktaking => 'الجرد';
+
+  @override
+  String get reservations => 'الحجوزات';
+
+  @override
+  String get stocktakingSessions => 'جلسات الجرد';
+
+  @override
+  String get stockReservations => 'حجوزات المخزون';
+
+  @override
+  String get manageStocktaking => 'إدارة عمليات الجرد الفعلي والتسويات';
+
+  @override
+  String get manageReservations => 'حجز المخزون لأغراض محددة';
+
+  @override
+  String get startStocktaking => 'بدء الجرد';
+
+  @override
+  String get createReservation => 'إنشاء حجز';
+
+  @override
+  String get stocktakingInfo =>
+      'الجرد يقارن العد الفعلي مع سجلات النظام ويعدل الفروقات';
+
+  @override
+  String get reservationInfo =>
+      'الحجوزات تمنع استخدام المخزون المخصص في أماكن أخرى';
+
+  @override
+  String get inventoryReports => 'تقارير المخزون';
+
+  @override
+  String get inventoryBalancesReport => 'تقرير أرصدة المخزون';
+
+  @override
+  String get inventoryBalancesReportDesc => 'مستويات وقيم المخزون الحالية';
+
+  @override
+  String get itemTransactionReport => 'تقرير حركة الصنف';
+
+  @override
+  String get itemTransactionReportDesc => 'سجل تفصيلي لحركة الأصناف';
+
+  @override
+  String get inventoryValuationReport => 'تقرير تقييم المخزون';
+
+  @override
+  String get inventoryValuationReportDesc => 'ملخص مالي لقيمة المخزون';
+
+  @override
+  String get staleInventoryReport => 'تقرير الأصناف الراكدة';
+
+  @override
+  String get staleInventoryReportDesc => 'الأصناف غير المتحركة لإدارة التقادم';
+
+  @override
+  String get lowStockReport => 'تقرير الأصناف تحت حد الطلب';
+
+  @override
+  String get lowStockReportDesc => 'الأصناف التي انخفضت عن حد إعادة الطلب';
 }
