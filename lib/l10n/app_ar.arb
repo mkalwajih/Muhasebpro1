@@ -613,5 +613,17 @@
   "manageWarehouseTransfers": "إدارة التحويلات المخزنية",
   "createIncomingOrder": "إنشاء سند إدخال",
   "createOutgoingOrder": "إنشاء سند إخراج",
-  "createTransfer": "إنشاء تحويل"
+  "createTransfer": "إنشاء تحويل",
+
+  "inventoryControl": "مراقبة المخزون",
+  "stocktaking": "الجرد",
+  "reservations": "الحجوزات",
+  "stocktakingSessions": "جلسات الجرد",
+  "stockReservations": "حجوزات المخزون",
+  "manageStocktaking": "إدارة عمليات الجرد الفعلي والتسويات",
+  "manageReservations": "حجز المخزون لأغراض محددة",
+  "startStocktaking": "بدء الجرد",
+  "createReservation": "إنشاء حجز",
+  "stocktakingInfo": "الجرد يقارن العد الفعلي مع سجلات النظام ويعدل الفروقات",
+  "reservationInfo": "الحجوزات تمنع استخدام المخزون المخصص في أماكن أخرى"
 }

@@ -771,5 +771,17 @@
   "manageWarehouseTransfers": "Manage warehouse transfers",
   "createIncomingOrder": "Create Incoming Order",
   "createOutgoingOrder": "Create Outgoing Order",
-  "createTransfer": "Create Transfer"
+  "createTransfer": "Create Transfer",
+
+  "inventoryControl": "Inventory Control",
+  "stocktaking": "Stocktaking",
+  "reservations": "Reservations",
+  "stocktakingSessions": "Stocktaking Sessions",
+  "stockReservations": "Stock Reservations",
+  "manageStocktaking": "Manage physical inventory counts and adjustments",
+  "manageReservations": "Reserve stock for specific purposes",
+  "startStocktaking": "Start Stocktaking",
+  "createReservation": "Create Reservation",
+  "stocktakingInfo": "Stocktaking compares physical counts with system records and adjusts discrepancies",
+  "reservationInfo": "Reservations prevent allocated stock from being used elsewhere"
 }
