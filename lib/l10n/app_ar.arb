@@ -599,5 +599,19 @@
   "unitCost": "تكلفة الوحدة",
   "totalCost": "التكلفة الإجمالية",
   "openingStockSaved": "تم حفظ الرصيد الافتتاحي بنجاح",
-  "add": "إضافة"
+  "add": "إضافة",
+
+  "stockOperations": "عمليات المخزون",
+  "incomingStock": "إدخال مخزني",
+  "outgoingStock": "إخراج مخزني",
+  "transfers": "التحويلات",
+  "incomingStockOrders": "سندات الإدخال المخزني",
+  "outgoingStockOrders": "سندات الإخراج المخزني",
+  "warehouseTransfers": "التحويلات المخزنية",
+  "manageIncomingStock": "إدارة سندات الإدخال المخزني",
+  "manageOutgoingStock": "إدارة سندات الإخراج المخزني",
+  "manageWarehouseTransfers": "إدارة التحويلات المخزنية",
+  "createIncomingOrder": "إنشاء سند إدخال",
+  "createOutgoingOrder": "إنشاء سند إخراج",
+  "createTransfer": "إنشاء تحويل"
 }

@@ -757,5 +757,19 @@
   "unitCost": "Unit Cost",
   "totalCost": "Total Cost",
   "openingStockSaved": "Opening stock saved successfully",
-  "add": "Add"
+  "add": "Add",
+
+  "stockOperations": "Stock Operations",
+  "incomingStock": "Incoming Stock",
+  "outgoingStock": "Outgoing Stock",
+  "transfers": "Transfers",
+  "incomingStockOrders": "Incoming Stock Orders",
+  "outgoingStockOrders": "Outgoing Stock Orders",
+  "warehouseTransfers": "Warehouse Transfers",
+  "manageIncomingStock": "Manage incoming stock orders",
+  "manageOutgoingStock": "Manage outgoing stock orders",
+  "manageWarehouseTransfers": "Manage warehouse transfers",
+  "createIncomingOrder": "Create Incoming Order",
+  "createOutgoingOrder": "Create Outgoing Order",
+  "createTransfer": "Create Transfer"
 }
