@@ -28,6 +28,7 @@ import 'package:muhaseb_pro/features/general_ledger/presentation/pages/financial
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/transaction_requests_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/review_posting_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart';
+import 'package:muhaseb_pro/features/inventory/presentation/pages/inventory_setup_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -161,6 +162,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: 'inventory',
             builder: (context, state) =>
                 const PlaceholderScreen(title: 'Inventory'),
+            routes: [
+              GoRoute(
+                path: 'setup',
+                builder: (context, state) => const InventorySetupScreen(),
+              ),
+            ],
           ),
           GoRoute(
             path: 'vendors',

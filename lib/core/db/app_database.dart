@@ -16,6 +16,7 @@ part 'app_database.g.dart';
     'schemas/tax_schema.drift',
     'schemas/chart_of_accounts_schema.drift',
     'schemas/gl_setup_schema.drift',
+    'schemas/inventory_schema.drift',
   },
 )
 class AppDatabase extends _$AppDatabase {
@@ -25,7 +26,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase.forTesting(QueryExecutor e) : super(e);
 
   @override
-  int get schemaVersion => 15; // Incremented for GL Setup schema
+  int get schemaVersion => 16; // Incremented for Inventory schema
 
   @override
   MigrationStrategy get migration {

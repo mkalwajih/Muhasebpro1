@@ -33,9 +33,30 @@ enum AppPermission {
   postReceiptVouchers,
   reverseReceiptVouchers,
 
-  // Inventory Permissions (Examples)
+  // Inventory Permissions
   viewInventory,
+  manageInventorySetup,
+  viewInventorySetup,
   manageItems,
+  viewItems,
+  createItems,
+  editItems,
+  deleteItems,
   manageWarehouses,
+  viewWarehouses,
+  createWarehouses,
+  editWarehouses,
+  deleteWarehouses,
+  manageItemGroups,
+  viewItemGroups,
+  createStockOperations,
+  editStockOperations,
+  postStockOperations,
+  viewStockOperations,
+  manageStocktaking,
+  viewStocktaking,
+  manageReservations,
+  viewReservations,
+  viewInventoryReports,
   // ... add all other permissions here as the app grows
 }

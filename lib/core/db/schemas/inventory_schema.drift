@@ -1,0 +1,280 @@
+-- Inventory Management Schema
+-- Module 3: Inventory Management
+
+IMPORT 'branches_schema.drift';
+IMPORT 'chart_of_accounts_schema.drift';
+
+-- Inventory Configuration (System-wide settings)
+CREATE TABLE inventory_config (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  default_costing_method TEXT NOT NULL CHECK(default_costing_method IN ('Weighted Average', 'FIFO', 'LIFO')),
+  allow_item_level_override BOOLEAN NOT NULL DEFAULT TRUE,
+  enable_multiple_warehouses BOOLEAN NOT NULL DEFAULT TRUE,
+  transfers_intermediary_account_id TEXT REFERENCES accounts(account_code),
+  enable_expiry_date_tracking BOOLEAN NOT NULL DEFAULT FALSE,
+  enable_batch_tracking BOOLEAN NOT NULL DEFAULT FALSE,
+  opening_balance_equity_account_id TEXT REFERENCES accounts(account_code),
+  stock_received_clearing_account_id TEXT REFERENCES accounts(account_code),
+  inventory_shortage_expense_account_id TEXT REFERENCES accounts(account_code),
+  inventory_surplus_revenue_account_id TEXT REFERENCES accounts(account_code),
+  updated_at INTEGER NOT NULL
+);
+
+-- Warehouses
+CREATE TABLE warehouses (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  warehouse_code TEXT NOT NULL UNIQUE,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  branch_id INTEGER NOT NULL REFERENCES branches(id),
+  inventory_account_id TEXT NOT NULL REFERENCES accounts(account_code),
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Item Groups (Hierarchical)
+CREATE TABLE item_groups (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  group_code TEXT NOT NULL UNIQUE,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  parent_group_id INTEGER REFERENCES item_groups(id),
+  inventory_account_id TEXT NOT NULL REFERENCES accounts(account_code),
+  sales_revenue_account_id TEXT NOT NULL REFERENCES accounts(account_code),
+  cogs_account_id TEXT NOT NULL REFERENCES accounts(account_code),
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Items Master
+CREATE TABLE items (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_code TEXT NOT NULL UNIQUE,
+  name_ar TEXT NOT NULL,
+  name_en TEXT NOT NULL,
+  barcode TEXT UNIQUE,
+  description TEXT,
+  item_type TEXT NOT NULL CHECK(item_type IN ('Stockable', 'Service', 'Assembled')),
+  item_group_id INTEGER NOT NULL REFERENCES item_groups(id),
+  base_unit TEXT NOT NULL,
+  costing_method TEXT CHECK(costing_method IN ('Weighted Average', 'FIFO', 'LIFO')),
+  cost_price REAL NOT NULL DEFAULT 0,
+  reorder_level REAL,
+  max_stock_level REAL,
+  min_stock_level REAL,
+  track_expiry_date BOOLEAN NOT NULL DEFAULT FALSE,
+  track_batch_number BOOLEAN NOT NULL DEFAULT FALSE,
+  inventory_account_id TEXT REFERENCES accounts(account_code),
+  sales_revenue_account_id TEXT REFERENCES accounts(account_code),
+  cogs_account_id TEXT REFERENCES accounts(account_code),
+  stock_discrepancy_account_id TEXT REFERENCES accounts(account_code),
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Item Sub-Units (Conversion factors)
+CREATE TABLE item_sub_units (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  unit_name TEXT NOT NULL,
+  conversion_factor REAL NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+-- Item Selling Prices
+CREATE TABLE item_selling_prices (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  price_level_name TEXT NOT NULL,
+  price REAL NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Item Promotional Prices
+CREATE TABLE item_promotional_prices (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_selling_price_id INTEGER NOT NULL REFERENCES item_selling_prices(id) ON DELETE CASCADE,
+  promo_price REAL NOT NULL,
+  start_date INTEGER NOT NULL,
+  end_date INTEGER NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+-- Item Attachments
+CREATE TABLE item_attachments (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  file_name TEXT NOT NULL,
+  file_path TEXT NOT NULL,
+  file_type TEXT NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+-- Stock Balances (Current inventory levels)
+CREATE TABLE stock_balances (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  quantity REAL NOT NULL DEFAULT 0,
+  reserved_quantity REAL NOT NULL DEFAULT 0,
+  updated_at INTEGER NOT NULL,
+  UNIQUE(item_id, warehouse_id)
+);
+
+-- Stock Transactions (All inventory movements)
+CREATE TABLE stock_transactions (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  transaction_type TEXT NOT NULL CHECK(transaction_type IN ('Opening', 'Incoming', 'Outgoing', 'Transfer', 'Adjustment')),
+  doc_no TEXT NOT NULL,
+  doc_date INTEGER NOT NULL,
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  quantity REAL NOT NULL,
+  unit_cost REAL NOT NULL,
+  total_cost REAL NOT NULL,
+  expiry_date INTEGER,
+  batch_number TEXT,
+  reference_doc_no TEXT,
+  notes TEXT,
+  status TEXT NOT NULL CHECK(status IN ('Draft', 'Posted')) DEFAULT 'Draft',
+  posted_at INTEGER,
+  posted_by TEXT,
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Incoming Stock Orders
+CREATE TABLE incoming_stock_orders (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  doc_no TEXT NOT NULL UNIQUE,
+  doc_date INTEGER NOT NULL,
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  supplier_id TEXT,
+  ref_no TEXT,
+  notes TEXT,
+  status TEXT NOT NULL CHECK(status IN ('Draft', 'Posted')) DEFAULT 'Draft',
+  posted_at INTEGER,
+  posted_by TEXT,
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Incoming Stock Order Lines
+CREATE TABLE incoming_stock_order_lines (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  order_id INTEGER NOT NULL REFERENCES incoming_stock_orders(id) ON DELETE CASCADE,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  quantity REAL NOT NULL,
+  unit_cost REAL NOT NULL,
+  total_cost REAL NOT NULL,
+  expiry_date INTEGER,
+  batch_number TEXT,
+  created_at INTEGER NOT NULL
+);
+
+-- Outgoing Stock Orders
+CREATE TABLE outgoing_stock_orders (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  doc_no TEXT NOT NULL UNIQUE,
+  doc_date INTEGER NOT NULL,
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  reason TEXT NOT NULL,
+  beneficiary_account_id TEXT NOT NULL REFERENCES accounts(account_code),
+  notes TEXT,
+  status TEXT NOT NULL CHECK(status IN ('Draft', 'Posted')) DEFAULT 'Draft',
+  posted_at INTEGER,
+  posted_by TEXT,
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Outgoing Stock Order Lines
+CREATE TABLE outgoing_stock_order_lines (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  order_id INTEGER NOT NULL REFERENCES outgoing_stock_orders(id) ON DELETE CASCADE,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  quantity REAL NOT NULL,
+  unit_cost REAL NOT NULL,
+  total_cost REAL NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+-- Warehouse Transfers
+CREATE TABLE warehouse_transfers (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  doc_no TEXT NOT NULL UNIQUE,
+  transfer_date INTEGER NOT NULL,
+  source_warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  destination_warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  ref_no TEXT,
+  notes TEXT,
+  status TEXT NOT NULL CHECK(status IN ('Draft', 'Dispatched', 'Received')) DEFAULT 'Draft',
+  dispatched_at INTEGER,
+  dispatched_by TEXT,
+  received_at INTEGER,
+  received_by TEXT,
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Warehouse Transfer Lines
+CREATE TABLE warehouse_transfer_lines (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  transfer_id INTEGER NOT NULL REFERENCES warehouse_transfers(id) ON DELETE CASCADE,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  quantity REAL NOT NULL,
+  unit_cost REAL NOT NULL,
+  total_cost REAL NOT NULL,
+  created_at INTEGER NOT NULL
+);
+
+-- Stocktaking Sessions
+CREATE TABLE stocktaking_sessions (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  session_no TEXT NOT NULL UNIQUE,
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  session_date INTEGER NOT NULL,
+  status TEXT NOT NULL CHECK(status IN ('Active', 'Completed', 'Posted')) DEFAULT 'Active',
+  notes TEXT,
+  posted_at INTEGER,
+  posted_by TEXT,
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+-- Stocktaking Counts
+CREATE TABLE stocktaking_counts (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  session_id INTEGER NOT NULL REFERENCES stocktaking_sessions(id) ON DELETE CASCADE,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  book_quantity REAL NOT NULL,
+  physical_quantity REAL,
+  discrepancy REAL,
+  discrepancy_value REAL,
+  counted_at INTEGER,
+  counted_by TEXT,
+  created_at INTEGER NOT NULL
+);
+
+-- Stock Reservations
+CREATE TABLE stock_reservations (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  item_id INTEGER NOT NULL REFERENCES items(id),
+  warehouse_id INTEGER NOT NULL REFERENCES warehouses(id),
+  reserved_quantity REAL NOT NULL,
+  reservation_end_date INTEGER NOT NULL,
+  notes TEXT,
+  status TEXT NOT NULL CHECK(status IN ('Active', 'Released')) DEFAULT 'Active',
+  created_by TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL
+);
