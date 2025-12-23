@@ -527,5 +527,14 @@
   "selectAccountToViewLedger": "اختر حساباً لعرض دفتر أستاذه",
   "cashFlowReportComingSoon": "تقرير التدفقات النقدية قريباً",
   "accountStatementComingSoon": "كشف الحساب قريباً",
-  "generalLedgerComingSoon": "تقرير دفتر الأستاذ العام قريباً"
+  "generalLedgerComingSoon": "تقرير دفتر الأستاذ العام قريباً",
+
+  "documentTypesAndDescriptionCoding": "أنواع المستندات وترميز الوصف",
+  "createAndManageJournalVouchers": "إنشاء وإدارة سندات القيد",
+  "managePaymentVouchers": "إدارة سندات الصرف",
+  "manageReceiptVouchers": "إدارة سندات القبض",
+  "manageCashAndBankAccounts": "إدارة حسابات النقدية والبنوك",
+  "viewFinancialReportsAndStatements": "عرض التقارير والقوائم المالية",
+  "manageTransactionRequests": "إدارة طلبات العمليات",
+  "reviewPostAndClosePeriods": "مراجعة وترحيل وإغلاق الفترات"
 }

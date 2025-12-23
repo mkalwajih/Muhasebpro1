@@ -685,5 +685,14 @@
   "enhancedCOAFeatures": "Enhanced COA Features",
   "accountStatements": "Account Statements",
   "openingBalances": "Opening Balances",
-  "hierarchyManagement": "Hierarchy Management"
+  "hierarchyManagement": "Hierarchy Management",
+
+  "documentTypesAndDescriptionCoding": "Document types and description coding",
+  "createAndManageJournalVouchers": "Create and manage journal vouchers",
+  "managePaymentVouchers": "Manage payment vouchers",
+  "manageReceiptVouchers": "Manage receipt vouchers",
+  "manageCashAndBankAccounts": "Manage cash and bank accounts",
+  "viewFinancialReportsAndStatements": "View financial reports and statements",
+  "manageTransactionRequests": "Manage transaction requests",
+  "reviewPostAndClosePeriods": "Review, post and close periods"
 }

@@ -25,6 +25,9 @@ import 'package:muhaseb_pro/features/general_ledger/presentation/pages/payment_v
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/cash_bank_management_screen.dart';
 import 'package:muhaseb_pro/features/general_ledger/presentation/pages/financial_reports_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/transaction_requests_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/review_posting_screen.dart';
+import 'package:muhaseb_pro/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -118,7 +121,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: 'general_ledger',
             builder: (context, state) =>
-                const PlaceholderScreen(title: 'General Ledger'),
+                const GeneralLedgerMenuScreen(),
             routes: [
               GoRoute(
                 path: 'setup',
@@ -143,6 +146,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: 'financial_reports',
                 builder: (context, state) => const FinancialReportsScreen(),
+              ),
+              GoRoute(
+                path: 'transaction_requests',
+                builder: (context, state) => const TransactionRequestsScreen(),
+              ),
+              GoRoute(
+                path: 'review_posting',
+                builder: (context, state) => const ReviewPostingScreen(),
               ),
             ],
           ),
