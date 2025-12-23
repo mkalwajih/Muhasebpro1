@@ -133,15 +133,48 @@ This document tracks the implementation progress of Module 3: Inventory Manageme
 - Post operations correctly update stock balances
 - Two-step transfer process implemented in datasource
 
-## Feature 4: Inventory Control (PENDING)
+## Feature 4: Inventory Control ✅ (COMPLETED - Framework)
 
-### Requirements
-- Stocktaking Sessions
-- Physical Count Entry
-- Discrepancy Reports
-- Stock Reservations
+### Database Schema
+- ✅ All tables already created in Feature 1
+- ✅ Stocktaking sessions and counts tables
+- ✅ Stock reservations table
 
-### Status: Not Started
+### Domain Layer
+- ✅ `StocktakingSessionEntity` with workflow
+- ✅ `StocktakingCountEntity` for physical counts
+- ✅ `StockReservationEntity` with expiry tracking
+- ✅ Status enums and business logic
+- ✅ `InventoryControlRepository` interface
+
+### Data Layer
+- ✅ `InventoryControlLocalDataSource` with:
+  - Stocktaking session CRUD
+  - Physical count management
+  - Complete session with discrepancy calculation
+  - Post session with adjustment transactions
+  - Reservation CRUD with balance updates
+- ✅ `InventoryControlRepositoryImpl`
+
+### Presentation Layer
+- ✅ `InventoryControlScreen` with 2-tab interface
+- ✅ Stocktaking tab with info
+- ✅ Reservations tab with info
+- ⚠️ Detailed forms need implementation
+
+### Localization
+- ✅ Added 10+ English keys
+- ✅ Added 10+ Arabic keys
+
+### Routing
+- ✅ Added `/dashboard/inventory/control` route
+
+### Notes
+- Framework is complete and functional
+- Discrepancy calculation implemented
+- Adjustment transactions created on posting
+- Reserved quantity tracking working
+- Detailed UI forms need implementation
 
 ## Feature 5: Inventory Reports (PENDING)
 
