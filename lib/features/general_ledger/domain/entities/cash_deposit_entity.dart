@@ -19,7 +19,7 @@ class CashDepositEntity extends Equatable {
   final String? depositSlipNumber;
   final String? bankConfirmationNumber;
 
-  CashDepositEntity({
+  const CashDepositEntity({
     required this.depositId,
     required this.branchId,
     required this.depositDate,

@@ -637,5 +637,20 @@
   "staleInventoryReport": "تقرير الأصناف الراكدة",
   "staleInventoryReportDesc": "الأصناف غير المتحركة لإدارة التقادم",
   "lowStockReport": "تقرير الأصناف تحت حد الطلب",
-  "lowStockReportDesc": "الأصناف التي انخفضت عن حد إعادة الطلب"
+  "lowStockReportDesc": "الأصناف التي انخفضت عن حد إعادة الطلب",
+  "accessDenied": "تم رفض الوصول",
+  "amount": "المبلغ",
+  "pending": "قيد الانتظار",
+  "create": "إنشاء",
+  "addAdjustment": "إضافة تسوية",
+  "newAdjustment": "تسوية جديدة",
+  "adjustmentType": "نوع التسوية",
+  "bankCharges": "عمولات بنكية",
+  "interestEarned": "فوائد مكتسبة",
+  "errorCorrection": "تصحيح خطأ",
+  "other": "أخرى",
+  "all": "الكل",
+  "adjustmentSubmittedSuccessfully": "تم تقديم التسوية بنجاح",
+  "adjustmentApprovedSuccessfully": "تمت الموافقة على التسوية بنجاح",
+  "voucherSavedSuccessfully": "تم حفظ السند بنجاح"
 }

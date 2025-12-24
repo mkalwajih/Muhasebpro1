@@ -80,7 +80,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                             ? l10n.noAccountsYet 
                             : l10n.noAccountsFound,
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     );
@@ -100,8 +100,8 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: account.isActive
-                                ? theme.colorScheme.primary.withOpacity(0.1)
-                                : theme.colorScheme.error.withOpacity(0.1),
+                                ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                                : theme.colorScheme.error.withValues(alpha: 0.1),
                             child: Icon(
                               account.isParent ? Icons.folder : Icons.account_balance,
                               color: account.isActive
@@ -126,16 +126,16 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                                 '${l10n.level}: ${account.level} | ${l10n.nature}: ${account.nature}',
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withOpacity(0.7)
-                                      : theme.colorScheme.onSurface.withOpacity(0.7),
+                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.7)
+                                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                                 ),
                               ),
                               Text(
                                 '${l10n.type}: ${account.detailAccountType}',
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withOpacity(0.7)
-                                      : theme.colorScheme.onSurface.withOpacity(0.7),
+                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.7)
+                                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                                 ),
                               ),
                             ],

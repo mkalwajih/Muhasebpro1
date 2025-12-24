@@ -39,7 +39,7 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
           foregroundColor: theme.colorScheme.onSurface,
         ),
         body: CustomErrorWidget(
-          message: l10n.accessDenied,
+          error: l10n.accessDenied,
         ),
       );
     }
@@ -86,15 +86,15 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               onCancelled: () => _switchToListMode(),
             )
           : JournalVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher as JournalVoucherEntity),
+              onVoucherSelected: (voucher) => _editVoucher(voucher),
               canEdit: canEdit,
               canPost: canPost,
             ),
-      floatingActionButton: !_isFormMode && canCreate
+        floatingActionButton: !_isFormMode && canCreate
           ? FloatingActionButton(
               onPressed: () => _createNewVoucher(),
-              child: const Icon(Icons.add),
               tooltip: l10n.addNew,
+              child: const Icon(Icons.add),
             )
           : null,
     );

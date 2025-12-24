@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../domain/entities/transaction_request_entity.dart';
+
 import '../widgets/transaction_requests/transaction_request_list.dart';
 import '../widgets/transaction_requests/transaction_request_form.dart';
 import '../widgets/transaction_requests/pending_approvals_tab.dart';

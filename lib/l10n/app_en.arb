@@ -795,5 +795,20 @@
   "staleInventoryReport": "Stale Inventory Report",
   "staleInventoryReportDesc": "Non-moving items for obsolescence management",
   "lowStockReport": "Low Stock Report",
-  "lowStockReportDesc": "Items below reorder level"
+  "lowStockReportDesc": "Items below reorder level",
+  "accessDenied": "Access Denied",
+  "amount": "Amount",
+  "pending": "Pending",
+  "create": "Create",
+  "addAdjustment": "Add Adjustment",
+  "newAdjustment": "New Adjustment",
+  "adjustmentType": "Adjustment Type",
+  "bankCharges": "Bank Charges",
+  "interestEarned": "Interest Earned",
+  "errorCorrection": "Error Correction",
+  "other": "Other",
+  "all": "All",
+  "adjustmentSubmittedSuccessfully": "Adjustment submitted successfully",
+  "adjustmentApprovedSuccessfully": "Adjustment approved successfully",
+  "voucherSavedSuccessfully": "Voucher saved successfully"
 }

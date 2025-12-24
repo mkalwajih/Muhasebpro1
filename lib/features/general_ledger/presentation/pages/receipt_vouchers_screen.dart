@@ -93,8 +93,8 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
       floatingActionButton: !_isFormMode && canCreate
           ? FloatingActionButton(
               onPressed: () => _createNewVoucher(),
-              child: const Icon(Icons.add),
               tooltip: l10n.addNew,
+              child: const Icon(Icons.add),
             )
           : null,
     );

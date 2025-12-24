@@ -94,6 +94,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    // ignore: unused_local_variable
     final theme = Theme.of(context);
 
     final filteredAdjustments = _getFilteredAdjustments();
@@ -108,7 +109,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  value: _selectedType,
+                  initialValue: _selectedType,
                   decoration: InputDecoration(
                     labelText: l10n.adjustmentType,
                     border: const OutlineInputBorder(),
@@ -378,7 +379,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     switch (status) {
       case AdjustmentStatus.draft:
-        backgroundColor = theme.colorScheme.surfaceVariant;
+        backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
         statusText = l10n.draft;
         break;
@@ -446,7 +447,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      backgroundColor: theme.colorScheme.secondaryContainer.withOpacity(0.5),
+      backgroundColor: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
       side: BorderSide.none,
     );
   }

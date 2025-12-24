@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/utils/app_permissions.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
 import '../widgets/document_types_tab.dart';
 import '../widgets/description_coding_tab.dart';
 import '../../../../shared/utils/role_checker.dart';
@@ -47,8 +47,8 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: custom.CustomErrorWidget(
+          error: l10n.accessDenied,
         ),
       );
     }
@@ -73,7 +73,7 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
           ],
           indicatorColor: theme.colorScheme.primary,
           labelColor: theme.colorScheme.primary,
-          unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.6),
+          unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
         ),
       ),
       body: TabBarView(

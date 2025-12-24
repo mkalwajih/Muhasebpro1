@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+
 import 'voucher_base_entity.dart';
 
 /// Journal Voucher entity for general ledger transactions

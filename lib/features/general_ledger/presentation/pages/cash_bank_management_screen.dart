@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/utils/app_permissions.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
 import '../../../../shared/utils/role_checker.dart';
 import '../widgets/cash_bank/bank_reconciliation_tab.dart';
 import '../widgets/cash_bank/cash_deposits_tab.dart';
@@ -49,8 +49,8 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: custom.CustomErrorWidget(
+          error: l10n.accessDenied,
         ),
       );
     }

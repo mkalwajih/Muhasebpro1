@@ -23,6 +23,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   double _bookBalance = 0.0;
   final List<BankReconciliationItemEntity> _outstandingDeposits = [];
   final List<BankReconciliationItemEntity> _outstandingChecks = [];
+  // ignore: unused_field
   final List<BankReconciliationItemEntity> _adjustments = [];
 
   final _bankBalanceController = TextEditingController();
@@ -122,8 +123,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                     children: [
                       Expanded(
                         flex: 2,
-                        child: DropdownButtonFormField<String>(
-                          value: _selectedAccount,
+                child: DropdownButtonFormField<String>(
+                  initialValue: _selectedAccount,
                           decoration: InputDecoration(
                             labelText: l10n.bankAccount,
                             border: const OutlineInputBorder(),
@@ -235,7 +236,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _isReconciled() 
                           ? theme.colorScheme.primary 
-                          : theme.colorScheme.surfaceVariant,
+                          : theme.colorScheme.surfaceContainerHighest,
                     ),
                   ),
                 ),
@@ -300,8 +301,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                l10n.adjustedBankBalance,
+                             l10n.addAdjustment,dBankBalance,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),

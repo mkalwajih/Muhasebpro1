@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/utils/app_permissions.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
 import '../../../../shared/utils/role_checker.dart';
 import '../widgets/financial_reports/trial_balance_report.dart';
 import '../widgets/financial_reports/income_statement_report.dart';
@@ -46,8 +46,8 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: custom.CustomErrorWidget(
+          error: l10n.accessDenied,
         ),
       );
     }
@@ -85,7 +85,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
               color: theme.colorScheme.surface,
               border: Border(
                 right: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ),
             ),
@@ -94,10 +94,10 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer.withOpacity(0.3),
+                    color: theme.colorScheme.primaryContainer.withValues(alpha: 0.3),
                     border: Border(
                       bottom: BorderSide(
-                        color: theme.colorScheme.outline.withOpacity(0.2),
+                        color: theme.colorScheme.outline.withValues(alpha: 0.2),
                       ),
                     ),
                   ),
@@ -185,8 +185,8 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8.0),
-      color: isSelected 
-          ? theme.colorScheme.primaryContainer.withOpacity(0.5)
+          color: isSelected 
+          ? theme.colorScheme.primaryContainer.withValues(alpha: 0.5)
           : null,
       child: ListTile(
         leading: Icon(

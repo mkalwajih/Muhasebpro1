@@ -23,7 +23,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(connection.connect());
 
   // New constructor for testing and web migration
-  AppDatabase.forTesting(QueryExecutor e) : super(e);
+  AppDatabase.forTesting(super.e);
 
   @override
   int get schemaVersion => 16; // Incremented for Inventory schema

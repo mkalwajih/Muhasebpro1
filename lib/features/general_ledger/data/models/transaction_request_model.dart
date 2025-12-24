@@ -98,6 +98,7 @@ class TransactionRequestModel extends TransactionRequestEntity {
     };
   }
 
+  @override
   TransactionRequestModel copyWith({
     String? id,
     String? requestNumber,
