@@ -82,11 +82,11 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher),
+              onSaved: (voucher) => _onVoucherSaved(voucher as JournalVoucherEntity),
               onCancelled: () => _switchToListMode(),
             )
           : JournalVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher),
+              onVoucherSelected: (voucher) => _editVoucher(voucher as JournalVoucherEntity),
               canEdit: canEdit,
               canPost: canPost,
             ),

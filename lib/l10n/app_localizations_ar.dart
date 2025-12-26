@@ -991,7 +991,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noAccountSelected => 'لم يتم اختيار حساب';
 
   @override
-  String get accessDenied => 'تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة.';
+  String get accessDenied => 'تم رفض الوصول';
 
   @override
   String get searchAccounts => 'البحث في الحسابات...';
@@ -1024,7 +1024,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filter => 'تصفية';
 
   @override
-  String get voucherSavedSuccessfully => 'تم حفظ القيد بنجاح';
+  String get voucherSavedSuccessfully => 'تم حفظ السند بنجاح';
 
   @override
   String get searchQuery => 'استعلام البحث';
@@ -1401,7 +1401,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adjustmentType => 'نوع التسوية';
 
   @override
-  String get bankCharges => 'رسوم البنك';
+  String get bankCharges => 'عمولات بنكية';
 
   @override
   String get interestEarned => 'فوائد مكتسبة';
@@ -1437,10 +1437,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rejected => 'مرفوض';
 
   @override
-  String get adjustmentSubmittedSuccessfully => 'تم إرسال التسوية بنجاح';
+  String get adjustmentSubmittedSuccessfully => 'تم تقديم التسوية بنجاح';
 
   @override
-  String get adjustmentApprovedSuccessfully => 'تم اعتماد التسوية بنجاح';
+  String get adjustmentApprovedSuccessfully => 'تمت الموافقة على التسوية بنجاح';
 
   @override
   String get editAdjustmentNotImplemented =>
@@ -2204,4 +2204,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get lowStockReportDesc => 'الأصناف التي انخفضت عن حد إعادة الطلب';
+
+  @override
+  String get amount => 'المبلغ';
+
+  @override
+  String get pending => 'قيد الانتظار';
+
+  @override
+  String get create => 'إنشاء';
+
+  @override
+  String get addAdjustment => 'إضافة تسوية';
 }

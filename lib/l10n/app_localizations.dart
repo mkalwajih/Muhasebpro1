@@ -2009,7 +2009,7 @@ abstract class AppLocalizations {
   /// No description provided for @accessDenied.
   ///
   /// In en, this message translates to:
-  /// **'Access denied. You don\'t have permission to view this page.'**
+  /// **'Access Denied'**
   String get accessDenied;
 
   /// No description provided for @searchAccounts.
@@ -4375,6 +4375,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Items below reorder level'**
   String get lowStockReportDesc;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @pending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get pending;
+
+  /// No description provided for @create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// No description provided for @addAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Adjustment'**
+  String get addAdjustment;
 }
 
 class _AppLocalizationsDelegate

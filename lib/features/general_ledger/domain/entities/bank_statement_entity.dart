@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 
 class BankStatementEntity extends Equatable {
@@ -8,25 +7,37 @@ class BankStatementEntity extends Equatable {
   final DateTime statementDate;
   final double openingBalance;
   final double closingBalance;
+  final double totalDebits;
+  final double totalCredits;
+  final DateTime statementPeriodFrom;
+  final DateTime statementPeriodTo;
+  final String bankReference;
+  bool isReconciled;
   final List<BankTransactionEntity> transactions;
   final String status;
-  final String? reconciledBy;
-  final DateTime? reconciliationDate;
+  String? reconciledBy;
+  DateTime? reconciledDate;
   final String createdBy;
   final DateTime createdAt;
-  final DateTime updatedAt;
+  DateTime updatedAt;
 
-  const BankStatementEntity({
+  BankStatementEntity({
     required this.statementId,
     required this.branchId,
     required this.accountId,
     required this.statementDate,
     required this.openingBalance,
     required this.closingBalance,
+    required this.totalDebits,
+    required this.totalCredits,
+    required this.statementPeriodFrom,
+    required this.statementPeriodTo,
+    required this.bankReference,
+    required this.isReconciled,
     required this.transactions,
     required this.status,
     this.reconciledBy,
-    this.reconciliationDate,
+    this.reconciledDate,
     required this.createdBy,
     required this.createdAt,
     required this.updatedAt,
@@ -40,10 +51,16 @@ class BankStatementEntity extends Equatable {
         statementDate,
         openingBalance,
         closingBalance,
+        totalDebits,
+        totalCredits,
+        statementPeriodFrom,
+        statementPeriodTo,
+        bankReference,
+        isReconciled,
         transactions,
         status,
         reconciledBy,
-        reconciliationDate,
+        reconciledDate,
         createdBy,
         createdAt,
         updatedAt,
@@ -55,10 +72,13 @@ class BankTransactionEntity extends Equatable {
   final String statementId;
   final DateTime transactionDate;
   final String description;
-  final double amount;
-  final BankTransactionType type;
+  final double debitAmount;
+  final double creditAmount;
+  final double balance;
+  final BankTransactionType transactionType;
   final String referenceNumber;
-  final bool isReconciled;
+  final bool isMatched;
+  final String? matchedVoucherId;
   final DateTime createdAt;
   final DateTime updatedAt;
 
@@ -67,10 +87,13 @@ class BankTransactionEntity extends Equatable {
     required this.statementId,
     required this.transactionDate,
     required this.description,
-    required this.amount,
-    required this.type,
+    required this.debitAmount,
+    required this.creditAmount,
+    required this.balance,
+    required this.transactionType,
     required this.referenceNumber,
-    required this.isReconciled,
+    required this.isMatched,
+    this.matchedVoucherId,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -81,10 +104,13 @@ class BankTransactionEntity extends Equatable {
         statementId,
         transactionDate,
         description,
-        amount,
-        type,
+        debitAmount,
+        creditAmount,
+        balance,
+        transactionType,
         referenceNumber,
-        isReconciled,
+        isMatched,
+        matchedVoucherId,
         createdAt,
         updatedAt,
       ];

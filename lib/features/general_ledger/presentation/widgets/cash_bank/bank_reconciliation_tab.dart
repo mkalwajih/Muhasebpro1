@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../domain/entities/bank_reconciliation_entity.dart';
+import '../../../domain/entities/bank_reconciliation_entity.dart';
 
 class BankReconciliationTab extends ConsumerStatefulWidget {
   const BankReconciliationTab({
@@ -301,12 +301,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                             l10n.addAdjustment,dBankBalance,
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
+                             Text(l10n.addAdjustment),
+                Text(
                 currencyFormat.format(adjustedBankBalance),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,

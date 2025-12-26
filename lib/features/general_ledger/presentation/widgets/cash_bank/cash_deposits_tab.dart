@@ -88,7 +88,6 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
 
     final filteredDeposits = _getFilteredDeposits();
 
@@ -355,7 +354,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     
     switch (status) {
       case DepositStatus.draft:
-        backgroundColor = theme.colorScheme.surfaceVariant;
+        backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
         statusText = l10n.draft;
         break;

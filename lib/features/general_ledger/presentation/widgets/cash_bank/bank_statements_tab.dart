@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../../l10n/app_localizations.dart';
 import '../../domain/entities/bank_statement_entity.dart';
+import '../../../../../l10n/app_localizations.dart';
 
 class BankStatementsTab extends ConsumerStatefulWidget {
   const BankStatementsTab({

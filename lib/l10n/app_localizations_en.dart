@@ -1003,8 +1003,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noAccountSelected => 'No account selected';
 
   @override
-  String get accessDenied =>
-      'Access denied. You don\'t have permission to view this page.';
+  String get accessDenied => 'Access Denied';
 
   @override
   String get searchAccounts => 'Search accounts...';
@@ -2233,4 +2232,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lowStockReportDesc => 'Items below reorder level';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get pending => 'Pending';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get addAdjustment => 'Add Adjustment';
 }

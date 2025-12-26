@@ -38,8 +38,8 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: CustomErrorWidget(
+          error: l10n.accessDenied,
         ),
       );
     }
@@ -82,11 +82,11 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher),
+              onSaved: (voucher) => _onVoucherSaved(voucher as ReceiptVoucherEntity),
               onCancelled: () => _switchToListMode(),
             )
           : ReceiptVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher),
+              onVoucherSelected: (voucher) => _editVoucher(voucher as ReceiptVoucherEntity),
               canEdit: canEdit,
               canPost: canPost,
             ),

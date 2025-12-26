@@ -38,8 +38,8 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: ErrorWidget(
-          l10n.accessDenied,
+        body: CustomErrorWidget(
+          error: l10n.accessDenied,
         ),
       );
     }
@@ -82,11 +82,11 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher),
+              onSaved: (voucher) => _onVoucherSaved(voucher as PaymentVoucherEntity),
               onCancelled: () => _switchToListMode(),
             )
           : PaymentVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher),
+              onVoucherSelected: (voucher) => _editVoucher(voucher as PaymentVoucherEntity),
               canEdit: canEdit,
               canPost: canPost,
             ),
