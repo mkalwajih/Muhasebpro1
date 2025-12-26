@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../../../l10n/app_localizations.dart';
-import '../../../domain/entities/item_entity.dart';
-import '../../providers/item_management_providers.dart';
-import '../../providers/inventory_setup_providers.dart';
+import '../../domain/entities/item_entity.dart';
+import '../providers/item_management_providers.dart';
+import '../providers/inventory_setup_providers.dart';
 
 class OpeningStockScreen extends ConsumerStatefulWidget {
   const OpeningStockScreen({super.key});

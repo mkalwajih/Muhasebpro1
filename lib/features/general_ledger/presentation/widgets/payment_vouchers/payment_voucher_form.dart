@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../shared/presentation/widgets/custom_text_field.dart';
-// Corrected Import Path
+import '../../../../../shared/presentation/widgets/custom_text_field.dart';
 import '../../../domain/entities/payment_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart';
 
@@ -98,7 +97,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                    color: theme.colorScheme.outline.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -239,7 +238,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                               child: Text(l10n.check),
                             ),
                             DropdownMenuItem(
-                              value: PaymentMethod.transfer, // Fixed enum name from bankTransfer to transfer
+                              value: PaymentMethod.transfer, // Fixed enum
                               child: Text(l10n.bankTransfer),
                             ),
                           ],
@@ -399,7 +398,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withOpacity(0.2),
           ),
         ),
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-// Corrected Import Path (3 levels up)
 import '../../../domain/entities/bank_statement_entity.dart';
 import '../../../../../l10n/app_localizations.dart';
 
@@ -33,6 +32,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     _statements.addAll([
       BankStatementEntity(
         statementId: 'STMT001',
+        branchId: 'BR001', // Fixed: Added missing required argument
         accountId: 'ACC001',
         statementDate: DateTime.now().subtract(const Duration(days: 5)),
         openingBalance: 20000.0,
@@ -84,6 +84,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
       ),
       BankStatementEntity(
         statementId: 'STMT002',
+        branchId: 'BR001', // Fixed: Added missing required argument
         accountId: 'ACC001',
         statementDate: DateTime.now(),
         openingBalance: 25000.0,
@@ -301,7 +302,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                    color: theme.colorScheme.surfaceVariant.withOpacity(0.3), // Fixed deprecated
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(
@@ -322,7 +323,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalDebits),
+                          Text(l10n.totalDebit), // Fixed: totalDebits -> totalDebit
                           Text(
                             currencyFormat.format(statement.totalDebits),
                             style: TextStyle(
@@ -336,7 +337,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalCredits),
+                          Text(l10n.totalCredit), // Fixed: totalCredits -> totalCredit
                           Text(
                             currencyFormat.format(statement.totalCredits),
                             style: TextStyle(

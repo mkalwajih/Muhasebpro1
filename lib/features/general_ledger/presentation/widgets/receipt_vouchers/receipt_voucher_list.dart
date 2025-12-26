@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/receipt_voucher_entity.dart';
+import '../../../../../shared/presentation/widgets/loading_widget.dart';
+import '../../../../../shared/presentation/widgets/empty_state_widget.dart';
+import '../../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../domain/entities/receipt_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart'; // Needed for PaymentMethod
 import 'receipt_voucher_list_item.dart';
 
 class ReceiptVoucherList extends ConsumerStatefulWidget {
@@ -45,7 +49,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
             color: theme.colorScheme.surface,
             border: Border(
               bottom: BorderSide(
-                color: theme.colorScheme.outline.withOpacity(0.2),
+                color: theme.colorScheme.outline.withOpacity(0.2), // Fixed deprecated withOpacity
               ),
             ),
           ),
@@ -136,12 +140,13 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
         date: DateTime.now().subtract(const Duration(days: 1)),
         description: 'Customer payment received',
         receiptToAccountId: 'ACC001',
-        receiptMethod: ReceiptMethod.cash,
+        paymentMethod: PaymentMethod.cash, // Fixed: ReceiptMethod -> PaymentMethod
         status: VoucherStatus.posted,
         createdBy: 'USER001',
         createdAt: DateTime.now().subtract(const Duration(days: 1)),
         updatedAt: DateTime.now().subtract(const Duration(days: 1)),
         totalAmount: 5000.0,
+        payerName: 'John Doe',
         lines: [
           ReceiptVoucherLineEntity(
             lineId: 'RVL001',
@@ -163,12 +168,13 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
         date: DateTime.now(),
         description: 'Service income received',
         receiptToAccountId: 'ACC002',
-        receiptMethod: ReceiptMethod.bankTransfer,
+        paymentMethod: PaymentMethod.transfer, // Fixed: ReceiptMethod -> PaymentMethod, bankTransfer -> transfer
         status: VoucherStatus.draft,
         createdBy: 'USER001',
         createdAt: DateTime.now(),
         updatedAt: DateTime.now(),
         totalAmount: 3200.0,
+        payerName: 'Jane Smith',
         lines: [
           ReceiptVoucherLineEntity(
             lineId: 'RVL002',

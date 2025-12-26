@@ -93,7 +93,7 @@ class PaymentVoucherListItem extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '${l10n.payee}: ${voucher.payeeName}',
+                      '${l10n.beneficiary}: ${voucher.payeeName}', // Fixed: Changed payee to beneficiary
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -211,7 +211,7 @@ class PaymentVoucherListItem extends StatelessWidget {
         icon = Icons.credit_card;
         text = l10n.check;
         break;
-      case PaymentMethod.transfer: // Fixed enum
+      case PaymentMethod.transfer:
         icon = Icons.transfer_within_a_station;
         text = l10n.bankTransfer;
         break;

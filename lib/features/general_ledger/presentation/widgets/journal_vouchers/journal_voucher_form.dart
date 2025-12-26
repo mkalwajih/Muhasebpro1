@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../shared/presentation/widgets/custom_text_field.dart';
-// Corrected Import Path
+import '../../../../../shared/presentation/widgets/custom_text_field.dart';
 import '../../../domain/entities/journal_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart';
 
@@ -90,7 +89,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                    color: theme.colorScheme.outline.withOpacity(0.2),
                   ),
                 ),
               ),
@@ -100,7 +99,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedDocType, // value can be used if controlled by state
+                          value: _selectedDocType,
                           decoration: InputDecoration(
                             labelText: l10n.documentType,
                             border: const OutlineInputBorder(),
@@ -347,7 +346,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withOpacity(0.2),
           ),
         ),
       ),
@@ -457,7 +456,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                   voucherId: widget.voucher?.voucherId ?? 'NEW',
                   lineNumber: _lines.length + 1,
                   accountId: '1001',
-                  amount: 1000.0,
                   debit: 1000.0,
                   credit: 0.0,
                   createdAt: DateTime.now(),

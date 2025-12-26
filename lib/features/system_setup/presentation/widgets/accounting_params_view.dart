@@ -23,12 +23,12 @@ class AccountingParamsView extends StatelessWidget {
       children: [
         // Account Number Type Radio Buttons
         Text(l10n.accountNumberType, style: theme.textTheme.titleSmall),
-        // TODO: Fix this with a non-deprecated widget
+        // TODO: Fix this with a non-deprecated widget or proper logic
         // Column(
         //   children: AccountNumberTypeOption.values.map((option) {
         //     return RadioListTile<AccountNumberTypeOption>(
         //       title: Text(option.name),
-        //       initialValue: option,
+        //       value: option,
         //       groupValue: params.accountNumberType,
         //       onChanged: (value) {
         //         if (value != null) {
@@ -70,7 +70,7 @@ class AccountingParamsView extends StatelessWidget {
 
         // Cost Center Policy
         DropdownButtonFormField<PolicyOption>(
-          value: params.costCenterPolicy,
+          initialValue: params.costCenterPolicy, // Fixed: value -> initialValue
           decoration: InputDecoration(
             labelText: l10n.costCenterPolicy,
             border: const OutlineInputBorder(),
@@ -91,7 +91,7 @@ class AccountingParamsView extends StatelessWidget {
 
         // Project Policy
         DropdownButtonFormField<PolicyOption>(
-          value: params.projectPolicy,
+          initialValue: params.projectPolicy, // Fixed: value -> initialValue
           decoration: InputDecoration(
             labelText: l10n.projectPolicy,
             border: const OutlineInputBorder(),

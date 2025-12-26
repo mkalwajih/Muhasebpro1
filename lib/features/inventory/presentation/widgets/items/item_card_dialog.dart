@@ -212,7 +212,7 @@ class _ItemCardDialogState extends ConsumerState<ItemCardDialog>
             items: ItemType.values.map((type) {
               return DropdownMenuItem(
                 value: type,
-                child: Text(type.value),
+                child: Text(type.name),
               );
             }).toList(),
             onChanged: (value) {

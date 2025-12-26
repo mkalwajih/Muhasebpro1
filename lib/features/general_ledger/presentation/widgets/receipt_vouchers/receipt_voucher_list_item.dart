@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/receipt_voucher_entity.dart';
+import '../../../domain/entities/receipt_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart'; // Required for PaymentMethod
 
 class ReceiptVoucherListItem extends StatelessWidget {
   const ReceiptVoucherListItem({
@@ -78,13 +79,13 @@ class ReceiptVoucherListItem extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   Icon(
-                    _getReceiptMethodIcon(voucher.receiptMethod),
+                    _getPaymentMethodIcon(voucher.paymentMethod), // Fixed: _getReceiptMethodIcon -> _getPaymentMethodIcon
                     size: 16,
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    _getReceiptMethodText(context, voucher.receiptMethod),
+                    _getPaymentMethodText(context, voucher.paymentMethod), // Fixed: _getReceiptMethodText -> _getPaymentMethodText
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
@@ -208,7 +209,7 @@ class ReceiptVoucherListItem extends StatelessWidget {
     
     switch (voucher.status) {
       case VoucherStatus.draft:
-        backgroundColor = theme.colorScheme.surfaceVariant;
+        backgroundColor = theme.colorScheme.surfaceContainerHighest; // Fixed deprecated surfaceVariant
         foregroundColor = theme.colorScheme.onSurfaceVariant;
         statusText = l10n.draft;
         break;
@@ -237,34 +238,26 @@ class ReceiptVoucherListItem extends StatelessWidget {
     );
   }
 
-  IconData _getReceiptMethodIcon(ReceiptMethod method) {
+  IconData _getPaymentMethodIcon(PaymentMethod method) { // Fixed: _getReceiptMethodIcon
     switch (method) {
-      case ReceiptMethod.cash:
+      case PaymentMethod.cash:
         return Icons.money;
-      case ReceiptMethod.check:
+      case PaymentMethod.check:
         return Icons.receipt;
-      case ReceiptMethod.bankTransfer:
+      case PaymentMethod.transfer:
         return Icons.account_balance;
-      case ReceiptMethod.creditCard:
-        return Icons.credit_card;
-      case ReceiptMethod.other:
-        return Icons.payment;
     }
   }
 
-  String _getReceiptMethodText(BuildContext context, ReceiptMethod method) {
+  String _getPaymentMethodText(BuildContext context, PaymentMethod method) { // Fixed: _getReceiptMethodText
     final l10n = AppLocalizations.of(context)!;
     switch (method) {
-      case ReceiptMethod.cash:
+      case PaymentMethod.cash:
         return l10n.cash;
-      case ReceiptMethod.check:
+      case PaymentMethod.check:
         return l10n.check;
-      case ReceiptMethod.bankTransfer:
+      case PaymentMethod.transfer:
         return l10n.bankTransfer;
-      case ReceiptMethod.creditCard:
-        return l10n.creditCard;
-      case ReceiptMethod.other:
-        return l10n.other;
     }
   }
 }

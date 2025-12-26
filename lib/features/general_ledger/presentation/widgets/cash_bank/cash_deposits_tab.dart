@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-// Corrected Import Path
 import '../../../domain/entities/cash_deposit_entity.dart';
 
 class CashDepositsTab extends ConsumerStatefulWidget {
@@ -47,14 +46,13 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
         depositSlipNumber: 'DS-001',
         bankConfirmationNumber: null,
       ),
-      // ... (other sample data remains the same)
     ]);
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context); // Fixed: Added theme definition
+    // final theme = Theme.of(context); // Unused
 
     final filteredDeposits = _getFilteredDeposits();
 
@@ -117,16 +115,150 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     );
   }
 
-  // ... (rest of methods like _buildEmptyState, _buildDepositCard remain largely same, just fix any deprecated withOpacity if found)
-  
-  // Example fix for _buildStatusChip to resolve errors
+  Widget _buildEmptyState() {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.savings,
+            size: 64,
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.noDepositsFound,
+            style: theme.textTheme.titleMedium,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.createFirstDeposit,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDepositCard(CashDepositEntity deposit) {
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final dateFormat = DateFormat('dd/MM/yyyy');
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    deposit.referenceNumber,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                _buildStatusChip(deposit.status),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              deposit.description,
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildDetailItem(
+                    l10n.amount,
+                    currencyFormat.format(deposit.amount),
+                    theme.colorScheme.primary,
+                  ),
+                ),
+                Expanded(
+                  child: _buildDetailItem(
+                    l10n.date,
+                    dateFormat.format(deposit.depositDate),
+                    null,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: _buildDetailItem(
+                    l10n.fromAccount,
+                    deposit.fromAccountId,
+                    null,
+                  ),
+                ),
+                Expanded(
+                  child: _buildDetailItem(
+                    l10n.toAccount,
+                    deposit.toAccountId,
+                    null,
+                  ),
+                ),
+              ],
+            ),
+            if (widget.canManage) ...[
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (deposit.status == DepositStatus.draft)
+                    TextButton.icon(
+                      onPressed: () => _submitDeposit(deposit),
+                      icon: const Icon(Icons.send, size: 16),
+                      label: Text(l10n.submit),
+                    ),
+                  if (deposit.status == DepositStatus.pending)
+                    TextButton.icon(
+                      onPressed: () => _confirmDeposit(deposit),
+                      icon: const Icon(Icons.check_circle, size: 16),
+                      label: Text(l10n.confirm),
+                      style: TextButton.styleFrom(
+                        foregroundColor: theme.colorScheme.primary,
+                      ),
+                    ),
+                  if (deposit.status == DepositStatus.draft)
+                    TextButton.icon(
+                      onPressed: () => _deleteDeposit(deposit),
+                      icon: const Icon(Icons.delete, size: 16),
+                      label: Text(l10n.delete),
+                      style: TextButton.styleFrom(
+                        foregroundColor: theme.colorScheme.error,
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildStatusChip(DepositStatus status) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     
     Color backgroundColor;
     Color foregroundColor;
-    String statusText; // Fixed: Assigned before usage
+    String statusText;
     
     switch (status) {
       case DepositStatus.draft:
@@ -164,7 +296,30 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     );
   }
 
-  // ... (Implement _getFilteredDeposits, _createNewDeposit, etc. exactly as before)
+  Widget _buildDetailItem(String label, String value, Color? valueColor) {
+     final theme = Theme.of(context);
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+        ),
+        const SizedBox(height: 2),
+        Text(
+          value,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: valueColor,
+            fontWeight: valueColor != null ? FontWeight.bold : null,
+          ),
+        ),
+      ],
+    );
+  }
+
   List<CashDepositEntity> _getFilteredDeposits() {
     if (_selectedStatus == 'All') {
       return _deposits;
@@ -189,33 +344,53 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     return _deposits.where((deposit) => deposit.status == filterStatus).toList();
   }
   
-  void _createNewDeposit() { /* implementation ... */ }
-  void _submitDeposit(CashDepositEntity deposit) { /* implementation ... */ }
-  void _confirmDeposit(CashDepositEntity deposit) { /* implementation ... */ }
-  void _editDeposit(CashDepositEntity deposit) { /* implementation ... */ }
-  void _deleteDeposit(CashDepositEntity deposit) { /* implementation ... */ }
+  void _createNewDeposit() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.newDeposit),
+        content: const Text('Deposit form will be implemented here'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(AppLocalizations.of(context)!.cancel),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              // Add new deposit logic
+            },
+            child: Text(AppLocalizations.of(context)!.create),
+          ),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildDetailItem(String label, String value, Color? valueColor) {
-     final theme = Theme.of(context);
-    
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          value,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: valueColor,
-            fontWeight: valueColor != null ? FontWeight.bold : null,
-          ),
-        ),
-      ],
+  void _submitDeposit(CashDepositEntity deposit) {
+    setState(() {
+      final index = _deposits.indexOf(deposit);
+      if (index != -1) {
+        // Logic to update status
+      }
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.depositSubmittedSuccessfully)),
+    );
+  }
+
+  void _confirmDeposit(CashDepositEntity deposit) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.depositConfirmedSuccessfully)),
+    );
+  }
+
+  void _deleteDeposit(CashDepositEntity deposit) {
+    setState(() {
+      _deposits.remove(deposit);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(AppLocalizations.of(context)!.depositDeletedSuccessfully)),
     );
   }
 }

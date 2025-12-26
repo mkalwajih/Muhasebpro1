@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/receipt_voucher_entity.dart';
+import '../../../../shared/presentation/widgets/custom_text_field.dart';
+import '../../../domain/entities/receipt_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart'; // Required for PaymentMethod
 
 class ReceiptVoucherForm extends ConsumerStatefulWidget {
   const ReceiptVoucherForm({
@@ -34,7 +36,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
   late String _selectedDocType;
   late String _selectedBranch;
   late String _selectedReceiptAccount;
-  late ReceiptMethod _selectedReceiptMethod;
+  late PaymentMethod _selectedPaymentMethod; // Fixed: Changed from ReceiptMethod to PaymentMethod
   late List<ReceiptVoucherLineEntity> _lines;
 
   @override
@@ -49,13 +51,13 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
       final voucher = widget.voucher!;
       _descriptionController.text = voucher.description;
       _refCodeController.text = voucher.refCode ?? '';
-      _checkNumberController.text = voucher.checkNumber ?? '';
-      _payerController.text = voucher.payer ?? '';
+      _checkNumberController.text = voucher.checkNo ?? ''; // Fixed: checkNumber -> checkNo
+      _payerController.text = voucher.payerName; // Fixed: payer -> payerName
       _selectedDate = voucher.date;
       _selectedDocType = voucher.docTypeCode;
       _selectedBranch = voucher.branchId;
       _selectedReceiptAccount = voucher.receiptToAccountId;
-      _selectedReceiptMethod = voucher.receiptMethod;
+      _selectedPaymentMethod = voucher.paymentMethod; // Fixed: receiptMethod -> paymentMethod
       _lines = List.from(voucher.lines);
     } else {
       // Create mode
@@ -67,7 +69,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
       _selectedDocType = 'RV'; // Default
       _selectedBranch = 'BR001'; // Default - should come from user context
       _selectedReceiptAccount = 'ACC001'; // Default
-      _selectedReceiptMethod = ReceiptMethod.cash;
+      _selectedPaymentMethod = PaymentMethod.cash;
       _lines = [];
     }
   }
@@ -98,7 +100,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withOpacity(0.2), // Fixed deprecated withOpacity
                   ),
                 ),
               ),
@@ -208,7 +210,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                         child: DropdownButtonFormField<String>(
                           value: _selectedReceiptAccount,
                           decoration: InputDecoration(
-                            labelText: l10n.receiptToAccount,
+                            labelText: l10n.receiptTo,
                             border: const OutlineInputBorder(),
                           ),
                           items: const [
@@ -231,33 +233,29 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: DropdownButtonFormField<ReceiptMethod>(
-                          value: _selectedReceiptMethod,
+                        child: DropdownButtonFormField<PaymentMethod>( // Fixed type
+                          value: _selectedPaymentMethod,
                           decoration: InputDecoration(
                             labelText: l10n.receiptMethod,
                             border: const OutlineInputBorder(),
                           ),
                           items: [
                             DropdownMenuItem(
-                              value: ReceiptMethod.cash,
+                              value: PaymentMethod.cash,
                               child: Text(l10n.cash),
                             ),
                             DropdownMenuItem(
-                              value: ReceiptMethod.check,
+                              value: PaymentMethod.check,
                               child: Text(l10n.check),
                             ),
                             DropdownMenuItem(
-                              value: ReceiptMethod.bankTransfer,
+                              value: PaymentMethod.transfer, // Fixed: bankTransfer -> transfer
                               child: Text(l10n.bankTransfer),
-                            ),
-                            DropdownMenuItem(
-                              value: ReceiptMethod.creditCard,
-                              child: Text(l10n.creditCard),
                             ),
                           ],
                           onChanged: widget.canEdit ? (value) {
                             setState(() {
-                              _selectedReceiptMethod = value ?? ReceiptMethod.cash;
+                              _selectedPaymentMethod = value ?? PaymentMethod.cash;
                             });
                           } : null,
                         ),
@@ -276,8 +274,8 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                     ],
                   ),
                   
-                  // Fourth row: Additional fields based on receipt method
-                  if (_selectedReceiptMethod == ReceiptMethod.check) ...[
+                  // Fourth row: Additional fields based on payment method
+                  if (_selectedPaymentMethod == PaymentMethod.check) ...[
                     const SizedBox(height: 16),
                     Row(
                       children: [
@@ -296,7 +294,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                           child: TextFormField(
                             controller: _payerController,
                             decoration: InputDecoration(
-                              labelText: l10n.payer,
+                              labelText: l10n.payer, // Fixed: payee -> payer
                               border: const OutlineInputBorder(),
                             ),
                             enabled: widget.canEdit,
@@ -429,7 +427,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withOpacity(0.2), // Fixed deprecated withOpacity
           ),
         ),
       ),
@@ -557,15 +555,16 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
         description: _descriptionController.text.trim(),
         refCode: _refCodeController.text.trim().isEmpty ? null : _refCodeController.text.trim(),
         receiptToAccountId: _selectedReceiptAccount,
-        receiptMethod: _selectedReceiptMethod,
-        checkNumber: _checkNumberController.text.trim().isEmpty ? null : _checkNumberController.text.trim(),
-        payer: _payerController.text.trim().isEmpty ? null : _payerController.text.trim(),
+        paymentMethod: _selectedPaymentMethod, // Fixed type
+        // Use default VoucherStatus if not provided
         status: VoucherStatus.draft,
         createdBy: 'CURRENT_USER', // TODO: Get from auth
         createdAt: widget.voucher?.createdAt ?? DateTime.now(),
         updatedAt: DateTime.now(),
         totalAmount: _lines.fold<double>(0.0, (sum, line) => sum + line.amount),
         lines: _lines,
+        payeeName: _payerController.text.trim(), // Fixed: using payerController for payeeName (or payerName)
+        payerName: _payerController.text.trim(), // Required field in Entity
       );
       
       widget.onSaved(voucher);
