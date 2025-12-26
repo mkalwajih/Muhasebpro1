@@ -1127,7 +1127,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pleaseSelectBranch => 'Please select a branch';
 
   @override
-  String get pleaseEnterDescription => 'Please enter description';
+  String get pleaseEnterDescription => 'Please enter a description';
 
   @override
   String get journalEntries => 'Journal Entries';
@@ -1680,47 +1680,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approved => 'Approved';
 
   @override
-  String get reject => 'Reject';
-
-  @override
-  String get pleaseEnterAmount => 'Please enter amount';
-
-  @override
-  String get pleaseEnterValidAmount => 'Please enter valid amount';
-
-  @override
-  String get requestCreatedSuccessfully => 'Request created successfully';
-
-  @override
-  String get requestUpdatedSuccessfully => 'Request updated successfully';
-
-  @override
-  String get requestApprovedSuccessfully => 'Request approved successfully';
-
-  @override
-  String get requestRejectedSuccessfully => 'Request rejected successfully';
-
-  @override
-  String get failedToLoadRequests => 'Failed to load requests';
-
-  @override
-  String get failedToLoadPendingApprovals => 'Failed to load pending approvals';
-
-  @override
-  String get noRequestsFound => 'No requests found';
-
-  @override
-  String get youHaveNotCreatedAnyRequests =>
-      'You have not created any requests yet';
-
-  @override
-  String get noTransactionRequestsFound => 'No transaction requests found';
-
-  @override
-  String get noPendingApprovals => 'No pending approvals';
-
-  @override
-  String get allRequestsHaveBeenProcessed => 'All requests have been processed';
+  String get cancelledStatus => 'Cancelled';
 
   @override
   String get rejectRequest => 'Reject Request';
@@ -2106,9 +2066,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addOpeningStock => 'Add Opening Stock';
 
   @override
-  String get item => 'Item';
-
-  @override
   String get warehouse => 'Warehouse';
 
   @override
@@ -2244,4 +2201,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addAdjustment => 'Add Adjustment';
+
+  @override
+  String get journalVoucher => 'Journal Voucher';
+
+  @override
+  String get paymentVoucher => 'Payment Voucher';
+
+  @override
+  String get receiptVoucher => 'Receipt Voucher';
+
+  @override
+  String get details => 'Details';
+
+  @override
+  String get update => 'Update';
 }

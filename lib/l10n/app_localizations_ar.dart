@@ -567,7 +567,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get roleNameAr => 'اسم الدور (عربي)';
 
   @override
-  String get description => 'الوصف';
+  String get description => 'البيان';
 
   @override
   String get backupFrequency => 'تكرار النسخ الاحتياطي';
@@ -985,13 +985,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchDescriptionCoding => 'البحث في ترميز البيانات...';
 
   @override
-  String get selectAccount => 'اختر الحساب';
+  String get selectAccount => 'اختر حساب';
 
   @override
   String get noAccountSelected => 'لم يتم اختيار حساب';
 
   @override
-  String get accessDenied => 'تم رفض الوصول';
+  String get accessDenied => 'تم رفض الوصول. ليس لديك صلاحية لعرض هذه الصفحة.';
 
   @override
   String get searchAccounts => 'البحث في الحسابات...';
@@ -1074,7 +1074,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get voucherPostedSuccessfully => 'تم ترحيل القيد بنجاح';
 
   @override
-  String get confirmDelete => 'تأكيد الحذف';
+  String get confirmDelete => 'Confirm Delete';
 
   @override
   String confirmDeleteVoucher(String voucherName) {
@@ -1401,7 +1401,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get adjustmentType => 'نوع التسوية';
 
   @override
-  String get bankCharges => 'عمولات بنكية';
+  String get bankCharges => 'رسوم البنك';
 
   @override
   String get interestEarned => 'فوائد مكتسبة';
@@ -1437,10 +1437,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get rejected => 'مرفوض';
 
   @override
-  String get adjustmentSubmittedSuccessfully => 'تم تقديم التسوية بنجاح';
+  String get adjustmentSubmittedSuccessfully => 'تم إرسال التسوية بنجاح';
 
   @override
-  String get adjustmentApprovedSuccessfully => 'تمت الموافقة على التسوية بنجاح';
+  String get adjustmentApprovedSuccessfully => 'تم اعتماد التسوية بنجاح';
 
   @override
   String get editAdjustmentNotImplemented =>
@@ -1646,7 +1646,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get requestNumber => 'Request Number';
 
   @override
-  String get adjustmentEntry => 'Adjustment Entry';
+  String get adjustmentEntry => 'قيد تسوية';
 
   @override
   String get pendingApproval => 'Pending Approval';
@@ -1655,47 +1655,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get approved => 'Approved';
 
   @override
-  String get reject => 'Reject';
-
-  @override
-  String get pleaseEnterAmount => 'Please enter amount';
-
-  @override
-  String get pleaseEnterValidAmount => 'Please enter valid amount';
-
-  @override
-  String get requestCreatedSuccessfully => 'Request created successfully';
-
-  @override
-  String get requestUpdatedSuccessfully => 'Request updated successfully';
-
-  @override
-  String get requestApprovedSuccessfully => 'Request approved successfully';
-
-  @override
-  String get requestRejectedSuccessfully => 'Request rejected successfully';
-
-  @override
-  String get failedToLoadRequests => 'Failed to load requests';
-
-  @override
-  String get failedToLoadPendingApprovals => 'Failed to load pending approvals';
-
-  @override
-  String get noRequestsFound => 'No requests found';
-
-  @override
-  String get youHaveNotCreatedAnyRequests =>
-      'You have not created any requests yet';
-
-  @override
-  String get noTransactionRequestsFound => 'No transaction requests found';
-
-  @override
-  String get noPendingApprovals => 'No pending approvals';
-
-  @override
-  String get allRequestsHaveBeenProcessed => 'All requests have been processed';
+  String get cancelledStatus => 'Cancelled';
 
   @override
   String get rejectRequest => 'Reject Request';
@@ -2081,9 +2041,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addOpeningStock => 'إضافة رصيد افتتاحي';
 
   @override
-  String get item => 'الصنف';
-
-  @override
   String get warehouse => 'المستودع';
 
   @override
@@ -2216,4 +2173,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addAdjustment => 'إضافة تسوية';
+
+  @override
+  String get journalVoucher => 'قيد يومية';
+
+  @override
+  String get paymentVoucher => 'سند صرف';
+
+  @override
+  String get receiptVoucher => 'سند قبض';
+
+  @override
+  String get details => 'التفاصيل';
+
+  @override
+  String get update => 'تحديث';
 }

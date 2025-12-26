@@ -2249,7 +2249,7 @@ abstract class AppLocalizations {
   /// No description provided for @pleaseEnterDescription.
   ///
   /// In en, this message translates to:
-  /// **'Please enter description'**
+  /// **'Please enter a description'**
   String get pleaseEnterDescription;
 
   /// No description provided for @journalEntries.
@@ -3302,89 +3302,11 @@ abstract class AppLocalizations {
   /// **'Approved'**
   String get approved;
 
-  /// No description provided for @reject.
+  /// No description provided for @cancelledStatus.
   ///
   /// In en, this message translates to:
-  /// **'Reject'**
-  String get reject;
-
-  /// No description provided for @pleaseEnterAmount.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter amount'**
-  String get pleaseEnterAmount;
-
-  /// No description provided for @pleaseEnterValidAmount.
-  ///
-  /// In en, this message translates to:
-  /// **'Please enter valid amount'**
-  String get pleaseEnterValidAmount;
-
-  /// No description provided for @requestCreatedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Request created successfully'**
-  String get requestCreatedSuccessfully;
-
-  /// No description provided for @requestUpdatedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Request updated successfully'**
-  String get requestUpdatedSuccessfully;
-
-  /// No description provided for @requestApprovedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Request approved successfully'**
-  String get requestApprovedSuccessfully;
-
-  /// No description provided for @requestRejectedSuccessfully.
-  ///
-  /// In en, this message translates to:
-  /// **'Request rejected successfully'**
-  String get requestRejectedSuccessfully;
-
-  /// No description provided for @failedToLoadRequests.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to load requests'**
-  String get failedToLoadRequests;
-
-  /// No description provided for @failedToLoadPendingApprovals.
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to load pending approvals'**
-  String get failedToLoadPendingApprovals;
-
-  /// No description provided for @noRequestsFound.
-  ///
-  /// In en, this message translates to:
-  /// **'No requests found'**
-  String get noRequestsFound;
-
-  /// No description provided for @youHaveNotCreatedAnyRequests.
-  ///
-  /// In en, this message translates to:
-  /// **'You have not created any requests yet'**
-  String get youHaveNotCreatedAnyRequests;
-
-  /// No description provided for @noTransactionRequestsFound.
-  ///
-  /// In en, this message translates to:
-  /// **'No transaction requests found'**
-  String get noTransactionRequestsFound;
-
-  /// No description provided for @noPendingApprovals.
-  ///
-  /// In en, this message translates to:
-  /// **'No pending approvals'**
-  String get noPendingApprovals;
-
-  /// No description provided for @allRequestsHaveBeenProcessed.
-  ///
-  /// In en, this message translates to:
-  /// **'All requests have been processed'**
-  String get allRequestsHaveBeenProcessed;
+  /// **'Cancelled'**
+  String get cancelledStatus;
 
   /// No description provided for @rejectRequest.
   ///
@@ -4130,12 +4052,6 @@ abstract class AppLocalizations {
   /// **'Add Opening Stock'**
   String get addOpeningStock;
 
-  /// No description provided for @item.
-  ///
-  /// In en, this message translates to:
-  /// **'Item'**
-  String get item;
-
   /// No description provided for @warehouse.
   ///
   /// In en, this message translates to:
@@ -4399,6 +4315,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add Adjustment'**
   String get addAdjustment;
+
+  /// No description provided for @journalVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Journal Voucher'**
+  String get journalVoucher;
+
+  /// No description provided for @paymentVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment Voucher'**
+  String get paymentVoucher;
+
+  /// No description provided for @receiptVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt Voucher'**
+  String get receiptVoucher;
+
+  /// No description provided for @details.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get details;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
 }
 
 class _AppLocalizationsDelegate
