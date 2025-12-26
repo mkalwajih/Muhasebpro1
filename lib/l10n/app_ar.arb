@@ -653,4 +653,12 @@
   "adjustmentSubmittedSuccessfully": "تم تقديم التسوية بنجاح",
   "adjustmentApprovedSuccessfully": "تمت الموافقة على التسوية بنجاح",
   "voucherSavedSuccessfully": "تم حفظ السند بنجاح"
+
+
+"journalVoucher": "قيد يومية",
+  "paymentVoucher": "سند صرف",
+  "receiptVoucher": "سند قبض",
+  "adjustmentEntry": "قيد تسوية",
+  "details": "التفاصيل",
+  "update": "تحديث"
 }
