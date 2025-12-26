@@ -59,7 +59,7 @@ class TransactionRequestList extends ConsumerWidget {
       },
       loading: () => const LoadingWidget(),
       error: (error, stack) => CustomErrorWidget(
-        message: l10n.failedToLoadRequests,
+        error: l10n.failedToLoadRequests, // Fixed parameter name from message to error
         onRetry: () => ref.invalidate(transactionRequestsProvider),
       ),
     );

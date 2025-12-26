@@ -82,7 +82,7 @@ class PendingApprovalsTab extends ConsumerWidget {
       },
       loading: () => const LoadingWidget(),
       error: (error, stack) => CustomErrorWidget(
-        message: l10n.failedToLoadPendingApprovals,
+        error: l10n.failedToLoadPendingApprovals, // Fixed parameter name from message to error
         onRetry: () => ref.invalidate(pendingApprovalsProvider),
       ),
     );

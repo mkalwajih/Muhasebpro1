@@ -458,6 +458,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                   accountId: '1001',
                   debit: 1000.0,
                   credit: 0.0,
+                  amount: 1000.0, // Fixed: Added required amount argument
                   createdAt: DateTime.now(),
                   updatedAt: DateTime.now(),
                 ));

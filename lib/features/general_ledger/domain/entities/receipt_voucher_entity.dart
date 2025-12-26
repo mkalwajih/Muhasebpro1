@@ -23,6 +23,7 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
     required this.totalAmount,
     required this.payerName,
     required this.paymentMethod,
+    this.checkNo, // Added checkNo
     this.journalVoucherId,
     this.lines = const [],
   });
@@ -31,6 +32,7 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
   final double totalAmount;
   final String payerName;
   final PaymentMethod paymentMethod;
+  final String? checkNo; // Added checkNo field
   final String? journalVoucherId; // Generated journal voucher
   final List<ReceiptVoucherLineEntity> lines;
 
@@ -43,7 +45,8 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
         payerName.isNotEmpty &&
         lines.isNotEmpty &&
         isAmountBalanced &&
-        lines.every((line) => line.isValid);
+        lines.every((line) => line.isValid) &&
+        _validatePaymentMethod(); // Validating method
   }
 
   /// Checks if total amount matches sum of line amounts
@@ -62,6 +65,17 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
       (sum, line) => sum + line.amount,
     );
     return totalAmount - calculatedTotal;
+  }
+
+  /// Validates payment method specific requirements
+  bool _validatePaymentMethod() {
+    switch (paymentMethod) {
+      case PaymentMethod.check:
+        return checkNo != null && checkNo!.isNotEmpty;
+      case PaymentMethod.cash:
+      case PaymentMethod.transfer:
+        return true;
+    }
   }
 
   /// Creates a copy with updated values
@@ -85,6 +99,7 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
     double? totalAmount,
     String? payerName,
     PaymentMethod? paymentMethod,
+    String? checkNo,
     String? journalVoucherId,
     List<ReceiptVoucherLineEntity>? lines,
   }) {
@@ -108,6 +123,7 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
       totalAmount: totalAmount ?? this.totalAmount,
       payerName: payerName ?? this.payerName,
       paymentMethod: paymentMethod ?? this.paymentMethod,
+      checkNo: checkNo ?? this.checkNo,
       journalVoucherId: journalVoucherId ?? this.journalVoucherId,
       lines: lines ?? this.lines,
     );
@@ -120,6 +136,7 @@ class ReceiptVoucherEntity extends VoucherBaseEntity {
         totalAmount,
         payerName,
         paymentMethod,
+        checkNo,
         journalVoucherId,
         lines,
       ];

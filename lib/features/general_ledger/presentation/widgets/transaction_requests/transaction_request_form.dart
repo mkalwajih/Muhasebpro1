@@ -139,7 +139,7 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
                               width: 20,
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
-                          : Text(widget.request == null ? l10n.create : l10n.update),
+                          : Text(widget.request == null ? l10n.create : l10n.save), // Changed update to save if update is missing, or add update to arb
                     ),
                   ),
                 ],
