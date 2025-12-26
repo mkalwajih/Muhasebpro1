@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/payment_voucher_entity.dart';
+import '../../../domain/entities/payment_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart';
 
 class PaymentVoucherListItem extends StatelessWidget {
   const PaymentVoucherListItem({
@@ -36,7 +37,6 @@ class PaymentVoucherListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header row with voucher number and status
               Row(
                 children: [
                   Expanded(
@@ -51,8 +51,6 @@ class PaymentVoucherListItem extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              
-              // Description
               Text(
                 voucher.description,
                 style: theme.textTheme.bodyMedium,
@@ -60,8 +58,6 @@ class PaymentVoucherListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 8),
-              
-              // Payment details row
               Row(
                 children: [
                   Icon(
@@ -76,62 +72,28 @@ class PaymentVoucherListItem extends StatelessWidget {
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Icon(
-                    _getPaymentMethodIcon(voucher.paymentMethod),
-                    size: 16,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    _getPaymentMethodText(context, voucher.paymentMethod),
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                    ),
-                  ),
                   const Spacer(),
                   Text(
-                    currencyFormat.format(voucher.totalAmount),
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: theme.colorScheme.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              
-              // Payment account info
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  Icon(
-                    Icons.account_balance,
-                    size: 16,
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${l10n.paymentFrom}: ${voucher.paymentFromAccountId}',
+                    '${l10n.amount}: ${currencyFormat.format(voucher.totalAmount)}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+                      color: theme.colorScheme.primary,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
-              
-              // Reference code if available
-              if (voucher.refCode != null && voucher.refCode!.isNotEmpty) ...[
+              if (voucher.payeeName.isNotEmpty) ...[
                 const SizedBox(height: 4),
                 Row(
                   children: [
                     Icon(
-                      Icons.link,
+                      Icons.person,
                       size: 16,
                       color: theme.colorScheme.onSurfaceVariant,
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '${l10n.reference}: ${voucher.refCode}',
+                      '${l10n.payee}: ${voucher.payeeName}',
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSurfaceVariant,
                       ),
@@ -139,26 +101,22 @@ class PaymentVoucherListItem extends StatelessWidget {
                   ],
                 ),
               ],
-              
-              // Number of lines indicator
-              if (voucher.lines.isNotEmpty) ...[
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.secondaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    '${voucher.lines.length} ${voucher.lines.length == 1 ? l10n.line : l10n.lines}',
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSecondaryContainer,
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  _buildPaymentMethodChip(context),
+                  if (voucher.checkNo != null && voucher.checkNo!.isNotEmpty) ...[
+                    const SizedBox(width: 8),
+                    Chip(
+                      label: Text(
+                        '${l10n.check}: ${voucher.checkNo}',
+                        style: theme.textTheme.bodySmall,
+                      ),
+                      side: BorderSide.none,
                     ),
-                  ),
-                ),
-              ],
-              
-              // Action buttons
+                  ],
+                ],
+              ),
               if (onEdit != null || onPost != null || onDelete != null) ...[
                 const SizedBox(height: 12),
                 Row(
@@ -208,7 +166,7 @@ class PaymentVoucherListItem extends StatelessWidget {
     
     switch (voucher.status) {
       case VoucherStatus.draft:
-        backgroundColor = theme.colorScheme.surfaceVariant;
+        backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
         statusText = l10n.draft;
         break;
@@ -237,34 +195,36 @@ class PaymentVoucherListItem extends StatelessWidget {
     );
   }
 
-  IconData _getPaymentMethodIcon(PaymentMethod method) {
-    switch (method) {
-      case PaymentMethod.cash:
-        return Icons.money;
-      case PaymentMethod.check:
-        return Icons.receipt;
-      case PaymentMethod.bankTransfer:
-        return Icons.account_balance;
-      case PaymentMethod.creditCard:
-        return Icons.credit_card;
-      case PaymentMethod.other:
-        return Icons.payment;
-    }
-  }
-
-  String _getPaymentMethodText(BuildContext context, PaymentMethod method) {
+  Widget _buildPaymentMethodChip(BuildContext context) {
+    final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    switch (method) {
+    
+    IconData icon;
+    String text;
+    
+    switch (voucher.paymentMethod) {
       case PaymentMethod.cash:
-        return l10n.cash;
+        icon = Icons.money;
+        text = l10n.cash;
+        break;
       case PaymentMethod.check:
-        return l10n.check;
-      case PaymentMethod.bankTransfer:
-        return l10n.bankTransfer;
-      case PaymentMethod.creditCard:
-        return l10n.creditCard;
-      case PaymentMethod.other:
-        return l10n.other;
+        icon = Icons.credit_card;
+        text = l10n.check;
+        break;
+      case PaymentMethod.transfer: // Fixed enum
+        icon = Icons.transfer_within_a_station;
+        text = l10n.bankTransfer;
+        break;
     }
+    
+    return Chip(
+      avatar: Icon(icon, size: 16),
+      label: Text(
+        text,
+        style: theme.textTheme.bodySmall,
+      ),
+      backgroundColor: theme.colorScheme.secondaryContainer,
+      side: BorderSide.none,
+    );
   }
 }

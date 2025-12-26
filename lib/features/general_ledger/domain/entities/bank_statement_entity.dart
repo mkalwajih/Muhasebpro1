@@ -12,16 +12,16 @@ class BankStatementEntity extends Equatable {
   final DateTime statementPeriodFrom;
   final DateTime statementPeriodTo;
   final String bankReference;
-  bool isReconciled;
+  final bool isReconciled; // Changed to final
   final List<BankTransactionEntity> transactions;
   final String status;
-  String? reconciledBy;
-  DateTime? reconciledDate;
+  final String? reconciledBy; // Changed to final
+  final DateTime? reconciledDate; // Changed to final
   final String createdBy;
   final DateTime createdAt;
-  DateTime updatedAt;
+  final DateTime updatedAt; // Changed to final
 
-  BankStatementEntity({
+  const BankStatementEntity({
     required this.statementId,
     required this.branchId,
     required this.accountId,
@@ -42,6 +42,50 @@ class BankStatementEntity extends Equatable {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  BankStatementEntity copyWith({
+    String? statementId,
+    String? branchId,
+    String? accountId,
+    DateTime? statementDate,
+    double? openingBalance,
+    double? closingBalance,
+    double? totalDebits,
+    double? totalCredits,
+    DateTime? statementPeriodFrom,
+    DateTime? statementPeriodTo,
+    String? bankReference,
+    bool? isReconciled,
+    List<BankTransactionEntity>? transactions,
+    String? status,
+    String? reconciledBy,
+    DateTime? reconciledDate,
+    String? createdBy,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return BankStatementEntity(
+      statementId: statementId ?? this.statementId,
+      branchId: branchId ?? this.branchId,
+      accountId: accountId ?? this.accountId,
+      statementDate: statementDate ?? this.statementDate,
+      openingBalance: openingBalance ?? this.openingBalance,
+      closingBalance: closingBalance ?? this.closingBalance,
+      totalDebits: totalDebits ?? this.totalDebits,
+      totalCredits: totalCredits ?? this.totalCredits,
+      statementPeriodFrom: statementPeriodFrom ?? this.statementPeriodFrom,
+      statementPeriodTo: statementPeriodTo ?? this.statementPeriodTo,
+      bankReference: bankReference ?? this.bankReference,
+      isReconciled: isReconciled ?? this.isReconciled,
+      transactions: transactions ?? this.transactions,
+      status: status ?? this.status,
+      reconciledBy: reconciledBy ?? this.reconciledBy,
+      reconciledDate: reconciledDate ?? this.reconciledDate,
+      createdBy: createdBy ?? this.createdBy,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 
   @override
   List<Object?> get props => [

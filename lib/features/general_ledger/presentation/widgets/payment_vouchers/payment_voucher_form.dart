@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/payment_voucher_entity.dart';
+import '../../../../shared/presentation/widgets/custom_text_field.dart';
+// Corrected Import Path
+import '../../../domain/entities/payment_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart';
 
 class PaymentVoucherForm extends ConsumerStatefulWidget {
   const PaymentVoucherForm({
@@ -45,12 +48,11 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
 
   void _initializeForm() {
     if (widget.voucher != null) {
-      // Edit mode
       final voucher = widget.voucher!;
       _descriptionController.text = voucher.description;
       _refCodeController.text = voucher.refCode ?? '';
-      _checkNumberController.text = voucher.checkNumber ?? '';
-      _beneficiaryController.text = voucher.beneficiary ?? '';
+      _checkNumberController.text = voucher.checkNo ?? '';
+      _beneficiaryController.text = voucher.payeeName;
       _selectedDate = voucher.date;
       _selectedDocType = voucher.docTypeCode;
       _selectedBranch = voucher.branchId;
@@ -58,15 +60,14 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
       _selectedPaymentMethod = voucher.paymentMethod;
       _lines = List.from(voucher.lines);
     } else {
-      // Create mode
       _descriptionController.clear();
       _refCodeController.clear();
       _checkNumberController.clear();
       _beneficiaryController.clear();
       _selectedDate = DateTime.now();
-      _selectedDocType = 'PV'; // Default
-      _selectedBranch = 'BR001'; // Default - should come from user context
-      _selectedPaymentAccount = 'ACC001'; // Default
+      _selectedDocType = 'PV';
+      _selectedBranch = 'BR001';
+      _selectedPaymentAccount = 'ACC001';
       _selectedPaymentMethod = PaymentMethod.cash;
       _lines = [];
     }
@@ -85,27 +86,24 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isEditing = widget.voucher != null;
 
     return Scaffold(
       body: Form(
         key: _formKey,
         child: Column(
           children: [
-            // Header section
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
               ),
               child: Column(
                 children: [
-                  // First row: Document type, Date, Branch
                   Row(
                     children: [
                       Expanded(
@@ -182,14 +180,9 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
-                  // Second row: Description
-                  TextFormField(
+                  CustomTextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(
-                      labelText: l10n.description,
-                      border: const OutlineInputBorder(),
-                    ),
+                    labelText: l10n.description,
                     maxLines: 2,
                     enabled: widget.canEdit,
                     validator: (value) {
@@ -200,8 +193,6 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  
-                  // Third row: Payment details
                   Row(
                     children: [
                       Expanded(
@@ -248,12 +239,8 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                               child: Text(l10n.check),
                             ),
                             DropdownMenuItem(
-                              value: PaymentMethod.bankTransfer,
+                              value: PaymentMethod.transfer, // Fixed enum name from bankTransfer to transfer
                               child: Text(l10n.bankTransfer),
-                            ),
-                            DropdownMenuItem(
-                              value: PaymentMethod.creditCard,
-                              child: Text(l10n.creditCard),
                             ),
                           ],
                           onChanged: widget.canEdit ? (value) {
@@ -265,41 +252,30 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _refCodeController,
-                          decoration: InputDecoration(
-                            labelText: l10n.referenceCode,
-                            border: const OutlineInputBorder(),
-                          ),
+                          labelText: l10n.referenceCode,
                           enabled: widget.canEdit,
                         ),
                       ),
                     ],
                   ),
-                  
-                  // Fourth row: Additional fields based on payment method
                   if (_selectedPaymentMethod == PaymentMethod.check) ...[
                     const SizedBox(height: 16),
                     Row(
                       children: [
                         Expanded(
-                          child: TextFormField(
+                          child: CustomTextField(
                             controller: _checkNumberController,
-                            decoration: InputDecoration(
-                              labelText: l10n.checkNumber,
-                              border: const OutlineInputBorder(),
-                            ),
+                            labelText: l10n.checkNumber,
                             enabled: widget.canEdit,
                           ),
                         ),
                         const SizedBox(width: 16),
                         Expanded(
-                          child: TextFormField(
+                          child: CustomTextField(
                             controller: _beneficiaryController,
-                            decoration: InputDecoration(
-                              labelText: l10n.beneficiary,
-                              border: const OutlineInputBorder(),
-                            ),
+                            labelText: l10n.beneficiary,
                             enabled: widget.canEdit,
                           ),
                         ),
@@ -309,12 +285,9 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                 ],
               ),
             ),
-            
-            // Lines section
             Expanded(
               child: Column(
                 children: [
-                  // Lines header
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -335,13 +308,9 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                       ],
                     ),
                   ),
-                  
-                  // Lines list
                   Expanded(
                     child: _buildLinesList(),
                   ),
-                  
-                  // Total footer
                   _buildTotalFooter(),
                 ],
               ),
@@ -430,7 +399,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -507,7 +476,6 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   }
 
   void _addLine() {
-    // TODO: Show dialog to add new line
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -521,7 +489,6 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Add sample line for demonstration
               setState(() {
                 _lines.add(PaymentVoucherLineEntity(
                   lineId: 'PVL${_lines.length + 1}',
@@ -550,7 +517,6 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
 
   void _saveVoucher() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement save logic
       final voucher = PaymentVoucherEntity(
         voucherId: widget.voucher?.voucherId ?? 'NEW_${DateTime.now().millisecondsSinceEpoch}',
         branchId: _selectedBranch,
@@ -561,10 +527,10 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
         refCode: _refCodeController.text.trim().isEmpty ? null : _refCodeController.text.trim(),
         paymentFromAccountId: _selectedPaymentAccount,
         paymentMethod: _selectedPaymentMethod,
-        checkNumber: _checkNumberController.text.trim().isEmpty ? null : _checkNumberController.text.trim(),
-        beneficiary: _beneficiaryController.text.trim().isEmpty ? null : _beneficiaryController.text.trim(),
+        checkNo: _checkNumberController.text.trim().isEmpty ? null : _checkNumberController.text.trim(),
+        payeeName: _beneficiaryController.text.trim().isEmpty ? 'Unknown' : _beneficiaryController.text.trim(),
         status: VoucherStatus.draft,
-        createdBy: 'CURRENT_USER', // TODO: Get from auth
+        createdBy: 'CURRENT_USER',
         createdAt: widget.voucher?.createdAt ?? DateTime.now(),
         updatedAt: DateTime.now(),
         totalAmount: _lines.fold<double>(0.0, (sum, line) => sum + line.amount),
@@ -576,7 +542,6 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   }
 
   void _postVoucher() {
-    // TODO: Implement post logic
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.voucherPostedSuccessfully),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/journal_voucher_entity.dart';
+import '../../../domain/entities/journal_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart';
 
 class JournalVoucherListItem extends StatelessWidget {
   const JournalVoucherListItem({
@@ -36,7 +37,6 @@ class JournalVoucherListItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header row with voucher number and status
               Row(
                 children: [
                   Expanded(
@@ -51,8 +51,6 @@ class JournalVoucherListItem extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              
-              // Description
               Text(
                 voucher.description,
                 style: theme.textTheme.bodyMedium,
@@ -60,8 +58,6 @@ class JournalVoucherListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 8),
-              
-              // Date and amounts row
               Row(
                 children: [
                   Icon(
@@ -94,8 +90,6 @@ class JournalVoucherListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              
-              // Reference code if available
               if (voucher.refCode != null && voucher.refCode!.isNotEmpty) ...[
                 const SizedBox(height: 4),
                 Row(
@@ -115,8 +109,6 @@ class JournalVoucherListItem extends StatelessWidget {
                   ],
                 ),
               ],
-              
-              // Special indicators
               if (voucher.isReversing || voucher.isPeriodic) ...[
                 const SizedBox(height: 8),
                 Row(
@@ -144,8 +136,6 @@ class JournalVoucherListItem extends StatelessWidget {
                   ],
                 ),
               ],
-              
-              // Action buttons
               if (onEdit != null || onPost != null || onDelete != null) ...[
                 const SizedBox(height: 12),
                 Row(
@@ -195,7 +185,7 @@ class JournalVoucherListItem extends StatelessWidget {
     
     switch (voucher.status) {
       case VoucherStatus.draft:
-        backgroundColor = theme.colorScheme.surfaceVariant;
+        backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
         statusText = l10n.draft;
         break;

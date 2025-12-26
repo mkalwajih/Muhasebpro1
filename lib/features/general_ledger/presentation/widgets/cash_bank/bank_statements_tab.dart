@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../domain/entities/bank_statement_entity.dart';
+// Corrected Import Path (3 levels up)
+import '../../../domain/entities/bank_statement_entity.dart';
 import '../../../../../l10n/app_localizations.dart';
 
 class BankStatementsTab extends ConsumerStatefulWidget {
@@ -78,6 +79,8 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
             updatedAt: DateTime.now().subtract(const Duration(days: 2)),
           ),
         ],
+        status: 'Active',
+        createdBy: 'System',
       ),
       BankStatementEntity(
         statementId: 'STMT002',
@@ -112,6 +115,8 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
             updatedAt: DateTime.now().subtract(const Duration(hours: 6)),
           ),
         ],
+        status: 'Active',
+        createdBy: 'System',
       ),
     ]);
   }
@@ -120,12 +125,10 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-
     final filteredStatements = _getFilteredStatements();
 
     return Column(
       children: [
-        // Filter section
         Container(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -145,9 +148,12 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                         ),
                       ),
                       items: const [
-                        DropdownMenuItem(value: 'ACC001', child: Text('Main Bank Account')),
-                        DropdownMenuItem(value: 'ACC002', child: Text('Savings Account')),
-                        DropdownMenuItem(value: 'ACC003', child: Text('Petty Cash Account')),
+                        DropdownMenuItem(
+                            value: 'ACC001', child: Text('Main Bank Account')),
+                        DropdownMenuItem(
+                            value: 'ACC002', child: Text('Savings Account')),
+                        DropdownMenuItem(
+                            value: 'ACC003', child: Text('Petty Cash Account')),
                       ],
                       onChanged: (value) {
                         setState(() {
@@ -216,8 +222,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
             ],
           ),
         ),
-        
-        // Statements list
         Expanded(
           child: filteredStatements.isEmpty
               ? _buildEmptyState()
@@ -267,7 +271,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   Widget _buildStatementCard(BankStatementEntity statement) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final currencyFormat = NumberFormat.currency(symbol: 'V');
     final dateFormat = DateFormat('dd/MM/yyyy');
 
     return Card(
@@ -294,11 +298,10 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                // Balance summary
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(
@@ -366,8 +369,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                
-                // Transactions
                 if (statement.transactions.isNotEmpty) ...[
                   Align(
                     alignment: Alignment.centerLeft,
@@ -379,11 +380,9 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  ...statement.transactions.map((transaction) => 
-                    _buildTransactionItem(transaction)),
+                  ...statement.transactions.map((transaction) =>
+                      _buildTransactionItem(transaction)),
                 ],
-                
-                // Action buttons
                 if (widget.canManage) ...[
                   const SizedBox(height: 16),
                   Row(
@@ -416,7 +415,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   Widget _buildTransactionItem(BankTransactionEntity transaction) {
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: '\$');
+    final currencyFormat = NumberFormat.currency(symbol: 'V');
     final dateFormat = DateFormat('dd/MM/yyyy');
 
     return Card(
@@ -467,18 +466,18 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   Widget _buildReconciliationChip(bool isReconciled) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    
+
     return Chip(
       label: Text(
         isReconciled ? l10n.reconciled : l10n.notReconciled,
         style: theme.textTheme.bodySmall?.copyWith(
-          color: isReconciled 
+          color: isReconciled
               ? theme.colorScheme.onPrimaryContainer
               : theme.colorScheme.onSurfaceVariant,
           fontWeight: FontWeight.w500,
         ),
       ),
-      backgroundColor: isReconciled 
+      backgroundColor: isReconciled
           ? theme.colorScheme.primaryContainer
           : theme.colorScheme.surfaceVariant,
       side: BorderSide.none,
@@ -488,8 +487,8 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   List<BankStatementEntity> _getFilteredStatements() {
     return _statements.where((statement) {
       return statement.accountId == _selectedAccount &&
-             statement.statementDate.isAfter(_fromDate.subtract(const Duration(days: 1))) &&
-             statement.statementDate.isBefore(_toDate.add(const Duration(days: 1)));
+          statement.statementDate.isAfter(_fromDate.subtract(const Duration(days: 1))) &&
+          statement.statementDate.isBefore(_toDate.add(const Duration(days: 1)));
     }).toList();
   }
 
@@ -525,7 +524,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     setState(() {
       // Filter logic is already applied in _getFilteredStatements()
     });
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.statementsFiltered),
@@ -548,7 +547,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Import logic here
             },
             child: Text(AppLocalizations.of(context)!.import),
           ),
@@ -559,12 +557,17 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   void _reconcileStatement(BankStatementEntity statement) {
     setState(() {
-      statement.isReconciled = true;
-      statement.reconciledBy = 'CURRENT_USER';
-      statement.reconciledDate = DateTime.now();
-      statement.updatedAt = DateTime.now();
+      final index = _statements.indexWhere((s) => s.statementId == statement.statementId);
+      if (index != -1) {
+        _statements[index] = statement.copyWith(
+          isReconciled: true,
+          reconciledBy: 'CURRENT_USER',
+          reconciledDate: DateTime.now(),
+          updatedAt: DateTime.now(),
+        );
+      }
     });
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.statementReconciledSuccessfully),
@@ -574,7 +577,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   void _viewStatementDetails(BankStatementEntity statement) {
-    // TODO: Navigate to detailed statement view
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.statementDetailsNotImplemented),

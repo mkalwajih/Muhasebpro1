@@ -29,7 +29,6 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return TextFormField(
       controller: controller,
       validator: validator,
@@ -64,12 +63,12 @@ class CustomTextField extends StatelessWidget {
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: theme.colorScheme.outline.withOpacity(0.5)),
+          borderSide: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.5)),
         ),
         filled: true,
-        fillColor: enabled 
-            ? theme.colorScheme.surface 
-            : theme.colorScheme.surface.withOpacity(0.5),
+        fillColor: enabled
+            ? theme.colorScheme.surface
+            : theme.colorScheme.surface.withValues(alpha: 0.5),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../domain/entities/journal_voucher_entity.dart';
+import '../../../../shared/presentation/widgets/custom_text_field.dart';
+// Corrected Import Path
+import '../../../domain/entities/journal_voucher_entity.dart';
+import '../../../domain/entities/voucher_base_entity.dart';
 
 class JournalVoucherForm extends ConsumerStatefulWidget {
   const JournalVoucherForm({
@@ -43,7 +46,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
 
   void _initializeForm() {
     if (widget.voucher != null) {
-      // Edit mode
       final voucher = widget.voucher!;
       _descriptionController.text = voucher.description;
       _refCodeController.text = voucher.refCode ?? '';
@@ -54,12 +56,11 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
       _isPeriodic = voucher.isPeriodic;
       _lines = List.from(voucher.lines);
     } else {
-      // Create mode
       _descriptionController.clear();
       _refCodeController.clear();
       _selectedDate = DateTime.now();
-      _selectedDocType = 'JV'; // Default
-      _selectedBranch = 'BR001'; // Default - should come from user context
+      _selectedDocType = 'JV';
+      _selectedBranch = 'BR001';
       _isReversing = false;
       _isPeriodic = false;
       _lines = [];
@@ -77,32 +78,29 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final isEditing = widget.voucher != null;
 
     return Scaffold(
       body: Form(
         key: _formKey,
         child: Column(
           children: [
-            // Header section
             Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
               ),
               child: Column(
                 children: [
-                  // First row: Document type, Date, Branch
                   Row(
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedDocType,
+                          value: _selectedDocType, // value can be used if controlled by state
                           decoration: InputDecoration(
                             labelText: l10n.documentType,
                             border: const OutlineInputBorder(),
@@ -174,14 +172,9 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  
-                  // Second row: Description
-                  TextFormField(
+                  CustomTextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(
-                      labelText: l10n.description,
-                      border: const OutlineInputBorder(),
-                    ),
+                    labelText: l10n.description,
                     maxLines: 2,
                     enabled: widget.canEdit,
                     validator: (value) {
@@ -192,18 +185,13 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  
-                  // Third row: Reference code and checkboxes
                   Row(
                     children: [
                       Expanded(
                         flex: 2,
-                        child: TextFormField(
+                        child: CustomTextField(
                           controller: _refCodeController,
-                          decoration: InputDecoration(
-                            labelText: l10n.referenceCode,
-                            border: const OutlineInputBorder(),
-                          ),
+                          labelText: l10n.referenceCode,
                           enabled: widget.canEdit,
                         ),
                       ),
@@ -237,12 +225,9 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                 ],
               ),
             ),
-            
-            // Lines section
             Expanded(
               child: Column(
                 children: [
-                  // Lines header
                   Container(
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
@@ -263,13 +248,9 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                       ],
                     ),
                   ),
-                  
-                  // Lines list
                   Expanded(
                     child: _buildLinesList(),
                   ),
-                  
-                  // Totals footer
                   _buildTotalsFooter(),
                 ],
               ),
@@ -366,7 +347,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -457,7 +438,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   }
 
   void _addLine() {
-    // TODO: Show dialog to add new line
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -471,7 +451,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Add sample line for demonstration
               setState(() {
                 _lines.add(JournalVoucherLineEntity(
                   lineId: 'JL${_lines.length + 1}',
@@ -501,7 +480,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
 
   void _saveVoucher() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement save logic
       final voucher = JournalVoucherEntity(
         voucherId: widget.voucher?.voucherId ?? 'NEW_${DateTime.now().millisecondsSinceEpoch}',
         branchId: _selectedBranch,
@@ -511,7 +489,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
         description: _descriptionController.text.trim(),
         refCode: _refCodeController.text.trim().isEmpty ? null : _refCodeController.text.trim(),
         status: VoucherStatus.draft,
-        createdBy: 'CURRENT_USER', // TODO: Get from auth
+        createdBy: 'CURRENT_USER',
         createdAt: widget.voucher?.createdAt ?? DateTime.now(),
         updatedAt: DateTime.now(),
         totalDebit: _lines.fold<double>(0.0, (sum, line) => sum + line.debit),
@@ -526,7 +504,6 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   }
 
   void _postVoucher() {
-    // TODO: Implement post logic
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.voucherPostedSuccessfully),
