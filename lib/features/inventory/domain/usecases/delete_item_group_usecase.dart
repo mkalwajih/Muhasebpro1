@@ -3,14 +3,21 @@ import 'package:muhaseb_pro/features/inventory/domain/repositories/inventory_set
 import 'package:muhaseb_pro/shared/domain/entities/failures.dart';
 import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
 
-class DeleteWarehouseUseCase implements UseCase<void, int> {
+class DeleteItemGroupUseCase implements UseCase<void, int> {
   final InventorySetupRepository repository;
 
-  DeleteWarehouseUseCase(this.repository);
+  DeleteItemGroupUseCase(this.repository);
 
   @override
   Future<Either<Failure, void>> call(int params) async {
-    final result = await repository.deleteWarehouse(params);
-    return result.leftMap((l) => ServerFailure(message: l.toString()));
+    try {
+      final result = await repository.deleteItemGroup(params);
+      return result.fold(
+        (l) => Left(ServerFailure(message: l.toString())),
+        (r) => Right(r),
+      );
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
   }
 }

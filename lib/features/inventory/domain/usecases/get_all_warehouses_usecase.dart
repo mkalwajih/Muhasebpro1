@@ -13,6 +13,6 @@ class GetAllWarehousesUseCase implements UseCase<List<WarehouseEntity>, NoParams
   @override
   Future<Either<Failure, List<WarehouseEntity>>> call(NoParams params) async {
     final result = await repository.getAllWarehouses();
-    return result.leftMap((l) => ServerFailure(l.toString()));
+    return result.leftMap((l) => ServerFailure(message: l.toString()));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:muhaseb_pro/features/inventory/domain/entities/warehouse_entity.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../../../../../shared/presentation/widgets/loading_widget.dart';
 import '../../../../../shared/presentation/widgets/empty_state_widget.dart';
@@ -17,65 +18,71 @@ class WarehousesTab extends ConsumerWidget {
 
     return Scaffold(
       body: warehousesAsync.when(
-        data: (warehouses) {
-          if (warehouses.isEmpty) {
-            return EmptyStateWidget(
-              icon: Iconsax.building,
-              title: l10n.noWarehousesFound,
-              subtitle: l10n.addWarehouseToGetStarted,
-            );
-          }
+        data: (warehousesEither) {
+          return warehousesEither.fold(
+            (failure) => Center(child: Text(failure.toString())),
+            (warehouses) {
+              if (warehouses.isEmpty) {
+                return EmptyStateWidget(
+                  icon: Iconsax.building,
+                  title: l10n.noWarehousesFound,
+                  subtitle: l10n.addWarehouseToGetStarted,
+                );
+              }
 
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: warehouses.length,
-            itemBuilder: (context, index) {
-              final warehouse = warehouses[index];
-              return Card(
-                margin: const EdgeInsets.only(bottom: 12),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: warehouse.isActive
-                        ? Colors.green.shade100
-                        : Colors.grey.shade300,
-                    child: Icon(
-                      Iconsax.building,
-                      color: warehouse.isActive ? Colors.green : Colors.grey,
-                    ),
-                  ),
-                  title: Text(
-                    Localizations.localeOf(context).languageCode == 'ar'
-                        ? warehouse.nameAr
-                        : warehouse.nameEn,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 4),
-                      Text('${l10n.code}: ${warehouse.warehouseCode}'),
-                      Text('${l10n.account}: ${warehouse.inventoryAccountId}'),
-                    ],
-                  ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Iconsax.edit),
-                        onPressed: () => _showWarehouseDialog(
-                          context,
-                          ref,
-                          warehouse: warehouse,
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: warehouses.length,
+                itemBuilder: (context, index) {
+                  final warehouse = warehouses[index];
+                  return Card(
+                    margin: const EdgeInsets.only(bottom: 12),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: warehouse.isActive
+                            ? Colors.green.shade100
+                            : Colors.grey.shade300,
+                        child: Icon(
+                          Iconsax.building,
+                          color: warehouse.isActive ? Colors.green : Colors.grey,
                         ),
                       ),
-                      IconButton(
-                        icon: const Icon(Iconsax.trash, color: Colors.red),
-                        onPressed: () => _deleteWarehouse(context, ref, warehouse.id!),
+                      title: Text(
+                        Localizations.localeOf(context).languageCode == 'ar'
+                            ? warehouse.nameAr
+                            : warehouse.nameEn,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                    ],
-                  ),
-                  isThreeLine: true,
-                ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 4),
+                          Text('${l10n.code}: ${warehouse.warehouseCode}'),
+                          Text('${l10n.account}: ${warehouse.inventoryAccountId}'),
+                        ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Iconsax.edit),
+                            onPressed: () => _showWarehouseDialog(
+                              context,
+                              ref,
+                              warehouse: warehouse,
+                            ),
+                          ),
+                          IconButton(
+                            icon: const Icon(Iconsax.trash, color: Colors.red),
+                            onPressed: () =>
+                                _deleteWarehouse(context, ref, warehouse.id!),
+                          ),
+                        ],
+                      ),
+                      isThreeLine: true,
+                    ),
+                  );
+                },
               );
             },
           );
@@ -94,7 +101,7 @@ class WarehousesTab extends ConsumerWidget {
   }
 
   void _showWarehouseDialog(BuildContext context, WidgetRef ref,
-      {warehouse}) {
+      {WarehouseEntity? warehouse}) {
     showDialog(
       context: context,
       builder: (context) => WarehouseFormDialog(warehouse: warehouse),
@@ -125,8 +132,7 @@ class WarehousesTab extends ConsumerWidget {
 
     if (confirmed == true) {
       try {
-        final deleteWarehouse = ref.read(deleteWarehouseProvider);
-        await deleteWarehouse(id);
+        await ref.read(deleteWarehouseProvider(id).future);
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(l10n.deleteSuccess)),

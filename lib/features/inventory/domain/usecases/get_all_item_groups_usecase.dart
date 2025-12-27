@@ -13,6 +13,6 @@ class GetAllItemGroupsUseCase implements UseCase<List<ItemGroupEntity>, NoParams
   @override
   Future<Either<Failure, List<ItemGroupEntity>>> call(NoParams params) async {
     final result = await repository.getAllItemGroups();
-    return result.leftMap((l) => ServerFailure(l.toString()));
+    return result.leftMap((l) => ServerFailure(message: l.toString()));
   }
 }

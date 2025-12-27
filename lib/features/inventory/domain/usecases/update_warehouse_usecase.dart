@@ -12,6 +12,6 @@ class UpdateWarehouseUseCase implements UseCase<void, WarehouseEntity> {
   @override
   Future<Either<Failure, void>> call(WarehouseEntity params) async {
     final result = await repository.updateWarehouse(params);
-    return result.leftMap((l) => ServerFailure(l.toString()));
+    return result.leftMap((l) => ServerFailure(message: l.toString()));
   }
 }

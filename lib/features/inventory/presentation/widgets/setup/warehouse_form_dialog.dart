@@ -125,11 +125,9 @@ class _WarehouseFormDialogState extends ConsumerState<WarehouseFormDialog> {
       );
 
       if (widget.warehouse == null) {
-        final createWarehouse = ref.read(createWarehouseProvider);
-        await createWarehouse(warehouse);
+        await ref.read(createWarehouseProvider(warehouse).future);
       } else {
-        final updateWarehouse = ref.read(updateWarehouseProvider);
-        await updateWarehouse(warehouse);
+        await ref.read(updateWarehouseProvider(warehouse).future);
       }
 
       if (mounted) {
