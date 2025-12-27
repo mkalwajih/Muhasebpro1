@@ -123,8 +123,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                     children: [
                       Expanded(
                         flex: 2,
-                child: DropdownButtonFormField<String>(
-                  initialValue: _selectedAccount,
+                        child: DropdownButtonFormField<String>(
+                          initialValue: _selectedAccount,
                           decoration: InputDecoration(
                             labelText: l10n.bankAccount,
                             border: const OutlineInputBorder(),
@@ -134,17 +134,21 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                             DropdownMenuItem(value: 'ACC002', child: Text('Savings Account')),
                             DropdownMenuItem(value: 'ACC003', child: Text('Petty Cash Account')),
                           ],
-                          onChanged: widget.canManage ? (value) {
-                            setState(() {
-                              _selectedAccount = value ?? 'ACC001';
-                            });
-                          } : null,
+                          onChanged: widget.canManage
+                              ? (value) {
+                                  setState(() {
+                                    _selectedAccount = value ?? 'ACC001';
+                                  });
+                                }
+                              : null,
                         ),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
                         child: InkWell(
-                          onTap: widget.canManage ? () => _selectDate(context) : null,
+                          onTap: widget.canManage
+                              ? () => _selectDate(context)
+                              : null,
                           child: InputDecorator(
                             decoration: InputDecoration(
                               labelText: l10n.reconciliationDate,
@@ -167,7 +171,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                           decoration: InputDecoration(
                             labelText: l10n.bankStatementBalance,
                             border: const OutlineInputBorder(),
-                            prefixText: 'l10n.symbol ',
+                            prefixText: '${l10n.symbol} ',
                           ),
                           keyboardType: TextInputType.number,
                           enabled: widget.canManage,
@@ -187,7 +191,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Reconciliation items
           Expanded(
             child: Row(
@@ -214,7 +218,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
               ],
             ),
           ),
-          
+
           // Action buttons
           if (widget.canManage) ...[
             const SizedBox(height: 16),
@@ -234,8 +238,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                     icon: const Icon(Icons.save),
                     label: Text(l10n.saveReconciliation),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: _isReconciled() 
-                          ? theme.colorScheme.primary 
+                      backgroundColor: _isReconciled()
+                          ? theme.colorScheme.primary
                           : theme.colorScheme.surfaceContainerHighest,
                     ),
                   ),
@@ -251,8 +255,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   Widget _buildBalanceSummary() {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
-    
+    final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
+
     final adjustedBankBalance = _calculateAdjustedBankBalance();
     final difference = adjustedBankBalance - _bookBalance;
     final isReconciled = difference.abs() < 0.01;
@@ -260,12 +264,12 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: isReconciled 
-            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3) // Fixed deprecated withOpacity
-            : theme.colorScheme.errorContainer.withValues(alpha: 0.3), // Fixed deprecated withOpacity
+        color: isReconciled
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
+            : theme.colorScheme.errorContainer.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: isReconciled 
+          color: isReconciled
               ? theme.colorScheme.primary
               : theme.colorScheme.error,
         ),
@@ -301,8 +305,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                             Text(l10n.addAdjustment),
-                Text(
+              Text(l10n.adjustedBankBalance),
+              Text(
                 currencyFormat.format(adjustedBankBalance),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
@@ -325,7 +329,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 currencyFormat.format(difference),
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: isReconciled 
+                  color: isReconciled
                       ? theme.colorScheme.primary
                       : theme.colorScheme.error,
                 ),
@@ -366,7 +370,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
+    final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
 
     return Card(
       child: Column(
@@ -374,7 +378,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
@@ -396,7 +400,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                   IconButton(
                     icon: const Icon(Icons.add),
                     onPressed: () => _addReconciliationItem(
-                      items == _outstandingDeposits 
+                      items == _outstandingDeposits
                           ? ReconciliationItemType.deposit
                           : ReconciliationItemType.check,
                     ),
@@ -418,7 +422,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          items == _outstandingDeposits 
+                          items == _outstandingDeposits
                               ? l10n.noOutstandingDeposits
                               : l10n.noOutstandingChecks,
                           style: theme.textTheme.bodyMedium?.copyWith(
@@ -438,11 +442,14 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                         child: ListTile(
                           leading: Checkbox(
                             value: item.isCleared,
-                            onChanged: widget.canManage ? (value) {
-                              setState(() {
-                                items[index] = item.copyWith(isCleared: value ?? false);
-                              });
-                            } : null,
+                            onChanged: widget.canManage
+                                ? (value) {
+                                    setState(() {
+                                      items[index] = item.copyWith(
+                                          isCleared: value ?? false);
+                                    });
+                                  }
+                                : null,
                           ),
                           title: Text(item.description),
                           subtitle: Text(
@@ -467,21 +474,21 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
 
   double _calculateAdjustedBankBalance() {
     double adjustedBalance = _bankStatementBalance;
-    
+
     // Add outstanding deposits
     for (final deposit in _outstandingDeposits) {
       if (!deposit.isCleared) {
         adjustedBalance += deposit.amount;
       }
     }
-    
+
     // Subtract outstanding checks
     for (final check in _outstandingChecks) {
       if (!check.isCleared) {
         adjustedBalance += check.amount; // amount is already negative
       }
     }
-    
+
     return adjustedBalance;
   }
 
@@ -510,7 +517,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          type == ReconciliationItemType.deposit 
+          type == ReconciliationItemType.deposit
               ? AppLocalizations.of(context)!.addOutstandingDeposit
               : AppLocalizations.of(context)!.addOutstandingCheck,
         ),
@@ -528,17 +535,18 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 itemId: 'ITEM${DateTime.now().millisecondsSinceEpoch}',
                 reconciliationId: 'REC001',
                 itemType: type,
-                description: type == ReconciliationItemType.deposit 
-                    ? 'New deposit' 
+                description: type == ReconciliationItemType.deposit
+                    ? 'New deposit'
                     : 'New check',
-                amount: type == ReconciliationItemType.deposit ? 1000.0 : -500.0,
+                amount:
+                    type == ReconciliationItemType.deposit ? 1000.0 : -500.0,
                 date: DateTime.now(),
                 referenceNumber: 'REF${DateTime.now().millisecondsSinceEpoch}',
                 isCleared: false,
                 createdAt: DateTime.now(),
                 updatedAt: DateTime.now(),
               );
-              
+
               setState(() {
                 if (type == ReconciliationItemType.deposit) {
                   _outstandingDeposits.add(newItem);
@@ -591,7 +599,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     // TODO: Implement save logic
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.reconciliationSavedSuccessfully),
+        content:
+            Text(AppLocalizations.of(context)!.reconciliationSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
