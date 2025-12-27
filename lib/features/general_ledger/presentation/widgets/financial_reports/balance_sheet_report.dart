@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-// Corrected Import Path (3 levels up)
 import '../../../domain/entities/balance_sheet_entity.dart';
 
 class BalanceSheetReport extends ConsumerStatefulWidget {
@@ -13,7 +12,7 @@ class BalanceSheetReport extends ConsumerStatefulWidget {
 }
 
 class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
-  // ... state variables ...
+  // State variables for filters and data
   DateTime _asOfDate = DateTime.now();
   String _selectedBranch = 'All';
   List<BalanceSheetLineEntity> _balanceSheetData = [];
@@ -25,8 +24,8 @@ class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
   }
 
   void _loadBalanceSheetData() {
-    // ... data loading logic ...
-     _balanceSheetData = [
+    // Simulated data loading - in real app, fetch from provider based on _asOfDate and _selectedBranch
+    _balanceSheetData = [
       BalanceSheetLineEntity(
         accountId: 'ASSETS_HEADER',
         accountCode: '',
@@ -36,22 +35,76 @@ class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
         level: 0,
         sectionType: BalanceSheetSection.assets,
       ),
-      // ... rest of sample data
+      BalanceSheetLineEntity(
+        accountId: '1001',
+        accountCode: '1001',
+        accountName: 'Cash in Hand',
+        amount: 50000.0,
+        isHeader: false,
+        level: 1,
+        sectionType: BalanceSheetSection.assets,
+      ),
+      BalanceSheetLineEntity(
+        accountId: 'TOTAL_ASSETS',
+        accountCode: '',
+        accountName: 'TOTAL ASSETS',
+        amount: 50000.0,
+        isHeader: true,
+        level: 0,
+        sectionType: BalanceSheetSection.assets,
+      ),
+      // ... rest of sample data (Liabilities and Equity)
     ];
+    
+    // FIX: Re-introduced setState to ensure the widget rebuilds with the loaded data
+    setState(() {}); 
   }
 
   @override
   Widget build(BuildContext context) {
-    // ... build method using corrected imports
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    // ... 
+    
     return Column(
-        children: [
-             // ... UI code ...
-             // Example fix for deprecation in _buildBalanceSheetLine:
-             // color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
-        ]
+      children: [
+        // Filter Section
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            border: Border(
+              bottom: BorderSide(
+                color: theme.colorScheme.outline.withValues(alpha: 0.2), // FIX: Deprecation
+              ),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.balanceSheet,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+              const SizedBox(height: 16),
+              // Filter status display (uses _asOfDate and _selectedBranch)
+              Text('As of: ${DateFormat.yMd().format(_asOfDate)} (Branch: $_selectedBranch)'), 
+            ],
+          ),
+        ),
+        // Report Content
+        Expanded(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(16.0),
+            itemCount: _balanceSheetData.length,
+            itemBuilder: (context, index) {
+              return _buildBalanceSheetLine(_balanceSheetData[index]); // FIX: Used _buildBalanceSheetLine
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -66,12 +119,12 @@ class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
     
     if (line.isHeader) {
       if (line.level == 0) {
-        backgroundColor = theme.colorScheme.primaryContainer.withOpacity(0.5);
+        backgroundColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.5); // FIX: Deprecation
         textColor = theme.colorScheme.primary;
         fontWeight = FontWeight.bold;
         fontSize = 18.0;
       } else if (line.level == 1) {
-        backgroundColor = theme.colorScheme.secondaryContainer.withOpacity(0.3);
+        backgroundColor = theme.colorScheme.secondaryContainer.withValues(alpha: 0.3); // FIX: Deprecation
         textColor = theme.colorScheme.secondary;
         fontWeight = FontWeight.bold;
         fontSize = 16.0;
@@ -94,10 +147,10 @@ class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
         color: backgroundColor,
         border: line.isHeader && line.level == 0 ? Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.5),
+            color: theme.colorScheme.outline.withValues(alpha: 0.5), // FIX: Deprecation
           ),
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.5),
+            color: theme.colorScheme.outline.withValues(alpha: 0.5), // FIX: Deprecation
           ),
         ) : null,
       ),
@@ -135,13 +188,4 @@ class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
       ),
     );
   }
-
-  // ... rest of the class
-  Widget _buildBalanceVerification(double totalAssets, double totalLiabilitiesEquity) {
-      // ... implementation ...
-      return Container(); // Placeholder
-  }
-   Future<void> _selectAsOfDate(BuildContext context) async {
-       // ... implementation ...
-   }
 }
