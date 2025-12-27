@@ -631,5 +631,9 @@
   "reject": "رفض",
   "failedToLoadPendingApprovals": "فشل تحميل الموافقات المعلقة",
   "requestApprovedSuccessfully": "تمت الموافقة على الطلب بنجاح",
-  "requestRejectedSuccessfully": "تم رفض الطلب بنجاح"
+  "requestRejectedSuccessfully": "تم رفض الطلب بنجاح", 
+"editItemGroup": "تعديل مجموعة الأصناف",
+"groupCode": "رمز المجموعة",
+"cogsAccount": "حساب تكلفة البضاعة المباعة"
+ 
 }
