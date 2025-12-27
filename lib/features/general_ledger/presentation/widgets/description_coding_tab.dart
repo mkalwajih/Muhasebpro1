@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/presentation/widgets/custom_search_field.dart';
 import '../../../../shared/presentation/widgets/empty_state_widget.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart'; // Corrected import
 import '../../../../shared/presentation/widgets/loading_widget.dart';
 import '../../domain/entities/description_coding_entity.dart';
 import '../providers/gl_setup_providers.dart';
@@ -21,7 +21,7 @@ class DescriptionCodingTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    // Removed unused theme variable
     final descriptionCodingAsync = ref.watch(filteredDescriptionCodingProvider);
     final searchQuery = ref.watch(descriptionCodingSearchProvider);
 
@@ -84,8 +84,9 @@ class DescriptionCodingTab extends ConsumerWidget {
       ),
       floatingActionButton: canModify ? FloatingActionButton(
         onPressed: () => _showDescriptionCodingDialog(context, ref),
-        child: const Icon(Icons.add),
         tooltip: l10n.addDescriptionCoding,
+        // Fixed: 'child' argument should be last
+        child: const Icon(Icons.add),
       ) : null,
     );
   }
@@ -103,7 +104,8 @@ class DescriptionCodingTab extends ConsumerWidget {
           final notifier = ref.read(descriptionCodingProvider.notifier);
           final success = await notifier.createDescriptionCoding(coding);
 
-          if (success && context.mounted) {
+          // Fixed: Check mounted before using context across async gaps
+          if (context.mounted && success) {
             Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -148,6 +150,9 @@ class DescriptionCodingTab extends ConsumerWidget {
               final success = await ref.read(descriptionCodingProvider.notifier)
                   .deleteDescriptionCoding(descriptionCoding.descCode);
               
+              // Fixed: Check mounted before using context across async gaps
+              if (!context.mounted) return;
+
               if (success) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
