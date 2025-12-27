@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../../../l10n/app_localizations.dart';
-// Corrected Import Path
 import '../../../domain/entities/income_statement_entity.dart';
 
 class IncomeStatementReport extends ConsumerStatefulWidget {
@@ -13,9 +12,7 @@ class IncomeStatementReport extends ConsumerStatefulWidget {
 }
 
 class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
-  DateTime _fromDate = DateTime(DateTime.now().year, 1, 1);
-  DateTime _toDate = DateTime.now();
-  String _selectedBranch = 'All';
+  // Removed unused fields _fromDate, _toDate, _selectedBranch
   List<IncomeStatementLineEntity> _incomeStatementData = [];
 
   @override
@@ -25,48 +22,47 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
   }
 
   void _loadIncomeStatementData() {
-      // Sample data
-      _incomeStatementData = [
-          IncomeStatementLineEntity(
-            accountId: 'REV_HEADER',
-            accountCode: '',
-            accountName: 'REVENUE',
-            amount: 0.0,
-            isHeader: true,
-            level: 0,
-            sectionType: IncomeStatementSection.revenue,
-          ),
-          // ... rest of data
-      ];
+    _incomeStatementData = [
+      const IncomeStatementLineEntity(
+        accountId: 'REV_HEADER',
+        accountCode: '',
+        accountName: 'REVENUE',
+        amount: 0.0,
+        isHeader: true,
+        level: 0,
+        sectionType: IncomeStatementSection.revenue,
+      ),
+      // ... Add more sample data as needed
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    // Removed unused l10n variable
     final theme = Theme.of(context);
-    
+
     return Column(
-        // ... structure
-        children: [
-            // ... header
-             Expanded(
-                child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                        color: theme.colorScheme.outline.withOpacity(0.3),
-                        ),
-                        borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Column(
-                        children: _incomeStatementData.map((line) => 
-                            _buildIncomeStatementLine(line)).toList(),
-                    ),
-                    ),
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  // Fixed: Use withValues instead of withOpacity
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
                 ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                children: _incomeStatementData
+                    .map((line) => _buildIncomeStatementLine(line))
+                    .toList(),
+              ),
             ),
-        ]
+          ),
+        ),
+      ],
     );
   }
 
@@ -78,19 +74,21 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
     Color? textColor;
     FontWeight fontWeight = FontWeight.normal;
     double fontSize = 14.0;
-    
+
     if (line.isHeader) {
       if (line.sectionType == IncomeStatementSection.revenue ||
           line.sectionType == IncomeStatementSection.costOfGoodsSold ||
           line.sectionType == IncomeStatementSection.operatingExpenses ||
           line.sectionType == IncomeStatementSection.otherIncomeExpenses) {
-        backgroundColor = theme.colorScheme.primaryContainer.withOpacity(0.3);
+        // Fixed: Use withValues
+        backgroundColor = theme.colorScheme.primaryContainer.withValues(alpha: 0.3);
         textColor = theme.colorScheme.primary;
         fontWeight = FontWeight.bold;
         fontSize = 16.0;
       } else if (line.sectionType == IncomeStatementSection.grossProfit ||
-                 line.sectionType == IncomeStatementSection.operatingIncome) {
-        backgroundColor = theme.colorScheme.secondaryContainer.withOpacity(0.5);
+          line.sectionType == IncomeStatementSection.operatingIncome) {
+        // Fixed: Use withValues
+        backgroundColor = theme.colorScheme.secondaryContainer.withValues(alpha: 0.5);
         textColor = theme.colorScheme.secondary;
         fontWeight = FontWeight.bold;
         fontSize = 18.0;
@@ -101,7 +99,7 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
         fontSize = 20.0;
       }
     }
-    
+
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 16.0 + (line.level * 20.0),
@@ -109,14 +107,18 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
       ),
       decoration: BoxDecoration(
         color: backgroundColor,
-        border: line.isHeader ? Border(
-          top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.3),
-          ),
-          bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.3),
-          ),
-        ) : null,
+        border: line.isHeader
+            ? Border(
+                top: BorderSide(
+                  // Fixed: Use withValues
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                ),
+                bottom: BorderSide(
+                  // Fixed: Use withValues
+                  color: theme.colorScheme.outline.withValues(alpha: 0.3),
+                ),
+              )
+            : null,
       ),
       child: Row(
         children: [
@@ -141,9 +143,7 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
               style: TextStyle(
                 fontSize: fontSize,
                 fontWeight: fontWeight,
-                color: textColor ?? (line.amount < 0 
-                    ? theme.colorScheme.error 
-                    : null),
+                color: textColor ?? (line.amount < 0 ? theme.colorScheme.error : null),
                 fontFamily: 'monospace',
               ),
             ),
@@ -152,8 +152,4 @@ class _IncomeStatementReportState extends ConsumerState<IncomeStatementReport> {
       ),
     );
   }
-  
-  // ... date selection methods
-  Future<void> _selectFromDate(BuildContext context) async { /* ... */ }
-  Future<void> _selectToDate(BuildContext context) async { /* ... */ }
 }
