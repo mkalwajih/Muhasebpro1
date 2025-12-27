@@ -117,24 +117,7 @@ warning • Unused import: '../../../../../shared/presentation/widgets/error_wid
 warning • The value of the field '_searchQuery' isn't used • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:30:10 • unused_field
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:52:50 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:62:19 • deprecated_member_use
-  error • The getter 'noPendingApprovals' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:24:25 • undefined_getter
-  error • The getter 'allRequestsHaveBeenProcessed' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:25:28 • undefined_getter
-  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:66:48 • undefined_getter
-  error • The getter 'failedToLoadPendingApprovals' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:85:21 • undefined_getter
-  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:131:55 • undefined_getter
-  error • The getter 'requestApprovedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:152:57 • undefined_getter
-  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:212:55 • undefined_getter
-  error • The getter 'requestRejectedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:234:57 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:70:17 • deprecated_member_use
-  error • The getter 'pleaseEnterAmount' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:108:33 • undefined_getter
-  error • The getter 'pleaseEnterValidAmount' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:112:33 • undefined_getter
-  error • The getter 'requestCreatedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:200:49 • undefined_getter
-  error • The getter 'requestUpdatedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:201:49 • undefined_getter
-  error • The getter 'noRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:36:46 • undefined_getter
-  error • The getter 'noRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:36:69 • undefined_getter
-  error • The getter 'youHaveNotCreatedAnyRequests' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:38:24 • undefined_getter
-  error • The getter 'noTransactionRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:39:24 • undefined_getter
-  error • The getter 'failedToLoadRequests' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:62:21 • undefined_getter
 warning • The value of the local variable 'l10n' isn't used • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list_item.dart:17:11 • unused_local_variable
   error • The name 'StocktakingSessionData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:10:15 • non_type_as_type_argument
   error • The name 'StocktakingSessionData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:16:10 • non_type_as_type_argument
@@ -144,6 +127,12 @@ warning • The value of the local variable 'l10n' isn't used • lib/features/g
 warning • The value of the local variable 'reservationId' isn't used • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:158:13 • unused_local_variable
   error • The method 'OrderingTerm' isn't defined for the type 'InventoryReportsLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:42:36 • undefined_method
 warning • The value of the local variable 'cutoffDate' isn't used • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:87:11 • unused_local_variable
+  error • The method 'toDrift' isn't defined for the type 'WarehouseModel' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:41:65 • undefined_method
+  error • The method 'toDrift' isn't defined for the type 'WarehouseModel' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:47:26 • undefined_method
+  error • The method 'toDrift' isn't defined for the type 'ItemGroupModel' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:72:65 • undefined_method
+  error • The method 'toDrift' isn't defined for the type 'ItemGroupModel' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:78:26 • undefined_method
+  error • The method 'toDrift' isn't defined for the type 'ItemModel' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:40:55 • undefined_method
+  error • The method 'toDrift' isn't defined for the type 'ItemModel' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:46:21 • undefined_method
   error • The name 'IncomingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:10:15 • non_type_as_type_argument
   error • The name 'IncomingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:16:10 • non_type_as_type_argument
   error • The name 'IncomingStockOrderLineData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:39:15 • non_type_as_type_argument
@@ -154,23 +143,30 @@ warning • The value of the local variable 'cutoffDate' isn't used • lib/feat
   error • The name 'WarehouseTransferData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:96:15 • non_type_as_type_argument
   error • The name 'WarehouseTransferData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:104:10 • non_type_as_type_argument
   error • The name 'WarehouseTransferLineData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:127:15 • non_type_as_type_argument
-  error • Undefined class 'ItemGroupData' • lib/features/inventory/data/models/item_group_model.dart:36:36 • undefined_class
-  error • Undefined class 'ItemData' • lib/features/inventory/data/models/item_model.dart:61:31 • undefined_class
-  error • Undefined class 'WarehouseData' • lib/features/inventory/data/models/warehouse_model.dart:32:36 • undefined_class
+  error • The implicitly invoked unnamed constructor from 'ItemGroupEntity' has required parameters • lib/features/inventory/data/models/item_group_model.dart:6:9 • implicit_super_initializer_missing_arguments
+  error • The implicitly invoked unnamed constructor from 'ItemEntity' has required parameters • lib/features/inventory/data/models/item_model.dart:6:9 • implicit_super_initializer_missing_arguments
+  error • The argument type 'String' can't be assigned to the parameter type 'ItemType'.  • lib/features/inventory/data/models/item_model.dart:39:17 • argument_type_not_assignable
+  error • The argument type 'String?' can't be assigned to the parameter type 'CostingMethod?'.  • lib/features/inventory/data/models/item_model.dart:42:22 • argument_type_not_assignable
+  error • The argument type 'ItemType' can't be assigned to the parameter type 'String'.  • lib/features/inventory/data/models/item_model.dart:64:23 • argument_type_not_assignable
+  error • The argument type 'CostingMethod?' can't be assigned to the parameter type 'String?'.  • lib/features/inventory/data/models/item_model.dart:67:28 • argument_type_not_assignable
+  error • The implicitly invoked unnamed constructor from 'WarehouseEntity' has required parameters • lib/features/inventory/data/models/warehouse_model.dart:6:9 • implicit_super_initializer_missing_arguments
 warning • The value of the local variable 'sessions' isn't used • lib/features/inventory/data/repositories/inventory_control_repository_impl.dart:14:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:15:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:34:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:50:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:64:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:78:13 • unused_local_variable
+  error • The method 'fromEntity' isn't defined for the type 'WarehouseModel' • lib/features/inventory/data/repositories/inventory_setup_repository_impl.dart:73:36 • undefined_method
+  error • The method 'fromEntity' isn't defined for the type 'WarehouseModel' • lib/features/inventory/data/repositories/inventory_setup_repository_impl.dart:85:36 • undefined_method
+  error • The method 'fromEntity' isn't defined for the type 'ItemGroupModel' • lib/features/inventory/data/repositories/inventory_setup_repository_impl.dart:130:36 • undefined_method
+  error • The method 'fromEntity' isn't defined for the type 'ItemGroupModel' • lib/features/inventory/data/repositories/inventory_setup_repository_impl.dart:142:36 • undefined_method
+  error • The method 'fromEntity' isn't defined for the type 'ItemModel' • lib/features/inventory/data/repositories/item_management_repository_impl.dart:64:31 • undefined_method
+  error • The method 'fromEntity' isn't defined for the type 'ItemModel' • lib/features/inventory/data/repositories/item_management_repository_impl.dart:75:31 • undefined_method
 warning • The value of the local variable 'orders' isn't used • lib/features/inventory/data/repositories/stock_operations_repository_impl.dart:14:13 • unused_local_variable
-  error • The getter 'item' isn't defined for the type 'AppLocalizations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:96:47 • undefined_getter
-  error • The getter 'item' isn't defined for the type 'AppLocalizations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:151:65 • undefined_getter
-  error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_control_providers.dart:10:30 • undefined_identifier
-  error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_reports_providers.dart:10:30 • undefined_identifier
-  error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:14:30 • undefined_identifier
+  error • Undefined name 'warehousesProvider' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:133:38 • undefined_identifier
   error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/item_management_providers.dart:11:30 • undefined_identifier
   error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/stock_operations_providers.dart:10:30 • undefined_identifier
+  error • Undefined name 'itemGroupsProvider' • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:71:39 • undefined_identifier
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:207:13 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:231:17 • deprecated_member_use
 warning • The value of the field '_transfersIntermediaryAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:23:11 • unused_field
@@ -178,7 +174,14 @@ warning • The value of the field '_openingBalanceEquityAccountId' isn't used �
 warning • The value of the field '_stockReceivedClearingAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:25:11 • unused_field
 warning • The value of the field '_inventoryShortageExpenseAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:26:11 • unused_field
 warning • The value of the field '_inventorySurplusRevenueAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:27:11 • unused_field
+  error • Undefined name 'inventoryConfigProvider' • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:35:35 • undefined_identifier
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:61:21 • deprecated_member_use
+  error • Undefined name 'saveInventoryConfigProvider' • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:195:35 • undefined_identifier
+  error • Undefined name 'itemGroupsProvider' • lib/features/inventory/presentation/widgets/setup/item_groups_tab.dart:15:39 • undefined_identifier
+  error • Undefined name 'createWarehouseProvider' • lib/features/inventory/presentation/widgets/setup/warehouse_form_dialog.dart:128:42 • undefined_identifier
+  error • Undefined name 'updateWarehouseProvider' • lib/features/inventory/presentation/widgets/setup/warehouse_form_dialog.dart:131:42 • undefined_identifier
+  error • Undefined name 'warehousesProvider' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:16:39 • undefined_identifier
+  error • Undefined name 'deleteWarehouseProvider' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:128:42 • undefined_identifier
 warning • The value of the local variable 'allAccountIds' isn't used • lib/features/system_setup/data/repositories/coa_repository_impl.dart:14:11 • unused_local_variable
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/screens/currencies_screen.dart:134:25 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:137:21 • deprecated_member_use
@@ -198,4 +201,4 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/error_widget.dart:40:52 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/loading_widget.dart:29:54 • deprecated_member_use
 
-197 issues found. (ran in 8.7s)
+200 issues found. (ran in 1.4s)

@@ -4345,6 +4345,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update'**
   String get update;
+
+  /// No description provided for @noRequestsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No requests found'**
+  String get noRequestsFound;
+
+  /// No description provided for @youHaveNotCreatedAnyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'You have not created any requests'**
+  String get youHaveNotCreatedAnyRequests;
+
+  /// No description provided for @noTransactionRequestsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No transaction requests found'**
+  String get noTransactionRequestsFound;
+
+  /// No description provided for @failedToLoadRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load requests'**
+  String get failedToLoadRequests;
+
+  /// No description provided for @pleaseEnterAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter amount'**
+  String get pleaseEnterAmount;
+
+  /// No description provided for @pleaseEnterValidAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid amount'**
+  String get pleaseEnterValidAmount;
+
+  /// No description provided for @requestCreatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request created successfully'**
+  String get requestCreatedSuccessfully;
+
+  /// No description provided for @requestUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request updated successfully'**
+  String get requestUpdatedSuccessfully;
+
+  /// No description provided for @noPendingApprovals.
+  ///
+  /// In en, this message translates to:
+  /// **'No pending approvals'**
+  String get noPendingApprovals;
+
+  /// No description provided for @allRequestsHaveBeenProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'All requests have been processed'**
+  String get allRequestsHaveBeenProcessed;
+
+  /// No description provided for @reject.
+  ///
+  /// In en, this message translates to:
+  /// **'Reject'**
+  String get reject;
+
+  /// No description provided for @failedToLoadPendingApprovals.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load pending approvals'**
+  String get failedToLoadPendingApprovals;
+
+  /// No description provided for @requestApprovedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request approved successfully'**
+  String get requestApprovedSuccessfully;
+
+  /// No description provided for @requestRejectedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Request rejected successfully'**
+  String get requestRejectedSuccessfully;
+
+  /// No description provided for @item.
+  ///
+  /// In en, this message translates to:
+  /// **'Item'**
+  String get item;
 }
 
 class _AppLocalizationsDelegate

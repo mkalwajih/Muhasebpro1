@@ -2188,4 +2188,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get update => 'تحديث';
+
+  @override
+  String get noRequestsFound => 'لم يتم العثور على طلبات';
+
+  @override
+  String get youHaveNotCreatedAnyRequests => 'لم تقم بإنشاء أي طلبات';
+
+  @override
+  String get noTransactionRequestsFound => 'لم يتم العثور على طلبات معاملات';
+
+  @override
+  String get failedToLoadRequests => 'فشل تحميل الطلبات';
+
+  @override
+  String get pleaseEnterAmount => 'الرجاء إدخال المبلغ';
+
+  @override
+  String get pleaseEnterValidAmount => 'الرجاء إدخال مبلغ صحيح';
+
+  @override
+  String get requestCreatedSuccessfully => 'تم إنشاء الطلب بنجاح';
+
+  @override
+  String get requestUpdatedSuccessfully => 'تم تحديث الطلب بنجاح';
+
+  @override
+  String get noPendingApprovals => 'لا توجد موافقات معلقة';
+
+  @override
+  String get allRequestsHaveBeenProcessed => 'تمت معالجة جميع الطلبات';
+
+  @override
+  String get reject => 'رفض';
+
+  @override
+  String get failedToLoadPendingApprovals => 'فشل تحميل الموافقات المعلقة';
+
+  @override
+  String get requestApprovedSuccessfully => 'تمت الموافقة على الطلب بنجاح';
+
+  @override
+  String get requestRejectedSuccessfully => 'تم رفض الطلب بنجاح';
+
+  @override
+  String get item => 'صنف';
 }
