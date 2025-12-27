@@ -622,4 +622,21 @@
   "adjustmentEntry": "قيد تسوية",
   "details": "التفاصيل",
   "update": "تحديث"
+  "noRequestsFound": "لم يتم العثور على طلبات",
+  "youHaveNotCreatedAnyRequests": "لم تقم بإنشاء أي طلبات",
+  "noTransactionRequestsFound": "لم يتم العثور على طلبات معاملات",
+  "failedToLoadRequests": "فشل تحميل الطلبات",
+  "pleaseEnterAmount": "الرجاء إدخال المبلغ",
+  "pleaseEnterValidAmount": "الرجاء إدخال مبلغ صحيح",
+  "requestCreatedSuccessfully": "تم إنشاء الطلب بنجاح",
+  "requestUpdatedSuccessfully": "تم تحديث الطلب بنجاح",
+  "noPendingApprovals": "لا توجد موافقات معلقة",
+  "allRequestsHaveBeenProcessed": "تمت معالجة جميع الطلبات",
+  "reject": "رفض",
+  "failedToLoadPendingApprovals": "فشل تحميل الموافقات المعلقة",
+  "requestApprovedSuccessfully": "تمت الموافقة على الطلب بنجاح",
+  "requestRejectedSuccessfully": "تم رفض الطلب بنجاح",
+  "item": "صنف"
+
+
 }
