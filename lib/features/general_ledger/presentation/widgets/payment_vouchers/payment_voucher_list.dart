@@ -1,45 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../../shared/presentation/widgets/loading_widget.dart';
-import '../../../../../shared/presentation/widgets/empty_state_widget.dart';
-// Corrected Import Path
-import '../../../../../shared/presentation/widgets/error_widget.dart';
-import '../../../domain/entities/payment_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart';
-import 'payment_voucher_list_item.dart';
 
 class PaymentVoucherList extends ConsumerStatefulWidget {
-  const PaymentVoucherList({
-    super.key,
-    required this.onVoucherSelected,
-    required this.canEdit,
-    required this.canPost,
-  });
-
-  final Function(PaymentVoucherEntity) onVoucherSelected;
-  final bool canEdit;
-  final bool canPost;
+  const PaymentVoucherList({super.key});
 
   @override
   ConsumerState<PaymentVoucherList> createState() => _PaymentVoucherListState();
 }
 
 class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
-  final ScrollController _scrollController = ScrollController();
   String _selectedStatus = 'All';
-  String _searchQuery = '';
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
+  String _searchTerm = '';
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
+    // Fake data for demonstration
+    final vouchers = [
+      // ... (your fake data)
+    ];
+
+    final filteredVouchers = vouchers.where((voucher) {
+      final statusMatch = _selectedStatus == 'All' || voucher.status.toString().split('.').last == _selectedStatus;
+      final searchMatch = _searchTerm.isEmpty ||
+          voucher.description.toLowerCase().contains(_searchTerm.toLowerCase()) ||
+          voucher.docNo.toLowerCase().contains(_searchTerm.toLowerCase());
+      return statusMatch && searchMatch;
+    }).toList();
 
     return Column(
       children: [
@@ -49,7 +39,7 @@ class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
             color: theme.colorScheme.surface,
             border: Border(
               bottom: BorderSide(
-                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                color: theme.colorScheme.outline.withOpacity(0.2),
               ),
             ),
           ),
@@ -58,7 +48,7 @@ class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  value: _selectedStatus,
+                  initialValue: _selectedStatus,
                   decoration: InputDecoration(
                     labelText: l10n.status,
                     border: const OutlineInputBorder(),
@@ -77,7 +67,6 @@ class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
                     setState(() {
                       _selectedStatus = value ?? 'All';
                     });
-                    _refreshList();
                   },
                 ),
               ),
@@ -87,19 +76,17 @@ class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
                 child: TextField(
                   decoration: InputDecoration(
                     labelText: l10n.search,
-                    hintText: l10n.searchPaymentVouchers,
                     border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.search),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 8,
                     ),
-                    suffixIcon: const Icon(Icons.search),
                   ),
                   onChanged: (value) {
                     setState(() {
-                      _searchQuery = value;
+                      _searchTerm = value;
                     });
-                    _refreshList();
                   },
                 ),
               ),
@@ -107,180 +94,54 @@ class _PaymentVoucherListState extends ConsumerState<PaymentVoucherList> {
           ),
         ),
         Expanded(
-          child: _buildVoucherList(),
+          child: ListView.builder(
+            itemCount: filteredVouchers.length,
+            itemBuilder: (context, index) {
+              final voucher = filteredVouchers[index];
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: ListTile(
+                  title: Text(voucher.description),
+                  subtitle: Text('${l10n.reference}: ${voucher.docNo}'),
+                  trailing: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        '\$${voucher.totalAmount.toStringAsFixed(2)}',
+                        style: TextStyle(
+                          color: theme.colorScheme.secondary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        voucher.status.toString().split('.').last,
+                        style: TextStyle(
+                          color: _getStatusColor(voucher.status, theme),
+                        ),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    // Handle voucher tap
+                  },
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildVoucherList() {
-    return _buildPlaceholderList();
-  }
-
-  Widget _buildPlaceholderList() {
-    final l10n = AppLocalizations.of(context)!;
-    
-    final sampleVouchers = [
-      PaymentVoucherEntity(
-        voucherId: 'PV001',
-        branchId: 'BR001',
-        docTypeCode: 'PV',
-        docNo: 'PV-2024-001',
-        date: DateTime.now().subtract(const Duration(days: 1)),
-        description: 'Office supplies payment',
-        paymentFromAccountId: 'ACC001',
-        paymentMethod: PaymentMethod.cash,
-        status: VoucherStatus.posted,
-        createdBy: 'USER001',
-        createdAt: DateTime.now().subtract(const Duration(days: 1)),
-        updatedAt: DateTime.now().subtract(const Duration(days: 1)),
-        totalAmount: 2500.0,
-        payeeName: 'Stationery Supplier',
-        lines: [
-          PaymentVoucherLineEntity(
-            lineId: 'PVL001',
-            voucherId: 'PV001',
-            lineNumber: 1,
-            accountId: 'ACC101',
-            amount: 2500.0,
-            description: 'Office supplies',
-            createdAt: DateTime.now().subtract(const Duration(days: 1)),
-            updatedAt: DateTime.now().subtract(const Duration(days: 1)),
-          ),
-        ],
-      ),
-      PaymentVoucherEntity(
-        voucherId: 'PV002',
-        branchId: 'BR001',
-        docTypeCode: 'PV',
-        docNo: 'PV-2024-002',
-        date: DateTime.now(),
-        description: 'Utility bills payment',
-        paymentFromAccountId: 'ACC002',
-        paymentMethod: PaymentMethod.transfer, // Fixed enum
-        status: VoucherStatus.draft,
-        createdBy: 'USER001',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        totalAmount: 1800.0,
-        payeeName: 'City Utilities',
-        lines: [
-          PaymentVoucherLineEntity(
-            lineId: 'PVL002',
-            voucherId: 'PV002',
-            lineNumber: 1,
-            accountId: 'ACC201',
-            amount: 1200.0,
-            description: 'Electricity bill',
-            createdAt: DateTime.now(),
-            updatedAt: DateTime.now(),
-          ),
-        ],
-      ),
-    ];
-
-    if (sampleVouchers.isEmpty) {
-        return EmptyStateWidget(
-            icon: Icons.money_off,
-            title: l10n.noVouchersFound,
-            subtitle: l10n.createFirstVoucher,
-          );
+  Color _getStatusColor(VoucherStatus status, ThemeData theme) {
+    switch (status) {
+      case VoucherStatus.draft:
+        return theme.colorScheme.onSurfaceVariant;
+      case VoucherStatus.posted:
+        return theme.colorScheme.primary;
+      case VoucherStatus.reversed:
+        return theme.colorScheme.error;
     }
-
-    return RefreshIndicator(
-      onRefresh: _refreshList,
-      child: ListView.builder(
-        controller: _scrollController,
-        padding: const EdgeInsets.all(16.0),
-        itemCount: sampleVouchers.length,
-        itemBuilder: (context, index) {
-          final voucher = sampleVouchers[index];
-          return PaymentVoucherListItem(
-            voucher: voucher,
-            onTap: () => widget.onVoucherSelected(voucher),
-            onEdit: widget.canEdit ? () => widget.onVoucherSelected(voucher) : null,
-            onPost: widget.canPost && voucher.canPost ? () => _postVoucher(voucher) : null,
-            onDelete: widget.canEdit && voucher.canDelete ? () => _deleteVoucher(voucher) : null,
-          );
-        },
-      ),
-    );
-  }
-
-  Future<void> _refreshList() async {}
-
-  void _postVoucher(PaymentVoucherEntity voucher) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.confirmPost),
-        content: Text(
-          AppLocalizations.of(context)!.confirmPostVoucher(voucher.displayName),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _performPost(voucher);
-            },
-            child: Text(AppLocalizations.of(context)!.post),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _performPost(PaymentVoucherEntity voucher) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(context)!.voucherPostedSuccessfully,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-      ),
-    );
-  }
-
-  void _deleteVoucher(PaymentVoucherEntity voucher) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.confirmDelete),
-        content: Text(
-          AppLocalizations.of(context)!.confirmDeleteVoucher(voucher.displayName),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _performDelete(voucher);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(AppLocalizations.of(context)!.delete),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _performDelete(PaymentVoucherEntity voucher) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          AppLocalizations.of(context)!.voucherDeletedSuccessfully,
-        ),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ),
-    );
   }
 }

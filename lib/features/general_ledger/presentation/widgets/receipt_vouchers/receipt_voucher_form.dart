@@ -564,8 +564,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
         updatedAt: DateTime.now(),
         totalAmount: _lines.fold<double>(0.0, (sum, line) => sum + line.amount),
         lines: _lines,
-        payeeName: _payerController.text.trim(), // Fixed: payeeName provided
-        payerName: _payerController.text.trim(), // And payerName as needed
+        payerName: _payerController.text.trim(),
         checkNo: _checkNumberController.text.trim().isEmpty ? null : _checkNumberController.text.trim(),
       );
       

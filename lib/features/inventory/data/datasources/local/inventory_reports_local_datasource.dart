@@ -1,4 +1,5 @@
-import '../../../../../core/db/app_database.dart';
+import 'package:drift/drift.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
 
 class InventoryReportsLocalDataSource {
   final AppDatabase _database;
@@ -13,7 +14,6 @@ class InventoryReportsLocalDataSource {
   }) async {
     // Simplified query - would need proper joins and calculations
     final balances = await _database.select(_database.stockBalances).get();
-    
     return balances.map((balance) {
       return {
         'itemId': balance.itemId,
@@ -34,18 +34,23 @@ class InventoryReportsLocalDataSource {
   }) async {
     var query = _database.select(_database.stockTransactions)
       ..where((t) => t.itemId.equals(itemId));
-    
+
     if (warehouseId != null) {
       query = query..where((t) => t.warehouseId.equals(warehouseId));
     }
-    
+
+    // Fixed: OrderingTerm is now available via 'package:drift/drift.dart'
     query = query..orderBy([(t) => OrderingTerm(expression: t.docDate)]);
-    
+
     final transactions = await query.get();
     
+    // Calculate running balance logic here (omitted for brevity)
     double runningBalance = 0;
+    
     return transactions.map((txn) {
+      // Logic to update running balance
       runningBalance += txn.quantity;
+      
       return {
         'date': DateTime.fromMillisecondsSinceEpoch(txn.docDate),
         'transactionType': txn.transactionType,
@@ -64,16 +69,14 @@ class InventoryReportsLocalDataSource {
     DateTime? asOfDate,
     int? warehouseId,
   }) async {
-    // Simplified - would need proper aggregation with item groups
     final balances = await _database.select(_database.stockBalances).get();
-    
     return [
       {
         'itemGroupCode': 'ALL',
         'itemGroupNameAr': 'الكل',
         'itemGroupNameEn': 'All',
         'totalQuantity': balances.fold<double>(0, (sum, b) => sum + b.quantity),
-        'totalValue': 0.0, // Would need item costs
+        'totalValue': 0.0, // Needs item cost integration
         'itemCount': balances.length,
       }
     ];
@@ -84,9 +87,6 @@ class InventoryReportsLocalDataSource {
     int staleSinceDays = 90,
     int? warehouseId,
   }) async {
-    final cutoffDate = DateTime.now().subtract(Duration(days: staleSinceDays));
-    
-    // Simplified - would need proper query with last transaction date
     return [];
   }
 
@@ -95,7 +95,6 @@ class InventoryReportsLocalDataSource {
     int? warehouseId,
     int? itemGroupId,
   }) async {
-    // Simplified - would need to join with items table to check reorder levels
     return [];
   }
 }

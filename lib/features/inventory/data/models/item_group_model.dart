@@ -4,7 +4,7 @@ import 'package:muhaseb_pro/features/inventory/domain/entities/item_group_entity
 
 class ItemGroupModel extends ItemGroupEntity {
   const ItemGroupModel({
-    required super.id,
+    super.id,
     required super.groupCode,
     required super.nameAr,
     required super.nameEn,
@@ -13,9 +13,10 @@ class ItemGroupModel extends ItemGroupEntity {
     required super.salesRevenueAccountId,
     required super.cogsAccountId,
     required super.isActive,
+    required super.createdAt,
+    required super.updatedAt,
   });
 
-  // Fixed: Changed ItemGroupData to ItemGroup
   factory ItemGroupModel.fromDrift(ItemGroup data) {
     return ItemGroupModel(
       id: data.id,
@@ -27,11 +28,30 @@ class ItemGroupModel extends ItemGroupEntity {
       salesRevenueAccountId: data.salesRevenueAccountId,
       cogsAccountId: data.cogsAccountId,
       isActive: data.isActive,
+      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt * 1000),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(data.updatedAt * 1000),
     );
   }
 
-  ItemGroupsCompanion toCompanion() {
+  static ItemGroupModel fromEntity(ItemGroupEntity entity) {
+    return ItemGroupModel(
+      id: entity.id,
+      groupCode: entity.groupCode,
+      nameAr: entity.nameAr,
+      nameEn: entity.nameEn,
+      parentGroupId: entity.parentGroupId,
+      inventoryAccountId: entity.inventoryAccountId,
+      salesRevenueAccountId: entity.salesRevenueAccountId,
+      cogsAccountId: entity.cogsAccountId,
+      isActive: entity.isActive,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    );
+  }
+
+  ItemGroupsCompanion toDrift() {
     return ItemGroupsCompanion(
+      id: id == null ? const Value.absent() : Value(id!),
       groupCode: Value(groupCode),
       nameAr: Value(nameAr),
       nameEn: Value(nameEn),
@@ -40,6 +60,8 @@ class ItemGroupModel extends ItemGroupEntity {
       salesRevenueAccountId: Value(salesRevenueAccountId),
       cogsAccountId: Value(cogsAccountId),
       isActive: Value(isActive),
+      createdAt: Value(createdAt.millisecondsSinceEpoch ~/ 1000),
+      updatedAt: Value(updatedAt.millisecondsSinceEpoch ~/ 1000),
     );
   }
 }

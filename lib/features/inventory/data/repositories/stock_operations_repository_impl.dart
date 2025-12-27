@@ -11,7 +11,7 @@ class StockOperationsRepositoryImpl implements StockOperationsRepository {
   @override
   Future<Either<Exception, List<IncomingStockOrderEntity>>> getAllIncomingOrders() async {
     try {
-      final orders = await _localDataSource.getAllIncomingOrders();
+      await _localDataSource.getAllIncomingOrders();
       // Convert to entities (simplified - would need proper model conversion)
       return Right([]);
     } catch (e) {

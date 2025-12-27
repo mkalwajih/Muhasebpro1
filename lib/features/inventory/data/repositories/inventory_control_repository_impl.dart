@@ -11,7 +11,7 @@ class InventoryControlRepositoryImpl implements InventoryControlRepository {
   @override
   Future<Either<Exception, List<StocktakingSessionEntity>>> getAllSessions() async {
     try {
-      final sessions = await _localDataSource.getAllSessions();
+      await _localDataSource.getAllStocktakingSessions();
       // Simplified - would need proper model conversion
       return Right([]);
     } catch (e) {

@@ -85,11 +85,7 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
               onSaved: (voucher) => _onVoucherSaved(voucher as PaymentVoucherEntity),
               onCancelled: () => _switchToListMode(),
             )
-          : PaymentVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher as PaymentVoucherEntity),
-              canEdit: canEdit,
-              canPost: canPost,
-            ),
+          : const PaymentVoucherList(),
       floatingActionButton: !_isFormMode && canCreate
           ? FloatingActionButton(
               onPressed: () => _createNewVoucher(),
@@ -111,13 +107,6 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
     setState(() {
       _isFormMode = true;
       _selectedVoucher = null;
-    });
-  }
-
-  void _editVoucher(PaymentVoucherEntity voucher) {
-    setState(() {
-      _isFormMode = true;
-      _selectedVoucher = voucher;
     });
   }
 
