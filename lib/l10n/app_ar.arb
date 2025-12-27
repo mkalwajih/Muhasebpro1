@@ -190,7 +190,7 @@
   "accountNameEn": "اسم الحساب (إنجليزي)",
   "roleNameEn": "اسم الدور (إنجليزي)",
   "roleNameAr": "اسم الدور (عربي)",
-  "description": "الوصف",
+  "description": "البيان",
   "backupFrequency": "تكرار النسخ الاحتياطي",
   "cloudBackup": "النسخ الاحتياطي السحابي",
   "cloudBackupHint": "ملاحظة: النسخ الاحتياطي السحابي مهم.",
@@ -313,7 +313,7 @@
   "viewList": "عرض القائمة",
   "search": "بحث",
   "filter": "تصفية",
-  "voucherSavedSuccessfully": "تم حفظ القيد بنجاح",
+  "voucherSavedSuccessfully": "تم حفظ السند بنجاح",
   "searchQuery": "استعلام البحث",
   "enterSearchTerm": "أدخل مصطلح البحث",
   "filterOptions": "خيارات التصفية",
@@ -352,7 +352,6 @@
   "periodic": "دوري",
   "documentType": "نوع المستند",
   "date": "التاريخ",
-  "description": "البيان",
   "referenceCode": "الرقم المرجعي",
   "pleaseSelectDocumentType": "يرجى اختيار نوع المستند",
   "pleaseSelectBranch": "يرجى اختيار الفرع",
@@ -547,8 +546,6 @@
   "noItemGroupsFound": "لا توجد مجموعات أصناف",
   "addItemGroupToGetStarted": "أضف مجموعة أصناف للبدء",
   "addItemGroup": "إضافة مجموعة أصناف",
-  "nameAr": "الاسم (عربي)",
-  "nameEn": "الاسم (إنجليزي)",
   "items": "الأصناف",
   "noItemsFound": "لا توجد أصناف",
   "addItemToGetStarted": "أضف صنفاً للبدء",
@@ -570,7 +567,7 @@
   "clickAddToStart": "انقر على إضافة للبدء في إدخال الرصيد الافتتاحي",
   "addEntry": "إضافة قيد",
   "addOpeningStock": "إضافة رصيد افتتاحي",
-  "item": "الصنف",
+  "item": "صنف",
   "warehouse": "المستودع",
   "quantity": "الكمية",
   "unitCost": "تكلفة الوحدة",
@@ -615,13 +612,12 @@
   "pending": "قيد الانتظار",
   "create": "إنشاء",
   "addAdjustment": "إضافة تسوية",
-  "voucherSavedSuccessfully": "تم حفظ السند بنجاح",
   "journalVoucher": "قيد يومية",
   "paymentVoucher": "سند صرف",
   "receiptVoucher": "سند قبض",
   "adjustmentEntry": "قيد تسوية",
   "details": "التفاصيل",
-  "update": "تحديث"
+  "update": "تحديث",
   "noRequestsFound": "لم يتم العثور على طلبات",
   "youHaveNotCreatedAnyRequests": "لم تقم بإنشاء أي طلبات",
   "noTransactionRequestsFound": "لم يتم العثور على طلبات معاملات",
@@ -635,8 +631,5 @@
   "reject": "رفض",
   "failedToLoadPendingApprovals": "فشل تحميل الموافقات المعلقة",
   "requestApprovedSuccessfully": "تمت الموافقة على الطلب بنجاح",
-  "requestRejectedSuccessfully": "تم رفض الطلب بنجاح",
-  "item": "صنف"
-
-
+  "requestRejectedSuccessfully": "تم رفض الطلب بنجاح"
 }
