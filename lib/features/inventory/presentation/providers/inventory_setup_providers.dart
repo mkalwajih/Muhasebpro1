@@ -8,6 +8,7 @@ import 'package:muhaseb_pro/features/inventory/domain/usecases/create_warehouse_
 import 'package:muhaseb_pro/features/inventory/domain/usecases/update_warehouse_usecase.dart';
 import 'package:muhaseb_pro/features/inventory/domain/usecases/delete_warehouse_usecase.dart';
 import 'package:muhaseb_pro/shared/domain/interfaces/usecase.dart';
+import 'package:muhaseb_pro/features/inventory/domain/entities/inventory_config_entity.dart';
 
 // Data Source
 final inventorySetupLocalDataSourceProvider = Provider<InventorySetupLocalDataSource>((ref) {
@@ -16,8 +17,7 @@ final inventorySetupLocalDataSourceProvider = Provider<InventorySetupLocalDataSo
 
 // Repository
 final inventorySetupRepositoryProvider = Provider((ref) {
-  return InventorySetupRepositoryImpl(
-      ref.read(inventorySetupLocalDataSourceProvider));
+  return InventorySetupRepositoryImpl(ref.read(inventorySetupLocalDataSourceProvider));
 });
 
 // Use Cases
@@ -41,7 +41,6 @@ final deleteWarehouseUseCaseProvider = Provider((ref) {
   return DeleteWarehouseUseCase(ref.read(inventorySetupRepositoryProvider));
 });
 
-
 // Providers for UI
 final warehousesProvider = FutureProvider((ref) async {
   final useCase = ref.read(getAllWarehousesUseCaseProvider);
@@ -54,16 +53,26 @@ final itemGroupsProvider = FutureProvider((ref) async {
 });
 
 final createWarehouseProvider = FutureProvider.family((ref, warehouse) async {
-    final useCase = ref.read(createWarehouseUseCaseProvider);
-    return await useCase.call(warehouse);
+  final useCase = ref.read(createWarehouseUseCaseProvider);
+  return await useCase.call(warehouse);
 });
 
 final updateWarehouseProvider = FutureProvider.family((ref, warehouse) async {
-    final useCase = ref.read(updateWarehouseUseCaseProvider);
-    return await useCase.call(warehouse);
+  final useCase = ref.read(updateWarehouseUseCaseProvider);
+  return await useCase.call(warehouse);
 });
 
 final deleteWarehouseProvider = FutureProvider.family((ref, id) async {
-    final useCase = ref.read(deleteWarehouseUseCaseProvider);
-    return await useCase.call(id);
+  final useCase = ref.read(deleteWarehouseUseCaseProvider);
+  return await useCase.call(id);
+});
+
+// Added missing inventoryConfigProvider
+final inventoryConfigProvider = FutureProvider<InventoryConfigEntity>((ref) async {
+  final repo = ref.read(inventorySetupRepositoryProvider);
+  final result = await repo.getInventoryConfig();
+  return result.fold(
+    (l) => throw l,
+    (r) => r,
+  );
 });
