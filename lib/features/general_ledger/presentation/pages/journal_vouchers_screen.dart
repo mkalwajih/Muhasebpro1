@@ -6,7 +6,7 @@ import '../../../../shared/utils/role_checker.dart';
 import '../widgets/journal_vouchers/journal_voucher_list.dart';
 import '../widgets/journal_vouchers/journal_voucher_form.dart';
 import '../../domain/entities/journal_voucher_entity.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart'; // Keep this import for ErrorWidget
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
 
 class JournalVouchersScreen extends ConsumerStatefulWidget {
   const JournalVouchersScreen({super.key});
@@ -38,7 +38,7 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: CustomErrorWidget(
+        body: custom.CustomErrorWidget( // Fixed reference
           error: l10n.accessDenied,
         ),
       );
@@ -82,11 +82,13 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher as JournalVoucherEntity),
+              // Fixed: Removed unnecessary cast 'as JournalVoucherEntity'
+              onSaved: (voucher) => _onVoucherSaved(voucher), 
               onCancelled: () => _switchToListMode(),
             )
           : JournalVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher as JournalVoucherEntity),
+              // Fixed: Removed unnecessary cast
+              onVoucherSelected: (voucher) => _editVoucher(voucher),
               canEdit: canEdit,
               canPost: canPost,
             ),
@@ -122,10 +124,8 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
   }
 
   void _onVoucherSaved(JournalVoucherEntity voucher) {
-    // Refresh the list and switch back to list mode
     _switchToListMode();
     
-    // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.voucherSavedSuccessfully),
@@ -134,6 +134,7 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
     );
   }
 
+  // ... (Search and Filter dialog methods remain unchanged)
   void _showSearchDialog() {
     showDialog(
       context: context,
@@ -149,7 +150,6 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               ),
               onSubmitted: (query) {
                 Navigator.of(context).pop();
-                // Implement search functionality
               },
             ),
           ],
@@ -162,7 +162,6 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Implement search functionality
             },
             child: Text(AppLocalizations.of(context)!.search),
           ),
@@ -179,7 +178,6 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Add filter options here
             Text(AppLocalizations.of(context)!.filterOptions),
           ],
         ),
@@ -191,7 +189,6 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Implement filter functionality
             },
             child: Text(AppLocalizations.of(context)!.apply),
           ),
