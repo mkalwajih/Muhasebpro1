@@ -107,7 +107,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: 'l10n.symbol');
+    // Removed unused currencyFormat
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -261,8 +261,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: isReconciled 
-            ? theme.colorScheme.primaryContainer.withOpacity(0.3)
-            : theme.colorScheme.errorContainer.withOpacity(0.3),
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3) // Fixed deprecated withOpacity
+            : theme.colorScheme.errorContainer.withValues(alpha: 0.3), // Fixed deprecated withOpacity
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: isReconciled 

@@ -6,9 +6,6 @@ warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/
 warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:89:60 • unnecessary_cast
 warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:85:53 • unnecessary_cast
 warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:89:60 • unnecessary_cast
-warning • The value of the local variable 'currencyFormat' isn't used • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:110:11 • unused_local_variable
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:264:50 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:265:48 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:377:28 • deprecated_member_use
 warning • The value of the local variable 'theme' isn't used • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:128:11 • unused_local_variable
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:142:23 • deprecated_member_use
@@ -92,7 +89,6 @@ warning • The declaration '_buildBalanceVerification' isn't referenced • lib
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_form.dart:102:27 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_form.dart:149:27 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_form.dart:349:46 • deprecated_member_use
-  error • The named parameter 'amount' is required, but there's no corresponding argument • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_form.dart:454:28 • missing_required_argument
 warning • Unused import: '../../../../../shared/presentation/widgets/loading_widget.dart' • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_list.dart:4:8 • unused_import
 warning • Unused import: '../../../../../shared/presentation/widgets/error_widget.dart' • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_list.dart:7:8 • unused_import
 warning • The value of the field '_searchQuery' isn't used • lib/features/general_ledger/presentation/widgets/journal_vouchers/journal_voucher_list.dart:31:10 • unused_field
@@ -107,244 +103,60 @@ warning • Unused import: '../../../../../shared/presentation/widgets/loading_w
 warning • Unused import: '../../../../../shared/presentation/widgets/error_widget.dart' • lib/features/general_ledger/presentation/widgets/payment_vouchers/payment_voucher_list.dart:7:8 • unused_import
 warning • The value of the field '_searchQuery' isn't used • lib/features/general_ledger/presentation/widgets/payment_vouchers/payment_voucher_list.dart:31:10 • unused_field
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/payment_vouchers/payment_voucher_list.dart:61:19 • deprecated_member_use
-  error • Target of URI doesn't exist: '../../../../shared/presentation/widgets/custom_text_field.dart' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:4:8 • uri_does_not_exist
-  error • The getter 'checkNo' isn't defined for the type 'ReceiptVoucherEntity' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:54:45 • undefined_getter
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:103:54 • deprecated_member_use
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:114:27 • deprecated_member_use
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:161:27 • deprecated_member_use
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:211:27 • deprecated_member_use
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:237:27 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:430:46 • deprecated_member_use
-  error • The named parameter 'payeeName' isn't defined • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:566:9 • undefined_named_parameter
+warning • Unused import: 'package:muhaseb_pro/shared/presentation/widgets/custom_text_field.dart' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:5:8 • unused_import
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:105:54 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:116:27 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:163:27 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:213:27 • deprecated_member_use
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:239:27 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:433:46 • deprecated_member_use
+  error • The named parameter 'payeeName' isn't defined • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_form.dart:567:9 • undefined_named_parameter
 warning • Unused import: '../../../../../shared/presentation/widgets/loading_widget.dart' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:4:8 • unused_import
 warning • Unused import: '../../../../../shared/presentation/widgets/empty_state_widget.dart' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:5:8 • unused_import
 warning • Unused import: '../../../../../shared/presentation/widgets/error_widget.dart' • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:6:8 • unused_import
 warning • The value of the field '_searchQuery' isn't used • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:30:10 • unused_field
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:52:50 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/receipt_vouchers/receipt_voucher_list.dart:62:19 • deprecated_member_use
-  error • The getter 'details' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/review_posting/period_closing_tab.dart:240:36 • undefined_getter
-  error • The getter 'details' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/review_posting/posting_batches_tab.dart:218:36 • undefined_getter
-  error • The named parameter 'error' is required, but there's no corresponding argument • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:84:32 • missing_required_argument
-  error • The named parameter 'message' isn't defined • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:85:9 • undefined_named_parameter
-  error • The getter 'journalVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:274:21 • undefined_getter
-  error • The getter 'paymentVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:276:21 • undefined_getter
-  error • The getter 'receiptVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:278:21 • undefined_getter
+  error • The getter 'noPendingApprovals' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:24:25 • undefined_getter
+  error • The getter 'allRequestsHaveBeenProcessed' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:25:28 • undefined_getter
+  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:66:48 • undefined_getter
+  error • The getter 'failedToLoadPendingApprovals' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:85:21 • undefined_getter
+  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:131:55 • undefined_getter
+  error • The getter 'requestApprovedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:152:57 • undefined_getter
+  error • The getter 'reject' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:212:55 • undefined_getter
+  error • The getter 'requestRejectedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/pending_approvals_tab.dart:234:57 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:70:17 • deprecated_member_use
-  error • The getter 'update' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:142:78 • undefined_getter
-  error • The getter 'journalVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:228:21 • undefined_getter
-  error • The getter 'paymentVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:230:21 • undefined_getter
-  error • The getter 'receiptVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:232:21 • undefined_getter
-  error • The named parameter 'error' is required, but there's no corresponding argument • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:61:32 • missing_required_argument
-  error • The named parameter 'message' isn't defined • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:62:9 • undefined_named_parameter
-  error • The getter 'journalVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:129:21 • undefined_getter
-  error • The getter 'paymentVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:131:21 • undefined_getter
-  error • The getter 'receiptVoucher' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:133:21 • undefined_getter
+  error • The getter 'pleaseEnterAmount' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:108:33 • undefined_getter
+  error • The getter 'pleaseEnterValidAmount' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:112:33 • undefined_getter
+  error • The getter 'requestCreatedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:200:49 • undefined_getter
+  error • The getter 'requestUpdatedSuccessfully' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_form.dart:201:49 • undefined_getter
+  error • The getter 'noRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:36:46 • undefined_getter
+  error • The getter 'noRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:36:69 • undefined_getter
+  error • The getter 'youHaveNotCreatedAnyRequests' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:38:24 • undefined_getter
+  error • The getter 'noTransactionRequestsFound' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:39:24 • undefined_getter
+  error • The getter 'failedToLoadRequests' isn't defined for the type 'AppLocalizations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list.dart:62:21 • undefined_getter
 warning • The value of the local variable 'l10n' isn't used • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list_item.dart:17:11 • unused_local_variable
   error • The name 'StocktakingSessionData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:10:15 • non_type_as_type_argument
-  error • The getter 'stocktakingSessions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:11:46 • undefined_getter
-  error • The getter 'sessionDate' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:12:52 • undefined_getter
   error • The name 'StocktakingSessionData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:16:10 • non_type_as_type_argument
-  error • The getter 'stocktakingSessions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:17:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:18:24 • undefined_getter
-  error • Undefined class 'StocktakingSessionsCompanion' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:22:29 • undefined_class
-  error • The getter 'stocktakingSessions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:23:43 • undefined_getter
-  error • Undefined class 'StocktakingSessionsCompanion' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:26:38 • undefined_class
-  error • The getter 'stocktakingSessions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:27:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:28:28 • undefined_getter
-  error • The getter 'stocktakingSessions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:33:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:34:28 • undefined_getter
   error • The name 'StocktakingCountData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:39:15 • non_type_as_type_argument
-  error • The getter 'stocktakingCounts' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:40:46 • undefined_getter
-  error • The getter 'sessionId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:41:24 • undefined_getter
-  error • Undefined class 'StocktakingCountsCompanion' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:45:28 • undefined_class
-  error • The getter 'stocktakingCounts' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:46:36 • undefined_getter
-  error • Undefined class 'StocktakingCountsCompanion' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:49:36 • undefined_class
-  error • The getter 'stocktakingCounts' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:50:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:51:28 • undefined_getter
-  error • The method 'StocktakingCountsCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:68:13 • undefined_method
-  error • The method 'StocktakingSessionsCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:78:9 • undefined_method
-  error • The getter 'stockTransactions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:95:42 • undefined_getter
-  error • The method 'StockTransactionsCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:96:17 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:115:69 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:117:23 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:118:23 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:122:47 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:123:36 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:124:24 • undefined_method
-  error • The method 'StocktakingSessionsCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:134:9 • undefined_method
   error • The name 'StockReservationData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:144:15 • non_type_as_type_argument
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:145:46 • undefined_getter
-  error • The getter 'createdAt' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:146:52 • undefined_getter
   error • The name 'StockReservationData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:150:15 • non_type_as_type_argument
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:151:46 • undefined_getter
-  error • The getter 'status' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:152:24 • undefined_getter
-  error • Undefined class 'StockReservationsCompanion' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:156:34 • undefined_class
 warning • The value of the local variable 'reservationId' isn't used • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:158:13 • unused_local_variable
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:158:60 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:161:57 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:163:19 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:164:19 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:168:43 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:169:32 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:170:20 • undefined_method
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:180:61 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:181:30 • undefined_getter
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:186:43 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:187:32 • undefined_getter
-  error • The method 'StockReservationsCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:188:20 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:194:59 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:196:21 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:197:21 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:201:45 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:202:34 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'InventoryControlLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:203:22 • undefined_method
-  error • The getter 'stockReservations' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:213:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:214:28 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:15:55 • undefined_getter
-  error • The getter 'stockTransactions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:35:44 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:36:24 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:39:37 • undefined_getter
   error • The method 'OrderingTerm' isn't defined for the type 'InventoryReportsLocalDataSource' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:42:36 • undefined_method
-  error • The getter 'docDate' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:42:63 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:68:55 • undefined_getter
 warning • The value of the local variable 'cutoffDate' isn't used • lib/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart:87:11 • unused_local_variable
-  error • The getter 'inventoryConfig' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:14:46 • undefined_getter
-  error • The getter 'inventoryConfig' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:20:36 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:27:46 • undefined_getter
-  error • The getter 'warehouseCode' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:28:52 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:34:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:35:24 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:41:36 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:45:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:46:28 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:51:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:52:28 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:58:46 • undefined_getter
-  error • The getter 'groupCode' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:59:52 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:65:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:66:24 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:72:36 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:76:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:77:28 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:82:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/inventory_setup_local_datasource.dart:83:28 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:12:46 • undefined_getter
-  error • The getter 'itemCode' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:13:52 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:19:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:20:24 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:26:46 • undefined_getter
-  error • The getter 'itemCode' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:27:24 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:33:46 • undefined_getter
-  error • The getter 'barcode' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:34:24 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:40:36 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:44:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:45:28 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:50:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:50:62 • undefined_getter
-  error • The getter 'stockTransactions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:67:40 • undefined_getter
-  error • The method 'StockTransactionsCompanion' isn't defined for the type 'ItemManagementLocalDataSource' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:68:15 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:89:67 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:91:21 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:91:47 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:95:45 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:96:34 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'ItemManagementLocalDataSource' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:98:13 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:104:42 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'ItemManagementLocalDataSource' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:105:17 • undefined_method
   error • The name 'IncomingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:10:15 • non_type_as_type_argument
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:11:46 • undefined_getter
-  error • The getter 'docDate' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:12:52 • undefined_getter
   error • The name 'IncomingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:16:10 • non_type_as_type_argument
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:17:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:18:24 • undefined_getter
-  error • Undefined class 'IncomingStockOrdersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:22:35 • undefined_class
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:23:43 • undefined_getter
-  error • Undefined class 'IncomingStockOrdersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:26:44 • undefined_class
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:27:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:28:28 • undefined_getter
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:33:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:34:28 • undefined_getter
   error • The name 'IncomingStockOrderLineData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:39:15 • non_type_as_type_argument
-  error • The getter 'incomingStockOrderLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:40:46 • undefined_getter
-  error • The getter 'orderId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:41:24 • undefined_getter
-  error • Undefined class 'IncomingStockOrderLinesCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:45:40 • undefined_class
-  error • The getter 'incomingStockOrderLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:46:36 • undefined_getter
   error • The name 'OutgoingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:50:15 • non_type_as_type_argument
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:51:46 • undefined_getter
-  error • The getter 'docDate' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:52:52 • undefined_getter
   error • The name 'OutgoingStockOrderData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:56:10 • non_type_as_type_argument
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:57:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:58:24 • undefined_getter
-  error • Undefined class 'OutgoingStockOrdersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:62:35 • undefined_class
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:63:43 • undefined_getter
-  error • Undefined class 'OutgoingStockOrdersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:66:44 • undefined_class
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:67:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:68:28 • undefined_getter
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:73:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:74:28 • undefined_getter
   error • The name 'OutgoingStockOrderLineData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:79:15 • non_type_as_type_argument
-  error • The getter 'outgoingStockOrderLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:80:46 • undefined_getter
-  error • The getter 'orderId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:81:24 • undefined_getter
-  error • Undefined class 'OutgoingStockOrderLinesCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:85:40 • undefined_class
-  error • The getter 'outgoingStockOrderLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:86:36 • undefined_getter
   error • The name 'WarehouseTransferData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:90:15 • non_type_as_type_argument
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:91:46 • undefined_getter
-  error • The getter 'transferDate' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:92:52 • undefined_getter
   error • The name 'WarehouseTransferData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:96:15 • non_type_as_type_argument
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:97:46 • undefined_getter
-  error • The getter 'destinationWarehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:99:13 • undefined_getter
-  error • The getter 'status' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:100:13 • undefined_getter
   error • The name 'WarehouseTransferData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:104:10 • non_type_as_type_argument
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:105:46 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:106:24 • undefined_getter
-  error • Undefined class 'WarehouseTransfersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:110:30 • undefined_class
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:111:43 • undefined_getter
-  error • Undefined class 'WarehouseTransfersCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:114:39 • undefined_class
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:115:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:116:28 • undefined_getter
-  error • The getter 'warehouseTransfers' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:121:39 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:122:28 • undefined_getter
   error • The name 'WarehouseTransferLineData' isn't a type, so it can't be used as a type argument • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:127:15 • non_type_as_type_argument
-  error • The getter 'warehouseTransferLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:128:46 • undefined_getter
-  error • The getter 'transferId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:129:24 • undefined_getter
-  error • Undefined class 'WarehouseTransferLinesCompanion' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:133:35 • undefined_class
-  error • The getter 'warehouseTransferLines' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:134:36 • undefined_getter
-  error • The getter 'incomingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:141:41 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:142:30 • undefined_getter
-  error • The method 'IncomingStockOrdersCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:143:18 • undefined_method
-  error • The getter 'stockTransactions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:156:40 • undefined_getter
-  error • The method 'StockTransactionsCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:157:15 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:178:67 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:180:21 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:181:21 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:185:45 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:186:34 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:187:22 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:192:42 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:193:17 • undefined_method
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:209:41 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:210:30 • undefined_getter
-  error • The method 'OutgoingStockOrdersCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:211:18 • undefined_method
-  error • The getter 'stockTransactions' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:224:40 • undefined_getter
-  error • The method 'StockTransactionsCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:225:15 • undefined_method
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:244:67 • undefined_getter
-  error • The getter 'itemId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:246:21 • undefined_getter
-  error • The getter 'warehouseId' isn't defined for the type 'HasResultSet' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:247:21 • undefined_getter
-  error • The getter 'stockBalances' isn't defined for the type 'AppDatabase' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:251:45 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:252:34 • undefined_getter
-  error • The method 'StockBalancesCompanion' isn't defined for the type 'StockOperationsLocalDataSource' • lib/features/inventory/data/datasources/local/stock_operations_local_datasource.dart:253:22 • undefined_method
-  error • Undefined class 'InventoryConfigData' • lib/features/inventory/data/models/inventory_config_model.dart:38:42 • undefined_class
-  error • Undefined class 'InventoryConfigCompanion' • lib/features/inventory/data/models/inventory_config_model.dart:55:3 • undefined_class
-  error • The method 'InventoryConfigCompanion' isn't defined for the type 'InventoryConfigModel' • lib/features/inventory/data/models/inventory_config_model.dart:56:12 • undefined_method
   error • Undefined class 'ItemGroupData' • lib/features/inventory/data/models/item_group_model.dart:36:36 • undefined_class
-  error • Undefined class 'ItemGroupsCompanion' • lib/features/inventory/data/models/item_group_model.dart:52:3 • undefined_class
-  error • The method 'ItemGroupsCompanion' isn't defined for the type 'ItemGroupModel' • lib/features/inventory/data/models/item_group_model.dart:53:12 • undefined_method
   error • Undefined class 'ItemData' • lib/features/inventory/data/models/item_model.dart:61:31 • undefined_class
-  error • Undefined class 'ItemsCompanion' • lib/features/inventory/data/models/item_model.dart:89:3 • undefined_class
-  error • The method 'ItemsCompanion' isn't defined for the type 'ItemModel' • lib/features/inventory/data/models/item_model.dart:90:12 • undefined_method
   error • Undefined class 'WarehouseData' • lib/features/inventory/data/models/warehouse_model.dart:32:36 • undefined_class
-  error • Undefined class 'WarehousesCompanion' • lib/features/inventory/data/models/warehouse_model.dart:46:3 • undefined_class
-  error • The method 'WarehousesCompanion' isn't defined for the type 'WarehouseModel' • lib/features/inventory/data/models/warehouse_model.dart:47:12 • undefined_method
 warning • The value of the local variable 'sessions' isn't used • lib/features/inventory/data/repositories/inventory_control_repository_impl.dart:14:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:15:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:34:13 • unused_local_variable
@@ -352,6 +164,8 @@ warning • The value of the local variable 'data' isn't used • lib/features/i
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:64:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:78:13 • unused_local_variable
 warning • The value of the local variable 'orders' isn't used • lib/features/inventory/data/repositories/stock_operations_repository_impl.dart:14:13 • unused_local_variable
+  error • The getter 'item' isn't defined for the type 'AppLocalizations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:96:47 • undefined_getter
+  error • The getter 'item' isn't defined for the type 'AppLocalizations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:151:65 • undefined_getter
   error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_control_providers.dart:10:30 • undefined_identifier
   error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_reports_providers.dart:10:30 • undefined_identifier
   error • Undefined name 'databaseProvider' • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:14:30 • undefined_identifier
@@ -384,4 +198,4 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/error_widget.dart:40:52 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/loading_widget.dart:29:54 • deprecated_member_use
 
-383 issues found. (ran in 1.3s)
+197 issues found. (ran in 8.7s)
