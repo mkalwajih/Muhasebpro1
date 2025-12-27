@@ -757,5 +757,9 @@
   "failedToLoadPendingApprovals": "Failed to load pending approvals",
   "requestApprovedSuccessfully": "Request approved successfully",
   "requestRejectedSuccessfully": "Request rejected successfully",
-  "item": "Item"
+  "item": "Item", 
+"editItemGroup": "Edit Item Group",
+"groupCode": "Group Code",
+"cogsAccount": "COGS Account"
+ 
 }
