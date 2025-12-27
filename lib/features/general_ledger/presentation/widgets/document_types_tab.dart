@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../../shared/presentation/widgets/custom_search_field.dart';
 import '../../../../shared/presentation/widgets/empty_state_widget.dart';
-import '../../../../shared/presentation/widgets/error_widget.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart'; // Renamed to avoid conflict if needed, usually CustomErrorWidget
 import '../../../../shared/presentation/widgets/loading_widget.dart';
 import '../../domain/entities/document_type_entity.dart';
 import '../providers/gl_setup_providers.dart';
@@ -21,7 +21,7 @@ class DocumentTypesTab extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    // Removed unused theme variable
     final documentTypesAsync = ref.watch(filteredDocumentTypesProvider);
     final searchQuery = ref.watch(documentTypesSearchProvider);
 
@@ -84,8 +84,9 @@ class DocumentTypesTab extends ConsumerWidget {
       ),
       floatingActionButton: canModify ? FloatingActionButton(
         onPressed: () => _showDocumentTypeDialog(context, ref),
-        child: const Icon(Icons.add),
         tooltip: l10n.addDocumentType,
+        // Fixed: child argument last
+        child: const Icon(Icons.add),
       ) : null,
     );
   }
@@ -150,11 +151,12 @@ class DocumentTypesTab extends ConsumerWidget {
           TextButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              
               final notifier = ref.read(documentTypesProvider.notifier);
               final success = await notifier.deleteDocumentType(documentType.docTypeCode);
               
-              if (success && context.mounted) {
+              if (!context.mounted) return;
+
+              if (success) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(l10n.documentTypeDeletedSuccessfully),
