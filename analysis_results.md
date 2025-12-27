@@ -2,15 +2,8 @@ Analyzing Muhasebpro1...
 
 warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:85:53 • unnecessary_cast
 warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:89:60 • unnecessary_cast
-warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:85:53 • unnecessary_cast
-warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:85:53 • unnecessary_cast
-warning • Unnecessary cast • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:89:60 • unnecessary_cast
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:377:28 • deprecated_member_use
-warning • The value of the local variable 'theme' isn't used • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:128:11 • unused_local_variable
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:142:23 • deprecated_member_use
-   info • 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:305:46 • deprecated_member_use
-   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:305:61 • deprecated_member_use
-   info • 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:483:31 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:302:70 • deprecated_member_use
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:68:19 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/description_coding_list_item.dart:29:56 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/general_ledger/presentation/widgets/description_coding_list_item.dart:56:52 • deprecated_member_use
@@ -124,15 +117,14 @@ warning • The value of the local variable 'data' isn't used • lib/features/i
   error • Too many positional arguments: 0 expected, but 1 found • lib/features/inventory/domain/usecases/get_all_item_groups_usecase.dart:16:48 • extra_positional_arguments_could_be_named
   error • Too many positional arguments: 0 expected, but 1 found • lib/features/inventory/domain/usecases/get_all_warehouses_usecase.dart:16:48 • extra_positional_arguments_could_be_named
   error • Too many positional arguments: 0 expected, but 1 found • lib/features/inventory/domain/usecases/update_warehouse_usecase.dart:15:48 • extra_positional_arguments_could_be_named
-  error • The argument type 'Object?' can't be assigned to the parameter type 'WarehouseEntity'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:58:31 • argument_type_not_assignable
-  error • The argument type 'Object?' can't be assigned to the parameter type 'WarehouseEntity'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:63:31 • argument_type_not_assignable
-  error • The argument type 'Object?' can't be assigned to the parameter type 'int'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:68:31 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'WarehouseEntity'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:57:29 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'WarehouseEntity'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:62:29 • argument_type_not_assignable
+  error • The argument type 'Object?' can't be assigned to the parameter type 'int'.  • lib/features/inventory/presentation/providers/inventory_setup_providers.dart:67:29 • argument_type_not_assignable
 warning • The value of the field '_transfersIntermediaryAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:23:11 • unused_field
 warning • The value of the field '_openingBalanceEquityAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:24:11 • unused_field
 warning • The value of the field '_stockReceivedClearingAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:25:11 • unused_field
 warning • The value of the field '_inventoryShortageExpenseAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:26:11 • unused_field
 warning • The value of the field '_inventorySurplusRevenueAccountId' isn't used • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:27:11 • unused_field
-  error • Undefined name 'inventoryConfigProvider' • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:35:35 • undefined_identifier
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:61:21 • deprecated_member_use
   error • Undefined name 'saveInventoryConfigProvider' • lib/features/inventory/presentation/widgets/setup/inventory_variables_tab.dart:195:35 • undefined_identifier
   error • The getter 'isEmpty' isn't defined for the type 'Either<Failure, List<ItemGroupEntity>>' • lib/features/inventory/presentation/widgets/setup/item_groups_tab.dart:20:26 • undefined_getter
@@ -163,4 +155,4 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/error_widget.dart:40:52 • deprecated_member_use
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/loading_widget.dart:29:54 • deprecated_member_use
 
-162 issues found. (ran in 1.5s)
+154 issues found. (ran in 2.3s)
