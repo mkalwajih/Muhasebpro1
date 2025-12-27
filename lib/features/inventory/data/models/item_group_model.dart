@@ -1,10 +1,10 @@
-import 'package:drift/drift.dart' as drift;
-import '../../../../core/db/app_database.dart';
-import '../../domain/entities/item_group_entity.dart';
+import 'package:drift/drift.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/features/inventory/domain/entities/item_group_entity.dart';
 
 class ItemGroupModel extends ItemGroupEntity {
   const ItemGroupModel({
-    super.id,
+    required super.id,
     required super.groupCode,
     required super.nameAr,
     required super.nameEn,
@@ -12,28 +12,11 @@ class ItemGroupModel extends ItemGroupEntity {
     required super.inventoryAccountId,
     required super.salesRevenueAccountId,
     required super.cogsAccountId,
-    super.isActive,
-    required super.createdAt,
-    required super.updatedAt,
+    required super.isActive,
   });
 
-  factory ItemGroupModel.fromEntity(ItemGroupEntity entity) {
-    return ItemGroupModel(
-      id: entity.id,
-      groupCode: entity.groupCode,
-      nameAr: entity.nameAr,
-      nameEn: entity.nameEn,
-      parentGroupId: entity.parentGroupId,
-      inventoryAccountId: entity.inventoryAccountId,
-      salesRevenueAccountId: entity.salesRevenueAccountId,
-      cogsAccountId: entity.cogsAccountId,
-      isActive: entity.isActive,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-    );
-  }
-
-  factory ItemGroupModel.fromDrift(ItemGroupData data) {
+  // Fixed: Changed ItemGroupData to ItemGroup
+  factory ItemGroupModel.fromDrift(ItemGroup data) {
     return ItemGroupModel(
       id: data.id,
       groupCode: data.groupCode,
@@ -44,24 +27,19 @@ class ItemGroupModel extends ItemGroupEntity {
       salesRevenueAccountId: data.salesRevenueAccountId,
       cogsAccountId: data.cogsAccountId,
       isActive: data.isActive,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(data.updatedAt),
     );
   }
 
-  ItemGroupsCompanion toDrift() {
+  ItemGroupsCompanion toCompanion() {
     return ItemGroupsCompanion(
-      id: id != null ? drift.Value(id!) : const drift.Value.absent(),
-      groupCode: drift.Value(groupCode),
-      nameAr: drift.Value(nameAr),
-      nameEn: drift.Value(nameEn),
-      parentGroupId: drift.Value(parentGroupId),
-      inventoryAccountId: drift.Value(inventoryAccountId),
-      salesRevenueAccountId: drift.Value(salesRevenueAccountId),
-      cogsAccountId: drift.Value(cogsAccountId),
-      isActive: drift.Value(isActive),
-      createdAt: drift.Value(createdAt.millisecondsSinceEpoch),
-      updatedAt: drift.Value(updatedAt.millisecondsSinceEpoch),
+      groupCode: Value(groupCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      parentGroupId: Value(parentGroupId),
+      inventoryAccountId: Value(inventoryAccountId),
+      salesRevenueAccountId: Value(salesRevenueAccountId),
+      cogsAccountId: Value(cogsAccountId),
+      isActive: Value(isActive),
     );
   }
 }

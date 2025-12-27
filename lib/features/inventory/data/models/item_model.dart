@@ -1,11 +1,10 @@
-import 'package:drift/drift.dart' as drift;
-import '../../../../core/db/app_database.dart';
-import '../../domain/entities/item_entity.dart';
-import '../../domain/entities/inventory_config_entity.dart';
+import 'package:drift/drift.dart';
+import 'package:muhaseb_pro/core/db/app_database.dart';
+import 'package:muhaseb_pro/features/inventory/domain/entities/item_entity.dart';
 
 class ItemModel extends ItemEntity {
   const ItemModel({
-    super.id,
+    required super.id,
     required super.itemCode,
     required super.nameAr,
     required super.nameEn,
@@ -15,50 +14,21 @@ class ItemModel extends ItemEntity {
     required super.itemGroupId,
     required super.baseUnit,
     super.costingMethod,
-    super.costPrice,
+    required super.costPrice,
     super.reorderLevel,
     super.maxStockLevel,
     super.minStockLevel,
-    super.trackExpiryDate,
-    super.trackBatchNumber,
+    required super.trackExpiryDate,
+    required super.trackBatchNumber,
     super.inventoryAccountId,
     super.salesRevenueAccountId,
     super.cogsAccountId,
     super.stockDiscrepancyAccountId,
-    super.isActive,
-    required super.createdAt,
-    required super.updatedAt,
+    required super.isActive,
   });
 
-  factory ItemModel.fromEntity(ItemEntity entity) {
-    return ItemModel(
-      id: entity.id,
-      itemCode: entity.itemCode,
-      nameAr: entity.nameAr,
-      nameEn: entity.nameEn,
-      barcode: entity.barcode,
-      description: entity.description,
-      itemType: entity.itemType,
-      itemGroupId: entity.itemGroupId,
-      baseUnit: entity.baseUnit,
-      costingMethod: entity.costingMethod,
-      costPrice: entity.costPrice,
-      reorderLevel: entity.reorderLevel,
-      maxStockLevel: entity.maxStockLevel,
-      minStockLevel: entity.minStockLevel,
-      trackExpiryDate: entity.trackExpiryDate,
-      trackBatchNumber: entity.trackBatchNumber,
-      inventoryAccountId: entity.inventoryAccountId,
-      salesRevenueAccountId: entity.salesRevenueAccountId,
-      cogsAccountId: entity.cogsAccountId,
-      stockDiscrepancyAccountId: entity.stockDiscrepancyAccountId,
-      isActive: entity.isActive,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
-    );
-  }
-
-  factory ItemModel.fromDrift(ItemData data) {
+  // Fixed: Changed ItemData to Item
+  factory ItemModel.fromDrift(Item data) {
     return ItemModel(
       id: data.id,
       itemCode: data.itemCode,
@@ -66,10 +36,10 @@ class ItemModel extends ItemEntity {
       nameEn: data.nameEn,
       barcode: data.barcode,
       description: data.description,
-      itemType: ItemType.fromString(data.itemType),
+      itemType: data.itemType,
       itemGroupId: data.itemGroupId,
       baseUnit: data.baseUnit,
-      costingMethod: data.costingMethod != null ? CostingMethod.fromString(data.costingMethod!) : null,
+      costingMethod: data.costingMethod,
       costPrice: data.costPrice,
       reorderLevel: data.reorderLevel,
       maxStockLevel: data.maxStockLevel,
@@ -81,36 +51,31 @@ class ItemModel extends ItemEntity {
       cogsAccountId: data.cogsAccountId,
       stockDiscrepancyAccountId: data.stockDiscrepancyAccountId,
       isActive: data.isActive,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(data.createdAt),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(data.updatedAt),
     );
   }
 
-  ItemsCompanion toDrift() {
+  ItemsCompanion toCompanion() {
     return ItemsCompanion(
-      id: id != null ? drift.Value(id!) : const drift.Value.absent(),
-      itemCode: drift.Value(itemCode),
-      nameAr: drift.Value(nameAr),
-      nameEn: drift.Value(nameEn),
-      barcode: drift.Value(barcode),
-      description: drift.Value(description),
-      itemType: drift.Value(itemType.value),
-      itemGroupId: drift.Value(itemGroupId),
-      baseUnit: drift.Value(baseUnit),
-      costingMethod: drift.Value(costingMethod?.value),
-      costPrice: drift.Value(costPrice),
-      reorderLevel: drift.Value(reorderLevel),
-      maxStockLevel: drift.Value(maxStockLevel),
-      minStockLevel: drift.Value(minStockLevel),
-      trackExpiryDate: drift.Value(trackExpiryDate),
-      trackBatchNumber: drift.Value(trackBatchNumber),
-      inventoryAccountId: drift.Value(inventoryAccountId),
-      salesRevenueAccountId: drift.Value(salesRevenueAccountId),
-      cogsAccountId: drift.Value(cogsAccountId),
-      stockDiscrepancyAccountId: drift.Value(stockDiscrepancyAccountId),
-      isActive: drift.Value(isActive),
-      createdAt: drift.Value(createdAt.millisecondsSinceEpoch),
-      updatedAt: drift.Value(updatedAt.millisecondsSinceEpoch),
+      itemCode: Value(itemCode),
+      nameAr: Value(nameAr),
+      nameEn: Value(nameEn),
+      barcode: Value(barcode),
+      description: Value(description),
+      itemType: Value(itemType),
+      itemGroupId: Value(itemGroupId),
+      baseUnit: Value(baseUnit),
+      costingMethod: Value(costingMethod),
+      costPrice: Value(costPrice),
+      reorderLevel: Value(reorderLevel),
+      maxStockLevel: Value(maxStockLevel),
+      minStockLevel: Value(minStockLevel),
+      trackExpiryDate: Value(trackExpiryDate),
+      trackBatchNumber: Value(trackBatchNumber),
+      inventoryAccountId: Value(inventoryAccountId),
+      salesRevenueAccountId: Value(salesRevenueAccountId),
+      cogsAccountId: Value(cogsAccountId),
+      stockDiscrepancyAccountId: Value(stockDiscrepancyAccountId),
+      isActive: Value(isActive),
     );
   }
 }

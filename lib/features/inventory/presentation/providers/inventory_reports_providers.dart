@@ -1,19 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../di/database_provider.dart';
-import '../../data/datasources/local/inventory_reports_local_datasource.dart';
-import '../../data/repositories/inventory_reports_repository_impl.dart';
-import '../../domain/repositories/inventory_reports_repository.dart';
+import 'package:muhaseb_pro/di/database_provider.dart';
+import 'package:muhaseb_pro/features/inventory/data/datasources/local/inventory_reports_local_datasource.dart';
+import 'package:muhaseb_pro/features/inventory/data/repositories/inventory_reports_repository_impl.dart';
+// ... other imports
 
-// Data Source Provider
-final inventoryReportsLocalDataSourceProvider =
-    Provider<InventoryReportsLocalDataSource>((ref) {
-  final database = ref.watch(databaseProvider);
-  return InventoryReportsLocalDataSource(database);
+final inventoryReportsLocalDataSourceProvider = Provider<InventoryReportsLocalDataSource>((ref) {
+  // Fixed: databaseProvider -> appDatabaseProvider
+  return InventoryReportsLocalDataSource(ref.read(appDatabaseProvider));
 });
 
-// Repository Provider
-final inventoryReportsRepositoryProvider =
-    Provider<InventoryReportsRepository>((ref) {
-  final dataSource = ref.watch(inventoryReportsLocalDataSourceProvider);
-  return InventoryReportsRepositoryImpl(dataSource);
+final inventoryReportsRepositoryProvider = Provider((ref) {
+  return InventoryReportsRepositoryImpl(
+      ref.read(inventoryReportsLocalDataSourceProvider));
 });
+
+// ... rest of the file
