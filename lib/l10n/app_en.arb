@@ -755,4 +755,20 @@
   "receiptVoucher": "Receipt Voucher",
   "details": "Details",
   "update": "Update"
+  "noRequestsFound": "No requests found",
+  "youHaveNotCreatedAnyRequests": "You have not created any requests",
+  "noTransactionRequestsFound": "No transaction requests found",
+  "failedToLoadRequests": "Failed to load requests",
+  "pleaseEnterAmount": "Please enter amount",
+  "pleaseEnterValidAmount": "Please enter a valid amount",
+  "requestCreatedSuccessfully": "Request created successfully",
+  "requestUpdatedSuccessfully": "Request updated successfully",
+  "noPendingApprovals": "No pending approvals",
+  "allRequestsHaveBeenProcessed": "All requests have been processed",
+  "reject": "Reject",
+  "failedToLoadPendingApprovals": "Failed to load pending approvals",
+  "requestApprovedSuccessfully": "Request approved successfully",
+  "requestRejectedSuccessfully": "Request rejected successfully",
+  "item": "Item"
+
 }
