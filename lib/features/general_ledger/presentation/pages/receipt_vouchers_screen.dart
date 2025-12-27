@@ -82,11 +82,11 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher as ReceiptVoucherEntity),
+              onSaved: (voucher) => _onVoucherSaved(voucher), // Removed unnecessary cast
               onCancelled: () => _switchToListMode(),
             )
           : ReceiptVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher as ReceiptVoucherEntity),
+              onVoucherSelected: (voucher) => _editVoucher(voucher), // Removed unnecessary cast
               canEdit: canEdit,
               canPost: canPost,
             ),
@@ -124,7 +124,6 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
   void _onVoucherSaved(ReceiptVoucherEntity voucher) {
     // Refresh the list and switch back to list mode
     _switchToListMode();
-    
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
