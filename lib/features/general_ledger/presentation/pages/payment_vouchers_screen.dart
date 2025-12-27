@@ -82,7 +82,7 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher as PaymentVoucherEntity),
+              onSaved: (voucher) => _onVoucherSaved(voucher), // Removed unnecessary cast
               onCancelled: () => _switchToListMode(),
             )
           : const PaymentVoucherList(),
@@ -113,7 +113,6 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
   void _onVoucherSaved(PaymentVoucherEntity voucher) {
     // Refresh the list and switch back to list mode
     _switchToListMode();
-    
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
