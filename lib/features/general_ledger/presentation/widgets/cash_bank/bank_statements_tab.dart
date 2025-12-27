@@ -32,7 +32,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     _statements.addAll([
       BankStatementEntity(
         statementId: 'STMT001',
-        branchId: 'BR001', // Fixed: Added missing required argument
+        branchId: 'BR001',
         accountId: 'ACC001',
         statementDate: DateTime.now().subtract(const Duration(days: 5)),
         openingBalance: 20000.0,
@@ -84,7 +84,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
       ),
       BankStatementEntity(
         statementId: 'STMT002',
-        branchId: 'BR001', // Fixed: Added missing required argument
+        branchId: 'BR001',
         accountId: 'ACC001',
         statementDate: DateTime.now(),
         openingBalance: 25000.0,
@@ -125,7 +125,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    // Removed unused theme variable
     final filteredStatements = _getFilteredStatements();
 
     return Column(
@@ -149,12 +149,9 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                         ),
                       ),
                       items: const [
-                        DropdownMenuItem(
-                            value: 'ACC001', child: Text('Main Bank Account')),
-                        DropdownMenuItem(
-                            value: 'ACC002', child: Text('Savings Account')),
-                        DropdownMenuItem(
-                            value: 'ACC003', child: Text('Petty Cash Account')),
+                        DropdownMenuItem(value: 'ACC001', child: Text('Main Bank Account')),
+                        DropdownMenuItem(value: 'ACC002', child: Text('Savings Account')),
+                        DropdownMenuItem(value: 'ACC003', child: Text('Petty Cash Account')),
                       ],
                       onChanged: (value) {
                         setState(() {
@@ -242,7 +239,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   Widget _buildEmptyState() {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -272,7 +268,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   Widget _buildStatementCard(BankStatementEntity statement) {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: 'V');
+    final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
 
     return Card(
@@ -302,7 +298,8 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceVariant.withOpacity(0.3), // Fixed deprecated
+                    // Corrected deprecated surfaceVariant to surfaceContainerHighest and kept withOpacity as requested for minimal change
+                    color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(
@@ -323,7 +320,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalDebit), // Fixed: totalDebits -> totalDebit
+                          Text(l10n.totalDebit),
                           Text(
                             currencyFormat.format(statement.totalDebits),
                             style: TextStyle(
@@ -337,7 +334,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalCredit), // Fixed: totalCredits -> totalCredit
+                          Text(l10n.totalCredit),
                           Text(
                             currencyFormat.format(statement.totalCredits),
                             style: TextStyle(
@@ -381,8 +378,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  ...statement.transactions.map((transaction) =>
-                      _buildTransactionItem(transaction)),
+                  ...statement.transactions.map((transaction) => _buildTransactionItem(transaction)),
                 ],
                 if (widget.canManage) ...[
                   const SizedBox(height: 16),
@@ -416,7 +412,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   Widget _buildTransactionItem(BankTransactionEntity transaction) {
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: 'V');
+    final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
 
     return Card(
@@ -480,7 +476,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
       ),
       backgroundColor: isReconciled
           ? theme.colorScheme.primaryContainer
-          : theme.colorScheme.surfaceVariant,
+          : theme.colorScheme.surfaceContainerHighest, // Updated surfaceVariant
       side: BorderSide.none,
     );
   }
@@ -523,9 +519,8 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   void _filterStatements() {
     setState(() {
-      // Filter logic is already applied in _getFilteredStatements()
+      // Filter logic is already applied in _getFilteredStatements
     });
-
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.statementsFiltered),
@@ -568,7 +563,6 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
         );
       }
     });
-
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context)!.statementReconciledSuccessfully),
