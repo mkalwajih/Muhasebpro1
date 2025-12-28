@@ -298,8 +298,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(
-                    // Corrected deprecated surfaceVariant to surfaceContainerHighest and kept withOpacity as requested for minimal change
-                    color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                    color: theme.colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Column(

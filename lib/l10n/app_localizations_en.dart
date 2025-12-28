@@ -2262,4 +2262,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get item => 'Item';
+
+  @override
+  String get editItemGroup => 'Edit Item Group';
+
+  @override
+  String get groupCode => 'Group Code';
+
+  @override
+  String get cogsAccount => 'COGS Account';
 }

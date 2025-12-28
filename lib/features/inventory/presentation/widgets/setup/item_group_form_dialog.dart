@@ -49,12 +49,9 @@ class _ItemGroupFormDialogState extends ConsumerState<ItemGroupFormDialog> {
   }
 
   Future<void> _saveItemGroup() async {
-    if (!_formKey.currentState!.validate()) {
+    if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
-
-    final l10n = AppLocalizations.of(context)!;
-    final messenger = ScaffoldMessenger.of(context);
 
     final newItemGroup = ItemGroupEntity(
       id: widget.itemGroup?.id,
@@ -68,18 +65,25 @@ class _ItemGroupFormDialogState extends ConsumerState<ItemGroupFormDialog> {
       updatedAt: DateTime.now(),
     );
 
+    final l10n = AppLocalizations.of(context)!;
+
     try {
       if (widget.itemGroup == null) {
         await ref.read(createItemGroupProvider(newItemGroup).future);
       } else {
         await ref.read(updateItemGroupProvider(newItemGroup).future);
       }
-      messenger.showSnackBar(
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(l10n.saveSuccess)),
       );
       Navigator.pop(context);
     } catch (e) {
-      messenger.showSnackBar(
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('${l10n.saveFailed}: $e')),
       );
     }

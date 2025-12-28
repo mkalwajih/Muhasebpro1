@@ -27,8 +27,8 @@ class DocumentTypeListItem extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: documentType.isActive 
-              ? theme.colorScheme.primary.withOpacity(0.1)
-              : theme.colorScheme.error.withOpacity(0.1),
+              ? theme.colorScheme.primary.withAlpha(26)
+              : theme.colorScheme.error.withAlpha(26),
           child: Icon(
             Icons.description,
             color: documentType.isActive 
@@ -57,7 +57,7 @@ class DocumentTypeListItem extends StatelessWidget {
             Text(
               isRTL ? documentType.nameEn : documentType.nameAr,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withAlpha(179),
               ),
             ),
             const SizedBox(height: 2),
@@ -66,13 +66,13 @@ class DocumentTypeListItem extends StatelessWidget {
                 Text(
                   '${l10n.sequenceMethod}: ',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withAlpha(153),
                   ),
                 ),
                 Text(
                   _getSequenceMethodText(l10n, documentType.sequenceMethod),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withAlpha(204),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -84,13 +84,13 @@ class DocumentTypeListItem extends StatelessWidget {
                 Text(
                   '${l10n.sequenceBehavior}: ',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withAlpha(153),
                   ),
                 ),
                 Text(
                   _getSequenceBehaviorText(l10n, documentType.sequenceBehavior),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.8),
+                    color: theme.colorScheme.onSurface.withAlpha(204),
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -106,13 +106,13 @@ class DocumentTypeListItem extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
                 color: documentType.isActive 
-                    ? Colors.green.withOpacity(0.1)
-                    : Colors.red.withOpacity(0.1),
+                    ? Colors.green.withAlpha(26)
+                    : Colors.red.withAlpha(26),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: documentType.isActive 
-                      ? Colors.green.withOpacity(0.3)
-                      : Colors.red.withOpacity(0.3),
+                      ? Colors.green.withAlpha(77)
+                      : Colors.red.withAlpha(77),
                 ),
               ),
               child: Text(

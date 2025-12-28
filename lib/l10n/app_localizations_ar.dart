@@ -2233,4 +2233,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get item => 'صنف';
+
+  @override
+  String get editItemGroup => 'تعديل مجموعة الأصناف';
+
+  @override
+  String get groupCode => 'رمز المجموعة';
+
+  @override
+  String get cogsAccount => 'حساب تكلفة البضاعة المباعة';
 }

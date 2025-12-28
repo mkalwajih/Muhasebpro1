@@ -26,7 +26,7 @@ class DescriptionCodingListItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: theme.colorScheme.secondary.withOpacity(0.1),
+          backgroundColor: theme.colorScheme.secondary.withAlpha(26),
           child: Icon(
             Icons.code,
             color: theme.colorScheme.secondary,
@@ -53,7 +53,7 @@ class DescriptionCodingListItem extends StatelessWidget {
             Text(
               isRTL ? descriptionCoding.descriptionEn : descriptionCoding.descriptionAr,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withAlpha(179),
               ),
             ),
             if (descriptionCoding.linkedAccountId != null) ...[
@@ -63,13 +63,13 @@ class DescriptionCodingListItem extends StatelessWidget {
                   Icon(
                     Icons.link,
                     size: 16,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
+                    color: theme.colorScheme.onSurface.withAlpha(153),
                   ),
                   const SizedBox(width: 4),
                   Text(
                     '${l10n.linkedAccount}: ${descriptionCoding.linkedAccountId}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                      color: theme.colorScheme.onSurface.withAlpha(153),
                     ),
                   ),
                 ],
@@ -79,7 +79,7 @@ class DescriptionCodingListItem extends StatelessWidget {
               Text(
                 l10n.noAccountSelected,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withAlpha(128),
                   fontStyle: FontStyle.italic,
                 ),
               ),

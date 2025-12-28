@@ -4435,6 +4435,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Item'**
   String get item;
+
+  /// No description provided for @editItemGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Item Group'**
+  String get editItemGroup;
+
+  /// No description provided for @groupCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Group Code'**
+  String get groupCode;
+
+  /// No description provided for @cogsAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'COGS Account'**
+  String get cogsAccount;
 }
 
 class _AppLocalizationsDelegate
