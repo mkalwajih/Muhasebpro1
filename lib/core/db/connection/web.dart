@@ -20,8 +20,9 @@ DatabaseConnection connect() {
     final tempDb = AppDatabase.forTesting(db.resolvedExecutor);
     await tempDb.customStatement('PRAGMA foreign_keys = ON;');
     
-    // CRITICAL FIX: Do NOT close tempDb here. 
-    // await tempDb.close(); <--- This line caused the "connection closed" error.
+    // CRITICAL FIX: The following line was closing the shared executor.
+    // Do NOT close tempDb here.
+    // await tempDb.close(); 
 
     return db.resolvedExecutor;
   }));
