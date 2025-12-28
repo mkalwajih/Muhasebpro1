@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
 import 'package:flutter/foundation.dart';
@@ -17,11 +16,12 @@ DatabaseConnection connect() {
       debugPrint('Unsupported features: ${db.missingFeatures}');
     }
 
-    // This is the crucial part. We need to create a temporary AppDatabase
-    // instance to run the migrations.
+    // Initialize Schema/Pragmas without closing the executor
     final tempDb = AppDatabase.forTesting(db.resolvedExecutor);
     await tempDb.customStatement('PRAGMA foreign_keys = ON;');
-    await tempDb.close();
+    
+    // CRITICAL FIX: Do NOT close tempDb here. 
+    // await tempDb.close(); <--- This line caused the "connection closed" error.
 
     return db.resolvedExecutor;
   }));
