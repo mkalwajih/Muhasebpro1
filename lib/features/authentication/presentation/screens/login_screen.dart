@@ -18,7 +18,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -30,42 +29,40 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submitLogin() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() => _isLoading = true);
-
-    // Access the auth provider (Ensure your authProvider exposes a login method)
-    // Adjust 'authNotifierProvider' to match the exact name in your auth_providers.dart
-    final result = await ref.read(authStateProvider.notifier).login(
+    // Access the notifier to trigger login
+    // This will update the state (loading, error, etc.) automatically
+    final result = await ref.read(loginNotifierProvider.notifier).login(
       _usernameController.text.trim(),
       _passwordController.text,
     );
 
-    setState(() => _isLoading = false);
-
-    result.fold(
-      (failure) {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(failure.message), // Display localized error from Failure
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
-      },
-      (user) {
-        // Navigation is handled by AppRouter listener, but we can force it if needed
-        if (mounted) {
-          context.go('/dashboard'); 
-        }
-      },
-    );
+    if (result != null) {
+      // Login successful - Navigation is usually handled by the router listening to authState,
+      // but we can force it here if needed.
+      if (mounted) {
+        context.go('/dashboard');
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final loginState = ref.watch(loginNotifierProvider);
     final isDesktop = MediaQuery.of(context).size.width > 600;
+
+    // Show error snackbar if login fails
+    ref.listen(loginNotifierProvider, (previous, next) {
+      if (next.error != null && !next.isLoading) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(next.error!),
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      }
+    });
 
     return Scaffold(
       body: Center(
@@ -91,7 +88,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       const Icon(Iconsax.briefcase, size: 64, color: Color(0xFF005B96)),
                       const SizedBox(height: 24),
                       Text(
-                        l10n.loginTitle, // 'MuhasebPro'
+                        l10n.loginTitle, 
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.bold,
@@ -100,7 +97,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        l10n.loginSubtitle, // 'Sign in to your account'
+                        l10n.loginSubtitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: Colors.grey[600],
@@ -117,9 +114,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
                         ),
                         textInputAction: TextInputAction.next,
+                        enabled: !loginState.isLoading,
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return l10n.usernameRequired; // Ensure this key exists in ARB
+                          if (value == null || value.trim().isEmpty) {
+                            return l10n.usernameRequired; // Ensure key exists in ARB
                           }
                           return null;
                         },
@@ -130,6 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       TextFormField(
                         controller: _passwordController,
                         obscureText: !_isPasswordVisible,
+                        enabled: !loginState.isLoading,
                         decoration: InputDecoration(
                           labelText: l10n.password,
                           prefixIcon: const Icon(Iconsax.lock),
@@ -147,7 +146,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         onFieldSubmitted: (_) => _submitLogin(),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return l10n.passwordRequired; // Ensure this key exists in ARB
+                            return l10n.passwordRequired; // Ensure key exists in ARB
                           }
                           return null;
                         },
@@ -157,7 +156,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: TextButton(
-                          onPressed: () => context.push('/forgot-password'),
+                          onPressed: loginState.isLoading 
+                              ? null 
+                              : () => context.push('/forgot-password'),
                           child: Text(l10n.forgotPassword),
                         ),
                       ),
@@ -165,13 +166,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                       // --- Login Button ---
                       FilledButton(
-                        onPressed: _isLoading ? null : _submitLogin,
+                        onPressed: loginState.isLoading ? null : _submitLogin,
                         style: FilledButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           backgroundColor: const Color(0xFF005B96),
                         ),
-                        child: _isLoading
+                        child: loginState.isLoading
                             ? const SizedBox(
                                 height: 20,
                                 width: 20,
