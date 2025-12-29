@@ -1,5 +1,6 @@
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
+import 'package:drift/drift.dart';
 import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/authentication/data/datasources/local/auth_local_datasource.dart';
 import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.dart';
@@ -17,12 +18,8 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<(UserEntity?, String?)> login(String username, String password) async {
     try {
-      final user = await _localDataSource.login(username);
+      final user = await _localDataSource.login(username, password);
       if (user == null) {
-        return (null, 'Invalid credentials');
-      }
-      final hashedPassword = sha256.convert(utf8.encode(password)).toString();
-      if (user.password != hashedPassword) {
         return (null, 'Invalid credentials');
       }
       if (!user.isActive) {
@@ -36,7 +33,7 @@ class AuthRepositoryImpl implements AuthRepository {
         fullNameAr: user.fullNameAr,
         fullNameEn: user.fullNameEn,
         isActive: user.isActive,
-        roles: roles ?? [], // Provide a default empty list
+        roles: roles, // Removed unnecessary null-aware operator
       );
 
       return (userEntity, null);
@@ -73,12 +70,12 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<(UserEntity?, String?)> register(UserEntity user, String password) async {
     try {
-      final existing = await _localDataSource.login(user.username);
+      final existing = await _localDataSource.login(user.username, password);
       if (existing != null) return (null, 'User already exists');
 
       await _localDataSource.seedUser(user, password);
 
-      final created = await _localDataSource.login(user.username);
+      final created = await _localDataSource.login(user.username, password);
       if (created == null) return (null, 'Failed to create user');
 
       final roles = await _userManagementLocalDataSource.getUserRoles(created.userId);
@@ -92,17 +89,16 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<(bool, String?)> resetPassword(String username, String newPassword) async {
     try {
-      final user = await _localDataSource.login(username);
-      if (user == null) return (false, 'User not found');
+      final user = await (_db.select(_db.users)..where((u) => u.username.equals(username))).getSingle();
+      
+      final hashedPassword = sha256.convert(utf8.encode(newPassword)).toString();
 
-      final roles = await _userManagementLocalDataSource.getUserRoles(user.userId);
-      final userEntity = UserEntity.fromUser(user, roles: roles);
-
-      await _localDataSource.updateUser(userEntity, newPassword: newPassword);
+      final userCompanion = user.toCompanion(true).copyWith(password: Value(hashedPassword));
+      await _localDataSource.updateUser(userCompanion);
 
       return (true, null);
     } catch (e) {
-      return (false, e.toString());
+      return (false, 'User not found');
     }
   }
 

@@ -80,7 +80,6 @@ final geographicalDataLocalDataSourceProvider =
 final geographicalDataRepositoryProvider = Provider<GeographicalDataRepository>(
   (ref) => GeographicalDataRepositoryImpl(
     ref.watch(geographicalDataLocalDataSourceProvider),
-    ref.watch(appDatabaseProvider),
   ),
 );
 

@@ -34,6 +34,7 @@ import 'package:muhaseb_pro/features/inventory/presentation/pages/opening_stock_
 import 'package:muhaseb_pro/features/inventory/presentation/pages/stock_operations_screen.dart';
 import 'package:muhaseb_pro/features/inventory/presentation/pages/inventory_control_screen.dart';
 import 'package:muhaseb_pro/features/inventory/presentation/pages/inventory_reports_screen.dart';
+import 'package:muhaseb_pro/features/inventory/presentation/pages/inventory_menu_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authState = ref.watch(authStateProvider);
@@ -165,8 +166,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: 'inventory',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Inventory'),
+            builder: (context, state) => const InventoryMenuScreen(),
             routes: [
               GoRoute(
                 path: 'setup',

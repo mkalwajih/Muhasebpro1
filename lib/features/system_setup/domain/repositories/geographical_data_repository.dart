@@ -9,23 +9,22 @@ abstract class GeographicalDataRepository {
 
   // Country Methods
   Future<List<CountryEntity>> getCountries(int zoneId);
+  Future<List<CountryEntity>> getAllCountries(); // Added this method
   Future<void> addCountry(CountryEntity country);
   Future<void> updateCountry(CountryEntity country);
   Future<(bool, String?)> deleteCountry(int id);
 
-  // Governorate Methods
+  // ... (Other methods remain unchanged)
   Future<List<GovernorateEntity>> getGovernorates(int countryId);
   Future<void> addGovernorate(GovernorateEntity governorate);
   Future<void> updateGovernorate(GovernorateEntity governorate);
   Future<(bool, String?)> deleteGovernorate(int id);
 
-  // City Methods
   Future<List<CityEntity>> getCities(int govId);
   Future<void> addCity(CityEntity city);
   Future<void> updateCity(CityEntity city);
   Future<(bool, String?)> deleteCity(int id);
 
-  // Region Methods
   Future<List<RegionEntity>> getRegions(int cityId);
   Future<void> addRegion(RegionEntity region);
   Future<void> updateRegion(RegionEntity region);

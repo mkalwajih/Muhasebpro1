@@ -29,25 +29,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     // 1. Unfocus to prevent Flutter Web RangeError
     FocusScope.of(context).unfocus();
 
+    final l10n = AppLocalizations.of(context);
+    if (l10n == null) return; // Guard against null l10n
+
     if (!_formKey.currentState!.validate()) return;
 
     // 2. Trigger Login
-    // Note: ensure your loginNotifierProvider is correctly handling the state
     final result = await ref.read(loginNotifierProvider.notifier).login(
-      _usernameController.text.trim(),
-      _passwordController.text,
-    );
+          _usernameController.text.trim(),
+          _passwordController.text,
+        );
 
-    // 3. Navigation is handled by the router/auth listener, 
-    // but we can add a manual check if your app requires it.
+    // 3. Update Auth State and Navigate
     if (mounted && result != null) {
+      // FIX: Update the global auth state provider so the router knows we are logged in
+      ref.read(authStateProvider.notifier).state = result;
+
       context.go('/dashboard');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
     final loginState = ref.watch(loginNotifierProvider);
     final isDesktop = MediaQuery.of(context).size.width > 600;
 
@@ -63,6 +67,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         );
       }
     });
+
+    if (l10n == null) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
 
     return Scaffold(
       body: Center(
@@ -114,8 +126,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         textInputAction: TextInputAction.next,
                         enabled: !loginState.isLoading,
-                        validator: (value) => (value == null || value.trim().isEmpty) 
-                            ? l10n.usernameRequired 
+                        validator: (value) => (value == null || value.trim().isEmpty)
+                            ? l10n.usernameRequired
                             : null,
                       ),
                       const SizedBox(height: 16),
@@ -136,16 +148,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (_) => _submitLogin(),
-                        validator: (value) => (value == null || value.isEmpty) 
-                            ? l10n.passwordRequired 
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? l10n.passwordRequired
                             : null,
                       ),
-                      
+
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: TextButton(
-                          onPressed: loginState.isLoading 
-                              ? null 
+                          onPressed: loginState.isLoading
+                              ? null
                               : () => context.push('/forgot-password'),
                           child: Text(l10n.forgotPassword),
                         ),

@@ -1,3 +1,5 @@
+// lib/core/db/app_database.dart
+
 import 'package:drift/drift.dart';
 import 'connection/shared.dart' as connection;
 
@@ -5,6 +7,7 @@ part 'app_database.g.dart';
 
 @DriftDatabase(
   include: {
+    // ... (existing includes)
     'schemas/auth_schema.drift',
     'schemas/branch_groups_schema.drift',
     'schemas/branches_schema.drift',
@@ -39,8 +42,23 @@ class AppDatabase extends _$AppDatabase {
       onCreate: (Migrator m) async {
         await m.createAll();
       },
+      onUpgrade: (Migrator m, int from, int to) async {
+        // DEVELOPMENT FIX: Drop all tables and recreate them if schema version changes.
+        // This solves the "Unexpected null value" error caused by missing columns in the web database.
+        
+        // Disable foreign keys to allow dropping tables in any order
+        await customStatement('PRAGMA foreign_keys = OFF');
+        
+        for (final entity in allSchemaEntities) {
+          if (entity is TableInfo) {
+            await m.deleteTable(entity.actualTableName);
+          }
+        }
+        
+        await m.createAll();
+      },
       beforeOpen: (details) async {
-        // This is the Safe & Correct place to enable Foreign Keys
+        // Enable foreign keys
         await customStatement('PRAGMA foreign_keys = ON');
       },
     );
