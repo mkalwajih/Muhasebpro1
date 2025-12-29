@@ -16,16 +16,8 @@ class App extends ConsumerWidget {
 
     return MaterialApp.router(
       routerConfig: router,
-      theme: locale.languageCode == 'ar'
-          ? AppTheme.lightTheme.copyWith(
-              textTheme: AppTheme.lightTheme.textTheme.apply(fontFamily: 'NotoSansArabic'),
-            )
-          : AppTheme.lightTheme,
-      darkTheme: locale.languageCode == 'ar'
-          ? AppTheme.darkTheme.copyWith(
-              textTheme: AppTheme.darkTheme.textTheme.apply(fontFamily: 'NotoSansArabic'),
-            )
-          : AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       locale: locale,
       localizationsDelegates: const [
@@ -35,6 +27,12 @@ class App extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
+      builder: (context, child) {
+        return Directionality(
+          textDirection: locale.languageCode == 'ar' ? TextDirection.rtl : TextDirection.ltr,
+          child: child ?? const SizedBox(),
+        );
+      },
     );
   }
 }

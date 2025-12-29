@@ -25,9 +25,10 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   }
 
   Future<void> _submit() async {
-    if (!_formKey.currentState!.validate()) return;
-
     final loc = AppLocalizations.of(context);
+    if (loc == null) return; // Guard against null localization
+
+    if (!_formKey.currentState!.validate()) return;
 
     final username = _usernameController.text.trim();
     final password = _passwordController.text;
@@ -40,7 +41,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       ref.read(authStateProvider.notifier).state = user;
       if (mounted) context.go('/dashboard');
     } else {
-      final error = loginState.error ?? loc?.error ?? 'Error';
+      final error = loginState.error ?? loc.error;
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error)),
@@ -51,8 +52,12 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = AppLocalizations.of(context);
     final state = ref.watch(loginNotifierProvider);
+    
+    if (loc == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
 
     return Center(
       child: SingleChildScrollView(
@@ -117,8 +122,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Wrap(
+                      alignment: WrapAlignment.spaceBetween,
+                      crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         TextButton(
                           onPressed: () => context.go('/register'),
