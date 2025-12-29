@@ -125,7 +125,7 @@ class _DocumentTypeFormDialogState extends State<DocumentTypeFormDialog> {
 
               // Sequence Method
               DropdownButtonFormField<SequenceMethod>(
-                value: _sequenceMethod,
+                initialValue: _sequenceMethod,
                 decoration: InputDecoration(
                   labelText: l10n.sequenceMethod,
                   border: const OutlineInputBorder(),
@@ -148,7 +148,7 @@ class _DocumentTypeFormDialogState extends State<DocumentTypeFormDialog> {
 
               // Sequence Behavior
               DropdownButtonFormField<SequenceBehavior>(
-                value: _sequenceBehavior,
+                initialValue: _sequenceBehavior,
                 decoration: InputDecoration(
                   labelText: l10n.sequenceBehavior,
                   border: const OutlineInputBorder(),

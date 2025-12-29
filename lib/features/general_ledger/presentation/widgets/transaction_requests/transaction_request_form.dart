@@ -67,7 +67,7 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               DropdownButtonFormField<TransactionRequestType>(
-                value: _selectedType,
+                initialValue: _selectedType,
                 decoration: InputDecoration(
                   labelText: l10n.requestType,
                   border: const OutlineInputBorder(),

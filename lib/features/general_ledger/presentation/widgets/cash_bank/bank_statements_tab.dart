@@ -139,7 +139,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField<String>(
-                      value: _selectedAccount,
+                      initialValue: _selectedAccount,
                       decoration: InputDecoration(
                         labelText: l10n.bankAccount,
                         border: const OutlineInputBorder(),

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
-import '../../../../../shared/presentation/widgets/loading_widget.dart';
-import '../../../../../shared/presentation/widgets/empty_state_widget.dart';
-import '../../../../../shared/presentation/widgets/error_widget.dart';
 import '../../../domain/entities/receipt_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart'; // Needed for PaymentMethod
 import 'receipt_voucher_list_item.dart';
@@ -59,7 +56,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  value: _selectedStatus,
+                  initialValue: _selectedStatus,
                   decoration: InputDecoration(
                     labelText: l10n.status,
                     border: const OutlineInputBorder(),

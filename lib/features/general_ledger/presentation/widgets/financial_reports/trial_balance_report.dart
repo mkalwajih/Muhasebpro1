@@ -14,9 +14,9 @@ class TrialBalanceReport extends ConsumerStatefulWidget {
 
 class _TrialBalanceReportState extends ConsumerState<TrialBalanceReport> {
     // ... state variables ...
-  DateTime _asOfDate = DateTime.now();
-  String _selectedBranch = 'All';
-  bool _showZeroBalances = false;
+  final DateTime _asOfDate = DateTime.now();
+  final String _selectedBranch = 'All';
+  final bool _showZeroBalances = false;
   List<TrialBalanceLineEntity> _trialBalanceData = [];
 
   @override

@@ -107,7 +107,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedDocType,
+                          initialValue: _selectedDocType,
                           decoration: InputDecoration(
                             labelText: l10n.documentType,
                             border: const OutlineInputBorder(),
@@ -154,7 +154,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedBranch,
+                          initialValue: _selectedBranch,
                           decoration: InputDecoration(
                             labelText: l10n.branch,
                             border: const OutlineInputBorder(),
@@ -197,7 +197,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                       Expanded(
                         flex: 2,
                         child: DropdownButtonFormField<String>(
-                          value: _selectedPaymentAccount,
+                          initialValue: _selectedPaymentAccount,
                           decoration: InputDecoration(
                             labelText: l10n.paymentFromAccount,
                             border: const OutlineInputBorder(),
@@ -223,7 +223,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: DropdownButtonFormField<PaymentMethod>(
-                          value: _selectedPaymentMethod,
+                          initialValue: _selectedPaymentMethod,
                           decoration: InputDecoration(
                             labelText: l10n.paymentMethod,
                             border: const OutlineInputBorder(),

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:drift/drift.dart';
 import 'package:drift/wasm.dart';
 import 'package:flutter/foundation.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart';
 
 DatabaseConnection connect() {
   return DatabaseConnection.delayed(Future(() async {
@@ -16,14 +15,8 @@ DatabaseConnection connect() {
       debugPrint('Unsupported features: ${db.missingFeatures}');
     }
 
-    // Initialize Schema/Pragmas without closing the executor
-    final tempDb = AppDatabase.forTesting(db.resolvedExecutor);
-    await tempDb.customStatement('PRAGMA foreign_keys = ON;');
-    
-    // CRITICAL FIX: The following line was closing the shared executor.
-    // Do NOT close tempDb here.
-    // await tempDb.close(); 
-
+    // Return the executor directly. 
+    // We will handle PRAGMA settings in the AppDatabase class itself.
     return db.resolvedExecutor;
   }));
 }

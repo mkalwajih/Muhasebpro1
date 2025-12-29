@@ -148,7 +148,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               companiesAsyncValue.when(
                 data: (companies) => DropdownButtonFormField<int>(
-                  value: _selectedCompanyId,
+                  initialValue: _selectedCompanyId,
                   decoration: InputDecoration(labelText: l10n.company),
                   items: companies.map((CompanyEntity company) {
                     return DropdownMenuItem<int>(
@@ -166,7 +166,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               branchGroupsAsyncValue.when(
                 data: (groups) => DropdownButtonFormField<int>(
-                  value:_selectedBranchGroupId,
+                  initialValue:_selectedBranchGroupId,
                   decoration: InputDecoration(labelText: l10n.branchGroup),
                   items: groups
                     .map((group) => DropdownMenuItem<int>(
@@ -182,7 +182,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               Tooltip(
                 message: l10n.warehouseTooltip,
                 child: DropdownButtonFormField<int>(
-                  value: null,
+                  initialValue: null,
                   decoration: InputDecoration(
                     labelText: l10n.defaultWarehouse,
                     enabled: false, // Disabled

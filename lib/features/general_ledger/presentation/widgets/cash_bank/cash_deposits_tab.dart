@@ -65,7 +65,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  value: _selectedStatus,
+                  initialValue: _selectedStatus,
                   decoration: InputDecoration(
                     labelText: l10n.status,
                     border: const OutlineInputBorder(),

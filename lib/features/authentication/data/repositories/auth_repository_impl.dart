@@ -29,15 +29,14 @@ class AuthRepositoryImpl implements AuthRepository {
         return (null, 'User is inactive');
       }
 
-      final roles =
-          await _userManagementLocalDataSource.getUserRoles(user.userId);
+      final roles = await _userManagementLocalDataSource.getUserRoles(user.userId);
       final userEntity = UserEntity(
         userId: user.userId,
         username: user.username,
         fullNameAr: user.fullNameAr,
         fullNameEn: user.fullNameEn,
         isActive: user.isActive,
-        roles: roles,
+        roles: roles ?? [], // Provide a default empty list
       );
 
       return (userEntity, null);

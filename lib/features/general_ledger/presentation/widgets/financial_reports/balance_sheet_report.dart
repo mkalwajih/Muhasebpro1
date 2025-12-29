@@ -13,8 +13,8 @@ class BalanceSheetReport extends ConsumerStatefulWidget {
 
 class _BalanceSheetReportState extends ConsumerState<BalanceSheetReport> {
   // State variables for filters and data
-  DateTime _asOfDate = DateTime.now();
-  String _selectedBranch = 'All';
+  final DateTime _asOfDate = DateTime.now();
+  final String _selectedBranch = 'All';
   List<BalanceSheetLineEntity> _balanceSheetData = [];
 
   @override

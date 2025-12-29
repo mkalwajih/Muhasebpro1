@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../l10n/app_localizations.dart';
 // Fixed Import Path: Use absolute path or correct relative path
-import 'package:muhaseb_pro/shared/presentation/widgets/custom_text_field.dart';
 import '../../../domain/entities/receipt_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart'; // Required for PaymentMethod
 
@@ -113,7 +112,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedDocType,
+                          initialValue: _selectedDocType,
                           decoration: InputDecoration(
                             labelText: l10n.documentType,
                             border: const OutlineInputBorder(),
@@ -160,7 +159,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedBranch,
+                          initialValue: _selectedBranch,
                           decoration: InputDecoration(
                             labelText: l10n.branch,
                             border: const OutlineInputBorder(),
@@ -210,7 +209,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                       Expanded(
                         flex: 2,
                         child: DropdownButtonFormField<String>(
-                          value: _selectedReceiptAccount,
+                          initialValue: _selectedReceiptAccount,
                           decoration: InputDecoration(
                             labelText: l10n.receiptTo,
                             border: const OutlineInputBorder(),
@@ -236,7 +235,7 @@ class _ReceiptVoucherFormState extends ConsumerState<ReceiptVoucherForm> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: DropdownButtonFormField<PaymentMethod>(
-                          value: _selectedPaymentMethod,
+                          initialValue: _selectedPaymentMethod,
                           decoration: InputDecoration(
                             labelText: l10n.receiptMethod,
                             border: const OutlineInputBorder(),

@@ -13,7 +13,7 @@ class CashFlowReport extends ConsumerStatefulWidget {
 class _CashFlowReportState extends ConsumerState<CashFlowReport> {
   DateTime _fromDate = DateTime(DateTime.now().year, 1, 1);
   DateTime _toDate = DateTime.now();
-  String _selectedBranch = 'All';
+  final String _selectedBranch = 'All';
 
   @override
   Widget build(BuildContext context) {

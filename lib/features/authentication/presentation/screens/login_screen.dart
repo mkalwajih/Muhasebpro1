@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:muhaseb_pro/core/theme/app_theme.dart';
 import 'package:muhaseb_pro/l10n/app_localizations.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 
@@ -27,21 +26,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   Future<void> _submitLogin() async {
+    // 1. Unfocus to prevent Flutter Web RangeError
+    FocusScope.of(context).unfocus();
+
     if (!_formKey.currentState!.validate()) return;
 
-    // Access the notifier to trigger login
-    // This will update the state (loading, error, etc.) automatically
+    // 2. Trigger Login
+    // Note: ensure your loginNotifierProvider is correctly handling the state
     final result = await ref.read(loginNotifierProvider.notifier).login(
       _usernameController.text.trim(),
       _passwordController.text,
     );
 
-    if (result != null) {
-      // Login successful - Navigation is usually handled by the router listening to authState,
-      // but we can force it here if needed.
-      if (mounted) {
-        context.go('/dashboard');
-      }
+    // 3. Navigation is handled by the router/auth listener, 
+    // but we can add a manual check if your app requires it.
+    if (mounted && result != null) {
+      context.go('/dashboard');
     }
   }
 
@@ -51,7 +51,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final loginState = ref.watch(loginNotifierProvider);
     final isDesktop = MediaQuery.of(context).size.width > 600;
 
-    // Show error snackbar if login fails
+    // Listen for errors to show SnackBars
     ref.listen(loginNotifierProvider, (previous, next) {
       if (next.error != null && !next.isLoading) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -84,11 +84,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      // --- Logo & Header ---
                       const Icon(Iconsax.briefcase, size: 64, color: Color(0xFF005B96)),
                       const SizedBox(height: 24),
                       Text(
-                        l10n.loginTitle, 
+                        l10n.loginTitle,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.bold,
@@ -105,7 +104,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 32),
 
-                      // --- Username Field ---
+                      // Username
                       TextFormField(
                         controller: _usernameController,
                         decoration: InputDecoration(
@@ -115,16 +114,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         ),
                         textInputAction: TextInputAction.next,
                         enabled: !loginState.isLoading,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return l10n.usernameRequired; // Ensure key exists in ARB
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.trim().isEmpty) 
+                            ? l10n.usernameRequired 
+                            : null,
                       ),
                       const SizedBox(height: 16),
 
-                      // --- Password Field ---
+                      // Password
                       TextFormField(
                         controller: _passwordController,
                         obscureText: !_isPasswordVisible,
@@ -135,24 +131,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12))),
                           suffixIcon: IconButton(
                             icon: Icon(_isPasswordVisible ? Iconsax.eye : Iconsax.eye_slash),
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
-                              });
-                            },
+                            onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
                           ),
                         ),
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (_) => _submitLogin(),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return l10n.passwordRequired; // Ensure key exists in ARB
-                          }
-                          return null;
-                        },
+                        validator: (value) => (value == null || value.isEmpty) 
+                            ? l10n.passwordRequired 
+                            : null,
                       ),
                       
-                      // --- Forgot Password Link ---
                       Align(
                         alignment: AlignmentDirectional.centerEnd,
                         child: TextButton(
@@ -164,7 +152,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                       const SizedBox(height: 24),
 
-                      // --- Login Button ---
+                      // Login Button
                       FilledButton(
                         onPressed: loginState.isLoading ? null : _submitLogin,
                         style: FilledButton.styleFrom(

@@ -99,7 +99,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedDocType,
+                          initialValue: _selectedDocType,
                           decoration: InputDecoration(
                             labelText: l10n.documentType,
                             border: const OutlineInputBorder(),
@@ -146,7 +146,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                       const SizedBox(width: 16),
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: _selectedBranch,
+                          initialValue: _selectedBranch,
                           decoration: InputDecoration(
                             labelText: l10n.branch,
                             border: const OutlineInputBorder(),

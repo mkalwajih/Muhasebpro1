@@ -58,7 +58,7 @@ class _InventoryVariablesTabState
                   
                   // Default Costing Method
                   DropdownButtonFormField<CostingMethod>(
-                    value: _selectedCostingMethod,
+                    initialValue: _selectedCostingMethod,
                     decoration: InputDecoration(
                       labelText: l10n.defaultCostingMethod,
                       border: const OutlineInputBorder(),

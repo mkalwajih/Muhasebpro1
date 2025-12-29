@@ -49,7 +49,7 @@ class _GeneralLedgerReportState extends ConsumerState<GeneralLedgerReport> {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField<String>(
-                      value: _selectedAccount.isEmpty ? null : _selectedAccount,
+                      initialValue: _selectedAccount.isEmpty ? null : _selectedAccount,
                       decoration: InputDecoration(
                         labelText: l10n.selectAccount,
                         border: const OutlineInputBorder(),
