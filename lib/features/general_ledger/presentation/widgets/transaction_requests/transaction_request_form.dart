@@ -52,7 +52,7 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -197,8 +197,8 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(widget.request == null 
-                ? AppLocalizations.of(context)!.requestCreatedSuccessfully
-                : AppLocalizations.of(context)!.requestUpdatedSuccessfully),
+                ? Translations.of(context).requestCreatedSuccessfully
+                : Translations.of(context).requestUpdatedSuccessfully),
             backgroundColor: Colors.green,
           ),
         );
@@ -207,7 +207,7 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
+            content: Text('${Translations.of(context).error}: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -222,7 +222,7 @@ class _TransactionRequestFormState extends ConsumerState<TransactionRequestForm>
   }
 
   String _getTypeDisplayName(BuildContext context, TransactionRequestType type) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (type) {
       case TransactionRequestType.journalVoucher:
         return l10n.journalVoucher;

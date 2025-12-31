@@ -1,0 +1,18 @@
+
+{
+  "@@locale": "en",
+  "title": "Transaction Requests",
+  "create": "Create Request",
+  "approve": "Approve",
+  "reject": "Reject",
+  "pending": "Pending Approvals",
+  "requester": "Requester",
+  "approver": "Approver",
+  "rejectionReason": "Rejection Reason",
+  "cashBankTitle": "Cash & Bank Management",
+  "reconciliation": "Bank Reconciliation",
+  "deposits": "Cash Deposits",
+  "bankStatement": "Bank Statement",
+  "bookBalance": "Book Balance",
+  "adjustedBalance": "Adjusted Balance"
+}

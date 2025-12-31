@@ -1,0 +1,11 @@
+
+{
+    "@@locale": "ar",
+    "title": "الإعدادات الافتراضية",
+    "defaultAccounts": "الحسابات الافتراضية",
+    "defaultItems": "الأصناف الافتراضية",
+    "defaultUnits": "الوحدات الافتراضية",
+    "defaultPayment": "طرق الدفع الافتراضية",
+    "defaultSales": "حسابات المبيعات الافتراضية",
+    "defaultPurchases": "حسابات المشتريات الافتراضية"
+}

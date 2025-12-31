@@ -44,7 +44,7 @@ class _TrialBalanceReportState extends ConsumerState<TrialBalanceReport> {
 
   @override
   Widget build(BuildContext context) {
-      final l10n = AppLocalizations.of(context)!;
+      final l10n = Translations.of(context);
       final theme = Theme.of(context);
       final currencyFormat = NumberFormat.currency(symbol: '\$');
 

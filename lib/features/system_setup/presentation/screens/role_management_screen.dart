@@ -12,7 +12,7 @@ class RoleManagementScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final rolesAsync = ref.watch(roleManagementProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(

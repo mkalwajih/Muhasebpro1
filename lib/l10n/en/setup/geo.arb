@@ -1,0 +1,23 @@
+
+{
+  "@@locale": "en",
+  "title": "Geographical Data",
+  "zones": "Zones",
+  "zoneAdd": "Add New Zone",
+  "zoneEdit": "Edit Zone",
+  "countries": "Countries",
+  "countryAdd": "Add New Country",
+  "countryEdit": "Edit Country",
+  "governorates": "Governorates",
+  "governorateAdd": "Add New Governorate",
+  "governorateEdit": "Edit Governorate",
+  "cities": "Cities",
+  "cityAdd": "Add New City",
+  "cityEdit": "Edit City",
+  "regions": "Regions",
+  "regionAdd": "Add New Region",
+  "regionEdit": "Edit Region",
+  "nationalityAr": "Nationality (Arabic)",
+  "nationalityEn": "Nationality (English)",
+  "selectParentPrompt": "Select a parent item to add new record"
+}

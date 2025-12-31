@@ -8,7 +8,7 @@ class AuditTrailTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     // Sample audit trail data
     final auditEntries = _getSampleAuditEntries();
@@ -58,7 +58,7 @@ class AuditTrailTab extends ConsumerWidget {
   }
 
   Widget _buildAuditEntryCard(BuildContext context, Map<String, dynamic> entry) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
@@ -168,13 +168,13 @@ class AuditTrailTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.filterAuditTrail),
+        title: Text(Translations.of(context).filterAuditTrail),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.action,
+                labelText: Translations.of(context).action,
                 border: const OutlineInputBorder(),
               ),
               items: ['All', 'Create', 'Update', 'Delete', 'Approve', 'Reject', 'Post', 'Close']
@@ -188,7 +188,7 @@ class AuditTrailTab extends ConsumerWidget {
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.module,
+                labelText: Translations.of(context).module,
                 border: const OutlineInputBorder(),
               ),
               items: ['All', 'Journal Vouchers', 'Payment Vouchers', 'Receipt Vouchers', 'Cash & Bank', 'Period Closing']
@@ -202,7 +202,7 @@ class AuditTrailTab extends ConsumerWidget {
             const SizedBox(height: 16),
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.dateRange,
+                labelText: Translations.of(context).dateRange,
                 border: const OutlineInputBorder(),
                 suffixIcon: const Icon(Icons.date_range),
               ),
@@ -216,19 +216,19 @@ class AuditTrailTab extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.filtersApplied),
+                  content: Text(Translations.of(context).filtersApplied),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            child: Text(AppLocalizations.of(context)!.apply),
+            child: Text(Translations.of(context).apply),
           ),
         ],
       ),
@@ -239,26 +239,26 @@ class AuditTrailTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.auditEntryDetails),
+        title: Text(Translations.of(context).auditEntryDetails),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow(AppLocalizations.of(context)!.action, entry['action']),
-              _buildDetailRow(AppLocalizations.of(context)!.description, entry['description']),
-              _buildDetailRow(AppLocalizations.of(context)!.user, entry['userName']),
-              _buildDetailRow(AppLocalizations.of(context)!.module, entry['module']),
-              _buildDetailRow(AppLocalizations.of(context)!.timestamp, _formatDateTime(entry['timestamp'])),
+              _buildDetailRow(Translations.of(context).action, entry['action']),
+              _buildDetailRow(Translations.of(context).description, entry['description']),
+              _buildDetailRow(Translations.of(context).user, entry['userName']),
+              _buildDetailRow(Translations.of(context).module, entry['module']),
+              _buildDetailRow(Translations.of(context).timestamp, _formatDateTime(entry['timestamp'])),
               if (entry['entityId'] != null)
-                _buildDetailRow(AppLocalizations.of(context)!.entityId, entry['entityId']),
+                _buildDetailRow(Translations.of(context).entityId, entry['entityId']),
               if (entry['ipAddress'] != null)
-                _buildDetailRow(AppLocalizations.of(context)!.ipAddress, entry['ipAddress']),
+                _buildDetailRow(Translations.of(context).ipAddress, entry['ipAddress']),
               if (entry['changes'] != null) ...[
                 const SizedBox(height: 8),
                 Text(
-                  '${AppLocalizations.of(context)!.changes}:',
+                  '${Translations.of(context).changes}:',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 4),
@@ -280,7 +280,7 @@ class AuditTrailTab extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
         ],
       ),

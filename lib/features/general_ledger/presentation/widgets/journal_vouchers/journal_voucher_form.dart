@@ -75,7 +75,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -262,7 +262,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   }
 
   Widget _buildLinesList() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     if (_lines.isEmpty) {
       return Center(
@@ -333,7 +333,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   }
 
   Widget _buildTotalsFooter() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     
     final totalDebit = _lines.fold<double>(0.0, (sum, line) => sum + line.debit);
@@ -385,7 +385,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   }
 
   Widget _buildActionButtons() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -440,12 +440,12 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.addJournalEntry),
+        title: Text(Translations.of(context).addJournalEntry),
         content: const Text('Journal entry form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -464,7 +464,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                 ));
               });
             },
-            child: Text(AppLocalizations.of(context)!.add),
+            child: Text(Translations.of(context).add),
           ),
         ],
       ),
@@ -505,7 +505,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
   void _postVoucher() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.voucherPostedSuccessfully),
+        content: Text(Translations.of(context).voucherPostedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

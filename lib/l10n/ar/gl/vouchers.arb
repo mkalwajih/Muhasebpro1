@@ -1,0 +1,21 @@
+
+{
+  "@@locale": "ar",
+  "journal": "قيد يومية",
+  "payment": "سند صرف",
+  "receipt": "سند قبض",
+  "reference": "رقم المرجع",
+  "debit": "مدين",
+  "credit": "دائن",
+  "difference": "الفرق",
+  "post": "ترحيل",
+  "reverse": "عكس القيد",
+  "lines": "الأسطر",
+  "addEntry": "إضافة قيد",
+  "confirmPost": "تأكيد الترحيل",
+  "postedMsg": "تم ترحيل السند بنجاح",
+  "paymentMethod": "طريقة الدفع",
+  "checkNumber": "رقم الشيك",
+  "beneficiary": "المستفيد",
+  "payer": "الدافع"
+}

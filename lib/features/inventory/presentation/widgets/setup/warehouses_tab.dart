@@ -13,7 +13,7 @@ class WarehousesTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final warehousesAsync = ref.watch(warehousesProvider);
 
     return Scaffold(
@@ -110,7 +110,7 @@ class WarehousesTab extends ConsumerWidget {
 
   Future<void> _deleteWarehouse(
       BuildContext context, WidgetRef ref, int id) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(

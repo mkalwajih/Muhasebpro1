@@ -1,0 +1,18 @@
+{
+  "@@locale": "en",
+  "title": "User Management",
+  "add": "Add New User",
+  "edit": "Edit User",
+  "fullNameAr": "Full Name (Arabic)",
+  "fullNameEn": "Full Name (English)",
+  "enableBiometric": "Enable Biometric",
+  "linkToDevice": "Link to Device",
+  "isActive": "Active",
+  "isInactive": "Inactive",
+  
+  "roleManagement": "Role Management",
+  "roleAdd": "Add New Role",
+  "roleEdit": "Edit Role",
+  "roleName": "Role Name",
+  "permissions": "Permissions"
+}

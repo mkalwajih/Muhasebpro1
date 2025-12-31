@@ -1,0 +1,23 @@
+{
+  "@@locale": "ar",
+  "title": "معلومات الشركة",
+  "add": "إضافة شركة جديدة",
+  "edit": "تعديل شركة",
+  "companyCode": "رمز الشركة",
+  "taxNumber": "الرقم الضريبي",
+  "regNumber": "رقم السجل التجاري",
+  "isMainCompany": "الشركة الرئيسية",
+  "address": "العنوان",
+  "phone": "الهاتف",
+  "email": "البريد الإلكتروني",
+  "selectPrompt": "اختر شركة من القائمة لعرض التفاصيل.",
+  "noCompanies": "لم يتم إنشاء شركات بعد.",
+  
+  "branchTitle": "الفروع",
+  "branchAdd": "إضافة فرع جديد",
+  "branchEdit": "تعديل فرع",
+  "branchCode": "رمز الفرع",
+  "branchGroup": "مجموعة الفرع",
+  "defaultWarehouse": "المستودع الافتراضي",
+  "selectOrCreateBranch": "اختر فرعاً أو أنشئ واحداً جديداً"
+}

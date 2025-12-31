@@ -22,7 +22,7 @@ class JournalVoucherListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final dateFormat = DateFormat('dd/MM/yyyy');
     final currencyFormat = NumberFormat.currency(symbol: '\$');
@@ -177,7 +177,7 @@ class JournalVoucherListItem extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     Color backgroundColor;
     Color foregroundColor;

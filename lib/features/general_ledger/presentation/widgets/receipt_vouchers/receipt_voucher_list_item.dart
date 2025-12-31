@@ -22,7 +22,7 @@ class ReceiptVoucherListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final dateFormat = DateFormat('dd/MM/yyyy');
     final currencyFormat = NumberFormat.currency(symbol: '\$');
@@ -201,7 +201,7 @@ class ReceiptVoucherListItem extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     Color backgroundColor;
     Color foregroundColor;
@@ -250,7 +250,7 @@ class ReceiptVoucherListItem extends StatelessWidget {
   }
 
   String _getPaymentMethodText(BuildContext context, PaymentMethod method) { // Fixed: _getReceiptMethodText
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (method) {
       case PaymentMethod.cash:
         return l10n.cash;

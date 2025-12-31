@@ -1,0 +1,9 @@
+{
+  "@@locale": "ar",
+  "systemSetup": "إعدادات النظام",
+  "generalLedger": "الأستاذ العام",
+  "inventory": "المخزون",
+  "vendors": "الموردون",
+  "customers": "العملاء",
+  "reports": "التقارير"
+}

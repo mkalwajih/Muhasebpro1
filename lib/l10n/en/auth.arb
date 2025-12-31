@@ -1,0 +1,19 @@
+{
+  "@@locale": "en",
+  "title": "MuhasebPro",
+  "subtitle": "Sign in to your account",
+  "username": "Username",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "login": "Login",
+  "logout": "Logout",
+  "register": "Register",
+  "forgotPassword": "Forgot Password?",
+  "resetPassword": "Reset Password",
+  "welcome": "Welcome",
+  "registrationSuccess": "Registration successful",
+  "userInactive": "This account is inactive",
+  "invalidCredentials": "Invalid username or password",
+  "passwordMismatch": "Passwords do not match",
+  "passwordLength": "Password must be at least 6 characters"
+}

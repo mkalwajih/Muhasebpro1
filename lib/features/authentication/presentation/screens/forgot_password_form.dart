@@ -26,7 +26,7 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final loc = AppLocalizations.of(context)!;
+    final loc = Translations.of(context);
 
     final success = await ref
         .read(resetPasswordNotifierProvider.notifier)
@@ -51,7 +51,7 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = Translations.of(context);
     final state = ref.watch(resetPasswordNotifierProvider);
 
     return Center(

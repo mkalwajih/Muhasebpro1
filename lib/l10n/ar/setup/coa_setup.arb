@@ -1,0 +1,14 @@
+{
+  "@@locale": "ar",
+  "title": "دليل الحسابات",
+  "accountCode": "رمز الحساب",
+  "parentAccount": "الحساب الرئيسي",
+  "nature": "طبيعة الحساب",
+  "reportType": "نوع التقرير",
+  "level": "المستوى",
+  "detailType": "نوع الحساب التفصيلي",
+  "cashFlowType": "نوع التدفق النقدي",
+  "noParent": "لا يوجد أصل",
+  "debit": "مدين",
+  "credit": "دائن"
+}

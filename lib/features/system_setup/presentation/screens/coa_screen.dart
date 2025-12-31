@@ -11,7 +11,7 @@ class CoaScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final coaAsync = ref.watch(coaProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(

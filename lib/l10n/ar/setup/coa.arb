@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "ar",
+  "title": "دليل الحسابات",
+  "accountCode": "رمز الحساب",
+  "accountNameAr": "اسم الحساب (عربي)",
+  "accountNameEn": "اسم الحساب (إنجليزي)",
+  "parentAccount": "الحساب الرئيسي",
+  "accountNature": "طبيعة الحساب",
+  "reportType": "نوع التقرير",
+  "selectAccountPrompt": "اختر حساباً لعرض التفاصيل"
+}

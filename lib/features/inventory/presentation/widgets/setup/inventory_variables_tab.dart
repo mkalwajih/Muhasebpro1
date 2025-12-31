@@ -30,7 +30,7 @@ class _InventoryVariablesTabState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final configAsync = ref.watch(inventoryConfigProvider);
 
@@ -196,14 +196,14 @@ class _InventoryVariablesTabState
       await saveConfig(updatedConfig);
 
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = Translations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(l10n.saveSuccess)),
         );
       }
     } catch (e) {
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = Translations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${l10n.saveFailed}: $e')),
         );

@@ -1,0 +1,18 @@
+{
+  "@@locale": "ar",
+  "title": "إدارة المستخدمين",
+  "add": "إضافة مستخدم جديد",
+  "edit": "تعديل مستخدم",
+  "fullNameAr": "الاسم الكامل (عربي)",
+  "fullNameEn": "الاسم الكامل (إنجليزي)",
+  "enableBiometric": "تفعيل البصمة",
+  "linkToDevice": "ربط الجهاز",
+  "isActive": "نشط",
+  "isInactive": "غير نشط",
+  
+  "roleManagement": "إدارة الأدوار",
+  "roleAdd": "إضافة دور جديد",
+  "roleEdit": "تعديل دور",
+  "roleName": "اسم الدور",
+  "permissions": "الصلاحيات"
+}

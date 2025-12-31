@@ -34,7 +34,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Column(
@@ -215,21 +215,21 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.confirmPost),
+        title: Text(Translations.of(context).confirmPost),
         content: Text(
-          AppLocalizations.of(context)!.confirmPostVoucher(voucher.displayName),
+          Translations.of(context).confirmPostVoucher(voucher.displayName),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               _performPost(voucher);
             },
-            child: Text(AppLocalizations.of(context)!.post),
+            child: Text(Translations.of(context).post),
           ),
         ],
       ),
@@ -240,7 +240,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          AppLocalizations.of(context)!.voucherPostedSuccessfully,
+          Translations.of(context).voucherPostedSuccessfully,
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -251,14 +251,14 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.confirmDelete),
+        title: Text(Translations.of(context).confirmDelete),
         content: Text(
-          AppLocalizations.of(context)!.confirmDeleteVoucher(voucher.displayName),
+          Translations.of(context).confirmDeleteVoucher(voucher.displayName),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -268,7 +268,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text(AppLocalizations.of(context)!.delete),
+            child: Text(Translations.of(context).delete),
           ),
         ],
       ),
@@ -279,7 +279,7 @@ class _ReceiptVoucherListState extends ConsumerState<ReceiptVoucherList> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          AppLocalizations.of(context)!.voucherDeletedSuccessfully,
+          Translations.of(context).voucherDeletedSuccessfully,
         ),
         backgroundColor: Theme.of(context).colorScheme.error,
       ),

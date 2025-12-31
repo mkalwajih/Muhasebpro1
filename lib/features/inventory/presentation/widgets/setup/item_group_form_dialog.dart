@@ -65,7 +65,7 @@ class _ItemGroupFormDialogState extends ConsumerState<ItemGroupFormDialog> {
       updatedAt: DateTime.now(),
     );
 
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     try {
       if (widget.itemGroup == null) {
@@ -91,7 +91,7 @@ class _ItemGroupFormDialogState extends ConsumerState<ItemGroupFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     return AlertDialog(
       title: Text(
           widget.itemGroup == null ? l10n.addItemGroup : l10n.editItemGroup),

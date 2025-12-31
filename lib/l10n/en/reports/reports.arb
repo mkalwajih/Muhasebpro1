@@ -1,0 +1,8 @@
+{
+    "@@locale": "en",
+    "title": "Reports",
+    "trialBalance": "Trial Balance",
+    "balanceSheet": "Balance Sheet",
+    "incomeStatement": "Income Statement",
+    "cashFlow": "Cash Flow"
+}

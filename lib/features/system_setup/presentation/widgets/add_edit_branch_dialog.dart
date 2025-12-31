@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branch_groups_providers.dart';
@@ -74,11 +74,12 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      final t = Translations.of(context);
 
       if (_selectedCompanyId == null) {
         // Handle case where no company is selected
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(AppLocalizations.of(context)!.selectCompanyPrompt), backgroundColor: Theme.of(context).colorScheme.error),
+          SnackBar(content: Text(t.setup.branch.selectCompanyPrompt), backgroundColor: Theme.of(context).colorScheme.error),
         );
         return;
       }
@@ -113,12 +114,13 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final companiesAsyncValue = ref.watch(companiesProvider);
     final branchGroupsAsyncValue = ref.watch(branchGroupsProvider);
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return AlertDialog(
-      title: Text(widget.branch == null ? l10n.addNewBranch : l10n.editBranch),
+      title: Text(widget.branch == null ? t.setup.branch.addNew : t.setup.branch.editTitle),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -127,64 +129,64 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
             children: [
               TextFormField(
                 controller: _branchCodeController,
-                decoration: InputDecoration(labelText: l10n.branchCode),
+                decoration: InputDecoration(labelText: t.setup.branch.code),
                 validator: (value) =>
-                    (value == null || value.isEmpty) ? l10n.requiredField : null,
+                    (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _nameEnController,
-                decoration: InputDecoration(labelText: l10n.branchNameEn),
+                decoration: InputDecoration(labelText: t.setup.branch.nameEn),
                 validator: (value) =>
-                    (value == null || value.isEmpty) ? l10n.requiredField : null,
+                    (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
                const SizedBox(height: 8),
               TextFormField(
                 controller: _nameArController,
-                decoration: InputDecoration(labelText: l10n.branchNameAr),
+                decoration: InputDecoration(labelText: t.setup.branch.nameAr),
                 validator: (value) =>
-                    (value == null || value.isEmpty) ? l10n.requiredField : null,
+                    (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
                const SizedBox(height: 8),
               companiesAsyncValue.when(
                 data: (companies) => DropdownButtonFormField<int>(
-                  initialValue: _selectedCompanyId,
-                  decoration: InputDecoration(labelText: l10n.company),
+                  value: _selectedCompanyId,
+                  decoration: InputDecoration(labelText: t.setup.company.title),
                   items: companies.map((CompanyEntity company) {
                     return DropdownMenuItem<int>(
                       value: company.id,
-                      child: Text(l10n.branchName(l10n.localeName == 'ar' ? company.nameAr : company.nameEn)),
+                      child: Text(isRtl ? company.nameAr : company.nameEn),
                     );
                   }).toList(),
                   onChanged: (value) => setState(() => _selectedCompanyId = value),
                   validator: (value) =>
-                      (value == null) ? l10n.requiredField : null,
+                      (value == null) ? t.common.requiredField : null,
                 ),
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stack) => Text('${l10n.error}: $error'),
+                error: (error, stack) => Text('${t.common.error}: $error'),
               ),
                const SizedBox(height: 8),
               branchGroupsAsyncValue.when(
                 data: (groups) => DropdownButtonFormField<int>(
-                  initialValue:_selectedBranchGroupId,
-                  decoration: InputDecoration(labelText: l10n.branchGroup),
+                  value:_selectedBranchGroupId,
+                  decoration: InputDecoration(labelText: t.setup.branch.group),
                   items: groups
                     .map((group) => DropdownMenuItem<int>(
-                        value: group.id, child: Text(l10n.branchName(l10n.localeName == 'ar' ? group.nameAr : group.nameEn))))
+                        value: group.id, child: Text(isRtl ? group.nameAr : group.nameEn)))
                     .toList(),
                   onChanged: (value) =>
                       setState(() => _selectedBranchGroupId = value),
                 ),
                  loading: () => const Center(child: CircularProgressIndicator()),
-                 error: (error, stack) => Text('${l10n.error}: $error'),
+                 error: (error, stack) => Text('${t.common.error}: $error'),
               ),
                const SizedBox(height: 8),
               Tooltip(
-                message: l10n.warehouseTooltip,
+                message: t.setup.branch.warehouseTooltip,
                 child: DropdownButtonFormField<int>(
-                  initialValue: null,
+                  value: null,
                   decoration: InputDecoration(
-                    labelText: l10n.defaultWarehouse,
+                    labelText: t.setup.branch.defaultWarehouse,
                     enabled: false, // Disabled
                   ),
                   items: const [],
@@ -194,17 +196,17 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               TextFormField(
                 controller: _addressController,
-                decoration: InputDecoration(labelText: l10n.address),
+                decoration: InputDecoration(labelText: t.common.address),
               ),
                const SizedBox(height: 8),
               TextFormField(
                 controller: _phoneController,
-                decoration: InputDecoration(labelText: l10n.phone),
+                decoration: InputDecoration(labelText: t.common.phone),
                 keyboardType: TextInputType.phone,
               ),
                const SizedBox(height: 8),
               SwitchListTile(
-                title: Text(l10n.active),
+                title: Text(t.common.active),
                 value: _branchStatus,
                 onChanged: (value) {
                   setState(() {
@@ -215,7 +217,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               Row(
                 children: [
-                  Text(l10n.logo),
+                  Text(t.setup.company.logo),
                   const Spacer(),
                   if (_logo != null) Image.memory(_logo!, height: 40, width: 40),
                   IconButton(
@@ -226,7 +228,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               TextFormField(
                 controller: _remarksController,
-                decoration: InputDecoration(labelText: l10n.remarks),
+                decoration: InputDecoration(labelText: t.common.remarks),
               ),
             ],
           ),
@@ -235,11 +237,11 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: Text(l10n.cancel),
+          child: Text(t.common.cancel),
         ),
         ElevatedButton(
           onPressed: _submit,
-          child: Text(l10n.save),
+          child: Text(t.common.save),
         ),
       ],
     );

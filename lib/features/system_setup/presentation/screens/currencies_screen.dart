@@ -19,7 +19,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
   @override
   Widget build(BuildContext context) {
     final currenciesAsync = ref.watch(currenciesProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     ref.listen<AsyncValue<List<CurrencyEntity>>>(currenciesProvider, (previous, next) {
       next.whenData((currencies) {
@@ -104,7 +104,7 @@ class _CurrenciesScreenState extends ConsumerState<CurrenciesScreen> {
   }
 
   void _showAddEditDenominationDialog(BuildContext context, CurrencyEntity currency, {CurrencyDenominationEntity? denominationToEdit}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
     final valueController = TextEditingController(text: denominationToEdit?.denominationValue.toString() ?? '');
     final nameEnController = TextEditingController(text: denominationToEdit?.denominationNameEn ?? '');

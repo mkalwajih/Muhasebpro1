@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "ar",
+  "title": "مراقبة المخزون",
+  "stocktaking": "الجرد",
+  "startSession": "بدء جلسة جرد",
+  "reservations": "الحجوزات",
+  "reports": "تقارير المخزون",
+  "balances": "أرصدة المخزون",
+  "valuation": "تقييم المخزون",
+  "movement": "حركة الصنف"
+}

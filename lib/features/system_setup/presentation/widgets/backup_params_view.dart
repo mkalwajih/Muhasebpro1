@@ -14,7 +14,7 @@ class BackupParamsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return ListView(
       padding: const EdgeInsets.all(16),

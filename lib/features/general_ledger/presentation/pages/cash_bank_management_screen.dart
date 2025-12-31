@@ -34,7 +34,7 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final roleChecker = ref.watch(roleCheckerProvider);
 
@@ -130,14 +130,14 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.dataRefreshed),
+        content: Text(Translations.of(context).dataRefreshed),
         duration: const Duration(seconds: 2),
       ),
     );
   }
 
   void _showHelpDialog() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     showDialog(
       context: context,

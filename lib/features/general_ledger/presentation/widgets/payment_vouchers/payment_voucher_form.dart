@@ -83,7 +83,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Scaffold(
@@ -322,7 +322,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   }
 
   Widget _buildLinesList() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     if (_lines.isEmpty) {
       return Center(
@@ -387,7 +387,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   }
 
   Widget _buildTotalFooter() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     
     final totalAmount = _lines.fold<double>(0.0, (sum, line) => sum + line.amount);
@@ -423,7 +423,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   }
 
   Widget _buildActionButtons() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     return Container(
       padding: const EdgeInsets.all(16.0),
@@ -478,12 +478,12 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.addPaymentLine),
+        title: Text(Translations.of(context).addPaymentLine),
         content: const Text('Payment line form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -501,7 +501,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
                 ));
               });
             },
-            child: Text(AppLocalizations.of(context)!.add),
+            child: Text(Translations.of(context).add),
           ),
         ],
       ),
@@ -543,7 +543,7 @@ class _PaymentVoucherFormState extends ConsumerState<PaymentVoucherForm> {
   void _postVoucher() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.voucherPostedSuccessfully),
+        content: Text(Translations.of(context).voucherPostedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

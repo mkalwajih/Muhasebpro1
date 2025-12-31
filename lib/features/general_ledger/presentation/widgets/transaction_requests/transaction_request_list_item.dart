@@ -14,7 +14,7 @@ class TransactionRequestListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
@@ -132,7 +132,7 @@ class TransactionRequestListItem extends StatelessWidget {
   }
 
   String _getStatusDisplayName(BuildContext context, TransactionRequestStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (status) {
       case TransactionRequestStatus.draft:
         return l10n.draft;

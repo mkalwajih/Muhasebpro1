@@ -1,0 +1,12 @@
+{
+  "@@locale": "ar",
+  "title": "إعدادات الأستاذ العام",
+  "docTypes": "أنواع المستندات",
+  "docTypeAdd": "إضافة نوع مستند",
+  "docTypeEdit": "تعديل نوع مستند",
+  "docTypeCode": "رمز النوع",
+  "descCoding": "ترميز البيانات",
+  "descCodingAdd": "إضافة ترميز بيان",
+  "descCodingEdit": "تعديل ترميز بيان",
+  "sequenceMethod": "طريقة الترقيم"
+}

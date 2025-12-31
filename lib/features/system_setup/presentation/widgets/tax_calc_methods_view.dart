@@ -10,7 +10,7 @@ class TaxCalcMethodsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taxCalcMethodsAsync = ref.watch(taxCalcMethodsProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       body: taxCalcMethodsAsync.when(
@@ -40,7 +40,7 @@ class TaxCalcMethodsView extends ConsumerWidget {
   }
 
   void _showAddEditMethodDialog(BuildContext context, WidgetRef ref, {TaxCalcMethodEntity? methodToEdit}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
     final codeController = TextEditingController(text: methodToEdit?.methodCode ?? '');
     final nameEnController = TextEditingController(text: methodToEdit?.nameEn ?? '');

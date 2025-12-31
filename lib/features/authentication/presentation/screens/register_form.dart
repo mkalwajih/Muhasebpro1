@@ -32,7 +32,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final loc = AppLocalizations.of(context)!;
+    final loc = Translations.of(context);
 
     final success = await ref.read(registerNotifierProvider.notifier).register(
           UserEntity(
@@ -66,7 +66,7 @@ class _RegisterFormState extends ConsumerState<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+    final loc = Translations.of(context);
     final state = ref.watch(registerNotifierProvider);
 
     return Center(

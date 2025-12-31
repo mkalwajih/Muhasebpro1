@@ -12,7 +12,7 @@ class FinancialPeriodsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final financialPeriodsAsync = ref.watch(financialPeriodsProvider);
-    final appLocalizations = AppLocalizations.of(context)!;
+    final appLocalizations = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(

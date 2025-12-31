@@ -32,7 +32,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final roleChecker = ref.watch(roleCheckerProvider);
 
@@ -241,14 +241,14 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     // TODO: Implement refresh logic
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.reportRefreshed),
+        content: Text(Translations.of(context).reportRefreshed),
         duration: const Duration(seconds: 2),
       ),
     );
   }
 
   void _exportReport() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     showDialog(
       context: context,
@@ -297,7 +297,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          AppLocalizations.of(context)!.reportExportedSuccessfully(format),
+          Translations.of(context).reportExportedSuccessfully(format),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -307,7 +307,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
   void _printReport() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.reportSentToPrinter),
+        content: Text(Translations.of(context).reportSentToPrinter),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

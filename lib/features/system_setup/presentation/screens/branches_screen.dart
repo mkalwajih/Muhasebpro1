@@ -200,7 +200,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final branchesAsync = ref.watch(branchesProvider);
     final companiesAsync = ref.watch(companiesProvider);
     final branchGroupsAsync = ref.watch(branchGroupsProvider);

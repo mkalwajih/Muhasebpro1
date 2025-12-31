@@ -48,7 +48,7 @@ class _WarehouseFormDialogState extends ConsumerState<WarehouseFormDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return AlertDialog(
       title: Text(widget.warehouse == null ? l10n.addWarehouse : l10n.editWarehouse),
@@ -132,14 +132,14 @@ class _WarehouseFormDialogState extends ConsumerState<WarehouseFormDialog> {
 
       if (mounted) {
         Navigator.pop(context);
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = Translations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(l10n.saveSuccess)),
         );
       }
     } catch (e) {
       if (mounted) {
-        final l10n = AppLocalizations.of(context)!;
+        final l10n = Translations.of(context);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('${l10n.saveFailed}: $e')),
         );

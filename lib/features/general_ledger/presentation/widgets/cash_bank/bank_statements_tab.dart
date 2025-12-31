@@ -124,7 +124,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     // Removed unused theme variable
     final filteredStatements = _getFilteredStatements();
 
@@ -237,7 +237,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     return Center(
       child: Column(
@@ -266,7 +266,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildStatementCard(BankStatementEntity statement) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
@@ -460,7 +460,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildReconciliationChip(bool isReconciled) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Chip(
@@ -522,7 +522,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.statementsFiltered),
+        content: Text(Translations.of(context).statementsFiltered),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -532,18 +532,18 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.importStatement),
+        title: Text(Translations.of(context).importStatement),
         content: const Text('Statement import functionality will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(AppLocalizations.of(context)!.import),
+            child: Text(Translations.of(context).import),
           ),
         ],
       ),
@@ -564,7 +564,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.statementReconciledSuccessfully),
+        content: Text(Translations.of(context).statementReconciledSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -573,7 +573,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   void _viewStatementDetails(BankStatementEntity statement) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.statementDetailsNotImplemented),
+        content: Text(Translations.of(context).statementDetailsNotImplemented),
       ),
     );
   }

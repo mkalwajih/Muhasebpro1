@@ -1,0 +1,23 @@
+
+{
+  "@@locale": "ar",
+  "title": "البيانات الجغرافية",
+  "zones": "المناطق",
+  "zoneAdd": "إضافة منطقة جديدة",
+  "zoneEdit": "تعديل منطقة",
+  "countries": "الدول",
+  "countryAdd": "إضافة دولة جديدة",
+  "countryEdit": "تعديل دولة",
+  "governorates": "المحافظات",
+  "governorateAdd": "إضافة محافظة جديدة",
+  "governorateEdit": "تعديل محافظة",
+  "cities": "المدن",
+  "cityAdd": "إضافة مدينة جديدة",
+  "cityEdit": "تعديل مدينة",
+  "regions": "الأحياء",
+  "regionAdd": "إضافة حي جديد",
+  "regionEdit": "تعديل حي",
+  "nationalityAr": "الجنسية (عربي)",
+  "nationalityEn": "الجنسية (إنجليزي)",
+  "selectParentPrompt": "حدد عنصراً رئيسياً لإضافة سجل جديد"
+}

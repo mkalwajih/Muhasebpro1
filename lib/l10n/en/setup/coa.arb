@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "en",
+  "title": "Chart of Accounts",
+  "accountCode": "Account Code",
+  "accountNameAr": "Account Name (Arabic)",
+  "accountNameEn": "Account Name (English)",
+  "parentAccount": "Parent Account",
+  "accountNature": "Account Nature",
+  "reportType": "Report Type",
+  "selectAccountPrompt": "Select an account to view details"
+}

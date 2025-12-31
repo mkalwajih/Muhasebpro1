@@ -1,0 +1,13 @@
+
+{
+  "@@locale": "en",
+  "title": "General Parameters",
+  "defaultLanguage": "Default Language",
+  "dateFormat": "Date Format",
+  "baseCurrency": "Base Currency",
+  "currencies": "Currencies",
+  "currencyNameAr": "Currency Name (Arabic)",
+  "currencyNameEn": "Currency Name (English)",
+  "symbol": "Symbol",
+  "exchangeRate": "Exchange Rate"
+}

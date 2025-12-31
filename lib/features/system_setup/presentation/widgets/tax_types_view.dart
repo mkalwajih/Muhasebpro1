@@ -11,7 +11,7 @@ class TaxTypesView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taxTypesAsync = ref.watch(taxTypesProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       body: taxTypesAsync.when(
@@ -41,7 +41,7 @@ class TaxTypesView extends ConsumerWidget {
   }
 
   void _showAddEditTypeDialog(BuildContext context, WidgetRef ref, {TaxTypeEntity? typeToEdit}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
     final codeController = TextEditingController(text: typeToEdit?.typeCode ?? '');
     final nameEnController = TextEditingController(text: typeToEdit?.nameEn ?? '');

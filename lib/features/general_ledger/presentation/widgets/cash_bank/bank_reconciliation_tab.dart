@@ -105,7 +105,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     // Removed unused currencyFormat
 
@@ -253,7 +253,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }
 
   Widget _buildBalanceSummary() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
 
@@ -368,7 +368,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     required Color color,
     required IconData icon,
   }) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
 
@@ -518,14 +518,14 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
       builder: (context) => AlertDialog(
         title: Text(
           type == ReconciliationItemType.deposit
-              ? AppLocalizations.of(context)!.addOutstandingDeposit
-              : AppLocalizations.of(context)!.addOutstandingCheck,
+              ? Translations.of(context).addOutstandingDeposit
+              : Translations.of(context).addOutstandingCheck,
         ),
         content: const Text('Item form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -555,7 +555,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 }
               });
             },
-            child: Text(AppLocalizations.of(context)!.add),
+            child: Text(Translations.of(context).add),
           ),
         ],
       ),
@@ -566,19 +566,19 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.addAdjustment),
+        title: Text(Translations.of(context).addAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Add adjustment logic here
             },
-            child: Text(AppLocalizations.of(context)!.add),
+            child: Text(Translations.of(context).add),
           ),
         ],
       ),
@@ -589,7 +589,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     if (!_isReconciled()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.reconciliationNotBalanced),
+          content: Text(Translations.of(context).reconciliationNotBalanced),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
@@ -600,7 +600,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content:
-            Text(AppLocalizations.of(context)!.reconciliationSavedSuccessfully),
+            Text(Translations.of(context).reconciliationSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

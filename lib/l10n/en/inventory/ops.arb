@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "en",
+  "title": "Stock Operations",
+  "incoming": "Incoming Stock",
+  "outgoing": "Outgoing Stock",
+  "transfer": "Transfer",
+  "opening": "Opening Stock",
+  "quantity": "Quantity",
+  "unitCost": "Unit Cost",
+  "totalCost": "Total Cost"
+}

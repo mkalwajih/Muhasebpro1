@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+  "systemSetup": "System Setup",
+  "generalLedger": "General Ledger",
+  "inventory": "Inventory",
+  "vendors": "Vendors",
+  "customers": "Customers",
+  "reports": "Reports"
+}

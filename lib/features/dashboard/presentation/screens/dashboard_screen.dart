@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
 import 'package:muhaseb_pro/features/dashboard/domain/entities/dashboard_item.dart';
 import 'package:muhaseb_pro/features/dashboard/presentation/providers/dashboard_providers.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import 'package:muhaseb_pro/shared/utils/role_checker.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -12,27 +12,27 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final user = ref.watch(authStateProvider);
-    final roleChecker = ref.watch(roleCheckerProvider);
-    
-    // Filter dashboard items based on permissions
     final allItems = ref.watch(dashboardItemsProvider);
+    final roleChecker = ref.watch(roleCheckerProvider);
+
     final accessibleItems = allItems.where((item) {
-      return item.permission == null || roleChecker.hasPermission(item.permission!);
+      if (item.permission == null) return true; // Always show if no permission is required
+      return roleChecker.can(item.permission!);
     }).toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${l10n.welcome}, ${user?.username ?? ''}'),
+        title: Text('${t.auth.welcome}, ${user?.username ?? ''}'),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
+              ref.read(loginNotifierProvider.notifier).logout();
               ref.read(authStateProvider.notifier).state = null;
-              context.go('/login');
+              context.go('/'); // Redirect to login
             },
-            tooltip: l10n.logout,
           ),
         ],
       ),
@@ -41,13 +41,13 @@ class DashboardScreen extends ConsumerWidget {
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 3 / 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
+          crossAxisSpacing: 20,
+          mainAxisSpacing: 20,
         ),
         itemCount: accessibleItems.length,
         itemBuilder: (context, index) {
           final item = accessibleItems[index];
-          return DashboardCard(item: item, l10n: l10n);
+          return DashboardCard(item: item, t: t);
         },
       ),
     );
@@ -57,38 +57,30 @@ class DashboardScreen extends ConsumerWidget {
 class DashboardCard extends StatelessWidget {
   const DashboardCard({
     super.key,
-    required this.l10n,
     required this.item,
+    required this.t,
   });
 
   final DashboardItem item;
-  final AppLocalizations l10n;
+  final Translations t;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {
-          context.go(item.route);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(item.icon, size: 32, color: theme.colorScheme.primary),
-              const SizedBox(height: 12),
-              Text(
-                item.getTitle(l10n),
-                style: theme.textTheme.titleMedium,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
+        onTap: () => context.push(item.route),
+        child: Column(
+          mainAxisAlignment.center,
+          children: [
+            Icon(item.icon, size: 40, color: Theme.of(context).primaryColor),
+            const SizedBox(height: 12),
+            Text(
+              item.getTitle(t),
+              style: Theme.of(context).textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

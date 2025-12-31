@@ -1,0 +1,11 @@
+
+{
+    "@@locale": "en",
+    "title": "Defaults",
+    "defaultAccounts": "Default Accounts",
+    "defaultItems": "Default Items",
+    "defaultUnits": "Default Units",
+    "defaultPayment": "Default Payment Methods",
+    "defaultSales": "Default Sales Accounts",
+    "defaultPurchases": "Default Purchases Accounts"
+}

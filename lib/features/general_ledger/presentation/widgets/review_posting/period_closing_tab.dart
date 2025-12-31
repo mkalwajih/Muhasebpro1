@@ -9,7 +9,7 @@ class PeriodClosingTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     // Sample data for demonstration
     final periods = _getSamplePeriods();
@@ -63,7 +63,7 @@ class PeriodClosingTab extends ConsumerWidget {
   }
 
   Widget _buildPeriodCard(BuildContext context, PeriodClosingEntity period) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -284,7 +284,7 @@ class PeriodClosingTab extends ConsumerWidget {
   }
 
   String _getStatusDisplayName(BuildContext context, PeriodClosingStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (status) {
       case PeriodClosingStatus.open:
         return l10n.open;
@@ -298,7 +298,7 @@ class PeriodClosingTab extends ConsumerWidget {
   }
 
   String _getTypeDisplayName(BuildContext context, PeriodType type) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (type) {
       case PeriodType.monthly:
         return l10n.monthly;
@@ -317,20 +317,20 @@ class PeriodClosingTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.createPeriod),
+        title: Text(Translations.of(context).createPeriod),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.periodName,
+                labelText: Translations.of(context).periodName,
                 border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<PeriodType>(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.periodType,
+                labelText: Translations.of(context).periodType,
                 border: const OutlineInputBorder(),
               ),
               items: PeriodType.values.map((type) {
@@ -346,19 +346,19 @@ class PeriodClosingTab extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.periodCreatedSuccessfully),
+                  content: Text(Translations.of(context).periodCreatedSuccessfully),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            child: Text(AppLocalizations.of(context)!.create),
+            child: Text(Translations.of(context).create),
           ),
         ],
       ),
@@ -378,7 +378,7 @@ class PeriodClosingTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.preClosingChecks),
+        title: Text(Translations.of(context).preClosingChecks),
         content: SizedBox(
           width: double.maxFinite,
           height: 300,
@@ -396,19 +396,19 @@ class PeriodClosingTab extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.checksRunSuccessfully),
+                  content: Text(Translations.of(context).checksRunSuccessfully),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            child: Text(AppLocalizations.of(context)!.runChecks),
+            child: Text(Translations.of(context).runChecks),
           ),
         ],
       ),
@@ -419,25 +419,25 @@ class PeriodClosingTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.closePeriod),
-        content: Text(AppLocalizations.of(context)!.confirmClosePeriod),
+        title: Text(Translations.of(context).closePeriod),
+        content: Text(Translations.of(context).confirmClosePeriod),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('${AppLocalizations.of(context)!.periodClosed} ${period.periodName}'),
+                  content: Text('${Translations.of(context).periodClosed} ${period.periodName}'),
                   backgroundColor: Colors.red,
                 ),
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
         ],
       ),
@@ -447,7 +447,7 @@ class PeriodClosingTab extends ConsumerWidget {
   void _reopenPeriod(BuildContext context, PeriodClosingEntity period) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${AppLocalizations.of(context)!.periodReopened} ${period.periodName}'),
+        content: Text('${Translations.of(context).periodReopened} ${period.periodName}'),
         backgroundColor: Colors.orange,
       ),
     );
@@ -456,7 +456,7 @@ class PeriodClosingTab extends ConsumerWidget {
   void _runChecks(BuildContext context, PeriodClosingEntity period) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${AppLocalizations.of(context)!.runningChecksFor} ${period.periodName}'),
+        content: Text('${Translations.of(context).runningChecksFor} ${period.periodName}'),
         backgroundColor: Colors.blue,
       ),
     );
@@ -466,28 +466,28 @@ class PeriodClosingTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${AppLocalizations.of(context)!.periodDetails} - ${period.periodName}'),
+        title: Text('${Translations.of(context).periodDetails} - ${period.periodName}'),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow(AppLocalizations.of(context)!.status, _getStatusDisplayName(context, period.status)),
-              _buildDetailRow(AppLocalizations.of(context)!.type, _getTypeDisplayName(context, period.periodType)),
-              _buildDetailRow(AppLocalizations.of(context)!.startDate, _formatDate(period.periodStart)),
-              _buildDetailRow(AppLocalizations.of(context)!.endDate, _formatDate(period.periodEnd)),
+              _buildDetailRow(Translations.of(context).status, _getStatusDisplayName(context, period.status)),
+              _buildDetailRow(Translations.of(context).type, _getTypeDisplayName(context, period.periodType)),
+              _buildDetailRow(Translations.of(context).startDate, _formatDate(period.periodStart)),
+              _buildDetailRow(Translations.of(context).endDate, _formatDate(period.periodEnd)),
               if (period.closedBy != null)
-                _buildDetailRow(AppLocalizations.of(context)!.closedBy, period.closedByName!),
+                _buildDetailRow(Translations.of(context).closedBy, period.closedByName!),
               if (period.closingDate != null)
-                _buildDetailRow(AppLocalizations.of(context)!.closingDate, _formatDate(period.closingDate!)),
+                _buildDetailRow(Translations.of(context).closingDate, _formatDate(period.closingDate!)),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
         ],
       ),

@@ -20,7 +20,7 @@ class DocumentTypesTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     // Removed unused theme variable
     final documentTypesAsync = ref.watch(filteredDocumentTypesProvider);
     final searchQuery = ref.watch(documentTypesSearchProvider);
@@ -116,8 +116,8 @@ class DocumentTypesTab extends ConsumerWidget {
               SnackBar(
                 content: Text(
                   documentType == null
-                      ? AppLocalizations.of(context)!.documentTypeCreatedSuccessfully
-                      : AppLocalizations.of(context)!.documentTypeUpdatedSuccessfully,
+                      ? Translations.of(context).documentTypeCreatedSuccessfully
+                      : Translations.of(context).documentTypeUpdatedSuccessfully,
                 ),
                 backgroundColor: Colors.green,
               ),
@@ -133,7 +133,7 @@ class DocumentTypesTab extends ConsumerWidget {
     WidgetRef ref,
     DocumentTypeEntity documentType,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     showDialog(
       context: context,

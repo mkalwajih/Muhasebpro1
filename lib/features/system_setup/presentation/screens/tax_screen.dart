@@ -9,7 +9,7 @@ class TaxScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(

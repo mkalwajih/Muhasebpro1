@@ -1,8 +1,0 @@
--- lib/core/db/schemas/branch_groups_schema.drift
-
-CREATE TABLE branch_groups (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
-);

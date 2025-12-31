@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "en",
+  "title": "Inventory Control",
+  "stocktaking": "Stocktaking",
+  "startSession": "Start Stocktaking",
+  "reservations": "Reservations",
+  "reports": "Inventory Reports",
+  "balances": "Stock Balances",
+  "valuation": "Stock Valuation",
+  "movement": "Item Movement"
+}

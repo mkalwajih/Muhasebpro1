@@ -13,7 +13,7 @@ class ItemGroupsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final itemGroupsAsync = ref.watch(itemGroupsProvider);
 
     return Scaffold(
@@ -94,7 +94,7 @@ class ItemGroupsTab extends ConsumerWidget {
 
   Future<void> _deleteItemGroup(
       BuildContext context, WidgetRef ref, int id) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(

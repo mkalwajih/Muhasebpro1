@@ -93,7 +93,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     // ignore: unused_local_variable
     final theme = Theme.of(context);
 
@@ -161,7 +161,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Center(
@@ -191,7 +191,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildAdjustmentCard(AdjustmentEntryEntity adjustment) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
@@ -370,7 +370,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildStatusChip(AdjustmentStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     
     Color backgroundColor;
@@ -414,7 +414,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildTypeChip(AdjustmentType type) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     
     String typeText;
@@ -480,12 +480,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.newAdjustment),
+        title: Text(Translations.of(context).newAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -516,7 +516,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 _adjustments.insert(0, newAdjustment);
               });
             },
-            child: Text(AppLocalizations.of(context)!.create),
+            child: Text(Translations.of(context).create),
           ),
         ],
       ),
@@ -531,7 +531,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.adjustmentSubmittedSuccessfully),
+        content: Text(Translations.of(context).adjustmentSubmittedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -548,7 +548,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.adjustmentApprovedSuccessfully),
+        content: Text(Translations.of(context).adjustmentApprovedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -558,7 +558,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     // TODO: Implement edit adjustment dialog
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.editAdjustmentNotImplemented),
+        content: Text(Translations.of(context).editAdjustmentNotImplemented),
       ),
     );
   }
@@ -567,12 +567,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.confirmDelete),
-        content: Text(AppLocalizations.of(context)!.confirmDeleteAdjustment),
+        title: Text(Translations.of(context).confirmDelete),
+        content: Text(Translations.of(context).confirmDeleteAdjustment),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -583,7 +583,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.adjustmentDeletedSuccessfully),
+                  content: Text(Translations.of(context).adjustmentDeletedSuccessfully),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -591,7 +591,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text(AppLocalizations.of(context)!.delete),
+            child: Text(Translations.of(context).delete),
           ),
         ],
       ),

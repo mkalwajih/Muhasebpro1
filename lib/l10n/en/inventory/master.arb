@@ -1,0 +1,15 @@
+
+{
+  "@@locale": "en",
+  "title": "Items",
+  "setup": "Inventory Setup",
+  "itemGroups": "Item Groups",
+  "warehouses": "Warehouses",
+  "add": "Add Item",
+  "code": "Item Code",
+  "barcode": "Barcode",
+  "type": "Item Type",
+  "costPrice": "Cost Price",
+  "baseUnit": "Base Unit",
+  "costingMethod": "Default Costing Method"
+}

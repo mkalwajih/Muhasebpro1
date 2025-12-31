@@ -13,7 +13,7 @@ class UserManagementScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final usersAsync = ref.watch(userManagementProvider);
     final branchesAsync = ref.watch(branchesProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final locale = l10n.localeName;
 
     return Scaffold(

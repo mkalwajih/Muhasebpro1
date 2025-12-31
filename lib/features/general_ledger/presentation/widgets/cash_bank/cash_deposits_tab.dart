@@ -51,7 +51,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     // final theme = Theme.of(context); // Unused
 
     final filteredDeposits = _getFilteredDeposits();
@@ -116,7 +116,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
 
     return Center(
@@ -146,7 +146,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildDepositCard(CashDepositEntity deposit) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
@@ -253,7 +253,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildStatusChip(DepositStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     
     Color backgroundColor;
@@ -348,19 +348,19 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.newDeposit),
+        title: Text(Translations.of(context).newDeposit),
         content: const Text('Deposit form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Add new deposit logic
             },
-            child: Text(AppLocalizations.of(context)!.create),
+            child: Text(Translations.of(context).create),
           ),
         ],
       ),
@@ -375,13 +375,13 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       }
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context)!.depositSubmittedSuccessfully)),
+      SnackBar(content: Text(Translations.of(context).depositSubmittedSuccessfully)),
     );
   }
 
   void _confirmDeposit(CashDepositEntity deposit) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context)!.depositConfirmedSuccessfully)),
+      SnackBar(content: Text(Translations.of(context).depositConfirmedSuccessfully)),
     );
   }
 
@@ -390,7 +390,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       _deposits.remove(deposit);
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context)!.depositDeletedSuccessfully)),
+      SnackBar(content: Text(Translations.of(context).depositDeletedSuccessfully)),
     );
   }
 }

@@ -1,0 +1,12 @@
+{
+  "@@locale": "en",
+  "title": "GL Setup & Config",
+  "docTypes": "Document Types",
+  "docTypeAdd": "Add Document Type",
+  "docTypeEdit": "Edit Document Type",
+  "docTypeCode": "Type Code",
+  "descCoding": "Description Coding",
+  "descCodingAdd": "Add Description Coding",
+  "descCodingEdit": "Edit Description Coding",
+  "sequenceMethod": "Sequence Method"
+}

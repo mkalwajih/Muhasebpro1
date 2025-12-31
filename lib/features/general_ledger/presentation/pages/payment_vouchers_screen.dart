@@ -21,7 +21,7 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final roleChecker = ref.watch(roleCheckerProvider);
 
@@ -116,7 +116,7 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
     // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(AppLocalizations.of(context)!.voucherSavedSuccessfully),
+        content: Text(Translations.of(context).voucherSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -126,14 +126,14 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.search),
+        title: Text(Translations.of(context).search),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.searchQuery,
-                hintText: AppLocalizations.of(context)!.enterSearchTerm,
+                labelText: Translations.of(context).searchQuery,
+                hintText: Translations.of(context).enterSearchTerm,
               ),
               onSubmitted: (query) {
                 Navigator.of(context).pop();
@@ -145,14 +145,14 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Implement search functionality
             },
-            child: Text(AppLocalizations.of(context)!.search),
+            child: Text(Translations.of(context).search),
           ),
         ],
       ),
@@ -163,25 +163,25 @@ class _PaymentVouchersScreenState extends ConsumerState<PaymentVouchersScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.filter),
+        title: Text(Translations.of(context).filter),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             // Add filter options here
-            Text(AppLocalizations.of(context)!.filterOptions),
+            Text(Translations.of(context).filterOptions),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Implement filter functionality
             },
-            child: Text(AppLocalizations.of(context)!.apply),
+            child: Text(Translations.of(context).apply),
           ),
         ],
       ),

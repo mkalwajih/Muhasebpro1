@@ -1,0 +1,13 @@
+
+{
+  "@@locale": "ar",
+  "title": "الإعدادات العامة",
+  "defaultLanguage": "اللغة الافتراضية",
+  "dateFormat": "تنسيق التاريخ",
+  "baseCurrency": "العملة الأساسية",
+  "currencies": "العملات",
+  "currencyNameAr": "اسم العملة (عربي)",
+  "currencyNameEn": "اسم العملة (إنجليزي)",
+  "symbol": "الرمز",
+  "exchangeRate": "سعر الصرف"
+}

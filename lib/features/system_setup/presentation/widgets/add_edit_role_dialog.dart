@@ -60,7 +60,7 @@ class _AddEditRoleDialogState extends ConsumerState<AddEditRoleDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return AlertDialog(
       title: Text(widget.roleToEdit == null ? l10n.addNewRole : l10n.editRole),

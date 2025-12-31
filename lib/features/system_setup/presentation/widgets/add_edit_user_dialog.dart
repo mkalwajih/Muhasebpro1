@@ -60,7 +60,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
     if (_formKey.currentState!.validate()) {
       final notifier = ref.read(userManagementProvider.notifier);
       final users = ref.read(userManagementProvider).value ?? [];
-      final l10n = AppLocalizations.of(context)!;
+      final l10n = Translations.of(context);
 
       final isDuplicateUsername = users.any((user) => 
           user.username.toLowerCase() == _usernameController.text.toLowerCase() && 
@@ -100,7 +100,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final isEditing = widget.userToEdit != null;
     final rolesAsync = ref.watch(roleManagementProvider);
     final branchesAsync = ref.watch(branchesProvider);

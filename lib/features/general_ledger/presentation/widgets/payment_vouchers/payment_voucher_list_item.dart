@@ -22,7 +22,7 @@ class PaymentVoucherListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final theme = Theme.of(context);
     final dateFormat = DateFormat('dd/MM/yyyy');
     final currencyFormat = NumberFormat.currency(symbol: '\$');
@@ -158,7 +158,7 @@ class PaymentVoucherListItem extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     Color backgroundColor;
     Color foregroundColor;
@@ -197,7 +197,7 @@ class PaymentVoucherListItem extends StatelessWidget {
 
   Widget _buildPaymentMethodChip(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     IconData icon;
     String text;

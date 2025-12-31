@@ -1,0 +1,13 @@
+
+{
+  "@@locale": "en",
+  "title": "Financial Reports",
+  "trialBalance": "Trial Balance",
+  "incomeStatement": "Income Statement",
+  "balanceSheet": "Balance Sheet",
+  "cashFlow": "Cash Flow",
+  "generalLedger": "General Ledger",
+  "accountStatement": "Account Statement",
+  "selectAccount": "Select Account",
+  "asOfDate": "As of Date"
+}

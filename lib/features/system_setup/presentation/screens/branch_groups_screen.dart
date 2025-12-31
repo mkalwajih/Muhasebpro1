@@ -10,7 +10,7 @@ class BranchGroupsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groupsAsync = ref.watch(branchGroupsProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     ref.listen<AsyncValue>(branchGroupsProvider, (_, state) {
       if (state is AsyncError) {
@@ -58,7 +58,7 @@ class BranchGroupsScreen extends ConsumerWidget {
   }
 
   void _showAddEditGroupDialog(BuildContext context, WidgetRef ref, {BranchGroupEntity? groupToEdit}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
     final nameArController = TextEditingController(text: groupToEdit?.nameAr ?? '');
     final nameEnController = TextEditingController(text: groupToEdit?.nameEn ?? '');
@@ -124,7 +124,7 @@ class BranchGroupsScreen extends ConsumerWidget {
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref, BranchGroupEntity group) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(

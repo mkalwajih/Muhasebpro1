@@ -13,7 +13,7 @@ class PendingApprovalsTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final pendingRequestsAsync = ref.watch(pendingApprovalsProvider);
 
     return pendingRequestsAsync.when(
@@ -92,27 +92,27 @@ class PendingApprovalsTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${AppLocalizations.of(context)!.requestDetails} - ${request.requestNumber}'),
+        title: Text('${Translations.of(context).requestDetails} - ${request.requestNumber}'),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow(AppLocalizations.of(context)!.type, _getTypeDisplayName(context, request.type)),
-              _buildDetailRow(AppLocalizations.of(context)!.requester, request.requesterName),
-              _buildDetailRow(AppLocalizations.of(context)!.requestDate, _formatDate(request.requestDate)),
-              _buildDetailRow(AppLocalizations.of(context)!.description, request.description),
-              _buildDetailRow(AppLocalizations.of(context)!.amount, '\$${request.totalAmount.toStringAsFixed(2)}'),
+              _buildDetailRow(Translations.of(context).type, _getTypeDisplayName(context, request.type)),
+              _buildDetailRow(Translations.of(context).requester, request.requesterName),
+              _buildDetailRow(Translations.of(context).requestDate, _formatDate(request.requestDate)),
+              _buildDetailRow(Translations.of(context).description, request.description),
+              _buildDetailRow(Translations.of(context).amount, '\$${request.totalAmount.toStringAsFixed(2)}'),
               if (request.notes != null)
-                _buildDetailRow(AppLocalizations.of(context)!.notes, request.notes!),
+                _buildDetailRow(Translations.of(context).notes, request.notes!),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
           ElevatedButton(
             onPressed: () {
@@ -120,7 +120,7 @@ class PendingApprovalsTab extends ConsumerWidget {
               _approveRequest(context, ref, request);
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            child: Text(AppLocalizations.of(context)!.approve),
+            child: Text(Translations.of(context).approve),
           ),
           ElevatedButton(
             onPressed: () {
@@ -128,7 +128,7 @@ class PendingApprovalsTab extends ConsumerWidget {
               _showRejectDialog(context, ref, request);
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text(AppLocalizations.of(context)!.reject),
+            child: Text(Translations.of(context).reject),
           ),
         ],
       ),
@@ -149,7 +149,7 @@ class PendingApprovalsTab extends ConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.requestApprovedSuccessfully),
+            content: Text(Translations.of(context).requestApprovedSuccessfully),
             backgroundColor: Colors.green,
           ),
         );
@@ -158,7 +158,7 @@ class PendingApprovalsTab extends ConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
+            content: Text('${Translations.of(context).error}: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -172,16 +172,16 @@ class PendingApprovalsTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.rejectRequest),
+        title: Text(Translations.of(context).rejectRequest),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(AppLocalizations.of(context)!.pleaseProvideRejectionReason),
+            Text(Translations.of(context).pleaseProvideRejectionReason),
             const SizedBox(height: 16),
             TextField(
               controller: reasonController,
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.rejectionReason,
+                labelText: Translations.of(context).rejectionReason,
                 border: const OutlineInputBorder(),
               ),
               maxLines: 3,
@@ -191,14 +191,14 @@ class PendingApprovalsTab extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () async {
               if (reasonController.text.trim().isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(AppLocalizations.of(context)!.pleaseProvideRejectionReason),
+                    content: Text(Translations.of(context).pleaseProvideRejectionReason),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -209,7 +209,7 @@ class PendingApprovalsTab extends ConsumerWidget {
               await _rejectRequest(context, ref, request, reasonController.text.trim());
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-            child: Text(AppLocalizations.of(context)!.reject),
+            child: Text(Translations.of(context).reject),
           ),
         ],
       ),
@@ -231,7 +231,7 @@ class PendingApprovalsTab extends ConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(AppLocalizations.of(context)!.requestRejectedSuccessfully),
+            content: Text(Translations.of(context).requestRejectedSuccessfully),
             backgroundColor: Colors.orange,
           ),
         );
@@ -240,7 +240,7 @@ class PendingApprovalsTab extends ConsumerWidget {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)!.error}: $e'),
+            content: Text('${Translations.of(context).error}: $e'),
             backgroundColor: Colors.red,
           ),
         );
@@ -268,7 +268,7 @@ class PendingApprovalsTab extends ConsumerWidget {
   }
 
   String _getTypeDisplayName(BuildContext context, TransactionRequestType type) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (type) {
       case TransactionRequestType.journalVoucher:
         return l10n.journalVoucher;

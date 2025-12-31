@@ -8,7 +8,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity
 import 'package:muhaseb_pro/features/system_setup/domain/entities/company_info_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class CompanyInfoScreen extends ConsumerStatefulWidget {
   const CompanyInfoScreen({super.key});
@@ -112,6 +112,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
   }
 
   void _clearForm() {
+    _formKey.currentState?.reset();
     _companyCodeController.clear();
     _nameArController.clear();
     _nameEnController.clear();
@@ -143,9 +144,10 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
     }
   }
 
-  Future<void> _onSave(AppLocalizations l10n) async {
+  Future<void> _onSave() async {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
+      final t = Translations.of(context);
       try {
         final companyToSave = CompanyInfoEntity(
           id: _selectedCompany?.id ?? 0, // 0 for new
@@ -167,10 +169,10 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
           // Add new company
           final result = await ref.read(companiesProvider.notifier).addCompany(companyToSave);
           result.fold(
-            (failure) => _showErrorSnackbar(l10n, failure.properties.first.toString()),
+            (failure) => _showErrorSnackbar(failure.properties.first.toString()),
             (_) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)
+                SnackBar(content: Text(t.common.saveSuccess), backgroundColor: Colors.green)
               );
               _clearForm();
             },
@@ -179,34 +181,35 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
           // Update existing company
           final result = await ref.read(companiesProvider.notifier).updateCompany(companyToSave);
           result.fold(
-            (failure) => _showErrorSnackbar(l10n, failure.properties.first.toString()),
+            (failure) => _showErrorSnackbar(failure.properties.first.toString()),
             (_) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.saveSuccess), backgroundColor: Colors.green)
+                SnackBar(content: Text(t.common.saveSuccess), backgroundColor: Colors.green)
               );
             }
           );
         }
       } catch (e) {
-        _showErrorSnackbar(l10n, '${l10n.saveFailed}: $e');
+        _showErrorSnackbar('${t.common.saveFailed}: $e');
       } finally {
         if (mounted) setState(() => _isLoading = false);
       }
     }
   }
 
-  Future<void> _onDelete(AppLocalizations l10n, CompanyInfoEntity company) async {
+  Future<void> _onDelete(CompanyInfoEntity company) async {
+    final t = Translations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.confirmDeletion),
-        content: Text(l10n.confirmDeleteMessage),
+        title: Text(t.common.confirmDeletion),
+        content: Text(t.common.confirmDeleteMessage),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(t.common.cancel)),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.error),
-            child: Text(l10n.delete),
+            child: Text(t.common.delete),
           ),
         ],
       ),
@@ -217,23 +220,23 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
       try {
         final result = await ref.read(companiesProvider.notifier).deleteCompany(company.id);
         result.fold(
-          (failure) => _showErrorSnackbar(l10n, failure.properties.first.toString()),
+          (failure) => _showErrorSnackbar(failure.properties.first.toString()),
           (_) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(l10n.deleteSuccess), backgroundColor: Colors.green)
+              SnackBar(content: Text(t.common.deleteSuccess), backgroundColor: Colors.green)
             );
             _clearForm();
           },
         );
       } catch (e) {
-        _showErrorSnackbar(l10n, '${l10n.deleteFailed}: $e');
+        _showErrorSnackbar('${t.common.deleteFailed}: $e');
       } finally {
         if (mounted) setState(() => _isLoading = false);
       }
     }
   }
 
-  void _showErrorSnackbar(AppLocalizations l10n, String message) {
+  void _showErrorSnackbar(String message) {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), backgroundColor: Theme.of(context).colorScheme.error),
@@ -242,25 +245,25 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final t = Translations.of(context);
     final companiesAsync = ref.watch(companiesProvider);
     final allCountriesAsync = ref.watch(allCountriesProvider); 
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.companyInfo),
+        title: Text(t.setup.company.title),
         actions: [
           IconButton(
             icon: const Icon(Icons.add_business),
-            tooltip: l10n.addNewCompany,
+            tooltip: t.setup.company.addNew,
             onPressed: () => _clearForm(),
           ),
           if (_selectedCompany != null && _selectedCompany!.id != 0) 
             IconButton(
               icon: const Icon(Icons.delete_forever, color: Colors.redAccent),
-              tooltip: l10n.delete, 
-              onPressed: _isLoading ? null : () => _onDelete(l10n, _selectedCompany!),
+              tooltip: t.common.delete, 
+              onPressed: _isLoading ? null : () => _onDelete(_selectedCompany!),
             ),
         ],
       ),
@@ -279,7 +282,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               child: companiesAsync.when(
                 data: (companies) {
                   if (companies.isEmpty) {
-                    return Center(child: Text(l10n.noCompaniesYet, textAlign: TextAlign.center));
+                    return Center(child: Text(t.setup.company.empty, textAlign: TextAlign.center));
                   }
                   return ListView.separated(
                     itemCount: companies.length,
@@ -326,7 +329,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 children: [
                   // Header Title
                   Text(
-                    _selectedCompany == null ? l10n.addNewCompany : '${l10n.edit}: ${_selectedCompany!.companyCode}',
+                    _selectedCompany == null ? t.setup.company.addNew : '${t.common.edit}: ${_selectedCompany!.companyCode}',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 24),
@@ -356,7 +359,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                           TextButton.icon(
                             onPressed: _pickImage,
                             icon: const Icon(Icons.upload, size: 16),
-                            label: Text(l10n.uploadLogo),
+                            label: Text(t.setup.company.uploadLogo),
                           ),
                         ],
                       ),
@@ -367,21 +370,21 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                             TextFormField(
                               controller: _companyCodeController,
                               decoration: InputDecoration(
-                                labelText: l10n.companyCode,
+                                labelText: t.setup.company.code,
                                 border: const OutlineInputBorder(),
                                 prefixIcon: const Icon(Icons.code),
                               ),
-                              validator: (val) => val!.isEmpty ? l10n.requiredField : null,
+                              validator: (val) => val!.isEmpty ? t.common.requiredField : null,
                             ),
                             const SizedBox(height: 16),
                             TextFormField(
                               controller: _nameEnController,
                               decoration: InputDecoration(
-                                labelText: l10n.companyNameEn,
+                                labelText: t.setup.company.nameEn,
                                 border: const OutlineInputBorder(),
                                 prefixIcon: const Icon(Icons.language),
                               ),
-                              validator: (val) => val!.isEmpty ? l10n.requiredField : null,
+                              validator: (val) => val!.isEmpty ? t.common.requiredField : null,
                             ),
                           ],
                         ),
@@ -395,11 +398,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                     controller: _nameArController,
                     textDirection: TextDirection.rtl,
                     decoration: InputDecoration(
-                      labelText: l10n.companyNameAr,
+                      labelText: t.setup.company.nameAr,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.translate),
                     ),
-                    validator: (val) => val!.isEmpty ? l10n.requiredField : null,
+                    validator: (val) => val!.isEmpty ? t.common.requiredField : null,
                   ),
                   const SizedBox(height: 16),
 
@@ -411,7 +414,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                           data: (countries) => DropdownButtonFormField<int>(
                             value: _countryId,
                             decoration: InputDecoration(
-                              labelText: l10n.country,
+                              labelText: t.setup.geo.country,
                               border: const OutlineInputBorder(),
                               prefixIcon: const Icon(Icons.flag),
                             ),
@@ -420,10 +423,10 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                               child: Text(isRtl ? country.nameAr : country.nameEn),
                             )).toList(),
                             onChanged: (value) => setState(() => _countryId = value),
-                            validator: (value) => value == null ? l10n.requiredField : null,
+                            validator: (value) => value == null ? t.common.requiredField : null,
                           ),
                           loading: () => const LinearProgressIndicator(),
-                          error: (e, st) => Text('${l10n.error}: $e'),
+                          error: (e, st) => Text('${t.common.error}: $e'),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -431,15 +434,15 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         child: TextFormField(
                           controller: _taxController,
                           decoration: InputDecoration(
-                            labelText: l10n.taxNumber,
+                            labelText: t.setup.company.taxNumber,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.numbers),
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) return l10n.requiredField;
+                            if (value == null || value.isEmpty) return t.common.requiredField;
                             // Basic Regex for generic Tax ID (example: 10-15 digits)
                             if (!RegExp(r'^\d{10,15}$').hasMatch(value)) {
-                               return 'Invalid format'; // Add to l10n later
+                               return t.common.invalidFormat;
                             }
                             return null;
                           },
@@ -456,7 +459,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         child: TextFormField(
                           controller: _regController,
                           decoration: InputDecoration(
-                            labelText: l10n.commercialRegNo,
+                            labelText: t.setup.company.commercialReg,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.app_registration),
                           ),
@@ -467,7 +470,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         child: TextFormField(
                           controller: _phoneController,
                           decoration: InputDecoration(
-                            labelText: l10n.phone,
+                            labelText: t.common.phone,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.phone),
                           ),
@@ -481,13 +484,13 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                   TextFormField(
                     controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: l10n.email,
+                      labelText: t.common.email,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.email),
                     ),
                     validator: (val) {
                       if (val != null && val.isNotEmpty) {
-                        if (!val.contains('@')) return 'Invalid Email';
+                        if (!val.contains('@')) return t.common.invalidEmail;
                       }
                       return null;
                     },
@@ -497,7 +500,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                     controller: _addressController,
                     maxLines: 2,
                     decoration: InputDecoration(
-                      labelText: l10n.address,
+                      labelText: t.common.address,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.location_on),
                     ),
@@ -506,7 +509,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                   TextFormField(
                     controller: _remarksController,
                     decoration: InputDecoration(
-                      labelText: l10n.remarks,
+                      labelText: t.common.remarks,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.note),
                     ),
@@ -515,8 +518,8 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                   
                   // Flags
                   SwitchListTile(
-                    title: Text(l10n.mainCompany),
-                    subtitle: Text('Set this as the primary company for reporting'),
+                    title: Text(t.setup.company.mainCompany),
+                    subtitle: Text(t.setup.company.mainCompanyHint),
                     value: _isMainCompany,
                     onChanged: (bool value) => setState(() => _isMainCompany = value),
                     secondary: const Icon(Icons.star),
@@ -529,11 +532,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                   SizedBox(
                     height: 50,
                     child: ElevatedButton.icon(
-                      onPressed: _isLoading ? null : () => _onSave(l10n),
+                      onPressed: _isLoading ? null : _onSave,
                       icon: _isLoading 
                         ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
                         : const Icon(Icons.save),
-                      label: Text(l10n.save),
+                      label: Text(t.common.save),
                     ),
                   ),
                 ],

@@ -22,7 +22,7 @@ class _GeographicalDataScreenState extends ConsumerState<GeographicalDataScreen>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.geographicalData),
@@ -126,7 +126,7 @@ class _GeoColumn extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final canAdd = (level == GeoLevel.zone) || (parentId != null);
 
     if (provider == null) {
@@ -203,7 +203,7 @@ class _GeoColumn extends ConsumerWidget {
   }
 
   Future<void> _confirmDelete(BuildContext context, WidgetRef ref, GeoEntity item) async {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -260,7 +260,7 @@ class _GeoColumn extends ConsumerWidget {
   }
 
   void _showAddEditGeoDialog(BuildContext context, WidgetRef ref, {required GeoLevel level, GeoEntity? itemToEdit, int? parentId}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
 
     final countryItemToEdit = itemToEdit is CountryEntity ? itemToEdit : null;

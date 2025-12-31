@@ -20,7 +20,7 @@ class DescriptionCodingTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     // Removed unused theme variable
     final descriptionCodingAsync = ref.watch(filteredDescriptionCodingProvider);
     final searchQuery = ref.watch(descriptionCodingSearchProvider);
@@ -111,8 +111,8 @@ class DescriptionCodingTab extends ConsumerWidget {
               SnackBar(
                 content: Text(
                   descriptionCoding == null
-                      ? AppLocalizations.of(context)!.descriptionCodingCreatedSuccessfully
-                      : AppLocalizations.of(context)!.descriptionCodingUpdatedSuccessfully,
+                      ? Translations.of(context).descriptionCodingCreatedSuccessfully
+                      : Translations.of(context).descriptionCodingUpdatedSuccessfully,
                 ),
                 backgroundColor: Colors.green,
               ),
@@ -128,7 +128,7 @@ class DescriptionCodingTab extends ConsumerWidget {
     WidgetRef ref,
     DescriptionCodingEntity descriptionCoding,
   ) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     
     showDialog(
       context: context,

@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "title": "Chart of Accounts",
+  "accountCode": "Account Code",
+  "parentAccount": "Parent Account",
+  "nature": "Nature",
+  "reportType": "Report Type",
+  "level": "Level",
+  "detailType": "Detail Account Type",
+  "cashFlowType": "Cash Flow Type",
+  "noParent": "No Parent",
+  "debit": "Debit",
+  "credit": "Credit"
+}

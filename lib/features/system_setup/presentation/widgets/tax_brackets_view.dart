@@ -10,7 +10,7 @@ class TaxBracketsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final taxBracketsAsync = ref.watch(taxBracketsProvider);
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Scaffold(
       body: taxBracketsAsync.when(
@@ -41,7 +41,7 @@ class TaxBracketsView extends ConsumerWidget {
   }
 
   void _showAddEditBracketDialog(BuildContext context, WidgetRef ref, {TaxBracketEntity? bracketToEdit}) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final formKey = GlobalKey<FormState>();
     final codeController = TextEditingController(text: bracketToEdit?.bracketCode ?? '');
     final nameEnController = TextEditingController(text: bracketToEdit?.nameEn ?? '');

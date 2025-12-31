@@ -18,7 +18,7 @@ class TransactionRequestList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final requestsAsync = ref.watch(transactionRequestsProvider);
 
     return requestsAsync.when(
@@ -69,34 +69,34 @@ class TransactionRequestList extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${AppLocalizations.of(context)!.requestDetails} - ${request.requestNumber}'),
+        title: Text('${Translations.of(context).requestDetails} - ${request.requestNumber}'),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow(AppLocalizations.of(context)!.type, _getTypeDisplayName(context, request.type)),
-              _buildDetailRow(AppLocalizations.of(context)!.status, _getStatusDisplayName(context, request.status)),
-              _buildDetailRow(AppLocalizations.of(context)!.requester, request.requesterName),
-              _buildDetailRow(AppLocalizations.of(context)!.requestDate, _formatDate(request.requestDate)),
-              _buildDetailRow(AppLocalizations.of(context)!.description, request.description),
-              _buildDetailRow(AppLocalizations.of(context)!.amount, '\$${request.totalAmount.toStringAsFixed(2)}'),
+              _buildDetailRow(Translations.of(context).type, _getTypeDisplayName(context, request.type)),
+              _buildDetailRow(Translations.of(context).status, _getStatusDisplayName(context, request.status)),
+              _buildDetailRow(Translations.of(context).requester, request.requesterName),
+              _buildDetailRow(Translations.of(context).requestDate, _formatDate(request.requestDate)),
+              _buildDetailRow(Translations.of(context).description, request.description),
+              _buildDetailRow(Translations.of(context).amount, '\$${request.totalAmount.toStringAsFixed(2)}'),
               if (request.approverName != null)
-                _buildDetailRow(AppLocalizations.of(context)!.approver, request.approverName!),
+                _buildDetailRow(Translations.of(context).approver, request.approverName!),
               if (request.approvalDate != null)
-                _buildDetailRow(AppLocalizations.of(context)!.approvalDate, _formatDate(request.approvalDate!)),
+                _buildDetailRow(Translations.of(context).approvalDate, _formatDate(request.approvalDate!)),
               if (request.rejectionReason != null)
-                _buildDetailRow(AppLocalizations.of(context)!.rejectionReason, request.rejectionReason!),
+                _buildDetailRow(Translations.of(context).rejectionReason, request.rejectionReason!),
               if (request.notes != null)
-                _buildDetailRow(AppLocalizations.of(context)!.notes, request.notes!),
+                _buildDetailRow(Translations.of(context).notes, request.notes!),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
         ],
       ),
@@ -123,7 +123,7 @@ class TransactionRequestList extends ConsumerWidget {
   }
 
   String _getTypeDisplayName(BuildContext context, TransactionRequestType type) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (type) {
       case TransactionRequestType.journalVoucher:
         return l10n.journalVoucher;
@@ -137,7 +137,7 @@ class TransactionRequestList extends ConsumerWidget {
   }
 
   String _getStatusDisplayName(BuildContext context, TransactionRequestStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (status) {
       case TransactionRequestStatus.draft:
         return l10n.draft;

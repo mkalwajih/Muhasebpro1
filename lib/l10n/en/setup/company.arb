@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "title": "Company Info",
+  "add": "Add New Company",
+  "edit": "Edit Company",
+  "companyCode": "Company Code",
+  "taxNumber": "Tax Number",
+  "regNumber": "Commercial Registration No.",
+  "isMainCompany": "Main Company",
+  "address": "Address",
+  "phone": "Phone",
+  "email": "Email",
+  "selectPrompt": "Select a company from the list to view details.",
+  "noCompanies": "No companies created yet.",
+  
+  "branchTitle": "Branches",
+  "branchAdd": "Add New Branch",
+  "branchEdit": "Edit Branch",
+  "branchCode": "Branch Code",
+  "branchGroup": "Branch Group",
+  "defaultWarehouse": "Default Warehouse",
+  "selectOrCreateBranch": "Select a branch or create a new one"
+}

@@ -1,0 +1,13 @@
+
+{
+  "@@locale": "ar",
+  "title": "التقارير المالية",
+  "trialBalance": "ميزان المراجعة",
+  "incomeStatement": "قائمة الدخل",
+  "balanceSheet": "الميزانية العمومية",
+  "cashFlow": "التدفقات النقدية",
+  "generalLedger": "دفتر الأستاذ",
+  "accountStatement": "كشف حساب",
+  "selectAccount": "اختر الحساب",
+  "asOfDate": "كما في تاريخ"
+}

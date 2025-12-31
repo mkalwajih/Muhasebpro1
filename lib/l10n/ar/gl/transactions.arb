@@ -1,0 +1,18 @@
+
+{
+  "@@locale": "ar",
+  "title": "طلبات العمليات",
+  "create": "إنشاء طلب",
+  "approve": "موافق",
+  "reject": "رفض",
+  "pending": "الموافقات المعلقة",
+  "requester": "مقدم الطلب",
+  "approver": "المعتمد",
+  "rejectionReason": "سبب الرفض",
+  "cashBankTitle": "إدارة النقد والبنوك",
+  "reconciliation": "تسوية البنك",
+  "deposits": "الإيداعات النقدية",
+  "bankStatement": "كشف البنك",
+  "bookBalance": "رصيد الدفاتر",
+  "adjustedBalance": "الرصيد المعدل"
+}

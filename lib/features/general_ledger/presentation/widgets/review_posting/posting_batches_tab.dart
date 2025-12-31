@@ -9,7 +9,7 @@ class PostingBatchesTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     // Sample data for demonstration
     final batches = _getSampleBatches();
@@ -63,7 +63,7 @@ class PostingBatchesTab extends ConsumerWidget {
   }
 
   Widget _buildBatchCard(BuildContext context, PostingBatchEntity batch) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
 
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
@@ -264,7 +264,7 @@ class PostingBatchesTab extends ConsumerWidget {
   }
 
   String _getStatusDisplayName(BuildContext context, PostingBatchStatus status) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     switch (status) {
       case PostingBatchStatus.draft:
         return l10n.draft;
@@ -283,37 +283,37 @@ class PostingBatchesTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.createPostingBatch),
+        title: Text(Translations.of(context).createPostingBatch),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: AppLocalizations.of(context)!.description,
+                labelText: Translations.of(context).description,
                 border: const OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 16),
-            Text(AppLocalizations.of(context)!.selectVouchersToInclude),
+            Text(Translations.of(context).selectVouchersToInclude),
             // Add voucher selection logic here
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.batchCreatedSuccessfully),
+                  content: Text(Translations.of(context).batchCreatedSuccessfully),
                   backgroundColor: Colors.green,
                 ),
               );
             },
-            child: Text(AppLocalizations.of(context)!.create),
+            child: Text(Translations.of(context).create),
           ),
         ],
       ),
@@ -324,25 +324,25 @@ class PostingBatchesTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.startBatchPosting),
-        content: Text(AppLocalizations.of(context)!.confirmStartBatchPosting),
+        title: Text(Translations.of(context).startBatchPosting),
+        content: Text(Translations.of(context).confirmStartBatchPosting),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(Translations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(AppLocalizations.of(context)!.batchPostingStarted),
+                  content: Text(Translations.of(context).batchPostingStarted),
                   backgroundColor: Colors.green,
                 ),
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-            child: Text(AppLocalizations.of(context)!.start),
+            child: Text(Translations.of(context).start),
           ),
         ],
       ),
@@ -352,7 +352,7 @@ class PostingBatchesTab extends ConsumerWidget {
   void _startBatch(BuildContext context, PostingBatchEntity batch) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${AppLocalizations.of(context)!.startingBatch} ${batch.batchNumber}'),
+        content: Text('${Translations.of(context).startingBatch} ${batch.batchNumber}'),
         backgroundColor: Colors.green,
       ),
     );
@@ -361,7 +361,7 @@ class PostingBatchesTab extends ConsumerWidget {
   void _cancelBatch(BuildContext context, PostingBatchEntity batch) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${AppLocalizations.of(context)!.cancellingBatch} ${batch.batchNumber}'),
+        content: Text('${Translations.of(context).cancellingBatch} ${batch.batchNumber}'),
         backgroundColor: Colors.orange,
       ),
     );
@@ -371,28 +371,28 @@ class PostingBatchesTab extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('${AppLocalizations.of(context)!.batchDetails} - ${batch.batchNumber}'),
+        title: Text('${Translations.of(context).batchDetails} - ${batch.batchNumber}'),
         content: SizedBox(
           width: double.maxFinite,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildDetailRow(AppLocalizations.of(context)!.status, _getStatusDisplayName(context, batch.status)),
-              _buildDetailRow(AppLocalizations.of(context)!.description, batch.description),
-              _buildDetailRow(AppLocalizations.of(context)!.createdBy, batch.createdByName),
-              _buildDetailRow(AppLocalizations.of(context)!.createdAt, _formatDateTime(batch.createdAt)),
+              _buildDetailRow(Translations.of(context).status, _getStatusDisplayName(context, batch.status)),
+              _buildDetailRow(Translations.of(context).description, batch.description),
+              _buildDetailRow(Translations.of(context).createdBy, batch.createdByName),
+              _buildDetailRow(Translations.of(context).createdAt, _formatDateTime(batch.createdAt)),
               if (batch.startedAt != null)
-                _buildDetailRow(AppLocalizations.of(context)!.startedAt, _formatDateTime(batch.startedAt!)),
+                _buildDetailRow(Translations.of(context).startedAt, _formatDateTime(batch.startedAt!)),
               if (batch.completedAt != null)
-                _buildDetailRow(AppLocalizations.of(context)!.completedAt, _formatDateTime(batch.completedAt!)),
+                _buildDetailRow(Translations.of(context).completedAt, _formatDateTime(batch.completedAt!)),
             ],
           ),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.close),
+            child: Text(Translations.of(context).close),
           ),
         ],
       ),

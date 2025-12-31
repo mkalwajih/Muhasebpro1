@@ -10,7 +10,7 @@ class ItemCardDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     return AlertDialog(
       title: Text(item == null ? l10n.addItem : l10n.editItem),
       content: const Text("This functionality is not implemented yet."),

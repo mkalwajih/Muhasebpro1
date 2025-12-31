@@ -30,7 +30,7 @@ class _GeneralParametersScreenState extends ConsumerState<GeneralParametersScree
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = Translations.of(context);
     final paramsAsync = ref.watch(generalParametersProvider);
     ref.listen<AsyncValue<GeneralParametersEntity>>(generalParametersProvider, (previous, next) {
       next.whenData((value) => setState(() {
