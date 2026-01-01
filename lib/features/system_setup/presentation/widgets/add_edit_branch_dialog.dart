@@ -79,7 +79,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
       if (_selectedCompanyId == null) {
         // Handle case where no company is selected
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(t.inventory.master.setup.branch.selectCompanyPrompt), backgroundColor: Theme.of(context).colorScheme.error),
+          SnackBar(content: Text(t.dashboard.inventory.master.setup.branch.selectCompanyPrompt), backgroundColor: Theme.of(context).colorScheme.error),
         );
         return;
       }
@@ -120,7 +120,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
     final isRtl = Directionality.of(context) == TextDirection.rtl;
 
     return AlertDialog(
-      title: Text(widget.branch == null ? t.inventory.master.setup.branch.addNew : t.inventory.master.setup.branch.editTitle),
+      title: Text(widget.branch == null ? t.dashboard.inventory.master.setup.branch.addNew : t.dashboard.inventory.master.setup.branch.editTitle),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -129,21 +129,21 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
             children: [
               TextFormField(
                 controller: _branchCodeController,
-                decoration: InputDecoration(labelText: t.inventory.master.setup.branch.code),
+                decoration: InputDecoration(labelText: t.dashboard.inventory.master.setup.branch.code),
                 validator: (value) =>
                     (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _nameEnController,
-                decoration: InputDecoration(labelText: t.inventory.master.setup.branch.nameEn),
+                decoration: InputDecoration(labelText: t.dashboard.inventory.master.setup.branch.nameEn),
                 validator: (value) =>
                     (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
                const SizedBox(height: 8),
               TextFormField(
                 controller: _nameArController,
-                decoration: InputDecoration(labelText: t.inventory.master.setup.branch.nameAr),
+                decoration: InputDecoration(labelText: t.dashboard.inventory.master.setup.branch.nameAr),
                 validator: (value) =>
                     (value == null || value.isEmpty) ? t.common.requiredField : null,
               ),
@@ -151,7 +151,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               companiesAsyncValue.when(
                 data: (companies) => DropdownButtonFormField<int>(
                   value: _selectedCompanyId,
-                  decoration: InputDecoration(labelText: t.inventory.master.setup.company.title),
+                  decoration: InputDecoration(labelText: t.dashboard.inventory.master.setup.company.title),
                   items: companies.map((CompanyEntity company) {
                     return DropdownMenuItem<int>(
                       value: company.id,
@@ -169,7 +169,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               branchGroupsAsyncValue.when(
                 data: (groups) => DropdownButtonFormField<int>(
                   value:_selectedBranchGroupId,
-                  decoration: InputDecoration(labelText: t.inventory.master.setup.branch.group),
+                  decoration: InputDecoration(labelText: t.dashboard.inventory.master.setup.branch.group),
                   items: groups
                     .map((group) => DropdownMenuItem<int>(
                         value: group.id, child: Text(isRtl ? group.nameAr : group.nameEn)))
@@ -182,11 +182,11 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
               ),
                const SizedBox(height: 8),
               Tooltip(
-                message: t.inventory.master.setup.branch.warehouseTooltip,
+                message: t.dashboard.inventory.master.setup.branch.warehouseTooltip,
                 child: DropdownButtonFormField<int>(
                   value: null,
                   decoration: InputDecoration(
-                    labelText: t.inventory.master.setup.branch.defaultWarehouse,
+                    labelText: t.dashboard.inventory.master.setup.branch.defaultWarehouse,
                     enabled: false, // Disabled
                   ),
                   items: const [],
@@ -217,7 +217,7 @@ class _AddEditBranchDialogState extends ConsumerState<AddEditBranchDialog> {
                const SizedBox(height: 8),
               Row(
                 children: [
-                  Text(t.inventory.master.setup.company.logo),
+                  Text(t.dashboard.inventory.master.setup.company.logo),
                   const Spacer(),
                   if (_logo != null) Image.memory(_logo!, height: 40, width: 40),
                   IconButton(

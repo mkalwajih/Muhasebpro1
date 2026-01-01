@@ -34,7 +34,7 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     final roleChecker = ref.watch(roleCheckerProvider);
 
@@ -45,19 +45,19 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(l10n.cashBankManagement),
+          title: Text(t.gl.cashBank.title),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
         body: custom.CustomErrorWidget(
-          error: l10n.accessDenied,
+          error: t.common.accessDenied,
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.cashBankManagement),
+        title: Text(t.gl.cashBank.title),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -66,19 +66,19 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
           tabs: [
             Tab(
               icon: const Icon(Icons.account_balance),
-              text: l10n.bankReconciliation,
+              text: t.gl.cashBank.bankReconciliation,
             ),
             Tab(
               icon: const Icon(Icons.savings),
-              text: l10n.cashDeposits,
+              text: t.gl.cashBank.cashDeposits,
             ),
             Tab(
               icon: const Icon(Icons.receipt_long),
-              text: l10n.bankStatements,
+              text: t.gl.cashBank.bankStatements,
             ),
             Tab(
               icon: const Icon(Icons.edit_note),
-              text: l10n.adjustmentEntries,
+              text: t.gl.cashBank.adjustmentEntries,
             ),
           ],
           labelColor: theme.colorScheme.primary,
@@ -89,12 +89,12 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () => _refreshCurrentTab(),
-            tooltip: l10n.refresh,
+            tooltip: t.common.refresh,
           ),
           IconButton(
             icon: const Icon(Icons.help_outline),
             onPressed: () => _showHelpDialog(),
-            tooltip: l10n.help,
+            tooltip: t.common.details,
           ),
         ],
       ),
@@ -130,47 +130,47 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).dataRefreshed),
+        content: Text(Translations.of(context).common.refresh),
         duration: const Duration(seconds: 2),
       ),
     );
   }
 
   void _showHelpDialog() {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.help),
+        title: Text(t.common.details),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                l10n.cashBankManagementHelp,
+                t.gl.cashBank.manageCashAndBank,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               _buildHelpSection(
-                l10n.bankReconciliation,
-                l10n.bankReconciliationHelp,
+                t.gl.cashBank.bankReconciliation,
+                t.gl.cashBank.bankReconciliationDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                l10n.cashDeposits,
-                l10n.cashDepositsHelp,
+                t.gl.cashBank.cashDeposits,
+                t.gl.cashBank.cashDepositsDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                l10n.bankStatements,
-                l10n.bankStatementsHelp,
+                t.gl.cashBank.bankStatements,
+                t.gl.cashBank.bankStatementsDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                l10n.adjustmentEntries,
-                l10n.adjustmentEntriesHelp,
+                t.gl.cashBank.adjustmentEntries,
+                t.gl.cashBank.adjustmentEntriesDesc,
               ),
             ],
           ),
@@ -178,7 +178,7 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.close),
+            child: Text(t.common.close),
           ),
         ],
       ),

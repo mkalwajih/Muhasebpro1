@@ -33,6 +33,8 @@
   "code": "Code",
   "nameAr": "Name (Arabic)",
   "nameEn": "Name (English)",
+  "fullNameAr": "Full Name (Arabic)",
+  "fullNameEn": "Full Name (English)",
   "logo": "Logo",
   "uploadLogo": "Upload Logo",
   "export": "Export",

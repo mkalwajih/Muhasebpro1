@@ -31,7 +31,7 @@ class ItemManagementLocalDataSource {
 
   Future<ItemModel?> getItemByBarcode(String barcode) async {
     final query = _database.select(_database.items)
-      ..where((t) => t.inventory.master.barcode.equals(barcode));
+      ..where((t) => t.dashboard.inventory.master.barcode.equals(barcode));
     final result = await query.getSingleOrNull();
     return result != null ? ItemModel.fromDrift(result) : null;
   }
