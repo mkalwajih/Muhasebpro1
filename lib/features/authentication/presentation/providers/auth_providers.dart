@@ -31,6 +31,10 @@ class LoginNotifier extends StateNotifier<LoginState> {
       return user;
     }
   }
+
+  void logout() {
+    state = LoginState();
+  }
 }
 
 // Provider for Auth session (logged in user)

@@ -41,6 +41,7 @@ class Translations with BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final TranslationsAuthEn auth = TranslationsAuthEn.internal(_root);
+	late final TranslationsCashbankEn cashbank = TranslationsCashbankEn.internal(_root);
 	late final TranslationsCoaEn coa = TranslationsCoaEn.internal(_root);
 	late final TranslationsCoaSetupEn coa_setup = TranslationsCoaSetupEn.internal(_root);
 	late final TranslationsCommonEn common = TranslationsCommonEn.internal(_root);
@@ -124,6 +125,81 @@ class TranslationsAuthEn {
 
 	/// en: 'Password must be at least 6 characters'
 	String get passwordLength => 'Password must be at least 6 characters';
+}
+
+// Path: cashbank
+class TranslationsCashbankEn {
+	TranslationsCashbankEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Cash & Bank Management'
+	String get title => 'Cash & Bank Management';
+
+	/// en: 'Bank Reconciliation'
+	String get bankReconciliation => 'Bank Reconciliation';
+
+	/// en: 'Cash Deposits'
+	String get cashDeposits => 'Cash Deposits';
+
+	/// en: 'Bank Statements'
+	String get bankStatements => 'Bank Statements';
+
+	/// en: 'Adjustment Entries'
+	String get adjustmentEntries => 'Adjustment Entries';
+
+	/// en: 'Manage your cash and bank accounts, reconcile statements, and handle deposits.'
+	String get manageCashAndBank => 'Manage your cash and bank accounts, reconcile statements, and handle deposits.';
+
+	/// en: 'Reconcile your bank statements with system records.'
+	String get bankReconciliationDesc => 'Reconcile your bank statements with system records.';
+
+	/// en: 'Manage cash deposits and track their status.'
+	String get cashDepositsDesc => 'Manage cash deposits and track their status.';
+
+	/// en: 'Import and view bank statements.'
+	String get bankStatementsDesc => 'Import and view bank statements.';
+
+	/// en: 'Create and manage adjustment entries for bank fees, interest, etc.'
+	String get adjustmentEntriesDesc => 'Create and manage adjustment entries for bank fees, interest, etc.';
+
+	/// en: 'No adjustment entries found'
+	String get noAdjustmentsFound => 'No adjustment entries found';
+
+	/// en: 'Create your first adjustment entry'
+	String get createFirstAdjustment => 'Create your first adjustment entry';
+
+	/// en: 'Adjustment Type'
+	String get adjustmentType => 'Adjustment Type';
+
+	/// en: 'Bank Charges'
+	String get bankCharges => 'Bank Charges';
+
+	/// en: 'Interest Earned'
+	String get interestEarned => 'Interest Earned';
+
+	/// en: 'Error Correction'
+	String get errorCorrection => 'Error Correction';
+
+	/// en: 'New Adjustment'
+	String get newAdjustment => 'New Adjustment';
+
+	/// en: 'Adjustment submitted successfully'
+	String get adjustmentSubmittedSuccessfully => 'Adjustment submitted successfully';
+
+	/// en: 'Adjustment approved successfully'
+	String get adjustmentApprovedSuccessfully => 'Adjustment approved successfully';
+
+	/// en: 'Edit adjustment is not implemented yet'
+	String get editAdjustmentNotImplemented => 'Edit adjustment is not implemented yet';
+
+	/// en: 'Are you sure you want to delete this adjustment?'
+	String get confirmDeleteAdjustment => 'Are you sure you want to delete this adjustment?';
+
+	/// en: 'Adjustment deleted successfully'
+	String get adjustmentDeletedSuccessfully => 'Adjustment deleted successfully';
 }
 
 // Path: coa
@@ -1026,6 +1102,28 @@ extension on Translations {
 			'auth.invalidCredentials' => 'Invalid username or password',
 			'auth.passwordMismatch' => 'Passwords do not match',
 			'auth.passwordLength' => 'Password must be at least 6 characters',
+			'cashbank.title' => 'Cash & Bank Management',
+			'cashbank.bankReconciliation' => 'Bank Reconciliation',
+			'cashbank.cashDeposits' => 'Cash Deposits',
+			'cashbank.bankStatements' => 'Bank Statements',
+			'cashbank.adjustmentEntries' => 'Adjustment Entries',
+			'cashbank.manageCashAndBank' => 'Manage your cash and bank accounts, reconcile statements, and handle deposits.',
+			'cashbank.bankReconciliationDesc' => 'Reconcile your bank statements with system records.',
+			'cashbank.cashDepositsDesc' => 'Manage cash deposits and track their status.',
+			'cashbank.bankStatementsDesc' => 'Import and view bank statements.',
+			'cashbank.adjustmentEntriesDesc' => 'Create and manage adjustment entries for bank fees, interest, etc.',
+			'cashbank.noAdjustmentsFound' => 'No adjustment entries found',
+			'cashbank.createFirstAdjustment' => 'Create your first adjustment entry',
+			'cashbank.adjustmentType' => 'Adjustment Type',
+			'cashbank.bankCharges' => 'Bank Charges',
+			'cashbank.interestEarned' => 'Interest Earned',
+			'cashbank.errorCorrection' => 'Error Correction',
+			'cashbank.newAdjustment' => 'New Adjustment',
+			'cashbank.adjustmentSubmittedSuccessfully' => 'Adjustment submitted successfully',
+			'cashbank.adjustmentApprovedSuccessfully' => 'Adjustment approved successfully',
+			'cashbank.editAdjustmentNotImplemented' => 'Edit adjustment is not implemented yet',
+			'cashbank.confirmDeleteAdjustment' => 'Are you sure you want to delete this adjustment?',
+			'cashbank.adjustmentDeletedSuccessfully' => 'Adjustment deleted successfully',
 			'coa.title' => 'Chart of Accounts',
 			'coa.accountCode' => 'Account Code',
 			'coa.accountNameAr' => 'Account Name (Arabic)',

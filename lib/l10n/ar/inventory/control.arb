@@ -1,12 +1,18 @@
-
 {
   "@@locale": "ar",
   "title": "مراقبة المخزون",
   "stocktaking": "الجرد",
-  "startSession": "بدء جلسة جرد",
+  "startSession": "بدء الجرد",
   "reservations": "الحجوزات",
   "reports": "تقارير المخزون",
   "balances": "أرصدة المخزون",
   "valuation": "تقييم المخزون",
-  "movement": "حركة الصنف"
+  "movement": "حركة الأصناف",
+  "stocktakingSessions": "جلسات الجرد",
+  "manageStocktaking": "إدارة جلسات الجرد",
+  "stocktakingInfo": "عرض وإدارة جلسات الجرد",
+  "stockReservations": "حجوزات المخزون",
+  "manageReservations": "إدارة حجوزات المخزون",
+  "createReservation": "إنشاء حجز",
+  "reservationInfo": "إنشاء وإدارة حجوزات الأصناف"
 }

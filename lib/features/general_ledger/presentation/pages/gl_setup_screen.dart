@@ -43,19 +43,19 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(l10n.glSetupConfiguration),
+          title: Text(l10n.setup.title),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
         body: custom.CustomErrorWidget(
-          error: l10n.accessDenied,
+          error: l10n.common.accessDenied,
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.glSetupConfiguration),
+        title: Text(l10n.setup.title),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -64,11 +64,11 @@ class _GLSetupScreenState extends ConsumerState<GLSetupScreen>
           tabs: [
             Tab(
               icon: const Icon(Icons.description),
-              text: l10n.documentTypes,
+              text: l10n.setup.docTypes,
             ),
             Tab(
               icon: const Icon(Icons.code),
-              text: l10n.descriptionCoding,
+              text: l10n.setup.descCoding,
             ),
           ],
           indicatorColor: theme.colorScheme.primary,

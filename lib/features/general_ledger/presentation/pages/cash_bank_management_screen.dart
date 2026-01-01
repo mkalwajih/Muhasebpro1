@@ -45,7 +45,7 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(t.gl.cashBank.title),
+          title: Text(t.cashbank.title),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
@@ -57,7 +57,7 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.gl.cashBank.title),
+        title: Text(t.cashbank.title),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -66,19 +66,19 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
           tabs: [
             Tab(
               icon: const Icon(Icons.account_balance),
-              text: t.gl.cashBank.bankReconciliation,
+              text: t.cashbank.bankReconciliation,
             ),
             Tab(
               icon: const Icon(Icons.savings),
-              text: t.gl.cashBank.cashDeposits,
+              text: t.cashbank.cashDeposits,
             ),
             Tab(
               icon: const Icon(Icons.receipt_long),
-              text: t.gl.cashBank.bankStatements,
+              text: t.cashbank.bankStatements,
             ),
             Tab(
               icon: const Icon(Icons.edit_note),
-              text: t.gl.cashBank.adjustmentEntries,
+              text: t.cashbank.adjustmentEntries,
             ),
           ],
           labelColor: theme.colorScheme.primary,
@@ -149,28 +149,28 @@ class _CashBankManagementScreenState extends ConsumerState<CashBankManagementScr
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                t.gl.cashBank.manageCashAndBank,
+                t.cashbank.manageCashAndBank,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               _buildHelpSection(
-                t.gl.cashBank.bankReconciliation,
-                t.gl.cashBank.bankReconciliationDesc,
+                t.cashbank.bankReconciliation,
+                t.cashbank.bankReconciliationDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                t.gl.cashBank.cashDeposits,
-                t.gl.cashBank.cashDepositsDesc,
+                t.cashbank.cashDeposits,
+                t.cashbank.cashDepositsDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                t.gl.cashBank.bankStatements,
-                t.gl.cashBank.bankStatementsDesc,
+                t.cashbank.bankStatements,
+                t.cashbank.bankStatementsDesc,
               ),
               const SizedBox(height: 12),
               _buildHelpSection(
-                t.gl.cashBank.adjustmentEntries,
-                t.gl.cashBank.adjustmentEntriesDesc,
+                t.cashbank.adjustmentEntries,
+                t.cashbank.adjustmentEntriesDesc,
               ),
             ],
           ),

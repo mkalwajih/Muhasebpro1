@@ -1,4 +1,3 @@
-
 {
   "@@locale": "en",
   "title": "Financial Reports",
@@ -9,5 +8,30 @@
   "generalLedger": "General Ledger",
   "accountStatement": "Account Statement",
   "selectAccount": "Select Account",
-  "asOfDate": "As of Date"
+  "asOfDate": "As of Date",
+  "selectReport": "Select Report",
+  "trialBalanceDescription": "View trial balance report",
+  "incomeStatementDescription": "View income statement",
+  "balanceSheetDescription": "View balance sheet",
+  "cashFlowDescription": "View cash flow statement",
+  "accountStatementDescription": "View account statement",
+  "generalLedgerReport": "General Ledger",
+  "generalLedgerDescription": "View general ledger",
+  "reportRefreshed": "Report refreshed",
+  "exportReport": "Export Report",
+  "exportToPdf": "Export to PDF",
+  "exportToExcel": "Export to Excel",
+  "exportToCsv": "Export to CSV",
+  "reportExportedSuccessfully": "Report exported to {format}",
+  "@reportExportedSuccessfully": {
+    "placeholders": {
+      "format": {
+        "type": "String"
+      }
+    }
+  },
+  "reportSentToPrinter": "Report sent to printer",
+  "cashFlowStatement": "Cash Flow Statement",
+  "toDate": "To Date",
+  "fromDate": "From Date"
 }

@@ -1,4 +1,3 @@
-
 {
   "@@locale": "en",
   "title": "Inventory Control",
@@ -8,5 +7,12 @@
   "reports": "Inventory Reports",
   "balances": "Stock Balances",
   "valuation": "Stock Valuation",
-  "movement": "Item Movement"
+  "movement": "Item Movement",
+  "stocktakingSessions": "Stocktaking Sessions",
+  "manageStocktaking": "Manage stocktaking sessions",
+  "stocktakingInfo": "View and manage stocktaking sessions",
+  "stockReservations": "Stock Reservations",
+  "manageReservations": "Manage stock reservations",
+  "createReservation": "Create Reservation",
+  "reservationInfo": "Create and manage item reservations"
 }

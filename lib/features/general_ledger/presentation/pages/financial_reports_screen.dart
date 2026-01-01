@@ -42,19 +42,19 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(l10n.financialReports),
+          title: Text(l10n.reports.title),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
         body: custom.CustomErrorWidget(
-          error: l10n.accessDenied,
+          error: l10n.common.accessDenied,
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.financialReports),
+        title: Text(l10n.reports.title),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -62,17 +62,17 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: _refreshReport,
-            tooltip: l10n.refresh,
+            tooltip: l10n.common.refresh,
           ),
           IconButton(
             icon: const Icon(Icons.download),
             onPressed: _exportReport,
-            tooltip: l10n.export,
+            tooltip: l10n.common.export,
           ),
           IconButton(
             icon: const Icon(Icons.print),
             onPressed: _printReport,
-            tooltip: l10n.print,
+            tooltip: l10n.common.print,
           ),
         ],
       ),
@@ -109,7 +109,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        l10n.selectReport,
+                        l10n.reports.selectReport,
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.primary,
@@ -124,38 +124,38 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
                     children: [
                       _buildReportTile(
                         ReportType.trialBalance,
-                        l10n.trialBalance,
-                        l10n.trialBalanceDescription,
+                        l10n.reports.trialBalance,
+                        l10n.reports.trialBalanceDescription,
                         Icons.balance,
                       ),
                       _buildReportTile(
                         ReportType.incomeStatement,
-                        l10n.incomeStatement,
-                        l10n.incomeStatementDescription,
+                        l10n.reports.incomeStatement,
+                        l10n.reports.incomeStatementDescription,
                         Icons.trending_up,
                       ),
                       _buildReportTile(
                         ReportType.balanceSheet,
-                        l10n.balanceSheet,
-                        l10n.balanceSheetDescription,
+                        l10n.reports.balanceSheet,
+                        l10n.reports.balanceSheetDescription,
                         Icons.account_balance_wallet,
                       ),
                       _buildReportTile(
                         ReportType.cashFlow,
-                        l10n.cashFlowStatement,
-                        l10n.cashFlowDescription,
+                        l10n.reports.cashFlowStatement,
+                        l10n.reports.cashFlowDescription,
                         Icons.water_drop,
                       ),
                       _buildReportTile(
                         ReportType.accountStatement,
-                        l10n.accountStatement,
-                        l10n.accountStatementDescription,
+                        l10n.reports.accountStatement,
+                        l10n.reports.accountStatementDescription,
                         Icons.receipt_long,
                       ),
                       _buildReportTile(
                         ReportType.generalLedger,
-                        l10n.generalLedgerReport,
-                        l10n.generalLedgerDescription,
+                        l10n.reports.generalLedgerReport,
+                        l10n.reports.generalLedgerDescription,
                         Icons.book,
                       ),
                     ],
@@ -241,7 +241,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     // TODO: Implement refresh logic
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).reportRefreshed),
+        content: Text(Translations.of(context).reports.reportRefreshed),
         duration: const Duration(seconds: 2),
       ),
     );
@@ -253,13 +253,13 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(l10n.exportReport),
+        title: Text(l10n.reports.exportReport),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
               leading: const Icon(Icons.picture_as_pdf),
-              title: Text(l10n.exportToPdf),
+              title: Text(l10n.reports.exportToPdf),
               onTap: () {
                 Navigator.of(context).pop();
                 _performExport('PDF');
@@ -267,7 +267,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
             ),
             ListTile(
               leading: const Icon(Icons.table_chart),
-              title: Text(l10n.exportToExcel),
+              title: Text(l10n.reports.exportToExcel),
               onTap: () {
                 Navigator.of(context).pop();
                 _performExport('Excel');
@@ -275,7 +275,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
             ),
             ListTile(
               leading: const Icon(Icons.text_snippet),
-              title: Text(l10n.exportToCsv),
+              title: Text(l10n.reports.exportToCsv),
               onTap: () {
                 Navigator.of(context).pop();
                 _performExport('CSV');
@@ -286,7 +286,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
+            child: Text(l10n.common.cancel),
           ),
         ],
       ),
@@ -297,7 +297,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          Translations.of(context).reportExportedSuccessfully(format),
+          Translations.of(context).reports.reportExportedSuccessfully(format: format),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
@@ -307,7 +307,7 @@ class _FinancialReportsScreenState extends ConsumerState<FinancialReportsScreen>
   void _printReport() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).reportSentToPrinter),
+        content: Text(Translations.of(context).reports.reportSentToPrinter),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

@@ -1,4 +1,3 @@
-
 {
   "@@locale": "ar",
   "title": "التقارير المالية",
@@ -6,8 +5,33 @@
   "incomeStatement": "قائمة الدخل",
   "balanceSheet": "الميزانية العمومية",
   "cashFlow": "التدفقات النقدية",
-  "generalLedger": "دفتر الأستاذ",
+  "generalLedger": "دفتر الأستاذ العام",
   "accountStatement": "كشف حساب",
-  "selectAccount": "اختر الحساب",
-  "asOfDate": "كما في تاريخ"
+  "selectAccount": "اختر حساب",
+  "asOfDate": "بتاريخ",
+  "selectReport": "اختر التقرير",
+  "trialBalanceDescription": "عرض تقرير ميزان المراجعة",
+  "incomeStatementDescription": "عرض قائمة الدخل",
+  "balanceSheetDescription": "عرض الميزانية العمومية",
+  "cashFlowDescription": "عرض قائمة التدفقات النقدية",
+  "accountStatementDescription": "عرض كشف حساب",
+  "generalLedgerReport": "دفتر الأستاذ العام",
+  "generalLedgerDescription": "عرض دفتر الأستاذ العام",
+  "reportRefreshed": "تم تحديث التقرير",
+  "exportReport": "تصدير التقرير",
+  "exportToPdf": "تصدير إلى PDF",
+  "exportToExcel": "تصدير إلى Excel",
+  "exportToCsv": "تصدير إلى CSV",
+  "reportExportedSuccessfully": "تم تصدير التقرير إلى {format}",
+  "@reportExportedSuccessfully": {
+    "placeholders": {
+      "format": {
+        "type": "String"
+      }
+    }
+  },
+  "reportSentToPrinter": "تم إرسال التقرير للطباعة",
+  "cashFlowStatement": "قائمة التدفقات النقدية",
+  "toDate": "إلى تاريخ",
+  "fromDate": "من تاريخ"
 }

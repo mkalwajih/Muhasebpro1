@@ -28,6 +28,9 @@ class RoleChecker {
     return false;
   }
 
+  // Alias for hasPermission to match usage in some parts of the app
+  bool can(AppPermission permission) => hasPermission(permission);
+
   bool hasAnyPermission(List<AppPermission> permissions) {
     if (_user == null) {
       return false;
