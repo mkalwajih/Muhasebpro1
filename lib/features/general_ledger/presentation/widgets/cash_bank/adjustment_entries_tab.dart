@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/adjustment_entry_entity.dart';
 
 class AdjustmentEntriesTab extends ConsumerStatefulWidget {
@@ -93,7 +93,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     // ignore: unused_local_variable
     final theme = Theme.of(context);
 
@@ -109,9 +109,9 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  initialValue: _selectedType,
+                  value: _selectedType,
                   decoration: InputDecoration(
-                    labelText: l10n.adjustmentType,
+                    labelText: t.gl.cashBank.adjustmentType,
                     border: const OutlineInputBorder(),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -119,11 +119,11 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                     ),
                   ),
                   items: [
-                    DropdownMenuItem(value: 'All', child: Text(l10n.all)),
-                    DropdownMenuItem(value: 'BankCharges', child: Text(l10n.bankCharges)),
-                    DropdownMenuItem(value: 'InterestEarned', child: Text(l10n.interestEarned)),
-                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(l10n.errorCorrection)),
-                    DropdownMenuItem(value: 'Other', child: Text(l10n.other)),
+                    DropdownMenuItem(value: 'All', child: Text(t.common.all)),
+                    DropdownMenuItem(value: 'BankCharges', child: Text(t.gl.cashBank.bankCharges)),
+                    DropdownMenuItem(value: 'InterestEarned', child: Text(t.gl.cashBank.interestEarned)),
+                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(t.gl.cashBank.errorCorrection)),
+                    DropdownMenuItem(value: 'Other', child: Text(t.common.other)),
                   ],
                   onChanged: (value) {
                     setState(() {
@@ -137,7 +137,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 ElevatedButton.icon(
                   onPressed: _createNewAdjustment,
                   icon: const Icon(Icons.add),
-                  label: Text(l10n.newAdjustment),
+                  label: Text(t.gl.cashBank.newAdjustment),
                 ),
             ],
           ),
@@ -161,7 +161,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return Center(
@@ -175,12 +175,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noAdjustmentsFound,
+            t.gl.cashBank.noAdjustmentsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.createFirstAdjustment,
+            t.gl.cashBank.createFirstAdjustment,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -191,7 +191,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildAdjustmentCard(AdjustmentEntryEntity adjustment) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy HH:mm');
@@ -233,7 +233,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               children: [
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.amount,
+                    t.common.amount,
                     currencyFormat.format(adjustment.amount),
                     adjustment.amount >= 0 
                         ? theme.colorScheme.secondary
@@ -242,7 +242,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 ),
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.date,
+                    t.common.date,
                     dateFormat.format(adjustment.adjustmentDate),
                     null,
                   ),
@@ -254,14 +254,14 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               children: [
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.account,
+                    t.common.account,
                     adjustment.accountId,
                     null,
                   ),
                 ),
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.contraAccount,
+                    t.common.contraAccount,
                     adjustment.contraAccountId,
                     null,
                   ),
@@ -273,7 +273,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
             if (adjustment.notes != null && adjustment.notes!.isNotEmpty) ...[
               const SizedBox(height: 8),
               _buildDetailItem(
-                l10n.notes,
+                t.common.notes,
                 adjustment.notes!,
                 null,
               ),
@@ -291,7 +291,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${l10n.approvedBy}: ${adjustment.approvedBy}',
+                    '${t.common.approvedBy}: ${adjustment.approvedBy}',
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.primary,
                     ),
@@ -310,13 +310,13 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                     TextButton.icon(
                       onPressed: () => _submitAdjustment(adjustment),
                       icon: const Icon(Icons.send, size: 16),
-                      label: Text(l10n.submit),
+                      label: Text(t.common.submit),
                     ),
                   if (adjustment.status == AdjustmentStatus.pending)
                     TextButton.icon(
                       onPressed: () => _approveAdjustment(adjustment),
                       icon: const Icon(Icons.check_circle, size: 16),
-                      label: Text(l10n.approve),
+                      label: Text(t.common.approve),
                       style: TextButton.styleFrom(
                         foregroundColor: theme.colorScheme.primary,
                       ),
@@ -325,13 +325,13 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                     TextButton.icon(
                       onPressed: () => _editAdjustment(adjustment),
                       icon: const Icon(Icons.edit, size: 16),
-                      label: Text(l10n.edit),
+                      label: Text(t.common.edit),
                     ),
                   if (adjustment.status == AdjustmentStatus.draft)
                     TextButton.icon(
                       onPressed: () => _deleteAdjustment(adjustment),
                       icon: const Icon(Icons.delete, size: 16),
-                      label: Text(l10n.delete),
+                      label: Text(t.common.delete),
                       style: TextButton.styleFrom(
                         foregroundColor: theme.colorScheme.error,
                       ),
@@ -370,7 +370,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildStatusChip(AdjustmentStatus status) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     
     Color backgroundColor;
@@ -381,22 +381,22 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
       case AdjustmentStatus.draft:
         backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
-        statusText = l10n.draft;
+        statusText = t.common.draft;
         break;
       case AdjustmentStatus.pending:
         backgroundColor = theme.colorScheme.tertiaryContainer;
         foregroundColor = theme.colorScheme.onTertiaryContainer;
-        statusText = l10n.pending;
+        statusText = t.common.pending;
         break;
       case AdjustmentStatus.posted:
         backgroundColor = theme.colorScheme.primaryContainer;
         foregroundColor = theme.colorScheme.onPrimaryContainer;
-        statusText = l10n.posted;
+        statusText = t.common.posted;
         break;
       case AdjustmentStatus.rejected:
         backgroundColor = theme.colorScheme.errorContainer;
         foregroundColor = theme.colorScheme.onErrorContainer;
-        statusText = l10n.rejected;
+        statusText = t.common.rejected;
         break;
     }
     
@@ -414,7 +414,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   Widget _buildTypeChip(AdjustmentType type) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     
     String typeText;
@@ -422,19 +422,19 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     switch (type) {
       case AdjustmentType.bankCharges:
-        typeText = l10n.bankCharges;
+        typeText = t.gl.cashBank.bankCharges;
         icon = Icons.money_off;
         break;
       case AdjustmentType.interestEarned:
-        typeText = l10n.interestEarned;
+        typeText = t.gl.cashBank.interestEarned;
         icon = Icons.trending_up;
         break;
       case AdjustmentType.errorCorrection:
-        typeText = l10n.errorCorrection;
+        typeText = t.gl.cashBank.errorCorrection;
         icon = Icons.edit;
         break;
       case AdjustmentType.other:
-        typeText = l10n.other;
+        typeText = t.common.other;
         icon = Icons.more_horiz;
         break;
     }
@@ -447,7 +447,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      backgroundColor: theme.colorScheme.secondaryContainer.withValues(alpha: 0.5),
+      backgroundColor: theme.colorScheme.secondaryContainer.withAlpha(128),
       side: BorderSide.none,
     );
   }
@@ -477,15 +477,16 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   void _createNewAdjustment() {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).newAdjustment),
+        title: Text(t.gl.cashBank.newAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -516,7 +517,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 _adjustments.insert(0, newAdjustment);
               });
             },
-            child: Text(Translations.of(context).create),
+            child: Text(t.common.create),
           ),
         ],
       ),
@@ -524,6 +525,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   }
 
   void _submitAdjustment(AdjustmentEntryEntity adjustment) {
+    final t = Translations.of(context);
     setState(() {
       adjustment.status = AdjustmentStatus.pending;
       adjustment.updatedAt = DateTime.now();
@@ -531,13 +533,14 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).adjustmentSubmittedSuccessfully),
+        content: Text(t.gl.cashBank.adjustmentSubmittedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
 
   void _approveAdjustment(AdjustmentEntryEntity adjustment) {
+    final t = Translations.of(context);
     setState(() {
       adjustment.status = AdjustmentStatus.posted;
       adjustment.approvedBy = 'CURRENT_USER';
@@ -548,31 +551,33 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).adjustmentApprovedSuccessfully),
+        content: Text(t.gl.cashBank.adjustmentApprovedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
 
   void _editAdjustment(AdjustmentEntryEntity adjustment) {
+    final t = Translations.of(context);
     // TODO: Implement edit adjustment dialog
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).editAdjustmentNotImplemented),
+        content: Text(t.gl.cashBank.editAdjustmentNotImplemented),
       ),
     );
   }
 
   void _deleteAdjustment(AdjustmentEntryEntity adjustment) {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).confirmDelete),
-        content: Text(Translations.of(context).confirmDeleteAdjustment),
+        title: Text(t.common.confirmDelete),
+        content: Text(t.gl.cashBank.confirmDeleteAdjustment),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -583,7 +588,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(Translations.of(context).adjustmentDeletedSuccessfully),
+                  content: Text(t.gl.cashBank.adjustmentDeletedSuccessfully),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );
@@ -591,7 +596,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
             style: ElevatedButton.styleFrom(
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text(Translations.of(context).delete),
+            child: Text(t.common.delete),
           ),
         ],
       ),

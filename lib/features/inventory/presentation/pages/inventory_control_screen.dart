@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class InventoryControlScreen extends ConsumerStatefulWidget {
   const InventoryControlScreen({super.key});
@@ -61,7 +61,7 @@ class _InventoryControlScreenState
     );
   }
 
-  Widget _buildStocktakingTab(AppLocalizations l10n) {
+  Widget _buildStocktakingTab(Translations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -110,7 +110,7 @@ class _InventoryControlScreenState
     );
   }
 
-  Widget _buildReservationsTab(AppLocalizations l10n) {
+  Widget _buildReservationsTab(Translations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

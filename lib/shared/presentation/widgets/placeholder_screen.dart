@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class PlaceholderScreen extends StatelessWidget {
   final String title;

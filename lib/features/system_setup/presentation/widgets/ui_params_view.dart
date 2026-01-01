@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/general_parameters_entity.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class UiParamsView extends StatelessWidget {
   final GeneralParametersEntity params;

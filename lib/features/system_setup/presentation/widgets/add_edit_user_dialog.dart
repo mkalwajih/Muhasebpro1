@@ -5,7 +5,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.da
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/role_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/user_management_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class AddEditUserDialog extends ConsumerStatefulWidget {
   final UserEntity? userToEdit;
@@ -142,7 +142,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                   data: (branches) => DropdownButtonFormField<int>(
                     initialValue: _selectedBranchId,
                     decoration: InputDecoration(labelText: l10n.branch),
-                    items: branches.map((branch) => DropdownMenuItem(value: branch.id, child: Text(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn))).toList(),
+                    items: branches.map((branch) => DropdownMenuItem(value: branch.id, child: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? branch.nameAr : branch.nameEn))).toList(),
                     onChanged: (val) => setState(() => _selectedBranchId = val),
                   ),
                   loading: () => const SizedBox(),
@@ -156,7 +156,7 @@ class _AddEditUserDialogState extends ConsumerState<AddEditUserDialog> {
                 Text(l10n.roleManagement, style: Theme.of(context).textTheme.titleMedium),
                 ...allRoles.map((role) {
                   return CheckboxListTile(
-                    title: Text(l10n.localeName == 'ar' ? role.nameAr : role.nameEn),
+                    title: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? role.nameAr : role.nameEn),
                     value: _selectedRoleIds.contains(role.id),
                     onChanged: (bool? selected) {
                       setState(() {

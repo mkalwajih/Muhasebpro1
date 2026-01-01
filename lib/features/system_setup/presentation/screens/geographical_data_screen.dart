@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/geographical_data_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/geographical_data_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import 'package:muhaseb_pro/shared/utils/exceptions/exceptions.dart';
 
 class GeographicalDataScreen extends ConsumerStatefulWidget {
@@ -185,7 +185,7 @@ class _GeoColumn extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeader(BuildContext context, AppLocalizations l10n, bool canAdd, WidgetRef ref) {
+  Widget _buildHeader(BuildContext context, Translations l10n, bool canAdd, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(

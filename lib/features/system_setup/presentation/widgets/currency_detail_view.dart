@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class CurrencyDetailView extends StatelessWidget {
   final CurrencyEntity currency;
@@ -70,7 +70,7 @@ class CurrencyDetailView extends StatelessWidget {
     );
   }
 
-  Widget _buildDenominationsTable(BuildContext context, AppLocalizations l10n, List<CurrencyDenominationEntity> denominations) {
+  Widget _buildDenominationsTable(BuildContext context, Translations l10n, List<CurrencyDenominationEntity> denominations) {
     if (denominations.isEmpty) {
       return Center(
         child: Padding(

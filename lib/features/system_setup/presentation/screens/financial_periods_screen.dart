@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../domain/entities/financial_period_entity.dart';
 import '../providers/financial_periods_providers.dart';
 import '../widgets/add_edit_financial_period_dialog.dart';
@@ -114,7 +114,7 @@ class FinancialPeriodsScreen extends ConsumerWidget {
     );
   }
 
-  void _showAddEditFinancialPeriodDialog(BuildContext context, WidgetRef ref, AppLocalizations appLocalizations, {FinancialPeriodEntity? period}) {
+  void _showAddEditFinancialPeriodDialog(BuildContext context, WidgetRef ref, Translations appLocalizations, {FinancialPeriodEntity? period}) {
     showDialog(
       context: context,
       builder: (context) {
@@ -126,7 +126,7 @@ class FinancialPeriodsScreen extends ConsumerWidget {
     );
   }
 
-  void _showGenerateFinancialPeriodsDialog(BuildContext context, WidgetRef ref, AppLocalizations appLocalizations) {
+  void _showGenerateFinancialPeriodsDialog(BuildContext context, WidgetRef ref, Translations appLocalizations) {
     showDialog(
       context: context,
       builder: (context) {

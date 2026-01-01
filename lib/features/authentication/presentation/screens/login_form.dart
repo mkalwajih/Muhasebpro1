@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart'; // Correct import
 
 class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({super.key});
@@ -25,8 +25,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
   }
 
   Future<void> _submit() async {
-    final loc = AppLocalizations.of(context);
-    if (loc == null) return; // Guard against null localization
+    // Access translations
+    final t = Translations.of(context);
 
     if (!_formKey.currentState!.validate()) return;
 
@@ -41,7 +41,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       ref.read(authStateProvider.notifier).state = user;
       if (mounted) context.go('/dashboard');
     } else {
-      final error = loginState.error ?? loc.error;
+      final error = loginState.error ?? t.common.error; // Use common namespace
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(error)),
@@ -52,13 +52,9 @@ class _LoginFormState extends ConsumerState<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context);
+    final t = Translations.of(context); // Unified access
     final state = ref.watch(loginNotifierProvider);
     
-    if (loc == null) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -76,13 +72,13 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       key: const Key('username_field'),
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        labelText: loc.username,
-                        hintText: loc.username,
+                        labelText: t.auth.username, // Auth namespace
+                        hintText: t.auth.username,
                       ),
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return loc.usernameRequired;
+                          return t.common.requiredField; // Common namespace
                         }
                         return null;
                       },
@@ -93,7 +89,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        labelText: loc.password,
+                        labelText: t.auth.password, // Auth namespace
                         suffixIcon: IconButton(
                           icon: Icon(_obscurePassword ? Icons.visibility : Icons.visibility_off),
                           onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
@@ -102,8 +98,8 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) => _submit(),
                       validator: (value) {
-                        if (value == null || value.isEmpty) return loc.passwordRequired;
-                        if (value.length < 6) return loc.passwordLengthError;
+                        if (value == null || value.isEmpty) return t.common.requiredField;
+                        if (value.length < 6) return t.auth.passwordLength;
                         return null;
                       },
                     ),
@@ -118,7 +114,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                                 width: 20,
                                 child: CircularProgressIndicator(strokeWidth: 2),
                               )
-                            : Text(loc.welcome),
+                            : Text(t.auth.welcome),
                       ),
                     ),
                     const SizedBox(height: 12),
@@ -128,11 +124,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       children: [
                         TextButton(
                           onPressed: () => context.go('/register'),
-                          child: Text(loc.addNewUser),
+                          child: Text(t.auth.register),
                         ),
                         TextButton(
                           onPressed: () => context.go('/forgot-password'),
-                          child: Text(loc.forgotPassword),
+                          child: Text(t.auth.forgotPassword),
                         ),
                       ],
                     ),

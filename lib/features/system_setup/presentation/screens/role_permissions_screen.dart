@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/role_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/role_management_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class RolePermissionsScreen extends ConsumerStatefulWidget {
   final RoleEntity role;
@@ -36,7 +36,7 @@ class _RolePermissionsScreenState extends ConsumerState<RolePermissionsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.localeName == 'ar' ? widget.role.nameAr : widget.role.nameEn),
+        title: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? widget.role.nameAr : widget.role.nameEn),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),

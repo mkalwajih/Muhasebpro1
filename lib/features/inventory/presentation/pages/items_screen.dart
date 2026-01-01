@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../../shared/presentation/widgets/empty_state_widget.dart';
 
 class ItemsScreen extends ConsumerWidget {

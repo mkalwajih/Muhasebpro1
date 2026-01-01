@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/cash_deposit_entity.dart';
 
 class CashDepositsTab extends ConsumerStatefulWidget {
@@ -51,7 +51,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     // final theme = Theme.of(context); // Unused
 
     final filteredDeposits = _getFilteredDeposits();
@@ -65,9 +65,9 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
               Expanded(
                 flex: 2,
                 child: DropdownButtonFormField<String>(
-                  initialValue: _selectedStatus,
+                  value: _selectedStatus,
                   decoration: InputDecoration(
-                    labelText: l10n.status,
+                    labelText: t.common.status,
                     border: const OutlineInputBorder(),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -75,11 +75,11 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
                     ),
                   ),
                   items: [
-                    DropdownMenuItem(value: 'All', child: Text(l10n.all)),
-                    DropdownMenuItem(value: 'Draft', child: Text(l10n.draft)),
-                    DropdownMenuItem(value: 'Pending', child: Text(l10n.pending)),
-                    DropdownMenuItem(value: 'Confirmed', child: Text(l10n.confirmed)),
-                    DropdownMenuItem(value: 'Cancelled', child: Text(l10n.cancelled)),
+                    DropdownMenuItem(value: 'All', child: Text(t.common.all)),
+                    DropdownMenuItem(value: 'Draft', child: Text(t.common.draft)),
+                    DropdownMenuItem(value: 'Pending', child: Text(t.common.pending)),
+                    DropdownMenuItem(value: 'Confirmed', child: Text(t.common.confirmed)),
+                    DropdownMenuItem(value: 'Cancelled', child: Text(t.common.cancelled)),
                   ],
                   onChanged: (value) {
                     setState(() {
@@ -93,7 +93,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
                 ElevatedButton.icon(
                   onPressed: _createNewDeposit,
                   icon: const Icon(Icons.add),
-                  label: Text(l10n.newDeposit),
+                  label: Text(t.gl.cashBank.newDeposit),
                 ),
             ],
           ),
@@ -116,7 +116,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return Center(
@@ -130,12 +130,12 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noDepositsFound,
+            t.gl.cashBank.noDepositsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.createFirstDeposit,
+            t.gl.cashBank.createFirstDeposit,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -146,7 +146,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildDepositCard(CashDepositEntity deposit) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
@@ -181,14 +181,14 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
               children: [
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.amount,
+                    t.common.amount,
                     currencyFormat.format(deposit.amount),
                     theme.colorScheme.primary,
                   ),
                 ),
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.date,
+                    t.common.date,
                     dateFormat.format(deposit.depositDate),
                     null,
                   ),
@@ -200,14 +200,14 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
               children: [
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.fromAccount,
+                    t.gl.cashBank.fromAccount,
                     deposit.fromAccountId,
                     null,
                   ),
                 ),
                 Expanded(
                   child: _buildDetailItem(
-                    l10n.toAccount,
+                    t.gl.cashBank.toAccount,
                     deposit.toAccountId,
                     null,
                   ),
@@ -223,13 +223,13 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
                     TextButton.icon(
                       onPressed: () => _submitDeposit(deposit),
                       icon: const Icon(Icons.send, size: 16),
-                      label: Text(l10n.submit),
+                      label: Text(t.common.submit),
                     ),
                   if (deposit.status == DepositStatus.pending)
                     TextButton.icon(
                       onPressed: () => _confirmDeposit(deposit),
                       icon: const Icon(Icons.check_circle, size: 16),
-                      label: Text(l10n.confirm),
+                      label: Text(t.common.confirm),
                       style: TextButton.styleFrom(
                         foregroundColor: theme.colorScheme.primary,
                       ),
@@ -238,7 +238,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
                     TextButton.icon(
                       onPressed: () => _deleteDeposit(deposit),
                       icon: const Icon(Icons.delete, size: 16),
-                      label: Text(l10n.delete),
+                      label: Text(t.common.delete),
                       style: TextButton.styleFrom(
                         foregroundColor: theme.colorScheme.error,
                       ),
@@ -253,7 +253,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   Widget _buildStatusChip(DepositStatus status) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     
     Color backgroundColor;
@@ -264,22 +264,22 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       case DepositStatus.draft:
         backgroundColor = theme.colorScheme.surfaceContainerHighest;
         foregroundColor = theme.colorScheme.onSurfaceVariant;
-        statusText = l10n.draft;
+        statusText = t.common.draft;
         break;
       case DepositStatus.pending:
         backgroundColor = theme.colorScheme.tertiaryContainer;
         foregroundColor = theme.colorScheme.onTertiaryContainer;
-        statusText = l10n.pending;
+        statusText = t.common.pending;
         break;
       case DepositStatus.confirmed:
         backgroundColor = theme.colorScheme.primaryContainer;
         foregroundColor = theme.colorScheme.onPrimaryContainer;
-        statusText = l10n.confirmed;
+        statusText = t.common.confirmed;
         break;
       case DepositStatus.cancelled:
         backgroundColor = theme.colorScheme.errorContainer;
         foregroundColor = theme.colorScheme.onErrorContainer;
-        statusText = l10n.cancelled;
+        statusText = t.common.cancelled;
         break;
     }
     
@@ -345,22 +345,23 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
   
   void _createNewDeposit() {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).newDeposit),
+        title: Text(t.gl.cashBank.newDeposit),
         content: const Text('Deposit form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Add new deposit logic
             },
-            child: Text(Translations.of(context).create),
+            child: Text(t.common.create),
           ),
         ],
       ),
@@ -368,6 +369,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
   }
 
   void _submitDeposit(CashDepositEntity deposit) {
+    final t = Translations.of(context);
     setState(() {
       final index = _deposits.indexOf(deposit);
       if (index != -1) {
@@ -375,22 +377,24 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       }
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(Translations.of(context).depositSubmittedSuccessfully)),
+      SnackBar(content: Text(t.gl.cashBank.depositSubmittedSuccessfully)),
     );
   }
 
   void _confirmDeposit(CashDepositEntity deposit) {
+    final t = Translations.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(Translations.of(context).depositConfirmedSuccessfully)),
+      SnackBar(content: Text(t.gl.cashBank.depositConfirmedSuccessfully)),
     );
   }
 
   void _deleteDeposit(CashDepositEntity deposit) {
+    final t = Translations.of(context);
     setState(() {
       _deposits.remove(deposit);
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(Translations.of(context).depositDeletedSuccessfully)),
+      SnackBar(content: Text(t.gl.cashBank.depositDeletedSuccessfully)),
     );
   }
 }

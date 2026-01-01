@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/tax_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/tax_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class TaxBracketsView extends ConsumerWidget {
   const TaxBracketsView({super.key});

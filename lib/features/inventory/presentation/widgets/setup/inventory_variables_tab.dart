@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../../../shared/presentation/widgets/loading_widget.dart';
 import '../../../domain/entities/inventory_config_entity.dart';
 import '../../providers/inventory_setup_providers.dart';

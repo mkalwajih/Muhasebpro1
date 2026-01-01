@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/receipt_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart'; // Needed for PaymentMethod
 import 'receipt_voucher_list_item.dart';

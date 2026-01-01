@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/entities/financial_period_entity.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../providers/financial_periods_providers.dart';
 
 class AddEditFinancialPeriodDialog extends ConsumerStatefulWidget {
-  final AppLocalizations appLocalizations;
+  final Translations appLocalizations;
   final FinancialPeriodEntity? period;
 
   const AddEditFinancialPeriodDialog({
@@ -181,7 +181,7 @@ class _AddEditFinancialPeriodDialogState extends ConsumerState<AddEditFinancialP
 }
 
 class GenerateFinancialPeriodsDialog extends ConsumerStatefulWidget {
-  final AppLocalizations appLocalizations;
+  final Translations appLocalizations;
 
   const GenerateFinancialPeriodsDialog({
     super.key,

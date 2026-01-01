@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../domain/entities/document_type_entity.dart';
 
 class DocumentTypeListItem extends StatelessWidget {
@@ -167,7 +167,7 @@ class DocumentTypeListItem extends StatelessWidget {
     );
   }
 
-  String _getSequenceMethodText(AppLocalizations l10n, SequenceMethod method) {
+  String _getSequenceMethodText(Translations l10n, SequenceMethod method) {
     switch (method) {
       case SequenceMethod.general:
         return l10n.general;
@@ -176,7 +176,7 @@ class DocumentTypeListItem extends StatelessWidget {
     }
   }
 
-  String _getSequenceBehaviorText(AppLocalizations l10n, SequenceBehavior behavior) {
+  String _getSequenceBehaviorText(Translations l10n, SequenceBehavior behavior) {
     switch (behavior) {
       case SequenceBehavior.autoUnchangeable:
         return l10n.autoUnchangeable;

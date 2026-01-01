@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/inventory/domain/entities/item_group_entity.dart';
 import 'package:muhaseb_pro/features/inventory/presentation/providers/inventory_setup_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class ItemGroupFormDialog extends ConsumerStatefulWidget {
   final ItemGroupEntity? itemGroup;

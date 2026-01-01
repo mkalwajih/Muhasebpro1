@@ -1,12 +1,14 @@
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
-String? validatePhoneNumber(String? value, AppLocalizations l10n) {
+// Change Translations to Translations
+String? validatePhoneNumber(String? value, Translations t) {
   if (value == null || value.isEmpty) {
-    return null; // Not a required field
+    return null;
   }
   final phoneRegex = RegExp(r'^\+?[0-9]{10,13}$');
   if (!phoneRegex.hasMatch(value)) {
-    return l10n.invalidPhoneNumberFormat;
+    // Access via 'common' namespace
+    return t.common.invalidPhoneNumberFormat; 
   }
   return null;
 }

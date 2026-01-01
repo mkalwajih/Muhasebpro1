@@ -1,8 +1,9 @@
+
 base_locale: en
+fallback_strategy: base_locale
 input_directory: lib/l10n
 input_file_pattern: .arb
 output_directory: lib/l10n
-output_file_name: app_localizations.dart
-output_format: single_file
-namespaces: true
+output_file_name: translations.g.dart
 flutter_integration: true
+translate_var: t

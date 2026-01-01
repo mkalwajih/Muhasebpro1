@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/transaction_request_entity.dart';
 
 class TransactionRequestListItem extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_group_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branch_groups_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class BranchGroupsScreen extends ConsumerWidget {
   const BranchGroupsScreen({super.key});
@@ -30,7 +30,7 @@ class BranchGroupsScreen extends ConsumerWidget {
           itemBuilder: (context, index) {
             final group = groups[index];
             return ListTile(
-              title: Text(l10n.localeName == 'ar' ? group.nameAr : group.nameEn),
+              title: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? group.nameAr : group.nameEn),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -129,7 +129,7 @@ class BranchGroupsScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(l10n.confirmDeletion),
-        content: Text('${l10n.areYouSureYouWantToDelete} "${l10n.localeName == 'ar' ? group.nameAr : group.nameEn}"?'),
+        content: Text('${l10n.areYouSureYouWantToDelete} "${TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? group.nameAr : group.nameEn}"?'),
         actions: [
           TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
           TextButton(

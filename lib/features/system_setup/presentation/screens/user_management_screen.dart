@@ -4,7 +4,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/branch_entity.
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/user_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_user_dialog.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class UserManagementScreen extends ConsumerWidget {
   const UserManagementScreen({super.key});
@@ -14,7 +14,7 @@ class UserManagementScreen extends ConsumerWidget {
     final usersAsync = ref.watch(userManagementProvider);
     final branchesAsync = ref.watch(branchesProvider);
     final l10n = Translations.of(context);
-    final locale = l10n.localeName;
+    final locale = TranslationProvider.of(context).flutterLocale.languageCode;
 
     return Scaffold(
       appBar: AppBar(

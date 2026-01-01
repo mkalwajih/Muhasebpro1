@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/role_management_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_role_dialog.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class RoleManagementScreen extends ConsumerWidget {
   const RoleManagementScreen({super.key});
@@ -25,7 +25,7 @@ class RoleManagementScreen extends ConsumerWidget {
             itemBuilder: (context, index) {
               final role = roles[index];
               return ListTile(
-                title: Text(l10n.localeName == 'ar' ? role.nameAr : role.nameEn),
+                title: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? role.nameAr : role.nameEn),
                 subtitle: Text(role.description ?? ''),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

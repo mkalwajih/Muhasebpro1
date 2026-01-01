@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import '../../../domain/entities/bank_statement_entity.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class BankStatementsTab extends ConsumerStatefulWidget {
   const BankStatementsTab({
@@ -124,7 +124,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     // Removed unused theme variable
     final filteredStatements = _getFilteredStatements();
 
@@ -139,9 +139,9 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                   Expanded(
                     flex: 2,
                     child: DropdownButtonFormField<String>(
-                      initialValue: _selectedAccount,
+                      value: _selectedAccount,
                       decoration: InputDecoration(
-                        labelText: l10n.bankAccount,
+                        labelText: t.gl.cashBank.bankAccount,
                         border: const OutlineInputBorder(),
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 12,
@@ -165,7 +165,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                     ElevatedButton.icon(
                       onPressed: _importStatement,
                       icon: const Icon(Icons.upload_file),
-                      label: Text(l10n.importStatement),
+                      label: Text(t.gl.cashBank.importStatement),
                     ),
                 ],
               ),
@@ -177,7 +177,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       onTap: () => _selectFromDate(context),
                       child: InputDecorator(
                         decoration: InputDecoration(
-                          labelText: l10n.fromDate,
+                          labelText: t.common.fromDate,
                           border: const OutlineInputBorder(),
                         ),
                         child: Row(
@@ -196,7 +196,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       onTap: () => _selectToDate(context),
                       child: InputDecorator(
                         decoration: InputDecoration(
-                          labelText: l10n.toDate,
+                          labelText: t.common.toDate,
                           border: const OutlineInputBorder(),
                         ),
                         child: Row(
@@ -213,7 +213,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                   ElevatedButton.icon(
                     onPressed: _filterStatements,
                     icon: const Icon(Icons.filter_list),
-                    label: Text(l10n.filter),
+                    label: Text(t.common.filter),
                   ),
                 ],
               ),
@@ -237,7 +237,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildEmptyState() {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     return Center(
       child: Column(
@@ -250,12 +250,12 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.noStatementsFound,
+            t.gl.cashBank.noStatementsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.importFirstStatement,
+            t.gl.cashBank.importFirstStatement,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -266,7 +266,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildStatementCard(BankStatementEntity statement) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     final currencyFormat = NumberFormat.currency(symbol: '\$');
     final dateFormat = DateFormat('dd/MM/yyyy');
@@ -306,7 +306,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.openingBalance),
+                          Text(t.common.openingBalance),
                           Text(
                             currencyFormat.format(statement.openingBalance),
                             style: theme.textTheme.titleMedium?.copyWith(
@@ -319,7 +319,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalDebit),
+                          Text(t.common.totalDebit),
                           Text(
                             currencyFormat.format(statement.totalDebits),
                             style: TextStyle(
@@ -333,7 +333,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(l10n.totalCredit),
+                          Text(t.common.totalCredit),
                           Text(
                             currencyFormat.format(statement.totalCredits),
                             style: TextStyle(
@@ -348,7 +348,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            l10n.closingBalance,
+                            t.common.closingBalance,
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -370,7 +370,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      l10n.transactions,
+                      t.common.transactions,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -388,7 +388,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                         TextButton.icon(
                           onPressed: () => _reconcileStatement(statement),
                           icon: const Icon(Icons.check_circle, size: 16),
-                          label: Text(l10n.reconcile),
+                          label: Text(t.gl.cashBank.reconcile),
                           style: TextButton.styleFrom(
                             foregroundColor: theme.colorScheme.primary,
                           ),
@@ -396,7 +396,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
                       TextButton.icon(
                         onPressed: () => _viewStatementDetails(statement),
                         icon: const Icon(Icons.visibility, size: 16),
-                        label: Text(l10n.viewDetails),
+                        label: Text(t.common.viewDetails),
                       ),
                     ],
                   ),
@@ -460,12 +460,12 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   Widget _buildReconciliationChip(bool isReconciled) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
 
     return Chip(
       label: Text(
-        isReconciled ? l10n.reconciled : l10n.notReconciled,
+        isReconciled ? t.gl.cashBank.reconciled : t.gl.cashBank.notReconciled,
         style: theme.textTheme.bodySmall?.copyWith(
           color: isReconciled
               ? theme.colorScheme.onPrimaryContainer
@@ -517,33 +517,35 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   void _filterStatements() {
+    final t = Translations.of(context);
     setState(() {
       // Filter logic is already applied in _getFilteredStatements
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).statementsFiltered),
+        content: Text(t.gl.cashBank.statementsFiltered),
         duration: const Duration(seconds: 2),
       ),
     );
   }
 
   void _importStatement() {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).importStatement),
+        title: Text(t.gl.cashBank.importStatement),
         content: const Text('Statement import functionality will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(Translations.of(context).import),
+            child: Text(t.common.import),
           ),
         ],
       ),
@@ -551,6 +553,7 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
   }
 
   void _reconcileStatement(BankStatementEntity statement) {
+    final t = Translations.of(context);
     setState(() {
       final index = _statements.indexWhere((s) => s.statementId == statement.statementId);
       if (index != -1) {
@@ -564,16 +567,17 @@ class _BankStatementsTabState extends ConsumerState<BankStatementsTab> {
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).statementReconciledSuccessfully),
+        content: Text(t.gl.cashBank.statementReconciledSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
 
   void _viewStatementDetails(BankStatementEntity statement) {
+    final t = Translations.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).statementDetailsNotImplemented),
+        content: Text(t.gl.cashBank.statementDetailsNotImplemented),
       ),
     );
   }

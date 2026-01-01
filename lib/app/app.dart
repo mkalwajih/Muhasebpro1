@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:muhaseb_pro/core/config/app_router.dart';
 import 'package:muhaseb_pro/core/theme/app_theme.dart';
-import 'package:muhaseb_pro/l10n/translations.g.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart'; // Correct import
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -19,6 +19,7 @@ class App extends ConsumerWidget {
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       
+      // Initialize Slang
       locale: TranslationProvider.of(context).flutterLocale, 
       supportedLocales: AppLocaleUtils.supportedLocales,
       localizationsDelegates: GlobalMaterialLocalizations.delegates,

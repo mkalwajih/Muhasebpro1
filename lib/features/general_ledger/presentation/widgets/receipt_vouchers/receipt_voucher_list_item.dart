@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/receipt_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart'; // Required for PaymentMethod
 

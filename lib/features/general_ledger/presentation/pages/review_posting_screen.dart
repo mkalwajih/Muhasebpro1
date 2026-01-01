@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../widgets/review_posting/posting_batches_tab.dart';
 import '../widgets/review_posting/period_closing_tab.dart';
 import '../widgets/review_posting/audit_trail_tab.dart';

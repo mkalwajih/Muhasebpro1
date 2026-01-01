@@ -71,7 +71,7 @@ class DashboardCard extends StatelessWidget {
       child: InkWell(
         onTap: () => context.push(item.route),
         child: Column(
-          mainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(item.icon, size: 40, color: Theme.of(context).primaryColor),
             const SizedBox(height: 12),

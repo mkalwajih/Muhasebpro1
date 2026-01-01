@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconsax/iconsax.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class StockOperationsScreen extends ConsumerStatefulWidget {
   const StockOperationsScreen({super.key});
@@ -66,7 +66,7 @@ class _StockOperationsScreenState
     );
   }
 
-  Widget _buildIncomingStockTab(AppLocalizations l10n) {
+  Widget _buildIncomingStockTab(Translations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -95,7 +95,7 @@ class _StockOperationsScreenState
     );
   }
 
-  Widget _buildOutgoingStockTab(AppLocalizations l10n) {
+  Widget _buildOutgoingStockTab(Translations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +124,7 @@ class _StockOperationsScreenState
     );
   }
 
-  Widget _buildTransfersTab(AppLocalizations l10n) {
+  Widget _buildTransfersTab(Translations l10n) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/register_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/register_form.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 void main() {
   testWidgets('RegisterForm shows loading and calls register', (WidgetTester tester) async {

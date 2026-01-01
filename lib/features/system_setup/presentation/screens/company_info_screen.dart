@@ -252,11 +252,11 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.setup.company.title),
+        title: Text(t.inventory.master.setup.company.title),
         actions: [
           IconButton(
             icon: const Icon(Icons.add_business),
-            tooltip: t.setup.company.addNew,
+            tooltip: t.inventory.master.setup.company.addNew,
             onPressed: () => _clearForm(),
           ),
           if (_selectedCompany != null && _selectedCompany!.id != 0) 
@@ -282,7 +282,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
               child: companiesAsync.when(
                 data: (companies) {
                   if (companies.isEmpty) {
-                    return Center(child: Text(t.setup.company.empty, textAlign: TextAlign.center));
+                    return Center(child: Text(t.inventory.master.setup.company.empty, textAlign: TextAlign.center));
                   }
                   return ListView.separated(
                     itemCount: companies.length,
@@ -329,7 +329,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                 children: [
                   // Header Title
                   Text(
-                    _selectedCompany == null ? t.setup.company.addNew : '${t.common.edit}: ${_selectedCompany!.companyCode}',
+                    _selectedCompany == null ? t.inventory.master.setup.company.addNew : '${t.common.edit}: ${_selectedCompany!.companyCode}',
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 24),
@@ -359,7 +359,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                           TextButton.icon(
                             onPressed: _pickImage,
                             icon: const Icon(Icons.upload, size: 16),
-                            label: Text(t.setup.company.uploadLogo),
+                            label: Text(t.inventory.master.setup.company.uploadLogo),
                           ),
                         ],
                       ),
@@ -370,7 +370,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                             TextFormField(
                               controller: _companyCodeController,
                               decoration: InputDecoration(
-                                labelText: t.setup.company.code,
+                                labelText: t.inventory.master.setup.company.code,
                                 border: const OutlineInputBorder(),
                                 prefixIcon: const Icon(Icons.code),
                               ),
@@ -380,7 +380,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                             TextFormField(
                               controller: _nameEnController,
                               decoration: InputDecoration(
-                                labelText: t.setup.company.nameEn,
+                                labelText: t.inventory.master.setup.company.nameEn,
                                 border: const OutlineInputBorder(),
                                 prefixIcon: const Icon(Icons.language),
                               ),
@@ -398,7 +398,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                     controller: _nameArController,
                     textDirection: TextDirection.rtl,
                     decoration: InputDecoration(
-                      labelText: t.setup.company.nameAr,
+                      labelText: t.inventory.master.setup.company.nameAr,
                       border: const OutlineInputBorder(),
                       prefixIcon: const Icon(Icons.translate),
                     ),
@@ -414,7 +414,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                           data: (countries) => DropdownButtonFormField<int>(
                             value: _countryId,
                             decoration: InputDecoration(
-                              labelText: t.setup.geo.country,
+                              labelText: t.inventory.master.setup.geo.country,
                               border: const OutlineInputBorder(),
                               prefixIcon: const Icon(Icons.flag),
                             ),
@@ -434,7 +434,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         child: TextFormField(
                           controller: _taxController,
                           decoration: InputDecoration(
-                            labelText: t.setup.company.taxNumber,
+                            labelText: t.inventory.master.setup.company.taxNumber,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.numbers),
                           ),
@@ -459,7 +459,7 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                         child: TextFormField(
                           controller: _regController,
                           decoration: InputDecoration(
-                            labelText: t.setup.company.commercialReg,
+                            labelText: t.inventory.master.setup.company.commercialReg,
                             border: const OutlineInputBorder(),
                             prefixIcon: const Icon(Icons.app_registration),
                           ),
@@ -518,8 +518,8 @@ class _CompanyInfoScreenState extends ConsumerState<CompanyInfoScreen> {
                   
                   // Flags
                   SwitchListTile(
-                    title: Text(t.setup.company.mainCompany),
-                    subtitle: Text(t.setup.company.mainCompanyHint),
+                    title: Text(t.inventory.master.setup.company.mainCompany),
+                    subtitle: Text(t.inventory.master.setup.company.mainCompanyHint),
                     value: _isMainCompany,
                     onChanged: (bool value) => setState(() => _isMainCompany = value),
                     secondary: const Icon(Icons.star),

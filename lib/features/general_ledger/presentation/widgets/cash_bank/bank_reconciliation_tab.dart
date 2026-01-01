@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../domain/entities/bank_reconciliation_entity.dart';
 
 class BankReconciliationTab extends ConsumerStatefulWidget {
@@ -105,7 +105,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
     // Removed unused currencyFormat
 
@@ -124,9 +124,9 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                       Expanded(
                         flex: 2,
                         child: DropdownButtonFormField<String>(
-                          initialValue: _selectedAccount,
+                          value: _selectedAccount,
                           decoration: InputDecoration(
-                            labelText: l10n.bankAccount,
+                            labelText: t.gl.cashBank.bankAccount,
                             border: const OutlineInputBorder(),
                           ),
                           items: const [
@@ -151,7 +151,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                               : null,
                           child: InputDecorator(
                             decoration: InputDecoration(
-                              labelText: l10n.reconciliationDate,
+                              labelText: t.gl.cashBank.reconciliationDate,
                               border: const OutlineInputBorder(),
                             ),
                             child: Row(
@@ -169,9 +169,9 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                         child: TextFormField(
                           controller: _bankBalanceController,
                           decoration: InputDecoration(
-                            labelText: l10n.bankStatementBalance,
+                            labelText: t.gl.cashBank.bankStatementBalance,
                             border: const OutlineInputBorder(),
-                            prefixText: '${l10n.symbol} ',
+                            prefixText: '${t.common.symbol} ',
                           ),
                           keyboardType: TextInputType.number,
                           enabled: widget.canManage,
@@ -199,7 +199,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 // Outstanding deposits
                 Expanded(
                   child: _buildReconciliationSection(
-                    title: l10n.outstandingDeposits,
+                    title: t.gl.cashBank.outstandingDeposits,
                     items: _outstandingDeposits,
                     color: theme.colorScheme.secondary,
                     icon: Icons.add_circle,
@@ -209,7 +209,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 // Outstanding checks
                 Expanded(
                   child: _buildReconciliationSection(
-                    title: l10n.outstandingChecks,
+                    title: t.gl.cashBank.outstandingChecks,
                     items: _outstandingChecks,
                     color: theme.colorScheme.error,
                     icon: Icons.remove_circle,
@@ -228,7 +228,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                   child: OutlinedButton.icon(
                     onPressed: _addAdjustment,
                     icon: const Icon(Icons.edit_note),
-                    label: Text(l10n.addAdjustment),
+                    label: Text(t.gl.cashBank.addAdjustment),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -236,7 +236,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                   child: ElevatedButton.icon(
                     onPressed: _isReconciled() ? _saveReconciliation : null,
                     icon: const Icon(Icons.save),
-                    label: Text(l10n.saveReconciliation),
+                    label: Text(t.gl.cashBank.saveReconciliation),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _isReconciled()
                           ? theme.colorScheme.primary
@@ -253,9 +253,9 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }
 
   Widget _buildBalanceSummary() {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
+    final currencyFormat = NumberFormat.currency(symbol: t.common.symbol);
 
     final adjustedBankBalance = _calculateAdjustedBankBalance();
     final difference = adjustedBankBalance - _bookBalance;
@@ -265,8 +265,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: isReconciled
-            ? theme.colorScheme.primaryContainer.withValues(alpha: 0.3)
-            : theme.colorScheme.errorContainer.withValues(alpha: 0.3),
+            ? theme.colorScheme.primaryContainer.withAlpha(77)
+            : theme.colorScheme.errorContainer.withAlpha(77),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: isReconciled
@@ -279,7 +279,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(l10n.bankStatementBalance),
+              Text(t.gl.cashBank.bankStatementBalance),
               Text(
                 currencyFormat.format(_bankStatementBalance),
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -292,7 +292,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(l10n.bookBalance),
+              Text(t.gl.cashBank.bookBalance),
               Text(
                 currencyFormat.format(_bookBalance),
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -305,7 +305,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(l10n.adjustedBankBalance),
+              Text(t.gl.cashBank.adjustedBankBalance),
               Text(
                 currencyFormat.format(adjustedBankBalance),
                 style: theme.textTheme.titleMedium?.copyWith(
@@ -320,7 +320,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                l10n.difference,
+                t.common.difference,
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -348,7 +348,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  l10n.reconciled,
+                  t.gl.cashBank.reconciled,
                   style: theme.textTheme.titleSmall?.copyWith(
                     color: theme.colorScheme.primary,
                     fontWeight: FontWeight.bold,
@@ -368,9 +368,9 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     required Color color,
     required IconData icon,
   }) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
-    final currencyFormat = NumberFormat.currency(symbol: l10n.symbol);
+    final currencyFormat = NumberFormat.currency(symbol: t.common.symbol);
 
     return Card(
       child: Column(
@@ -378,7 +378,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
+              color: color.withAlpha(26),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),
@@ -404,7 +404,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                           ? ReconciliationItemType.deposit
                           : ReconciliationItemType.check,
                     ),
-                    tooltip: l10n.add,
+                    tooltip: t.common.add,
                   ),
               ],
             ),
@@ -423,8 +423,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                         const SizedBox(height: 16),
                         Text(
                           items == _outstandingDeposits
-                              ? l10n.noOutstandingDeposits
-                              : l10n.noOutstandingChecks,
+                              ? t.gl.cashBank.noOutstandingDeposits
+                              : t.gl.cashBank.noOutstandingChecks,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -453,7 +453,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                           ),
                           title: Text(item.description),
                           subtitle: Text(
-                            '${l10n.reference}: ${item.referenceNumber} • ${DateFormat('dd/MM/yyyy').format(item.date)}',
+                            '${t.common.reference}: ${item.referenceNumber} • ${DateFormat('dd/MM/yyyy').format(item.date)}',
                           ),
                           trailing: Text(
                             currencyFormat.format(item.amount.abs()),
@@ -513,19 +513,20 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }
 
   void _addReconciliationItem(ReconciliationItemType type) {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
           type == ReconciliationItemType.deposit
-              ? Translations.of(context).addOutstandingDeposit
-              : Translations.of(context).addOutstandingCheck,
+              ? t.gl.cashBank.addOutstandingDeposit
+              : t.gl.cashBank.addOutstandingCheck,
         ),
         content: const Text('Item form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -555,7 +556,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
                 }
               });
             },
-            child: Text(Translations.of(context).add),
+            child: Text(t.common.add),
           ),
         ],
       ),
@@ -563,22 +564,23 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }
 
   void _addAdjustment() {
+    final t = Translations.of(context);
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).addAdjustment),
+        title: Text(t.gl.cashBank.addAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(t.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
               // Add adjustment logic here
             },
-            child: Text(Translations.of(context).add),
+            child: Text(t.common.add),
           ),
         ],
       ),
@@ -586,10 +588,11 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
   }
 
   void _saveReconciliation() {
+    final t = Translations.of(context);
     if (!_isReconciled()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(Translations.of(context).reconciliationNotBalanced),
+          content: Text(t.gl.cashBank.reconciliationNotBalanced),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
@@ -600,7 +603,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content:
-            Text(Translations.of(context).reconciliationSavedSuccessfully),
+            Text(t.gl.cashBank.reconciliationSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );

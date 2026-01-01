@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class ForgotPasswordForm extends ConsumerStatefulWidget {
   const ForgotPasswordForm({super.key});
@@ -24,9 +24,8 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
   }
 
   Future<void> _submit() async {
+    final t = Translations.of(context);
     if (!_formKey.currentState!.validate()) return;
-
-    final loc = Translations.of(context);
 
     final success = await ref
         .read(resetPasswordNotifierProvider.notifier)
@@ -36,14 +35,14 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
       if (mounted) {
         ScaffoldMessenger.of(context)
           ..hideCurrentSnackBar()
-          ..showSnackBar(SnackBar(content: Text(loc.passwordResetSuccess)));
+          ..showSnackBar(SnackBar(content: Text(t.auth.resetPasswordSuccess)));
         context.go('/');
       }
     } else {
       final error = ref.read(resetPasswordNotifierProvider).error;
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(error ?? loc.error)),
+          SnackBar(content: Text(error ?? t.common.error)),
         );
       }
     }
@@ -51,7 +50,7 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loc = Translations.of(context);
+    final t = Translations.of(context);
     final state = ref.watch(resetPasswordNotifierProvider);
 
     return Center(
@@ -71,13 +70,13 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
                       key: const Key('username_field'),
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        labelText: loc.username,
-                        hintText: loc.username,
+                        labelText: t.auth.username,
+                        hintText: t.auth.username,
                       ),
                       textInputAction: TextInputAction.next,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return loc.usernameRequired;
+                          return t.common.requiredField;
                         }
                         return null;
                       },
@@ -87,17 +86,17 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
                       key: const Key('new_password_field'),
                       controller: _newPasswordController,
                       decoration: InputDecoration(
-                        labelText: loc.newPassword,
-                        hintText: loc.newPassword,
+                        labelText: t.auth.newPassword,
+                        hintText: t.auth.newPassword,
                       ),
                       textInputAction: TextInputAction.done,
                       onFieldSubmitted: (_) => _submit(),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return loc.passwordRequired;
+                          return t.common.requiredField;
                         }
                         if (value.length < 6) {
-                          return loc.passwordLengthError;
+                          return t.auth.passwordLength;
                         }
                         return null;
                       },
@@ -113,13 +112,13 @@ class _ForgotPasswordFormState extends ConsumerState<ForgotPasswordForm> {
                                 width: 20,
                                 child: CircularProgressIndicator(strokeWidth: 2),
                               )
-                            : Text(loc.resetPassword),
+                            : Text(t.auth.resetPassword),
                       ),
                     ),
                     const SizedBox(height: 12),
                     TextButton(
                       onPressed: () => context.go('/'),
-                      child: Text(loc.backToLogin),
+                      child: Text(t.auth.backToLogin),
                     ),
                     if (state.error != null) ...[
                       const SizedBox(height: 12),

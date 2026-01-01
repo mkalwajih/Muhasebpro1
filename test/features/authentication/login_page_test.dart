@@ -7,7 +7,7 @@ import 'package:muhaseb_pro/features/authentication/domain/entities/user_entity.
 import 'package:muhaseb_pro/features/authentication/presentation/providers/auth_providers.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_form.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 // Mocks

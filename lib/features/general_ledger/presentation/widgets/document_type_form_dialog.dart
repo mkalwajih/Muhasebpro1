@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../../shared/presentation/widgets/custom_text_field.dart';
 import '../../domain/entities/document_type_entity.dart';
 
@@ -221,7 +221,7 @@ class _DocumentTypeFormDialogState extends State<DocumentTypeFormDialog> {
     }
   }
 
-  String _getSequenceMethodText(AppLocalizations l10n, SequenceMethod method) {
+  String _getSequenceMethodText(Translations l10n, SequenceMethod method) {
     switch (method) {
       case SequenceMethod.general:
         return l10n.general;
@@ -230,7 +230,7 @@ class _DocumentTypeFormDialogState extends State<DocumentTypeFormDialog> {
     }
   }
 
-  String _getSequenceBehaviorText(AppLocalizations l10n, SequenceBehavior behavior) {
+  String _getSequenceBehaviorText(Translations l10n, SequenceBehavior behavior) {
     switch (behavior) {
       case SequenceBehavior.autoUnchangeable:
         return l10n.autoUnchangeable;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/tax_brackets_view.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/tax_calc_methods_view.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/tax_types_view.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class TaxScreen extends StatelessWidget {
   const TaxScreen({super.key});

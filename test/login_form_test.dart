@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/login_form.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 void main() {
   testWidgets('LoginForm shows loading and calls login', (WidgetTester tester) async {

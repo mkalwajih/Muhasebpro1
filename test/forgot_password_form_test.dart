@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/forgot_password_screen.dart';
 import 'package:muhaseb_pro/features/authentication/presentation/screens/forgot_password_form.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 void main() {
   testWidgets('ForgotPasswordForm shows loading and calls reset', (WidgetTester tester) async {

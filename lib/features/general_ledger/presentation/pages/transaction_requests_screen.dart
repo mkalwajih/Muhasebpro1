@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 import '../widgets/transaction_requests/transaction_request_list.dart';
 import '../widgets/transaction_requests/transaction_request_form.dart';

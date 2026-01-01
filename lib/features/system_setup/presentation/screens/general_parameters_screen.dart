@@ -7,7 +7,7 @@ import 'package:muhaseb_pro/features/system_setup/presentation/widgets/backup_pa
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/general_params_view.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/security_params_view.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/ui_params_view.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class GeneralParametersScreen extends ConsumerStatefulWidget {
   const GeneralParametersScreen({super.key});

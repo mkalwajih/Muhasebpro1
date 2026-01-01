@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:muhaseb_pro/l10n/translations.g.dart'; // NEW IMPORT
 import 'package:muhaseb_pro/shared/utils/app_permissions.dart';
 
-// CHANGED: AppLocalizations -> Translations
+// CHANGED: Translations -> Translations
 typedef LocalizedTitle = String Function(Translations t);
 
 class DashboardItem {

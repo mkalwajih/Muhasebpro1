@@ -54,7 +54,7 @@ class InventoryControlLocalDataSource {
   }
 
   Future<List<StockReservation>> getActiveReservations() async {
-    return await (_database.select(_database.stockReservations)..where((t) => t.status.equals('Active'))).get();
+    return await (_database.select(_database.stockReservations)..where((t) => t.common.status.equals('Active'))).get();
   }
 
   Future<void> createReservation(StockReservationsCompanion reservation) async {

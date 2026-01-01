@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/account_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/coa_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_account_dialog.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class CoaScreen extends ConsumerWidget {
   const CoaScreen({super.key});
@@ -37,7 +37,7 @@ class CoaScreen extends ConsumerWidget {
               final account = flattenedList[index];
               return ListTile(
                 contentPadding: EdgeInsets.only(left: 16.0 + (account.level * 16.0), right: 16.0),
-                title: Text(account.getLocalizedName(l10n.localeName)),
+                title: Text(account.getLocalizedName(TranslationProvider.of(context).flutterLocale.languageCode)),
                 subtitle: Text(account.accountCode),
                 trailing: IconButton(
                   icon: const Icon(Icons.edit),

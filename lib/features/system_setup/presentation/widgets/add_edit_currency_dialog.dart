@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/currencies_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class AddEditCurrencyDialog extends ConsumerStatefulWidget {
   final CurrencyEntity? currencyToEdit;
@@ -100,7 +100,7 @@ class _AddEditCurrencyDialogState extends ConsumerState<AddEditCurrencyDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
+    final l10n = Translations.of(context);
     if (l10n == null) {
       return const Center(child: CircularProgressIndicator());
     }

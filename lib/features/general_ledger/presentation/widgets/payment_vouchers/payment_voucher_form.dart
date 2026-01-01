@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import '../../../../../shared/presentation/widgets/custom_text_field.dart';
 import '../../../domain/entities/payment_voucher_entity.dart';
 import '../../../domain/entities/voucher_base_entity.dart';

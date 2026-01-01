@@ -4,7 +4,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/currency_entit
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/currencies_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/widgets/currency_detail_view.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 
 class CurrenciesScreen extends ConsumerStatefulWidget {
   const CurrenciesScreen({super.key});

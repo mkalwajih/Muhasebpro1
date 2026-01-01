@@ -9,7 +9,7 @@ import 'package:muhaseb_pro/features/system_setup/domain/entities/company_entity
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branch_groups_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/branches_providers.dart';
 import 'package:muhaseb_pro/features/system_setup/presentation/providers/company_info_providers.dart';
-import 'package:muhaseb_pro/l10n/app_localizations.dart';
+import 'package:muhaseb_pro/l10n/translations.g.dart';
 import 'package:muhaseb_pro/shared/utils/validation_utils.dart';
 
 class BranchesScreen extends ConsumerStatefulWidget {
@@ -116,7 +116,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
     }
   }
 
-  Future<void> _onSave(AppLocalizations l10n) async {
+  Future<void> _onSave(Translations l10n) async {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
       try {
@@ -155,7 +155,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
   }
 
 
-  Future<void> _onDelete(AppLocalizations l10n, BranchEntity branch) async {
+  Future<void> _onDelete(Translations l10n, BranchEntity branch) async {
     final confirm = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -179,7 +179,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
         result.fold(
           (failure) => _showErrorSnackbar(l10n, failure.properties.first as String? ?? l10n.deleteFailed),
           (_) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn)), backgroundColor: Colors.green));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.branchDeletedSuccessfully(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? branch.nameAr : branch.nameEn)), backgroundColor: Colors.green));
             _clearForm();
           },
         );
@@ -191,7 +191,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
     }
   }
 
-  void _showErrorSnackbar(AppLocalizations l10n, String message) {
+  void _showErrorSnackbar(Translations l10n, String message) {
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), backgroundColor: Theme.of(context).colorScheme.error),
@@ -245,7 +245,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                 itemBuilder: (context, index) {
                   final branch = branches[index];
                   return ListTile(
-                    title: Text(l10n.localeName == 'ar' ? branch.nameAr : branch.nameEn),
+                    title: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? branch.nameAr : branch.nameEn),
                     subtitle: Text(branch.branchCode),
                     selected: _selectedBranch?.id == branch.id,
                     onTap: () => _selectBranch(branch),
@@ -318,7 +318,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                       items: companies.map((CompanyEntity company) {
                         return DropdownMenuItem<int>(
                           value: company.id,
-                          child: Text(l10n.localeName == 'ar' ? company.nameAr : company.nameEn),
+                          child: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? company.nameAr : company.nameEn),
                         );
                       }).toList(),
                       onChanged: (value) => setState(() => _companyId = value),
@@ -334,7 +334,7 @@ class _BranchesScreenState extends ConsumerState<BranchesScreen> {
                       items: branchGroups.map((BranchGroupEntity group) {
                         return DropdownMenuItem<int>(
                           value: group.id,
-                          child: Text(l10n.localeName == 'ar' ? group.nameAr : group.nameEn),
+                          child: Text(TranslationProvider.of(context).flutterLocale.languageCode == 'ar' ? group.nameAr : group.nameEn),
                         );
                       }).toList(),
                       onChanged: (value) => setState(() => _branchGroupId = value),
