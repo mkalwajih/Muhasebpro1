@@ -200,6 +200,9 @@ class TranslationsCashbankEn {
 
 	/// en: 'Adjustment deleted successfully'
 	String get adjustmentDeletedSuccessfully => 'Adjustment deleted successfully';
+
+	/// en: 'Cash & Bank Management'
+	String get cashBankManagement => 'Cash & Bank Management';
 }
 
 // Path: coa
@@ -945,20 +948,86 @@ class TranslationsReportsEn {
 
 	// Translations
 
-	/// en: 'Reports'
-	String get title => 'Reports';
+	/// en: 'Financial Reports'
+	String get title => 'Financial Reports';
 
 	/// en: 'Trial Balance'
 	String get trialBalance => 'Trial Balance';
 
-	/// en: 'Balance Sheet'
-	String get balanceSheet => 'Balance Sheet';
-
 	/// en: 'Income Statement'
 	String get incomeStatement => 'Income Statement';
 
+	/// en: 'Balance Sheet'
+	String get balanceSheet => 'Balance Sheet';
+
 	/// en: 'Cash Flow'
 	String get cashFlow => 'Cash Flow';
+
+	/// en: 'General Ledger'
+	String get generalLedger => 'General Ledger';
+
+	/// en: 'Account Statement'
+	String get accountStatement => 'Account Statement';
+
+	/// en: 'Select Account'
+	String get selectAccount => 'Select Account';
+
+	/// en: 'As of Date'
+	String get asOfDate => 'As of Date';
+
+	/// en: 'Select Report'
+	String get selectReport => 'Select Report';
+
+	/// en: 'View trial balance report'
+	String get trialBalanceDescription => 'View trial balance report';
+
+	/// en: 'View income statement'
+	String get incomeStatementDescription => 'View income statement';
+
+	/// en: 'View balance sheet'
+	String get balanceSheetDescription => 'View balance sheet';
+
+	/// en: 'View cash flow statement'
+	String get cashFlowDescription => 'View cash flow statement';
+
+	/// en: 'View account statement'
+	String get accountStatementDescription => 'View account statement';
+
+	/// en: 'General Ledger'
+	String get generalLedgerReport => 'General Ledger';
+
+	/// en: 'View general ledger'
+	String get generalLedgerDescription => 'View general ledger';
+
+	/// en: 'Report refreshed'
+	String get reportRefreshed => 'Report refreshed';
+
+	/// en: 'Export Report'
+	String get exportReport => 'Export Report';
+
+	/// en: 'Export to PDF'
+	String get exportToPdf => 'Export to PDF';
+
+	/// en: 'Export to Excel'
+	String get exportToExcel => 'Export to Excel';
+
+	/// en: 'Export to CSV'
+	String get exportToCsv => 'Export to CSV';
+
+	/// en: 'Report exported to {format: String}'
+	String reportExportedSuccessfully({required String format}) => 'Report exported to ${format}';
+
+	/// en: 'Report sent to printer'
+	String get reportSentToPrinter => 'Report sent to printer';
+
+	/// en: 'Cash Flow Statement'
+	String get cashFlowStatement => 'Cash Flow Statement';
+
+	/// en: 'To Date'
+	String get toDate => 'To Date';
+
+	/// en: 'From Date'
+	String get fromDate => 'From Date';
 }
 
 // Path: setup
@@ -995,6 +1064,9 @@ class TranslationsSetupEn {
 
 	/// en: 'Sequence Method'
 	String get sequenceMethod => 'Sequence Method';
+
+	/// en: 'Document Types and Description Coding'
+	String get documentTypesAndDescriptionCoding => 'Document Types and Description Coding';
 }
 
 // Path: transactions
@@ -1019,6 +1091,27 @@ class TranslationsTransactionsEn {
 
 	/// en: 'Transfer Voucher'
 	String get transferVoucher => 'Transfer Voucher';
+
+	/// en: 'Create and manage journal vouchers'
+	String get createAndManageJournalVouchers => 'Create and manage journal vouchers';
+
+	/// en: 'Manage payment vouchers'
+	String get managePaymentVouchers => 'Manage payment vouchers';
+
+	/// en: 'Manage receipt vouchers'
+	String get manageReceiptVouchers => 'Manage receipt vouchers';
+
+	/// en: 'Manage cash and bank accounts'
+	String get manageCashAndBankAccounts => 'Manage cash and bank accounts';
+
+	/// en: 'View financial reports and statements'
+	String get viewFinancialReportsAndStatements => 'View financial reports and statements';
+
+	/// en: 'Manage transaction requests'
+	String get manageTransactionRequests => 'Manage transaction requests';
+
+	/// en: 'Review, post, and close periods'
+	String get reviewPostAndClosePeriods => 'Review, post, and close periods';
 }
 
 // Path: users
@@ -1181,6 +1274,7 @@ extension on Translations {
 			'cashbank.editAdjustmentNotImplemented' => 'Edit adjustment is not implemented yet',
 			'cashbank.confirmDeleteAdjustment' => 'Are you sure you want to delete this adjustment?',
 			'cashbank.adjustmentDeletedSuccessfully' => 'Adjustment deleted successfully',
+			'cashbank.cashBankManagement' => 'Cash & Bank Management',
 			'coa.title' => 'Chart of Accounts',
 			'coa.accountCode' => 'Account Code',
 			'coa.accountNameAr' => 'Account Name (Arabic)',
@@ -1390,11 +1484,33 @@ extension on Translations {
 			'params.currencyNameEn' => 'Currency Name (English)',
 			'params.symbol' => 'Symbol',
 			'params.exchangeRate' => 'Exchange Rate',
-			'reports.title' => 'Reports',
+			'reports.title' => 'Financial Reports',
 			'reports.trialBalance' => 'Trial Balance',
-			'reports.balanceSheet' => 'Balance Sheet',
 			'reports.incomeStatement' => 'Income Statement',
+			'reports.balanceSheet' => 'Balance Sheet',
 			'reports.cashFlow' => 'Cash Flow',
+			'reports.generalLedger' => 'General Ledger',
+			'reports.accountStatement' => 'Account Statement',
+			'reports.selectAccount' => 'Select Account',
+			'reports.asOfDate' => 'As of Date',
+			'reports.selectReport' => 'Select Report',
+			'reports.trialBalanceDescription' => 'View trial balance report',
+			'reports.incomeStatementDescription' => 'View income statement',
+			'reports.balanceSheetDescription' => 'View balance sheet',
+			'reports.cashFlowDescription' => 'View cash flow statement',
+			'reports.accountStatementDescription' => 'View account statement',
+			'reports.generalLedgerReport' => 'General Ledger',
+			'reports.generalLedgerDescription' => 'View general ledger',
+			'reports.reportRefreshed' => 'Report refreshed',
+			'reports.exportReport' => 'Export Report',
+			'reports.exportToPdf' => 'Export to PDF',
+			'reports.exportToExcel' => 'Export to Excel',
+			'reports.exportToCsv' => 'Export to CSV',
+			'reports.reportExportedSuccessfully' => ({required String format}) => 'Report exported to ${format}',
+			'reports.reportSentToPrinter' => 'Report sent to printer',
+			'reports.cashFlowStatement' => 'Cash Flow Statement',
+			'reports.toDate' => 'To Date',
+			'reports.fromDate' => 'From Date',
 			'setup.title' => 'GL Setup & Config',
 			'setup.docTypes' => 'Document Types',
 			'setup.docTypeAdd' => 'Add Document Type',
@@ -1404,11 +1520,19 @@ extension on Translations {
 			'setup.descCodingAdd' => 'Add Description Coding',
 			'setup.descCodingEdit' => 'Edit Description Coding',
 			'setup.sequenceMethod' => 'Sequence Method',
+			'setup.documentTypesAndDescriptionCoding' => 'Document Types and Description Coding',
 			'transactions.title' => 'Transactions',
 			'transactions.journalVoucher' => 'Journal Voucher',
 			'transactions.receiptVoucher' => 'Receipt Voucher',
 			'transactions.paymentVoucher' => 'Payment Voucher',
 			'transactions.transferVoucher' => 'Transfer Voucher',
+			'transactions.createAndManageJournalVouchers' => 'Create and manage journal vouchers',
+			'transactions.managePaymentVouchers' => 'Manage payment vouchers',
+			'transactions.manageReceiptVouchers' => 'Manage receipt vouchers',
+			'transactions.manageCashAndBankAccounts' => 'Manage cash and bank accounts',
+			'transactions.viewFinancialReportsAndStatements' => 'View financial reports and statements',
+			'transactions.manageTransactionRequests' => 'Manage transaction requests',
+			'transactions.reviewPostAndClosePeriods' => 'Review, post, and close periods',
 			'users.title' => 'User Management',
 			'users.add' => 'Add New User',
 			'users.edit' => 'Edit User',

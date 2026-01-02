@@ -1,8 +1,0 @@
-{
-    "@@locale": "en",
-    "title": "Transactions",
-    "journalVoucher": "Journal Voucher",
-    "receiptVoucher": "Receipt Voucher",
-    "paymentVoucher": "Payment Voucher",
-    "transferVoucher": "Transfer Voucher"
-}

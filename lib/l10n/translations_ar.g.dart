@@ -411,11 +411,33 @@ class _TranslationsReportsAr extends TranslationsReportsEn {
 	final TranslationsAr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'التقارير';
+	@override String get title => 'التقارير المالية';
 	@override String get trialBalance => 'ميزان المراجعة';
-	@override String get balanceSheet => 'الميزانية العمومية';
 	@override String get incomeStatement => 'قائمة الدخل';
+	@override String get balanceSheet => 'الميزانية العمومية';
 	@override String get cashFlow => 'التدفقات النقدية';
+	@override String get generalLedger => 'دفتر الأستاذ العام';
+	@override String get accountStatement => 'كشف حساب';
+	@override String get selectAccount => 'اختر حساب';
+	@override String get asOfDate => 'بتاريخ';
+	@override String get selectReport => 'اختر التقرير';
+	@override String get trialBalanceDescription => 'عرض تقرير ميزان المراجعة';
+	@override String get incomeStatementDescription => 'عرض قائمة الدخل';
+	@override String get balanceSheetDescription => 'عرض الميزانية العمومية';
+	@override String get cashFlowDescription => 'عرض قائمة التدفقات النقدية';
+	@override String get accountStatementDescription => 'عرض كشف حساب';
+	@override String get generalLedgerReport => 'دفتر الأستاذ العام';
+	@override String get generalLedgerDescription => 'عرض دفتر الأستاذ العام';
+	@override String get reportRefreshed => 'تم تحديث التقرير';
+	@override String get exportReport => 'تصدير التقرير';
+	@override String get exportToPdf => 'تصدير إلى PDF';
+	@override String get exportToExcel => 'تصدير إلى Excel';
+	@override String get exportToCsv => 'تصدير إلى CSV';
+	@override String reportExportedSuccessfully({required String format}) => 'تم تصدير التقرير إلى ${format}';
+	@override String get reportSentToPrinter => 'تم إرسال التقرير للطباعة';
+	@override String get cashFlowStatement => 'قائمة التدفقات النقدية';
+	@override String get toDate => 'إلى تاريخ';
+	@override String get fromDate => 'من تاريخ';
 }
 
 // Path: setup
@@ -444,10 +466,17 @@ class _TranslationsTransactionsAr extends TranslationsTransactionsEn {
 
 	// Translations
 	@override String get title => 'الحركات';
-	@override String get journalVoucher => 'سند قيد';
+	@override String get journalVoucher => 'قيد يومية';
 	@override String get receiptVoucher => 'سند قبض';
 	@override String get paymentVoucher => 'سند صرف';
-	@override String get transferVoucher => 'سند تحويل';
+	@override String get transferVoucher => 'قيد تحويل';
+	@override String get createAndManageJournalVouchers => 'إنشاء وإدارة قيود اليومية';
+	@override String get managePaymentVouchers => 'إدارة سندات الصرف';
+	@override String get manageReceiptVouchers => 'إدارة سندات القبض';
+	@override String get manageCashAndBankAccounts => 'إدارة حسابات النقدية والبنوك';
+	@override String get viewFinancialReportsAndStatements => 'عرض التقارير المالية والكشوفات';
+	@override String get manageTransactionRequests => 'إدارة طلبات الحركات';
+	@override String get reviewPostAndClosePeriods => 'مراجعة وترحيل وإغلاق الفترات';
 }
 
 // Path: users
@@ -483,12 +512,12 @@ class _TranslationsVouchersAr extends TranslationsVouchersEn {
 	@override String get journal => 'قيد يومية';
 	@override String get payment => 'سند صرف';
 	@override String get receipt => 'سند قبض';
-	@override String get reference => 'رقم المرجع';
+	@override String get reference => 'مرجع';
 	@override String get debit => 'مدين';
 	@override String get credit => 'دائن';
 	@override String get difference => 'الفرق';
 	@override String get post => 'ترحيل';
-	@override String get reverse => 'عكس القيد';
+	@override String get reverse => 'عكس';
 	@override String get lines => 'الأسطر';
 	@override String get addEntry => 'إضافة قيد';
 	@override String get confirmPost => 'تأكيد الترحيل';
@@ -735,11 +764,33 @@ extension on TranslationsAr {
 			'params.currencyNameEn' => 'اسم العملة (إنجليزي)',
 			'params.symbol' => 'الرمز',
 			'params.exchangeRate' => 'سعر الصرف',
-			'reports.title' => 'التقارير',
+			'reports.title' => 'التقارير المالية',
 			'reports.trialBalance' => 'ميزان المراجعة',
-			'reports.balanceSheet' => 'الميزانية العمومية',
 			'reports.incomeStatement' => 'قائمة الدخل',
+			'reports.balanceSheet' => 'الميزانية العمومية',
 			'reports.cashFlow' => 'التدفقات النقدية',
+			'reports.generalLedger' => 'دفتر الأستاذ العام',
+			'reports.accountStatement' => 'كشف حساب',
+			'reports.selectAccount' => 'اختر حساب',
+			'reports.asOfDate' => 'بتاريخ',
+			'reports.selectReport' => 'اختر التقرير',
+			'reports.trialBalanceDescription' => 'عرض تقرير ميزان المراجعة',
+			'reports.incomeStatementDescription' => 'عرض قائمة الدخل',
+			'reports.balanceSheetDescription' => 'عرض الميزانية العمومية',
+			'reports.cashFlowDescription' => 'عرض قائمة التدفقات النقدية',
+			'reports.accountStatementDescription' => 'عرض كشف حساب',
+			'reports.generalLedgerReport' => 'دفتر الأستاذ العام',
+			'reports.generalLedgerDescription' => 'عرض دفتر الأستاذ العام',
+			'reports.reportRefreshed' => 'تم تحديث التقرير',
+			'reports.exportReport' => 'تصدير التقرير',
+			'reports.exportToPdf' => 'تصدير إلى PDF',
+			'reports.exportToExcel' => 'تصدير إلى Excel',
+			'reports.exportToCsv' => 'تصدير إلى CSV',
+			'reports.reportExportedSuccessfully' => ({required String format}) => 'تم تصدير التقرير إلى ${format}',
+			'reports.reportSentToPrinter' => 'تم إرسال التقرير للطباعة',
+			'reports.cashFlowStatement' => 'قائمة التدفقات النقدية',
+			'reports.toDate' => 'إلى تاريخ',
+			'reports.fromDate' => 'من تاريخ',
 			'setup.title' => 'إعدادات الأستاذ العام',
 			'setup.docTypes' => 'أنواع المستندات',
 			'setup.docTypeAdd' => 'إضافة نوع مستند',
@@ -750,10 +801,17 @@ extension on TranslationsAr {
 			'setup.descCodingEdit' => 'تعديل ترميز بيان',
 			'setup.sequenceMethod' => 'طريقة الترقيم',
 			'transactions.title' => 'الحركات',
-			'transactions.journalVoucher' => 'سند قيد',
+			'transactions.journalVoucher' => 'قيد يومية',
 			'transactions.receiptVoucher' => 'سند قبض',
 			'transactions.paymentVoucher' => 'سند صرف',
-			'transactions.transferVoucher' => 'سند تحويل',
+			'transactions.transferVoucher' => 'قيد تحويل',
+			'transactions.createAndManageJournalVouchers' => 'إنشاء وإدارة قيود اليومية',
+			'transactions.managePaymentVouchers' => 'إدارة سندات الصرف',
+			'transactions.manageReceiptVouchers' => 'إدارة سندات القبض',
+			'transactions.manageCashAndBankAccounts' => 'إدارة حسابات النقدية والبنوك',
+			'transactions.viewFinancialReportsAndStatements' => 'عرض التقارير المالية والكشوفات',
+			'transactions.manageTransactionRequests' => 'إدارة طلبات الحركات',
+			'transactions.reviewPostAndClosePeriods' => 'مراجعة وترحيل وإغلاق الفترات',
 			'users.title' => 'إدارة المستخدمين',
 			'users.add' => 'إضافة مستخدم جديد',
 			'users.edit' => 'تعديل مستخدم',
@@ -771,12 +829,12 @@ extension on TranslationsAr {
 			'vouchers.journal' => 'قيد يومية',
 			'vouchers.payment' => 'سند صرف',
 			'vouchers.receipt' => 'سند قبض',
-			'vouchers.reference' => 'رقم المرجع',
+			'vouchers.reference' => 'مرجع',
 			'vouchers.debit' => 'مدين',
 			'vouchers.credit' => 'دائن',
 			'vouchers.difference' => 'الفرق',
 			'vouchers.post' => 'ترحيل',
-			'vouchers.reverse' => 'عكس القيد',
+			'vouchers.reverse' => 'عكس',
 			'vouchers.lines' => 'الأسطر',
 			'vouchers.addEntry' => 'إضافة قيد',
 			'vouchers.confirmPost' => 'تأكيد الترحيل',
