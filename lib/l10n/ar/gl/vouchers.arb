@@ -1,15 +1,14 @@
-
 {
   "@@locale": "ar",
   "journal": "قيد يومية",
   "payment": "سند صرف",
   "receipt": "سند قبض",
-  "reference": "رقم المرجع",
+  "reference": "مرجع",
   "debit": "مدين",
   "credit": "دائن",
   "difference": "الفرق",
   "post": "ترحيل",
-  "reverse": "عكس القيد",
+  "reverse": "عكس",
   "lines": "الأسطر",
   "addEntry": "إضافة قيد",
   "confirmPost": "تأكيد الترحيل",

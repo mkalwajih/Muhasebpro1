@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:muhaseb_pro/l10n/translations.g.dart';
+import '../../../../shared/utils/app_permissions.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
+import '../../../../shared/presentation/widgets/placeholder_screen.dart';
+import '../../../../shared/utils/role_checker.dart';
 
 class StockOperationsScreen extends ConsumerStatefulWidget {
   const StockOperationsScreen({super.key});
 
   @override
-  ConsumerState<StockOperationsScreen> createState() =>
-      _StockOperationsScreenState();
+  ConsumerState<StockOperationsScreen> createState() => _StockOperationsScreenState();
 }
 
-class _StockOperationsScreenState
-    extends ConsumerState<StockOperationsScreen>
+class _StockOperationsScreenState extends ConsumerState<StockOperationsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -30,127 +31,116 @@ class _StockOperationsScreenState
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
+    final roleChecker = ref.watch(roleCheckerProvider);
 
+    // Check permissions
+    final canView = roleChecker.hasPermission(AppPermission.viewStockOperations);
+    final canCreate = roleChecker.hasPermission(AppPermission.createStockOperations);
+
+    if (!canView) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(t.ops.title),
+        ),
+        body: custom.CustomErrorWidget(
+          error: t.common.accessDenied,
+        ),
+      );
+    }
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.stockOperations),
-        backgroundColor: theme.colorScheme.inversePrimary,
+        title: Text(t.ops.title),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(
-              icon: const Icon(Iconsax.import),
-              text: l10n.incomingStock,
-            ),
-            Tab(
-              icon: const Icon(Iconsax.export),
-              text: l10n.outgoingStock,
-            ),
-            Tab(
-              icon: const Icon(Iconsax.arrow_swap_horizontal),
-              text: l10n.transfers,
-            ),
+            Tab(text: t.ops.incoming),
+            Tab(text: t.ops.outgoing),
+            Tab(text: t.ops.transfers),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildIncomingStockTab(l10n),
-          _buildOutgoingStockTab(l10n),
-          _buildTransfersTab(l10n),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildIncomingStockTab(Translations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Iconsax.import, size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 16),
-          Text(
-            l10n.incomingStockOrders,
-            style: Theme.of(context).textTheme.titleLarge,
+          _buildOperationList(
+            context,
+            title: t.ops.incomingStockOrders,
+            subtitle: t.ops.manageIncomingStock,
+            canCreate: canCreate,
+            createButtonText: t.ops.createIncomingOrder,
+            onAdd: () {
+              // TODO: Implement add incoming stock
+            },
           ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.manageIncomingStock,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
+          _buildOperationList(
+            context,
+            title: t.ops.outgoingStockOrders,
+            subtitle: t.ops.manageOutgoingStock,
+            canCreate: canCreate,
+            createButtonText: t.ops.createOutgoingOrder,
+            onAdd: () {
+              // TODO: Implement add outgoing stock
+            },
           ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-            label: Text(l10n.createIncomingOrder),
+          _buildOperationList(
+            context,
+            title: t.ops.warehouseTransfers,
+            subtitle: t.ops.manageWarehouseTransfers,
+            canCreate: canCreate,
+            createButtonText: t.ops.createTransfer,
+            onAdd: () {
+              // TODO: Implement add transfer
+            },
           ),
         ],
       ),
     );
   }
 
-  Widget _buildOutgoingStockTab(Translations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Iconsax.export, size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 16),
-          Text(
-            l10n.outgoingStockOrders,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.manageOutgoingStock,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
+  Widget _buildOperationList(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required bool canCreate,
+    required String createButtonText,
+    required VoidCallback onAdd,
+  }) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  Text(
+                    subtitle,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                ],
+              ),
+              if (canCreate)
+                ElevatedButton.icon(
+                  onPressed: onAdd,
+                  icon: const Icon(Icons.add),
+                  label: Text(createButtonText),
                 ),
+            ],
           ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-            label: Text(l10n.createOutgoingOrder),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTransfersTab(Translations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Iconsax.arrow_swap_horizontal,
-              size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 16),
-          Text(
-            l10n.warehouseTransfers,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.manageWarehouseTransfers,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-            label: Text(l10n.createTransfer),
-          ),
-        ],
-      ),
+        ),
+        const Expanded(
+          child: PlaceholderScreen(), // Replace with actual list
+        ),
+      ],
     );
   }
 }

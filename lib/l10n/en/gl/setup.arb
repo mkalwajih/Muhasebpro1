@@ -8,5 +8,6 @@
   "descCoding": "Description Coding",
   "descCodingAdd": "Add Description Coding",
   "descCodingEdit": "Edit Description Coding",
-  "sequenceMethod": "Sequence Method"
+  "sequenceMethod": "Sequence Method",
+  "documentTypesAndDescriptionCoding": "Document Types and Description Coding"
 }

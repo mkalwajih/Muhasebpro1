@@ -1,4 +1,3 @@
-
 {
   "@@locale": "en",
   "title": "Stock Operations",
@@ -8,5 +7,16 @@
   "opening": "Opening Stock",
   "quantity": "Quantity",
   "unitCost": "Unit Cost",
-  "totalCost": "Total Cost"
+  "totalCost": "Total Cost",
+  "manageIncomingStock": "Manage incoming stock orders",
+  "manageOutgoingStock": "Manage outgoing stock orders",
+  "addOpeningStock": "Add Opening Stock",
+  "manageWarehouseTransfers": "Manage warehouse transfers",
+  "createIncomingOrder": "Create Incoming Order",
+  "createOutgoingOrder": "Create Outgoing Order",
+  "createTransfer": "Create Transfer",
+  "incomingStockOrders": "Incoming Stock Orders",
+  "outgoingStockOrders": "Outgoing Stock Orders",
+  "warehouseTransfers": "Warehouse Transfers",
+  "transfers": "Transfers"
 }

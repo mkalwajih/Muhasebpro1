@@ -1,4 +1,3 @@
-
 {
   "@@locale": "en",
   "title": "Items",
@@ -11,5 +10,6 @@
   "type": "Item Type",
   "costPrice": "Cost Price",
   "baseUnit": "Base Unit",
-  "costingMethod": "Default Costing Method"
+  "costingMethod": "Default Costing Method",
+  "inventoryVariables": "Inventory Variables"
 }

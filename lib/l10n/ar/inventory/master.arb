@@ -1,4 +1,3 @@
-
 {
   "@@locale": "ar",
   "title": "الأصناف",
@@ -6,10 +5,11 @@
   "itemGroups": "مجموعات الأصناف",
   "warehouses": "المستودعات",
   "add": "إضافة صنف",
-  "code": "رمز الصنف",
-  "barcode": "الباركود",
+  "code": "كود الصنف",
+  "barcode": "باركود",
   "type": "نوع الصنف",
   "costPrice": "سعر التكلفة",
   "baseUnit": "الوحدة الأساسية",
-  "costingMethod": "طريقة التكلفة الافتراضية"
+  "costingMethod": "طريقة التكلفة الافتراضية",
+  "inventoryVariables": "متغيرات المخزون"
 }

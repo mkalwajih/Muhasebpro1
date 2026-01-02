@@ -21,5 +21,6 @@
   "adjustmentApprovedSuccessfully": "Adjustment approved successfully",
   "editAdjustmentNotImplemented": "Edit adjustment is not implemented yet",
   "confirmDeleteAdjustment": "Are you sure you want to delete this adjustment?",
-  "adjustmentDeletedSuccessfully": "Adjustment deleted successfully"
+  "adjustmentDeletedSuccessfully": "Adjustment deleted successfully",
+  "cashBankManagement": "Cash & Bank Management"
 }

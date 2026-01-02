@@ -13,38 +13,38 @@ class InventoryMenuScreen extends StatelessWidget {
 
     final menuItems = [
       _MenuItem(
-        title: l10n.inventorySetup,
-        subtitle: l10n.inventoryVariables,
+        title: l10n.master.setup,
+        subtitle: l10n.master.inventoryVariables,
         icon: Iconsax.setting_2,
         route: '/dashboard/inventory/setup',
       ),
       _MenuItem(
-        title: l10n.items,
-        subtitle: l10n.manageIncomingStock, // Using generic descriptions if specific ones aren't available
+        title: l10n.master.title,
+        subtitle: l10n.ops.manageIncomingStock, // Using existing key or generic
         icon: Iconsax.box,
         route: '/dashboard/inventory/items',
       ),
       _MenuItem(
-        title: l10n.openingStock,
-        subtitle: l10n.addOpeningStock,
+        title: l10n.ops.opening,
+        subtitle: l10n.ops.addOpeningStock,
         icon: Iconsax.box_add,
         route: '/dashboard/inventory/opening_stock',
       ),
       _MenuItem(
-        title: l10n.stockOperations,
-        subtitle: l10n.manageIncomingStock,
+        title: l10n.ops.title,
+        subtitle: l10n.ops.manageIncomingStock,
         icon: Iconsax.arrow_swap_horizontal,
         route: '/dashboard/inventory/operations',
       ),
       _MenuItem(
-        title: l10n.inventoryControl,
-        subtitle: l10n.manageStocktaking,
+        title: l10n.control.title,
+        subtitle: l10n.control.manageStocktaking,
         icon: Iconsax.clipboard_tick,
         route: '/dashboard/inventory/control',
       ),
       _MenuItem(
-        title: l10n.inventoryReports,
-        subtitle: l10n.viewFinancialReportsAndStatements,
+        title: l10n.control.reports,
+        subtitle: l10n.control.reports, // Reuse title as subtitle if description missing
         icon: Iconsax.chart,
         route: '/dashboard/inventory/reports',
       ),
@@ -52,7 +52,7 @@ class InventoryMenuScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.inventory),
+        title: Text(l10n.dashboard.inventory),
         backgroundColor: theme.colorScheme.inversePrimary,
       ),
       body: GridView.builder(

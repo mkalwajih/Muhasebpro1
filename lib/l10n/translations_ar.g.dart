@@ -219,12 +219,19 @@ class _TranslationsControlAr extends TranslationsControlEn {
 	// Translations
 	@override String get title => 'مراقبة المخزون';
 	@override String get stocktaking => 'الجرد';
-	@override String get startSession => 'بدء جلسة جرد';
+	@override String get startSession => 'بدء الجرد';
 	@override String get reservations => 'الحجوزات';
 	@override String get reports => 'تقارير المخزون';
 	@override String get balances => 'أرصدة المخزون';
 	@override String get valuation => 'تقييم المخزون';
-	@override String get movement => 'حركة الصنف';
+	@override String get movement => 'حركة الأصناف';
+	@override String get stocktakingSessions => 'جلسات الجرد';
+	@override String get manageStocktaking => 'إدارة جلسات الجرد';
+	@override String get stocktakingInfo => 'عرض وإدارة جلسات الجرد';
+	@override String get stockReservations => 'حجوزات المخزون';
+	@override String get manageReservations => 'إدارة حجوزات المخزون';
+	@override String get createReservation => 'إنشاء حجز';
+	@override String get reservationInfo => 'إنشاء وإدارة حجوزات الأصناف';
 }
 
 // Path: dashboard
@@ -342,12 +349,13 @@ class _TranslationsMasterAr extends TranslationsMasterEn {
 	@override String get itemGroups => 'مجموعات الأصناف';
 	@override String get warehouses => 'المستودعات';
 	@override String get add => 'إضافة صنف';
-	@override String get code => 'رمز الصنف';
-	@override String get barcode => 'الباركود';
+	@override String get code => 'كود الصنف';
+	@override String get barcode => 'باركود';
 	@override String get type => 'نوع الصنف';
 	@override String get costPrice => 'سعر التكلفة';
 	@override String get baseUnit => 'الوحدة الأساسية';
 	@override String get costingMethod => 'طريقة التكلفة الافتراضية';
+	@override String get inventoryVariables => 'متغيرات المخزون';
 }
 
 // Path: ops
@@ -358,13 +366,24 @@ class _TranslationsOpsAr extends TranslationsOpsEn {
 
 	// Translations
 	@override String get title => 'عمليات المخزون';
-	@override String get incoming => 'إدخال مخزني';
-	@override String get outgoing => 'إخراج مخزني';
-	@override String get transfer => 'تحويل مخزني';
-	@override String get opening => 'الرصيد الافتتاحي';
+	@override String get incoming => 'الوارد';
+	@override String get outgoing => 'الصادر';
+	@override String get transfer => 'تحويل';
+	@override String get opening => 'رصيد افتتاحي';
 	@override String get quantity => 'الكمية';
-	@override String get unitCost => 'تكلفة الوحدة';
-	@override String get totalCost => 'التكلفة الإجمالية';
+	@override String get unitCost => 'سعر الوحدة';
+	@override String get totalCost => 'إجمالي التكلفة';
+	@override String get manageIncomingStock => 'إدارة الوارد';
+	@override String get manageOutgoingStock => 'إدارة الصادر';
+	@override String get addOpeningStock => 'إضافة رصيد افتتاحي';
+	@override String get manageWarehouseTransfers => 'إدارة تحويلات المستودعات';
+	@override String get createIncomingOrder => 'إنشاء أمر توريد';
+	@override String get createOutgoingOrder => 'إنشاء أمر صرف';
+	@override String get createTransfer => 'إنشاء تحويل';
+	@override String get incomingStockOrders => 'أوامر التوريد';
+	@override String get outgoingStockOrders => 'أوامر الصرف';
+	@override String get warehouseTransfers => 'تحويلات المستودعات';
+	@override String get transfers => 'التحويلات';
 }
 
 // Path: params
@@ -596,12 +615,19 @@ extension on TranslationsAr {
 			'company.selectOrCreateBranch' => 'اختر فرعاً أو أنشئ واحداً جديداً',
 			'control.title' => 'مراقبة المخزون',
 			'control.stocktaking' => 'الجرد',
-			'control.startSession' => 'بدء جلسة جرد',
+			'control.startSession' => 'بدء الجرد',
 			'control.reservations' => 'الحجوزات',
 			'control.reports' => 'تقارير المخزون',
 			'control.balances' => 'أرصدة المخزون',
 			'control.valuation' => 'تقييم المخزون',
-			'control.movement' => 'حركة الصنف',
+			'control.movement' => 'حركة الأصناف',
+			'control.stocktakingSessions' => 'جلسات الجرد',
+			'control.manageStocktaking' => 'إدارة جلسات الجرد',
+			'control.stocktakingInfo' => 'عرض وإدارة جلسات الجرد',
+			'control.stockReservations' => 'حجوزات المخزون',
+			'control.manageReservations' => 'إدارة حجوزات المخزون',
+			'control.createReservation' => 'إنشاء حجز',
+			'control.reservationInfo' => 'إنشاء وإدارة حجوزات الأصناف',
 			'dashboard.systemSetup' => 'إعدادات النظام',
 			'dashboard.generalLedger' => 'الأستاذ العام',
 			'dashboard.inventory' => 'المخزون',
@@ -674,20 +700,32 @@ extension on TranslationsAr {
 			'master.itemGroups' => 'مجموعات الأصناف',
 			'master.warehouses' => 'المستودعات',
 			'master.add' => 'إضافة صنف',
-			'master.code' => 'رمز الصنف',
-			'master.barcode' => 'الباركود',
+			'master.code' => 'كود الصنف',
+			'master.barcode' => 'باركود',
 			'master.type' => 'نوع الصنف',
 			'master.costPrice' => 'سعر التكلفة',
 			'master.baseUnit' => 'الوحدة الأساسية',
 			'master.costingMethod' => 'طريقة التكلفة الافتراضية',
+			'master.inventoryVariables' => 'متغيرات المخزون',
 			'ops.title' => 'عمليات المخزون',
-			'ops.incoming' => 'إدخال مخزني',
-			'ops.outgoing' => 'إخراج مخزني',
-			'ops.transfer' => 'تحويل مخزني',
-			'ops.opening' => 'الرصيد الافتتاحي',
+			'ops.incoming' => 'الوارد',
+			'ops.outgoing' => 'الصادر',
+			'ops.transfer' => 'تحويل',
+			'ops.opening' => 'رصيد افتتاحي',
 			'ops.quantity' => 'الكمية',
-			'ops.unitCost' => 'تكلفة الوحدة',
-			'ops.totalCost' => 'التكلفة الإجمالية',
+			'ops.unitCost' => 'سعر الوحدة',
+			'ops.totalCost' => 'إجمالي التكلفة',
+			'ops.manageIncomingStock' => 'إدارة الوارد',
+			'ops.manageOutgoingStock' => 'إدارة الصادر',
+			'ops.addOpeningStock' => 'إضافة رصيد افتتاحي',
+			'ops.manageWarehouseTransfers' => 'إدارة تحويلات المستودعات',
+			'ops.createIncomingOrder' => 'إنشاء أمر توريد',
+			'ops.createOutgoingOrder' => 'إنشاء أمر صرف',
+			'ops.createTransfer' => 'إنشاء تحويل',
+			'ops.incomingStockOrders' => 'أوامر التوريد',
+			'ops.outgoingStockOrders' => 'أوامر الصرف',
+			'ops.warehouseTransfers' => 'تحويلات المستودعات',
+			'ops.transfers' => 'التحويلات',
 			'params.title' => 'الإعدادات العامة',
 			'params.defaultLanguage' => 'اللغة الافتراضية',
 			'params.dateFormat' => 'تنسيق التاريخ',

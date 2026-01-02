@@ -1,12 +1,22 @@
-
 {
   "@@locale": "ar",
   "title": "عمليات المخزون",
-  "incoming": "إدخال مخزني",
-  "outgoing": "إخراج مخزني",
-  "transfer": "تحويل مخزني",
-  "opening": "الرصيد الافتتاحي",
+  "incoming": "الوارد",
+  "outgoing": "الصادر",
+  "transfer": "تحويل",
+  "opening": "رصيد افتتاحي",
   "quantity": "الكمية",
-  "unitCost": "تكلفة الوحدة",
-  "totalCost": "التكلفة الإجمالية"
+  "unitCost": "سعر الوحدة",
+  "totalCost": "إجمالي التكلفة",
+  "manageIncomingStock": "إدارة الوارد",
+  "manageOutgoingStock": "إدارة الصادر",
+  "addOpeningStock": "إضافة رصيد افتتاحي",
+  "manageWarehouseTransfers": "إدارة تحويلات المستودعات",
+  "createIncomingOrder": "إنشاء أمر توريد",
+  "createOutgoingOrder": "إنشاء أمر صرف",
+  "createTransfer": "إنشاء تحويل",
+  "incomingStockOrders": "أوامر التوريد",
+  "outgoingStockOrders": "أوامر الصرف",
+  "warehouseTransfers": "تحويلات المستودعات",
+  "transfers": "التحويلات"
 }

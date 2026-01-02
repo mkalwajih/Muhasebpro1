@@ -1,18 +1,15 @@
-
 {
   "@@locale": "en",
-  "title": "Transaction Requests",
-  "create": "Create Request",
-  "approve": "Approve",
-  "reject": "Reject",
-  "pending": "Pending Approvals",
-  "requester": "Requester",
-  "approver": "Approver",
-  "rejectionReason": "Rejection Reason",
-  "cashBankTitle": "Cash & Bank Management",
-  "reconciliation": "Bank Reconciliation",
-  "deposits": "Cash Deposits",
-  "bankStatement": "Bank Statement",
-  "bookBalance": "Book Balance",
-  "adjustedBalance": "Adjusted Balance"
+  "title": "Transactions",
+  "journalVoucher": "Journal Voucher",
+  "receiptVoucher": "Receipt Voucher",
+  "paymentVoucher": "Payment Voucher",
+  "transferVoucher": "Transfer Voucher",
+  "createAndManageJournalVouchers": "Create and manage journal vouchers",
+  "managePaymentVouchers": "Manage payment vouchers",
+  "manageReceiptVouchers": "Manage receipt vouchers",
+  "manageCashAndBankAccounts": "Manage cash and bank accounts",
+  "viewFinancialReportsAndStatements": "View financial reports and statements",
+  "manageTransactionRequests": "Manage transaction requests",
+  "reviewPostAndClosePeriods": "Review, post, and close periods"
 }

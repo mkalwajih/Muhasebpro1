@@ -530,6 +530,27 @@ class TranslationsControlEn {
 
 	/// en: 'Item Movement'
 	String get movement => 'Item Movement';
+
+	/// en: 'Stocktaking Sessions'
+	String get stocktakingSessions => 'Stocktaking Sessions';
+
+	/// en: 'Manage stocktaking sessions'
+	String get manageStocktaking => 'Manage stocktaking sessions';
+
+	/// en: 'View and manage stocktaking sessions'
+	String get stocktakingInfo => 'View and manage stocktaking sessions';
+
+	/// en: 'Stock Reservations'
+	String get stockReservations => 'Stock Reservations';
+
+	/// en: 'Manage stock reservations'
+	String get manageReservations => 'Manage stock reservations';
+
+	/// en: 'Create Reservation'
+	String get createReservation => 'Create Reservation';
+
+	/// en: 'Create and manage item reservations'
+	String get reservationInfo => 'Create and manage item reservations';
 }
 
 // Path: dashboard
@@ -809,6 +830,9 @@ class TranslationsMasterEn {
 
 	/// en: 'Default Costing Method'
 	String get costingMethod => 'Default Costing Method';
+
+	/// en: 'Inventory Variables'
+	String get inventoryVariables => 'Inventory Variables';
 }
 
 // Path: ops
@@ -842,6 +866,39 @@ class TranslationsOpsEn {
 
 	/// en: 'Total Cost'
 	String get totalCost => 'Total Cost';
+
+	/// en: 'Manage incoming stock orders'
+	String get manageIncomingStock => 'Manage incoming stock orders';
+
+	/// en: 'Manage outgoing stock orders'
+	String get manageOutgoingStock => 'Manage outgoing stock orders';
+
+	/// en: 'Add Opening Stock'
+	String get addOpeningStock => 'Add Opening Stock';
+
+	/// en: 'Manage warehouse transfers'
+	String get manageWarehouseTransfers => 'Manage warehouse transfers';
+
+	/// en: 'Create Incoming Order'
+	String get createIncomingOrder => 'Create Incoming Order';
+
+	/// en: 'Create Outgoing Order'
+	String get createOutgoingOrder => 'Create Outgoing Order';
+
+	/// en: 'Create Transfer'
+	String get createTransfer => 'Create Transfer';
+
+	/// en: 'Incoming Stock Orders'
+	String get incomingStockOrders => 'Incoming Stock Orders';
+
+	/// en: 'Outgoing Stock Orders'
+	String get outgoingStockOrders => 'Outgoing Stock Orders';
+
+	/// en: 'Warehouse Transfers'
+	String get warehouseTransfers => 'Warehouse Transfers';
+
+	/// en: 'Transfers'
+	String get transfers => 'Transfers';
 }
 
 // Path: params
@@ -1219,6 +1276,13 @@ extension on Translations {
 			'control.balances' => 'Stock Balances',
 			'control.valuation' => 'Stock Valuation',
 			'control.movement' => 'Item Movement',
+			'control.stocktakingSessions' => 'Stocktaking Sessions',
+			'control.manageStocktaking' => 'Manage stocktaking sessions',
+			'control.stocktakingInfo' => 'View and manage stocktaking sessions',
+			'control.stockReservations' => 'Stock Reservations',
+			'control.manageReservations' => 'Manage stock reservations',
+			'control.createReservation' => 'Create Reservation',
+			'control.reservationInfo' => 'Create and manage item reservations',
 			'dashboard.systemSetup' => 'System Setup',
 			'dashboard.generalLedger' => 'General Ledger',
 			'dashboard.inventory' => 'Inventory',
@@ -1297,6 +1361,7 @@ extension on Translations {
 			'master.costPrice' => 'Cost Price',
 			'master.baseUnit' => 'Base Unit',
 			'master.costingMethod' => 'Default Costing Method',
+			'master.inventoryVariables' => 'Inventory Variables',
 			'ops.title' => 'Stock Operations',
 			'ops.incoming' => 'Incoming Stock',
 			'ops.outgoing' => 'Outgoing Stock',
@@ -1305,6 +1370,17 @@ extension on Translations {
 			'ops.quantity' => 'Quantity',
 			'ops.unitCost' => 'Unit Cost',
 			'ops.totalCost' => 'Total Cost',
+			'ops.manageIncomingStock' => 'Manage incoming stock orders',
+			'ops.manageOutgoingStock' => 'Manage outgoing stock orders',
+			'ops.addOpeningStock' => 'Add Opening Stock',
+			'ops.manageWarehouseTransfers' => 'Manage warehouse transfers',
+			'ops.createIncomingOrder' => 'Create Incoming Order',
+			'ops.createOutgoingOrder' => 'Create Outgoing Order',
+			'ops.createTransfer' => 'Create Transfer',
+			'ops.incomingStockOrders' => 'Incoming Stock Orders',
+			'ops.outgoingStockOrders' => 'Outgoing Stock Orders',
+			'ops.warehouseTransfers' => 'Warehouse Transfers',
+			'ops.transfers' => 'Transfers',
 			'params.title' => 'General Parameters',
 			'params.defaultLanguage' => 'Default Language',
 			'params.dateFormat' => 'Date Format',

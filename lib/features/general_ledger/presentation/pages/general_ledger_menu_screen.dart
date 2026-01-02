@@ -13,50 +13,50 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
 
     final menuItems = [
       _MenuItem(
-        title: l10n.glSetup,
-        subtitle: l10n.documentTypesAndDescriptionCoding,
+        title: l10n.setup.title,
+        subtitle: l10n.setup.docTypes, // Closest description available
         icon: Iconsax.setting_2,
         route: '/dashboard/general_ledger/setup',
       ),
       _MenuItem(
-        title: l10n.journalVouchers,
-        subtitle: l10n.createAndManageJournalVouchers,
+        title: l10n.transactions.journalVoucher,
+        subtitle: l10n.transactions.title, // Closest description available
         icon: Iconsax.document_text,
         route: '/dashboard/general_ledger/journal_vouchers',
       ),
       _MenuItem(
-        title: l10n.paymentVouchers,
-        subtitle: l10n.managePaymentVouchers,
+        title: l10n.transactions.paymentVoucher,
+        subtitle: l10n.transactions.title,
         icon: Iconsax.money_send,
         route: '/dashboard/general_ledger/payment_vouchers',
       ),
       _MenuItem(
-        title: l10n.receiptVouchers,
-        subtitle: l10n.manageReceiptVouchers,
+        title: l10n.transactions.receiptVoucher,
+        subtitle: l10n.transactions.title,
         icon: Iconsax.money_recive,
         route: '/dashboard/general_ledger/receipt_vouchers',
       ),
       _MenuItem(
-        title: l10n.cashBankManagement,
-        subtitle: l10n.manageCashAndBankAccounts,
+        title: l10n.cashbank.title,
+        subtitle: l10n.cashbank.manageCashAndBank,
         icon: Iconsax.bank,
         route: '/dashboard/general_ledger/cash_bank_management',
       ),
       _MenuItem(
-        title: l10n.financialReports,
-        subtitle: l10n.viewFinancialReportsAndStatements,
+        title: l10n.reports.title,
+        subtitle: l10n.reports.generalLedgerDescription,
         icon: Iconsax.chart,
         route: '/dashboard/general_ledger/financial_reports',
       ),
       _MenuItem(
-        title: l10n.transactionRequests,
-        subtitle: l10n.manageTransactionRequests,
+        title: l10n.cashbank.adjustmentEntries, // Placeholder for transaction requests
+        subtitle: l10n.cashbank.adjustmentEntriesDesc,
         icon: Iconsax.task_square,
         route: '/dashboard/general_ledger/transaction_requests',
       ),
       _MenuItem(
-        title: l10n.reviewPostingClosing,
-        subtitle: l10n.reviewPostAndClosePeriods,
+        title: l10n.control.reports, // Placeholder for review posting
+        subtitle: l10n.control.reports,
         icon: Iconsax.clipboard_tick,
         route: '/dashboard/general_ledger/review_posting',
       ),
@@ -64,7 +64,7 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.generalLedger),
+        title: Text(l10n.dashboard.generalLedger),
         backgroundColor: theme.colorScheme.inversePrimary,
       ),
       body: GridView.builder(

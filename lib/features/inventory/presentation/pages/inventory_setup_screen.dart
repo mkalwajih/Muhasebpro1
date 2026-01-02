@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:muhaseb_pro/l10n/translations.g.dart';
+import '../../../../shared/utils/app_permissions.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
+import '../../../../shared/utils/role_checker.dart';
 import '../widgets/setup/inventory_variables_tab.dart';
 import '../widgets/setup/warehouses_tab.dart';
 import '../widgets/setup/item_groups_tab.dart';
@@ -10,8 +12,7 @@ class InventorySetupScreen extends ConsumerStatefulWidget {
   const InventorySetupScreen({super.key});
 
   @override
-  ConsumerState<InventorySetupScreen> createState() =>
-      _InventorySetupScreenState();
+  ConsumerState<InventorySetupScreen> createState() => _InventorySetupScreenState();
 }
 
 class _InventorySetupScreenState extends ConsumerState<InventorySetupScreen>
@@ -32,37 +33,43 @@ class _InventorySetupScreenState extends ConsumerState<InventorySetupScreen>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+    final t = Translations.of(context);
     final theme = Theme.of(context);
+    final roleChecker = ref.watch(roleCheckerProvider);
+
+    // Check permissions
+    final canView = roleChecker.hasPermission(AppPermission.viewInventorySetup);
+    final canModify = roleChecker.hasPermission(AppPermission.manageInventorySetup);
+
+    if (!canView) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(t.master.setup),
+        ),
+        body: custom.CustomErrorWidget(
+          error: t.common.accessDenied,
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.inventorySetup),
-        backgroundColor: theme.colorScheme.inversePrimary,
+        title: Text(t.master.setup),
         bottom: TabBar(
           controller: _tabController,
           tabs: [
-            Tab(
-              icon: const Icon(Iconsax.setting_2),
-              text: l10n.inventoryVariables,
-            ),
-            Tab(
-              icon: const Icon(Iconsax.building),
-              text: l10n.warehouses,
-            ),
-            Tab(
-              icon: const Icon(Iconsax.category),
-              text: l10n.itemGroups,
-            ),
+            Tab(text: t.master.inventoryVariables),
+            Tab(text: t.master.warehouses),
+            Tab(text: t.master.itemGroups),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: const [
-          InventoryVariablesTab(),
-          WarehousesTab(),
-          ItemGroupsTab(),
+        children: [
+          InventoryVariablesTab(canModify: canModify),
+          WarehousesTab(canModify: canModify),
+          ItemGroupsTab(canModify: canModify),
         ],
       ),
     );

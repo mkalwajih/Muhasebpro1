@@ -1,18 +1,15 @@
-
 {
   "@@locale": "ar",
-  "title": "طلبات العمليات",
-  "create": "إنشاء طلب",
-  "approve": "موافق",
-  "reject": "رفض",
-  "pending": "الموافقات المعلقة",
-  "requester": "مقدم الطلب",
-  "approver": "المعتمد",
-  "rejectionReason": "سبب الرفض",
-  "cashBankTitle": "إدارة النقد والبنوك",
-  "reconciliation": "تسوية البنك",
-  "deposits": "الإيداعات النقدية",
-  "bankStatement": "كشف البنك",
-  "bookBalance": "رصيد الدفاتر",
-  "adjustedBalance": "الرصيد المعدل"
+  "title": "الحركات",
+  "journalVoucher": "قيد يومية",
+  "receiptVoucher": "سند قبض",
+  "paymentVoucher": "سند صرف",
+  "transferVoucher": "قيد تحويل",
+  "createAndManageJournalVouchers": "إنشاء وإدارة قيود اليومية",
+  "managePaymentVouchers": "إدارة سندات الصرف",
+  "manageReceiptVouchers": "إدارة سندات القبض",
+  "manageCashAndBankAccounts": "إدارة حسابات النقدية والبنوك",
+  "viewFinancialReportsAndStatements": "عرض التقارير المالية والكشوفات",
+  "manageTransactionRequests": "إدارة طلبات الحركات",
+  "reviewPostAndClosePeriods": "مراجعة وترحيل وإغلاق الفترات"
 }

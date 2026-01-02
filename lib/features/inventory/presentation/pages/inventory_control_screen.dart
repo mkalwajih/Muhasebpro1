@@ -1,160 +1,114 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:muhaseb_pro/l10n/translations.g.dart';
+import '../../../../shared/utils/app_permissions.dart';
+import '../../../../shared/presentation/widgets/error_widget.dart' as custom;
+import '../../../../shared/utils/role_checker.dart';
 
-class InventoryControlScreen extends ConsumerStatefulWidget {
+class InventoryControlScreen extends ConsumerWidget {
   const InventoryControlScreen({super.key});
 
   @override
-  ConsumerState<InventoryControlScreen> createState() =>
-      _InventoryControlScreenState();
-}
-
-class _InventoryControlScreenState
-    extends ConsumerState<InventoryControlScreen>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = Translations.of(context);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
     final theme = Theme.of(context);
+    final roleChecker = ref.watch(roleCheckerProvider);
+
+    // Check permissions
+    final canView = roleChecker.hasPermission(AppPermission.viewInventory);
+    final canManageStocktaking = roleChecker.hasPermission(AppPermission.manageStocktaking);
+    final canManageReservations = roleChecker.hasPermission(AppPermission.manageReservations);
+
+    if (!canView) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(t.control.title),
+          backgroundColor: theme.colorScheme.surface,
+          foregroundColor: theme.colorScheme.onSurface,
+        ),
+        body: custom.CustomErrorWidget(
+          error: t.common.accessDenied,
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.inventoryControl),
-        backgroundColor: theme.colorScheme.inversePrimary,
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(
-              icon: const Icon(Iconsax.clipboard_tick),
-              text: l10n.stocktaking,
+        title: Text(t.control.title),
+        backgroundColor: theme.colorScheme.surface,
+        foregroundColor: theme.colorScheme.onSurface,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          _buildSectionHeader(context, t.control.stocktaking),
+          if (canManageStocktaking) ...[
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.inventory_2),
+                title: Text(t.control.stocktakingSessions),
+                subtitle: Text(t.control.manageStocktaking),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // TODO: Navigate to stocktaking sessions
+                },
+              ),
             ),
-            Tab(
-              icon: const Icon(Iconsax.reserve),
-              text: l10n.reservations,
+            const SizedBox(height: 8),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.play_arrow),
+                title: Text(t.control.startSession),
+                subtitle: Text(t.control.stocktakingInfo),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // TODO: Start new stocktaking session
+                },
+              ),
             ),
           ],
+          
+          const SizedBox(height: 24),
+          _buildSectionHeader(context, t.control.reservations),
+          if (canManageReservations) ...[
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.bookmark),
+                title: Text(t.control.stockReservations),
+                subtitle: Text(t.control.manageReservations),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // TODO: Navigate to reservations
+                },
+              ),
+            ),
+            const SizedBox(height: 8),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.add_circle_outline),
+                title: Text(t.control.createReservation),
+                subtitle: Text(t.control.reservationInfo),
+                trailing: const Icon(Icons.arrow_forward_ios),
+                onTap: () {
+                  // TODO: Create new reservation
+                },
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(BuildContext context, String title) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0, left: 4.0, right: 4.0),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+          fontWeight: FontWeight.bold,
         ),
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildStocktakingTab(l10n),
-          _buildReservationsTab(l10n),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStocktakingTab(Translations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Iconsax.clipboard_tick, size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 16),
-          Text(
-            l10n.stocktakingSessions,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.manageStocktaking,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-            label: Text(l10n.startStocktaking),
-          ),
-          const SizedBox(height: 16),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            color: Colors.blue.shade50,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Icon(Iconsax.info_circle, color: Colors.blue.shade700),
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.stocktakingInfo,
-                    style: TextStyle(color: Colors.blue.shade900),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildReservationsTab(Translations l10n) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Iconsax.reserve, size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 16),
-          Text(
-            l10n.stockReservations,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            l10n.manageReservations,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
-                ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-          ElevatedButton.icon(
-            onPressed: () {},
-            icon: const Icon(Iconsax.add),
-            label: Text(l10n.createReservation),
-          ),
-          const SizedBox(height: 16),
-          Card(
-            margin: const EdgeInsets.symmetric(horizontal: 32),
-            color: Colors.orange.shade50,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  Icon(Iconsax.info_circle, color: Colors.orange.shade700),
-                  const SizedBox(height: 8),
-                  Text(
-                    l10n.reservationInfo,
-                    style: TextStyle(color: Colors.orange.shade900),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
