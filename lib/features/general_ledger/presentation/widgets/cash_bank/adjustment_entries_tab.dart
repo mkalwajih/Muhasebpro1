@@ -94,14 +94,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    // ignore: unused_local_variable
     final theme = Theme.of(context);
 
     final filteredAdjustments = _getFilteredAdjustments();
 
     return Column(
       children: [
-        // Filter and action bar
         Container(
           padding: const EdgeInsets.all(16.0),
           child: Row(
@@ -111,7 +109,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 child: DropdownButtonFormField<String>(
                   value: _selectedType,
                   decoration: InputDecoration(
-                    labelText: t.gl.cashBank.adjustmentType,
+                    labelText: t.gl.cashbank.adjustmentType,
                     border: const OutlineInputBorder(),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -120,9 +118,9 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                   ),
                   items: [
                     DropdownMenuItem(value: 'All', child: Text(t.common.all)),
-                    DropdownMenuItem(value: 'BankCharges', child: Text(t.gl.cashBank.bankCharges)),
-                    DropdownMenuItem(value: 'InterestEarned', child: Text(t.gl.cashBank.interestEarned)),
-                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(t.gl.cashBank.errorCorrection)),
+                    DropdownMenuItem(value: 'BankCharges', child: Text(t.gl.cashbank.bankCharges)),
+                    DropdownMenuItem(value: 'InterestEarned', child: Text(t.gl.cashbank.interestEarned)),
+                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(t.gl.cashbank.errorCorrection)),
                     DropdownMenuItem(value: 'Other', child: Text(t.common.other)),
                   ],
                   onChanged: (value) {
@@ -137,13 +135,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 ElevatedButton.icon(
                   onPressed: _createNewAdjustment,
                   icon: const Icon(Icons.add),
-                  label: Text(t.gl.cashBank.newAdjustment),
+                  label: Text(t.gl.cashbank.newAdjustment),
                 ),
             ],
           ),
         ),
         
-        // Adjustments list
         Expanded(
           child: filteredAdjustments.isEmpty
               ? _buildEmptyState()
@@ -175,12 +172,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            t.gl.cashBank.noAdjustmentsFound,
+            t.gl.cashbank.noAdjustmentsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            t.gl.cashBank.createFirstAdjustment,
+            t.gl.cashbank.createFirstAdjustment,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -203,7 +200,6 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header row
             Row(
               children: [
                 Expanded(
@@ -221,14 +217,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
             _buildTypeChip(adjustment.adjustmentType),
             const SizedBox(height: 12),
             
-            // Description
             Text(
               adjustment.description,
               style: theme.textTheme.bodyMedium,
             ),
             const SizedBox(height: 12),
             
-            // Details grid
             Row(
               children: [
                 Expanded(
@@ -269,7 +263,6 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               ],
             ),
             
-            // Notes if available
             if (adjustment.notes != null && adjustment.notes!.isNotEmpty) ...[
               const SizedBox(height: 8),
               _buildDetailItem(
@@ -279,7 +272,6 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               ),
             ],
             
-            // Approval info
             if (adjustment.approvedBy != null) ...[
               const SizedBox(height: 8),
               Row(
@@ -300,7 +292,6 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               ),
             ],
             
-            // Action buttons
             if (widget.canManage) ...[
               const SizedBox(height: 16),
               Row(
@@ -422,15 +413,15 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     switch (type) {
       case AdjustmentType.bankCharges:
-        typeText = t.gl.cashBank.bankCharges;
+        typeText = t.gl.cashbank.bankCharges;
         icon = Icons.money_off;
         break;
       case AdjustmentType.interestEarned:
-        typeText = t.gl.cashBank.interestEarned;
+        typeText = t.gl.cashbank.interestEarned;
         icon = Icons.trending_up;
         break;
       case AdjustmentType.errorCorrection:
-        typeText = t.gl.cashBank.errorCorrection;
+        typeText = t.gl.cashbank.errorCorrection;
         icon = Icons.edit;
         break;
       case AdjustmentType.other:
@@ -481,7 +472,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(t.gl.cashBank.newAdjustment),
+        title: Text(t.gl.cashbank.newAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
@@ -491,7 +482,6 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Add new adjustment logic
               final newAdjustment = AdjustmentEntryEntity(
                 adjustmentId: 'ADJ${DateTime.now().millisecondsSinceEpoch}',
                 branchId: 'BR001',
@@ -533,7 +523,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashBank.adjustmentSubmittedSuccessfully),
+        content: Text(t.gl.cashbank.adjustmentSubmittedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -551,7 +541,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashBank.adjustmentApprovedSuccessfully),
+        content: Text(t.gl.cashbank.adjustmentApprovedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -559,10 +549,9 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
 
   void _editAdjustment(AdjustmentEntryEntity adjustment) {
     final t = Translations.of(context);
-    // TODO: Implement edit adjustment dialog
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashBank.editAdjustmentNotImplemented),
+        content: Text(t.gl.cashbank.editAdjustmentNotImplemented),
       ),
     );
   }
@@ -573,7 +562,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(t.common.confirmDelete),
-        content: Text(t.gl.cashBank.confirmDeleteAdjustment),
+        content: Text(t.gl.cashbank.confirmDeleteAdjustment),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -588,7 +577,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(t.gl.cashBank.adjustmentDeletedSuccessfully),
+                  content: Text(t.gl.cashbank.adjustmentDeletedSuccessfully),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );

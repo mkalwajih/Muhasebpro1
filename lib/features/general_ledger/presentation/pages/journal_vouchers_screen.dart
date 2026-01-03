@@ -34,19 +34,19 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(l10n.journalVouchers),
+          title: Text(l10n.vouchers.journal),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
-        body: custom.CustomErrorWidget( // Fixed reference
-          error: l10n.accessDenied,
+        body: custom.CustomErrorWidget( 
+          error: l10n.common.accessDenied,
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.journalVouchers),
+        title: Text(l10n.vouchers.journal),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -55,24 +55,24 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
             IconButton(
               icon: const Icon(Icons.list),
               onPressed: () => _switchToListMode(),
-              tooltip: l10n.viewList,
+              tooltip: l10n.common.viewList,
             ),
           ] else ...[
             if (canCreate)
               IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: () => _createNewVoucher(),
-                tooltip: l10n.addNew,
+                tooltip: l10n.common.addNew,
               ),
             IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () => _showSearchDialog(),
-              tooltip: l10n.search,
+              onPressed: () => _showSearchDialog(l10n),
+              tooltip: l10n.common.search,
             ),
             IconButton(
               icon: const Icon(Icons.filter_list),
-              onPressed: () => _showFilterDialog(),
-              tooltip: l10n.filter,
+              onPressed: () => _showFilterDialog(l10n),
+              tooltip: l10n.common.filter,
             ),
           ],
         ],
@@ -82,12 +82,10 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              // Fixed: Removed unnecessary cast 'as JournalVoucherEntity'
               onSaved: (voucher) => _onVoucherSaved(voucher), 
               onCancelled: () => _switchToListMode(),
             )
           : JournalVoucherList(
-              // Fixed: Removed unnecessary cast
               onVoucherSelected: (voucher) => _editVoucher(voucher),
               canEdit: canEdit,
               canPost: canPost,
@@ -95,7 +93,7 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
         floatingActionButton: !_isFormMode && canCreate
           ? FloatingActionButton(
               onPressed: () => _createNewVoucher(),
-              tooltip: l10n.addNew,
+              tooltip: l10n.common.addNew,
               child: const Icon(Icons.add),
             )
           : null,
@@ -128,25 +126,24 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).voucherSavedSuccessfully),
+        content: Text(Translations.of(context).common.voucherSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
 
-  // ... (Search and Filter dialog methods remain unchanged)
-  void _showSearchDialog() {
+  void _showSearchDialog(Translations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).search),
+        title: Text(l10n.common.search),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: Translations.of(context).searchQuery,
-                hintText: Translations.of(context).enterSearchTerm,
+                labelText: l10n.common.searchQuery,
+                hintText: l10n.common.enterSearchTerm,
               ),
               onSubmitted: (query) {
                 Navigator.of(context).pop();
@@ -157,40 +154,40 @@ class _JournalVouchersScreenState extends ConsumerState<JournalVouchersScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(l10n.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(Translations.of(context).search),
+            child: Text(l10n.common.search),
           ),
         ],
       ),
     );
   }
 
-  void _showFilterDialog() {
+  void _showFilterDialog(Translations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).filter),
+        title: Text(l10n.common.filter),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(Translations.of(context).filterOptions),
+            Text(l10n.common.filterOptions),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(l10n.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(Translations.of(context).apply),
+            child: Text(l10n.common.apply),
           ),
         ],
       ),

@@ -34,19 +34,19 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
     if (!canView) {
       return Scaffold(
         appBar: AppBar(
-          title: Text(l10n.receiptVouchers),
+          title: Text(l10n.vouchers.receipt),
           backgroundColor: theme.colorScheme.surface,
           foregroundColor: theme.colorScheme.onSurface,
         ),
         body: CustomErrorWidget(
-          error: l10n.accessDenied,
+          error: l10n.common.accessDenied,
         ),
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.receiptVouchers),
+        title: Text(l10n.vouchers.receipt),
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         elevation: 0,
@@ -55,24 +55,24 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
             IconButton(
               icon: const Icon(Icons.list),
               onPressed: () => _switchToListMode(),
-              tooltip: l10n.viewList,
+              tooltip: l10n.common.viewList,
             ),
           ] else ...[
             if (canCreate)
               IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: () => _createNewVoucher(),
-                tooltip: l10n.addNew,
+                tooltip: l10n.common.addNew,
               ),
             IconButton(
               icon: const Icon(Icons.search),
-              onPressed: () => _showSearchDialog(),
-              tooltip: l10n.search,
+              onPressed: () => _showSearchDialog(l10n),
+              tooltip: l10n.common.search,
             ),
             IconButton(
               icon: const Icon(Icons.filter_list),
-              onPressed: () => _showFilterDialog(),
-              tooltip: l10n.filter,
+              onPressed: () => _showFilterDialog(l10n),
+              tooltip: l10n.common.filter,
             ),
           ],
         ],
@@ -82,18 +82,18 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
               voucher: _selectedVoucher,
               canEdit: canEdit,
               canPost: canPost,
-              onSaved: (voucher) => _onVoucherSaved(voucher), // Removed unnecessary cast
+              onSaved: (voucher) => _onVoucherSaved(voucher),
               onCancelled: () => _switchToListMode(),
             )
           : ReceiptVoucherList(
-              onVoucherSelected: (voucher) => _editVoucher(voucher), // Removed unnecessary cast
+              onVoucherSelected: (voucher) => _editVoucher(voucher),
               canEdit: canEdit,
               canPost: canPost,
             ),
       floatingActionButton: !_isFormMode && canCreate
           ? FloatingActionButton(
               onPressed: () => _createNewVoucher(),
-              tooltip: l10n.addNew,
+              tooltip: l10n.common.addNew,
               child: const Icon(Icons.add),
             )
           : null,
@@ -122,33 +122,30 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
   }
 
   void _onVoucherSaved(ReceiptVoucherEntity voucher) {
-    // Refresh the list and switch back to list mode
     _switchToListMode();
-    // Show success message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(Translations.of(context).voucherSavedSuccessfully),
+        content: Text(Translations.of(context).common.voucherSavedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
   }
 
-  void _showSearchDialog() {
+  void _showSearchDialog(Translations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).search),
+        title: Text(l10n.common.search),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
               decoration: InputDecoration(
-                labelText: Translations.of(context).searchQuery,
-                hintText: Translations.of(context).enterSearchTerm,
+                labelText: l10n.common.searchQuery,
+                hintText: l10n.common.enterSearchTerm,
               ),
               onSubmitted: (query) {
                 Navigator.of(context).pop();
-                // Implement search functionality
               },
             ),
           ],
@@ -156,43 +153,40 @@ class _ReceiptVouchersScreenState extends ConsumerState<ReceiptVouchersScreen> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(l10n.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Implement search functionality
             },
-            child: Text(Translations.of(context).search),
+            child: Text(l10n.common.search),
           ),
         ],
       ),
     );
   }
 
-  void _showFilterDialog() {
+  void _showFilterDialog(Translations l10n) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(Translations.of(context).filter),
+        title: Text(l10n.common.filter),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            // Add filter options here
-            Text(Translations.of(context).filterOptions),
+            Text(l10n.common.filterOptions),
           ],
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(Translations.of(context).cancel),
+            child: Text(l10n.common.cancel),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              // Implement filter functionality
             },
-            child: Text(Translations.of(context).apply),
+            child: Text(l10n.common.apply),
           ),
         ],
       ),

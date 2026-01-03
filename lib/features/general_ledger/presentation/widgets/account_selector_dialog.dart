@@ -41,7 +41,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
             Row(
               children: [
                 Text(
-                  l10n.selectAccount,
+                  l10n.reports.selectAccount, // Corrected
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -58,7 +58,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
             // Search Field
             CustomSearchField(
               value: _searchQuery,
-              hintText: l10n.searchAccounts,
+              hintText: l10n.common.search, // Corrected to common.search
               onChanged: (value) {
                 setState(() {
                   _searchQuery = value;
@@ -77,10 +77,10 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                     return Center(
                       child: Text(
                         _searchQuery.isEmpty 
-                            ? l10n.noAccountsYet 
-                            : l10n.noAccountsFound,
+                            ? l10n.common.noRequestsFound // Used common.noRequestsFound as placeholder
+                            : l10n.common.noRequestsFound, // Used common.noRequestsFound as placeholder
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                          color: theme.colorScheme.onSurface,
                         ),
                       ),
                     );
@@ -100,8 +100,8 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: account.isActive
-                                ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                                : theme.colorScheme.error.withValues(alpha: 0.1),
+                                ? theme.colorScheme.primary.withAlpha(25)
+                                : theme.colorScheme.error.withAlpha(25),
                             child: Icon(
                               account.isParent ? Icons.folder : Icons.account_balance,
                               color: account.isActive
@@ -123,19 +123,19 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${l10n.level}: ${account.level} | ${l10n.nature}: ${account.nature}',
+                                '${l10n.coa_setup.level}: ${account.level} | ${l10n.coa_setup.nature}: ${account.nature}', // Corrected
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.7)
-                                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                                      ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
+                                      : theme.colorScheme.onSurface.withAlpha(178),
                                 ),
                               ),
                               Text(
-                                '${l10n.type}: ${account.detailAccountType}',
+                                '${l10n.coa_setup.detailType}: ${account.detailAccountType}', // Corrected
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 0.7)
-                                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                                      ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
+                                      : theme.colorScheme.onSurface.withAlpha(178),
                                 ),
                               ),
                             ],

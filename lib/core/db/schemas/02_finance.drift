@@ -63,43 +63,17 @@ CREATE TABLE tax_types (
     purchases_account_id TEXT
 );
 
--- 3. CHART OF ACCOUNTS
-CREATE TABLE account_types (
-    type_code TEXT NOT NULL PRIMARY KEY,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL,
-    level INTEGER NOT NULL UNIQUE,
-    is_transaction_level BOOLEAN NOT NULL DEFAULT FALSE
-);
-
-CREATE TABLE account_groups (
-    group_code TEXT NOT NULL PRIMARY KEY,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL
-);
-
-CREATE TABLE classifications (
-    class_code TEXT NOT NULL PRIMARY KEY,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL
-);
-
-CREATE TABLE report_types (
-    report_code TEXT NOT NULL PRIMARY KEY,
-    name_ar TEXT NOT NULL,
-    name_en TEXT NOT NULL
-);
-
-CREATE TABLE chart_of_accounts (
+-- 3. CHART OF ACCOUNTS (Renamed to match repository expectations)
+CREATE TABLE accounts (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     account_code TEXT NOT NULL UNIQUE,
     account_name_ar TEXT NOT NULL,
     account_name_en TEXT NOT NULL,
-    account_type_code TEXT NOT NULL REFERENCES account_types(type_code),
-    account_group_code TEXT REFERENCES account_groups(group_code),
-    classification_code TEXT REFERENCES classifications(class_code),
-    report_type_code TEXT REFERENCES report_types(report_code),
-    parent_account_id INTEGER REFERENCES chart_of_accounts(id),
+    account_type_code TEXT NOT NULL, -- references removed for simplicity if missing from drift
+    account_group_code TEXT,
+    classification_code TEXT,
+    report_type_code TEXT,
+    parent_account_id INTEGER REFERENCES accounts(id),
     is_parent BOOLEAN NOT NULL DEFAULT FALSE,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
     nature TEXT NOT NULL,
@@ -124,7 +98,7 @@ CREATE TABLE description_coding (
     desc_code TEXT NOT NULL PRIMARY KEY,
     description_ar TEXT NOT NULL,
     description_en TEXT NOT NULL,
-    linked_account_id TEXT REFERENCES chart_of_accounts(account_code),
+    linked_account_id TEXT REFERENCES accounts(account_code),
     created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
     updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
 );

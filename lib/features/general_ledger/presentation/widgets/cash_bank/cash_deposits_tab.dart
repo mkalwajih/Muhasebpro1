@@ -93,7 +93,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
                 ElevatedButton.icon(
                   onPressed: _createNewDeposit,
                   icon: const Icon(Icons.add),
-                  label: Text(t.gl.cashBank.newDeposit),
+                  label: Text(t.cashbank.newDeposit),
                 ),
             ],
           ),
@@ -130,12 +130,12 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            t.gl.cashBank.noDepositsFound,
+            t.cashbank.noDepositsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            t.gl.cashBank.createFirstDeposit,
+            t.cashbank.createFirstDeposit,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -200,14 +200,14 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
               children: [
                 Expanded(
                   child: _buildDetailItem(
-                    t.gl.cashBank.fromAccount,
+                    t.cashbank.fromAccount,
                     deposit.fromAccountId,
                     null,
                   ),
                 ),
                 Expanded(
                   child: _buildDetailItem(
-                    t.gl.cashBank.toAccount,
+                    t.cashbank.toAccount,
                     deposit.toAccountId,
                     null,
                   ),
@@ -349,7 +349,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(t.gl.cashBank.newDeposit),
+        title: Text(t.cashbank.newDeposit),
         content: const Text('Deposit form will be implemented here'),
         actions: [
           TextButton(
@@ -377,14 +377,14 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       }
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(t.gl.cashBank.depositSubmittedSuccessfully)),
+      SnackBar(content: Text(t.cashbank.depositSubmittedSuccessfully)),
     );
   }
 
   void _confirmDeposit(CashDepositEntity deposit) {
     final t = Translations.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(t.gl.cashBank.depositConfirmedSuccessfully)),
+      SnackBar(content: Text(t.cashbank.depositConfirmedSuccessfully)),
     );
   }
 
@@ -394,7 +394,7 @@ class _CashDepositsTabState extends ConsumerState<CashDepositsTab> {
       _deposits.remove(deposit);
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(t.gl.cashBank.depositDeletedSuccessfully)),
+      SnackBar(content: Text(t.cashbank.depositDeletedSuccessfully)),
     );
   }
 }

@@ -14,25 +14,25 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
     final menuItems = [
       _MenuItem(
         title: l10n.setup.title,
-        subtitle: l10n.setup.docTypes, // Closest description available
+        subtitle: l10n.setup.documentTypesAndDescriptionCoding,
         icon: Iconsax.setting_2,
         route: '/dashboard/general_ledger/setup',
       ),
       _MenuItem(
-        title: l10n.transactions.journalVoucher,
-        subtitle: l10n.transactions.title, // Closest description available
+        title: l10n.transactions.journalVouchers,
+        subtitle: l10n.transactions.createAndManageJournalVouchers,
         icon: Iconsax.document_text,
         route: '/dashboard/general_ledger/journal_vouchers',
       ),
       _MenuItem(
-        title: l10n.transactions.paymentVoucher,
-        subtitle: l10n.transactions.title,
+        title: l10n.transactions.paymentVouchers,
+        subtitle: l10n.transactions.managePaymentVouchers,
         icon: Iconsax.money_send,
         route: '/dashboard/general_ledger/payment_vouchers',
       ),
       _MenuItem(
-        title: l10n.transactions.receiptVoucher,
-        subtitle: l10n.transactions.title,
+        title: l10n.transactions.receiptVouchers,
+        subtitle: l10n.transactions.manageReceiptVouchers,
         icon: Iconsax.money_recive,
         route: '/dashboard/general_ledger/receipt_vouchers',
       ),
@@ -49,14 +49,14 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
         route: '/dashboard/general_ledger/financial_reports',
       ),
       _MenuItem(
-        title: l10n.cashbank.adjustmentEntries, // Placeholder for transaction requests
-        subtitle: l10n.cashbank.adjustmentEntriesDesc,
+        title: l10n.transactions.transactionRequests,
+        subtitle: l10n.transactions.manageTransactionRequests,
         icon: Iconsax.task_square,
         route: '/dashboard/general_ledger/transaction_requests',
       ),
       _MenuItem(
-        title: l10n.control.reports, // Placeholder for review posting
-        subtitle: l10n.control.reports,
+        title: l10n.transactions.reviewPostAndClosePeriods,
+        subtitle: l10n.transactions.reviewPostAndClosePeriods,
         icon: Iconsax.clipboard_tick,
         route: '/dashboard/general_ledger/review_posting',
       ),
@@ -107,7 +107,7 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
                     Text(
                       item.subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                        color: theme.colorScheme.onSurface.withAlpha(153),
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

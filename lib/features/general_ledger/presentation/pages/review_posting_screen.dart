@@ -34,22 +34,22 @@ class _ReviewPostingScreenState extends ConsumerState<ReviewPostingScreen>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.reviewPostingClosing),
+        title: Text(l10n.transactions.reviewPostAndClosePeriods),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: TabBar(
           controller: _tabController,
           tabs: [
             Tab(
               icon: const Icon(Icons.batch_prediction),
-              text: l10n.postingBatches,
+              text: l10n.transactions.postingBatches,
             ),
             Tab(
               icon: const Icon(Icons.event_busy),
-              text: l10n.periodClosing,
+              text: l10n.transactions.periodClosing,
             ),
             Tab(
               icon: const Icon(Icons.history),
-              text: l10n.auditTrail,
+              text: l10n.transactions.auditTrail,
             ),
           ],
         ),

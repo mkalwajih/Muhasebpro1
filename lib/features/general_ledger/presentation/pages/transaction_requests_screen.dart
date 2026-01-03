@@ -35,22 +35,22 @@ class _TransactionRequestsScreenState extends ConsumerState<TransactionRequestsS
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.transactionRequests),
+        title: Text(l10n.transactions.transactionRequests),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         bottom: TabBar(
           controller: _tabController,
           tabs: [
             Tab(
               icon: const Icon(Icons.list),
-              text: l10n.allRequests,
+              text: l10n.transactions.allRequests,
             ),
             Tab(
               icon: const Icon(Icons.pending_actions),
-              text: l10n.pendingApprovals,
+              text: l10n.transactions.pendingApprovals,
             ),
             Tab(
               icon: const Icon(Icons.history),
-              text: l10n.myRequests,
+              text: l10n.transactions.myRequests,
             ),
           ],
         ),
