@@ -1,249 +1,87 @@
 Analyzing Muhasebpro1...                                        
 
-  error • The getter 'newPassword' isn't defined for the type '
-
-  error • The getter 'newPassword' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/forgot_password_form.dart:89:43 • undefined_getter
-  error • The getter 'newPassword' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/forgot_password_form.dart:90:42 • undefined_getter
-  error • The getter 'backToLogin' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/forgot_password_form.dart:121:42 • undefined_getter
-  error • The getter 'fullNameAr' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/register_form.dart:104:43 • undefined_getter
-  error • The getter 'fullNameAr' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/register_form.dart:105:42 • undefined_getter
-  error • The getter 'fullNameEn' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/register_form.dart:120:43 • undefined_getter
-  error • The getter 'fullNameEn' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/register_form.dart:121:42 • undefined_getter
-  error • The getter 'backToLogin' isn't defined for the type 'TranslationsAuthEn' • lib/features/authentication/presentation/screens/register_form.dart:168:42 • undefined_getter
-warning • Unused import: 'package:muhaseb_pro/l10n/translations.g.dart' • lib/features/dashboard/presentation/providers/dashboard_providers.dart:4:8 • unused_import
-  error • The method 'can' isn't defined for the type 'RoleChecker' • lib/features/dashboard/presentation/screens/dashboard_screen.dart:22:26 • undefined_method
-  error • The method 'logout' isn't defined for the type 'LoginNotifier' • lib/features/dashboard/presentation/screens/dashboard_screen.dart:32:56 • undefined_method
-  error • The getter 'cashBankManagement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:48:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:53:23 • undefined_getter
-  error • The getter 'cashBankManagement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:60:26 • undefined_getter
-  error • The getter 'bankReconciliation' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:69:26 • undefined_getter
-  error • The getter 'cashDeposits' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:73:26 • undefined_getter
-  error • The getter 'bankStatements' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:77:26 • undefined_getter
-  error • The getter 'adjustmentEntries' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:81:26 • undefined_getter
-  error • The getter 'refresh' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:92:27 • undefined_getter
-  error • The getter 'help' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:97:27 • undefined_getter
-  error • The getter 'dataRefreshed' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:133:48 • undefined_getter
-  error • The getter 'help' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:145:26 • undefined_getter
-  error • The getter 'cashBankManagementHelp' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:152:22 • undefined_getter
-  error • The getter 'bankReconciliation' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:157:22 • undefined_getter
-  error • The getter 'bankReconciliationHelp' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:158:22 • undefined_getter
-  error • The getter 'cashDeposits' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:162:22 • undefined_getter
-  error • The getter 'cashDepositsHelp' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:163:22 • undefined_getter
-  error • The getter 'bankStatements' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:167:22 • undefined_getter
-  error • The getter 'bankStatementsHelp' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:168:22 • undefined_getter
-  error • The getter 'adjustmentEntries' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:172:22 • undefined_getter
-  error • The getter 'adjustmentEntriesHelp' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:173:22 • undefined_getter
-  error • The getter 'close' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/cash_bank_management_screen.dart:181:30 • undefined_getter
-  error • The getter 'financialReports' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:45:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:50:23 • undefined_getter
-  error • The getter 'financialReports' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:57:26 • undefined_getter
-  error • The getter 'refresh' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:65:27 • undefined_getter
-  error • The getter 'export' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:70:27 • undefined_getter
-  error • The getter 'print' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:75:27 • undefined_getter
-  error • The getter 'selectReport' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:112:30 • undefined_getter
-  error • The getter 'trialBalance' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:127:30 • undefined_getter
-  error • The getter 'trialBalanceDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:128:30 • undefined_getter
-  error • The getter 'incomeStatement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:133:30 • undefined_getter
-  error • The getter 'incomeStatementDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:134:30 • undefined_getter
-  error • The getter 'balanceSheet' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:139:30 • undefined_getter
-  error • The getter 'balanceSheetDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:140:30 • undefined_getter
-  error • The getter 'cashFlowStatement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:145:30 • undefined_getter
-  error • The getter 'cashFlowDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:146:30 • undefined_getter
-  error • The getter 'accountStatement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:151:30 • undefined_getter
-  error • The getter 'accountStatementDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:152:30 • undefined_getter
-  error • The getter 'generalLedgerReport' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:157:30 • undefined_getter
-  error • The getter 'generalLedgerDescription' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:158:30 • undefined_getter
-  error • The getter 'reportRefreshed' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:244:48 • undefined_getter
-  error • The getter 'exportReport' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:256:26 • undefined_getter
-  error • The getter 'exportToPdf' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:262:32 • undefined_getter
-  error • The getter 'exportToExcel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:270:32 • undefined_getter
-  error • The getter 'exportToCsv' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:278:32 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:289:30 • undefined_getter
-  error • The method 'reportExportedSuccessfully' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:300:36 • undefined_method
-  error • The getter 'reportSentToPrinter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/financial_reports_screen.dart:310:48 • undefined_getter
-  error • The getter 'glSetup' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:16:21 • undefined_getter
-  error • The getter 'documentTypesAndDescriptionCoding' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:17:24 • undefined_getter
-  error • The getter 'journalVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:22:21 • undefined_getter
-  error • The getter 'createAndManageJournalVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:23:24 • undefined_getter
-  error • The getter 'paymentVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:28:21 • undefined_getter
-  error • The getter 'managePaymentVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:29:24 • undefined_getter
-  error • The getter 'receiptVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:34:21 • undefined_getter
-  error • The getter 'manageReceiptVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:35:24 • undefined_getter
-  error • The getter 'cashBankManagement' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:40:21 • undefined_getter
-  error • The getter 'manageCashAndBankAccounts' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:41:24 • undefined_getter
-  error • The getter 'financialReports' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:46:21 • undefined_getter
-  error • The getter 'viewFinancialReportsAndStatements' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:47:24 • undefined_getter
-  error • The getter 'transactionRequests' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:52:21 • undefined_getter
-  error • The getter 'manageTransactionRequests' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:53:24 • undefined_getter
-  error • The getter 'reviewPostingClosing' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:58:21 • undefined_getter
-  error • The getter 'reviewPostAndClosePeriods' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:59:24 • undefined_getter
-  error • The getter 'generalLedger' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart:67:26 • undefined_getter
-  error • The getter 'glSetupConfiguration' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/gl_setup_screen.dart:46:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/gl_setup_screen.dart:51:23 • undefined_getter
-  error • The getter 'glSetupConfiguration' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/gl_setup_screen.dart:58:26 • undefined_getter
-  error • The getter 'documentTypes' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/gl_setup_screen.dart:67:26 • undefined_getter
-  error • The getter 'descriptionCoding' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/gl_setup_screen.dart:71:26 • undefined_getter
-  error • The getter 'journalVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:37:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:42:23 • undefined_getter
-  error • The getter 'journalVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:49:26 • undefined_getter
-  error • The getter 'viewList' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:58:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:65:31 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:70:29 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:75:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:98:29 • undefined_getter
-  error • The getter 'voucherSavedSuccessfully' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:131:48 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:142:46 • undefined_getter
-  error • The getter 'searchQuery' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:148:53 • undefined_getter
-  error • The getter 'enterSearchTerm' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:149:52 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:160:50 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:166:50 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:177:46 • undefined_getter
-  error • The getter 'filterOptions' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:181:43 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:187:50 • undefined_getter
-  error • The getter 'apply' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart:193:50 • undefined_getter
-  error • The getter 'paymentVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:37:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:42:23 • undefined_getter
-  error • The getter 'paymentVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:49:26 • undefined_getter
-  error • The getter 'viewList' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:58:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:65:31 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:70:29 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:75:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:92:29 • undefined_getter
-  error • The getter 'voucherSavedSuccessfully' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:119:48 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:129:46 • undefined_getter
-  error • The getter 'searchQuery' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:135:53 • undefined_getter
-  error • The getter 'enterSearchTerm' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:136:52 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:148:50 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:155:50 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:166:46 • undefined_getter
-  error • The getter 'filterOptions' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:171:43 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:177:50 • undefined_getter
-  error • The getter 'apply' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart:184:50 • undefined_getter
-  error • The getter 'receiptVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:37:28 • undefined_getter
-  error • The getter 'accessDenied' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:42:23 • undefined_getter
-  error • The getter 'receiptVouchers' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:49:26 • undefined_getter
-  error • The getter 'viewList' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:58:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:65:31 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:70:29 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:75:29 • undefined_getter
-  error • The getter 'addNew' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:96:29 • undefined_getter
-  error • The getter 'voucherSavedSuccessfully' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:130:48 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:140:46 • undefined_getter
-  error • The getter 'searchQuery' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:146:53 • undefined_getter
-  error • The getter 'enterSearchTerm' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:147:52 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:159:50 • undefined_getter
-  error • The getter 'search' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:166:50 • undefined_getter
-  error • The getter 'filter' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:177:46 • undefined_getter
-  error • The getter 'filterOptions' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:182:43 • undefined_getter
-  error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:188:50 • undefined_getter
-  error • The getter 'apply' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart:195:50 • undefined_getter
-  error • The getter 'reviewPostingClosing' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:37:26 • undefined_getter
-  error • The getter 'postingBatches' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:44:26 • undefined_getter
-  error • The getter 'periodClosing' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:48:26 • undefined_getter
-  error • The getter 'auditTrail' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:52:26 • undefined_getter
-  error • The getter 'transactionRequests' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/transaction_requests_screen.dart:38:26 • undefined_getter
-  error • The getter 'allRequests' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/transaction_requests_screen.dart:45:26 • undefined_getter
-  error • The getter 'pendingApprovals' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/transaction_requests_screen.dart:49:26 • undefined_getter
-  error • The getter 'myRequests' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/pages/transaction_requests_screen.dart:53:26 • undefined_getter
-  error • The getter 'selectAccount' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:44:24 • undefined_getter
-  error • The getter 'searchAccounts' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:61:30 • undefined_getter
-  error • The getter 'noAccountsYet' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:80:36 • undefined_getter
-  error • The getter 'noAccountsFound' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:81:36 • undefined_getter
-  error • The getter 'level' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:126:41 • undefined_getter
-  error • The getter 'nature' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:126:75 • undefined_getter
-  error • The getter 'type' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart:134:41 • undefined_getter
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:112:19 • deprecated_member_use
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:114:34 • undefined_getter
-  error • The getter 'all' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:122:73 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:123:74 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:124:77 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:125:78 • undefined_getter
-  error • The getter 'other' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:126:75 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:140:33 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:178:15 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:183:15 • undefined_getter
-  error • The getter 'account' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:257:30 • undefined_getter
-  error • The getter 'contraAccount' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:264:30 • undefined_getter
-  error • The getter 'approvedBy' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:294:33 • undefined_getter
-  error • The getter 'approve' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:319:44 • undefined_getter
-  error • The getter 'draft' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:384:31 • undefined_getter
-  error • The getter 'pending' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:389:31 • undefined_getter
-  error • The getter 'posted' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:394:31 • undefined_getter
-  error • The getter 'rejected' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:399:31 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:425:22 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:429:22 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:433:22 • undefined_getter
-  error • The getter 'other' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:437:29 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:484:23 • undefined_getter
-  error • The getter 'create' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:520:34 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:536:25 • undefined_getter
+  error • The getter 'postingBatches' isn't defined for the type 'TranslationsTransactionsEn' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:44:39 • undefined_getter
+  error • The getter 'periodClosing' isn't defined for the type 'TranslationsTransactionsEn' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:48:39 • undefined_getter
+  error • The getter 'auditTrail' isn't defined for the type 'TranslationsTransactionsEn' • lib/features/general_ledger/presentation/pages/review_posting_screen.dart:52:39 • undefined_getter
+warning • The value of the local variable 'theme' isn't used • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:97:11 • unused_local_variable
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:110:19 • deprecated_member_use
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:112:34 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:121:74 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:122:77 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:123:78 • undefined_getter
+  error • The getter 'other' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:124:75 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:138:33 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:175:15 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:180:15 • undefined_getter
+  error • The getter 'account' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:251:30 • undefined_getter
+  error • The getter 'contraAccount' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:258:30 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:416:22 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:420:22 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:424:22 • undefined_getter
+  error • The getter 'other' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:428:29 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:475:23 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:526:25 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:544:25 • undefined_getter
   error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:554:25 • undefined_getter
   error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:565:25 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:576:25 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:591:35 • undefined_getter
+  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart:580:35 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:127:27 • deprecated_member_use
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:129:42 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:154:44 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:172:42 • undefined_getter
+  error • The getter 'bankAccount' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:129:51 • undefined_getter
+  error • The getter 'reconciliationDate' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:154:53 • undefined_getter
+  error • The getter 'bankStatementBalance' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:172:51 • undefined_getter
   error • The getter 'symbol' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:174:53 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:202:30 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:212:30 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:231:35 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:239:35 • undefined_getter
+  error • The getter 'outstandingDeposits' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:202:39 • undefined_getter
+  error • The getter 'outstandingChecks' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:212:39 • undefined_getter
+  error • The getter 'addAdjustment' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:231:44 • undefined_getter
+  error • The getter 'saveReconciliation' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:239:44 • undefined_getter
   error • The getter 'symbol' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:258:67 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:282:22 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:295:22 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:308:22 • undefined_getter
+  error • The getter 'bankStatementBalance' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:282:31 • undefined_getter
+  error • The getter 'bookBalance' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:295:31 • undefined_getter
+  error • The getter 'adjustedBankBalance' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:308:31 • undefined_getter
   error • The getter 'difference' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:323:26 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:351:21 • undefined_getter
+  error • The getter 'reconciled' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:351:30 • undefined_getter
   error • The getter 'symbol' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:373:67 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:426:35 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:427:35 • undefined_getter
+  error • The getter 'noOutstandingDeposits' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:426:44 • undefined_getter
+  error • The getter 'noOutstandingChecks' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:427:44 • undefined_getter
   error • The getter 'reference' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:456:41 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:522:19 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:523:19 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:571:23 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:595:27 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:606:20 • undefined_getter
-   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:142:23 • deprecated_member_use
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:144:38 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:168:37 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:253:15 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:258:15 • undefined_getter
-  error • The getter 'openingBalance' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:309:41 • undefined_getter
-  error • The getter 'totalDebit' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:322:41 • undefined_getter
-  error • The getter 'totalCredit' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:336:41 • undefined_getter
-  error • The getter 'closingBalance' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:351:38 • undefined_getter
-  error • The getter 'transactions' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:373:32 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:391:41 • undefined_getter
-  error • The getter 'viewDetails' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:399:46 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:468:26 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:468:53 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:526:25 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:537:23 • undefined_getter
-  error • The getter 'import' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:548:34 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:570:25 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:580:25 • undefined_getter
+  error • The getter 'addOutstandingDeposit' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:522:28 • undefined_getter
+  error • The getter 'addOutstandingCheck' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:523:28 • undefined_getter
+  error • The getter 'addAdjustment' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:571:32 • undefined_getter
+  error • The getter 'reconciliationNotBalanced' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:595:36 • undefined_getter
+  error • The getter 'reconciliationSavedSuccessfully' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart:606:29 • undefined_getter
+   info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:141:23 • deprecated_member_use
+  error • The getter 'bankAccount' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:143:47 • undefined_getter
+  error • The getter 'importStatement' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:167:46 • undefined_getter
+  error • The getter 'noStatementsFound' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:252:24 • undefined_getter
+  error • The getter 'importFirstStatement' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:257:24 • undefined_getter
+  error • The getter 'symbol' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:270:67 • undefined_getter
+  error • The getter 'openingBalance' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:308:41 • undefined_getter
+  error • The getter 'totalDebit' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:321:41 • undefined_getter
+  error • The getter 'totalCredit' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:335:41 • undefined_getter
+  error • The getter 'closingBalance' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:350:38 • undefined_getter
+  error • The getter 'transactions' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:372:32 • undefined_getter
+  error • The getter 'reconcile' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:390:50 • undefined_getter
+  error • The getter 'viewDetails' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:398:46 • undefined_getter
+  error • The getter 'symbol' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:413:67 • undefined_getter
+  error • The getter 'reconciled' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:467:35 • undefined_getter
+  error • The getter 'notReconciled' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:467:59 • undefined_getter
+  error • The getter 'statementsFiltered' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:525:34 • undefined_getter
+  error • The getter 'importStatement' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:536:32 • undefined_getter
+  error • The getter 'import' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:547:34 • undefined_getter
+  error • The getter 'statementReconciledSuccessfully' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:569:34 • undefined_getter
+  error • The getter 'statementDetailsNotImplemented' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart:579:34 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:68:19 • deprecated_member_use
-  error • The getter 'all' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:78:73 • undefined_getter
-  error • The getter 'draft' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:79:75 • undefined_getter
-  error • The getter 'pending' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:80:77 • undefined_getter
   error • The getter 'confirmed' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:81:79 • undefined_getter
-  error • The getter 'cancelled' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:82:79 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:96:33 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:133:15 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:138:15 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:203:23 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:210:23 • undefined_getter
-  error • The getter 'draft' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:267:31 • undefined_getter
-  error • The getter 'pending' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:272:31 • undefined_getter
+  error • The getter 'newDeposit' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:96:42 • undefined_getter
+  error • The getter 'noDepositsFound' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:133:24 • undefined_getter
+  error • The getter 'createFirstDeposit' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:138:24 • undefined_getter
+  error • The getter 'fromAccount' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:203:32 • undefined_getter
+  error • The getter 'toAccount' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:210:32 • undefined_getter
   error • The getter 'confirmed' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:277:31 • undefined_getter
-  error • The getter 'cancelled' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:282:31 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:352:23 • undefined_getter
-  error • The getter 'create' isn't defined for the type 'TranslationsCommonEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:364:34 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:380:32 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:387:32 • undefined_getter
-  error • The getter 'gl' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:397:32 • undefined_getter
+  error • The getter 'newDeposit' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:352:32 • undefined_getter
+  error • The getter 'depositSubmittedSuccessfully' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:380:41 • undefined_getter
+  error • The getter 'depositConfirmedSuccessfully' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:387:41 • undefined_getter
+  error • The getter 'depositDeletedSuccessfully' isn't defined for the type 'TranslationsCashbankEn' • lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart:397:41 • undefined_getter
   error • The getter 'editDescriptionCoding' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/description_coding_form_dialog.dart:73:34 • undefined_getter
   error • The getter 'addDescriptionCoding' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/description_coding_form_dialog.dart:73:63 • undefined_getter
   error • The getter 'descCode' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/description_coding_form_dialog.dart:83:33 • undefined_getter
@@ -713,36 +551,12 @@ warning • The value of the local variable 'l10n' isn't used • lib/features/g
   error • The getter 'rejected' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list_item.dart:144:21 • undefined_getter
   error • The getter 'cancelled' isn't defined for the type 'Translations' • lib/features/general_ledger/presentation/widgets/transaction_requests/transaction_request_list_item.dart:146:21 • undefined_getter
   error • The getter 'common' isn't defined for the type 'StockReservations' • lib/features/inventory/data/datasources/local/inventory_control_local_datasource.dart:57:81 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Items' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:34:24 • undefined_getter
+  error • The getter 'dashboard' isn't defined for the type 'Items' • lib/features/inventory/data/datasources/local/item_management_local_datasource.dart:34:24 • undefined_getter
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:15:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:34:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:50:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:64:13 • unused_local_variable
 warning • The value of the local variable 'data' isn't used • lib/features/inventory/data/repositories/inventory_reports_repository_impl.dart:78:13 • unused_local_variable
-  error • The getter 'inventoryControl' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:38:26 • undefined_getter
-  error • The getter 'stocktaking' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:45:26 • undefined_getter
-  error • The getter 'reservations' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:49:26 • undefined_getter
-  error • The getter 'stocktakingSessions' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:72:18 • undefined_getter
-  error • The getter 'manageStocktaking' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:77:18 • undefined_getter
-  error • The getter 'startStocktaking' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:87:30 • undefined_getter
-  error • The getter 'stocktakingInfo' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:100:26 • undefined_getter
-  error • The getter 'stockReservations' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:121:18 • undefined_getter
-  error • The getter 'manageReservations' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:126:18 • undefined_getter
-  error • The getter 'createReservation' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:136:30 • undefined_getter
-  error • The getter 'reservationInfo' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_control_screen.dart:149:26 • undefined_getter
-  error • The getter 'inventorySetup' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:16:21 • undefined_getter
-  error • The getter 'inventoryVariables' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:17:24 • undefined_getter
-  error • The getter 'items' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:22:21 • undefined_getter
-  error • The getter 'manageIncomingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:23:24 • undefined_getter
-  error • The getter 'openingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:28:21 • undefined_getter
-  error • The getter 'addOpeningStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:29:24 • undefined_getter
-  error • The getter 'stockOperations' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:34:21 • undefined_getter
-  error • The getter 'manageIncomingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:35:24 • undefined_getter
-  error • The getter 'inventoryControl' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:40:21 • undefined_getter
-  error • The getter 'manageStocktaking' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:41:24 • undefined_getter
-  error • The getter 'inventoryReports' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:46:21 • undefined_getter
-  error • The getter 'viewFinancialReportsAndStatements' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:47:24 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:55:26 • undefined_getter
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/inventory/presentation/pages/inventory_menu_screen.dart:98:60 • deprecated_member_use
   error • The getter 'inventoryBalancesReport' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_reports_screen.dart:16:21 • undefined_getter
   error • The getter 'inventoryBalancesReportDesc' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_reports_screen.dart:17:24 • undefined_getter
@@ -755,10 +569,10 @@ warning • The value of the local variable 'data' isn't used • lib/features/i
   error • The getter 'lowStockReport' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_reports_screen.dart:44:21 • undefined_getter
   error • The getter 'lowStockReportDesc' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_reports_screen.dart:45:24 • undefined_getter
   error • The getter 'inventoryReports' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_reports_screen.dart:54:26 • undefined_getter
-  error • The getter 'inventorySetup' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:40:26 • undefined_getter
-  error • The getter 'inventoryVariables' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:47:26 • undefined_getter
-  error • The getter 'warehouses' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:51:26 • undefined_getter
-  error • The getter 'itemGroups' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:55:26 • undefined_getter
+warning • The value of the local variable 'theme' isn't used • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:37:11 • unused_local_variable
+  error • The named parameter 'canModify' isn't defined • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:70:33 • undefined_named_parameter
+  error • The named parameter 'canModify' isn't defined • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:71:25 • undefined_named_parameter
+  error • The named parameter 'canModify' isn't defined • lib/features/inventory/presentation/pages/inventory_setup_screen.dart:72:25 • undefined_named_parameter
   error • The getter 'items' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/items_screen.dart:16:26 • undefined_getter
   error • The getter 'noItemsFound' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/items_screen.dart:29:21 • undefined_getter
   error • The getter 'addItemToGetStarted' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/items_screen.dart:30:24 • undefined_getter
@@ -767,19 +581,8 @@ warning • The value of the local variable 'data' isn't used • lib/features/i
   error • The getter 'noOpeningStockEntries' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:21:21 • undefined_getter
   error • The getter 'clickAddToStart' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:22:24 • undefined_getter
   error • The getter 'addEntry' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/opening_stock_screen.dart:29:26 • undefined_getter
-  error • The getter 'stockOperations' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:38:26 • undefined_getter
-  error • The getter 'incomingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:45:26 • undefined_getter
-  error • The getter 'outgoingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:49:26 • undefined_getter
-  error • The getter 'transfers' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:53:26 • undefined_getter
-  error • The getter 'incomingStockOrders' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:77:18 • undefined_getter
-  error • The getter 'manageIncomingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:82:18 • undefined_getter
-  error • The getter 'createIncomingOrder' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:91:30 • undefined_getter
-  error • The getter 'outgoingStockOrders' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:106:18 • undefined_getter
-  error • The getter 'manageOutgoingStock' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:111:18 • undefined_getter
-  error • The getter 'createOutgoingOrder' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:120:30 • undefined_getter
-  error • The getter 'warehouseTransfers' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:136:18 • undefined_getter
-  error • The getter 'manageWarehouseTransfers' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:141:18 • undefined_getter
-  error • The getter 'createTransfer' isn't defined for the type 'Translations' • lib/features/inventory/presentation/pages/stock_operations_screen.dart:150:30 • undefined_getter
+warning • The value of the local variable 'theme' isn't used • lib/features/inventory/presentation/pages/stock_operations_screen.dart:35:11 • unused_local_variable
+  error • The named parameter 'title' is required, but there's no corresponding argument • lib/features/inventory/presentation/pages/stock_operations_screen.dart:141:18 • missing_required_argument
   error • The getter 'addItem' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:15:39 • undefined_getter
   error • The getter 'editItem' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:15:54 • undefined_getter
   error • The getter 'cancel' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/items/item_card_dialog.dart:20:28 • undefined_getter
@@ -854,18 +657,22 @@ warning • The value of the field '_inventorySurplusRevenueAccountId' isn't use
   error • The getter 'delete' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:127:30 • undefined_getter
   error • The getter 'deleteSuccess' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:138:41 • undefined_getter
   error • The getter 'deleteFailed' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:144:44 • undefined_getter
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:13:56 • undefined_getter
-warning • The value of the local variable 'allAccountIds' isn't used • lib/features/system_setup/data/repositories/coa_repository_impl.dart:14:11 • unused_local_variable
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:49:35 • undefined_getter
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:55:38 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:55:64 • undefined_getter
-  error • Undefined class 'AccountsCompanion' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:58:3 • undefined_class
-  error • The function 'AccountsCompanion' isn't defined • lib/features/system_setup/data/repositories/coa_repository_impl.dart:59:15 • undefined_function
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:76:55 • undefined_getter
-  error • The getter 'parentId' isn't defined for the type 'HasResultSet' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:76:81 • undefined_getter
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:80:37 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:80:63 • undefined_getter
-  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/general_parameters_repository_impl.dart:31:49 • undefined_getter
+  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:6:27 • undefined_class
+  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:7:30 • undefined_class
+  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:9:15 • non_type_as_type_argument
+  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:10:10 • non_type_as_type_argument
+  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:20:27 • undefined_class
+  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:21:34 • undefined_getter
+  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:25:30 • undefined_class
+  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:26:37 • undefined_getter
+  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:27:32 • undefined_getter
+  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:33:37 • undefined_getter
+  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:34:32 • undefined_getter
+  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:39:15 • non_type_as_type_argument
+  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:40:43 • undefined_getter
+  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:44:10 • non_type_as_type_argument
+  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:45:44 • undefined_getter
+  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:46:32 • undefined_getter
   error • The getter 'branchGroups' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:25:26 • undefined_getter
   error • The getter 'addNewBranchGroup' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:71:50 • undefined_getter
   error • The getter 'editBranchGroup' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:71:75 • undefined_getter
@@ -913,28 +720,26 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
   error • The getter 'save' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branches_screen.dart:379:105 • undefined_getter
   error • The getter 'chartOfAccounts' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/coa_screen.dart:18:26 • undefined_getter
   error • The getter 'addNewAccount' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/coa_screen.dart:65:23 • undefined_getter
-  error • The getter 'confirmDeletion' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:205:30 • undefined_getter
-  error • The getter 'confirmDeleteMessage' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:206:32 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:255:23 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:259:24 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:285:49 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:332:50 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:362:43 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:373:46 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:383:46 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:401:36 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:255:43 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:259:44 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:285:69 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:332:70 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:362:63 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:373:66 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:383:66 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:401:56 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/screens/company_info_screen.dart:415:29 • deprecated_member_use
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:417:44 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:437:42 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:417:64 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:437:62 • undefined_getter
   error • The getter 'invalidFormat' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:445:48 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:462:42 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:462:62 • undefined_getter
   error • The getter 'phone' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:473:49 • undefined_getter
   error • The getter 'email' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:487:43 • undefined_getter
   error • The getter 'invalidEmail' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:493:65 • undefined_getter
   error • The getter 'address' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:503:43 • undefined_getter
   error • The getter 'remarks' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/screens/company_info_screen.dart:512:43 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:521:35 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/company_info_screen.dart:522:38 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:521:55 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/screens/company_info_screen.dart:522:58 • undefined_getter
   error • The getter 'currencies' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:43:26 • undefined_getter
   error • The getter 'addNewCurrency' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:47:27 • undefined_getter
   error • The getter 'editCurrency' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/currencies_screen.dart:52:27 • undefined_getter
@@ -1015,13 +820,6 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
   error • The getter 'roleManagement' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/role_management_screen.dart:19:26 • undefined_getter
   error • The getter 'addNewRole' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/role_management_screen.dart:65:23 • undefined_getter
   error • The getter 'save' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/role_permissions_screen.dart:44:27 • undefined_getter
-  error • The getter 'companyInfo' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:21:23 • undefined_getter
-  error • The getter 'branches' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:27:23 • undefined_getter
-  error • The getter 'branchGroups' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:33:23 • undefined_getter
-  error • The getter 'chartOfAccounts' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:39:23 • undefined_getter
-  error • The getter 'userManagement' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:45:23 • undefined_getter
-  error • The getter 'roleManagement' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:51:23 • undefined_getter
-  error • The getter 'systemSetup' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/system_setup_menu_screen.dart:58:26 • undefined_getter
   error • The getter 'taxSettings' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/tax_screen.dart:17:28 • undefined_getter
   error • The getter 'taxBrackets' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/tax_screen.dart:20:30 • undefined_getter
   error • The getter 'taxTypes' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/tax_screen.dart:21:30 • undefined_getter
@@ -1054,22 +852,22 @@ warning • The value of the local variable 'allAccountIds' isn't used • lib/f
   error • The getter 'cashFlowType' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:204:61 • undefined_getter
   error • The getter 'active' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:207:34 • undefined_getter
   error • The getter 'save' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_account_dialog.dart:217:61 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:82:36 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:123:45 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:123:86 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:132:58 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:139:58 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:146:58 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:82:56 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:123:65 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:123:116 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:132:78 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:139:78 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:146:78 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:153:19 • deprecated_member_use
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:154:60 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:154:80 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:171:19 • deprecated_member_use
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:172:60 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:185:28 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:172:80 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:185:48 • undefined_getter
    info • 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:187:19 • deprecated_member_use
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:189:34 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:189:54 • undefined_getter
   error • The getter 'address' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:199:65 • undefined_getter
   error • The getter 'phone' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:204:65 • undefined_getter
-  error • The getter 'inventory' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:220:26 • undefined_getter
+  error • The getter 'master' isn't defined for the type 'String' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:220:46 • undefined_getter
   error • The getter 'remarks' isn't defined for the type 'TranslationsCommonEn' • lib/features/system_setup/presentation/widgets/add_edit_branch_dialog.dart:231:65 • undefined_getter
 warning • The operand can't be 'null', so the condition is always 'false' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:104:14 • unnecessary_null_comparison
   error • The getter 'editCurrency' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/add_edit_currency_dialog.dart:110:36 • undefined_getter
@@ -1235,6 +1033,55 @@ warning • The operand can't be 'null', so the condition is always 'false' • 
   error • The getter 'dark' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:25:70 • undefined_getter
   error • The getter 'light' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:25:82 • undefined_getter
   error • The getter 'fontSize' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/widgets/ui_params_view.dart:36:29 • undefined_getter
+  error • There's no constant named 'coa' in 'AppLocale' • lib/l10n/translations_coa.g.dart:20:25 • undefined_enum_constant
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:42:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:43:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:44:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:45:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:46:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:47:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:48:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_coa.g.dart:49:23 • override_on_non_overriding_member
+  error • There's no constant named 'geo' in 'AppLocale' • lib/l10n/translations_geo.g.dart:20:25 • undefined_enum_constant
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:42:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:43:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:44:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:45:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:46:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:47:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:48:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:49:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:50:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:51:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:52:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:53:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:54:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:55:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:56:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:57:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:58:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:59:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_geo.g.dart:60:23 • override_on_non_overriding_member
+  error • There's no constant named 'ops' in 'AppLocale' • lib/l10n/translations_ops.g.dart:20:25 • undefined_enum_constant
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:42:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:43:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:44:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:45:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:46:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:47:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:48:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:49:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:50:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:51:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:52:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:53:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:54:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:55:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:56:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:57:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:58:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:59:23 • override_on_non_overriding_member
+warning • The getter doesn't override an inherited getter • lib/l10n/translations_ops.g.dart:60:23 • override_on_non_overriding_member
    info • Don't invoke 'print' in production code • lib/main.dart:26:68 • avoid_print
    info • The type parameter name 'Type' matches a visible type name • lib/shared/domain/interfaces/usecase.dart:6:24 • avoid_types_as_parameter_names
    info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/shared/presentation/widgets/empty_state_widget.dart:29:50 • deprecated_member_use
@@ -1245,6 +1092,7 @@ warning • The operand can't be 'null', so the condition is always 'false' • 
   error • The getter 'comingSoon' isn't defined for the type 'Translations' • lib/shared/presentation/widgets/placeholder_screen.dart:27:20 • undefined_getter
   error • The getter 'featureUnderDevelopment' isn't defined for the type 'Translations' • lib/shared/presentation/widgets/placeholder_screen.dart:32:20 • undefined_getter
   error • The getter 'invalidPhoneNumberFormat' isn't defined for the type 'TranslationsCommonEn' • lib/shared/utils/validation_utils.dart:11:21 • undefined_getter
+  error • Missing concrete implementation of 'class LoginNotifier extends StateNotifier<LoginState>.logout' • test/features/authentication/login_page_test.dart:14:7 • non_abstract_class_inherits_abstract_member
   error • The values in a const list literal must be constants • test/features/authentication/login_page_test.dart:55:13 • non_constant_list_element
   error • Undefined name 'AppLocalizations' • test/features/authentication/login_page_test.dart:55:13 • undefined_identifier
   error • Undefined name 'AppLocalizations' • test/features/authentication/login_page_test.dart:60:29 • undefined_identifier
@@ -1262,4 +1110,3 @@ warning • The operand can't be 'null', so the condition is always 'false' • 
   error • Invalid constant value • test/register_form_test.dart:15:29 • invalid_constant
   error • Undefined name 'AppLocalizations' • test/register_form_test.dart:15:29 • undefined_identifier
 
-1259 issues found. (ran in 2.5s)
