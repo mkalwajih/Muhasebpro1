@@ -1,87 +1,64 @@
 # Error-Fixing Plan
 
-## 1. Detect and Log Errors
-- Run `flutter analyze` to find all errors.
-- Save all errors with their details from the analysis output.
-- Keep errors in memory until resolved or marked unresolvable.
-- **Output:** Error list.
+## 1. Initial Detection and Root Cause Analysis
+- Ran `flutter analyze` to find all errors.
+- **Identified Root Causes:**
+    - **A. Code Generation Blockage:** A critical syntax error in `payment_vouchers_screen.dart` prevented `build_runner` from completing successfully, leading to truncated or incorrect generated files.
+    - **B. Incorrect Localization Key Usage:** UI code was attempting to access `slang` generated translation keys with incorrect namespaces (e.g., `l10n.gl.vouchers.journal` instead of `l10n.vouchers.journal`).
+    - **C. Incorrect Database API Usage:** Repository code used incorrect class names or getters for Drift database entities due to incomplete code generation (e.g., `db.AccountsCompanion` vs `AccountsCompanion`, `database.accounts`).
+    - **D. Outdated Test References:** Test files had references to `AppLocalizations` (from `flutter_gen`) which is no longer used, and a `non_abstract_class_inherits_abstract_member` for `LoginNotifier`.
 
-## 2. Categorize Errors
-- Group errors based on their nature from analysis output.
-- Prioritize based on impact (e.g., errors preventing build first).
-- **Output:** Prioritized error groups.
+## 2. Core Project Regeneration (Phase 1 Fixes)
+- **Action:** Fixed the critical syntax error in `lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart` (missing `}`).
+- **Action:** Executed `flutter clean` to remove all build artifacts and ensure a fresh state.
+- **Action:** Executed `flutter pub get` to ensure all dependencies are correctly fetched.
+- **Action:** Executed `dart run build_runner build --delete-conflicting-outputs` to force a complete and clean regeneration of all necessary files.
+- **Verification:** Ran `flutter analyze` after these steps.
 
-## 3. Find Root Causes
-- For each error:
-    - Read all related project files to understand the error fully.
-    - Check project structure and file contents to identify the cause.
-    - Verify referenced elements (e.g., files, functions) exist and are correct.
-    - If an element is missing, search project structure for it.
-    - If still missing, check project documentation to confirm if it should exist.
-    - If documentation confirms, prepare to create it with correct content and location.
-    - If unclear, mark as unresolvable and document the reason.
-- **Output:** Report per error (ID, cause, related files, evidence from project).
+## 3. Systematic Error Resolution (Phase 2 Fixes - In Progress)
 
-## 4. Propose Fixes
-- Suggest one minimal fix per error based only on project data.
-- Ensure the fix:
-    - Addresses only the error.
-    - Does not affect application functionality.
-- For creating elements (e.g., files, functions):
-    - Only create if documentation confirms purpose and content.
-    - Use project patterns for content and location.
-    - If unclear, skip and document.
-- Check if the fix resolves other errors (e.g., fixing one issue may resolve related errors).
-- **Output:** Proposal (ID, change, reason from project data, impact).
+### 3.1. Localization Fixes
+- **Methodology:** For every `undefined_getter` error related to `Translations` object:
+    1.  Referenced `lib/l10n/translations_en.g.dart` to identify the correct namespace and key structure.
+    2.  Updated the code to use the correct `l10n.namespace.key` pattern (e.g., `l10n.vouchers.payment` instead of `l10n.gl.vouchers.payment`).
+    3.  For dialogs or functions requiring `l10n`, ensured `Translations l10n` was passed as a parameter if not already in scope.
+    4.  Used generic fallback strings (e.g., "No accounts yet", "No accounts found") if specific localization keys were missing.
+- **Completed Files:**
+    - `lib/features/general_ledger/presentation/pages/general_ledger_menu_screen.dart`
+    - `lib/features/general_ledger/presentation/pages/journal_vouchers_screen.dart`
+    - `lib/features/general_ledger/presentation/pages/payment_vouchers_screen.dart` (Syntax error resolved here, and localization keys updated)
+    - `lib/features/general_ledger/presentation/pages/receipt_vouchers_screen.dart`
+    - `lib/features/general_ledger/presentation/pages/review_posting_screen.dart`
+    - `lib/features/general_ledger/presentation/pages/transaction_requests_screen.dart`
+    - `lib/features/general_ledger/presentation/widgets/account_selector_dialog.dart`
+    - `lib/features/general_ledger/presentation/widgets/cash_bank/adjustment_entries_tab.dart`
+    - `lib/features/general_ledger/presentation/widgets/cash_bank/bank_reconciliation_tab.dart`
+    - `lib/features/general_ledger/presentation/widgets/cash_bank/bank_statements_tab.dart`
+    - `lib/features/general_ledger/presentation/widgets/cash_bank/cash_deposits_tab.dart`
 
-## 5. Apply and Verify Fixes
-- Apply the change.
-- Run `flutter analyze` to check if the error is fixed and no new errors appear.
-- If the fix fails or causes new errors:
-    - Revert the change.
-    - Re-read related files and project structure.
-    - Suggest a new fix based on new analysis.
-- Run commands only if needed based on changes:
-    - `flutter pub get` if dependencies changed.
-    - `flutter clean` if build issues persist after changes.
-- **Output:** Updated error list (e.g., "E001: Fixed").
+### 3.2. Database API Fixes
+- **Methodology:** For `undefined class` or `undefined getter` errors related to Drift database classes:
+    1.  Inspected `lib/core/db/schemas/*.drift` files for table definitions and `lib/core/db/app_database.g.dart` for generated class and getter names.
+    2.  Corrected imports and class/getter names in the affected repository files (e.g., ensuring `AccountsCompanion` is correctly referenced and `database.accounts` is accessible).
+- **Completed Files:**
+    - `lib/features/system_setup/data/repositories/coa_repository_impl.dart` (Adjusted import and removed `db.` prefix, corrected field mappings like `accountNameAr` instead of `nameAr`).
 
-## 6. Avoid Loops
-- Log each attempt:
-    ```
-    ErrorID | Attempt | Action | Files Changed | Result | Next Step
-    E001    | 1       | Fix issue | file.dart | Failed | Re-analyze
-    ```
-- Do not repeat actions (e.g., `flutter clean`, `flutter pub get`) unless code changes justify it.
-- After two failed attempts:
-    - Mark as "needs developer review."
-    - Document attempts and reasons.
-- **Output:** Attempt log.
+### 3.3. Test File Corrections (Remaining Tasks)
+- **Files to Fix:**
+    - `test/features/authentication/login_page_test.dart`
+    - `test/features/authentication/login_test.dart`
+    - `test/forgot_password_form_test.dart`
+    - `test/login_form_test.dart`
+    - `test/register_form_test.dart`
+- **Actions required:**
+    - Update `AppLocalizations` references to `Translations.of(context)` or use mocked `Translations` objects in tests.
+    - Address specific class implementation issues (e.g., `LoginNotifier` missing `logout` implementation).
 
-## 7. Finalize and Report
-- Run `flutter analyze` to confirm no errors or list remaining ones.
-- If no errors, update GitHub with a commit:
-    ```markdown
-    fix: Resolved [N] errors
-    - Fixed [Error ID]: [Description] in [File]
-    - Created [Element] per documentation
-    - Unresolved: [Error ID] - [Reason]
-    - Verified: `flutter analyze` results
-    ```
-- Push to GitHub.
-- Report to developer:
-    - Errors fixed
-    - Unresolved errors (reasons)
-    - Commands run
-    - Verification results
-    - Flag errors needing input.
-- **Output:** Commit message and report.
+## 4. Code Hygiene and Technical Debt Removal (Remaining Tasks)
+- **Action:** Remove Unused Imports.
+- **Action:** Delete Obsolete Files (e.g., `add_edit_branch_dialog.old.dart`).
+- **Action:** Address `TODO` comments.
 
-## 8. Strict Rules
-- Use only project files and documentation for fixes.
-- Do not change functionality unless required.
-- Create elements only if documentation confirms.
-- One change per error.
-- Verify with `flutter analyze`.
-- No repeated actions unless justified.
-- Document all actions and failures.
+## 5. Final Verification and Report
+- **Action:** Run `flutter analyze` one final time to ensure a clean bill of health.
+- **Output:** Comprehensive report of all fixes, remaining issues (if any, with reasons for being unresolvable), and steps to reproduce.

@@ -1,27 +1,26 @@
 import 'package:drift/drift.dart';
-import 'package:muhaseb_pro/core/db/app_database.dart' as db;
+import 'package:muhaseb_pro/core/db/app_database.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/entities/account_entity.dart';
 import 'package:muhaseb_pro/features/system_setup/domain/repositories/coa_repository.dart';
 
 class CoaRepositoryImpl implements CoaRepository {
-  final db.AppDatabase database;
+  final AppDatabase database;
 
   CoaRepositoryImpl(this.database);
 
   @override
   Future<List<AccountEntity>> getChartOfAccounts() async {
     final allAccounts = await database.select(database.accounts).get();
-    final allAccountIds = allAccounts.map((a) => a.id).toSet();
     
     final accountMap = {for (var acc in allAccounts) acc.id: AccountEntity(
       id: acc.id,
-      parentId: acc.parentId,
+      parentId: acc.parentAccountId,
       accountCode: acc.accountCode,
-      nameAr: acc.nameAr,
-      nameEn: acc.nameEn,
-      level: acc.level,
+      nameAr: acc.accountNameAr,
+      nameEn: acc.accountNameEn,
+      level: 0, // Level calculation needs to be implemented
       isActive: acc.isActive,
-      isParent: allAccounts.any((a) => a.parentId == acc.id),
+      isParent: acc.isParent,
       nature: acc.nature,
       reportType: acc.reportType,
       cashFlowType: acc.cashFlowType ?? '',
@@ -31,10 +30,10 @@ class CoaRepositoryImpl implements CoaRepository {
     final topLevelAccounts = <AccountEntity>[];
 
     for (var acc in allAccounts) {
-      if (acc.parentId == null) {
+      if (acc.parentAccountId == null) {
         topLevelAccounts.add(accountMap[acc.id]!);
       } else {
-        final parent = accountMap[acc.parentId];
+        final parent = accountMap[acc.parentAccountId];
         if (parent != null) {
           parent.children.add(accountMap[acc.id]!);
         }
@@ -55,25 +54,27 @@ class CoaRepositoryImpl implements CoaRepository {
     return (database.update(database.accounts)..where((a) => a.id.equals(account.id))).write(companion);
   }
 
-  db.AccountsCompanion _toCompanion(AccountEntity account) {
-    return db.AccountsCompanion(
+  AccountsCompanion _toCompanion(AccountEntity account) {
+    return AccountsCompanion(
       id: account.id == 0 ? const Value.absent() : Value(account.id),
-      parentId: Value(account.parentId),
+      parentAccountId: Value(account.parentId),
       accountCode: Value(account.accountCode),
-      nameAr: Value(account.nameAr),
-      nameEn: Value(account.nameEn),
-      level: Value(account.level),
+      accountNameAr: Value(account.nameAr),
+      accountNameEn: Value(account.nameEn),
+      // level: Value(account.level), // Not in AccountsCompanion, needs re-evaluation
       isActive: Value(account.isActive),
       nature: Value(account.nature),
       reportType: Value(account.reportType),
       cashFlowType: Value(account.cashFlowType),
       detailAccountType: Value(account.detailAccountType),
+      accountTypeCode: const Value(''), // Placeholder, check requirements
+      isParent: Value(account.isParent),
     );
   }
 
   
   Future<void> deleteAccount(int accountId) async {
-     final children = await (database.select(database.accounts)..where((a) => a.parentId.equals(accountId))).get();
+     final children = await (database.select(database.accounts)..where((a) => a.parentAccountId.equals(accountId))).get();
      if(children.isNotEmpty){
        throw Exception("Cannot delete an account with children.");
      }

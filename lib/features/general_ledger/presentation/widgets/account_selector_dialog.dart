@@ -41,7 +41,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
             Row(
               children: [
                 Text(
-                  l10n.reports.selectAccount, // Corrected
+                  l10n.reports.selectAccount, 
                   style: theme.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -58,7 +58,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
             // Search Field
             CustomSearchField(
               value: _searchQuery,
-              hintText: l10n.common.search, // Corrected to common.search
+              hintText: l10n.common.search, 
               onChanged: (value) {
                 setState(() {
                   _searchQuery = value;
@@ -77,8 +77,8 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                     return Center(
                       child: Text(
                         _searchQuery.isEmpty 
-                            ? l10n.common.noRequestsFound // Used common.noRequestsFound as placeholder
-                            : l10n.common.noRequestsFound, // Used common.noRequestsFound as placeholder
+                            ? 'No accounts yet' 
+                            : 'No accounts found', 
                         style: theme.textTheme.bodyLarge?.copyWith(
                           color: theme.colorScheme.onSurface,
                         ),
@@ -123,7 +123,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${l10n.coa_setup.level}: ${account.level} | ${l10n.coa_setup.nature}: ${account.nature}', // Corrected
+                                '${l10n.coa_setup.level}: ${account.level} | ${l10n.coa_setup.nature}: ${account.nature}', 
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
                                       ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
@@ -131,7 +131,7 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                                 ),
                               ),
                               Text(
-                                '${l10n.coa_setup.detailType}: ${account.detailAccountType}', // Corrected
+                                '${l10n.coa_setup.detailType}: ${account.detailAccountType}', 
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
                                       ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
