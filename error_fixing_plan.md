@@ -1,47 +1,38 @@
-# Plan to Fix Localization and Schema Errors
+# Refactoring & Repair Plan - MuhasebPro
 
-## 1. Analysis of the Situation
+## 1. Accomplished: Database Architecture Refactor (Phase 1)
+We have successfully re-architected the monolithic database into a professional modular structure.
 
-### 1.1. Database Schema (`lib/core/db/schemas`)
+### 1.1. Modular Structure Implemented
+*   **Location:** `lib/core/db/schemas/`
+*   **Modules:**
+    *   `_shared/`: Standardized columns (`common_columns.drift`, `audit_columns.drift`) and `enums.drift`.
+    *   `auth/`: User management and roles (`users.drift`).
+    *   `system_setup/`: Core parameters, branches, companies, geographical data, taxes, and currencies.
+    *   `general_ledger/`: COA, Journal Vouchers, Transaction Requests, and Posting Batches.
+    *   `inventory/`: Items, Warehouses, Stock Operations, and Configuration.
 
-*   **`main` branch:** Contains numerous specific schema files (e.g., `auth_schema.drift`, `branches_schema.drift`), indicating a fine-grained, feature-based modular structure.
-*   **Current state:** These have been consolidated into three numbered files (`01_system.drift`, `02_finance.drift`, `03_inventory.drift`), suggesting a refactoring to a more layered or coarse-grained modular approach.
+### 1.2. Requirement Alignment
+*   Updated `journal_vouchers.drift` to support complex entries (debit/credit, foreign currency, reversing).
+*   Added `transaction_requests.drift` for approval workflows.
+*   Standardized auditing and active-status columns across all modules.
 
-### 1.2. Localization (`lib/l10n`)
+## 2. In Progress: Localization & UI Repair (Phase 2 & 3)
+### 2.1. Namespace Flattening
+The adoption of `slang` with a modular folder structure changed access paths from `t.gl.X` to `t.X` (e.g., `t.cashbank.X`).
+*   **Status:** Automated replacement of `t.gl.` to `t.` and nested inventory paths is in progress.
+*   **Missing Keys:** Added missing business-critical keys to `.arb` files (e.g., `postingBatches`, `reconciliationDate`) identified during static analysis.
 
-*   **`main` branch:** Uses the standard Flutter localization with `app_en.arb`, `app_ar.arb`, and generated `.dart` files, representing a simple, flat structure.
-*   **Current state:** Has transitioned to the `slang` package. The `.arb` files are organized into a nested directory structure, modularized by language and feature (e.g., `lib/l10n/en/auth.arb`).
+### 2.2. Code Synchronization
+*   Regenerated `app_database.g.dart` and `translations.g.dart` to match new structures.
+*   Fixed `coa_local_datasource.dart` to use correctly generated table names (`chart_of_accounts`).
 
-### 1.3. Root Cause of Errors
+## 3. Next Steps
+### 3.1. Modernization & Cleanup
+*   Systematic replacement of deprecated `withOpacity` with `withValues`.
+*   Fixing `TextFormField` and `DropdownButtonFormField` usage (replacing `value` with `initialValue` where appropriate).
+*   Resolving remaining `undefined_getter` errors in the General Ledger and Inventory UI.
 
-The primary cause of the analysis errors is the adoption of the `slang` package with a modular, namespaced structure for localization. The UI code has not been updated to reflect this change. For example, a translation that was previously accessed directly (e.g., `AppLocalizations.of(context)!.someKey`) now needs to be accessed via a namespace (e.g., `Translations.of(context).someNamespace.someKey`).
-
-## 2. Step-by-Step Plan to Fix Errors
-
-This plan aims to resolve the errors while preserving the improved modular structure.
-
-### 2.1. Correct `slang` Configuration
-
-I will start by ensuring that the `slang.yaml` file is correctly configured to handle the modular structure. This includes:
-
-*   Setting `namespaces: true`.
-*   Verifying that the input and output directories are correctly specified.
-
-### 2.2. Regenerate Translation Files
-
-I will run the command `dart run slang` to regenerate the translation files. This will ensure that `translations.g.dart` and other related files accurately reflect the namespaced structure of the `.arb` files.
-
-### 2.3. Update UI Code to Use `slang` Namespaces
-
-I will systematically update the UI code to use the `slang`-generated `Translations` class and its namespaces. This will involve the following changes:
-
-*   Replacing `l10n.someKey` with `l10n.someNamespace.someKey`.
-*   Using the error messages from `flutter analyze` to identify all instances that need updating.
-
-### 2.4. Resolve Schema-Related Errors
-
-If any errors are related to the database schema changes, I will update the database code to use the new consolidated schema files. This may involve:
-
-*   Updating table names.
-*   Modifying Data Access Objects (DAOs).
-*   Updating repository implementations to align with the new schema.
+### 3.2. Validation
+*   Run full `flutter analyze` to ensure zero errors.
+*   Verify cross-module references in Drift (Foreign Keys).

@@ -109,7 +109,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 child: DropdownButtonFormField<String>(
                   value: _selectedType,
                   decoration: InputDecoration(
-                    labelText: t.gl.cashbank.adjustmentType,
+                    labelText: t.cashbank.adjustmentType,
                     border: const OutlineInputBorder(),
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -118,9 +118,9 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                   ),
                   items: [
                     DropdownMenuItem(value: 'All', child: Text(t.common.all)),
-                    DropdownMenuItem(value: 'BankCharges', child: Text(t.gl.cashbank.bankCharges)),
-                    DropdownMenuItem(value: 'InterestEarned', child: Text(t.gl.cashbank.interestEarned)),
-                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(t.gl.cashbank.errorCorrection)),
+                    DropdownMenuItem(value: 'BankCharges', child: Text(t.cashbank.bankCharges)),
+                    DropdownMenuItem(value: 'InterestEarned', child: Text(t.cashbank.interestEarned)),
+                    DropdownMenuItem(value: 'ErrorCorrection', child: Text(t.cashbank.errorCorrection)),
                     DropdownMenuItem(value: 'Other', child: Text(t.common.other)),
                   ],
                   onChanged: (value) {
@@ -135,7 +135,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
                 ElevatedButton.icon(
                   onPressed: _createNewAdjustment,
                   icon: const Icon(Icons.add),
-                  label: Text(t.gl.cashbank.newAdjustment),
+                  label: Text(t.cashbank.newAdjustment),
                 ),
             ],
           ),
@@ -172,12 +172,12 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           ),
           const SizedBox(height: 16),
           Text(
-            t.gl.cashbank.noAdjustmentsFound,
+            t.cashbank.noAdjustmentsFound,
             style: theme.textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
           Text(
-            t.gl.cashbank.createFirstAdjustment,
+            t.cashbank.createFirstAdjustment,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -413,15 +413,15 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     switch (type) {
       case AdjustmentType.bankCharges:
-        typeText = t.gl.cashbank.bankCharges;
+        typeText = t.cashbank.bankCharges;
         icon = Icons.money_off;
         break;
       case AdjustmentType.interestEarned:
-        typeText = t.gl.cashbank.interestEarned;
+        typeText = t.cashbank.interestEarned;
         icon = Icons.trending_up;
         break;
       case AdjustmentType.errorCorrection:
-        typeText = t.gl.cashbank.errorCorrection;
+        typeText = t.cashbank.errorCorrection;
         icon = Icons.edit;
         break;
       case AdjustmentType.other:
@@ -438,7 +438,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
           fontWeight: FontWeight.w500,
         ),
       ),
-      backgroundColor: theme.colorScheme.secondaryContainer.withAlpha(128),
+      backgroundColor: theme.colorScheme.secondaryContainer.withValues(alpha: 128/255.0),
       side: BorderSide.none,
     );
   }
@@ -472,7 +472,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(t.gl.cashbank.newAdjustment),
+        title: Text(t.cashbank.newAdjustment),
         content: const Text('Adjustment form will be implemented here'),
         actions: [
           TextButton(
@@ -523,7 +523,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashbank.adjustmentSubmittedSuccessfully),
+        content: Text(t.cashbank.adjustmentSubmittedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -541,7 +541,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashbank.adjustmentApprovedSuccessfully),
+        content: Text(t.cashbank.adjustmentApprovedSuccessfully),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
     );
@@ -551,7 +551,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
     final t = Translations.of(context);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(t.gl.cashbank.editAdjustmentNotImplemented),
+        content: Text(t.cashbank.editAdjustmentNotImplemented),
       ),
     );
   }
@@ -562,7 +562,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(t.common.confirmDelete),
-        content: Text(t.gl.cashbank.confirmDeleteAdjustment),
+        content: Text(t.cashbank.confirmDeleteAdjustment),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -577,7 +577,7 @@ class _AdjustmentEntriesTabState extends ConsumerState<AdjustmentEntriesTab> {
               
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(t.gl.cashbank.adjustmentDeletedSuccessfully),
+                  content: Text(t.cashbank.adjustmentDeletedSuccessfully),
                   backgroundColor: Theme.of(context).colorScheme.error,
                 ),
               );

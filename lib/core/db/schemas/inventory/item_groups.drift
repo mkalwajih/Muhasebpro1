@@ -1,0 +1,13 @@
+CREATE TABLE item_groups (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    group_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    parent_group_id INTEGER REFERENCES item_groups(id),
+    inventory_account_id TEXT NOT NULL,
+    sales_revenue_account_id TEXT NOT NULL,
+    cogs_account_id TEXT NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

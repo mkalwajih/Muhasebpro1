@@ -1,0 +1,62 @@
+import 'item_groups.drift';
+
+CREATE TABLE items (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    item_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    barcode TEXT UNIQUE,
+    description TEXT,
+    item_type TEXT NOT NULL CHECK (item_type IN ('Stockable', 'Service', 'Assembled')),
+    item_group_id INTEGER NOT NULL REFERENCES item_groups(id),
+    base_unit TEXT NOT NULL,
+    costing_method TEXT CHECK (costing_method IN ('Weighted Average', 'FIFO', 'LIFO')),
+    cost_price REAL NOT NULL DEFAULT 0,
+    reorder_level REAL,
+    max_stock_level REAL,
+    min_stock_level REAL,
+    track_expiry_date BOOLEAN NOT NULL DEFAULT FALSE,
+    track_batch_number BOOLEAN NOT NULL DEFAULT FALSE,
+    inventory_account_id TEXT,
+    sales_revenue_account_id TEXT,
+    cogs_account_id TEXT,
+    stock_discrepancy_account_id TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE item_sub_units (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+    unit_name TEXT NOT NULL,
+    conversion_factor REAL NOT NULL,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE item_selling_prices (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+    price_level_name TEXT NOT NULL,
+    price REAL NOT NULL,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE item_promotional_prices (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    item_selling_price_id INTEGER NOT NULL REFERENCES item_selling_prices(id) ON DELETE CASCADE,
+    promo_price REAL NOT NULL,
+    start_date INTEGER NOT NULL,
+    end_date INTEGER NOT NULL,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE item_attachments (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+    file_name TEXT NOT NULL,
+    file_path TEXT NOT NULL,
+    file_type TEXT NOT NULL,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

@@ -107,7 +107,7 @@ class GeneralLedgerMenuScreen extends StatelessWidget {
                     Text(
                       item.subtitle,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withAlpha(153),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 153/255.0),
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

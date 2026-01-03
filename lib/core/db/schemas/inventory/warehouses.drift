@@ -1,0 +1,13 @@
+import '../system_setup/branches.drift';
+
+CREATE TABLE warehouses (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    warehouse_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    branch_id INTEGER NOT NULL REFERENCES branches(id),
+    inventory_account_id TEXT NOT NULL, -- References accounts(account_code) logically
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

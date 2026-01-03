@@ -1,0 +1,9 @@
+-- Common column definitions as documentation or for future expansion
+-- Note: Drift doesn't support direct mixins in .drift files, 
+-- but these can be used as reference for table standards.
+
+-- ID: INTEGER PRIMARY KEY AUTOINCREMENT
+-- CreatedAt: INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+-- UpdatedAt: INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+-- IsActive: BOOLEAN NOT NULL DEFAULT TRUE
+-- BranchId: INTEGER REFERENCES branches(id)

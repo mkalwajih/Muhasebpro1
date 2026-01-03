@@ -67,5 +67,22 @@
   "all": "All",
   "approve": "Approve",
   "reject": "Reject",
-  "approvedBy": "Approved By"
+  "approvedBy": "Approved By",
+  "other": "Other",
+  "account": "Account",
+  "contraAccount": "Contra Account",
+  "symbol": "Symbol",
+  "confirmed": "Confirmed",
+  "viewDetails": "View Details",
+  "openingBalance": "Opening Balance",
+  "totalDebit": "Total Debit",
+  "totalCredit": "Total Credit",
+  "closingBalance": "Closing Balance",
+  "transactions": "Transactions",
+  "import": "Import",
+  "invalidFormat": "Invalid Format",
+  "invalidEmail": "Invalid Email",
+  "address": "Address",
+  "phone": "Phone",
+  "remarks": "Remarks"
 }

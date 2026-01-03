@@ -1,0 +1,45 @@
+CREATE TABLE zones (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    zone_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE countries (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    country_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    nationality_ar TEXT NOT NULL,
+    nationality_en TEXT NOT NULL,
+    zone_id INTEGER NOT NULL REFERENCES zones(id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE governorates (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    gov_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    country_id INTEGER NOT NULL REFERENCES countries(id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE cities (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    city_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    gov_id INTEGER NOT NULL REFERENCES governorates(id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE regions (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    region_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    city_id INTEGER NOT NULL REFERENCES cities(id),
+    is_active BOOLEAN NOT NULL DEFAULT TRUE
+);

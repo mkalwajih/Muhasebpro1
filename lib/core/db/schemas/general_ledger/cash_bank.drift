@@ -1,0 +1,33 @@
+import 'chart_of_accounts.drift';
+import 'journal_vouchers.drift';
+
+CREATE TABLE bank_reconciliations (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    account_id INTEGER NOT NULL REFERENCES chart_of_accounts(id),
+    statement_date INTEGER NOT NULL,
+    statement_balance REAL NOT NULL,
+    system_balance REAL NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Draft', 'Finalized')) DEFAULT 'Draft',
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE bank_reconciliation_items (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    reconciliation_id INTEGER NOT NULL REFERENCES bank_reconciliations(id) ON DELETE CASCADE,
+    voucher_id INTEGER NOT NULL REFERENCES journal_vouchers(id),
+    is_cleared BOOLEAN NOT NULL DEFAULT FALSE,
+    cleared_at INTEGER
+);
+
+CREATE TABLE cash_deposits (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    source_voucher_id INTEGER NOT NULL REFERENCES journal_vouchers(id),
+    destination_account_id INTEGER NOT NULL REFERENCES chart_of_accounts(id),
+    amount REAL NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Pending', 'Confirmed', 'Returned')) DEFAULT 'Pending',
+    confirmed_at INTEGER,
+    confirmed_by TEXT,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

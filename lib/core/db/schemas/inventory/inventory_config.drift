@@ -1,0 +1,14 @@
+CREATE TABLE inventory_config (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    default_costing_method TEXT NOT NULL CHECK (default_costing_method IN ('Weighted Average', 'FIFO', 'LIFO')),
+    allow_item_level_override BOOLEAN NOT NULL DEFAULT TRUE,
+    enable_multiple_warehouses BOOLEAN NOT NULL DEFAULT TRUE,
+    transfers_intermediary_account_id TEXT, -- References removed to simplify module isolation, handled via repository logic
+    enable_expiry_date_tracking BOOLEAN NOT NULL DEFAULT FALSE,
+    enable_batch_tracking BOOLEAN NOT NULL DEFAULT FALSE,
+    opening_balance_equity_account_id TEXT,
+    stock_received_clearing_account_id TEXT,
+    inventory_shortage_expense_account_id TEXT,
+    inventory_surplus_revenue_account_id TEXT,
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

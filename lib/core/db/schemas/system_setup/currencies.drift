@@ -1,0 +1,23 @@
+CREATE TABLE currencies (
+    currency_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    symbol TEXT NOT NULL,
+    fraction_name_ar TEXT NOT NULL,
+    fraction_name_en TEXT NOT NULL,
+    exchange_rate REAL NOT NULL,
+    is_base_currency BOOLEAN NOT NULL DEFAULT FALSE,
+    decimal_places INTEGER NOT NULL,
+    min_rate_limit REAL,
+    max_rate_limit REAL,
+    is_active BOOLEAN NOT NULL
+);
+
+CREATE TABLE currency_denominations (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    currency_code TEXT NOT NULL REFERENCES currencies(currency_code),
+    denomination_value REAL NOT NULL,
+    denomination_name_ar TEXT NOT NULL,
+    denomination_name_en TEXT NOT NULL,
+    denomination_type TEXT NOT NULL
+);

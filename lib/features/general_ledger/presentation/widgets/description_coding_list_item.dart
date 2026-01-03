@@ -26,7 +26,7 @@ class DescriptionCodingListItem extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 8.0),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: theme.colorScheme.secondary.withAlpha(26),
+          backgroundColor: theme.colorScheme.secondary.withValues(alpha: 26/255.0),
           child: Icon(
             Icons.code,
             color: theme.colorScheme.secondary,
@@ -53,7 +53,7 @@ class DescriptionCodingListItem extends StatelessWidget {
             Text(
               isRTL ? descriptionCoding.descriptionEn : descriptionCoding.descriptionAr,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withAlpha(179),
+                color: theme.colorScheme.onSurface.withValues(alpha: 179/255.0),
               ),
             ),
             if (descriptionCoding.linkedAccountId != null) ...[
@@ -63,13 +63,13 @@ class DescriptionCodingListItem extends StatelessWidget {
                   Icon(
                     Icons.link,
                     size: 16,
-                    color: theme.colorScheme.onSurface.withAlpha(153),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 153/255.0),
                   ),
                   const SizedBox(width: 4),
                   Text(
                     '${l10n.linkedAccount}: ${descriptionCoding.linkedAccountId}',
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withAlpha(153),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 153/255.0),
                     ),
                   ),
                 ],
@@ -79,7 +79,7 @@ class DescriptionCodingListItem extends StatelessWidget {
               Text(
                 l10n.noAccountSelected,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withAlpha(128),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 128/255.0),
                   fontStyle: FontStyle.italic,
                 ),
               ),

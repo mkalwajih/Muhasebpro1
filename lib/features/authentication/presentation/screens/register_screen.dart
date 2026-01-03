@@ -19,9 +19,9 @@ class RegisterScreen extends ConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              colorScheme.primary.withAlpha(25),
+              colorScheme.primary.withValues(alpha: 25/255.0),
               colorScheme.surface,
-              colorScheme.primaryContainer.withAlpha(51),
+              colorScheme.primaryContainer.withValues(alpha: 51/255.0),
             ],
           ),
         ),

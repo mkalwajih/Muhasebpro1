@@ -657,22 +657,17 @@ warning • The value of the field '_inventorySurplusRevenueAccountId' isn't use
   error • The getter 'delete' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:127:30 • undefined_getter
   error • The getter 'deleteSuccess' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:138:41 • undefined_getter
   error • The getter 'deleteFailed' isn't defined for the type 'Translations' • lib/features/inventory/presentation/widgets/setup/warehouses_tab.dart:144:44 • undefined_getter
-  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:6:27 • undefined_class
-  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:7:30 • undefined_class
-  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:9:15 • non_type_as_type_argument
-  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:10:10 • non_type_as_type_argument
-  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:20:27 • undefined_class
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:21:34 • undefined_getter
-  error • Undefined class 'ChartOfAccountsCompanion' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:25:30 • undefined_class
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:26:37 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:27:32 • undefined_getter
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:33:37 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:34:32 • undefined_getter
-  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:39:15 • non_type_as_type_argument
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:40:43 • undefined_getter
-  error • The name 'ChartOfAccount' isn't a type, so it can't be used as a type argument • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:44:10 • non_type_as_type_argument
-  error • The getter 'chartOfAccounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:45:44 • undefined_getter
-  error • The getter 'id' isn't defined for the type 'HasResultSet' • lib/features/system_setup/data/datasources/local/coa_local_datasource.dart:46:32 • undefined_getter
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:13:56 • undefined_getter
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:48:35 • undefined_getter
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:54:38 • undefined_getter
+  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:54:64 • undefined_getter
+  error • Undefined class 'AccountsCompanion' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:57:3 • undefined_class
+  error • The method 'AccountsCompanion' isn't defined for the type 'CoaRepositoryImpl' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:58:12 • undefined_method
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:77:55 • undefined_getter
+  error • The getter 'parentAccountId' isn't defined for the type 'HasResultSet' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:77:81 • undefined_getter
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:81:37 • undefined_getter
+  error • The getter 'id' isn't defined for the type 'Table' • lib/features/system_setup/data/repositories/coa_repository_impl.dart:81:63 • undefined_getter
+  error • The getter 'accounts' isn't defined for the type 'AppDatabase' • lib/features/system_setup/data/repositories/general_parameters_repository_impl.dart:31:49 • undefined_getter
   error • The getter 'branchGroups' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:25:26 • undefined_getter
   error • The getter 'addNewBranchGroup' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:71:50 • undefined_getter
   error • The getter 'editBranchGroup' isn't defined for the type 'Translations' • lib/features/system_setup/presentation/screens/branch_groups_screen.dart:71:75 • undefined_getter

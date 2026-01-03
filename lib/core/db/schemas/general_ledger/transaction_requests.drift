@@ -1,0 +1,29 @@
+import '../auth/users.drift';
+import 'chart_of_accounts.drift';
+
+CREATE TABLE transaction_requests (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    request_type TEXT NOT NULL CHECK (request_type IN ('Journal', 'Payment', 'Receipt')),
+    request_date INTEGER NOT NULL,
+    requested_by INTEGER NOT NULL REFERENCES users(user_id),
+    amount REAL NOT NULL,
+    description TEXT NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Pending', 'Approved', 'Rejected')) DEFAULT 'Pending',
+    approver_notes TEXT,
+    is_used BOOLEAN NOT NULL DEFAULT FALSE,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE new_account_requests (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    proposed_account_name_ar TEXT NOT NULL,
+    proposed_account_name_en TEXT NOT NULL,
+    parent_account_id INTEGER NOT NULL REFERENCES chart_of_accounts(id),
+    account_nature TEXT NOT NULL CHECK (account_nature IN ('Debit', 'Credit')),
+    justification TEXT NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Pending', 'Approved', 'Rejected')) DEFAULT 'Pending',
+    approver_notes TEXT,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);

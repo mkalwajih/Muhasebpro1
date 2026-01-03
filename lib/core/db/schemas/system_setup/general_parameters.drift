@@ -1,0 +1,21 @@
+CREATE TABLE system_config (
+    id INTEGER NOT NULL PRIMARY KEY,
+    language TEXT NOT NULL,
+    default_currency_code TEXT NOT NULL, -- Could reference currencies but might be circular if not careful. Monolithic didn't reference.
+    date_format TEXT NOT NULL,
+    calendar_type TEXT NOT NULL,
+    account_number_type TEXT NOT NULL,
+    account_number_length INTEGER NOT NULL,
+    cost_center_policy TEXT NOT NULL,
+    project_policy TEXT NOT NULL,
+    password_min_length INTEGER NOT NULL,
+    auto_lock_timeout INTEGER NOT NULL,
+    use_vat BOOLEAN NOT NULL,
+    use_tds BOOLEAN NOT NULL,
+    use_e_invoice BOOLEAN NOT NULL,
+    price_includes_tax BOOLEAN NOT NULL,
+    backup_frequency TEXT NOT NULL,
+    cloud_backup BOOLEAN NOT NULL,
+    ui_theme TEXT NOT NULL,
+    font_size TEXT NOT NULL
+);

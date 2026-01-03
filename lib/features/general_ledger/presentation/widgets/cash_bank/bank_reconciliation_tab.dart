@@ -265,8 +265,8 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: isReconciled
-            ? theme.colorScheme.primaryContainer.withAlpha(77)
-            : theme.colorScheme.errorContainer.withAlpha(77),
+            ? theme.colorScheme.primaryContainer.withValues(alpha: 77/255.0)
+            : theme.colorScheme.errorContainer.withValues(alpha: 77/255.0),
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
           color: isReconciled
@@ -378,7 +378,7 @@ class _BankReconciliationTabState extends ConsumerState<BankReconciliationTab> {
           Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: color.withAlpha(26),
+              color: color.withValues(alpha: 26/255.0),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(8.0),
                 topRight: Radius.circular(8.0),

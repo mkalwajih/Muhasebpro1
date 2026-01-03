@@ -67,5 +67,8 @@
   "all": "الكل",
   "approve": "موافقة",
   "reject": "رفض",
-  "approvedBy": "وافق عليه"
+  "approvedBy": "وافق عليه",
+  "other": "أخرى",
+  "account": "الحساب",
+  "contraAccount": "الحساب المقابل"
 }

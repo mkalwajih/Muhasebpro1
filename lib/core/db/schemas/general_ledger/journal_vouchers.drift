@@ -1,0 +1,61 @@
+import '../system_setup/branches.drift';
+import '../system_setup/currencies.drift';
+import '../system_setup/financial_periods.drift';
+import 'chart_of_accounts.drift';
+
+CREATE TABLE document_types (
+    doc_type_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    sequence_method TEXT NOT NULL CHECK (sequence_method IN ('General', 'Specific')),
+    sequence_behavior TEXT NOT NULL CHECK (sequence_behavior IN ('Auto-Unchangeable', 'Auto-Changeable', 'Manual')),
+    is_active INTEGER NOT NULL DEFAULT 1,
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE description_coding (
+    desc_code TEXT NOT NULL PRIMARY KEY,
+    description_ar TEXT NOT NULL,
+    description_en TEXT NOT NULL,
+    linked_account_id TEXT REFERENCES chart_of_accounts(account_code),
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
+);
+
+CREATE TABLE journal_vouchers (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    branch_id INTEGER NOT NULL REFERENCES branches(id),
+    doc_type_code TEXT NOT NULL REFERENCES document_types(doc_type_code),
+    doc_no TEXT NOT NULL,
+    date INTEGER NOT NULL, -- Unix timestamp
+    description TEXT NOT NULL,
+    ref_code TEXT,
+    is_posted BOOLEAN NOT NULL DEFAULT FALSE,
+    posted_at INTEGER,
+    posted_by TEXT,
+    is_reversed BOOLEAN NOT NULL DEFAULT FALSE,
+    reversed_voucher_id INTEGER REFERENCES journal_vouchers(id),
+    created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    UNIQUE(branch_id, doc_type_code, doc_no)
+);
+
+CREATE TABLE journal_voucher_entries (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    voucher_id INTEGER NOT NULL REFERENCES journal_vouchers(id) ON DELETE CASCADE,
+    account_id INTEGER NOT NULL REFERENCES chart_of_accounts(id),
+    debit REAL NOT NULL DEFAULT 0,
+    credit REAL NOT NULL DEFAULT 0,
+    currency_code TEXT NOT NULL REFERENCES currencies(currency_code),
+    exchange_rate REAL NOT NULL DEFAULT 1.0,
+    foreign_debit REAL NOT NULL DEFAULT 0,
+    foreign_credit REAL NOT NULL DEFAULT 0,
+    description TEXT,
+    line_order INTEGER NOT NULL
+);
+
+CREATE INDEX idx_document_types_active ON document_types(is_active);
+CREATE INDEX idx_description_coding_account ON description_coding(linked_account_id);
+CREATE INDEX idx_journal_vouchers_date ON journal_vouchers(date);
+CREATE INDEX idx_journal_vouchers_posted ON journal_vouchers(is_posted);

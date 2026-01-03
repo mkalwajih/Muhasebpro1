@@ -1,0 +1,4 @@
+-- Shared Enums documentation
+-- Status: Draft, Posted, Dispatched, Received, Active, Completed, Pending, Approved, Rejected
+-- CostingMethod: Weighted Average, FIFO, LIFO
+-- ItemType: Stockable, Service, Assembled

@@ -89,7 +89,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
                 color: theme.colorScheme.surface,
                 border: Border(
                   bottom: BorderSide(
-                    color: theme.colorScheme.outline.withOpacity(0.2),
+                    color: theme.colorScheme.outline.withValues(alpha: 0.2),
                   ),
                 ),
               ),
@@ -346,7 +346,7 @@ class _JournalVoucherFormState extends ConsumerState<JournalVoucherForm> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),

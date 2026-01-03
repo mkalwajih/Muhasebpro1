@@ -100,8 +100,8 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundColor: account.isActive
-                                ? theme.colorScheme.primary.withAlpha(25)
-                                : theme.colorScheme.error.withAlpha(25),
+                                ? theme.colorScheme.primary.withValues(alpha: 25/255.0)
+                                : theme.colorScheme.error.withValues(alpha: 25/255.0),
                             child: Icon(
                               account.isParent ? Icons.folder : Icons.account_balance,
                               color: account.isActive
@@ -126,16 +126,16 @@ class _AccountSelectorDialogState extends ConsumerState<AccountSelectorDialog> {
                                 '${l10n.coa_setup.level}: ${account.level} | ${l10n.coa_setup.nature}: ${account.nature}', 
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
-                                      : theme.colorScheme.onSurface.withAlpha(178),
+                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 178/255.0)
+                                      : theme.colorScheme.onSurface.withValues(alpha: 178/255.0),
                                 ),
                               ),
                               Text(
                                 '${l10n.coa_setup.detailType}: ${account.detailAccountType}', 
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: isSelected 
-                                      ? theme.colorScheme.onPrimaryContainer.withAlpha(178)
-                                      : theme.colorScheme.onSurface.withAlpha(178),
+                                      ? theme.colorScheme.onPrimaryContainer.withValues(alpha: 178/255.0)
+                                      : theme.colorScheme.onSurface.withValues(alpha: 178/255.0),
                                 ),
                               ),
                             ],

@@ -1,0 +1,14 @@
+import 'journal_vouchers.drift';
+
+CREATE TABLE posting_batches (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    posted_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
+    posted_by TEXT NOT NULL,
+    total_vouchers INTEGER NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Success', 'Partial', 'Failed')),
+    log_details TEXT
+);
+
+-- We could link vouchers to batches if we want a formal link
+-- but the requirement just says list unposted vouchers.
+-- We can add a batch_id to journal_vouchers if needed.

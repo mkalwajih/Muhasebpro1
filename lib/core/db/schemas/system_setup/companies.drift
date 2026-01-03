@@ -1,0 +1,15 @@
+CREATE TABLE company_info (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    company_code TEXT NOT NULL UNIQUE,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    country_id TEXT, -- Keeping as TEXT to match entity, referencing country_code logic likely handled in app
+    tax_number TEXT,
+    commercial_reg_no TEXT,
+    address TEXT,
+    phone TEXT,
+    email TEXT,
+    logo BLOB,
+    is_main_company BOOLEAN NOT NULL,
+    remarks TEXT
+);

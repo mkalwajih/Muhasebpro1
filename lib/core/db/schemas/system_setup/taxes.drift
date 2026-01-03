@@ -1,0 +1,24 @@
+CREATE TABLE tax_bracket (
+    bracket_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    tax_rate REAL NOT NULL,
+    is_compound BOOLEAN NOT NULL DEFAULT FALSE,
+    is_default BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE tax_calc_methods (
+    method_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    category TEXT NOT NULL
+);
+
+CREATE TABLE tax_types (
+    type_code TEXT NOT NULL PRIMARY KEY,
+    name_ar TEXT NOT NULL,
+    name_en TEXT NOT NULL,
+    calc_method_code TEXT NOT NULL REFERENCES tax_calc_methods(method_code),
+    sales_account_id TEXT,
+    purchases_account_id TEXT
+);
